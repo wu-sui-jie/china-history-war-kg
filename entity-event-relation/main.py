@@ -783,6 +783,7 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
             entities, events, relations = finalize_outputs(entities, events, relations)
         else:
             # 无缓存，调用API
+            chunk_processed_ok = False
             try:
                 entities = entity_extractor.extract(chunk)
 
@@ -803,16 +804,17 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
 
                 relations = relation_extractor.extract(chunk, events.events, place_list, org_list, person_list)
                 entities, events, relations = finalize_outputs(entities, events, relations)
+                chunk_processed_ok = True
 
             except Exception as e:
                 print(f"  片段 {i + 1} 处理失败: {e}")
-                # 使用空结果
+                # 使用空结果；不写缓存，避免把 API 失败/空结果缓存成“永久识别不到数据”
                 entities = EntityExtractionResult()
                 events = EventExtractionResult()
                 relations = RelationExtractionResult()
 
-            # 保存缓存（确保所有变量已定义）
-            if write_cache and entities and events and relations:
+            # 只有片段真正处理成功才写缓存，失败片段下次运行会自动重试
+            if write_cache and chunk_processed_ok:
                 try:
                     # 使用 model_dump 确保完整字段
                     cache.set(chunk, {

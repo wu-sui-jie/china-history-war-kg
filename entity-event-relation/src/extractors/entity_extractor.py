@@ -5,6 +5,7 @@
 
 import json
 
+from src.core.llm_client import LLMAuthError, LLMAPIError
 from src.models import (
     PlaceEntity,
     OrganizationEntity,
@@ -258,6 +259,8 @@ class EntityExtractor:
                 persons=[PersonEntity(**p) for p in persons]
             )
 
+        except (LLMAuthError, LLMAPIError):
+            raise
         except Exception as e:
             print(f"实体抽取失败: {e}")
             return EntityExtractionResult()

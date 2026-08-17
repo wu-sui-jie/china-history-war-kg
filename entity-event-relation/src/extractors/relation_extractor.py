@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from src.config import PROMPT_VERSIONS
+from src.core.llm_client import LLMAuthError, LLMAPIError
 from src.models import (
     EventEventRelation,
     EventOrganizationRelation,
@@ -496,6 +497,8 @@ class RelationExtractor:
                 event_event_relations=event_event_relations,
             )
 
+        except (LLMAuthError, LLMAPIError):
+            raise
         except Exception as e:
             print(f"关系抽取失败: {e}")
             if "response" in locals():

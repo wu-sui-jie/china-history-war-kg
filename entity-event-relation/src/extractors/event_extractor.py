@@ -7,6 +7,7 @@ import re
 from typing import List, Tuple
 
 from src.config import PROMPT_VERSIONS
+from src.core.llm_client import LLMAuthError, LLMAPIError
 from src.models import Event, EventExtractionResult, EventRelation
 from src.prompts import EVENT_IDENTIFICATION_PROMPT, EVENT_TYPE_PROMPT, FULL_EVENT_PROMPT
 from src.utils import Normalizer
@@ -425,6 +426,8 @@ class EventExtractor:
                 except Exception as item_error:
                     print(f"  警告：单条事件解析失败，已跳过: {item_error}")
             return events
+        except (LLMAuthError, LLMAPIError):
+            raise
         except Exception as e:
             print(f"事件抽取失败: {e}")
             return []
@@ -440,6 +443,8 @@ class EventExtractor:
             if identified_events:
                 for display_index, event in enumerate(identified_events, start=1):
                     print(f"  - E{display_index}: {event[1]}")
+        except (LLMAuthError, LLMAPIError):
+            raise
         except Exception as e:
             print(f"事件识别失败: {e}")
             identified_events = []
@@ -455,6 +460,8 @@ class EventExtractor:
                 if len(identified_events) > self.full_event_batch_size:
                     print(f"  完整事件抽取批次 {batch_index}/{len(event_batches)}（本批 {len(event_batch)} 个事件）")
                 batch_events = self.extract_full_events(text, event_batch, place_list, org_list, person_list)
+            except (LLMAuthError, LLMAPIError):
+                raise
             except Exception as e:
                 print(f"完整事件抽取失败: {e}")
                 batch_events = []

@@ -101,8 +101,9 @@ entity-event-relation 项目说明
         pip install openai&gt;=1.0.0 pydantic&gt;=2.0.0 python-dotenv&gt;=1.0.0 jinja2&gt;=3.1.0 tqdm&gt;=4.65.0 fuzzywuzzy python-Levenshtein pandas openpyxl
 
     2. 配置 API 密钥
-        在 config/.env 中设置：
-            DEEPSEEK_API_KEY=sk-xxx
+        密钥通过系统环境变量 Chinese_txt 提供（不要在代码中硬编码密钥），
+        也可在 config/.env 中设置（该文件已被 git 忽略）：
+            Chinese_txt=sk-xxx
             DEEPSEEK_MODEL=deepseek-chat
             API_BASE_URL=https://api.deepseek.com/v1
 

@@ -6,24 +6,40 @@ import os
 import re
 import json
 import time
-from openai import OpenAI
+from pathlib import Path
+
+from openai import OpenAI, AuthenticationError, APIConnectionError, RateLimitError
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="config/.env")
+# 以本文件位置锚定项目根目录，避免在任意工作目录下运行时找不到 config/.env
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+load_dotenv(dotenv_path=_PROJECT_ROOT / "config" / ".env")
+
+
+class LLMAuthError(Exception):
+    """DeepSeek API 密钥无效或无权限（HTTP 401）。"""
+
+
+class LLMAPIError(Exception):
+    """API 调用在网络/限流/服务端等错误重试后仍失败。"""
 
 
 class DeepSeekClient:
     """封装 DeepSeek API 调用的客户端类"""
 
     def __init__(self):
-        api_key = os.getenv("DEEPSEEK_API_KEY")
+        # 兼容两种密钥变量名：DEEPSEEK_API_KEY 为主，Chinese_txt 为历史遗留
+        api_key = os.getenv("DEEPSEEK_API_KEY") or os.getenv("Chinese_txt")
         base_url = os.getenv("API_BASE_URL", "https://api.deepseek.com/v1")
         model = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
 
         if not api_key:
-            raise ValueError("请设置 DEEPSEEK_API_KEY 环境变量")
+            raise ValueError(
+                "未找到 DeepSeek API 密钥：请在 config/.env 中设置 "
+                "DEEPSEEK_API_KEY=sk-xxx（兼容旧变量名 Chinese_txt）"
+            )
 
-        self.client = OpenAI(api_key=api_key, base_url=base_url)
+        self.client = OpenAI(api_key=api_key, base_url=base_url, timeout=60.0, max_retries=2)
         self.model = model
 
     def call(self, prompt: str, temperature: float = 0.1, max_retries: int = 3, json_mode: bool = False) -> str:
@@ -38,6 +54,7 @@ class DeepSeekClient:
         Returns:
             清理后的响应字符串（可能是JSON或纯文本，由调用方处理）
         """
+        last_error = None
         for attempt in range(max_retries):
             try:
                 kwargs = {
@@ -49,11 +66,26 @@ class DeepSeekClient:
                     kwargs["response_format"] = {"type": "json_object"}
                 try:
                     response = self.client.chat.completions.create(**kwargs)
-                except Exception:
-                    if not json_mode:
+                except AuthenticationError as e:
+                    # 密钥无效/过期时重试无意义，直接给出明确错误
+                    raise LLMAuthError(
+                        "DeepSeek API 密钥无效（HTTP 401）：请检查 config/.env 或环境变量中的 DEEPSEEK_API_KEY 是否有效"
+                    ) from e
+                except Exception as e:
+                    # 部分服务不支持 json_mode 时降级重试一次
+                    if json_mode:
+                        kwargs.pop("response_format", None)
+                        try:
+                            response = self.client.chat.completions.create(**kwargs)
+                        except AuthenticationError as ae:
+                            raise LLMAuthError(
+                                "DeepSeek API 密钥无效（HTTP 401）：请检查 config/.env 或环境变量中的 DEEPSEEK_API_KEY 是否有效"
+                            ) from ae
+                        except Exception:
+                            raise e
+                    else:
                         raise
-                    kwargs.pop("response_format", None)
-                    response = self.client.chat.completions.create(**kwargs)
+
                 content = response.choices[0].message.content
 
                 # 清理Markdown代码块
@@ -73,14 +105,19 @@ class DeepSeekClient:
                 # 如果不是JSON格式（如Q1只需要返回类型名称），直接返回
                 return content
 
+            except LLMAuthError:
+                raise
             except Exception as e:
                 print(f"API调用失败，尝试重试 {attempt + 1}/{max_retries}: {e}")
+                last_error = e
                 if attempt < max_retries - 1:
-                    time.sleep(1)
-                else:
-                    raise Exception(f"多次重试后仍失败: {e}")
+                    time.sleep(min(2 ** attempt, 8))
 
-        raise Exception("多次重试后仍无法获取有效响应")
+        if isinstance(last_error, (APIConnectionError, RateLimitError)):
+            error_type = "连接失败或限流"
+        else:
+            error_type = "API错误"
+        raise LLMAPIError(f"DeepSeek API 调用{error_type}，重试 {max_retries} 次后仍失败: {last_error}")
 
     def _clean_response(self, content: str) -> str:
         """清理响应中的Markdown标记"""
