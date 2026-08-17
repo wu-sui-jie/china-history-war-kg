@@ -1,0 +1,26 @@
+# 环境变量与密钥
+.env
+*.env
+!.env.example
+
+# 依赖与构建产物
+node_modules/
+dist/
+dist-ssr/
+build/
+*.local
+
+# Python 生成物
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 日志与缓存
+logs/
+cache/
+
+# IDE / 系统文件
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

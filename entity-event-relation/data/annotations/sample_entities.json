@@ -1,0 +1,8599 @@
+{
+  "places": [
+    {
+      "geo_name": "甘",
+      "modern_name": "户县西南",
+      "DynastyName": "夏",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "鄠邑区",
+      "Specific_location": "陕西户县西南"
+    },
+    {
+      "geo_name": "夏都",
+      "modern_name": "河南禹县",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "许昌市",
+      "District_County": "禹州市",
+      "Specific_location": "禹州市境内，夏朝都城（禹建都翟）"
+    },
+    {
+      "geo_name": "斟灌氏、斟寻氏",
+      "modern_name": "河南巩县西南",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "巩义市",
+      "Specific_location": "巩义市西南"
+    },
+    {
+      "geo_name": "纶",
+      "modern_name": "河南虞城",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": "虞城县",
+      "Specific_location": "虞城县境内"
+    },
+    {
+      "geo_name": "鬲氏",
+      "modern_name": "山东德州北",
+      "DynastyName": "夏",
+      "Province": "山东省",
+      "City": "德州市",
+      "District_County": null,
+      "Specific_location": "德州市以北地区"
+    },
+    {
+      "geo_name": "葛之地",
+      "modern_name": "宁陵县北部一带",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": "宁陵县",
+      "Specific_location": "河南宁陵北"
+    },
+    {
+      "geo_name": "韦之地",
+      "modern_name": "滑县东部一带",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": "滑县",
+      "Specific_location": "河南滑县东"
+    },
+    {
+      "geo_name": "顾之地",
+      "modern_name": "范县南部一带",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "濮阳市",
+      "District_County": "范县",
+      "Specific_location": "河南范县南"
+    },
+    {
+      "geo_name": "昆吾之地",
+      "modern_name": "濮阳市南部一带",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "濮阳市",
+      "District_County": null,
+      "Specific_location": "河南濮阳南"
+    },
+    {
+      "geo_name": "鸣条",
+      "modern_name": "商丘市东部一带",
+      "DynastyName": "夏",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": null,
+      "Specific_location": "河南商丘东之野"
+    },
+    {
+      "geo_name": "下旨之地",
+      "modern_name": null,
+      "DynastyName": "商",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "中原西北方部落"
+    },
+    {
+      "geo_name": "鬼方之地",
+      "modern_name": null,
+      "DynastyName": "商",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "北方部落"
+    },
+    {
+      "geo_name": "东夷之地",
+      "modern_name": "山东、江苏一带",
+      "DynastyName": "商",
+      "Province": "山东省、江苏省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "人方（东夷）生活地区"
+    },
+    {
+      "geo_name": "崇地",
+      "modern_name": "陕西省西安市户县",
+      "DynastyName": "商",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "户县",
+      "Specific_location": "崇国所在地"
+    },
+    {
+      "geo_name": "牧野",
+      "modern_name": "河南省新乡市附近",
+      "DynastyName": "商",
+      "Province": "河南省",
+      "City": "新乡市",
+      "District_County": null,
+      "Specific_location": "商都朝歌郊外"
+    },
+    {
+      "geo_name": "朝歌",
+      "modern_name": "河南省鹤壁市淇县",
+      "DynastyName": "商",
+      "Province": "河南省",
+      "City": "鹤壁市",
+      "District_County": "淇县",
+      "Specific_location": "商都"
+    },
+    {
+      "geo_name": "殷地",
+      "modern_name": "河南省安阳市殷墟一带",
+      "DynastyName": "西周",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": null,
+      "Specific_location": "原商朝核心区"
+    },
+    {
+      "geo_name": "东方诸国之地",
+      "modern_name": "山东、江苏北部等地",
+      "DynastyName": "西周",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "徐、奄、熊、盈等十七国所在地"
+    },
+    {
+      "geo_name": "奄地",
+      "modern_name": "山东省曲阜市一带",
+      "DynastyName": "西周",
+      "Province": "山东省",
+      "City": "曲阜市",
+      "District_County": null,
+      "Specific_location": "叛乱方国奄国所在"
+    },
+    {
+      "geo_name": "淮夷",
+      "modern_name": "安徽省东部、江苏省北部淮河流域",
+      "DynastyName": "西周",
+      "Province": "皖、苏",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "叛乱部族聚居地"
+    },
+    {
+      "geo_name": "蒲姑",
+      "modern_name": "山东省博兴县",
+      "DynastyName": "西周",
+      "Province": "山东省",
+      "City": "滨州市",
+      "District_County": "博兴县",
+      "Specific_location": "奄国部族迁居地"
+    },
+    {
+      "geo_name": "汉水流域",
+      "modern_name": "湖北省汉水沿岸地区",
+      "DynastyName": "西周",
+      "Province": "湖北省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "及国、南夷等部族活动区域"
+    },
+    {
+      "geo_name": "荆楚",
+      "modern_name": "湖北省长江中游地区",
+      "DynastyName": "西周",
+      "Province": "湖北省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "昭王南下进攻的部落活动地区"
+    },
+    {
+      "geo_name": "积羽",
+      "modern_name": "甘肃省张掖市以北地区",
+      "DynastyName": "西周",
+      "Province": "甘肃省",
+      "City": "张掖市",
+      "District_County": null,
+      "Specific_location": "约在张掖以北"
+    },
+    {
+      "geo_name": "太原",
+      "modern_name": "山西省北部及内蒙古一带",
+      "DynastyName": "西周",
+      "Province": "晋、蒙",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "犬戎迁居地"
+    },
+    {
+      "geo_name": "荆蛮之地",
+      "modern_name": "湖北省长江流域",
+      "DynastyName": "西周",
+      "Province": "湖北省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "荆蛮部族聚居地"
+    },
+    {
+      "geo_name": "镐京",
+      "modern_name": "陕西省西安市附近",
+      "DynastyName": "西周",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": null,
+      "Specific_location": "西周都城"
+    },
+    {
+      "geo_name": "骊山",
+      "modern_name": "陕西省西安市临潼区",
+      "DynastyName": "西周",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "临潼区",
+      "Specific_location": "幽王被杀处"
+    },
+    {
+      "geo_name": "郑地",
+      "modern_name": "约在河南省中部",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "伏击地点文本未详述"
+    },
+    {
+      "geo_name": "葛地",
+      "modern_name": "河南长葛北",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "许昌市",
+      "District_County": "长葛市",
+      "Specific_location": "北部"
+    },
+    {
+      "geo_name": "乾时",
+      "modern_name": "山东桓台南时水支流",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "淄博市",
+      "District_County": "桓台县",
+      "Specific_location": "时水支流附近"
+    },
+    {
+      "geo_name": "长勺",
+      "modern_name": "山东莱芜东北",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "济南市",
+      "District_County": "莱芜区",
+      "Specific_location": "东北部"
+    },
+    {
+      "geo_name": "燕国",
+      "modern_name": "河北北部一带",
+      "DynastyName": "春秋",
+      "Province": "河北省",
+      "City": "秦皇岛市、唐山市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "孤竹",
+      "modern_name": "河北卢龙县",
+      "DynastyName": "春秋",
+      "Province": "河北省",
+      "City": "秦皇岛市",
+      "District_County": "卢龙县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "令支",
+      "modern_name": "河北迁安",
+      "DynastyName": "春秋",
+      "Province": "河北省",
+      "City": "唐山市",
+      "District_County": "迁安市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "泓水",
+      "modern_name": "河南柘城北",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": "柘城县",
+      "Specific_location": "北部"
+    },
+    {
+      "geo_name": "五鹿",
+      "modern_name": "河南清丰西北",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "濮阳市",
+      "District_County": "清丰县",
+      "Specific_location": "西北部"
+    },
+    {
+      "geo_name": "楚丘",
+      "modern_name": "河南滑县东",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": "滑县",
+      "Specific_location": "东部"
+    },
+    {
+      "geo_name": "陶丘",
+      "modern_name": "山东定陶西北",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "菏泽市",
+      "District_County": "定陶区",
+      "Specific_location": "西北部"
+    },
+    {
+      "geo_name": "城濮",
+      "modern_name": "约在山东省西南部与河南省交界处",
+      "DynastyName": "春秋",
+      "Province": "山东省/河南省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "附近地域"
+    },
+    {
+      "geo_name": "崤山",
+      "modern_name": "河南省西部，秦岭山脉东段支脉",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "三门峡市",
+      "District_County": null,
+      "Specific_location": "东、西二崤间小道"
+    },
+    {
+      "geo_name": "彭衙",
+      "modern_name": "陕西澄城西北",
+      "DynastyName": "春秋",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "澄城县",
+      "Specific_location": "西北部"
+    },
+    {
+      "geo_name": "王宫",
+      "modern_name": "山西芮城一带",
+      "DynastyName": "春秋",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "芮城县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "邲",
+      "modern_name": "河南省郑州市荥阳市东北",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "黄河沿岸"
+    },
+    {
+      "geo_name": "曲梁",
+      "modern_name": "山西省长治市潞城区西",
+      "DynastyName": "春秋",
+      "Province": "山西省",
+      "City": "长治市",
+      "District_County": "潞城区",
+      "Specific_location": "潞城西"
+    },
+    {
+      "geo_name": "鞍",
+      "modern_name": "山东省济南市东北",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "济南市",
+      "District_County": null,
+      "Specific_location": "济南市东北"
+    },
+    {
+      "geo_name": "临淄",
+      "modern_name": "山东省淄博市临淄区",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "淄博市",
+      "District_County": "临淄区",
+      "Specific_location": "齐都"
+    },
+    {
+      "geo_name": "麻隧",
+      "modern_name": "陕西省咸阳市泾阳县北",
+      "DynastyName": "春秋",
+      "Province": "陕西省",
+      "City": "咸阳市",
+      "District_County": "泾阳县",
+      "Specific_location": "泾阳北"
+    },
+    {
+      "geo_name": "侯丽",
+      "modern_name": "陕西省咸阳市泾阳县西",
+      "DynastyName": "春秋",
+      "Province": "陕西省",
+      "City": "咸阳市",
+      "District_County": "泾阳县",
+      "Specific_location": "泾阳西"
+    },
+    {
+      "geo_name": "泾水",
+      "modern_name": "泾河",
+      "DynastyName": "春秋",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "河流"
+    },
+    {
+      "geo_name": "鄢陵",
+      "modern_name": "河南省许昌市鄢陵县",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "许昌市",
+      "District_County": "鄢陵县",
+      "Specific_location": "主战场"
+    },
+    {
+      "geo_name": "鸣雁",
+      "modern_name": "河南省开封市杞县",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": "杞县",
+      "Specific_location": "卫军先趋此地"
+    },
+    {
+      "geo_name": "鹊岸",
+      "modern_name": "安徽省六安市舒城县西北之鹊尾渚",
+      "DynastyName": "春秋",
+      "Province": "安徽省",
+      "City": "六安市",
+      "District_County": "舒城县",
+      "Specific_location": "舒城西北之鹊尾渚"
+    },
+    {
+      "geo_name": "房钟",
+      "modern_name": "安徽省亳州市蒙城县",
+      "DynastyName": "春秋",
+      "Province": "安徽省",
+      "City": "亳州市",
+      "District_County": "蒙城县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "鸡父",
+      "modern_name": "河南省信阳市固始县东南",
+      "DynastyName": "春秋",
+      "Province": "河南省",
+      "City": "信阳市",
+      "District_County": "固始县",
+      "Specific_location": "主战场"
+    },
+    {
+      "geo_name": "州来",
+      "modern_name": "安徽省淮南市凤台县",
+      "DynastyName": "春秋",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": "凤台县",
+      "Specific_location": "吴国进攻的目标，战后被吴夺取"
+    },
+    {
+      "geo_name": "柏举",
+      "modern_name": "湖北省境内",
+      "DynastyName": "春秋",
+      "Province": "湖北省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "主决战地"
+    },
+    {
+      "geo_name": "汉水",
+      "modern_name": "汉江",
+      "DynastyName": "春秋",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "楚军坚守西岸"
+    },
+    {
+      "geo_name": "清发水",
+      "modern_name": "湖北省涢水",
+      "DynastyName": "春秋",
+      "Province": "湖北省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "吴军半渡而击"
+    },
+    {
+      "geo_name": "雍澨",
+      "modern_name": "湖北省荆门市京山市西南",
+      "DynastyName": "春秋",
+      "Province": "湖北省",
+      "City": "荆门市",
+      "District_County": "京山市",
+      "Specific_location": "与沈尹戌军遭遇战地"
+    },
+    {
+      "geo_name": "郢",
+      "modern_name": "湖北省荆州市荆州区纪南城",
+      "DynastyName": "春秋",
+      "Province": "湖北省",
+      "City": "荆州市",
+      "District_County": "荆州区",
+      "Specific_location": "楚都"
+    },
+    {
+      "geo_name": "槜李",
+      "modern_name": "浙江省嘉兴市",
+      "DynastyName": "春秋",
+      "Province": "浙江省",
+      "City": "嘉兴市",
+      "District_County": null,
+      "Specific_location": "槜李"
+    },
+    {
+      "geo_name": "夫椒",
+      "modern_name": "太湖中的椒山",
+      "DynastyName": "春秋",
+      "Province": "江苏省",
+      "City": "无锡市",
+      "District_County": null,
+      "Specific_location": "太湖中的椒山"
+    },
+    {
+      "geo_name": "会稽山",
+      "modern_name": "浙江省绍兴市",
+      "DynastyName": "春秋",
+      "Province": "浙江省",
+      "City": "绍兴市",
+      "District_County": null,
+      "Specific_location": "勾践退守处"
+    },
+    {
+      "geo_name": "艾陵",
+      "modern_name": "山东省济南市莱芜区",
+      "DynastyName": "春秋",
+      "Province": "山东省",
+      "City": "济南市",
+      "District_County": "莱芜区",
+      "Specific_location": "艾陵"
+    },
+    {
+      "geo_name": "姑苏",
+      "modern_name": "江苏省苏州市",
+      "DynastyName": "春秋",
+      "Province": "江苏省",
+      "City": "苏州市",
+      "District_County": null,
+      "Specific_location": "吴都"
+    },
+    {
+      "geo_name": "笠泽",
+      "modern_name": "江苏省苏州市南，与吴淞江走向相同的古河道",
+      "DynastyName": "春秋",
+      "Province": "江苏省",
+      "City": "苏州市",
+      "District_County": null,
+      "Specific_location": "主战场，夹江对阵"
+    },
+    {
+      "geo_name": "晋阳",
+      "modern_name": "太原西南",
+      "DynastyName": "战国",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": null,
+      "Specific_location": "晋阳"
+    },
+    {
+      "geo_name": "河西",
+      "modern_name": "陕西河套南部黄河以西地区",
+      "DynastyName": "战国",
+      "Province": "陕西省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "河西之地"
+    },
+    {
+      "geo_name": "去城",
+      "modern_name": "山东平阴东北至琅琊一带",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "去城"
+    },
+    {
+      "geo_name": "桑丘",
+      "modern_name": "山东济宁市北",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "济宁市",
+      "District_County": null,
+      "Specific_location": "桑丘"
+    },
+    {
+      "geo_name": "灵丘",
+      "modern_name": "山东高唐南",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "德州市",
+      "District_County": "高唐县",
+      "Specific_location": "灵丘"
+    },
+    {
+      "geo_name": "博陵",
+      "modern_name": "山东茌平西北",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "聊城市",
+      "District_County": "茌平区",
+      "Specific_location": "博陵"
+    },
+    {
+      "geo_name": "乘丘",
+      "modern_name": "山东巨野西南",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "菏泽市",
+      "District_County": "巨野县",
+      "Specific_location": "乘丘"
+    },
+    {
+      "geo_name": "榆关",
+      "modern_name": "河南中牟南",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "中牟县",
+      "Specific_location": "榆关"
+    },
+    {
+      "geo_name": "鲁阳",
+      "modern_name": "河南鲁山附近",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "平顶山市",
+      "District_County": "鲁山县",
+      "Specific_location": "鲁阳"
+    },
+    {
+      "geo_name": "桂陵",
+      "modern_name": "河南长垣西北",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "新乡市",
+      "District_County": "长垣市",
+      "Specific_location": "桂陵"
+    },
+    {
+      "geo_name": "邯郸",
+      "modern_name": "河北邯郸",
+      "DynastyName": "战国",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": null,
+      "Specific_location": "赵都"
+    },
+    {
+      "geo_name": "大梁",
+      "modern_name": "河南开封",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "魏都"
+    },
+    {
+      "geo_name": "马陵",
+      "modern_name": null,
+      "DynastyName": "战国",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "马陵道（树林茂密、道狭地险）"
+    },
+    {
+      "geo_name": "函谷关",
+      "modern_name": "河南省灵宝市北",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "三门峡市",
+      "District_County": "灵宝市",
+      "Specific_location": "北"
+    },
+    {
+      "geo_name": "荥阳",
+      "modern_name": "河南省荥阳市",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "成皋",
+      "modern_name": "河南省荥阳市汜水镇西",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "汜水镇西"
+    },
+    {
+      "geo_name": "丹阳",
+      "modern_name": "河南省淅川县西丹水以北",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "南阳市",
+      "District_County": "淅川县",
+      "Specific_location": "西丹水以北"
+    },
+    {
+      "geo_name": "兰田",
+      "modern_name": "陕西省蓝田县西",
+      "DynastyName": "战国",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "蓝田县",
+      "Specific_location": "西"
+    },
+    {
+      "geo_name": "重丘",
+      "modern_name": "河南省泌阳县东北",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "驻马店市",
+      "District_County": "泌阳县",
+      "Specific_location": "东北"
+    },
+    {
+      "geo_name": "伊阙",
+      "modern_name": "河南省洛阳市东之龙门",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": null,
+      "Specific_location": "东之龙门"
+    },
+    {
+      "geo_name": "济水西",
+      "modern_name": "黄河下游济水故道以西地区",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "济西战场"
+    },
+    {
+      "geo_name": "临淄",
+      "modern_name": "山东省淄博市东北",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "淄博市",
+      "District_County": "临淄区",
+      "Specific_location": "齐国都城"
+    },
+    {
+      "geo_name": "莒",
+      "modern_name": "山东省莒县",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "日照市",
+      "District_County": "莒县",
+      "Specific_location": "齐国东部城池"
+    },
+    {
+      "geo_name": "即墨",
+      "modern_name": "山东省平度市东南",
+      "DynastyName": "战国",
+      "Province": "山东省",
+      "City": "青岛市",
+      "District_County": "平度市",
+      "Specific_location": "齐国东部城池"
+    },
+    {
+      "geo_name": "长平",
+      "modern_name": "山西省高平市西北",
+      "DynastyName": "战国",
+      "Province": "山西省",
+      "City": "晋城市",
+      "District_County": "高平市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "中原及关东六国地域",
+      "modern_name": "今中国中东部广大地区",
+      "DynastyName": "战国",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "韩、赵、魏、楚、燕、齐六国故地"
+    },
+    {
+      "geo_name": "南郑",
+      "modern_name": "河南省新郑市",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "新郑市",
+      "Specific_location": "韩国都城"
+    },
+    {
+      "geo_name": "易水",
+      "modern_name": "河北省易县附近",
+      "DynastyName": "战国",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": null,
+      "Specific_location": "燕国西部防线"
+    },
+    {
+      "geo_name": "蓟城",
+      "modern_name": "北京市西南",
+      "DynastyName": "战国",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": "都城"
+    },
+    {
+      "geo_name": "辽东",
+      "modern_name": "辽宁省辽阳市一带",
+      "DynastyName": "战国",
+      "Province": "辽宁省",
+      "City": "辽阳市",
+      "District_County": null,
+      "Specific_location": "东部地区"
+    },
+    {
+      "geo_name": "平舆",
+      "modern_name": "河南省平舆县",
+      "DynastyName": "战国",
+      "Province": "河南省",
+      "City": "驻马店市",
+      "District_County": "平舆县",
+      "Specific_location": "楚国北部"
+    },
+    {
+      "geo_name": "寿春",
+      "modern_name": "安徽省寿县",
+      "DynastyName": "战国、西晋",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": "寿县",
+      "Specific_location": "都城、淮河中游南岸"
+    },
+    {
+      "geo_name": "咸阳",
+      "modern_name": "陕西省咸阳市",
+      "DynastyName": "秦、后汉时期",
+      "Province": "陕西省",
+      "City": "咸阳市",
+      "District_County": null,
+      "Specific_location": "关中平原中部"
+    },
+    {
+      "geo_name": "河套",
+      "modern_name": "内蒙古自治区河套平原",
+      "DynastyName": "秦",
+      "Province": "内蒙古自治区",
+      "City": "巴彦淖尔市",
+      "District_County": null,
+      "Specific_location": "黄河几字弯区域"
+    },
+    {
+      "geo_name": "阴山",
+      "modern_name": "内蒙古阴山山脉",
+      "DynastyName": "秦",
+      "Province": "内蒙古自治区",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "河套以北"
+    },
+    {
+      "geo_name": "大泽乡",
+      "modern_name": "安徽省宿州市埇桥区西寺坡",
+      "DynastyName": "秦",
+      "Province": "安徽省",
+      "City": "宿州市",
+      "District_County": "埇桥区",
+      "Specific_location": "宿县东南西寺坡"
+    },
+    {
+      "geo_name": "陈县",
+      "modern_name": "河南省周口市淮阳区",
+      "DynastyName": "秦",
+      "Province": "河南省",
+      "City": "周口市",
+      "District_County": "淮阳区",
+      "Specific_location": "豫东平原"
+    },
+    {
+      "geo_name": "巨鹿",
+      "modern_name": "河北省邢台市巨鹿县",
+      "DynastyName": "秦",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": "巨鹿县",
+      "Specific_location": "华北平原南部"
+    },
+    {
+      "geo_name": "彭城",
+      "modern_name": "江苏省徐州市",
+      "DynastyName": "秦",
+      "Province": "江苏省",
+      "City": "徐州市",
+      "District_County": null,
+      "Specific_location": "黄淮平原南部"
+    },
+    {
+      "geo_name": "霸上",
+      "modern_name": "陕西省西安市灞桥区",
+      "DynastyName": "秦",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "灞桥区",
+      "Specific_location": "西安东南"
+    },
+    {
+      "geo_name": "函谷关",
+      "modern_name": "河南省三门峡市灵宝市",
+      "DynastyName": "秦",
+      "Province": "河南省",
+      "City": "三门峡市",
+      "District_County": "灵宝市",
+      "Specific_location": "豫西山区"
+    },
+    {
+      "geo_name": "戏",
+      "modern_name": "陕西省西安市临潼区",
+      "DynastyName": "秦",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "临潼区",
+      "Specific_location": "临潼东北"
+    },
+    {
+      "geo_name": "鸿门",
+      "modern_name": "陕西省西安市临潼区",
+      "DynastyName": "西汉",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": "临潼区",
+      "Specific_location": "新丰鸿门"
+    },
+    {
+      "geo_name": "荥阳",
+      "modern_name": "河南省郑州市荥阳市",
+      "DynastyName": "西汉",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "嵩山北，黄河以南"
+    },
+    {
+      "geo_name": "成皋",
+      "modern_name": "河南省郑州市荥阳市汜水镇",
+      "DynastyName": "西汉",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "荥阳西北"
+    },
+    {
+      "geo_name": "垓下",
+      "modern_name": "安徽省宿州市灵璧县东南",
+      "DynastyName": "西汉",
+      "Province": "安徽省",
+      "City": "宿州市",
+      "District_County": "灵璧县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "废丘",
+      "modern_name": "陕西省兴平市东南",
+      "DynastyName": "西汉",
+      "Province": "陕西省",
+      "City": "咸阳市",
+      "District_County": "兴平市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "陈仓",
+      "modern_name": "陕西省宝鸡市",
+      "DynastyName": "西汉",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": null,
+      "Specific_location": "关中平原西部"
+    },
+    {
+      "geo_name": "广武",
+      "modern_name": "河南省郑州市荥阳市广武镇",
+      "DynastyName": "西汉",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "荥阳北"
+    },
+    {
+      "geo_name": "潍水",
+      "modern_name": "山东省潍坊市潍河",
+      "DynastyName": "西汉",
+      "Province": "山东省",
+      "City": "潍坊市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "鸿沟",
+      "modern_name": "河南省郑州市荥阳市",
+      "DynastyName": "西汉",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "古运河，楚汉界河"
+    },
+    {
+      "geo_name": "马邑",
+      "modern_name": "山西省朔州市",
+      "DynastyName": "西汉",
+      "Province": "山西省",
+      "City": "朔州市",
+      "District_County": null,
+      "Specific_location": "雁北地区"
+    },
+    {
+      "geo_name": "平城",
+      "modern_name": "山西省大同市",
+      "DynastyName": "西汉、北魏",
+      "Province": "山西省",
+      "City": "大同市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "白登山",
+      "modern_name": "山西省大同市东北",
+      "DynastyName": "西汉",
+      "Province": "山西省",
+      "City": "大同市",
+      "District_County": null,
+      "Specific_location": "大同市东北"
+    },
+    {
+      "geo_name": "邯郸",
+      "modern_name": "河北省邯郸市",
+      "DynastyName": "西汉",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": null,
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "下邳",
+      "modern_name": "江苏省徐州市睢宁县古邳镇",
+      "DynastyName": "西汉",
+      "Province": "江苏省",
+      "City": "徐州市",
+      "District_County": "睢宁县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "长安",
+      "modern_name": "陕西省西安市",
+      "DynastyName": "西汉、西晋、唐",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": null,
+      "Specific_location": "关中平原、关中平原中部"
+    },
+    {
+      "geo_name": "洛阳",
+      "modern_name": "河南省洛阳市",
+      "DynastyName": "西汉、西晋、后梁、后唐",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": null,
+      "Specific_location": "中原地区、黄河中游南岸、洛河下游"
+    },
+    {
+      "geo_name": "淮南",
+      "modern_name": "安徽省淮南市",
+      "DynastyName": "西汉",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": null,
+      "Specific_location": "淮河中游"
+    },
+    {
+      "geo_name": "蓟",
+      "modern_name": "北京市",
+      "DynastyName": "西汉",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "广陵",
+      "modern_name": "江苏省扬州市",
+      "DynastyName": "西汉",
+      "Province": "江苏省",
+      "City": "扬州市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "河南地",
+      "modern_name": "内蒙古自治区河套平原",
+      "DynastyName": "西汉",
+      "Province": "内蒙古自治区",
+      "City": "巴彦淖尔市",
+      "District_County": null,
+      "Specific_location": "黄河以南"
+    },
+    {
+      "geo_name": "河西",
+      "modern_name": "甘肃省河西走廊",
+      "DynastyName": "西汉",
+      "Province": "甘肃省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "黄河以西"
+    },
+    {
+      "geo_name": "漠北",
+      "modern_name": "蒙古高原",
+      "DynastyName": "西汉",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "蒙古高原大沙漠以北"
+    },
+    {
+      "geo_name": "番禺",
+      "modern_name": "广东省广州市",
+      "DynastyName": "西汉",
+      "Province": "广东省",
+      "City": "广州市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "王俭",
+      "modern_name": "朝鲜平壤市",
+      "DynastyName": "西汉",
+      "Province": null,
+      "City": "平壤市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "朔方郡",
+      "modern_name": "内蒙古自治区杭锦旗北",
+      "DynastyName": "西汉",
+      "Province": "内蒙古自治区",
+      "City": "鄂尔多斯市",
+      "District_County": "杭锦旗",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "祁连山",
+      "modern_name": "甘肃省与青海省交界祁连山脉",
+      "DynastyName": "西汉",
+      "Province": "甘肃省、青海省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "狼居胥山",
+      "modern_name": "蒙古国肯特山脉一带",
+      "DynastyName": "西汉",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "受降城",
+      "modern_name": "内蒙古自治区乌拉特中旗",
+      "DynastyName": "西汉",
+      "Province": "内蒙古自治区",
+      "City": "巴彦淖尔市",
+      "District_County": "乌拉特中旗",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "绿林山",
+      "modern_name": "湖北省当阳市北大洪山",
+      "DynastyName": "新莽",
+      "Province": "湖北省",
+      "City": "荆门市",
+      "District_County": null,
+      "Specific_location": "当阳东北"
+    },
+    {
+      "geo_name": "昆阳",
+      "modern_name": "河南省平顶山市叶县",
+      "DynastyName": "新莽",
+      "Province": "河南省",
+      "City": "平顶山市",
+      "District_County": "叶县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "睢阳",
+      "modern_name": "河南省商丘市睢阳区",
+      "DynastyName": "东汉",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": "睢阳区",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "陇西",
+      "modern_name": "甘肃省东南部",
+      "DynastyName": "东汉",
+      "Province": "甘肃省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "成都",
+      "modern_name": "四川省成都市",
+      "DynastyName": "东汉",
+      "Province": "四川省",
+      "City": "成都市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "涿邪山",
+      "modern_name": "蒙古国戈壁阿尔泰山",
+      "DynastyName": "东汉",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "疏勒",
+      "modern_name": "新疆维吾尔自治区喀什地区疏勒县",
+      "DynastyName": "东汉",
+      "Province": "新疆维吾尔自治区",
+      "City": "喀什地区",
+      "District_County": "疏勒县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "积石山",
+      "modern_name": "青海省阿尼玛卿山",
+      "DynastyName": "东汉",
+      "Province": "青海省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "许昌",
+      "modern_name": "河南省许昌市",
+      "DynastyName": "东汉",
+      "Province": "河南省",
+      "City": "许昌市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "官渡",
+      "modern_name": "河南省郑州市中牟县",
+      "DynastyName": "东汉",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "中牟县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "赤壁",
+      "modern_name": "湖北省咸宁市赤壁市",
+      "DynastyName": "东汉",
+      "Province": "湖北省",
+      "City": "咸宁市",
+      "District_County": "赤壁市",
+      "Specific_location": "长江南岸"
+    },
+    {
+      "geo_name": "荆州",
+      "modern_name": "湖北、湖南大部及河南南部",
+      "DynastyName": "东汉",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "夷陵",
+      "modern_name": "湖北省宜昌市夷陵区",
+      "DynastyName": "三国",
+      "Province": "湖北省",
+      "City": "宜昌市",
+      "District_County": "夷陵区",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "祁山",
+      "modern_name": "甘肃省陇南市礼县东",
+      "DynastyName": "三国",
+      "Province": "甘肃省",
+      "City": "陇南市",
+      "District_County": "礼县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "汉中",
+      "modern_name": "陕西省汉中市",
+      "DynastyName": "三国",
+      "Province": "陕西省",
+      "City": "汉中市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "街亭",
+      "modern_name": "甘肃省天水市秦安县陇城镇",
+      "DynastyName": "三国",
+      "Province": "甘肃省",
+      "City": "天水市",
+      "District_County": "秦安县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "五丈原",
+      "modern_name": "陕西省宝鸡市岐山县五丈原镇",
+      "DynastyName": "三国",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": "岐山县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "阴平",
+      "modern_name": "甘肃省陇南市文县",
+      "DynastyName": "三国",
+      "Province": "甘肃省",
+      "City": "陇南市",
+      "District_County": "文县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "治阳",
+      "modern_name": "河南省洛阳市",
+      "DynastyName": "西晋",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "下邳",
+      "modern_name": "江苏省邳县南",
+      "DynastyName": "西晋",
+      "Province": "江苏省",
+      "City": "徐州市",
+      "District_County": "邳州市",
+      "Specific_location": "江苏北部"
+    },
+    {
+      "geo_name": "涂中",
+      "modern_name": "安徽省滁县",
+      "DynastyName": "西晋",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "江西",
+      "modern_name": "安徽省和县地区",
+      "DynastyName": "西晋",
+      "Province": "安徽省",
+      "City": "马鞍山市",
+      "District_County": "和县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "项城",
+      "modern_name": "河南省汝南",
+      "DynastyName": "西晋",
+      "Province": "河南省",
+      "City": "驻马店市",
+      "District_County": "汝南县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "新野",
+      "modern_name": "河南省新野",
+      "DynastyName": "西晋",
+      "Province": "河南省",
+      "City": "南阳市",
+      "District_County": "新野县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "襄阳",
+      "modern_name": "湖北省襄阳市",
+      "DynastyName": "西晋、五代时期",
+      "Province": "湖北省",
+      "City": "襄阳市",
+      "District_County": null,
+      "Specific_location": "汉水中游、汉江中游"
+    },
+    {
+      "geo_name": "江陵",
+      "modern_name": "湖北省荆州市",
+      "DynastyName": "西晋、五代时期",
+      "Province": "湖北省",
+      "City": "荆州市",
+      "District_County": "荆州区",
+      "Specific_location": "长江中游北岸、长江中游"
+    },
+    {
+      "geo_name": "巴郡",
+      "modern_name": "重庆市",
+      "DynastyName": "西晋",
+      "Province": "重庆市",
+      "City": "重庆市",
+      "District_County": null,
+      "Specific_location": "长江上游"
+    },
+    {
+      "geo_name": "建业",
+      "modern_name": "江苏省南京市",
+      "DynastyName": "西晋",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游"
+    },
+    {
+      "geo_name": "横江",
+      "modern_name": "安徽省和县西南",
+      "DynastyName": "西晋",
+      "Province": "安徽省",
+      "City": "马鞍山市",
+      "District_County": "和县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "寻阳",
+      "modern_name": "湖北省黄梅县西南",
+      "DynastyName": "西晋",
+      "Province": "湖北省",
+      "City": "黄冈市",
+      "District_County": "黄梅县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "版桥",
+      "modern_name": "安徽省和县东南",
+      "DynastyName": "西晋",
+      "Province": "安徽省",
+      "City": "马鞍山市",
+      "District_County": "和县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "丹阳",
+      "modern_name": "湖北省秭归",
+      "DynastyName": "西晋",
+      "Province": "湖北省",
+      "City": "宜昌市",
+      "District_County": "秭归县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "乐乡",
+      "modern_name": "湖北省松滋东北",
+      "DynastyName": "西晋",
+      "Province": "湖北省",
+      "City": "荆州市",
+      "District_County": "松滋市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "三山",
+      "modern_name": "江苏省南京市西南",
+      "DynastyName": "西晋",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "左国城",
+      "modern_name": "山西省离石县",
+      "DynastyName": "西晋",
+      "Province": "山西省",
+      "City": "吕梁市",
+      "District_County": "离石区",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "平阳",
+      "modern_name": "山西省临汾市",
+      "DynastyName": "西晋",
+      "Province": "山西省",
+      "City": "临汾市",
+      "District_County": null,
+      "Specific_location": "汾河下游"
+    },
+    {
+      "geo_name": "信都",
+      "modern_name": "河北省冀县",
+      "DynastyName": "西晋",
+      "Province": "河北省",
+      "City": "衡水市",
+      "District_County": "冀州区",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "大阳",
+      "modern_name": "山西省陆平西南",
+      "DynastyName": "西晋",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "项",
+      "modern_name": "河南省项城",
+      "DynastyName": "西晋",
+      "Province": "河南省",
+      "City": "周口市",
+      "District_County": "项城市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "渭纳",
+      "modern_name": "渭水入河处",
+      "DynastyName": "西晋",
+      "Province": "陕西省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "建康",
+      "modern_name": "江苏省南京市",
+      "DynastyName": "东晋",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游"
+    },
+    {
+      "geo_name": "淝水",
+      "modern_name": "安徽省瓦埠湖一带",
+      "DynastyName": "东晋",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": "寿县",
+      "Specific_location": "淮河支流"
+    },
+    {
+      "geo_name": "襄国",
+      "modern_name": "河北省邢台市",
+      "DynastyName": "后赵",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "邺城",
+      "modern_name": "河北省临漳县西",
+      "DynastyName": "后赵/前燕",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "临漳县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "广固",
+      "modern_name": "山东省青州市",
+      "DynastyName": "南燕",
+      "Province": "山东省",
+      "City": "潍坊市",
+      "District_County": "青州市",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "统万",
+      "modern_name": "内蒙古乌市旗南",
+      "DynastyName": "北魏",
+      "Province": "内蒙古自治区",
+      "City": "鄂尔多斯市",
+      "District_County": "乌审旗",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "上邽",
+      "modern_name": "甘肃省天水市",
+      "DynastyName": "北魏",
+      "Province": "甘肃省",
+      "City": "天水市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "钟离",
+      "modern_name": "安徽省凤阳县",
+      "DynastyName": "南北朝",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": "凤阳县",
+      "Specific_location": "淮河南岸"
+    },
+    {
+      "geo_name": "寿阳",
+      "modern_name": "安徽省寿县",
+      "DynastyName": "南北朝",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": "寿县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "义阳",
+      "modern_name": "河南省信阳市",
+      "DynastyName": "南北朝",
+      "Province": "河南省",
+      "City": "信阳市",
+      "District_County": null,
+      "Specific_location": null
+    },
+    {
+      "geo_name": "玉壁",
+      "modern_name": "山西省稷山县西南",
+      "DynastyName": "南北朝",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "稷山县",
+      "Specific_location": null
+    },
+    {
+      "geo_name": "长安",
+      "modern_name": "陕西西安",
+      "DynastyName": "隋",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": null,
+      "Specific_location": "关中平原中部"
+    },
+    {
+      "geo_name": "洛阳",
+      "modern_name": "河南洛阳",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": null,
+      "Specific_location": "中原地区"
+    },
+    {
+      "geo_name": "建康",
+      "modern_name": "江苏南京",
+      "DynastyName": "隋",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游南岸"
+    },
+    {
+      "geo_name": "涿郡",
+      "modern_name": "北京西南",
+      "DynastyName": "隋",
+      "Province": "河北省/北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": "华北平原北部"
+    },
+    {
+      "geo_name": "辽水",
+      "modern_name": "辽河",
+      "DynastyName": "隋",
+      "Province": "辽宁、吉林等省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "东北地区南部"
+    },
+    {
+      "geo_name": "平壤",
+      "modern_name": "朝鲜平壤",
+      "DynastyName": "隋",
+      "Province": null,
+      "City": "平壤市",
+      "District_County": null,
+      "Specific_location": "朝鲜半岛西北部"
+    },
+    {
+      "geo_name": "辽东城",
+      "modern_name": "辽宁辽阳",
+      "DynastyName": "隋",
+      "Province": "辽宁省",
+      "City": "辽阳市",
+      "District_County": null,
+      "Specific_location": "辽河下游"
+    },
+    {
+      "geo_name": "鸭绿江",
+      "modern_name": "鸭绿江",
+      "DynastyName": "隋",
+      "Province": "辽宁、吉林",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "中朝边界"
+    },
+    {
+      "geo_name": "黎阳",
+      "modern_name": "河南浚县东北",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "鹤壁市",
+      "District_County": "浚县",
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "怀远镇",
+      "modern_name": "辽宁辽中县",
+      "DynastyName": "隋",
+      "Province": "辽宁省",
+      "City": "沈阳市",
+      "District_County": "辽中区",
+      "Specific_location": "辽河中游"
+    },
+    {
+      "geo_name": "东莱",
+      "modern_name": "山东掖县",
+      "DynastyName": "隋",
+      "Province": "山东省",
+      "City": "烟台市",
+      "District_County": "莱州市",
+      "Specific_location": "山东半岛北部"
+    },
+    {
+      "geo_name": "江都",
+      "modern_name": "江苏扬州",
+      "DynastyName": "隋",
+      "Province": "江苏省",
+      "City": "扬州市",
+      "District_County": null,
+      "Specific_location": "长江北岸"
+    },
+    {
+      "geo_name": "瓦岗寨",
+      "modern_name": "河南滑县南",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": "滑县",
+      "Specific_location": "黄河以北"
+    },
+    {
+      "geo_name": "洛口仓",
+      "modern_name": "河南巩县",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "巩义市",
+      "Specific_location": "洛河入黄河口"
+    },
+    {
+      "geo_name": "金堤关",
+      "modern_name": "荥阳北",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "黄河南岸"
+    },
+    {
+      "geo_name": "荥阳",
+      "modern_name": "河南郑州",
+      "DynastyName": "隋",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": null,
+      "Specific_location": "中原腹地"
+    },
+    {
+      "geo_name": "太原",
+      "modern_name": "山西太原",
+      "DynastyName": "唐",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": null,
+      "Specific_location": "汾河谷地"
+    },
+    {
+      "geo_name": "霍邑",
+      "modern_name": "山西霍县",
+      "DynastyName": "唐",
+      "Province": "山西省",
+      "City": "临汾市",
+      "District_County": "霍州市",
+      "Specific_location": "汾河沿岸"
+    },
+    {
+      "geo_name": "河东",
+      "modern_name": "山西永济西",
+      "DynastyName": "唐",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "永济市",
+      "Specific_location": "黄河东岸"
+    },
+    {
+      "geo_name": "永丰仓",
+      "modern_name": "陕西华县",
+      "DynastyName": "唐",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "华州区",
+      "Specific_location": "关中东部"
+    },
+    {
+      "geo_name": "潼关",
+      "modern_name": "陕西潼关",
+      "DynastyName": "唐",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "潼关县",
+      "Specific_location": "关中东部要隘"
+    },
+    {
+      "geo_name": "浅水原",
+      "modern_name": "陕西长武西北",
+      "DynastyName": "唐",
+      "Province": "陕西省",
+      "City": "咸阳市",
+      "District_County": "长武县",
+      "Specific_location": "陇东高原"
+    },
+    {
+      "geo_name": "柏壁",
+      "modern_name": "山西新绛县西南",
+      "DynastyName": "唐",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "新绛县",
+      "Specific_location": "汾河下游"
+    },
+    {
+      "geo_name": "虎牢",
+      "modern_name": "河南汜水",
+      "DynastyName": "唐",
+      "Province": "河南省",
+      "City": "郑州市",
+      "District_County": "荥阳市",
+      "Specific_location": "黄河沿岸"
+    },
+    {
+      "geo_name": "江陵",
+      "modern_name": "湖北荆州",
+      "DynastyName": "唐",
+      "Province": "湖北省",
+      "City": "荆州市",
+      "District_County": null,
+      "Specific_location": "长江中游"
+    },
+    {
+      "geo_name": "三峡",
+      "modern_name": "长江三峡",
+      "DynastyName": "唐",
+      "Province": "湖北、重庆",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "长江上游"
+    },
+    {
+      "geo_name": "当涂",
+      "modern_name": "安徽当涂",
+      "DynastyName": "唐",
+      "Province": "安徽省",
+      "City": "马鞍山市",
+      "District_County": "当涂县",
+      "Specific_location": "长江南岸"
+    },
+    {
+      "geo_name": "东突厥",
+      "modern_name": "蒙古高原",
+      "DynastyName": "唐",
+      "Province": "内蒙古、蒙古国",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "阿尔泰山以东"
+    },
+    {
+      "geo_name": "定襄",
+      "modern_name": "山西定襄",
+      "DynastyName": "唐",
+      "Province": "山西省",
+      "City": "忻州市",
+      "District_County": "定襄县",
+      "Specific_location": "忻定盆地"
+    },
+    {
+      "geo_name": "吐谷浑",
+      "modern_name": "青海及新疆南部",
+      "DynastyName": "唐",
+      "Province": "青海省、新疆",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "青藏高原东北部"
+    },
+    {
+      "geo_name": "高昌",
+      "modern_name": "新疆吐鲁番",
+      "DynastyName": "唐",
+      "Province": "新疆",
+      "City": "吐鲁番市",
+      "District_County": null,
+      "Specific_location": "吐鲁番盆地"
+    },
+    {
+      "geo_name": "西突厥",
+      "modern_name": "中亚地区",
+      "DynastyName": "唐",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "阿尔泰山以西至里海"
+    },
+    {
+      "geo_name": "百济",
+      "modern_name": "朝鲜半岛西南",
+      "DynastyName": "唐",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "朝鲜半岛"
+    },
+    {
+      "geo_name": "新罗",
+      "modern_name": "朝鲜半岛东南",
+      "DynastyName": "唐",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "朝鲜半岛"
+    },
+    {
+      "geo_name": "范阳",
+      "modern_name": "北京",
+      "DynastyName": "唐",
+      "Province": "北京市",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "华北平原北部"
+    },
+    {
+      "geo_name": "睢阳",
+      "modern_name": "河南商丘南",
+      "DynastyName": "唐",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": null,
+      "Specific_location": "豫东平原"
+    },
+    {
+      "geo_name": "蔡州",
+      "modern_name": "河南汝南",
+      "DynastyName": "唐",
+      "Province": "河南省",
+      "City": "驻马店市",
+      "District_County": "汝南县",
+      "Specific_location": "淮北平原"
+    },
+    {
+      "geo_name": "广州",
+      "modern_name": "广东广州",
+      "DynastyName": "唐",
+      "Province": "广东省",
+      "City": "广州市",
+      "District_County": null,
+      "Specific_location": "珠江三角洲"
+    },
+    {
+      "geo_name": "潭州",
+      "modern_name": "湖南长沙",
+      "DynastyName": "唐",
+      "Province": "湖南省",
+      "City": "长沙市",
+      "District_County": null,
+      "Specific_location": "湘江下游"
+    },
+    {
+      "geo_name": "信州",
+      "modern_name": "江西上饶",
+      "DynastyName": "唐",
+      "Province": "江西省",
+      "City": "上饶市",
+      "District_County": null,
+      "Specific_location": "赣东北"
+    },
+    {
+      "geo_name": "中原",
+      "modern_name": "河南地区",
+      "DynastyName": "五代时期",
+      "Province": "河南省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "泛指黄河中下游地区"
+    },
+    {
+      "geo_name": "凤翔",
+      "modern_name": "陕西省凤翔县",
+      "DynastyName": "唐/五代初期",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": "凤翔区",
+      "Specific_location": "关中平原西部"
+    },
+    {
+      "geo_name": "河中",
+      "modern_name": "山西省永济市",
+      "DynastyName": "五代时期",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "永济市",
+      "Specific_location": "黄河东岸"
+    },
+    {
+      "geo_name": "淮南",
+      "modern_name": "江淮地区",
+      "DynastyName": "吴/南唐",
+      "Province": "安徽省、江苏省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "淮河以南、长江以北地区"
+    },
+    {
+      "geo_name": "太原",
+      "modern_name": "山西省太原市",
+      "DynastyName": "晋/北汉",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": null,
+      "Specific_location": "晋中盆地北部"
+    },
+    {
+      "geo_name": "潞州",
+      "modern_name": "山西省长治市",
+      "DynastyName": "五代时期",
+      "Province": "山西省",
+      "City": "长治市",
+      "District_County": null,
+      "Specific_location": "太行山西麓"
+    },
+    {
+      "geo_name": "晋州",
+      "modern_name": "山西省临汾市",
+      "DynastyName": "五代时期",
+      "Province": "山西省",
+      "City": "临汾市",
+      "District_County": null,
+      "Specific_location": "汾河下游"
+    },
+    {
+      "geo_name": "魏博",
+      "modern_name": "河北省大名县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "大名县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "泽州",
+      "modern_name": "山西省晋城市",
+      "DynastyName": "五代时期",
+      "Province": "山西省",
+      "City": "晋城市",
+      "District_County": null,
+      "Specific_location": "太行山南端"
+    },
+    {
+      "geo_name": "晋阳",
+      "modern_name": "山西省太原市晋源区",
+      "DynastyName": "晋/后唐/北汉",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": "晋源区",
+      "Specific_location": "太原盆地北端"
+    },
+    {
+      "geo_name": "怀灵",
+      "modern_name": "河南省沁阳市",
+      "DynastyName": "五代时期",
+      "Province": "河南省",
+      "City": "焦作市",
+      "District_County": "沁阳市",
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "亳州",
+      "modern_name": "安徽省亳州市",
+      "DynastyName": "五代时期",
+      "Province": "安徽省",
+      "City": "亳州市",
+      "District_County": null,
+      "Specific_location": "皖北地区"
+    },
+    {
+      "geo_name": "陕州",
+      "modern_name": "河南省三门峡市",
+      "DynastyName": "五代时期",
+      "Province": "河南省",
+      "City": "三门峡市",
+      "District_County": null,
+      "Specific_location": "黄河三门峡段南岸"
+    },
+    {
+      "geo_name": "洺州",
+      "modern_name": "河北省永年县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "永年区",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "匡国",
+      "modern_name": "陕西省大荔县",
+      "DynastyName": "后梁",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "大荔县",
+      "Specific_location": "关中平原东部"
+    },
+    {
+      "geo_name": "柏乡",
+      "modern_name": "河北省柏乡县",
+      "DynastyName": "后梁时期",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": "柏乡县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "河阳",
+      "modern_name": "河南省孟州市",
+      "DynastyName": "五代时期",
+      "Province": "河南省",
+      "City": "焦作市",
+      "District_County": "孟州市",
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "深州",
+      "modern_name": "河北省深县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "衡水市",
+      "District_County": "深州市",
+      "Specific_location": "河北中南部"
+    },
+    {
+      "geo_name": "冀州",
+      "modern_name": "河北省冀县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "衡水市",
+      "District_County": "冀州区",
+      "Specific_location": "河北中南部"
+    },
+    {
+      "geo_name": "赵州",
+      "modern_name": "河北省赵县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "石家庄市",
+      "District_County": "赵县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "高邑",
+      "modern_name": "河北省高邑县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "石家庄市",
+      "District_County": "高邑县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "聊城",
+      "modern_name": "山东省聊城市",
+      "DynastyName": "五代时期",
+      "Province": "山东省",
+      "City": "聊城市",
+      "District_County": null,
+      "Specific_location": "鲁西地区"
+    },
+    {
+      "geo_name": "幽州",
+      "modern_name": "北京市",
+      "DynastyName": "唐、燕、辽、北宋",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": "华北平原北端、华北平原北部，辽南京、燕京"
+    },
+    {
+      "geo_name": "成德",
+      "modern_name": "河北省正定县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "石家庄市",
+      "District_County": "正定县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "义武",
+      "modern_name": "河北省定县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "定州市",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "易水",
+      "modern_name": "河北省易县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "易县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "涿县",
+      "modern_name": "河北省涿州市",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "涿州市",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "枣强",
+      "modern_name": "河北省枣强县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "衡水市",
+      "District_County": "枣强县",
+      "Specific_location": "河北东南部"
+    },
+    {
+      "geo_name": "蒋县",
+      "modern_name": "河北省景县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "衡水市",
+      "District_County": "景县",
+      "Specific_location": "河北东南部"
+    },
+    {
+      "geo_name": "顺州",
+      "modern_name": "北京市顺义区",
+      "DynastyName": "燕/辽",
+      "Province": "北京市",
+      "City": null,
+      "District_County": "顺义区",
+      "Specific_location": "北京东北部"
+    },
+    {
+      "geo_name": "檀州",
+      "modern_name": "北京市密云区",
+      "DynastyName": "燕/辽",
+      "Province": "北京市",
+      "City": null,
+      "District_County": "密云区",
+      "Specific_location": "北京东北部"
+    },
+    {
+      "geo_name": "沧州",
+      "modern_name": "河北省沧州市",
+      "DynastyName": "五代/辽",
+      "Province": "河北省",
+      "City": "沧州市",
+      "District_County": null,
+      "Specific_location": "河北东南部"
+    },
+    {
+      "geo_name": "魏州",
+      "modern_name": "河北省大名县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "大名县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "白马",
+      "modern_name": "河南省滑县",
+      "DynastyName": "后梁",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": "滑县",
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "黎阳",
+      "modern_name": "河南省滑县北",
+      "DynastyName": "五代时期",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": "滑县",
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "汴州",
+      "modern_name": "河南省开封市",
+      "DynastyName": "后梁",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "黄河南岸"
+    },
+    {
+      "geo_name": "杨刘",
+      "modern_name": "山东省东阿县北",
+      "DynastyName": "五代时期",
+      "Province": "山东省",
+      "City": "聊城市",
+      "District_County": "东阿县",
+      "Specific_location": "黄河南岸"
+    },
+    {
+      "geo_name": "新州",
+      "modern_name": "河北省涿鹿县",
+      "DynastyName": "五代时期",
+      "Province": "河北省",
+      "City": "张家口市",
+      "District_County": "涿鹿县",
+      "Specific_location": "河北西北部"
+    },
+    {
+      "geo_name": "朝城",
+      "modern_name": "山东省莘县西",
+      "DynastyName": "五代时期",
+      "Province": "山东省",
+      "City": "聊城市",
+      "District_County": "莘县",
+      "Specific_location": "鲁西地区"
+    },
+    {
+      "geo_name": "麻家渡",
+      "modern_name": "山东省鄄城县东北",
+      "DynastyName": "后梁时期",
+      "Province": "山东省",
+      "City": "菏泽市",
+      "District_County": "鄄城县",
+      "Specific_location": "鲁西南地区"
+    },
+    {
+      "geo_name": "濮阳",
+      "modern_name": "山东省鄄城县北旧城",
+      "DynastyName": "后梁时期",
+      "Province": "山东省",
+      "City": "菏泽市",
+      "District_County": "鄄城县",
+      "Specific_location": "鲁西南地区"
+    },
+    {
+      "geo_name": "德胜渡",
+      "modern_name": "河南省濮阳县黄河渡口",
+      "DynastyName": "后唐时期",
+      "Province": "河南省",
+      "City": "濮阳市",
+      "District_County": "濮阳县",
+      "Specific_location": "黄河沿岸"
+    },
+    {
+      "geo_name": "兖州",
+      "modern_name": "山东省兖州市",
+      "DynastyName": "后梁",
+      "Province": "山东省",
+      "City": "济宁市",
+      "District_County": "兖州区",
+      "Specific_location": "鲁西南地区"
+    },
+    {
+      "geo_name": "榆次",
+      "modern_name": "山西省榆次市",
+      "DynastyName": "后唐时期",
+      "Province": "山西省",
+      "City": "晋中市",
+      "District_County": "榆次区",
+      "Specific_location": "山西中部"
+    },
+    {
+      "geo_name": "广晋",
+      "modern_name": "河北省大名县",
+      "DynastyName": "后晋",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "大名县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "贝州",
+      "modern_name": "河北省清河县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": "清河县",
+      "Specific_location": "河北东南部"
+    },
+    {
+      "geo_name": "秀容",
+      "modern_name": "山西省忻县西北",
+      "DynastyName": "后晋时期",
+      "Province": "山西省",
+      "City": "忻州市",
+      "District_County": "忻府区",
+      "Specific_location": "山西北部"
+    },
+    {
+      "geo_name": "邢州",
+      "modern_name": "河北省邢台市",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": null,
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "磁州",
+      "modern_name": "河北省磁县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "磁县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "邺都",
+      "modern_name": "河北省大名县",
+      "DynastyName": "后晋/后汉",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "大名县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "安阳",
+      "modern_name": "河南省安阳市",
+      "DynastyName": "后晋时期",
+      "Province": "河南省",
+      "City": "安阳市",
+      "District_County": null,
+      "Specific_location": "河南北部"
+    },
+    {
+      "geo_name": "清苑",
+      "modern_name": "河北省清苑县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "清苑区",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "满城",
+      "modern_name": "河北省满城县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "满城区",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "遂城",
+      "modern_name": "河北省徐水县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "徐水区",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "白团卫村",
+      "modern_name": "河北省完县",
+      "DynastyName": "后晋时期",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "顺平县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "瀛州",
+      "modern_name": "河北省河间市",
+      "DynastyName": "后晋/辽",
+      "Province": "河北省",
+      "City": "沧州市",
+      "District_County": "河间市",
+      "Specific_location": "河北中东部"
+    },
+    {
+      "geo_name": "汴京",
+      "modern_name": "河南省开封市",
+      "DynastyName": "后晋、北宋",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "黄河南岸、黄河南岸，北宋都城"
+    },
+    {
+      "geo_name": "临城",
+      "modern_name": "河北省临城县",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "邢台市",
+      "District_County": "临城县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "井陉",
+      "modern_name": "河北省井陉县",
+      "DynastyName": "后汉时期",
+      "Province": "河北省",
+      "City": "石家庄市",
+      "District_County": "井陉县",
+      "Specific_location": "河北西部"
+    },
+    {
+      "geo_name": "石会关",
+      "modern_name": "山西省榆社县",
+      "DynastyName": "后汉时期",
+      "Province": "山西省",
+      "City": "晋中市",
+      "District_County": "榆社县",
+      "Specific_location": "山西中部"
+    },
+    {
+      "geo_name": "上党",
+      "modern_name": "山西省长治市",
+      "DynastyName": "后汉时期",
+      "Province": "山西省",
+      "City": "长治市",
+      "District_County": null,
+      "Specific_location": "太行山西麓"
+    },
+    {
+      "geo_name": "阴地关",
+      "modern_name": "山西省灵石县",
+      "DynastyName": "后汉时期",
+      "Province": "山西省",
+      "City": "晋中市",
+      "District_County": "灵石县",
+      "Specific_location": "山西中部"
+    },
+    {
+      "geo_name": "绛州",
+      "modern_name": "山西省新绛县",
+      "DynastyName": "后汉时期",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "新绛县",
+      "Specific_location": "山西西南部"
+    },
+    {
+      "geo_name": "新安",
+      "modern_name": "河南省新安县",
+      "DynastyName": "后汉时期",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": "新安县",
+      "Specific_location": "河南西部"
+    },
+    {
+      "geo_name": "归德",
+      "modern_name": "河南省商丘市南",
+      "DynastyName": "后汉",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": null,
+      "Specific_location": "豫东地区"
+    },
+    {
+      "geo_name": "护国",
+      "modern_name": "山西省永济县",
+      "DynastyName": "后汉",
+      "Province": "山西省",
+      "City": "运城市",
+      "District_County": "永济市",
+      "Specific_location": "山西西南部"
+    },
+    {
+      "geo_name": "潼关",
+      "modern_name": "陕西省潼关县",
+      "DynastyName": "后汉时期",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "潼关县",
+      "Specific_location": "陕西东部"
+    },
+    {
+      "geo_name": "同州",
+      "modern_name": "陕西省大荔县",
+      "DynastyName": "后汉时期",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "大荔县",
+      "Specific_location": "关中平原东部"
+    },
+    {
+      "geo_name": "沂州",
+      "modern_name": "江苏省邳县",
+      "DynastyName": "南唐",
+      "Province": "江苏省",
+      "City": "徐州市",
+      "District_County": "邳州市",
+      "Specific_location": "江苏北部"
+    },
+    {
+      "geo_name": "华州",
+      "modern_name": "陕西省华县",
+      "DynastyName": "后汉",
+      "Province": "陕西省",
+      "City": "渭南市",
+      "District_County": "华州区",
+      "Specific_location": "关中平原东部"
+    },
+    {
+      "geo_name": "邺",
+      "modern_name": "河北省大名县",
+      "DynastyName": "后汉",
+      "Province": "河北省",
+      "City": "邯郸市",
+      "District_County": "大名县",
+      "Specific_location": "河北南部"
+    },
+    {
+      "geo_name": "刘子波",
+      "modern_name": "河南省开封市东北",
+      "DynastyName": "后汉",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "黄河南岸"
+    },
+    {
+      "geo_name": "宋州",
+      "modern_name": "河南省商丘市",
+      "DynastyName": "后汉",
+      "Province": "河南省",
+      "City": "商丘市",
+      "District_County": null,
+      "Specific_location": "豫东地区"
+    },
+    {
+      "geo_name": "怀州",
+      "modern_name": "河南省沁阳市",
+      "DynastyName": "后周",
+      "Province": "河南省",
+      "City": "焦作市",
+      "District_County": "沁阳市",
+      "Specific_location": "河南西北部"
+    },
+    {
+      "geo_name": "高平",
+      "modern_name": "山西省高平市",
+      "DynastyName": "后周时期",
+      "Province": "山西省",
+      "City": "晋城市",
+      "District_County": "高平市",
+      "Specific_location": "山西东南部"
+    },
+    {
+      "geo_name": "百井",
+      "modern_name": "山西省太原市东北",
+      "DynastyName": "后周时期",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": null,
+      "Specific_location": "太原盆地北部"
+    },
+    {
+      "geo_name": "散关",
+      "modern_name": "陕西省宝鸡市",
+      "DynastyName": "后周时期",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": null,
+      "Specific_location": "关中平原西端"
+    },
+    {
+      "geo_name": "秦州",
+      "modern_name": "甘肃省秦安县",
+      "DynastyName": "后蜀",
+      "Province": "甘肃省",
+      "City": "天水市",
+      "District_County": "秦安县",
+      "Specific_location": "甘肃东部"
+    },
+    {
+      "geo_name": "唐仓镇",
+      "modern_name": "陕西省凤县北",
+      "DynastyName": "后周时期",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": "凤县",
+      "Specific_location": "陕西西南部"
+    },
+    {
+      "geo_name": "成州",
+      "modern_name": "甘肃省成县",
+      "DynastyName": "后蜀",
+      "Province": "甘肃省",
+      "City": "陇南市",
+      "District_County": "成县",
+      "Specific_location": "甘肃东南部"
+    },
+    {
+      "geo_name": "阶州",
+      "modern_name": "甘肃省武都县",
+      "DynastyName": "后蜀",
+      "Province": "甘肃省",
+      "City": "陇南市",
+      "District_County": "武都区",
+      "Specific_location": "甘肃东南部"
+    },
+    {
+      "geo_name": "剑门",
+      "modern_name": "四川省剑阁县东北",
+      "DynastyName": "后蜀",
+      "Province": "四川省",
+      "City": "广元市",
+      "District_County": "剑阁县",
+      "Specific_location": "四川北部"
+    },
+    {
+      "geo_name": "白帝",
+      "modern_name": "重庆市奉节县",
+      "DynastyName": "后蜀",
+      "Province": "重庆市",
+      "City": null,
+      "District_County": "奉节县",
+      "Specific_location": "长江三峡西口"
+    },
+    {
+      "geo_name": "楚州",
+      "modern_name": "江苏省淮安市",
+      "DynastyName": "南唐",
+      "Province": "江苏省",
+      "City": "淮安市",
+      "District_County": null,
+      "Specific_location": "淮河下游"
+    },
+    {
+      "geo_name": "濠州",
+      "modern_name": "安徽省凤阳县东北",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": "凤阳县",
+      "Specific_location": "淮河中游"
+    },
+    {
+      "geo_name": "寿州",
+      "modern_name": "安徽省寿县",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "六安市",
+      "District_County": "寿县",
+      "Specific_location": "淮河中游"
+    },
+    {
+      "geo_name": "正阳",
+      "modern_name": "安徽省正阳关",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "六安市",
+      "District_County": "寿县",
+      "Specific_location": "淮河南岸"
+    },
+    {
+      "geo_name": "定远",
+      "modern_name": "安徽省定远县",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": "定远县",
+      "Specific_location": "安徽东部"
+    },
+    {
+      "geo_name": "滁州",
+      "modern_name": "安徽省滁州市",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": null,
+      "Specific_location": "安徽东部"
+    },
+    {
+      "geo_name": "六合",
+      "modern_name": "江苏省六合县",
+      "DynastyName": "南唐",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": "六合区",
+      "Specific_location": "江苏西南部"
+    },
+    {
+      "geo_name": "东都",
+      "modern_name": "江苏省扬州市",
+      "DynastyName": "南唐",
+      "Province": "江苏省",
+      "City": "扬州市",
+      "District_County": null,
+      "Specific_location": "长江北岸"
+    },
+    {
+      "geo_name": "常州",
+      "modern_name": "江苏省常州市",
+      "DynastyName": "吴越",
+      "Province": "江苏省",
+      "City": "常州市",
+      "District_County": null,
+      "Specific_location": "江苏南部"
+    },
+    {
+      "geo_name": "清流关",
+      "modern_name": "安徽省滁州市西北",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": null,
+      "Specific_location": "安徽东部"
+    },
+    {
+      "geo_name": "宣州",
+      "modern_name": "安徽省宣城市",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "宣城市",
+      "District_County": null,
+      "Specific_location": "安徽东南部"
+    },
+    {
+      "geo_name": "下蔡",
+      "modern_name": "安徽省寿县对岸",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "淮南市",
+      "District_County": "凤台县",
+      "Specific_location": "淮河北岸"
+    },
+    {
+      "geo_name": "洞口",
+      "modern_name": "安徽省五河县东浮山下",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "蚌埠市",
+      "District_County": "五河县",
+      "Specific_location": "淮河北岸"
+    },
+    {
+      "geo_name": "庐州",
+      "modern_name": "安徽省合肥市",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "合肥市",
+      "District_County": null,
+      "Specific_location": "安徽中部"
+    },
+    {
+      "geo_name": "舒州",
+      "modern_name": "安徽省潜山县",
+      "DynastyName": "南唐",
+      "Province": "安徽省",
+      "City": "安庆市",
+      "District_County": "潜山市",
+      "Specific_location": "安徽西南部"
+    },
+    {
+      "geo_name": "蕲州",
+      "modern_name": "湖北省蕲春县",
+      "DynastyName": "南唐",
+      "Province": "湖北省",
+      "City": "黄冈市",
+      "District_County": "蕲春县",
+      "Specific_location": "湖北东部"
+    },
+    {
+      "geo_name": "黄州",
+      "modern_name": "湖北省黄冈市",
+      "DynastyName": "南唐",
+      "Province": "湖北省",
+      "City": "黄冈市",
+      "District_County": null,
+      "Specific_location": "湖北东部"
+    },
+    {
+      "geo_name": "宁州",
+      "modern_name": "河北省沧州市北",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "沧州市",
+      "District_County": null,
+      "Specific_location": "河北东南部"
+    },
+    {
+      "geo_name": "独流口",
+      "modern_name": "河北省固安县境",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "廊坊市",
+      "District_County": "固安县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "益津关",
+      "modern_name": "河北省文安县境",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "廊坊市",
+      "District_County": "文安县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "土门",
+      "modern_name": "河北省获鹿县西",
+      "DynastyName": "后周时期",
+      "Province": "河北省",
+      "City": "石家庄市",
+      "District_County": "鹿泉区",
+      "Specific_location": "河北西部"
+    },
+    {
+      "geo_name": "瓦桥关",
+      "modern_name": "河北省涿县境",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "涿州市",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "莫河",
+      "modern_name": "河北省雄县南",
+      "DynastyName": "辽",
+      "Province": "河北省",
+      "City": "保定市",
+      "District_County": "雄县",
+      "Specific_location": "河北中部"
+    },
+    {
+      "geo_name": "采石",
+      "modern_name": "安徽省马鞍山市西南",
+      "DynastyName": "宋",
+      "Province": "安徽省",
+      "City": "马鞍山市",
+      "District_County": "雨山区、当涂县",
+      "Specific_location": "长江东岸"
+    },
+    {
+      "geo_name": "兴州",
+      "modern_name": "宁夏回族自治区银川市",
+      "DynastyName": "西夏",
+      "Province": "宁夏回族自治区",
+      "City": "银川市",
+      "District_County": null,
+      "Specific_location": "宁夏平原中部，西夏都城"
+    },
+    {
+      "geo_name": "黄龙府",
+      "modern_name": "吉林省农安县",
+      "DynastyName": "辽、金",
+      "Province": "吉林省",
+      "City": "长春市",
+      "District_County": "农安县",
+      "Specific_location": "松辽平原中部"
+    },
+    {
+      "geo_name": "会宁",
+      "modern_name": "黑龙江省阿城市南",
+      "DynastyName": "金",
+      "Province": "黑龙江省",
+      "City": "哈尔滨市",
+      "District_County": "阿城区",
+      "Specific_location": "金朝初期都城"
+    },
+    {
+      "geo_name": "东京",
+      "modern_name": "河南省开封市",
+      "DynastyName": "北宋",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "北宋都城"
+    },
+    {
+      "geo_name": "临安",
+      "modern_name": "浙江省杭州市",
+      "DynastyName": "南宋",
+      "Province": "浙江省",
+      "City": "杭州市",
+      "District_County": null,
+      "Specific_location": "南宋都城"
+    },
+    {
+      "geo_name": "襄樊",
+      "modern_name": "湖北省襄阳市、樊城区",
+      "DynastyName": "南宋、元",
+      "Province": "湖北省",
+      "City": "襄阳市",
+      "District_County": null,
+      "Specific_location": "汉水中游，南北要冲"
+    },
+    {
+      "geo_name": "和林",
+      "modern_name": "蒙古国前杭爱省哈尔和林",
+      "DynastyName": "蒙古、元",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "蒙古高原中部，蒙古汗国早期都城"
+    },
+    {
+      "geo_name": "鄂州",
+      "modern_name": "湖北省武汉市武昌区",
+      "DynastyName": "南宋",
+      "Province": "湖北省",
+      "City": "武汉市",
+      "District_County": "武昌区",
+      "Specific_location": "长江中游"
+    },
+    {
+      "geo_name": "高梁河",
+      "modern_name": "北京市西直门外高梁河",
+      "DynastyName": "北宋、辽",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": "海淀区",
+      "Specific_location": "北京城西北"
+    },
+    {
+      "geo_name": "澶州",
+      "modern_name": "河南省濮阳市",
+      "DynastyName": "北宋",
+      "Province": "河南省",
+      "City": "濮阳市",
+      "District_County": null,
+      "Specific_location": "黄河北岸"
+    },
+    {
+      "geo_name": "梁山泊",
+      "modern_name": "山东省梁山县、东平县一带",
+      "DynastyName": "北宋",
+      "Province": "山东省",
+      "City": "济宁市、泰安市",
+      "District_County": "梁山县、东平县",
+      "Specific_location": "古巨野泽北部，黄河决口汇水区"
+    },
+    {
+      "geo_name": "好水川",
+      "modern_name": "宁夏回族自治区隆德县至西吉县间",
+      "DynastyName": "北宋、西夏",
+      "Province": "宁夏回族自治区",
+      "City": "固原市",
+      "District_County": "隆德县、西吉县",
+      "Specific_location": "六盘山西麓"
+    },
+    {
+      "geo_name": "和尚原",
+      "modern_name": "陕西省宝鸡市西南",
+      "DynastyName": "南宋、金",
+      "Province": "陕西省",
+      "City": "宝鸡市",
+      "District_County": null,
+      "Specific_location": "秦岭北麓，渭水流域入蜀隘口"
+    },
+    {
+      "geo_name": "黄天荡",
+      "modern_name": "江苏省南京市东北",
+      "DynastyName": "南宋",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游，镇江至南京段"
+    },
+    {
+      "geo_name": "钓鱼城",
+      "modern_name": "重庆市合川区东钓鱼山",
+      "DynastyName": "南宋",
+      "Province": "重庆市",
+      "City": "重庆市",
+      "District_County": "合川区",
+      "Specific_location": "嘉陵江、渠江、涪江交汇处"
+    },
+    {
+      "geo_name": "撒马尔干",
+      "modern_name": "乌兹别克斯坦撒马尔罕",
+      "DynastyName": "蒙古",
+      "Province": null,
+      "City": "撒马尔罕州",
+      "District_County": "撒马尔罕市",
+      "Specific_location": "中亚泽拉夫尚河谷，花剌子模国政治中心"
+    },
+    {
+      "geo_name": "崖山",
+      "modern_name": "广东省江门市新会区南",
+      "DynastyName": "南宋",
+      "Province": "广东省",
+      "City": "江门市",
+      "District_County": "新会区",
+      "Specific_location": "南海中"
+    },
+    {
+      "geo_name": "北京",
+      "modern_name": "北京市",
+      "DynastyName": "明、清",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": "华北平原北部"
+    },
+    {
+      "geo_name": "南京",
+      "modern_name": "南京市",
+      "DynastyName": "明",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游南岸"
+    },
+    {
+      "geo_name": "广州",
+      "modern_name": "广州市",
+      "DynastyName": "明、清",
+      "Province": "广东省",
+      "City": "广州市",
+      "District_County": null,
+      "Specific_location": "珠江三角洲北部"
+    },
+    {
+      "geo_name": "天津",
+      "modern_name": "天津市",
+      "DynastyName": "清",
+      "Province": "天津市",
+      "City": "天津市",
+      "District_County": null,
+      "Specific_location": "华北平原东北部，海河下游"
+    },
+    {
+      "geo_name": "沈阳",
+      "modern_name": "沈阳市",
+      "DynastyName": "明、清",
+      "Province": "辽宁省",
+      "City": "沈阳市",
+      "District_County": null,
+      "Specific_location": "辽河平原中部"
+    },
+    {
+      "geo_name": "杭州",
+      "modern_name": "杭州市",
+      "DynastyName": "明、清",
+      "Province": "浙江省",
+      "City": "杭州市",
+      "District_County": null,
+      "Specific_location": "钱塘江下游北岸"
+    },
+    {
+      "geo_name": "武昌",
+      "modern_name": "武汉市武昌区",
+      "DynastyName": "明、清",
+      "Province": "湖北省",
+      "City": "武汉市",
+      "District_County": "武昌区",
+      "Specific_location": "长江中游南岸"
+    },
+    {
+      "geo_name": "汉口",
+      "modern_name": "武汉市汉口地区",
+      "DynastyName": "清",
+      "Province": "湖北省",
+      "City": "武汉市",
+      "District_County": "江汉区等",
+      "Specific_location": "长江与汉江交汇处"
+    },
+    {
+      "geo_name": "长沙",
+      "modern_name": "长沙市",
+      "DynastyName": "明、清",
+      "Province": "湖南省",
+      "City": "长沙市",
+      "District_County": null,
+      "Specific_location": "湘江下游"
+    },
+    {
+      "geo_name": "桂林",
+      "modern_name": "桂林市",
+      "DynastyName": "清",
+      "Province": "广西壮族自治区",
+      "City": "桂林市",
+      "District_County": null,
+      "Specific_location": "广西东北部"
+    },
+    {
+      "geo_name": "昆明",
+      "modern_name": "昆明市",
+      "DynastyName": "明、清",
+      "Province": "云南省",
+      "City": "昆明市",
+      "District_County": null,
+      "Specific_location": "云贵高原中部"
+    },
+    {
+      "geo_name": "成都",
+      "modern_name": "成都市",
+      "DynastyName": "明、清",
+      "Province": "四川省",
+      "City": "成都市",
+      "District_County": null,
+      "Specific_location": "成都平原中部"
+    },
+    {
+      "geo_name": "重庆",
+      "modern_name": "重庆市",
+      "DynastyName": "明、清",
+      "Province": "重庆市",
+      "City": "重庆市",
+      "District_County": null,
+      "Specific_location": "长江与嘉陵江交汇处"
+    },
+    {
+      "geo_name": "西安",
+      "modern_name": "西安市",
+      "DynastyName": "明、清",
+      "Province": "陕西省",
+      "City": "西安市",
+      "District_County": null,
+      "Specific_location": "关中平原中部"
+    },
+    {
+      "geo_name": "太原",
+      "modern_name": "太原市",
+      "DynastyName": "明、清",
+      "Province": "山西省",
+      "City": "太原市",
+      "District_County": null,
+      "Specific_location": "汾河河谷平原北部"
+    },
+    {
+      "geo_name": "开封",
+      "modern_name": "开封市",
+      "DynastyName": "明",
+      "Province": "河南省",
+      "City": "开封市",
+      "District_County": null,
+      "Specific_location": "豫东平原"
+    },
+    {
+      "geo_name": "洛阳",
+      "modern_name": "洛阳市",
+      "DynastyName": "明",
+      "Province": "河南省",
+      "City": "洛阳市",
+      "District_County": null,
+      "Specific_location": "洛河盆地"
+    },
+    {
+      "geo_name": "南昌",
+      "modern_name": "南昌市",
+      "DynastyName": "明、清",
+      "Province": "江西省",
+      "City": "南昌市",
+      "District_County": null,
+      "Specific_location": "鄱阳湖西南岸"
+    },
+    {
+      "geo_name": "福州",
+      "modern_name": "福州市",
+      "DynastyName": "明、清",
+      "Province": "福建省",
+      "City": "福州市",
+      "District_County": null,
+      "Specific_location": "闽江下游"
+    },
+    {
+      "geo_name": "厦门",
+      "modern_name": "厦门市",
+      "DynastyName": "清",
+      "Province": "福建省",
+      "City": "厦门市",
+      "District_County": null,
+      "Specific_location": "福建东南沿海"
+    },
+    {
+      "geo_name": "台湾",
+      "modern_name": "台湾省",
+      "DynastyName": "明、清",
+      "Province": "台湾省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "中国东南沿海大陆架上"
+    },
+    {
+      "geo_name": "赫图阿拉",
+      "modern_name": "辽宁省新宾满族自治县永陵镇老城村",
+      "DynastyName": "明",
+      "Province": "辽宁省",
+      "City": "抚顺市",
+      "District_County": "新宾满族自治县",
+      "Specific_location": "苏子河南岸"
+    },
+    {
+      "geo_name": "萨尔浒",
+      "modern_name": "辽宁省抚顺市东洲区萨尔浒风景区",
+      "DynastyName": "明",
+      "Province": "辽宁省",
+      "City": "抚顺市",
+      "District_County": "东洲区",
+      "Specific_location": "浑河上游"
+    },
+    {
+      "geo_name": "宁远",
+      "modern_name": "辽宁省兴城市",
+      "DynastyName": "明",
+      "Province": "辽宁省",
+      "City": "葫芦岛市",
+      "District_County": "兴城市",
+      "Specific_location": "辽西走廊中部"
+    },
+    {
+      "geo_name": "锦州",
+      "modern_name": "锦州市",
+      "DynastyName": "明、清",
+      "Province": "辽宁省",
+      "City": "锦州市",
+      "District_County": null,
+      "Specific_location": "辽西走廊东北端"
+    },
+    {
+      "geo_name": "山海关",
+      "modern_name": "河北省秦皇岛市山海关区",
+      "DynastyName": "明、清",
+      "Province": "河北省",
+      "City": "秦皇岛市",
+      "District_County": "山海关区",
+      "Specific_location": "辽西走廊与华北平原交界处"
+    },
+    {
+      "geo_name": "辽阳",
+      "modern_name": "辽阳市",
+      "DynastyName": "明、清",
+      "Province": "辽宁省",
+      "City": "辽阳市",
+      "District_County": null,
+      "Specific_location": "太子河流域"
+    },
+    {
+      "geo_name": "大沽口",
+      "modern_name": "天津市滨海新区塘沽一带",
+      "DynastyName": "清",
+      "Province": "天津市",
+      "City": "天津市",
+      "District_County": "滨海新区",
+      "Specific_location": "海河入海口"
+    },
+    {
+      "geo_name": "镇江",
+      "modern_name": "镇江市",
+      "DynastyName": "清",
+      "Province": "江苏省",
+      "City": "镇江市",
+      "District_County": null,
+      "Specific_location": "长江与京杭大运河交汇处"
+    },
+    {
+      "geo_name": "宁波",
+      "modern_name": "宁波市",
+      "DynastyName": "明、清",
+      "Province": "浙江省",
+      "City": "宁波市",
+      "District_County": null,
+      "Specific_location": "浙江东北部沿海"
+    },
+    {
+      "geo_name": "定海",
+      "modern_name": "浙江省舟山市定海区",
+      "DynastyName": "清",
+      "Province": "浙江省",
+      "City": "舟山市",
+      "District_County": "定海区",
+      "Specific_location": "舟山群岛中部"
+    },
+    {
+      "geo_name": "镇海",
+      "modern_name": "宁波市镇海区",
+      "DynastyName": "清",
+      "Province": "浙江省",
+      "City": "宁波市",
+      "District_County": "镇海区",
+      "Specific_location": "甬江入海口"
+    },
+    {
+      "geo_name": "吴淞口",
+      "modern_name": "上海市宝山区吴淞口",
+      "DynastyName": "清",
+      "Province": "上海市",
+      "City": "上海市",
+      "District_County": "宝山区",
+      "Specific_location": "黄浦江与长江交汇处"
+    },
+    {
+      "geo_name": "威海卫",
+      "modern_name": "山东省威海市",
+      "DynastyName": "清",
+      "Province": "山东省",
+      "City": "威海市",
+      "District_County": null,
+      "Specific_location": "山东半岛东北端"
+    },
+    {
+      "geo_name": "旅顺",
+      "modern_name": "辽宁省大连市旅顺口区",
+      "DynastyName": "清",
+      "Province": "辽宁省",
+      "City": "大连市",
+      "District_County": "旅顺口区",
+      "Specific_location": "辽东半岛南端"
+    },
+    {
+      "geo_name": "金田村",
+      "modern_name": "广西壮族自治区桂平县金田镇",
+      "DynastyName": "清",
+      "Province": "广西壮族自治区",
+      "City": "贵港市",
+      "District_County": "桂平市",
+      "Specific_location": "紫荆山南麓"
+    },
+    {
+      "geo_name": "天京",
+      "modern_name": "南京市",
+      "DynastyName": "清",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游南岸"
+    },
+    {
+      "geo_name": "安庆",
+      "modern_name": "安庆市",
+      "DynastyName": "清",
+      "Province": "安徽省",
+      "City": "安庆市",
+      "District_County": null,
+      "Specific_location": "长江下游北岸"
+    },
+    {
+      "geo_name": "九江",
+      "modern_name": "九江市",
+      "DynastyName": "清",
+      "Province": "江西省",
+      "City": "九江市",
+      "District_County": null,
+      "Specific_location": "长江中游南岸"
+    },
+    {
+      "geo_name": "湖口",
+      "modern_name": "江西省九江市湖口县",
+      "DynastyName": "清",
+      "Province": "江西省",
+      "City": "九江市",
+      "District_County": "湖口县",
+      "Specific_location": "鄱阳湖入长江口"
+    },
+    {
+      "geo_name": "三河镇",
+      "modern_name": "安徽省合肥市肥西县三河镇",
+      "DynastyName": "清",
+      "Province": "安徽省",
+      "City": "合肥市",
+      "District_County": "肥西县",
+      "Specific_location": "丰乐河、杭埠河、小南河交汇处"
+    },
+    {
+      "geo_name": "苏杭",
+      "modern_name": "苏州、杭州地区",
+      "DynastyName": "清",
+      "Province": "江苏省、浙江省",
+      "City": "苏州市、杭州市",
+      "District_County": null,
+      "Specific_location": "长江三角洲"
+    },
+    {
+      "geo_name": "鄱阳湖",
+      "modern_name": "鄱阳湖",
+      "DynastyName": "明",
+      "Province": "江西省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "江西省北部，长江南岸"
+    },
+    {
+      "geo_name": "滁州",
+      "modern_name": "滁州市",
+      "DynastyName": "明",
+      "Province": "安徽省",
+      "City": "滁州市",
+      "District_County": null,
+      "Specific_location": "安徽省东部"
+    },
+    {
+      "geo_name": "平江",
+      "modern_name": "江苏省苏州市（古称平江府）",
+      "DynastyName": "明",
+      "Province": "江苏省",
+      "City": "苏州市",
+      "District_County": null,
+      "Specific_location": "长江三角洲中部"
+    },
+    {
+      "geo_name": "应天府",
+      "modern_name": "南京市",
+      "DynastyName": "明",
+      "Province": "江苏省",
+      "City": "南京市",
+      "District_County": null,
+      "Specific_location": "长江下游南岸"
+    },
+    {
+      "geo_name": "大都",
+      "modern_name": "北京市",
+      "DynastyName": "元",
+      "Province": "北京市",
+      "City": "北京市",
+      "District_County": null,
+      "Specific_location": "华北平原北部"
+    },
+    {
+      "geo_name": "和林",
+      "modern_name": "蒙古国境内前杭爱省哈尔和林",
+      "DynastyName": "明",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "蒙古高原"
+    },
+    {
+      "geo_name": "捕鱼儿海",
+      "modern_name": "贝尔湖",
+      "DynastyName": "明",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "蒙古国东部与中国内蒙古呼伦贝尔市交界处"
+    },
+    {
+      "geo_name": "倭寇",
+      "modern_name": "指代日本海盗及与其勾结的势力活动区域",
+      "DynastyName": "明",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "中国东南沿海（山东、江苏、浙江、福建、广东）"
+    },
+    {
+      "geo_name": "朝鲜",
+      "modern_name": "朝鲜半岛",
+      "DynastyName": "明、清",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "亚洲东北部"
+    },
+    {
+      "geo_name": "河套",
+      "modern_name": "黄河“几”字弯及周边流域",
+      "DynastyName": "明",
+      "Province": "内蒙古自治区、宁夏回族自治区、陕西省、山西省",
+      "City": null,
+      "District_County": null,
+      "Specific_location": "黄河中游沿岸"
+    },
+    {
+      "geo_name": "缅甸",
+      "modern_name": "缅甸联邦共和国",
+      "DynastyName": "清",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "东南亚"
+    },
+    {
+      "geo_name": "安南",
+      "modern_name": "越南",
+      "DynastyName": "清",
+      "Province": null,
+      "City": null,
+      "District_County": null,
+      "Specific_location": "东南亚中南半岛东部"
+    }
+  ],
+  "organizations": [
+    {
+      "OrgName": "夏启政权",
+      "OrgType": "国家",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "东夷",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "有扈氏部落",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "有穷氏部落",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "夏太康政权",
+      "OrgType": "国家",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "寒浞势力",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "后羿政权",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "寒浞政权",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "斟灌氏部落",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "斟寻氏部落",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "少康势力",
+      "OrgType": "地方势力",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "商",
+      "OrgType": "部落",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "葛",
+      "OrgType": "地方势力",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "韦",
+      "OrgType": "地方势力",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "顾",
+      "OrgType": "地方势力",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "昆吾",
+      "OrgType": "地方势力",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "夏",
+      "OrgType": "中央政权",
+      "DynastyName": "夏"
+    },
+    {
+      "OrgName": "商",
+      "OrgType": "中央政权",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "下旨",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "鬼方",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "土方",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "东夷",
+      "OrgType": "部落联盟",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "周",
+      "OrgType": "国家",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "崇国",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "庸",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "蜀",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "羌",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "髳",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "微",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "卢",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "彭",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "濮",
+      "OrgType": "部落",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "商",
+      "OrgType": "国家",
+      "DynastyName": "商"
+    },
+    {
+      "OrgName": "西周",
+      "OrgType": "国家",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "徐",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "奄",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "奄国",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "淮夷",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "及国",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "荆楚部落",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "犬戎",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "荆蛮",
+      "OrgType": "部落",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "申国",
+      "OrgType": "地方势力",
+      "DynastyName": "西周"
+    },
+    {
+      "OrgName": "北戎",
+      "OrgType": "部落",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "郑国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "周王室",
+      "OrgType": "中央政权",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "陈国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "蔡国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "卫国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "鲁国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "齐国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "山戎",
+      "OrgType": "部落",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "燕国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "孤竹",
+      "OrgType": "部落",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "令支",
+      "OrgType": "部落",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "宋国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "楚国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "晋国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "曹国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "许国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "秦国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "赤狄潞氏",
+      "OrgType": "部落",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "邾国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "滕国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "吴国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "越国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "顿国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "胡国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "沈国",
+      "OrgType": "国家",
+      "DynastyName": "春秋"
+    },
+    {
+      "OrgName": "知氏",
+      "OrgType": "地方势力",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "赵",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "魏",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "韩",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "秦",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "齐",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "楚",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "燕",
+      "OrgType": "诸侯国",
+      "DynastyName": "战国"
+    },
+    {
+      "OrgName": "秦",
+      "OrgType": "中央政权",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "匈奴",
+      "OrgType": "部落",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "张楚",
+      "OrgType": "起义军",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "楚",
+      "OrgType": "地方势力",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "汉",
+      "OrgType": "地方势力",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "赵",
+      "OrgType": "地方势力",
+      "DynastyName": "秦"
+    },
+    {
+      "OrgName": "汉",
+      "OrgType": "中央政权",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "楚",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "齐",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "赵",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "魏",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "燕",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "雍",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "塞",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "翟",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "汉",
+      "OrgType": "中央政权",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "匈奴",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "燕",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "楚",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "韩",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "赵",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "代",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "梁",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "淮南",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "吴",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "齐",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "胶西",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "胶东",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "淄川",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "济南",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "吕氏",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "汉",
+      "OrgType": "中央政权",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "匈奴",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "南越",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "闽越",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "东越",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "朝鲜",
+      "OrgType": "地方势力",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "西羌",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "乌孙",
+      "OrgType": "部落",
+      "DynastyName": "西汉"
+    },
+    {
+      "OrgName": "新莽",
+      "OrgType": "中央政权",
+      "DynastyName": "新莽"
+    },
+    {
+      "OrgName": "绿林军",
+      "OrgType": "起义军",
+      "DynastyName": "新莽"
+    },
+    {
+      "OrgName": "赤眉军",
+      "OrgType": "起义军",
+      "DynastyName": "新莽"
+    },
+    {
+      "OrgName": "汉",
+      "OrgType": "中央政权",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "更始政权",
+      "OrgType": "地方势力",
+      "DynastyName": "新莽"
+    },
+    {
+      "OrgName": "陇西隗嚣",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "公孙述",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "刘永",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "董宪",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "张步",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "彭宠",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "匈奴",
+      "OrgType": "部落",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "南匈奴",
+      "OrgType": "部落",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "北匈奴",
+      "OrgType": "部落",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "羌人",
+      "OrgType": "部落",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "东汉",
+      "OrgType": "中央政权",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "黄巾军",
+      "OrgType": "起义军",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "袁绍",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "袁术",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "吕布",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "刘表",
+      "OrgType": "地方势力",
+      "DynastyName": "东汉"
+    },
+    {
+      "OrgName": "魏",
+      "OrgType": "国家",
+      "DynastyName": "三国"
+    },
+    {
+      "OrgName": "蜀",
+      "OrgType": "国家",
+      "DynastyName": "三国"
+    },
+    {
+      "OrgName": "吴",
+      "OrgType": "国家",
+      "DynastyName": "三国"
+    },
+    {
+      "OrgName": "晋",
+      "OrgType": "中央政权",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "汉国",
+      "OrgType": "国家",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "匈奴五部",
+      "OrgType": "部落",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "鲜卑",
+      "OrgType": "部落",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "西晋中央政权",
+      "OrgType": "中央政权",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "西晋诸王势力",
+      "OrgType": "地方势力",
+      "DynastyName": "西晋"
+    },
+    {
+      "OrgName": "东晋",
+      "OrgType": "中央政权",
+      "DynastyName": "东晋"
+    },
+    {
+      "OrgName": "后赵",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "前赵",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "前秦",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "南燕",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "后秦",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "前燕",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "成汉",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "五胡",
+      "OrgType": "民族联盟",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "宋",
+      "OrgType": "国家",
+      "DynastyName": "南朝"
+    },
+    {
+      "OrgName": "北魏",
+      "OrgType": "国家",
+      "DynastyName": "北朝"
+    },
+    {
+      "OrgName": "南齐",
+      "OrgType": "国家",
+      "DynastyName": "南朝"
+    },
+    {
+      "OrgName": "南梁",
+      "OrgType": "国家",
+      "DynastyName": "南朝"
+    },
+    {
+      "OrgName": "陈",
+      "OrgType": "国家",
+      "DynastyName": "南朝"
+    },
+    {
+      "OrgName": "东魏",
+      "OrgType": "国家",
+      "DynastyName": "北朝"
+    },
+    {
+      "OrgName": "西魏",
+      "OrgType": "国家",
+      "DynastyName": "北朝"
+    },
+    {
+      "OrgName": "北周",
+      "OrgType": "国家",
+      "DynastyName": "北朝"
+    },
+    {
+      "OrgName": "北齐",
+      "OrgType": "国家",
+      "DynastyName": "北朝"
+    },
+    {
+      "OrgName": "隋",
+      "OrgType": "国家",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "柔然",
+      "OrgType": "部落",
+      "DynastyName": "南北朝"
+    },
+    {
+      "OrgName": "大夏",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "北燕",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "北凉",
+      "OrgType": "国家",
+      "DynastyName": "十六国"
+    },
+    {
+      "OrgName": "隋朝",
+      "OrgType": "中央政权",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "陈朝",
+      "OrgType": "地方政权",
+      "DynastyName": "南北朝"
+    },
+    {
+      "OrgName": "后梁",
+      "OrgType": "地方政权",
+      "DynastyName": "南北朝"
+    },
+    {
+      "OrgName": "突厥",
+      "OrgType": "部落",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "高丽",
+      "OrgType": "国家",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "瓦岗军",
+      "OrgType": "起义军",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "窦建德军",
+      "OrgType": "起义军",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "杜伏威军",
+      "OrgType": "起义军",
+      "DynastyName": "隋"
+    },
+    {
+      "OrgName": "唐朝",
+      "OrgType": "中央政权",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "东突厥",
+      "OrgType": "部落联盟",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "西突厥",
+      "OrgType": "部落联盟",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "吐谷浑",
+      "OrgType": "部落政权",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "高昌",
+      "OrgType": "地方政权",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "焉耆",
+      "OrgType": "地方政权",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "龟兹",
+      "OrgType": "地方政权",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "高丽",
+      "OrgType": "国家",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "百济",
+      "OrgType": "国家",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "新罗",
+      "OrgType": "国家",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "吐蕃",
+      "OrgType": "国家",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "契丹",
+      "OrgType": "部落",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "安禄山叛军",
+      "OrgType": "地方势力",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "史思明叛军",
+      "OrgType": "地方势力",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "魏博镇",
+      "OrgType": "藩镇割据",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "成德镇",
+      "OrgType": "藩镇割据",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "淄青镇",
+      "OrgType": "藩镇割据",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "黄巢起义军",
+      "OrgType": "起义军",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "王仙芝起义军",
+      "OrgType": "起义军",
+      "DynastyName": "唐"
+    },
+    {
+      "OrgName": "后梁",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "后唐",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "后晋",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "后汉",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "后周",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "吴",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "南唐",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "前蜀",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "后蜀",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "南汉",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "楚",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "吴越",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "闽",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "南平",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "北汉",
+      "OrgType": "国家",
+      "DynastyName": "十国"
+    },
+    {
+      "OrgName": "黄巢起义军",
+      "OrgType": "起义军",
+      "DynastyName": "唐末"
+    },
+    {
+      "OrgName": "晋（李克用集团）",
+      "OrgType": "地方势力",
+      "DynastyName": "唐末五代初"
+    },
+    {
+      "OrgName": "燕（刘守光）",
+      "OrgType": "国家",
+      "DynastyName": "五代"
+    },
+    {
+      "OrgName": "契丹",
+      "OrgType": "部落/国家",
+      "DynastyName": "辽"
+    },
+    {
+      "OrgName": "辽",
+      "OrgType": "国家",
+      "DynastyName": "辽"
+    },
+    {
+      "OrgName": "后梁军",
+      "OrgType": "地方势力",
+      "DynastyName": "后梁"
+    },
+    {
+      "OrgName": "晋军（李克用、李存勖）",
+      "OrgType": "地方势力",
+      "DynastyName": "唐末五代初"
+    },
+    {
+      "OrgName": "后唐军",
+      "OrgType": "地方势力",
+      "DynastyName": "后唐"
+    },
+    {
+      "OrgName": "后晋军",
+      "OrgType": "地方势力",
+      "DynastyName": "后晋"
+    },
+    {
+      "OrgName": "后汉军",
+      "OrgType": "地方势力",
+      "DynastyName": "后汉"
+    },
+    {
+      "OrgName": "后周军",
+      "OrgType": "地方势力",
+      "DynastyName": "后周"
+    },
+    {
+      "OrgName": "南唐军",
+      "OrgType": "地方势力",
+      "DynastyName": "南唐"
+    },
+    {
+      "OrgName": "后蜀军",
+      "OrgType": "地方势力",
+      "DynastyName": "后蜀"
+    },
+    {
+      "OrgName": "北汉军",
+      "OrgType": "地方势力",
+      "DynastyName": "北汉"
+    },
+    {
+      "OrgName": "北汉军",
+      "OrgType": "地方势力",
+      "DynastyName": "北汉"
+    },
+    {
+      "OrgName": "北宋",
+      "OrgType": "中央政权",
+      "DynastyName": "宋"
+    },
+    {
+      "OrgName": "南宋",
+      "OrgType": "中央政权",
+      "DynastyName": "宋"
+    },
+    {
+      "OrgName": "辽",
+      "OrgType": "国家",
+      "DynastyName": "辽"
+    },
+    {
+      "OrgName": "金",
+      "OrgType": "国家",
+      "DynastyName": "金"
+    },
+    {
+      "OrgName": "西夏",
+      "OrgType": "国家",
+      "DynastyName": "西夏"
+    },
+    {
+      "OrgName": "元",
+      "OrgType": "中央政权",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "蒙古汗国",
+      "OrgType": "国家",
+      "DynastyName": "蒙古"
+    },
+    {
+      "OrgName": "红巾军",
+      "OrgType": "起义军",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "宋江起义军",
+      "OrgType": "起义军",
+      "DynastyName": "北宋"
+    },
+    {
+      "OrgName": "方腊起义军",
+      "OrgType": "起义军",
+      "DynastyName": "北宋"
+    },
+    {
+      "OrgName": "王小波起义军",
+      "OrgType": "起义军",
+      "DynastyName": "北宋"
+    },
+    {
+      "OrgName": "钟相、杨么起义军",
+      "OrgType": "起义军",
+      "DynastyName": "南宋"
+    },
+    {
+      "OrgName": "花剌子模",
+      "OrgType": "国家",
+      "DynastyName": "蒙古"
+    },
+    {
+      "OrgName": "突厥克烈部",
+      "OrgType": "部落",
+      "DynastyName": "蒙古"
+    },
+    {
+      "OrgName": "孛儿只斤部",
+      "OrgType": "部落",
+      "DynastyName": "蒙古"
+    },
+    {
+      "OrgName": "汪古部",
+      "OrgType": "部落",
+      "DynastyName": "蒙古、金"
+    },
+    {
+      "OrgName": "八字军",
+      "OrgType": "地方势力/义军",
+      "DynastyName": "南宋"
+    },
+    {
+      "OrgName": "伪齐",
+      "OrgType": "地方势力",
+      "DynastyName": "南宋、金"
+    },
+    {
+      "OrgName": "北汉",
+      "OrgType": "地方势力",
+      "DynastyName": "五代、北宋"
+    },
+    {
+      "OrgName": "大理国",
+      "OrgType": "国家",
+      "DynastyName": "宋"
+    },
+    {
+      "OrgName": "明",
+      "OrgType": "中央政权",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "清",
+      "OrgType": "中央政权",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "元",
+      "OrgType": "中央政权",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "北元",
+      "OrgType": "地方势力",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "后金",
+      "OrgType": "地方势力",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "红巾军",
+      "OrgType": "起义军",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "大顺政权",
+      "OrgType": "起义军",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "大西政权",
+      "OrgType": "起义军",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "太平天国",
+      "OrgType": "起义军",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "南明",
+      "OrgType": "地方势力",
+      "DynastyName": "明、清"
+    },
+    {
+      "OrgName": "大宋政权（韩林儿）",
+      "OrgType": "起义军",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "陈友谅部",
+      "OrgType": "地方势力",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "张士诚部",
+      "OrgType": "地方势力",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "方国珍部",
+      "OrgType": "地方势力",
+      "DynastyName": "元"
+    },
+    {
+      "OrgName": "明玉珍部（夏）",
+      "OrgType": "地方势力",
+      "DynastyName": "元、明"
+    },
+    {
+      "OrgName": "蒙古（鞑靼、瓦剌、兀良哈等部）",
+      "OrgType": "部落",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "准噶尔部",
+      "OrgType": "部落",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "郑氏集团（郑成功、郑经等）",
+      "OrgType": "地方势力",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "三藩（吴三桂、尚可喜、耿精忠）",
+      "OrgType": "地方势力",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "倭寇（日本海盗集团）",
+      "OrgType": "地方势力",
+      "DynastyName": "明"
+    },
+    {
+      "OrgName": "荷兰殖民者",
+      "OrgType": "国家",
+      "DynastyName": "明、清"
+    },
+    {
+      "OrgName": "英国",
+      "OrgType": "国家",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "法国",
+      "OrgType": "国家",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "八国联军（俄、英、美、日、德、意、奥等）",
+      "OrgType": "联盟",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "捻军",
+      "OrgType": "起义军",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "黑旗军",
+      "OrgType": "地方势力/起义军",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "湘军",
+      "OrgType": "地方势力（清军武装）",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "淮军",
+      "OrgType": "地方势力（清军武装）",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "北洋海军",
+      "OrgType": "中央政权（清军武装）",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "福建水师",
+      "OrgType": "中央政权（清军武装）",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "义和团",
+      "OrgType": "起义军/民间组织",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "拜上帝会",
+      "OrgType": "起义军/宗教组织",
+      "DynastyName": "清"
+    },
+    {
+      "OrgName": "天地会",
+      "OrgType": "民间组织/起义军",
+      "DynastyName": "清"
+    }
+  ],
+  "persons": [
+    {
+      "PersonName": "启",
+      "DynastyName": "夏",
+      "OrgName": "夏启政权",
+      "Role": "君主",
+      "Note": "禹之子，中国历史上第一个国王，击败伯益和有扈氏，建立夏王朝"
+    },
+    {
+      "PersonName": "伯益",
+      "DynastyName": "夏",
+      "OrgName": "东夷",
+      "Role": "首领",
+      "Note": "东方偃姓部落首领，曾受禹推荐，为维护禅让制起兵反对夏启，战败被杀"
+    },
+    {
+      "PersonName": "太康",
+      "DynastyName": "夏",
+      "OrgName": "夏太康政权",
+      "Role": "君主",
+      "Note": "启之子，因游猎失国，史称“太康失国”"
+    },
+    {
+      "PersonName": "后羿",
+      "DynastyName": "夏",
+      "OrgName": "后羿政权",
+      "Role": "首领",
+      "Note": "有穷氏首领，乘太康失国夺取夏政权，后被寒浞所杀"
+    },
+    {
+      "PersonName": "寒浞",
+      "DynastyName": "夏",
+      "OrgName": "寒浞势力",
+      "Role": "首领",
+      "Note": "后羿亲信，杀后羿夺权，攻杀帝相，后被少康所灭"
+    },
+    {
+      "PersonName": "帝相",
+      "DynastyName": "夏",
+      "OrgName": "斟灌氏部落",
+      "Role": "君主",
+      "Note": "仲康之子，太康失国后立国于帝丘，被寒浞攻杀"
+    },
+    {
+      "PersonName": "少康",
+      "DynastyName": "夏",
+      "OrgName": "少康势力",
+      "Role": "君主",
+      "Note": "相之遗腹子，联合靡等击杀寒浞，恢复夏王朝，史称“少康中兴”"
+    },
+    {
+      "PersonName": "靡",
+      "DynastyName": "夏",
+      "OrgName": "少康势力",
+      "Role": "大臣",
+      "Note": "夏朝旧臣，招纳斟灌氏、斟寻氏余众，配合少康复国"
+    },
+    {
+      "PersonName": "商汤",
+      "DynastyName": "夏",
+      "OrgName": "商",
+      "Role": "君主",
+      "Note": "商部落首领，商军统帅，战前作“汤誓”"
+    },
+    {
+      "PersonName": "夏桀",
+      "DynastyName": "夏",
+      "OrgName": "夏",
+      "Role": "君主",
+      "Note": "夏军统帅，战败被俘"
+    },
+    {
+      "PersonName": "武丁",
+      "DynastyName": "商",
+      "OrgName": "商",
+      "Role": "君主",
+      "Note": "决策者，最高统帅，曾7次征调援军"
+    },
+    {
+      "PersonName": "望乘",
+      "DynastyName": "商",
+      "OrgName": "商",
+      "Role": "将领",
+      "Note": "前线统帅"
+    },
+    {
+      "PersonName": "商纣王",
+      "DynastyName": "商",
+      "OrgName": "商",
+      "Role": "君主",
+      "Note": "战争发动与征服者; 末代商王"
+    },
+    {
+      "PersonName": "姬昌",
+      "DynastyName": "商",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "周族首领，谥号周文王"
+    },
+    {
+      "PersonName": "姬发",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "周族首领，谥号周武王"
+    },
+    {
+      "PersonName": "吕望",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "谋士",
+      "Note": "辅佐周武王，军事家"
+    },
+    {
+      "PersonName": "武庚",
+      "DynastyName": "西周",
+      "OrgName": "殷",
+      "Role": "首领",
+      "Note": "纣王之子，殷遗民首领"
+    },
+    {
+      "PersonName": "管叔",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "宗室",
+      "Note": "周武王之弟"
+    },
+    {
+      "PersonName": "蔡叔",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "宗室",
+      "Note": "周武王之弟"
+    },
+    {
+      "PersonName": "周公旦",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "摄政",
+      "Note": "周武王之弟"
+    },
+    {
+      "PersonName": "伯禽",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "将领",
+      "Note": "周公旦之子"
+    },
+    {
+      "PersonName": "姬诵",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "谥号周成王"
+    },
+    {
+      "PersonName": "毛公",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "统帅",
+      "Note": "统领王师及殷八师"
+    },
+    {
+      "PersonName": "姬瑕",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "谥号周昭王"
+    },
+    {
+      "PersonName": "姬满",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "谥号周穆王"
+    },
+    {
+      "PersonName": "方叔",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "将领",
+      "Note": "周宣王所派"
+    },
+    {
+      "PersonName": "申侯",
+      "DynastyName": "西周",
+      "OrgName": "申国",
+      "Role": "诸侯",
+      "Note": "联合犬戎攻周"
+    },
+    {
+      "PersonName": "姬宫湦",
+      "DynastyName": "西周",
+      "OrgName": "周",
+      "Role": "君主",
+      "Note": "谥号周幽王"
+    },
+    {
+      "PersonName": "郑庄公",
+      "DynastyName": "春秋",
+      "OrgName": "郑国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "公子突",
+      "DynastyName": "春秋",
+      "OrgName": "郑国",
+      "Role": "公子/谋士",
+      "Note": null
+    },
+    {
+      "PersonName": "周桓王",
+      "DynastyName": "春秋",
+      "OrgName": "周王室",
+      "Role": "天子",
+      "Note": "中箭负伤"
+    },
+    {
+      "PersonName": "子元",
+      "DynastyName": "春秋",
+      "OrgName": "郑国",
+      "Role": "大夫/谋士",
+      "Note": "建议使用‘鱼丽之阵’"
+    },
+    {
+      "PersonName": "鲁庄公",
+      "DynastyName": "春秋",
+      "OrgName": "鲁国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "齐桓公（公子小白）",
+      "DynastyName": "春秋",
+      "OrgName": "齐国",
+      "Role": "君主",
+      "Note": "初为公子"
+    },
+    {
+      "PersonName": "公子纠",
+      "DynastyName": "春秋",
+      "OrgName": "齐国",
+      "Role": "公子",
+      "Note": null
+    },
+    {
+      "PersonName": "曹刿",
+      "DynastyName": "春秋",
+      "OrgName": "鲁国",
+      "Role": "士人/谋士",
+      "Note": null
+    },
+    {
+      "PersonName": "燕庄公",
+      "DynastyName": "春秋",
+      "OrgName": "燕国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "宋襄公",
+      "DynastyName": "春秋",
+      "OrgName": "宋国",
+      "Role": "君主",
+      "Note": "泓水之战重伤而死"
+    },
+    {
+      "PersonName": "楚成王",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "公孙固",
+      "DynastyName": "春秋",
+      "OrgName": "宋国",
+      "Role": "司马/谋士",
+      "Note": null
+    },
+    {
+      "PersonName": "晋文公（重耳）",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "卫成公",
+      "DynastyName": "春秋",
+      "OrgName": "卫国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "曹共公",
+      "DynastyName": "春秋",
+      "OrgName": "曹国",
+      "Role": "君主",
+      "Note": "被晋军俘虏"
+    },
+    {
+      "PersonName": "先轸",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "元帅/统帅",
+      "Note": "城濮之战、崤山之战将领"
+    },
+    {
+      "PersonName": "子玉",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "令尹/统帅",
+      "Note": "城濮之战兵败自杀"
+    },
+    {
+      "PersonName": "狐毛",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "上军主将",
+      "Note": null
+    },
+    {
+      "PersonName": "栾枝",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "下军主将",
+      "Note": null
+    },
+    {
+      "PersonName": "胥臣",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "下军副将",
+      "Note": null
+    },
+    {
+      "PersonName": "秦穆公",
+      "DynastyName": "春秋",
+      "OrgName": "秦国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "晋襄公",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "孟明视",
+      "DynastyName": "春秋",
+      "OrgName": "秦国",
+      "Role": "将领/统帅",
+      "Note": "崤山之战被俘"
+    },
+    {
+      "PersonName": "弦高",
+      "DynastyName": "春秋",
+      "OrgName": "郑国",
+      "Role": "商人",
+      "Note": "犒师退敌"
+    },
+    {
+      "PersonName": "狼瞫",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "将领",
+      "Note": null
+    },
+    {
+      "PersonName": "楚庄王",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "君主",
+      "Note": "亲自率军进攻郑国，追逐赵旃"
+    },
+    {
+      "PersonName": "晋景公",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "君主",
+      "Note": "派荀林父救郑；击破诸戎；与齐顷公会盟；派巫臣联吴；扣留郑成公；与齐、鲁等联军攻秦"
+    },
+    {
+      "PersonName": "荀林父",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "统帅",
+      "Note": "率晋三军救郑，遭楚军冲击后下令渡河后退；率军进攻赤狄潞氏"
+    },
+    {
+      "PersonName": "赵旃",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "将领",
+      "Note": "奉命讲和，反擅自向楚军挑战，率步兵冲进楚营"
+    },
+    {
+      "PersonName": "潞氏婴儿",
+      "DynastyName": "春秋",
+      "OrgName": "赤狄潞氏",
+      "Role": "首领",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "齐顷公",
+      "DynastyName": "春秋",
+      "OrgName": "齐国",
+      "Role": "君主",
+      "Note": "背盟联楚，兴兵伐鲁，战败后献宝求和"
+    },
+    {
+      "PersonName": "栾书",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "统帅",
+      "Note": "指挥中军"
+    },
+    {
+      "PersonName": "晋厉公",
+      "DynastyName": "春秋",
+      "OrgName": "晋国",
+      "Role": "君主",
+      "Note": "令卫军先趋鸣雁，命栾书为中军帅，观察楚阵并采纳苗贲黄建议"
+    },
+    {
+      "PersonName": "楚共王",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "君主",
+      "Note": "亲统楚军及夷兵救郑，登巢车观察晋阵，率中军攻晋厉公时伤目"
+    },
+    {
+      "PersonName": "楚灵王",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "君主",
+      "Note": "召集诸侯伐吴，率军至汝清、坻箕山"
+    },
+    {
+      "PersonName": "吴王僚",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "君主",
+      "Note": "率公子光等兴兵进攻州来"
+    },
+    {
+      "PersonName": "莲越",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "统帅",
+      "Note": "率楚及诸侯联军救援州来，代帅"
+    },
+    {
+      "PersonName": "子瑕",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "令尹",
+      "Note": "带病督军，进军途中病亡"
+    },
+    {
+      "PersonName": "吴王阖闾",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "君主",
+      "Note": "率军攻楚；乘丧伐越，战败负重伤而死"
+    },
+    {
+      "PersonName": "夫概",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "将领",
+      "Note": "率5000士卒猛击子常军，提出半渡而击计谋"
+    },
+    {
+      "PersonName": "伍员",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "谋臣",
+      "Note": "参与谋划；建议夫差灭越"
+    },
+    {
+      "PersonName": "楚昭王",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "君主",
+      "Note": "逃亡随国"
+    },
+    {
+      "PersonName": "子常",
+      "DynastyName": "春秋",
+      "OrgName": "楚国",
+      "Role": "令尹",
+      "Note": "率楚军坚守汉水，贪功渡河追击，兵败后弃军逃奔郑国"
+    },
+    {
+      "PersonName": "越王勾践",
+      "DynastyName": "春秋",
+      "OrgName": "越国",
+      "Role": "君主",
+      "Note": "新立，御吴军于槜李；先发制人攻吴，战败后退守求和；采纳范蠡、文种建议，乘虚袭吴；率军攻吴，实施渡江奇袭"
+    },
+    {
+      "PersonName": "吴王夫差",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "君主",
+      "Note": "率舟师迎战，大破越军，后接受议和；兴兵伐齐；率精锐赴黄池会盟，国内空虚，回军后议和；仓促迎战，兵败后退守，最终自杀"
+    },
+    {
+      "PersonName": "文种",
+      "DynastyName": "春秋",
+      "OrgName": "越国",
+      "Role": "大臣",
+      "Note": "向吴求和；提议袭吴"
+    },
+    {
+      "PersonName": "伯嚭",
+      "DynastyName": "春秋",
+      "OrgName": "吴国",
+      "Role": "大臣",
+      "Note": "主张议和"
+    },
+    {
+      "PersonName": "国书",
+      "DynastyName": "春秋",
+      "OrgName": "齐国",
+      "Role": "主帅",
+      "Note": "被杀"
+    },
+    {
+      "PersonName": "范蠡",
+      "DynastyName": "春秋",
+      "OrgName": "越国",
+      "Role": "谋士",
+      "Note": "提议袭吴；后采用围而不攻战术"
+    },
+    {
+      "PersonName": "知伯",
+      "DynastyName": "战国",
+      "OrgName": "知氏",
+      "Role": "首领",
+      "Note": null
+    },
+    {
+      "PersonName": "赵襄子",
+      "DynastyName": "战国",
+      "OrgName": "赵",
+      "Role": "首领",
+      "Note": null
+    },
+    {
+      "PersonName": "韩康子",
+      "DynastyName": "战国",
+      "OrgName": "韩",
+      "Role": "首领",
+      "Note": null
+    },
+    {
+      "PersonName": "魏桓子",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "首领",
+      "Note": null
+    },
+    {
+      "PersonName": "吴起",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "将军",
+      "Note": "曾率魏军攻占秦国五城"
+    },
+    {
+      "PersonName": "庞涓",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "将军",
+      "Note": "被齐军擒获（桂陵之战）后自杀（马陵之战）"
+    },
+    {
+      "PersonName": "田忌",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "主将",
+      "Note": null
+    },
+    {
+      "PersonName": "孙膑",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "军师",
+      "Note": null
+    },
+    {
+      "PersonName": "太子申",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "上将军",
+      "Note": "被齐军俘虏（马陵之战）"
+    },
+    {
+      "PersonName": "公孙衍",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "魏相",
+      "Note": "合纵发起者"
+    },
+    {
+      "PersonName": "苏秦",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "纵约长",
+      "Note": null
+    },
+    {
+      "PersonName": "屈丐",
+      "DynastyName": "战国",
+      "OrgName": "楚",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "魏章",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "庶长",
+      "Note": null
+    },
+    {
+      "PersonName": "张仪",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "相",
+      "Note": "使楚行计"
+    },
+    {
+      "PersonName": "唐昧",
+      "DynastyName": "战国",
+      "OrgName": "楚",
+      "Role": "将军",
+      "Note": "被杀"
+    },
+    {
+      "PersonName": "白起",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "武安君，长平之战统帅"
+    },
+    {
+      "PersonName": "公孙喜",
+      "DynastyName": "战国",
+      "OrgName": "韩",
+      "Role": "主将",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "乐毅",
+      "DynastyName": "战国",
+      "OrgName": "燕",
+      "Role": "将军",
+      "Note": "联军统帅，后投奔赵国"
+    },
+    {
+      "PersonName": "齐湣王",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "君主",
+      "Note": "出逃被楚将所杀"
+    },
+    {
+      "PersonName": "触子",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "将军",
+      "Note": "济西之战逃亡"
+    },
+    {
+      "PersonName": "达子",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "将军",
+      "Note": "秦周之战战死"
+    },
+    {
+      "PersonName": "田单",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "将军",
+      "Note": "即墨守将，后受封安平君"
+    },
+    {
+      "PersonName": "骑劫",
+      "DynastyName": "战国",
+      "OrgName": "燕",
+      "Role": "将军",
+      "Note": "代替乐毅，战败被杀"
+    },
+    {
+      "PersonName": "王龁",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "长平之战前期统帅"
+    },
+    {
+      "PersonName": "廉颇",
+      "DynastyName": "战国",
+      "OrgName": "赵",
+      "Role": "将军",
+      "Note": "长平之战前期统帅"
+    },
+    {
+      "PersonName": "赵括",
+      "DynastyName": "战国",
+      "OrgName": "赵",
+      "Role": "将军",
+      "Note": "代替廉颇为将，战死"
+    },
+    {
+      "PersonName": "嬴政",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "君主",
+      "Note": "秦王/始皇帝，统一战争的最高决策者"
+    },
+    {
+      "PersonName": "王翦",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "灭赵、燕、楚主将"
+    },
+    {
+      "PersonName": "王贲",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "灭魏、齐，北击燕代"
+    },
+    {
+      "PersonName": "李牧",
+      "DynastyName": "战国",
+      "OrgName": "赵",
+      "Role": "将军",
+      "Note": "抗秦名将，后被冤杀"
+    },
+    {
+      "PersonName": "内史腾",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "南阳郡守/将领，灭韩主将"
+    },
+    {
+      "PersonName": "韩王安",
+      "DynastyName": "战国",
+      "OrgName": "韩",
+      "Role": "君主",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "赵王迁",
+      "DynastyName": "战国",
+      "OrgName": "赵",
+      "Role": "君主",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "辛胜",
+      "DynastyName": "战国",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "灭燕将领"
+    },
+    {
+      "PersonName": "荆轲",
+      "DynastyName": "战国",
+      "OrgName": "燕",
+      "Role": "使者",
+      "Note": "刺秦失败被杀"
+    },
+    {
+      "PersonName": "燕王喜",
+      "DynastyName": "战国",
+      "OrgName": "燕",
+      "Role": "君主",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "魏王假",
+      "DynastyName": "战国",
+      "OrgName": "魏",
+      "Role": "君主",
+      "Note": "出降后被斩杀"
+    },
+    {
+      "PersonName": "项燕",
+      "DynastyName": "战国",
+      "OrgName": "楚",
+      "Role": "将军",
+      "Note": "楚军统帅，战败被杀"
+    },
+    {
+      "PersonName": "楚王负刍",
+      "DynastyName": "战国",
+      "OrgName": "楚",
+      "Role": "君主",
+      "Note": "被俘"
+    },
+    {
+      "PersonName": "齐王建",
+      "DynastyName": "战国",
+      "OrgName": "齐",
+      "Role": "君主",
+      "Note": "出降"
+    },
+    {
+      "PersonName": "秦始皇",
+      "DynastyName": "秦",
+      "OrgName": "秦",
+      "Role": "君主",
+      "Note": "嬴政"
+    },
+    {
+      "PersonName": "蒙恬",
+      "DynastyName": "秦",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "率军北逐匈奴"
+    },
+    {
+      "PersonName": "陈胜",
+      "DynastyName": "秦",
+      "OrgName": "张楚",
+      "Role": "起义领袖",
+      "Note": "大泽乡起义"
+    },
+    {
+      "PersonName": "吴广",
+      "DynastyName": "秦",
+      "OrgName": "张楚",
+      "Role": "起义领袖",
+      "Note": "大泽乡起义"
+    },
+    {
+      "PersonName": "项羽",
+      "DynastyName": "秦、西汉",
+      "OrgName": "楚",
+      "Role": "统帅",
+      "Note": "巨鹿之战; 西楚霸王"
+    },
+    {
+      "PersonName": "刘邦",
+      "DynastyName": "秦、西汉",
+      "OrgName": "汉",
+      "Role": "统帅、君主",
+      "Note": "入关灭秦; 汉王，后为汉高祖; 汉高祖"
+    },
+    {
+      "PersonName": "章邯",
+      "DynastyName": "秦、西汉",
+      "OrgName": "秦、雍",
+      "Role": "将军",
+      "Note": "镇压起义军; 雍王，后自杀"
+    },
+    {
+      "PersonName": "赵高",
+      "DynastyName": "秦",
+      "OrgName": "秦",
+      "Role": "权臣",
+      "Note": "秦二世时专权"
+    },
+    {
+      "PersonName": "宋义",
+      "DynastyName": "秦",
+      "OrgName": "楚",
+      "Role": "将军",
+      "Note": "上将军，被项羽杀"
+    },
+    {
+      "PersonName": "王离",
+      "DynastyName": "秦",
+      "OrgName": "秦",
+      "Role": "将军",
+      "Note": "围巨鹿，被俘"
+    },
+    {
+      "PersonName": "韩信",
+      "DynastyName": "西汉",
+      "OrgName": "汉、楚",
+      "Role": "将军",
+      "Note": "汉军大将; 原齐王、楚王，后为淮阴侯"
+    },
+    {
+      "PersonName": "张良",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "谋士",
+      "Note": "字子房"
+    },
+    {
+      "PersonName": "萧何",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "丞相",
+      "Note": "镇守关中"
+    },
+    {
+      "PersonName": "范增",
+      "DynastyName": "西汉",
+      "OrgName": "楚",
+      "Role": "谋士",
+      "Note": "项羽谋士"
+    },
+    {
+      "PersonName": "曹参",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "彭越",
+      "DynastyName": "西汉",
+      "OrgName": "汉、梁",
+      "Role": "将军",
+      "Note": "游击楚军后方; 梁王"
+    },
+    {
+      "PersonName": "英布",
+      "DynastyName": "西汉",
+      "OrgName": "汉、淮南",
+      "Role": "将军",
+      "Note": "原属项羽，后归汉; 淮南王"
+    },
+    {
+      "PersonName": "龙且",
+      "DynastyName": "西汉",
+      "OrgName": "楚",
+      "Role": "将军",
+      "Note": "救齐时战死"
+    },
+    {
+      "PersonName": "田广",
+      "DynastyName": "西汉",
+      "OrgName": "齐",
+      "Role": "君主",
+      "Note": "齐王，被俘"
+    },
+    {
+      "PersonName": "陈余",
+      "DynastyName": "西汉",
+      "OrgName": "赵",
+      "Role": "将军",
+      "Note": "赵相，被斩"
+    },
+    {
+      "PersonName": "魏豹",
+      "DynastyName": "西汉",
+      "OrgName": "魏",
+      "Role": "君主",
+      "Note": "魏王，被俘"
+    },
+    {
+      "PersonName": "卢绾",
+      "DynastyName": "西汉",
+      "OrgName": "燕",
+      "Role": "将军",
+      "Note": "燕王"
+    },
+    {
+      "PersonName": "韩王信",
+      "DynastyName": "西汉",
+      "OrgName": "韩",
+      "Role": "将军",
+      "Note": "韩王"
+    },
+    {
+      "PersonName": "陈豨",
+      "DynastyName": "西汉",
+      "OrgName": "代",
+      "Role": "将军",
+      "Note": "代相，自立为代王"
+    },
+    {
+      "PersonName": "刘濞",
+      "DynastyName": "西汉",
+      "OrgName": "吴",
+      "Role": "君主",
+      "Note": "吴王"
+    },
+    {
+      "PersonName": "刘戊",
+      "DynastyName": "西汉",
+      "OrgName": "楚",
+      "Role": "君主",
+      "Note": "楚王"
+    },
+    {
+      "PersonName": "周亚夫",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "太尉"
+    },
+    {
+      "PersonName": "晁错",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "谋士",
+      "Note": "御史大夫"
+    },
+    {
+      "PersonName": "刘恒",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "君主",
+      "Note": "汉文帝"
+    },
+    {
+      "PersonName": "刘启",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "君主",
+      "Note": "汉景帝"
+    },
+    {
+      "PersonName": "吕后",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "太后",
+      "Note": "刘邦之妻"
+    },
+    {
+      "PersonName": "冒顿",
+      "DynastyName": "西汉",
+      "OrgName": "匈奴",
+      "Role": "君主",
+      "Note": "匈奴单于"
+    },
+    {
+      "PersonName": "陈平",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "丞相",
+      "Note": null
+    },
+    {
+      "PersonName": "周勃",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "太尉"
+    },
+    {
+      "PersonName": "灌婴",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "汉武帝",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "君主",
+      "Note": "刘彻"
+    },
+    {
+      "PersonName": "卫青",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "大将军"
+    },
+    {
+      "PersonName": "霍去病",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "骠骑将军"
+    },
+    {
+      "PersonName": "李广",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "张骞",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "使者",
+      "Note": "出使西域"
+    },
+    {
+      "PersonName": "赵佗",
+      "DynastyName": "西汉",
+      "OrgName": "南越",
+      "Role": "君主",
+      "Note": "南越武王"
+    },
+    {
+      "PersonName": "路博德",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "伏波将军"
+    },
+    {
+      "PersonName": "杨仆",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "楼船将军"
+    },
+    {
+      "PersonName": "韩说",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "荀彘",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "赵充国",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "陈汤",
+      "DynastyName": "西汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "西域副校尉"
+    },
+    {
+      "PersonName": "呼韩邪单于",
+      "DynastyName": "西汉",
+      "OrgName": "匈奴",
+      "Role": "君主",
+      "Note": "降汉"
+    },
+    {
+      "PersonName": "郅支单于",
+      "DynastyName": "西汉",
+      "OrgName": "匈奴",
+      "Role": "君主",
+      "Note": "被陈汤击杀"
+    },
+    {
+      "PersonName": "王莽",
+      "DynastyName": "新莽",
+      "OrgName": "新莽",
+      "Role": "君主",
+      "Note": "新朝皇帝"
+    },
+    {
+      "PersonName": "刘秀",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "君主",
+      "Note": "汉光武帝"
+    },
+    {
+      "PersonName": "刘玄",
+      "DynastyName": "新莽",
+      "OrgName": "更始政权",
+      "Role": "君主",
+      "Note": "更始帝"
+    },
+    {
+      "PersonName": "王匡",
+      "DynastyName": "新莽",
+      "OrgName": "绿林军",
+      "Role": "起义领袖",
+      "Note": "新市军"
+    },
+    {
+      "PersonName": "樊崇",
+      "DynastyName": "新莽",
+      "OrgName": "赤眉军",
+      "Role": "起义领袖",
+      "Note": "赤眉军首领"
+    },
+    {
+      "PersonName": "邓禹",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "冯异",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "征西大将军"
+    },
+    {
+      "PersonName": "岑彭",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "吴汉",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "耿弇",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "建威大将军"
+    },
+    {
+      "PersonName": "隗嚣",
+      "DynastyName": "东汉",
+      "OrgName": "陇西隗嚣",
+      "Role": "君主",
+      "Note": "割据陇西"
+    },
+    {
+      "PersonName": "公孙述",
+      "DynastyName": "东汉",
+      "OrgName": "公孙述",
+      "Role": "君主",
+      "Note": "割据蜀地"
+    },
+    {
+      "PersonName": "窦宪",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "车骑将军"
+    },
+    {
+      "PersonName": "班超",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "使者",
+      "Note": "出使西域"
+    },
+    {
+      "PersonName": "段颎",
+      "DynastyName": "东汉",
+      "OrgName": "汉",
+      "Role": "将军",
+      "Note": "护羌校尉"
+    },
+    {
+      "PersonName": "曹操",
+      "DynastyName": "东汉",
+      "OrgName": "魏",
+      "Role": "统帅",
+      "Note": "魏武帝，丞相"
+    },
+    {
+      "PersonName": "刘备",
+      "DynastyName": "三国",
+      "OrgName": "蜀",
+      "Role": "君主",
+      "Note": "蜀汉昭烈帝"
+    },
+    {
+      "PersonName": "孙权",
+      "DynastyName": "三国",
+      "OrgName": "吴",
+      "Role": "君主",
+      "Note": "吴大帝"
+    },
+    {
+      "PersonName": "诸葛亮",
+      "DynastyName": "三国",
+      "OrgName": "蜀",
+      "Role": "丞相",
+      "Note": "字孔明"
+    },
+    {
+      "PersonName": "关羽",
+      "DynastyName": "三国",
+      "OrgName": "蜀",
+      "Role": "将军",
+      "Note": "字云长"
+    },
+    {
+      "PersonName": "张飞",
+      "DynastyName": "三国",
+      "OrgName": "蜀",
+      "Role": "将军",
+      "Note": "字翼德"
+    },
+    {
+      "PersonName": "周瑜",
+      "DynastyName": "三国",
+      "OrgName": "吴",
+      "Role": "统帅",
+      "Note": "字公瑾"
+    },
+    {
+      "PersonName": "司马懿",
+      "DynastyName": "三国",
+      "OrgName": "魏",
+      "Role": "统帅",
+      "Note": "字仲达"
+    },
+    {
+      "PersonName": "袁绍",
+      "DynastyName": "东汉",
+      "OrgName": "袁绍",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "董卓",
+      "DynastyName": "东汉",
+      "OrgName": "东汉",
+      "Role": "权臣",
+      "Note": null
+    },
+    {
+      "PersonName": "吕布",
+      "DynastyName": "东汉",
+      "OrgName": "吕布",
+      "Role": "将军",
+      "Note": null
+    },
+    {
+      "PersonName": "荀彧",
+      "DynastyName": "东汉",
+      "OrgName": "魏",
+      "Role": "谋士",
+      "Note": "字文若"
+    },
+    {
+      "PersonName": "陆逊",
+      "DynastyName": "三国",
+      "OrgName": "吴",
+      "Role": "统帅",
+      "Note": "字伯言"
+    },
+    {
+      "PersonName": "姜维",
+      "DynastyName": "三国",
+      "OrgName": "蜀",
+      "Role": "将军",
+      "Note": "字伯约"
+    },
+    {
+      "PersonName": "邓艾",
+      "DynastyName": "三国",
+      "OrgName": "魏",
+      "Role": "将军",
+      "Note": "字士载"
+    },
+    {
+      "PersonName": "钟会",
+      "DynastyName": "三国",
+      "OrgName": "魏",
+      "Role": "将军",
+      "Note": "字士季"
+    },
+    {
+      "PersonName": "司马炎",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "君主",
+      "Note": "晋武帝"
+    },
+    {
+      "PersonName": "司马昭",
+      "DynastyName": "曹魏、西晋",
+      "OrgName": "曹魏、晋",
+      "Role": "权臣",
+      "Note": "司马炎之父"
+    },
+    {
+      "PersonName": "曹奂",
+      "DynastyName": "曹魏",
+      "OrgName": "曹魏",
+      "Role": "君主",
+      "Note": "魏末代皇帝"
+    },
+    {
+      "PersonName": "羊祜",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "尚书左仆射"
+    },
+    {
+      "PersonName": "杜预",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "度支尚书"
+    },
+    {
+      "PersonName": "王睿",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "龙骡将军"
+    },
+    {
+      "PersonName": "孙皓",
+      "DynastyName": "吴",
+      "OrgName": "吴",
+      "Role": "君主",
+      "Note": "吴末帝"
+    },
+    {
+      "PersonName": "孙秀",
+      "DynastyName": "吴、西晋",
+      "OrgName": "吴、晋",
+      "Role": "降将",
+      "Note": null
+    },
+    {
+      "PersonName": "孙楷",
+      "DynastyName": "吴、西晋",
+      "OrgName": "吴、晋",
+      "Role": "降将",
+      "Note": null
+    },
+    {
+      "PersonName": "陆抗",
+      "DynastyName": "吴",
+      "OrgName": "吴",
+      "Role": "将领",
+      "Note": "镇军大将"
+    },
+    {
+      "PersonName": "吾彦",
+      "DynastyName": "吴",
+      "OrgName": "吴",
+      "Role": "太守",
+      "Note": "建平太守"
+    },
+    {
+      "PersonName": "树机能",
+      "DynastyName": "西晋",
+      "OrgName": "鲜卑",
+      "Role": "部落首领",
+      "Note": null
+    },
+    {
+      "PersonName": "贾充",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "大臣",
+      "Note": "太尉"
+    },
+    {
+      "PersonName": "张政",
+      "DynastyName": "吴",
+      "OrgName": "吴",
+      "Role": "都督",
+      "Note": "西陵都督"
+    },
+    {
+      "PersonName": "司马伷",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "镇东将军"
+    },
+    {
+      "PersonName": "王浑",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "安东将军"
+    },
+    {
+      "PersonName": "王戎",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "建威将军"
+    },
+    {
+      "PersonName": "胡奋",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "将领",
+      "Note": "平南将军"
+    },
+    {
+      "PersonName": "唐彬",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "监军",
+      "Note": "巴东监军"
+    },
+    {
+      "PersonName": "张华",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "大臣",
+      "Note": "中书令"
+    },
+    {
+      "PersonName": "刘渊",
+      "DynastyName": "西晋",
+      "OrgName": "汉国",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "司马颖",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "王",
+      "Note": "成都王"
+    },
+    {
+      "PersonName": "刘曜",
+      "DynastyName": "西晋",
+      "OrgName": "汉国",
+      "Role": "将领",
+      "Note": null
+    },
+    {
+      "PersonName": "司马炽",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "君主",
+      "Note": "晋怀帝"
+    },
+    {
+      "PersonName": "司马邺",
+      "DynastyName": "西晋",
+      "OrgName": "晋",
+      "Role": "君主",
+      "Note": "晋愍帝"
+    },
+    {
+      "PersonName": "司马睿",
+      "DynastyName": "东晋",
+      "OrgName": "东晋",
+      "Role": "君主",
+      "Note": "晋元帝"
+    },
+    {
+      "PersonName": "石勒",
+      "DynastyName": "后赵",
+      "OrgName": "后赵",
+      "Role": "君主",
+      "Note": "羯族"
+    },
+    {
+      "PersonName": "桓温",
+      "DynastyName": "东晋",
+      "OrgName": "东晋",
+      "Role": "将领",
+      "Note": null
+    },
+    {
+      "PersonName": "苻坚",
+      "DynastyName": "前秦",
+      "OrgName": "前秦",
+      "Role": "君主",
+      "Note": "氐族"
+    },
+    {
+      "PersonName": "刘裕",
+      "DynastyName": "东晋、宋",
+      "OrgName": "东晋、宋",
+      "Role": "将领、君主",
+      "Note": "宋武帝"
+    },
+    {
+      "PersonName": "慕容垂",
+      "DynastyName": "前燕",
+      "OrgName": "前燕",
+      "Role": "将领",
+      "Note": null
+    },
+    {
+      "PersonName": "慕容超",
+      "DynastyName": "南燕、后汉",
+      "OrgName": "南燕、后汉",
+      "Role": "君主、副使",
+      "Note": "招讨副使"
+    },
+    {
+      "PersonName": "姚兴",
+      "DynastyName": "后秦",
+      "OrgName": "后秦",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "谢安",
+      "DynastyName": "东晋",
+      "OrgName": "东晋",
+      "Role": "大臣",
+      "Note": null
+    },
+    {
+      "PersonName": "王猛",
+      "DynastyName": "前秦",
+      "OrgName": "前秦",
+      "Role": "大臣",
+      "Note": null
+    },
+    {
+      "PersonName": "刘义隆",
+      "DynastyName": "宋",
+      "OrgName": "宋",
+      "Role": "君主",
+      "Note": "宋文帝"
+    },
+    {
+      "PersonName": "拓跋焘",
+      "DynastyName": "北魏",
+      "OrgName": "北魏",
+      "Role": "君主",
+      "Note": "太武帝"
+    },
+    {
+      "PersonName": "萧道成",
+      "DynastyName": "南齐",
+      "OrgName": "南齐",
+      "Role": "君主",
+      "Note": "齐高帝"
+    },
+    {
+      "PersonName": "萧衍",
+      "DynastyName": "南梁",
+      "OrgName": "南梁",
+      "Role": "君主",
+      "Note": "梁武帝"
+    },
+    {
+      "PersonName": "陈霸先",
+      "DynastyName": "陈",
+      "OrgName": "陈",
+      "Role": "君主",
+      "Note": "陈武帝"
+    },
+    {
+      "PersonName": "宇文邕",
+      "DynastyName": "北周",
+      "OrgName": "北周",
+      "Role": "君主",
+      "Note": "周武帝"
+    },
+    {
+      "PersonName": "高欢",
+      "DynastyName": "东魏",
+      "OrgName": "东魏",
+      "Role": "权臣",
+      "Note": null
+    },
+    {
+      "PersonName": "宇文泰",
+      "DynastyName": "西魏",
+      "OrgName": "西魏",
+      "Role": "权臣",
+      "Note": null
+    },
+    {
+      "PersonName": "杨坚",
+      "DynastyName": "隋",
+      "OrgName": "隋、隋朝",
+      "Role": "君主",
+      "Note": "隋文帝"
+    },
+    {
+      "PersonName": "赫连昌",
+      "DynastyName": "大夏",
+      "OrgName": "大夏",
+      "Role": "君主",
+      "Note": null
+    },
+    {
+      "PersonName": "崔浩",
+      "DynastyName": "北魏",
+      "OrgName": "北魏",
+      "Role": "大臣",
+      "Note": null
+    },
+    {
+      "PersonName": "侯景",
+      "DynastyName": "南梁",
+      "OrgName": "南梁",
+      "Role": "叛将",
+      "Note": null
+    },
+    {
+      "PersonName": "王镇恶",
+      "DynastyName": "宋",
+      "OrgName": "宋",
+      "Role": "将领",
+      "Note": "王猛之子"
+    },
+    {
+      "PersonName": "杨广",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "君主",
+      "Note": "隋炀帝"
+    },
+    {
+      "PersonName": "陈叔宝",
+      "DynastyName": "南北朝",
+      "OrgName": "陈朝",
+      "Role": "君主",
+      "Note": "陈后主"
+    },
+    {
+      "PersonName": "高颎",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "宰相",
+      "Note": "尚书左仆射"
+    },
+    {
+      "PersonName": "杨素",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "信州总管"
+    },
+    {
+      "PersonName": "贺若弼",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "镇东将军"
+    },
+    {
+      "PersonName": "韩擒虎",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "庐江总管"
+    },
+    {
+      "PersonName": "沙钵略可汗",
+      "DynastyName": "隋",
+      "OrgName": "突厥",
+      "Role": "可汗",
+      "Note": "名摄图"
+    },
+    {
+      "PersonName": "长孙晟",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "谋士",
+      "Note": "离间突厥"
+    },
+    {
+      "PersonName": "宇文述",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "征高丽"
+    },
+    {
+      "PersonName": "来护儿",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "水军统帅"
+    },
+    {
+      "PersonName": "李密",
+      "DynastyName": "隋",
+      "OrgName": "瓦岗军",
+      "Role": "统帅",
+      "Note": "原隋贵族"
+    },
+    {
+      "PersonName": "翟让",
+      "DynastyName": "隋",
+      "OrgName": "瓦岗军",
+      "Role": "首领",
+      "Note": "瓦岗军创始人"
+    },
+    {
+      "PersonName": "张须陀",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "荥阳通守"
+    },
+    {
+      "PersonName": "王世充",
+      "DynastyName": "隋、隋唐",
+      "OrgName": "隋朝、郑国",
+      "Role": "将领、君主",
+      "Note": "后建郑国; 原隋将，建郑国"
+    },
+    {
+      "PersonName": "李渊",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "君主",
+      "Note": "唐高祖"
+    },
+    {
+      "PersonName": "李世民",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "君主",
+      "Note": "唐太宗"
+    },
+    {
+      "PersonName": "李建成",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "太子",
+      "Note": "李渊长子"
+    },
+    {
+      "PersonName": "刘文静",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "谋士",
+      "Note": "太原起兵主要策划者"
+    },
+    {
+      "PersonName": "宋老生",
+      "DynastyName": "隋",
+      "OrgName": "隋朝",
+      "Role": "将领",
+      "Note": "霍邑守将"
+    },
+    {
+      "PersonName": "屈突通",
+      "DynastyName": "隋唐",
+      "OrgName": "隋朝/唐朝",
+      "Role": "将领",
+      "Note": "隋将后降唐"
+    },
+    {
+      "PersonName": "薛举",
+      "DynastyName": "隋唐",
+      "OrgName": "西秦",
+      "Role": "君主",
+      "Note": "西秦皇帝"
+    },
+    {
+      "PersonName": "薛仁杲",
+      "DynastyName": "唐",
+      "OrgName": "西秦",
+      "Role": "君主",
+      "Note": "薛举之子"
+    },
+    {
+      "PersonName": "刘武周",
+      "DynastyName": "隋唐",
+      "OrgName": "割据势力",
+      "Role": "首领",
+      "Note": "据马邑"
+    },
+    {
+      "PersonName": "宋金刚",
+      "DynastyName": "唐",
+      "OrgName": "刘武周部",
+      "Role": "将领",
+      "Note": "刘武周部将"
+    },
+    {
+      "PersonName": "尉迟敬德",
+      "DynastyName": "唐",
+      "OrgName": "刘武周部/唐朝",
+      "Role": "将领",
+      "Note": "原刘武周部将，后降唐"
+    },
+    {
+      "PersonName": "窦建德",
+      "DynastyName": "隋唐",
+      "OrgName": "夏国",
+      "Role": "君主",
+      "Note": "夏王"
+    },
+    {
+      "PersonName": "李靖",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "军事家"
+    },
+    {
+      "PersonName": "李孝恭",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "宗室名将"
+    },
+    {
+      "PersonName": "萧铣",
+      "DynastyName": "隋唐",
+      "OrgName": "梁国",
+      "Role": "君主",
+      "Note": "梁帝"
+    },
+    {
+      "PersonName": "辅公祏",
+      "DynastyName": "隋唐",
+      "OrgName": "宋国",
+      "Role": "君主",
+      "Note": "原杜伏威部将"
+    },
+    {
+      "PersonName": "颉利可汗",
+      "DynastyName": "唐",
+      "OrgName": "东突厥",
+      "Role": "可汗",
+      "Note": "东突厥可汗"
+    },
+    {
+      "PersonName": "突利可汗",
+      "DynastyName": "唐",
+      "OrgName": "东突厥",
+      "Role": "可汗",
+      "Note": "颉利之侄"
+    },
+    {
+      "PersonName": "李勣",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "本名徐世勣，字懋功"
+    },
+    {
+      "PersonName": "苏定方",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "征西突厥名将"
+    },
+    {
+      "PersonName": "侯君集",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "灭高昌"
+    },
+    {
+      "PersonName": "盖苏文",
+      "DynastyName": "唐",
+      "OrgName": "高丽",
+      "Role": "权臣",
+      "Note": "高丽莫离支"
+    },
+    {
+      "PersonName": "薛仁贵",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "征高丽名将"
+    },
+    {
+      "PersonName": "武则天",
+      "DynastyName": "唐",
+      "OrgName": "武周",
+      "Role": "君主",
+      "Note": "女皇帝，改唐为周"
+    },
+    {
+      "PersonName": "李尽忠",
+      "DynastyName": "唐",
+      "OrgName": "契丹",
+      "Role": "首领",
+      "Note": "契丹松漠都督"
+    },
+    {
+      "PersonName": "孙万荣",
+      "DynastyName": "唐",
+      "OrgName": "契丹",
+      "Role": "将领",
+      "Note": "李尽忠妻兄"
+    },
+    {
+      "PersonName": "默啜可汗",
+      "DynastyName": "唐",
+      "OrgName": "突厥",
+      "Role": "可汗",
+      "Note": "后突厥可汗"
+    },
+    {
+      "PersonName": "李隆基",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "君主",
+      "Note": "唐玄宗"
+    },
+    {
+      "PersonName": "悉诺逻",
+      "DynastyName": "唐",
+      "OrgName": "吐蕃",
+      "Role": "将领",
+      "Note": "吐蕃大将"
+    },
+    {
+      "PersonName": "高仙芝",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "高丽人，安西副都护"
+    },
+    {
+      "PersonName": "安禄山",
+      "DynastyName": "唐",
+      "OrgName": "安史叛军",
+      "Role": "首领",
+      "Note": "原唐节度使"
+    },
+    {
+      "PersonName": "史思明",
+      "DynastyName": "唐",
+      "OrgName": "安史叛军",
+      "Role": "首领",
+      "Note": "安禄山部将"
+    },
+    {
+      "PersonName": "郭子仪",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "平安史之乱主帅"
+    },
+    {
+      "PersonName": "李光弼",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "与郭子仪齐名"
+    },
+    {
+      "PersonName": "哥舒翰",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "守潼关"
+    },
+    {
+      "PersonName": "张巡",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "守将",
+      "Note": "睢阳守将"
+    },
+    {
+      "PersonName": "许远",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "守将",
+      "Note": "睢阳太守"
+    },
+    {
+      "PersonName": "田承嗣",
+      "DynastyName": "唐",
+      "OrgName": "魏博镇",
+      "Role": "节度使",
+      "Note": "安史旧将"
+    },
+    {
+      "PersonName": "李希烈",
+      "DynastyName": "唐",
+      "OrgName": "淮西镇",
+      "Role": "节度使",
+      "Note": "后称帝"
+    },
+    {
+      "PersonName": "朱泚",
+      "DynastyName": "唐",
+      "OrgName": "叛军",
+      "Role": "首领",
+      "Note": "原泾原节度使"
+    },
+    {
+      "PersonName": "李愬",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "将领",
+      "Note": "雪夜入蔡州"
+    },
+    {
+      "PersonName": "黄巢",
+      "DynastyName": "唐、唐末",
+      "OrgName": "黄巢起义军",
+      "Role": "首领、统帅",
+      "Note": "冲天大将军; 唐末农民起义领袖"
+    },
+    {
+      "PersonName": "王仙芝",
+      "DynastyName": "唐",
+      "OrgName": "王仙芝起义军",
+      "Role": "首领",
+      "Note": "天补平均大将军"
+    },
+    {
+      "PersonName": "尚让",
+      "DynastyName": "唐",
+      "OrgName": "黄巢起义军",
+      "Role": "将领",
+      "Note": "黄巢主要部将"
+    },
+    {
+      "PersonName": "高骈",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "节度使",
+      "Note": "淮南节度使"
+    },
+    {
+      "PersonName": "朱全忠",
+      "DynastyName": "唐末/后梁",
+      "OrgName": "唐朝/后梁",
+      "Role": "节度使/君主",
+      "Note": "原名朱温，后梁太祖"
+    },
+    {
+      "PersonName": "李克用",
+      "DynastyName": "唐末",
+      "OrgName": "晋",
+      "Role": "节度使/晋王",
+      "Note": "沙陀族首领，晋王"
+    },
+    {
+      "PersonName": "李存勖",
+      "DynastyName": "后唐",
+      "OrgName": "晋/后唐",
+      "Role": "晋王/君主",
+      "Note": "后唐庄宗"
+    },
+    {
+      "PersonName": "石敬塘",
+      "DynastyName": "后晋",
+      "OrgName": "后唐/后晋",
+      "Role": "节度使/君主",
+      "Note": "后晋高祖，割燕云十六州予契丹"
+    },
+    {
+      "PersonName": "刘知远",
+      "DynastyName": "后汉",
+      "OrgName": "后晋/后汉",
+      "Role": "节度使/君主",
+      "Note": "后汉高祖"
+    },
+    {
+      "PersonName": "郭威",
+      "DynastyName": "后周",
+      "OrgName": "后汉/后周",
+      "Role": "节度使/君主",
+      "Note": "后周太祖"
+    },
+    {
+      "PersonName": "周世宗",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "君主",
+      "Note": "原名柴荣，郭荣"
+    },
+    {
+      "PersonName": "唐昭宗",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "君主",
+      "Note": "李晔"
+    },
+    {
+      "PersonName": "李茂贞",
+      "DynastyName": "唐末",
+      "OrgName": "唐朝（凤翔节度使）",
+      "Role": "军阀",
+      "Note": "唐末军阀"
+    },
+    {
+      "PersonName": "王建",
+      "DynastyName": "前蜀",
+      "OrgName": "前蜀",
+      "Role": "君主",
+      "Note": "前蜀高祖"
+    },
+    {
+      "PersonName": "李嗣照",
+      "DynastyName": "后梁/晋",
+      "OrgName": "晋",
+      "Role": "节度使",
+      "Note": "昭义节度使"
+    },
+    {
+      "PersonName": "周德威",
+      "DynastyName": "晋/后唐",
+      "OrgName": "晋/后唐",
+      "Role": "将军",
+      "Note": "晋、后唐名将"
+    },
+    {
+      "PersonName": "李思安",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "刘知俊",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "节度使",
+      "Note": "匡国节度使"
+    },
+    {
+      "PersonName": "李嗣昭",
+      "DynastyName": "晋",
+      "OrgName": "晋",
+      "Role": "将军",
+      "Note": "潞州守将"
+    },
+    {
+      "PersonName": "王景仁",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "韩勍",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "刘仁恭",
+      "DynastyName": "唐末/燕",
+      "OrgName": "唐朝/燕",
+      "Role": "节度使",
+      "Note": "卢龙节度使，刘守光之父"
+    },
+    {
+      "PersonName": "刘守光",
+      "DynastyName": "燕",
+      "OrgName": "燕",
+      "Role": "君主",
+      "Note": "自称大燕皇帝"
+    },
+    {
+      "PersonName": "王处直",
+      "DynastyName": "五代初期",
+      "OrgName": "义武镇",
+      "Role": "节度使",
+      "Note": "义武节度使"
+    },
+    {
+      "PersonName": "戴思远",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "朱友贞",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "君主",
+      "Note": "后梁末帝，朱全忠第三子"
+    },
+    {
+      "PersonName": "刘寻",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "阿保机",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "君主",
+      "Note": "契丹主，辽太祖"
+    },
+    {
+      "PersonName": "谢彦章",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁河阳节度使"
+    },
+    {
+      "PersonName": "贺环",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "王瓒",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁开封府尹"
+    },
+    {
+      "PersonName": "张万进",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "节度使",
+      "Note": "泰宁节度使"
+    },
+    {
+      "PersonName": "张文礼",
+      "DynastyName": "五代初期",
+      "OrgName": "镇州",
+      "Role": "军阀",
+      "Note": "杀王镕夺位"
+    },
+    {
+      "PersonName": "李嗣源",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "君主",
+      "Note": "后唐明宗"
+    },
+    {
+      "PersonName": "郭崇韬",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "谋士/将军",
+      "Note": "后唐谋臣、将领"
+    },
+    {
+      "PersonName": "王彦章",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁名将"
+    },
+    {
+      "PersonName": "段凝",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁北面招讨使"
+    },
+    {
+      "PersonName": "康延孝",
+      "DynastyName": "后梁/后唐",
+      "OrgName": "后梁/后唐",
+      "Role": "将军",
+      "Note": "原后梁右先锋指挥使，投后唐"
+    },
+    {
+      "PersonName": "李从珂",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "君主",
+      "Note": "后唐末帝，潞王"
+    },
+    {
+      "PersonName": "李崧",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "大臣",
+      "Note": "后唐近臣"
+    },
+    {
+      "PersonName": "张敬达",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "赵德钧",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "节度使",
+      "Note": "后唐幽州节度使"
+    },
+    {
+      "PersonName": "杨光远",
+      "DynastyName": "后晋、后唐",
+      "OrgName": "后晋、后唐/后晋",
+      "Role": "节度使、将军",
+      "Note": "青州节度使; 斩张敬达降契丹"
+    },
+    {
+      "PersonName": "石重贵",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "君主",
+      "Note": "后晋出帝"
+    },
+    {
+      "PersonName": "景延广",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "大臣",
+      "Note": "后晋权臣"
+    },
+    {
+      "PersonName": "赵延寿",
+      "DynastyName": "后唐、辽",
+      "OrgName": "后唐/契丹",
+      "Role": "将军/大臣",
+      "Note": "原后唐将领，后为契丹枢密使; 赵德钧之子"
+    },
+    {
+      "PersonName": "马全节",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋北面副招讨使"
+    },
+    {
+      "PersonName": "杜重威",
+      "DynastyName": "后晋/后汉",
+      "OrgName": "后晋/后汉",
+      "Role": "节度使",
+      "Note": "后晋天雄节度使，后叛"
+    },
+    {
+      "PersonName": "李守贞",
+      "DynastyName": "后晋/后汉",
+      "OrgName": "后晋/后汉",
+      "Role": "节度使",
+      "Note": "后晋天平节度使，后叛"
+    },
+    {
+      "PersonName": "张彦泽",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "刘承祐",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "君主",
+      "Note": "后汉隐帝"
+    },
+    {
+      "PersonName": "王景崇",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "凤翔节度使，后反叛"
+    },
+    {
+      "PersonName": "赵思绾",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "军阀",
+      "Note": "长安军阀，后反叛"
+    },
+    {
+      "PersonName": "扈从珂",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "镇国节度使"
+    },
+    {
+      "PersonName": "白文珂",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "保义节度使"
+    },
+    {
+      "PersonName": "刘词",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "宁江节度使"
+    },
+    {
+      "PersonName": "常思",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "昭义节度使"
+    },
+    {
+      "PersonName": "郭从义",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "防御使",
+      "Note": "郑州防御使"
+    },
+    {
+      "PersonName": "刘崇",
+      "DynastyName": "北汉",
+      "OrgName": "后汉/北汉",
+      "Role": "君主",
+      "Note": "北汉世祖"
+    },
+    {
+      "PersonName": "赵匡胤",
+      "DynastyName": "后周、北宋",
+      "OrgName": "后周、北宋",
+      "Role": "将军、君主",
+      "Note": "宿卫将，后为宋太祖; 宋太祖，北宋开国皇帝"
+    },
+    {
+      "PersonName": "樊爱能",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "后周将领，临阵逃脱被斩"
+    },
+    {
+      "PersonName": "刘承钧",
+      "DynastyName": "北汉",
+      "OrgName": "北汉",
+      "Role": "君主",
+      "Note": "北汉睿宗"
+    },
+    {
+      "PersonName": "王景",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "节度使",
+      "Note": "凤翔节度使"
+    },
+    {
+      "PersonName": "李廷珪",
+      "DynastyName": "后蜀",
+      "OrgName": "后蜀",
+      "Role": "将军",
+      "Note": "后蜀将领"
+    },
+    {
+      "PersonName": "李谷",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "淮南道前军行营都部署"
+    },
+    {
+      "PersonName": "钱弘叔",
+      "DynastyName": "吴越",
+      "OrgName": "吴越",
+      "Role": "君主",
+      "Note": "吴越王"
+    },
+    {
+      "PersonName": "刘彦贞",
+      "DynastyName": "南唐",
+      "OrgName": "南唐",
+      "Role": "将军",
+      "Note": "南唐将领"
+    },
+    {
+      "PersonName": "皇甫晖",
+      "DynastyName": "南唐",
+      "OrgName": "南唐",
+      "Role": "将军",
+      "Note": "南唐将领"
+    },
+    {
+      "PersonName": "李重进",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "后周将领"
+    },
+    {
+      "PersonName": "韩令坤",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "后周将领"
+    },
+    {
+      "PersonName": "李景达",
+      "DynastyName": "南唐",
+      "OrgName": "南唐",
+      "Role": "统帅",
+      "Note": "南唐皇弟"
+    },
+    {
+      "PersonName": "王环",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "后周水军将领"
+    },
+    {
+      "PersonName": "韩通",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "将军",
+      "Note": "后周陆军将领"
+    },
+    {
+      "PersonName": "穆宗述律",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "君主",
+      "Note": "契丹主，耶律璟"
+    },
+    {
+      "PersonName": "宗训",
+      "DynastyName": "后周",
+      "OrgName": "后周",
+      "Role": "君主",
+      "Note": "周恭帝"
+    },
+    {
+      "PersonName": "唐昭宣帝",
+      "DynastyName": "唐",
+      "OrgName": "唐朝",
+      "Role": "君主",
+      "Note": "哀帝，李柷"
+    },
+    {
+      "PersonName": "敬翔",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "谋士",
+      "Note": "朱全忠谋士"
+    },
+    {
+      "PersonName": "李振",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "谋士",
+      "Note": "朱全忠谋士"
+    },
+    {
+      "PersonName": "葛从周",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "战将",
+      "Note": "朱全忠战将"
+    },
+    {
+      "PersonName": "杨师厚",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "战将",
+      "Note": "朱全忠战将"
+    },
+    {
+      "PersonName": "秦宗权",
+      "DynastyName": "唐末",
+      "OrgName": "黄巢起义军/唐朝",
+      "Role": "军阀",
+      "Note": "曾降黄巢，唐蔡州节度使"
+    },
+    {
+      "PersonName": "康怀贞",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "范居实",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "李存璋",
+      "DynastyName": "晋",
+      "OrgName": "晋",
+      "Role": "将军",
+      "Note": "晋将"
+    },
+    {
+      "PersonName": "王镕",
+      "DynastyName": "五代初期",
+      "OrgName": "成德镇",
+      "Role": "节度使",
+      "Note": "镇州节度使"
+    },
+    {
+      "PersonName": "王德明",
+      "DynastyName": "五代初期",
+      "OrgName": "成德镇",
+      "Role": "将军",
+      "Note": "成德镇将"
+    },
+    {
+      "PersonName": "程岩",
+      "DynastyName": "五代初期",
+      "OrgName": "义武镇",
+      "Role": "将军",
+      "Note": "义武镇将"
+    },
+    {
+      "PersonName": "贺德伦",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "将军",
+      "Note": "后梁将领"
+    },
+    {
+      "PersonName": "李存审",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "符习",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "符彦饶",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "范延光",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "潘环",
+      "DynastyName": "后唐",
+      "OrgName": "后唐",
+      "Role": "将军",
+      "Note": "后唐将领"
+    },
+    {
+      "PersonName": "李赞华",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "王",
+      "Note": "契丹东丹王"
+    },
+    {
+      "PersonName": "白承福",
+      "DynastyName": "五代",
+      "OrgName": "吐谷浑",
+      "Role": "酋长",
+      "Note": "吐谷浑酋长"
+    },
+    {
+      "PersonName": "周儒",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "刺史",
+      "Note": "博州刺史，降契丹"
+    },
+    {
+      "PersonName": "安彦威",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "节度使",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "石赞",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "白再荣",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "张从恩",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "安审琦",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "将军",
+      "Note": "后晋将领"
+    },
+    {
+      "PersonName": "述律太后",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "太后",
+      "Note": "契丹太后"
+    },
+    {
+      "PersonName": "兀欲",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "君主",
+      "Note": "契丹主，耶律阮"
+    },
+    {
+      "PersonName": "耶律德光",
+      "DynastyName": "辽",
+      "OrgName": "契丹",
+      "Role": "君主",
+      "Note": "契丹主"
+    },
+    {
+      "PersonName": "高行周",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "招讨使",
+      "Note": "后汉招讨使"
+    },
+    {
+      "PersonName": "韩训",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "不详",
+      "Note": "献攻城器具"
+    },
+    {
+      "PersonName": "王玉",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "都监",
+      "Note": "陕州都监"
+    },
+    {
+      "PersonName": "赵晖",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将军",
+      "Note": "后汉将领"
+    },
+    {
+      "PersonName": "李金全",
+      "DynastyName": "南唐",
+      "OrgName": "南唐",
+      "Role": "将军",
+      "Note": "南唐将领"
+    },
+    {
+      "PersonName": "李审",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将领",
+      "Note": "郭威爱将，违军令被斩"
+    },
+    {
+      "PersonName": "周光逊",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将领",
+      "Note": "河中守将，降后汉"
+    },
+    {
+      "PersonName": "袁义",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将军",
+      "Note": "后汉将领"
+    },
+    {
+      "PersonName": "刘崇进",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将军",
+      "Note": "后汉将领"
+    },
+    {
+      "PersonName": "侯益",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "将军",
+      "Note": "后汉将领"
+    },
+    {
+      "PersonName": "刘铁",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "开封尹",
+      "Note": "后汉开封尹"
+    },
+    {
+      "PersonName": "刘赞",
+      "DynastyName": "后汉",
+      "OrgName": "后汉",
+      "Role": "节度使",
+      "Note": "武宁节度使，刘知远孙"
+    },
+    {
+      "PersonName": "郭崇威",
+      "DynastyName": "后汉/后周",
+      "OrgName": "后汉/后周",
+      "Role": "将军",
+      "Note": "郭威部将"
+    },
+    {
+      "PersonName": "桑维翰",
+      "DynastyName": "后晋",
+      "OrgName": "后晋",
+      "Role": "谋士",
+      "Note": "后晋谋臣"
+    },
+    {
+      "PersonName": "卢文进",
+      "DynastyName": "晋/契丹",
+      "OrgName": "晋/契丹",
+      "Role": "叛将",
+      "Note": "晋叛将，引契丹攻新州"
+    },
+    {
+      "PersonName": "张汉伦",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "监军",
+      "Note": "后梁监军"
+    },
+    {
+      "PersonName": "张汉杰",
+      "DynastyName": "后梁",
+      "OrgName": "后梁",
+      "Role": "监军",
+      "Note": "后梁监军"
+    },
+    {
+      "PersonName": "赵光义",
+      "DynastyName": "北宋",
+      "OrgName": "北宋",
+      "Role": "君主",
+      "Note": "宋太宗"
+    },
+    {
+      "PersonName": "李煜",
+      "DynastyName": "南唐",
+      "OrgName": "南唐",
+      "Role": "君主",
+      "Note": "南唐后主，词人"
+    },
+    {
+      "PersonName": "元昊",
+      "DynastyName": "西夏",
+      "OrgName": "西夏",
+      "Role": "君主",
+      "Note": "西夏景宗，夏国皇帝"
+    },
+    {
+      "PersonName": "完颜阿骨打",
+      "DynastyName": "金",
+      "OrgName": "金",
+      "Role": "君主",
+      "Note": "金太祖，金朝开国皇帝"
+    },
+    {
+      "PersonName": "赵构",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "君主",
+      "Note": "宋高宗，南宋开国皇帝"
+    },
+    {
+      "PersonName": "铁木真",
+      "DynastyName": "蒙古",
+      "OrgName": "蒙古汗国",
+      "Role": "君主",
+      "Note": "成吉思汗，蒙古大汗"
+    },
+    {
+      "PersonName": "忽必烈",
+      "DynastyName": "元",
+      "OrgName": "元",
+      "Role": "君主",
+      "Note": "元世祖，元朝开国皇帝"
+    },
+    {
+      "PersonName": "岳飞",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "统帅",
+      "Note": "抗金名将，湖北、京西宣抚使"
+    },
+    {
+      "PersonName": "韩世忠",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "将军",
+      "Note": "抗金名将，浙西制置使"
+    },
+    {
+      "PersonName": "刘福通",
+      "DynastyName": "元",
+      "OrgName": "红巾军",
+      "Role": "统帅",
+      "Note": "红巾军首领，韩林儿部下"
+    },
+    {
+      "PersonName": "宋江",
+      "DynastyName": "北宋",
+      "OrgName": "宋江起义军",
+      "Role": "首领",
+      "Note": "梁山泊起义军领袖"
+    },
+    {
+      "PersonName": "方腊",
+      "DynastyName": "北宋",
+      "OrgName": "方腊起义军",
+      "Role": "首领",
+      "Note": "青溪县摩尼教首领，农民起义领袖"
+    },
+    {
+      "PersonName": "曹彬",
+      "DynastyName": "北宋",
+      "OrgName": "北宋",
+      "Role": "将军",
+      "Note": "北宋初年大将，参与灭南唐等战役"
+    },
+    {
+      "PersonName": "潘美",
+      "DynastyName": "北宋",
+      "OrgName": "北宋",
+      "Role": "将军",
+      "Note": "北宋大将，参与灭南汉、北汉等战役"
+    },
+    {
+      "PersonName": "杨业",
+      "DynastyName": "北宋",
+      "OrgName": "北宋",
+      "Role": "将军",
+      "Note": "北宋名将，人称杨无敌，战死于陈家谷"
+    },
+    {
+      "PersonName": "完颜宗弼",
+      "DynastyName": "金",
+      "OrgName": "金",
+      "Role": "将军",
+      "Note": "金兀术，金朝名将"
+    },
+    {
+      "PersonName": "宗泽",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "将军",
+      "Note": "东京留守，抗金名臣"
+    },
+    {
+      "PersonName": "伯颜",
+      "DynastyName": "元",
+      "OrgName": "元",
+      "Role": "统帅",
+      "Note": "元朝大将、丞相，率军灭南宋"
+    },
+    {
+      "PersonName": "张世杰",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "统帅",
+      "Note": "南宋末抗元将领，崖山海战统帅"
+    },
+    {
+      "PersonName": "陆秀夫",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "谋士",
+      "Note": "南宋末丞相，崖山负帝投海"
+    },
+    {
+      "PersonName": "文天祥",
+      "DynastyName": "南宋",
+      "OrgName": "南宋",
+      "Role": "谋士",
+      "Note": "南宋末丞相，抗元英雄"
+    },
+    {
+      "PersonName": "木华黎",
+      "DynastyName": "蒙古/元",
+      "OrgName": "蒙古汗国/元",
+      "Role": "统帅",
+      "Note": "蒙古开国名将，太师，伐金统帅"
+    },
+    {
+      "PersonName": "旭烈兀",
+      "DynastyName": "蒙古",
+      "OrgName": "蒙古汗国",
+      "Role": "统帅",
+      "Note": "蒙古宗王，第三次西征统帅"
+    },
+    {
+      "PersonName": "拔都",
+      "DynastyName": "蒙古",
+      "OrgName": "蒙古汗国",
+      "Role": "统帅",
+      "Note": "蒙古宗王，第二次西征统帅"
+    },
+    {
+      "PersonName": "徐寿辉",
+      "DynastyName": "元",
+      "OrgName": "红巾军",
+      "Role": "君主",
+      "Note": "红巾军领袖，天完政权皇帝"
+    },
+    {
+      "PersonName": "张士诚",
+      "DynastyName": "元",
+      "OrgName": "地方势力、张士诚部",
+      "Role": "首领、君主",
+      "Note": "割据势力首领，曾建立大周政权; 建立“周”政权，称吴王"
+    },
+    {
+      "PersonName": "朱元璋",
+      "DynastyName": "元、明",
+      "OrgName": "明",
+      "Role": "君主",
+      "Note": "明太祖，年号洪武"
+    },
+    {
+      "PersonName": "朱棣",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "君主",
+      "Note": "明成祖，年号永乐"
+    },
+    {
+      "PersonName": "朱允炆",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "君主",
+      "Note": "明惠帝，年号建文"
+    },
+    {
+      "PersonName": "崇祯帝（朱由检）",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "君主",
+      "Note": "明朝末代皇帝"
+    },
+    {
+      "PersonName": "李自成",
+      "DynastyName": "明",
+      "OrgName": "大顺政权",
+      "Role": "君主",
+      "Note": "闯王，建立大顺政权"
+    },
+    {
+      "PersonName": "张献忠",
+      "DynastyName": "明",
+      "OrgName": "大西政权",
+      "Role": "君主",
+      "Note": "八大王，建立大西政权"
+    },
+    {
+      "PersonName": "努尔哈赤",
+      "DynastyName": "明",
+      "OrgName": "后金",
+      "Role": "君主",
+      "Note": "后金开国君主"
+    },
+    {
+      "PersonName": "皇太极",
+      "DynastyName": "明、清",
+      "OrgName": "后金/清",
+      "Role": "君主",
+      "Note": "后金第二位大汗，清朝开国皇帝"
+    },
+    {
+      "PersonName": "顺治帝（福临）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "君主",
+      "Note": "清朝入关第一位皇帝"
+    },
+    {
+      "PersonName": "康熙帝（玄烨）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "君主",
+      "Note": "平定三藩，统一台湾"
+    },
+    {
+      "PersonName": "乾隆帝（弘历）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "君主",
+      "Note": "十全武功，南征缅甸安南"
+    },
+    {
+      "PersonName": "道光帝（旻宁）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "君主",
+      "Note": "在位期间发生鸦片战争"
+    },
+    {
+      "PersonName": "咸丰帝（奕詝）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "君主",
+      "Note": "在位期间发生第二次鸦片战争、太平天国运动"
+    },
+    {
+      "PersonName": "慈禧太后（叶赫那拉氏）",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "统治者",
+      "Note": "晚清实际统治者"
+    },
+    {
+      "PersonName": "徐达",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "将军",
+      "Note": "明朝开国名将"
+    },
+    {
+      "PersonName": "常遇春",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "将军",
+      "Note": "明朝开国名将"
+    },
+    {
+      "PersonName": "刘基（刘伯温）",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "谋士",
+      "Note": "明朝开国功臣，政治家、军事家"
+    },
+    {
+      "PersonName": "于谦",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "统帅",
+      "Note": "兵部尚书，指挥北京保卫战"
+    },
+    {
+      "PersonName": "戚继光",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "将军",
+      "Note": "抗倭名将，创建戚家军"
+    },
+    {
+      "PersonName": "俞大猷",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "将军",
+      "Note": "抗倭名将"
+    },
+    {
+      "PersonName": "熊廷弼",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "统帅",
+      "Note": "辽东经略"
+    },
+    {
+      "PersonName": "袁崇焕",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "统帅",
+      "Note": "兵部尚书，督师蓟辽"
+    },
+    {
+      "PersonName": "孙传庭",
+      "DynastyName": "明",
+      "OrgName": "明",
+      "Role": "统帅",
+      "Note": "兵部尚书，镇压农民起义"
+    },
+    {
+      "PersonName": "洪承畴",
+      "DynastyName": "明、清",
+      "OrgName": "明、清",
+      "Role": "统帅",
+      "Note": "原明蓟辽总督，后降清"
+    },
+    {
+      "PersonName": "吴三桂",
+      "DynastyName": "明、清",
+      "OrgName": "明、清、三藩",
+      "Role": "将军/藩王",
+      "Note": "明山海关总兵，降清封平西王，后反清"
+    },
+    {
+      "PersonName": "多尔衮",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "统帅/摄政王",
+      "Note": "清军入关的关键人物"
+    },
+    {
+      "PersonName": "施琅",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "将军",
+      "Note": "水师提督，率军收复台湾"
+    },
+    {
+      "PersonName": "郑成功",
+      "DynastyName": "明、清",
+      "OrgName": "郑氏集团/南明",
+      "Role": "统帅",
+      "Note": "抗清将领，从荷兰人手中收复台湾"
+    },
+    {
+      "PersonName": "林则徐",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "钦差大臣",
+      "Note": "领导虎门销烟，鸦片战争时期主战派"
+    },
+    {
+      "PersonName": "关天培",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "将军",
+      "Note": "广东水师提督，鸦片战争中在虎门殉国"
+    },
+    {
+      "PersonName": "陈化成",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "将军",
+      "Note": "江南提督，鸦片战争中在吴淞口殉国"
+    },
+    {
+      "PersonName": "冯子材",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "将军",
+      "Note": "中法战争中获得镇南关大捷"
+    },
+    {
+      "PersonName": "邓世昌",
+      "DynastyName": "清",
+      "OrgName": "清（北洋海军）",
+      "Role": "将军",
+      "Note": "北洋海军致远舰管带，甲午海战中殉国"
+    },
+    {
+      "PersonName": "丁汝昌",
+      "DynastyName": "清",
+      "OrgName": "清（北洋海军）",
+      "Role": "统帅",
+      "Note": "北洋海军提督，甲午战争中在威海卫殉国"
+    },
+    {
+      "PersonName": "聂士成",
+      "DynastyName": "清",
+      "OrgName": "清",
+      "Role": "将军",
+      "Note": "直隶提督，在八国联军侵华战争中于天津殉国"
+    },
+    {
+      "PersonName": "洪秀全",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "君主",
+      "Note": "太平天国天王"
+    },
+    {
+      "PersonName": "杨秀清",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "统帅",
+      "Note": "东王，前期太平军实际军事指挥者"
+    },
+    {
+      "PersonName": "萧朝贵",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "将军",
+      "Note": "西王"
+    },
+    {
+      "PersonName": "冯云山",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "领导者",
+      "Note": "南王，早期拜上帝会组织者"
+    },
+    {
+      "PersonName": "韦昌辉",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "领导者",
+      "Note": "北王"
+    },
+    {
+      "PersonName": "石达开",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "统帅",
+      "Note": "翼王，太平天国名将"
+    },
+    {
+      "PersonName": "陈玉成",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "统帅",
+      "Note": "英王，太平天国后期主要将领"
+    },
+    {
+      "PersonName": "李秀成",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "统帅",
+      "Note": "忠王，太平天国后期主要将领"
+    },
+    {
+      "PersonName": "李开芳",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "将军",
+      "Note": "太平军北伐主将"
+    },
+    {
+      "PersonName": "林凤祥",
+      "DynastyName": "清",
+      "OrgName": "太平天国",
+      "Role": "将军",
+      "Note": "太平军北伐主将"
+    },
+    {
+      "PersonName": "刘永福",
+      "DynastyName": "清",
+      "OrgName": "黑旗军/清",
+      "Role": "将军",
+      "Note": "黑旗军首领，抗法、抗日（台湾）名将"
+    },
+    {
+      "PersonName": "左宗棠",
+      "DynastyName": "清",
+      "OrgName": "清（湘军）",
+      "Role": "统帅",
+      "Note": "陕甘总督，平定陕甘回乱，收复新疆"
+    },
+    {
+      "PersonName": "曾国藩",
+      "DynastyName": "清",
+      "OrgName": "清（湘军）",
+      "Role": "统帅",
+      "Note": "湘军创立者，镇压太平天国"
+    },
+    {
+      "PersonName": "李鸿章",
+      "DynastyName": "清",
+      "OrgName": "清（淮军）",
+      "Role": "统帅/大臣",
+      "Note": "淮军创立者，北洋大臣，主持晚清洋务与外交"
+    },
+    {
+      "PersonName": "陈友谅",
+      "DynastyName": "元",
+      "OrgName": "陈友谅部",
+      "Role": "君主",
+      "Note": "建立“汉”政权"
+    },
+    {
+      "PersonName": "也先",
+      "DynastyName": "明",
+      "OrgName": "瓦剌",
+      "Role": "首领",
+      "Note": "瓦剌部首领，制造土木堡之变"
+    },
+    {
+      "PersonName": "噶尔丹",
+      "DynastyName": "清",
+      "OrgName": "准噶尔部",
+      "Role": "首领",
+      "Note": "准噶尔部大汗"
+    },
+    {
+      "PersonName": "揆一",
+      "DynastyName": "明、清",
+      "OrgName": "荷兰殖民者",
+      "Role": "总督",
+      "Note": "荷兰殖民台湾末任总督"
+    },
+    {
+      "PersonName": "懿律",
+      "DynastyName": "清",
+      "OrgName": "英国",
+      "Role": "统帅",
+      "Note": "英国侵华远征军总司令（第一次鸦片战争）"
+    },
+    {
+      "PersonName": "义律",
+      "DynastyName": "清",
+      "OrgName": "英国",
+      "Role": "全权代表",
+      "Note": "英国驻华商务监督，侵华代表"
+    },
+    {
+      "PersonName": "孤拔",
+      "DynastyName": "清",
+      "OrgName": "法国",
+      "Role": "统帅",
+      "Note": "法国远东舰队司令，中法战争法军指挥官"
+    },
+    {
+      "PersonName": "伊东祐亨",
+      "DynastyName": "清",
+      "OrgName": "日本",
+      "Role": "统帅",
+      "Note": "日本联合舰队司令长官（甲午战争）"
+    },
+    {
+      "PersonName": "西摩尔",
+      "DynastyName": "清",
+      "OrgName": "八国联军（英国）",
+      "Role": "统帅",
+      "Note": "八国联军初期指挥官"
+    },
+    {
+      "PersonName": "瓦德西",
+      "DynastyName": "清",
+      "OrgName": "八国联军（德国）",
+      "Role": "统帅",
+      "Note": "八国联军总司令"
+    }
+  ]
+}

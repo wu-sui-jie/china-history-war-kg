@@ -1,0 +1,1112 @@
+[
+  {
+    "id": 13,
+    "name": "三危",
+    "modern_name": "",
+    "dynasty": "上古",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 4,
+    "name": "丹水",
+    "modern_name": "",
+    "dynasty": "上古",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 11,
+    "name": "丹水",
+    "modern_name": "丹江",
+    "dynasty": "上古",
+    "province": "陕西省",
+    "city": "商洛市",
+    "district": "",
+    "specific_location": "之浦"
+  },
+  {
+    "id": 1,
+    "name": "斧隧",
+    "modern_name": "",
+    "dynasty": "上古",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 2,
+    "name": "涿鹿",
+    "modern_name": "涿鹿县",
+    "dynasty": "上古",
+    "province": "河北省",
+    "city": "张家口市",
+    "district": "涿鹿县",
+    "specific_location": "之野"
+  },
+  {
+    "id": 3,
+    "name": "阪泉",
+    "modern_name": "",
+    "dynasty": "上古",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "之野"
+  },
+  {
+    "id": 10,
+    "name": "阪泉",
+    "modern_name": "怀来县",
+    "dynasty": "上古",
+    "province": "河北省",
+    "city": "张家口市",
+    "district": "怀来县",
+    "specific_location": ""
+  },
+  {
+    "id": 8,
+    "name": "洛邑",
+    "modern_name": "洛阳市",
+    "dynasty": "东周",
+    "province": "河南省",
+    "city": "洛阳市",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 39,
+    "name": "下旨",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 65,
+    "name": "东夷（山东",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 46,
+    "name": "人方",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 44,
+    "name": "夷方",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 45,
+    "name": "孟方",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 47,
+    "name": "山东",
+    "modern_name": "山东省",
+    "dynasty": "商",
+    "province": "山东省",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 70,
+    "name": "崇国（陕西户县）",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 69,
+    "name": "崇等地",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 48,
+    "name": "江苏",
+    "modern_name": "江苏省",
+    "dynasty": "商",
+    "province": "江苏省",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 66,
+    "name": "江苏一带）",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 42,
+    "name": "河南安阳小屯",
+    "modern_name": "安阳市",
+    "dynasty": "商",
+    "province": "河南省",
+    "city": "安阳市",
+    "district": "",
+    "specific_location": "小屯西北"
+  },
+  {
+    "id": 40,
+    "name": "渭河流域",
+    "modern_name": "渭河流域",
+    "dynasty": "商",
+    "province": "陕西省",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 7,
+    "name": "牧野",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 63,
+    "name": "羌方",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 64,
+    "name": "荆楚",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 38,
+    "name": "西北地区",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 29,
+    "name": "西毫",
+    "modern_name": "偃师二里头",
+    "dynasty": "商",
+    "province": "河南省",
+    "city": "洛阳市",
+    "district": "偃师区",
+    "specific_location": ""
+  },
+  {
+    "id": 68,
+    "name": "邢",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 43,
+    "name": "长江流域",
+    "modern_name": "长江流域",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 41,
+    "name": "陇西",
+    "modern_name": "陇西县",
+    "dynasty": "商",
+    "province": "甘肃省",
+    "city": "定西市",
+    "district": "陇西县",
+    "specific_location": ""
+  },
+  {
+    "id": 62,
+    "name": "鬼方",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 25,
+    "name": "鸣条",
+    "modern_name": "商丘东",
+    "dynasty": "商",
+    "province": "河南省",
+    "city": "商丘市",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 67,
+    "name": "黎",
+    "modern_name": "",
+    "dynasty": "商",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 21,
+    "name": "三危",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 27,
+    "name": "三股",
+    "modern_name": "定陶北",
+    "dynasty": "夏",
+    "province": "山东省",
+    "city": "菏泽市",
+    "district": "定陶区",
+    "specific_location": ""
+  },
+  {
+    "id": 18,
+    "name": "丹水",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 15,
+    "name": "今河南东北部至山东西南部",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 28,
+    "name": "南巢",
+    "modern_name": "巢县境内",
+    "dynasty": "夏",
+    "province": "安徽省",
+    "city": "合肥市",
+    "district": "巢湖市",
+    "specific_location": ""
+  },
+  {
+    "id": 34,
+    "name": "夏都",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 23,
+    "name": "帝丘",
+    "modern_name": "濮阳县",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "濮阳市",
+    "district": "濮阳县",
+    "specific_location": ""
+  },
+  {
+    "id": 36,
+    "name": "斟寻氏地",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 35,
+    "name": "斟灌氏",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 9,
+    "name": "斧隧",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 33,
+    "name": "昆吾",
+    "modern_name": "濮阳南",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "濮阳市",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 19,
+    "name": "江",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 5,
+    "name": "涂山",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 16,
+    "name": "涿鹿",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 20,
+    "name": "淮",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 12,
+    "name": "甘",
+    "modern_name": "户县",
+    "dynasty": "夏",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": "鄠邑区",
+    "specific_location": ""
+  },
+  {
+    "id": 22,
+    "name": "甘",
+    "modern_name": "户县西南",
+    "dynasty": "夏",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": "鄠邑区",
+    "specific_location": ""
+  },
+  {
+    "id": 24,
+    "name": "纶",
+    "modern_name": "虞城",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "商丘市",
+    "district": "虞城县",
+    "specific_location": ""
+  },
+  {
+    "id": 14,
+    "name": "翟",
+    "modern_name": "禹州市",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "许昌市",
+    "district": "禹州市",
+    "specific_location": ""
+  },
+  {
+    "id": 30,
+    "name": "葛",
+    "modern_name": "宁陵北",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "商丘市",
+    "district": "宁陵县",
+    "specific_location": ""
+  },
+  {
+    "id": 26,
+    "name": "西河",
+    "modern_name": "安阳南",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "安阳市",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 17,
+    "name": "阪泉",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 31,
+    "name": "韦",
+    "modern_name": "滑县东",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "安阳市",
+    "district": "滑县",
+    "specific_location": ""
+  },
+  {
+    "id": 32,
+    "name": "顾",
+    "modern_name": "范县南",
+    "dynasty": "夏",
+    "province": "河南省",
+    "city": "濮阳市",
+    "district": "范县",
+    "specific_location": ""
+  },
+  {
+    "id": 37,
+    "name": "鬲氏",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 6,
+    "name": "鸣条",
+    "modern_name": "",
+    "dynasty": "夏",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 93,
+    "name": "东方（奄国",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 88,
+    "name": "东方（殷地",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 76,
+    "name": "丰邑",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 57,
+    "name": "共",
+    "modern_name": "泾川县",
+    "dynasty": "西周",
+    "province": "甘肃省",
+    "city": "平凉市",
+    "district": "泾川县",
+    "specific_location": "北"
+  },
+  {
+    "id": 52,
+    "name": "凤翔",
+    "modern_name": "凤翔区",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "宝鸡市",
+    "district": "凤翔区",
+    "specific_location": ""
+  },
+  {
+    "id": 84,
+    "name": "卫",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 50,
+    "name": "周原",
+    "modern_name": "周原遗址",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "宝鸡市",
+    "district": "扶风县、岐山县",
+    "specific_location": ""
+  },
+  {
+    "id": 103,
+    "name": "地",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "山西霍县"
+  },
+  {
+    "id": 99,
+    "name": "大原",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "泛指陕北、晋北一带黄土高原地带"
+  },
+  {
+    "id": 90,
+    "name": "奄",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 78,
+    "name": "孟津",
+    "modern_name": "河南孟津",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "洛阳市",
+    "district": "孟津区",
+    "specific_location": ""
+  },
+  {
+    "id": 55,
+    "name": "密须",
+    "modern_name": "灵台县",
+    "dynasty": "西周",
+    "province": "甘肃省",
+    "city": "平凉市",
+    "district": "灵台县",
+    "specific_location": "西南"
+  },
+  {
+    "id": 101,
+    "name": "岐",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西岐山"
+  },
+  {
+    "id": 49,
+    "name": "岐山",
+    "modern_name": "岐山县",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "宝鸡市",
+    "district": "岐山县",
+    "specific_location": "以南"
+  },
+  {
+    "id": 75,
+    "name": "崇",
+    "modern_name": "陕西户县",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": "鄠邑区",
+    "specific_location": ""
+  },
+  {
+    "id": 89,
+    "name": "徐",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 108,
+    "name": "徐夷地区",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 111,
+    "name": "徐戎（江苏泗洪南）",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 54,
+    "name": "昆夷",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西西部洛水流域"
+  },
+  {
+    "id": 77,
+    "name": "朝歌",
+    "modern_name": "河南汲县",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "鹤壁市",
+    "district": "淇县",
+    "specific_location": ""
+  },
+  {
+    "id": 102,
+    "name": "槐里",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西兴平"
+  },
+  {
+    "id": 53,
+    "name": "武功",
+    "modern_name": "武功县",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "咸阳市",
+    "district": "武功县",
+    "specific_location": ""
+  },
+  {
+    "id": 87,
+    "name": "汉水",
+    "modern_name": "汉水",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 96,
+    "name": "汉水流域",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 79,
+    "name": "汜地",
+    "modern_name": "河南荣阳镇",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "郑州市",
+    "district": "荥阳市",
+    "specific_location": ""
+  },
+  {
+    "id": 105,
+    "name": "泾阳",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 110,
+    "name": "淮夷地区",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 94,
+    "name": "淮夷）",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 106,
+    "name": "淮水",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 109,
+    "name": "湖北长江流域",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 91,
+    "name": "熊",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 81,
+    "name": "牧野",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 104,
+    "name": "犬丘",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西兴平东南"
+  },
+  {
+    "id": 80,
+    "name": "百泉",
+    "modern_name": "河南浑县西北",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "新乡市",
+    "district": "辉县市",
+    "specific_location": "西北"
+  },
+  {
+    "id": 92,
+    "name": "盈等方国）",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 98,
+    "name": "积羽",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "约在甘肃张掖以北地区"
+  },
+  {
+    "id": 59,
+    "name": "芮",
+    "modern_name": "大荔县",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "渭南市",
+    "district": "大荔县",
+    "specific_location": ""
+  },
+  {
+    "id": 72,
+    "name": "芮",
+    "modern_name": "陕西大荔",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "渭南市",
+    "district": "大荔县",
+    "specific_location": ""
+  },
+  {
+    "id": 97,
+    "name": "荆楚",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 86,
+    "name": "蒲姑",
+    "modern_name": "山东博昌县",
+    "dynasty": "西周",
+    "province": "山东省",
+    "city": "滨州市",
+    "district": "博兴县",
+    "specific_location": ""
+  },
+  {
+    "id": 58,
+    "name": "虞",
+    "modern_name": "平陆县",
+    "dynasty": "西周",
+    "province": "山西省",
+    "city": "运城市",
+    "district": "平陆县",
+    "specific_location": ""
+  },
+  {
+    "id": 71,
+    "name": "虞",
+    "modern_name": "山西平陆",
+    "dynasty": "西周",
+    "province": "山西省",
+    "city": "运城市",
+    "district": "平陆县",
+    "specific_location": ""
+  },
+  {
+    "id": 61,
+    "name": "邢",
+    "modern_name": "沁阳市",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "焦作市",
+    "district": "沁阳市",
+    "specific_location": ""
+  },
+  {
+    "id": 74,
+    "name": "邢",
+    "modern_name": "河南沁阳",
+    "dynasty": "西周",
+    "province": "河南省",
+    "city": "焦作市",
+    "district": "沁阳市",
+    "specific_location": ""
+  },
+  {
+    "id": 85,
+    "name": "邮",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 83,
+    "name": "邯",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 100,
+    "name": "镐",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西安西"
+  },
+  {
+    "id": 82,
+    "name": "镐京",
+    "modern_name": "陕西西安附近",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 56,
+    "name": "阮",
+    "modern_name": "泾川县",
+    "dynasty": "西周",
+    "province": "甘肃省",
+    "city": "平凉市",
+    "district": "泾川县",
+    "specific_location": "东南"
+  },
+  {
+    "id": 51,
+    "name": "陕西扶风",
+    "modern_name": "扶风县",
+    "dynasty": "西周",
+    "province": "陕西省",
+    "city": "宝鸡市",
+    "district": "扶风县",
+    "specific_location": ""
+  },
+  {
+    "id": 107,
+    "name": "骊山",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": "陕西临潼附近"
+  },
+  {
+    "id": 95,
+    "name": "鬼方",
+    "modern_name": "",
+    "dynasty": "西周",
+    "province": "",
+    "city": "",
+    "district": "",
+    "specific_location": ""
+  },
+  {
+    "id": 60,
+    "name": "黎",
+    "modern_name": "黎城县",
+    "dynasty": "西周",
+    "province": "山西省",
+    "city": "长治市",
+    "district": "黎城县",
+    "specific_location": ""
+  },
+  {
+    "id": 73,
+    "name": "黎",
+    "modern_name": "山西黎城",
+    "dynasty": "西周",
+    "province": "山西省",
+    "city": "长治市",
+    "district": "黎城县",
+    "specific_location": ""
+  }
+]

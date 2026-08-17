@@ -1,0 +1,14 @@
+{
+  "total_events": 495,
+  "field_fill_rates": {
+    "Allies": 0.0,
+    "Commanders": 0.0,
+    "KeyPersons": 0.0,
+    "TroopSize": 0.0,
+    "Duration": 0.0,
+    "GeographicScope": 0.0,
+    "Casualties": 0.0,
+    "relations": 0.0
+  },
+  "avg_fill_rate": 0.0
+}

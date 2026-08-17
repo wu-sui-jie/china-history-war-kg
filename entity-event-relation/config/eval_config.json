@@ -1,0 +1,8 @@
+{
+  "relation_threshold": 40,
+  "event_sim_threshold": 0.35,
+  "entity_fuzzy_threshold": 70,
+  "event_event_sim_threshold": 0.35,
+  "alias_map_path": "config/aliases.json",
+  "relation_map_path": "config/relation_types.json"
+}

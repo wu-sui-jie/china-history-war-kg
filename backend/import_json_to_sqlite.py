@@ -1,0 +1,578 @@
+#!/usr/bin/env python3
+"""
+将抽取结果导入 SQLite。
+
+支持两种输入：
+1. 当前单文件格式：entity-event-relation/output/.../9_final_all.json
+2. 旧版分表目录：backend/data/processed
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from flask import Flask
+from sqlalchemy import text
+
+from models import db, Event, Place, Organization, Person
+from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
+
+
+app = Flask(__name__)
+APP_PATH = Path(__file__).resolve().parent
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{APP_PATH / 'database'}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
+
+DEFAULT_FINAL_JSON = (
+    APP_PATH.parent
+    / "entity-event-relation"
+    / "output"
+    / "中国历代战争简史_测试数据"
+    / "9_final_all.json"
+)
+CURRENT_DATASET_META = APP_PATH / "data" / "current_dataset.json"
+LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
+
+EVENT_RELATION_TYPE_ALIASES = {
+    "因果": "因果关系",
+    "因果关系": "因果关系",
+    "顺承": "顺承关系",
+    "顺承关系": "顺承关系",
+    "并列": "并列关系",
+    "并发": "并列关系",
+    "并列关系": "并列关系",
+    "并发关系": "并列关系",
+    "包含": "包含关系",
+    "包含关系": "包含关系",
+    "条件": "条件关系",
+    "条件关系": "条件关系",
+}
+
+
+def normalize_event_relation_type(value):
+    """统一事件-事件关系类型，保持与前端筛选枚举一致。"""
+    value = _safe_text(value)
+    return EVENT_RELATION_TYPE_ALIASES.get(value, value)
+
+
+def clear_migration_tables():
+    """清空迁移相关表。"""
+    with app.app_context():
+        try:
+            db.session.execute(text("PRAGMA foreign_keys = OFF"))
+            tables = [
+                "events",
+                "places",
+                "organizations",
+                "persons",
+                "event_event_relations",
+                "event_place_relations",
+                "event_person_relations",
+                "event_organization_rel",
+            ]
+            for table in tables:
+                db.session.execute(text(f"DELETE FROM {table}"))
+
+            result = db.session.execute(
+                text("SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence'")
+            ).fetchone()
+            if result:
+                db.session.execute(
+                    text(
+                        "DELETE FROM sqlite_sequence "
+                        "WHERE name IN "
+                        "('events','places','organizations','persons',"
+                        "'event_event_relations','event_place_relations',"
+                        "'event_person_relations','event_organization_rel')"
+                    )
+                )
+
+            db.session.execute(text("PRAGMA foreign_keys = ON"))
+            db.session.commit()
+            return True, "成功"
+        except Exception as exc:
+            db.session.rollback()
+            return False, str(exc)
+
+
+def _safe_text(value):
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _safe_float(value):
+    try:
+        if value is None or str(value).strip() == "":
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _build_legacy_filename_map(importer):
+    """生成旧版分表快照文件名映射。"""
+    return {
+        "事件表_Event.json": importer._iter_events(),
+        "地点表_Place.json": importer._iter_places(),
+        "组织表_Organization.json": importer._iter_organizations(),
+        "人物表_Person.json": importer._iter_persons(),
+        "事件-事件关系表_event_event_relations.json": importer._iter_event_event_relations(),
+        "事件-地点关系表_event_place_relations.json": importer._iter_event_place_relations(),
+        "事件-人物关系表_event_person_relations.json": importer._iter_event_person_relations(),
+        "事件-组织关系表_event_organization_rel.json": importer._iter_event_org_relations(),
+    }
+
+
+class JsonToSqliteImporter:
+    def __init__(self, source_path):
+        self.source_path = Path(source_path).resolve()
+        self.stats = {
+            "events": {"inserted": 0, "error": 0},
+            "places": {"inserted": 0, "error": 0},
+            "orgs": {"inserted": 0, "error": 0},
+            "persons": {"inserted": 0, "error": 0},
+            "relations": {"inserted": 0, "error": 0},
+        }
+        self.dataset_meta = {
+            "source_path": str(self.source_path),
+            "source_kind": "",
+            "metadata": {},
+            "quality_report": {},
+        }
+        self.payload = self._load_source()
+
+    def _load_json_file(self, path: Path):
+        with path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+
+    def _load_source(self):
+        if self.source_path.is_file():
+            data = self._load_json_file(self.source_path)
+            if isinstance(data, dict) and "entities" in data and "relations" in data:
+                self.dataset_meta["source_kind"] = "final_json"
+                self.dataset_meta["metadata"] = data.get("metadata", {})
+                self.dataset_meta["quality_report"] = data.get("quality_report", {})
+                return data
+            raise ValueError(f"不支持的 JSON 文件格式：{self.source_path}")
+
+        if self.source_path.is_dir():
+            self.dataset_meta["source_kind"] = "legacy_dir"
+            return None
+
+        raise FileNotFoundError(f"未找到数据源路径：{self.source_path}")
+
+    def _save_dataset_meta(self):
+        CURRENT_DATASET_META.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            **self.dataset_meta,
+            "sqlite_counts": {
+                "events": self.stats["events"]["inserted"],
+                "places": self.stats["places"]["inserted"],
+                "organizations": self.stats["orgs"]["inserted"],
+                "persons": self.stats["persons"]["inserted"],
+                "relations": self.stats["relations"]["inserted"],
+            },
+        }
+        with CURRENT_DATASET_META.open("w", encoding="utf-8") as handle:
+            json.dump(payload, handle, ensure_ascii=False, indent=2)
+
+    def _save_legacy_processed_snapshot(self):
+        if self.dataset_meta["source_kind"] != "final_json":
+            return
+
+        LEGACY_PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+        for filename, data in _build_legacy_filename_map(self).items():
+            target = LEGACY_PROCESSED_DIR / filename
+            with target.open("w", encoding="utf-8") as handle:
+                json.dump(data, handle, ensure_ascii=False, indent=2)
+
+    def _load_legacy_json(self, filename):
+        path = self.source_path / filename
+        if not path.exists():
+            return []
+        return self._load_json_file(path)
+
+    def _iter_events(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            events_payload = self.payload.get("events", [])
+            if isinstance(events_payload, dict):
+                return events_payload.get("events", [])
+            return events_payload
+        return self._load_legacy_json("事件表_Event.json")
+
+    def _iter_places(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("entities", {}).get("places", [])
+        return self._load_legacy_json("地点表_Place.json")
+
+    def _iter_organizations(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("entities", {}).get("organizations", [])
+        return self._load_legacy_json("组织表_Organization.json")
+
+    def _iter_persons(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("entities", {}).get("persons", [])
+        return self._load_legacy_json("人物表_Person.json")
+
+    def _iter_event_event_relations(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("relations", {}).get("event_event_relations", [])
+        return self._load_legacy_json("事件-事件关系表_event_event_relations.json")
+
+    def _iter_event_place_relations(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("relations", {}).get("event_place_relations", [])
+        return self._load_legacy_json("事件-地点关系表_event_place_relations.json")
+
+    def _iter_event_person_relations(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("relations", {}).get("event_person_relations", [])
+        return self._load_legacy_json("事件-人物关系表_event_person_relations.json")
+
+    def _iter_event_org_relations(self):
+        if self.dataset_meta["source_kind"] == "final_json":
+            return self.payload.get("relations", {}).get("event_organization_relations", [])
+        return self._load_legacy_json("事件-组织关系表_event_organization_rel.json")
+
+    def import_events(self):
+        for item in self._iter_events():
+            try:
+                name = _safe_text(item.get("EventName"))
+                if not name:
+                    self.stats["events"]["error"] += 1
+                    continue
+
+                event = Event(
+                    name=name,
+                    event_type=_safe_text(item.get("EventType")) or "战争",
+                    start_date=_safe_text(item.get("StartDate")),
+                    end_date=_safe_text(item.get("EndDate")),
+                    dynasty=_safe_text(item.get("DynastyName")),
+                    place=_safe_text(item.get("Place")),
+                    aggressor=_safe_text(item.get("Aggressor")),
+                    defender=_safe_text(item.get("Defender")),
+                    result=_safe_text(item.get("Result")),
+                    person=_safe_text(item.get("KeyPersons") or item.get("Person")),
+                    impact=_safe_text(item.get("Impact")),
+                    source=_safe_text(item.get("source_text") or item.get("source")),
+                    scale=_safe_text(item.get("TroopSize") or item.get("Scale")),
+                    action=_safe_text(item.get("Action") or item.get("action")),
+                    remark=_safe_text(item.get("Remark")),
+                    relations=json.dumps(item.get("relations", []), ensure_ascii=False)
+                    if item.get("relations")
+                    else "",
+                )
+                db.session.add(event)
+                self.stats["events"]["inserted"] += 1
+                if self.stats["events"]["inserted"] % 50 == 0:
+                    db.session.commit()
+            except Exception as exc:
+                self.stats["events"]["error"] += 1
+                db.session.rollback()
+                event_name = _safe_text(item.get("EventName")) if isinstance(item, dict) else ""
+                print(f"事件导入失败：事件名={event_name}，错误={exc}")
+        db.session.commit()
+
+    def import_places(self):
+        for item in self._iter_places():
+            try:
+                name = _safe_text(item.get("geo_name"))
+                if not name:
+                    self.stats["places"]["error"] += 1
+                    continue
+                place = Place(
+                    name=name,
+                    modern_name=_safe_text(item.get("modern_name")),
+                    dynasty=_safe_text(item.get("DynastyName")),
+                    province=_safe_text(item.get("Province")),
+                    city=_safe_text(item.get("City")),
+                    district=_safe_text(item.get("District_County") or item.get("District")),
+                    specific_location=_safe_text(item.get("Specific_location") or item.get("Specific_Location")),
+                    longitude=_safe_float(item.get("longitude") or item.get("Longitude")),
+                    latitude=_safe_float(item.get("latitude") or item.get("Latitude")),
+                    coord_source=_safe_text(item.get("coord_source") or item.get("CoordSource")),
+                    coord_confidence=_safe_text(item.get("coord_confidence") or item.get("CoordConfidence")),
+                    coord_note=_safe_text(item.get("coord_note") or item.get("CoordNote")),
+                )
+                db.session.add(place)
+                self.stats["places"]["inserted"] += 1
+                if self.stats["places"]["inserted"] % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["places"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+
+    def import_organizations(self):
+        valid_types = {"国家", "部落", "起义军", "联盟", "地方势力", "中央政权"}
+        for item in self._iter_organizations():
+            try:
+                name = _safe_text(item.get("OrgName"))
+                if not name:
+                    self.stats["orgs"]["error"] += 1
+                    continue
+                org_type = _safe_text(item.get("OrgType")) or "地方势力"
+                if org_type not in valid_types:
+                    org_type = "地方势力"
+                org = Organization(
+                    name=name,
+                    org_type=org_type,
+                    dynasty=_safe_text(item.get("DynastyName")),
+                    description=_safe_text(item.get("Description") or item.get("source_text")),
+                    remark=_safe_text(item.get("Remark")),
+                )
+                db.session.add(org)
+                self.stats["orgs"]["inserted"] += 1
+                if self.stats["orgs"]["inserted"] % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["orgs"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+
+    def import_persons(self):
+        for item in self._iter_persons():
+            try:
+                name = _safe_text(item.get("PersonName"))
+                if not name:
+                    self.stats["persons"]["error"] += 1
+                    continue
+                person = Person(
+                    name=name,
+                    dynasty=_safe_text(item.get("DynastyName")),
+                    org=_safe_text(item.get("OrgName")),
+                    role=_safe_text(item.get("Role")),
+                    remark=_safe_text(item.get("Remark") or item.get("source_text")),
+                )
+                db.session.add(person)
+                self.stats["persons"]["inserted"] += 1
+                if self.stats["persons"]["inserted"] % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["persons"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+
+    def _find_event(self, name):
+        return Event.query.filter_by(name=_safe_text(name)).first()
+
+    def _find_place(self, name, modern_name=""):
+        raw_name = _safe_text(name)
+        raw_modern = _safe_text(modern_name)
+
+        # 1. 精确匹配 geo_name (name 字段)
+        if raw_name:
+            place = Place.query.filter_by(name=raw_name).first()
+            if place:
+                return place
+
+        # 2. 精确匹配 modern_name
+        if raw_modern:
+            place = Place.query.filter_by(modern_name=raw_modern).first()
+            if place:
+                return place
+
+        # 3. 模糊匹配：name 包含查询值，或查询值包含 name
+        if raw_name:
+            place = Place.query.filter(Place.name.like(f"%{raw_name}%")).first()
+            if place:
+                return place
+            place = Place.query.filter(Place.modern_name.like(f"%{raw_name}%")).first()
+            if place:
+                return place
+
+        # 4. 模糊匹配：modern_name 包含查询值
+        if raw_modern:
+            place = Place.query.filter(Place.name.like(f"%{raw_modern}%")).first()
+            if place:
+                return place
+            place = Place.query.filter(Place.modern_name.like(f"%{raw_modern}%")).first()
+            if place:
+                return place
+
+        return None
+
+    def _find_person(self, name):
+        return Person.query.filter_by(name=_safe_text(name)).first()
+
+    def _find_org(self, name):
+        return Organization.query.filter_by(name=_safe_text(name)).first()
+
+    def _import_event_event(self):
+        inserted = 0
+        for item in self._iter_event_event_relations():
+            try:
+                a_name = _safe_text(item.get("EventName_A"))
+                b_name = _safe_text(item.get("EventName_B"))
+                rel_type = normalize_event_relation_type(item.get("relation") or item.get("relations")) or "相关"
+                if not a_name or not b_name:
+                    continue
+                event_a = self._find_event(a_name)
+                event_b = self._find_event(b_name)
+                if not event_a or not event_b:
+                    continue
+                db.session.add(
+                    EventEventRelation(
+                        event_a_id=event_a.id,
+                        event_b_id=event_b.id,
+                        event_a_name=a_name,
+                        event_b_name=b_name,
+                        relation_type=rel_type,
+                    )
+                )
+                inserted += 1
+                if inserted % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["relations"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+        self.stats["relations"]["inserted"] += inserted
+
+    def _import_event_place(self):
+        inserted = 0
+        for item in self._iter_event_place_relations():
+            try:
+                event_name = _safe_text(item.get("EventName"))
+                place_name = _safe_text(item.get("geo_name") or item.get("PlaceName") or item.get("modern_name"))
+                modern_name = _safe_text(item.get("modern_name"))
+                rel_type = _safe_text(item.get("relation") or item.get("relations")) or "发生地"
+                evidence = _safe_text(item.get("evidence") or item.get("source_text"))
+                if not event_name or not (place_name or modern_name):
+                    continue
+                event = self._find_event(event_name)
+                place = self._find_place(place_name, modern_name)
+                if not event or not place:
+                    continue
+                db.session.add(
+                    EventPlaceRelation(
+                        event_id=event.id,
+                        place_id=place.id,
+                        event_name=event_name,
+                        place_name=place.name,
+                        modern_name=place.modern_name,
+                        relation_type=rel_type,
+                        evidence=evidence,
+                        source_type=_safe_text(item.get("source_type")) or "extraction",
+                        confidence=_safe_text(item.get("confidence")) or ("medium" if evidence else ""),
+                    )
+                )
+                inserted += 1
+                if inserted % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["relations"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+        self.stats["relations"]["inserted"] += inserted
+
+    def _import_event_person(self):
+        inserted = 0
+        for item in self._iter_event_person_relations():
+            try:
+                event_name = _safe_text(item.get("EventName"))
+                person_name = _safe_text(item.get("PersonName"))
+                rel_type = _safe_text(item.get("relation") or item.get("relations")) or "参与"
+                if not event_name or not person_name:
+                    continue
+                event = self._find_event(event_name)
+                person = self._find_person(person_name)
+                if not event or not person:
+                    continue
+                db.session.add(
+                    EventPersonRelation(
+                        event_id=event.id,
+                        person_id=person.id,
+                        event_name=event_name,
+                        person_name=person_name,
+                        relation_type=rel_type,
+                    )
+                )
+                inserted += 1
+                if inserted % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["relations"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+        self.stats["relations"]["inserted"] += inserted
+
+    def _import_event_org(self):
+        inserted = 0
+        for item in self._iter_event_org_relations():
+            try:
+                event_name = _safe_text(item.get("EventName"))
+                org_name = _safe_text(item.get("OrgName"))
+                rel_type = _safe_text(item.get("relation") or item.get("relations")) or "参战"
+                if not event_name or not org_name:
+                    continue
+                event = self._find_event(event_name)
+                org = self._find_org(org_name)
+                if not event or not org:
+                    continue
+                db.session.add(
+                    EventOrganizationRel(
+                        event_id=event.id,
+                        org_id=org.id,
+                        event_name=event_name,
+                        org_name=org_name,
+                        relation_type=rel_type,
+                    )
+                )
+                inserted += 1
+                if inserted % 50 == 0:
+                    db.session.commit()
+            except Exception:
+                self.stats["relations"]["error"] += 1
+                db.session.rollback()
+        db.session.commit()
+        self.stats["relations"]["inserted"] += inserted
+
+    def import_relations(self):
+        self._import_event_event()
+        self._import_event_place()
+        self._import_event_person()
+        self._import_event_org()
+
+    def _build_output_stats(self):
+        return {
+            "事件": self.stats["events"],
+            "地点": self.stats["places"],
+            "组织": self.stats["orgs"],
+            "人物": self.stats["persons"],
+            "关系": self.stats["relations"],
+        }
+
+    def run(self):
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
+            success, msg = clear_migration_tables()
+            if not success:
+                print(f"清空数据表失败：{msg}")
+                sys.exit(1)
+
+            self.import_events()
+            self.import_places()
+            self.import_organizations()
+            self.import_persons()
+            self.import_relations()
+            self._save_dataset_meta()
+            self._save_legacy_processed_snapshot()
+            print(json.dumps(self._build_output_stats(), ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="将抽取结果导入 SQLite 数据库")
+    parser.add_argument(
+        "--source",
+        default=str(DEFAULT_FINAL_JSON),
+        help="抽取结果文件路径，默认使用完整 9_final_all.json，也支持 published/final.json 或旧版 processed 目录",
+    )
+    args = parser.parse_args()
+    importer = JsonToSqliteImporter(source_path=args.source)
+    importer.run()

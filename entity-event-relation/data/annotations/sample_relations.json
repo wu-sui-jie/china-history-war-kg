@@ -1,0 +1,8840 @@
+{
+  "event-place": [
+    {
+      "head": "启建立夏王朝",
+      "relation": "主战场",
+      "tail": "甘"
+    },
+    {
+      "head": "太康失国",
+      "relation": "目的地",
+      "tail": "夏都"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "主战场",
+      "tail": "斟灌氏、斟寻氏"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "指挥所",
+      "tail": "纶"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "补给地",
+      "tail": "鬲氏"
+    },
+    {
+      "head": "商汤灭葛之战",
+      "relation": "主战场",
+      "tail": "葛之地"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "主战场",
+      "tail": "韦之地"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "主战场",
+      "tail": "顾之地"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "主战场",
+      "tail": "昆吾之地"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "主战场",
+      "tail": "鸣条"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "主战场",
+      "tail": "下旨之地"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "主战场",
+      "tail": "鬼方之地"
+    },
+    {
+      "head": "商纣王征东夷",
+      "relation": "主战场",
+      "tail": "东夷之地"
+    },
+    {
+      "head": "周文王灭崇之战",
+      "relation": "主战场",
+      "tail": "崇地"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "出发地",
+      "tail": "孟津"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "途经地",
+      "tail": "汜地"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "途经地",
+      "tail": "百泉"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "主战场",
+      "tail": "牧野"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "目的地",
+      "tail": "朝歌"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "主战场",
+      "tail": "殷地"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "主战场",
+      "tail": "东方诸国之地"
+    },
+    {
+      "head": "成王东征",
+      "relation": "主战场",
+      "tail": "奄地"
+    },
+    {
+      "head": "成王东征",
+      "relation": "主战场",
+      "tail": "淮夷"
+    },
+    {
+      "head": "成王东征",
+      "relation": "目的地",
+      "tail": "蒲姑"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "主战场",
+      "tail": "汉水流域"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "主战场",
+      "tail": "荆楚"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "目的地",
+      "tail": "积羽"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "主战场",
+      "tail": "太原"
+    },
+    {
+      "head": "方叔征荆蛮",
+      "relation": "主战场",
+      "tail": "荆蛮之地"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "主战场",
+      "tail": "镐京"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "次要战场",
+      "tail": "骊山"
+    },
+    {
+      "head": "郑庄公设伏败北戎",
+      "relation": "主战场",
+      "tail": "郑地"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "主战场",
+      "tail": "葛地"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "主战场",
+      "tail": "乾时"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "主战场",
+      "tail": "长勺"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "主战场",
+      "tail": "燕国"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "目的地",
+      "tail": "孤竹"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "目的地",
+      "tail": "令支"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "主战场",
+      "tail": "泓水"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "主战场",
+      "tail": "五鹿"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "主战场",
+      "tail": "楚丘"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "主战场",
+      "tail": "陶丘"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "主战场",
+      "tail": "城濮"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "主战场",
+      "tail": "崤山"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "主战场",
+      "tail": "彭衙"
+    },
+    {
+      "head": "秦晋王宫之战",
+      "relation": "主战场",
+      "tail": "王宫"
+    },
+    {
+      "head": "邲之战",
+      "relation": "主战场",
+      "tail": "邲"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "主战场",
+      "tail": "曲梁"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "主战场",
+      "tail": "鞍"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "主战场",
+      "tail": "麻隧"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "目的地",
+      "tail": "侯丽"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "途经地",
+      "tail": "泾水"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "主战场",
+      "tail": "鄢陵"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "途经地",
+      "tail": "鸣雁"
+    },
+    {
+      "head": "吴楚战于鹊岸",
+      "relation": "主战场",
+      "tail": "鹊岸"
+    },
+    {
+      "head": "吴楚战于房钟",
+      "relation": "主战场",
+      "tail": "房钟"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "主战场",
+      "tail": "鸡父"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "战略要地",
+      "tail": "州来"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "主战场",
+      "tail": "柏举"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "途经地",
+      "tail": "汉水"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "次要战场",
+      "tail": "清发水"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "次要战场",
+      "tail": "雍澨"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "目的地",
+      "tail": "郢"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "主战场",
+      "tail": "槜李"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "主战场",
+      "tail": "夫椒"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "目的地",
+      "tail": "会稽山"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "主战场",
+      "tail": "艾陵"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "主战场",
+      "tail": "姑苏"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "主战场",
+      "tail": "笠泽"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "主战场",
+      "tail": "晋阳"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "主战场",
+      "tail": "河西"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "目的地",
+      "tail": "去城"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "目的地",
+      "tail": "桑丘"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "目的地",
+      "tail": "灵丘"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "目的地",
+      "tail": "博陵"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "目的地",
+      "tail": "乘丘"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "目的地",
+      "tail": "榆关"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "目的地",
+      "tail": "鲁阳"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "主战场",
+      "tail": "桂陵"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "战略要地",
+      "tail": "邯郸"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "目的地",
+      "tail": "大梁"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "主战场",
+      "tail": "马陵"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "目的地",
+      "tail": "大梁"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "主战场",
+      "tail": "函谷关"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "目的地",
+      "tail": "荥阳"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "目的地",
+      "tail": "成皋"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "主战场",
+      "tail": "丹阳"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "次要战场",
+      "tail": "兰田"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "主战场",
+      "tail": "重丘"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "主战场",
+      "tail": "伊阙"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "主战场",
+      "tail": "济水西"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "战略要地",
+      "tail": "临淄"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "战略要地",
+      "tail": "莒"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "战略要地",
+      "tail": "即墨"
+    },
+    {
+      "head": "济西之战",
+      "relation": "主战场",
+      "tail": "济水西"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "主战场",
+      "tail": "长平"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "战略要地",
+      "tail": "中原及关东六国地域"
+    },
+    {
+      "head": "秦灭韩之战",
+      "relation": "战略要地",
+      "tail": "南郑"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "战略要地",
+      "tail": "邯郸"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "主战场",
+      "tail": "易水"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "战略要地",
+      "tail": "蓟城"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "战略要地",
+      "tail": "辽东"
+    },
+    {
+      "head": "秦灭魏之战",
+      "relation": "战略要地",
+      "tail": "大梁"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "主战场",
+      "tail": "平舆"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "战略要地",
+      "tail": "寿春"
+    },
+    {
+      "head": "秦灭齐之战",
+      "relation": "战略要地",
+      "tail": "临淄"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "主战场",
+      "tail": "河套"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "出发地",
+      "tail": "咸阳"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "主战场",
+      "tail": "大泽乡"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "战略要地",
+      "tail": "陈县"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "主战场",
+      "tail": "巨鹿"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "目的地",
+      "tail": "咸阳"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "途经地",
+      "tail": "灞上"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "主战场",
+      "tail": "陈仓"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "战略要地",
+      "tail": "废丘"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "主战场",
+      "tail": "彭城"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "主战场",
+      "tail": "荥阳"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "次要战场",
+      "tail": "成皋"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "战略要地",
+      "tail": "广武"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "主战场",
+      "tail": "潍水"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "主战场",
+      "tail": "亥下"
+    },
+    {
+      "head": "平定燕王臧荼",
+      "relation": "主战场",
+      "tail": "易水"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "议和地点",
+      "tail": "陈县"
+    },
+    {
+      "head": "平城之围",
+      "relation": "主战场",
+      "tail": "平城"
+    },
+    {
+      "head": "平城之围",
+      "relation": "次要战场",
+      "tail": "白登山"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "主战场",
+      "tail": "邯郸"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "次要战场",
+      "tail": "马邑"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "主战场",
+      "tail": "长安"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "主战场",
+      "tail": "淮南、蕲西"
+    },
+    {
+      "head": "平定卢绾叛乱",
+      "relation": "主战场",
+      "tail": "蓟"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "主战场",
+      "tail": "长安"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "主战场",
+      "tail": "广陵"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "主战场",
+      "tail": "睢阳"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "主战场",
+      "tail": "马邑"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "主战场",
+      "tail": "河套"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "战略要地",
+      "tail": "朔方郡"
+    },
+    {
+      "head": "河西之战",
+      "relation": "主战场",
+      "tail": "河西"
+    },
+    {
+      "head": "河西之战",
+      "relation": "次要战场",
+      "tail": "祁连山"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "主战场",
+      "tail": "漠北"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "目的地",
+      "tail": "狼居胥山"
+    },
+    {
+      "head": "平定南越",
+      "relation": "主战场",
+      "tail": "番禺"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "主战场",
+      "tail": "王俭"
+    },
+    {
+      "head": "陈汤灭郅支单于",
+      "relation": "主战场",
+      "tail": "郅支城"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "主战场",
+      "tail": "绿林山"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "主战场",
+      "tail": "昆阳"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "主战场",
+      "tail": "邯郸"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "主战场",
+      "tail": "崤底"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "次要战场",
+      "tail": "宜阳"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "主战场",
+      "tail": "陇西"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "战略要地",
+      "tail": "略阳"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "主战场",
+      "tail": "成都"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "主战场",
+      "tail": "涿邪山"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "途经地",
+      "tail": "金微山"
+    },
+    {
+      "head": "班超通西域",
+      "relation": "主战场",
+      "tail": "疏勒"
+    },
+    {
+      "head": "段颎平定羌乱",
+      "relation": "主战场",
+      "tail": "积石山"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "主战场",
+      "tail": "兖州"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "战略要地",
+      "tail": "官渡"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "主战场",
+      "tail": "官渡"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "主战场",
+      "tail": "赤壁"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "主战场",
+      "tail": "夷陵"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "主战场",
+      "tail": "祁山"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "战略要地",
+      "tail": "街亭"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "驻防地",
+      "tail": "五丈原"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "主战场",
+      "tail": "阴平"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "目的地",
+      "tail": "成都"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "主战场",
+      "tail": "长江沿线"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "目的地",
+      "tail": "建业（南京）"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "出发地",
+      "tail": "下邳（江苏邳县）、寿春（安徽寿县）、襄阳、巴郡（重庆）"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "战略要地",
+      "tail": "西陵（湖北宜昌）、江陵、武昌、建业（南京）"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "次要战场",
+      "tail": "长安"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "指挥所",
+      "tail": "洛阳皇宫"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "主战场",
+      "tail": "长安"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "出发地",
+      "tail": "平阳（山西临汾）"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "出发地",
+      "tail": "左国城（山西离石）"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "战略要地",
+      "tail": "太行山东西两侧"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "补给地",
+      "tail": "冀、兖、豫、荆等州"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "出发地",
+      "tail": "襄国（河北邢台）"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "战略要地",
+      "tail": "金铺（洛阳城北）、蒲阪（山西永济）"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "指挥所",
+      "tail": "成皋（汜水县）"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "补给地",
+      "tail": "河北诸州"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "出发地",
+      "tail": "江陵"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "途经地",
+      "tail": "襄阳、均口、武关"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "主战场",
+      "tail": "蓝田"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "目的地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "主战场",
+      "tail": "伊水"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "目的地",
+      "tail": "邺城"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "出发地",
+      "tail": "姑熟（安徽当涂）"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "途经地",
+      "tail": "金乡、巨野泽"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "主战场",
+      "tail": "枋头（河南滑县）"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "次要战场",
+      "tail": "襄邑（河南睢县）"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "战略要地",
+      "tail": "壶关（山西潞城）、晋阳"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "主战场",
+      "tail": "潞川"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "目的地",
+      "tail": "邺城"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "补给地",
+      "tail": "渭水、黄河、汾水漕运"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "主战场",
+      "tail": "淝水（安徽瓦埠湖一带）"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "战略要地",
+      "tail": "寿阳"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "目的地",
+      "tail": "建康（南京）"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "出发地",
+      "tail": "长安"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "途经地",
+      "tail": "项县（河南沈丘）"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "战略要地",
+      "tail": "洛涧（安徽淮南东）"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "次要战场",
+      "tail": "八公山"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "途经地",
+      "tail": "青冈（寿县西北）"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "主战场",
+      "tail": "广固"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "出发地",
+      "tail": "建康"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "途经地",
+      "tail": "下邳、琅邪"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "战略要地",
+      "tail": "大岘山（沂山）"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "主战场",
+      "tail": "临朐"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "出发地",
+      "tail": "建康"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "战略要地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "战略要地",
+      "tail": "潼关"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "次要战场",
+      "tail": "渭桥"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "补给地",
+      "tail": "淮、汴、黄河水路"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "主战场",
+      "tail": "统万（内蒙乌市旗南）"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "出发地",
+      "tail": "平城（山西大同）"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "途经地",
+      "tail": "君子津（内蒙托克东南）"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "次要战场",
+      "tail": "拔邻山（内蒙准格尔旗）"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "次要战场",
+      "tail": "长安"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "出发地",
+      "tail": "漠南"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "目的地",
+      "tail": "栗水（乌兰马托西南）"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "途经地",
+      "tail": "兔园水（哈尔和林西南）"
+    },
+    {
+      "head": "魏灭北燕",
+      "relation": "主战场",
+      "tail": "和龙（辽宁朝阳）"
+    },
+    {
+      "head": "魏灭北凉",
+      "relation": "目的地",
+      "tail": "北凉都城"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "出发地",
+      "tail": "建康"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "目的地",
+      "tail": "河南四镇"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "主战场",
+      "tail": "滑台"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "主战场",
+      "tail": "虎牢"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "驻防地",
+      "tail": "彭城"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "出发地",
+      "tail": "建康"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "主战场",
+      "tail": "滑台"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "途经地",
+      "tail": "长江北岸"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "目的地",
+      "tail": "长江"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "途经地",
+      "tail": "盱眙、彭城"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "途经地",
+      "tail": "淮北"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "出发地",
+      "tail": "北魏边境"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "主战场",
+      "tail": "寿阳"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "主战场",
+      "tail": "钟离"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "次要战场",
+      "tail": "角城（江苏淮阴）"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "出发地",
+      "tail": "平城"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "途经地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "主战场",
+      "tail": "钟离"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "战略要地",
+      "tail": "邵阳洲（钟离北淮水中）"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "出发地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "主战场",
+      "tail": "南阳"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "主战场",
+      "tail": "新野"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "主战场",
+      "tail": "雍州（襄阳）"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "次要战场",
+      "tail": "涡阳（蒙城）"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "主战场",
+      "tail": "钟离"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "主战场",
+      "tail": "义阳（信阳）"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "出发地",
+      "tail": "北魏边境"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "主战场",
+      "tail": "梁益二州"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "主战场",
+      "tail": "钟离"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "战略要地",
+      "tail": "洛口（寿阳东北）"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "次要战场",
+      "tail": "邵阳洲（凤阳县东淮水中）"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "主战场",
+      "tail": "胸山（江苏东海）"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "次要战场",
+      "tail": "浮山堰（盱眙县）"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "次要战场",
+      "tail": "西硤石（凤台县）"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "战略要地",
+      "tail": "益州"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "出发地",
+      "tail": "寿阳"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "途经地",
+      "tail": "横江（安徽和县）"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "主战场",
+      "tail": "建康"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "主战场",
+      "tail": "台城"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "次要战场",
+      "tail": "欧阳（安徽仪征）"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "途经地",
+      "tail": "京口"
+    },
+    {
+      "head": "北周第一次伐齐",
+      "relation": "出发地",
+      "tail": "长安"
+    },
+    {
+      "head": "北周第一次伐齐",
+      "relation": "目的地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "北周第一次伐齐",
+      "relation": "战略要地",
+      "tail": "河阳（孟县西）"
+    },
+    {
+      "head": "北周第一次伐齐",
+      "relation": "次要战场",
+      "tail": "黎阳（河南滑县）"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "出发地",
+      "tail": "长安"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "主战场",
+      "tail": "平阳（山西临汾）"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "主战场",
+      "tail": "晋阳"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "目的地",
+      "tail": "邺城"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "战略要地",
+      "tail": "汾曲（临汾南）"
+    },
+    {
+      "head": "北周第二次伐齐",
+      "relation": "战略要地",
+      "tail": "玉壁（山西稷山）"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "指挥所",
+      "tail": "长安"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "战略要地",
+      "tail": "潼关"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "主战场",
+      "tail": "相州"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "主战场",
+      "tail": "郧州"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "主战场",
+      "tail": "益州"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "主战场",
+      "tail": "白道"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "主战场",
+      "tail": "灵州"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "主战场",
+      "tail": "卢龙塞"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "主战场",
+      "tail": "凉州"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "目的地",
+      "tail": "建康"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "出发地",
+      "tail": "永安"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "江夏"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "狼尾滩"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "西陵峡口岐亭"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "延洲"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "公安"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "采石"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "京口"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "钟山"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "姑熟"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "新林"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "石头"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "蕲口"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "太湖"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "白土冈"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "石子冈"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "主战场",
+      "tail": "朱雀门"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "出发地",
+      "tail": "蓟城"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "目的地",
+      "tail": "平壤"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "主战场",
+      "tail": "辽东城"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "补给地",
+      "tail": "涿郡"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "补给地",
+      "tail": "东莱"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "补给地",
+      "tail": "怀远镇"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "途经地",
+      "tail": "辽水"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "主战场",
+      "tail": "贝水"
+    },
+    {
+      "head": "隋炀帝第一次东征高丽",
+      "relation": "主战场",
+      "tail": "鸭绿江"
+    },
+    {
+      "head": "隋炀帝第二次东征高丽",
+      "relation": "出发地",
+      "tail": "东京"
+    },
+    {
+      "head": "隋炀帝第二次东征高丽",
+      "relation": "目的地",
+      "tail": "平壤"
+    },
+    {
+      "head": "隋炀帝第二次东征高丽",
+      "relation": "主战场",
+      "tail": "辽东城"
+    },
+    {
+      "head": "隋炀帝第三次东征高丽",
+      "relation": "出发地",
+      "tail": "高阳"
+    },
+    {
+      "head": "隋炀帝第三次东征高丽",
+      "relation": "目的地",
+      "tail": "平壤"
+    },
+    {
+      "head": "隋炀帝第三次东征高丽",
+      "relation": "主战场",
+      "tail": "毕奢城"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "金堤关"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "补给地",
+      "tail": "洛口仓"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "荥阳大海寺"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "石子河"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "横岭"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "百花谷"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "补给地",
+      "tail": "回洛仓"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "主战场",
+      "tail": "黎阳仓"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "主战场",
+      "tail": "洛水"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "主战场",
+      "tail": "黑石"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "主战场",
+      "tail": "月城"
+    },
+    {
+      "head": "童山之战",
+      "relation": "主战场",
+      "tail": "童山"
+    },
+    {
+      "head": "童山之战",
+      "relation": "主战场",
+      "tail": "清淇"
+    },
+    {
+      "head": "童山之战",
+      "relation": "主战场",
+      "tail": "济渠"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "主战场",
+      "tail": "北邙山"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "出发地",
+      "tail": "太原"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "霍邑"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "贾胡堡"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "临汾"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "绛郡"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "龙门"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "河东"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "主战场",
+      "tail": "梁山"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "主战场",
+      "tail": "浅水原"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "主战场",
+      "tail": "高墌"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "主战场",
+      "tail": "柏壁"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "主战场",
+      "tail": "美良川"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "主战场",
+      "tail": "洛阳"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "战略要地",
+      "tail": "虎牢"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "目的地",
+      "tail": "江陵"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "主战场",
+      "tail": "荆门"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "主战场",
+      "tail": "宜都"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "主战场",
+      "tail": "清江"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "主战场",
+      "tail": "枝江"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "主战场",
+      "tail": "恶阳岭"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "主战场",
+      "tail": "定襄"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "主战场",
+      "tail": "白道"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "主战场",
+      "tail": "库山"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "主战场",
+      "tail": "曼头山"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "主战场",
+      "tail": "牛心堆"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "目的地",
+      "tail": "伏俟城"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "主战场",
+      "tail": "大非川"
+    },
+    {
+      "head": "苏定方进攻西突厥",
+      "relation": "主战场",
+      "tail": "鹰娑川"
+    },
+    {
+      "head": "苏定方进攻西突厥",
+      "relation": "主战场",
+      "tail": "额尔齐斯河"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "辽东城"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "建安城"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "盖牟城"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "卑沙城"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "白岩城"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "主战场",
+      "tail": "安市城"
+    },
+    {
+      "head": "唐高宗征灭百济",
+      "relation": "主战场",
+      "tail": "熊津江口"
+    },
+    {
+      "head": "唐高宗征灭百济",
+      "relation": "目的地",
+      "tail": "公州城"
+    },
+    {
+      "head": "唐高宗征灭高丽",
+      "relation": "主战场",
+      "tail": "平壤"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "主战场",
+      "tail": "黄獐谷"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "主战场",
+      "tail": "硖石谷"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "主战场",
+      "tail": "东峡石谷"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "出发地",
+      "tail": "范阳"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "目的地",
+      "tail": "洛阳"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "战略要地",
+      "tail": "潼关"
+    },
+    {
+      "head": "太原保卫战",
+      "relation": "主战场",
+      "tail": "太原"
+    },
+    {
+      "head": "睢阳保卫战",
+      "relation": "主战场",
+      "tail": "睢阳"
+    },
+    {
+      "head": "肃宗讨安庆绪（长安收复战）",
+      "relation": "主战场",
+      "tail": "香秋寺"
+    },
+    {
+      "head": "肃宗讨安庆绪（新店之战）",
+      "relation": "主战场",
+      "tail": "新店"
+    },
+    {
+      "head": "平定史思明",
+      "relation": "主战场",
+      "tail": "河阳"
+    },
+    {
+      "head": "唐代宗灭史朝义",
+      "relation": "主战场",
+      "tail": "洛阳北郊"
+    },
+    {
+      "head": "黄巢起义北伐（潭州之战）",
+      "relation": "主战场",
+      "tail": "潭州"
+    },
+    {
+      "head": "黄巢起义北伐（信州决战）",
+      "relation": "主战场",
+      "tail": "信州"
+    },
+    {
+      "head": "黄巢进占长安",
+      "relation": "目的地",
+      "tail": "长安"
+    },
+    {
+      "head": "黄巢进占长安",
+      "relation": "战略要地",
+      "tail": "潼关"
+    },
+    {
+      "head": "朱全忠篡唐建后梁",
+      "relation": "目的地",
+      "tail": "汴州"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "主战场",
+      "tail": "潞州"
+    },
+    {
+      "head": "柏乡之战",
+      "relation": "主战场",
+      "tail": "柏乡"
+    },
+    {
+      "head": "晋灭燕幽州之战",
+      "relation": "目的地",
+      "tail": "幽州"
+    },
+    {
+      "head": "晋梁沿河据点争夺战（杨刘之战）",
+      "relation": "战略要地",
+      "tail": "杨刘"
+    },
+    {
+      "head": "后唐灭后梁之战",
+      "relation": "目的地",
+      "tail": "汴州"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "主战场",
+      "tail": "晋阳"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "主战场",
+      "tail": "马家口"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "主战场",
+      "tail": "戚城"
+    },
+    {
+      "head": "刘知远建后汉",
+      "relation": "出发地",
+      "tail": "太原"
+    },
+    {
+      "head": "刘知远建后汉",
+      "relation": "目的地",
+      "tail": "大梁"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "主战场",
+      "tail": "邺都"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "主战场",
+      "tail": "河中"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "主战场",
+      "tail": "高平"
+    },
+    {
+      "head": "后周征后蜀之战",
+      "relation": "主战场",
+      "tail": "秦州"
+    },
+    {
+      "head": "周世宗征南唐之战",
+      "relation": "主战场",
+      "tail": "寿州"
+    },
+    {
+      "head": "周世宗征南唐之战",
+      "relation": "主战场",
+      "tail": "紫金山"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "主战场",
+      "tail": "益津关"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "战略要地",
+      "tail": "瓦桥关"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "战略要地",
+      "tail": "瀛州"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "战略要地",
+      "tail": "莫州"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "战略要地",
+      "tail": "易州"
+    },
+    {
+      "head": "陈桥兵变",
+      "relation": "出发地",
+      "tail": "汴京"
+    },
+    {
+      "head": "高梁河之战",
+      "relation": "主战场",
+      "tail": "高梁河"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "议和地点",
+      "tail": "澶州"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "主战场",
+      "tail": "黄天荡"
+    },
+    {
+      "head": "采石之战",
+      "relation": "主战场",
+      "tail": "采石"
+    },
+    {
+      "head": "蒙古西征",
+      "relation": "出发地",
+      "tail": "和林"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "主战场",
+      "tail": "襄阳"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "主战场",
+      "tail": "崖山"
+    },
+    {
+      "head": "红巾军起义",
+      "relation": "主战场",
+      "tail": "黄河、长江、两淮间"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "主战场",
+      "tail": "应天府（南京）"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "主战场",
+      "tail": "大都（北京）"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "途经地",
+      "tail": "山东"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "途经地",
+      "tail": "河南"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "战略要地",
+      "tail": "大都（北京）"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "主战场",
+      "tail": "鄱阳湖"
+    },
+    {
+      "head": "靖难之役",
+      "relation": "主战场",
+      "tail": "北平（北京）"
+    },
+    {
+      "head": "明成祖五征塞北",
+      "relation": "主战场",
+      "tail": "漠北"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "主战场",
+      "tail": "浙江"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "主战场",
+      "tail": "福建"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "驻防地",
+      "tail": "金门"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "驻防地",
+      "tail": "厦门"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "主战场",
+      "tail": "朝鲜"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "战略要地",
+      "tail": "平壤"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "主战场",
+      "tail": "萨尔浒"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "主战场",
+      "tail": "宁远"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "战略要地",
+      "tail": "宁远"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "主战场",
+      "tail": "北京"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "途经地",
+      "tail": "陕西"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "途经地",
+      "tail": "河南"
+    },
+    {
+      "head": "清军入关",
+      "relation": "主战场",
+      "tail": "山海关"
+    },
+    {
+      "head": "清军入关",
+      "relation": "目的地",
+      "tail": "北京"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "主战场",
+      "tail": "云南"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "主战场",
+      "tail": "广东"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "主战场",
+      "tail": "福建"
+    },
+    {
+      "head": "郑成功收复台湾",
+      "relation": "主战场",
+      "tail": "台湾"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "主战场",
+      "tail": "广东"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "主战场",
+      "tail": "浙江"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "主战场",
+      "tail": "江苏"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "议和地点",
+      "tail": "南京"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "主战场",
+      "tail": "广州"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "主战场",
+      "tail": "大沽口"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "主战场",
+      "tail": "北京"
+    },
+    {
+      "head": "中法战争",
+      "relation": "主战场",
+      "tail": "越南北圻"
+    },
+    {
+      "head": "中法战争",
+      "relation": "主战场",
+      "tail": "台湾"
+    },
+    {
+      "head": "中法战争",
+      "relation": "主战场",
+      "tail": "福建马尾"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "主战场",
+      "tail": "镇南关（友谊关）"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "战略要地",
+      "tail": "镇南关（友谊关）"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "主战场",
+      "tail": "朝鲜"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "主战场",
+      "tail": "黄海"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "主战场",
+      "tail": "辽东半岛"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "主战场",
+      "tail": "山东半岛"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "主战场",
+      "tail": "天津"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "主战场",
+      "tail": "北京"
+    },
+    {
+      "head": "金田起义",
+      "relation": "出发地",
+      "tail": "广西桂平县金田村"
+    },
+    {
+      "head": "金田起义",
+      "relation": "目的地",
+      "tail": "南京（天京）"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "出发地",
+      "tail": "天京（南京）"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "目的地",
+      "tail": "北京"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "主战场",
+      "tail": "安徽"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "主战场",
+      "tail": "江西"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "主战场",
+      "tail": "湖北"
+    },
+    {
+      "head": "天京事变",
+      "relation": "主战场",
+      "tail": "天京（南京）"
+    },
+    {
+      "head": "天京陷落",
+      "relation": "主战场",
+      "tail": "天京（南京）"
+    }
+  ],
+  "event-org": [
+    {
+      "head": "启建立夏王朝",
+      "relation": "发起方",
+      "tail": "夏启政权"
+    },
+    {
+      "head": "启建立夏王朝",
+      "relation": "防守方",
+      "tail": "东夷"
+    },
+    {
+      "head": "启建立夏王朝",
+      "relation": "防守方",
+      "tail": "有扈氏部落"
+    },
+    {
+      "head": "太康失国",
+      "relation": "发起方",
+      "tail": "有穷氏部落"
+    },
+    {
+      "head": "太康失国",
+      "relation": "防守方",
+      "tail": "夏太康政权"
+    },
+    {
+      "head": "寒浞杀后羿",
+      "relation": "发起方",
+      "tail": "寒浞势力"
+    },
+    {
+      "head": "寒浞杀后羿",
+      "relation": "防守方",
+      "tail": "后羿政权"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "发起方",
+      "tail": "寒浞政权"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "防守方",
+      "tail": "斟灌氏部落"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "防守方",
+      "tail": "斟寻氏部落"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "发起方",
+      "tail": "少康势力"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "防守方",
+      "tail": "寒浞政权"
+    },
+    {
+      "head": "商汤灭葛之战",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "商汤灭葛之战",
+      "relation": "被俘方",
+      "tail": "葛"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "防守方",
+      "tail": "韦"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "防守方",
+      "tail": "顾"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "防守方",
+      "tail": "昆吾"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "防守方",
+      "tail": "夏"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "投降方",
+      "tail": "夏"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "防守方",
+      "tail": "下旨"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "防守方",
+      "tail": "鬼方"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "同盟方",
+      "tail": "土方"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "投降方",
+      "tail": "鬼方"
+    },
+    {
+      "head": "商纣王征东夷",
+      "relation": "发起方",
+      "tail": "商"
+    },
+    {
+      "head": "商纣王征东夷",
+      "relation": "防守方",
+      "tail": "东夷"
+    },
+    {
+      "head": "商纣王征东夷",
+      "relation": "投降方",
+      "tail": "东夷"
+    },
+    {
+      "head": "周文王灭崇之战",
+      "relation": "发起方",
+      "tail": "周"
+    },
+    {
+      "head": "周文王灭崇之战",
+      "relation": "防守方",
+      "tail": "崇国"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "发起方",
+      "tail": "周"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "庸"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "蜀"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "羌"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "髳"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "微"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "卢"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "彭"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "同盟方",
+      "tail": "濮"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "防守方",
+      "tail": "商"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "武庚"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "管叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "蔡叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "霍叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "徐"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "发起方",
+      "tail": "奄"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "防守方",
+      "tail": "西周"
+    },
+    {
+      "head": "成王东征",
+      "relation": "发起方",
+      "tail": "奄国"
+    },
+    {
+      "head": "成王东征",
+      "relation": "发起方",
+      "tail": "淮夷"
+    },
+    {
+      "head": "成王东征",
+      "relation": "防守方",
+      "tail": "西周"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "发起方",
+      "tail": "西周"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "防守方",
+      "tail": "及国"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "防守方",
+      "tail": "荆楚部落"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "发起方",
+      "tail": "西周"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "防守方",
+      "tail": "犬戎"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "被俘方",
+      "tail": "犬戎"
+    },
+    {
+      "head": "方叔征荆蛮",
+      "relation": "发起方",
+      "tail": "西周"
+    },
+    {
+      "head": "方叔征荆蛮",
+      "relation": "防守方",
+      "tail": "荆蛮"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "发起方",
+      "tail": "申侯"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "发起方",
+      "tail": "犬戎"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "防守方",
+      "tail": "西周"
+    },
+    {
+      "head": "郑庄公设伏败北戎",
+      "relation": "防守方",
+      "tail": "郑国"
+    },
+    {
+      "head": "郑庄公设伏败北戎",
+      "relation": "发起方",
+      "tail": "北戎"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "防守方",
+      "tail": "郑国"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "同盟方",
+      "tail": "陈国"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "同盟方",
+      "tail": "蔡国"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "同盟方",
+      "tail": "卫国"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "发起方",
+      "tail": "鲁国"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "防守方",
+      "tail": "齐国"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "发起方",
+      "tail": "齐国"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "防守方",
+      "tail": "鲁国"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "发起方",
+      "tail": "齐国"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "同盟方",
+      "tail": "燕国"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "防守方",
+      "tail": "山戎"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "防守方",
+      "tail": "孤竹"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "防守方",
+      "tail": "令支"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "发起方",
+      "tail": "宋国"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "防守方",
+      "tail": "楚国"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "发起方",
+      "tail": "晋国"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "防守方",
+      "tail": "卫国"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "防守方",
+      "tail": "曹国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "发起方",
+      "tail": "楚国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "同盟方",
+      "tail": "陈国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "同盟方",
+      "tail": "蔡国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "同盟方",
+      "tail": "郑国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "同盟方",
+      "tail": "许国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "防守方",
+      "tail": "齐国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "防守方",
+      "tail": "秦国"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "防守方",
+      "tail": "宋国"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "发起方",
+      "tail": "秦国"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "发起方",
+      "tail": "秦国"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "秦晋王宫之战",
+      "relation": "发起方",
+      "tail": "秦国"
+    },
+    {
+      "head": "秦晋王宫之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "邲之战",
+      "relation": "发起方",
+      "tail": "楚国"
+    },
+    {
+      "head": "邲之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "发起方",
+      "tail": "晋国"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "防守方",
+      "tail": "赤狄潞氏"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "发起方",
+      "tail": "齐国"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "防守方",
+      "tail": "鲁国"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "防守方",
+      "tail": "卫国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "晋国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "齐国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "鲁国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "宋国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "卫国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "郑国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "曹国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "邾国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "发起方",
+      "tail": "滕国"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "防守方",
+      "tail": "秦国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "发起方",
+      "tail": "楚国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "发起方",
+      "tail": "郑国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "防守方",
+      "tail": "晋国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "防守方",
+      "tail": "齐国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "防守方",
+      "tail": "鲁国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "防守方",
+      "tail": "宋国"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "防守方",
+      "tail": "卫国"
+    },
+    {
+      "head": "吴楚战于鹊岸",
+      "relation": "发起方",
+      "tail": "楚国"
+    },
+    {
+      "head": "吴楚战于鹊岸",
+      "relation": "防守方",
+      "tail": "吴国"
+    },
+    {
+      "head": "吴楚战于房钟",
+      "relation": "发起方",
+      "tail": "吴国"
+    },
+    {
+      "head": "吴楚战于房钟",
+      "relation": "防守方",
+      "tail": "楚国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "发起方",
+      "tail": "吴国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "防守方",
+      "tail": "楚国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "防守方",
+      "tail": "顿国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "防守方",
+      "tail": "蔡国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "防守方",
+      "tail": "许国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "被俘方",
+      "tail": "胡国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "被俘方",
+      "tail": "沈国"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "被俘方",
+      "tail": "陈国"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "发起方",
+      "tail": "吴国"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "防守方",
+      "tail": "楚国"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "发起方",
+      "tail": "吴国"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "防守方",
+      "tail": "越国"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "发起方",
+      "tail": "越国"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "防守方",
+      "tail": "吴国"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "发起方",
+      "tail": "吴国"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "防守方",
+      "tail": "齐国"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "发起方",
+      "tail": "越国"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "防守方",
+      "tail": "吴国"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "发起方",
+      "tail": "越国"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "防守方",
+      "tail": "吴国"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "发起方",
+      "tail": "知氏"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "防守方",
+      "tail": "赵"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "同盟方",
+      "tail": "韩"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "同盟方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "防守方",
+      "tail": "赵"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "支援方",
+      "tail": "齐"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "防守方",
+      "tail": "韩"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "支援方",
+      "tail": "齐"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "发起方",
+      "tail": "燕"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "发起方",
+      "tail": "楚"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "发起方",
+      "tail": "齐"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "发起方",
+      "tail": "楚"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "发起方",
+      "tail": "楚"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "发起方",
+      "tail": "齐"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "防守方",
+      "tail": "韩"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "防守方",
+      "tail": "魏"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "发起方",
+      "tail": "燕"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "济西之战",
+      "relation": "发起方",
+      "tail": "燕"
+    },
+    {
+      "head": "济西之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "济西之战",
+      "relation": "发起方",
+      "tail": "赵"
+    },
+    {
+      "head": "济西之战",
+      "relation": "发起方",
+      "tail": "韩"
+    },
+    {
+      "head": "济西之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "济西之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "防守方",
+      "tail": "赵"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "韩"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "赵"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "魏"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "燕"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "秦灭韩之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭韩之战",
+      "relation": "防守方",
+      "tail": "韩"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "防守方",
+      "tail": "赵"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "防守方",
+      "tail": "燕"
+    },
+    {
+      "head": "秦灭魏之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭魏之战",
+      "relation": "防守方",
+      "tail": "魏"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "秦灭齐之战",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "秦灭齐之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "发起方",
+      "tail": "秦"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "发起方",
+      "tail": "张楚"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "发起方",
+      "tail": "楚"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "防守方",
+      "tail": "秦"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "防守方",
+      "tail": "雍"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "投降方",
+      "tail": "塞"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "投降方",
+      "tail": "翟"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "防守方",
+      "tail": "齐"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "支援方",
+      "tail": "楚"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "防守方",
+      "tail": "楚"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "投降方",
+      "tail": "楚"
+    },
+    {
+      "head": "平定燕王臧荼",
+      "relation": "发起方",
+      "tail": "燕"
+    },
+    {
+      "head": "平定燕王臧荼",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "被俘方",
+      "tail": "楚"
+    },
+    {
+      "head": "平城之围",
+      "relation": "发起方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "平城之围",
+      "relation": "同盟方",
+      "tail": "韩"
+    },
+    {
+      "head": "平城之围",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "发起方",
+      "tail": "代"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "同盟方",
+      "tail": "韩"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "被俘方",
+      "tail": "淮阴侯"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "被俘方",
+      "tail": "梁"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "发起方",
+      "tail": "淮南"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定卢绾叛乱",
+      "relation": "发起方",
+      "tail": "燕"
+    },
+    {
+      "head": "平定卢绾叛乱",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "发起方",
+      "tail": "吕氏"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "发起方",
+      "tail": "吴"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "同盟方",
+      "tail": "楚"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "同盟方",
+      "tail": "赵"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "防守方",
+      "tail": "汉"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "河西之战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "河西之战",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "河西之战",
+      "relation": "投降方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "平定南越",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定南越",
+      "relation": "防守方",
+      "tail": "南越"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "防守方",
+      "tail": "朝鲜"
+    },
+    {
+      "head": "陈汤灭郅支单于",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "陈汤灭郅支单于",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "发起方",
+      "tail": "绿林军"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "发起方",
+      "tail": "赤眉军"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "防守方",
+      "tail": "新莽"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "发起方",
+      "tail": "更始政权"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "防守方",
+      "tail": "新莽"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "防守方",
+      "tail": "王郎"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "投降方",
+      "tail": "铜马义军"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "防守方",
+      "tail": "赤眉军"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "防守方",
+      "tail": "陇西隗嚣"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "投降方",
+      "tail": "陇西隗嚣"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "防守方",
+      "tail": "公孙述"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "同盟方",
+      "tail": "南匈奴"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "防守方",
+      "tail": "北匈奴"
+    },
+    {
+      "head": "班超通西域",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "班超通西域",
+      "relation": "防守方",
+      "tail": "匈奴"
+    },
+    {
+      "head": "段颎平定羌乱",
+      "relation": "发起方",
+      "tail": "汉"
+    },
+    {
+      "head": "段颎平定羌乱",
+      "relation": "防守方",
+      "tail": "羌人"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "发起方",
+      "tail": "曹操"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "防守方",
+      "tail": "袁绍"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "防守方",
+      "tail": "吕布"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "防守方",
+      "tail": "袁术"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "发起方",
+      "tail": "曹操"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "防守方",
+      "tail": "袁绍"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "发起方",
+      "tail": "曹操"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "防守方",
+      "tail": "孙权"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "防守方",
+      "tail": "刘备"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "同盟方",
+      "tail": "孙权"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "同盟方",
+      "tail": "刘备"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "发起方",
+      "tail": "蜀"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "防守方",
+      "tail": "吴"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "发起方",
+      "tail": "蜀"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "防守方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "发起方",
+      "tail": "魏"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "防守方",
+      "tail": "蜀"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "投降方",
+      "tail": "蜀"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "发起方",
+      "tail": "西晋"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "防守方",
+      "tail": "东吴"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "投降方",
+      "tail": "东吴"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "发起方",
+      "tail": "诸王势力"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "防守方",
+      "tail": "西晋朝廷"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "同盟方",
+      "tail": "楚王玮与贾后、齐王冏、成都王颖、河间王颙"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "发起方",
+      "tail": "汉国（前赵）"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "防守方",
+      "tail": "西晋"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "支援方",
+      "tail": "鲜卑乌桓"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "投降方",
+      "tail": "西晋"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "发起方",
+      "tail": "后赵"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "防守方",
+      "tail": "前赵"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "被俘方",
+      "tail": "前赵"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "支援方",
+      "tail": "汉族士人"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "发起方",
+      "tail": "东晋"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "防守方",
+      "tail": "前秦"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "发起方",
+      "tail": "东晋"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "防守方",
+      "tail": "姚襄军"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "发起方",
+      "tail": "东晋"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "防守方",
+      "tail": "前燕"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "支援方",
+      "tail": "前秦"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "发起方",
+      "tail": "前秦"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "防守方",
+      "tail": "前燕"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "投降方",
+      "tail": "前燕"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "发起方",
+      "tail": "前秦"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "发起方",
+      "tail": "前秦"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "防守方",
+      "tail": "东晋"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "支援方",
+      "tail": "北府兵"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "发起方",
+      "tail": "东晋"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "防守方",
+      "tail": "南燕"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "投降方",
+      "tail": "南燕"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "发起方",
+      "tail": "东晋"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "防守方",
+      "tail": "后秦"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "投降方",
+      "tail": "后秦"
+    },
+    {
+      "head": "刘裕北伐",
+      "relation": "支援方",
+      "tail": "北凉"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "发起方",
+      "tail": "北魏"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "防守方",
+      "tail": "大夏"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "发起方",
+      "tail": "北魏"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "防守方",
+      "tail": "柔然"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "投降方",
+      "tail": "吐谷浑"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "投降方",
+      "tail": "北凉"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "发起方",
+      "tail": "刘宋"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "防守方",
+      "tail": "北魏"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "发起方",
+      "tail": "刘宋"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "发起方",
+      "tail": "北魏"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "防守方",
+      "tail": "刘宋"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "发起方",
+      "tail": "北魏"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "防守方",
+      "tail": "南齐"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "支援方",
+      "tail": "刘昶势力"
+    },
+    {
+      "head": "魏梁互伐",
+      "relation": "发起方",
+      "tail": "北魏"
+    },
+    {
+      "head": "魏梁互伐",
+      "relation": "防守方",
+      "tail": "南梁"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "支援方",
+      "tail": "梁降将"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "投降方",
+      "tail": "琅琊民"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "发起方",
+      "tail": "侯景叛军"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "防守方",
+      "tail": "南梁"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "支援方",
+      "tail": "萧正德势力"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "支援方",
+      "tail": "东魏"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "发起方",
+      "tail": "陈霸先军"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "发起方",
+      "tail": "北周"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "防守方",
+      "tail": "北齐"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "同盟方",
+      "tail": "南朝陈"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "同盟方",
+      "tail": "突厥"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "投降方",
+      "tail": "北齐"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "发起方",
+      "tail": "杨坚集团"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "防守方",
+      "tail": "北周朝廷"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "发起方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "防守方",
+      "tail": "东突厥"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "发起方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "防守方",
+      "tail": "陈朝"
+    },
+    {
+      "head": "隋炀帝东征高丽",
+      "relation": "发起方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "隋炀帝东征高丽",
+      "relation": "防守方",
+      "tail": "高丽"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "发起方",
+      "tail": "瓦岗军"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "防守方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "发起方",
+      "tail": "瓦岗军"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "防守方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "童山之战",
+      "relation": "发起方",
+      "tail": "瓦岗军"
+    },
+    {
+      "head": "童山之战",
+      "relation": "防守方",
+      "tail": "宇文化及军"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "发起方",
+      "tail": "王世充军"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "防守方",
+      "tail": "瓦岗军"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "发起方",
+      "tail": "李渊集团"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "防守方",
+      "tail": "隋朝"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "防守方",
+      "tail": "薛举/薛仁杲政权"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "防守方",
+      "tail": "刘武周政权"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "防守方",
+      "tail": "王世充政权（郑）"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "防守方",
+      "tail": "窦建德政权（夏）"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "防守方",
+      "tail": "箫铣政权（梁）"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "防守方",
+      "tail": "东突厥"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "防守方",
+      "tail": "吐谷浑"
+    },
+    {
+      "head": "苏定方进攻西突厥",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "苏定方进攻西突厥",
+      "relation": "防守方",
+      "tail": "西突厥"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "防守方",
+      "tail": "高丽"
+    },
+    {
+      "head": "唐高宗征灭百济",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "唐高宗征灭百济",
+      "relation": "防守方",
+      "tail": "百济"
+    },
+    {
+      "head": "唐高宗征灭高丽",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "唐高宗征灭高丽",
+      "relation": "防守方",
+      "tail": "高丽"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "发起方",
+      "tail": "契丹"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "防守方",
+      "tail": "武周"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "发起方",
+      "tail": "安禄山叛军"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "防守方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "太原保卫战",
+      "relation": "防守方",
+      "tail": "唐朝（李光弼部）"
+    },
+    {
+      "head": "太原保卫战",
+      "relation": "发起方",
+      "tail": "史思明叛军"
+    },
+    {
+      "head": "睢阳保卫战",
+      "relation": "防守方",
+      "tail": "唐朝（张巡、许远部）"
+    },
+    {
+      "head": "睢阳保卫战",
+      "relation": "发起方",
+      "tail": "安庆绪叛军"
+    },
+    {
+      "head": "肃宗讨安庆绪",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "肃宗讨安庆绪",
+      "relation": "防守方",
+      "tail": "安庆绪政权"
+    },
+    {
+      "head": "平定史思明",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "平定史思明",
+      "relation": "防守方",
+      "tail": "史思明政权"
+    },
+    {
+      "head": "唐代宗灭史朝义",
+      "relation": "发起方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "唐代宗灭史朝义",
+      "relation": "防守方",
+      "tail": "史朝义政权"
+    },
+    {
+      "head": "黄巢起义",
+      "relation": "发起方",
+      "tail": "黄巢起义军"
+    },
+    {
+      "head": "黄巢起义",
+      "relation": "防守方",
+      "tail": "唐朝"
+    },
+    {
+      "head": "朱全忠篡唐建后梁",
+      "relation": "发起方",
+      "tail": "朱全忠集团"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "发起方",
+      "tail": "后梁"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "防守方",
+      "tail": "晋"
+    },
+    {
+      "head": "柏乡之战",
+      "relation": "发起方",
+      "tail": "后梁"
+    },
+    {
+      "head": "柏乡之战",
+      "relation": "防守方",
+      "tail": "晋"
+    },
+    {
+      "head": "晋灭燕幽州之战",
+      "relation": "发起方",
+      "tail": "晋"
+    },
+    {
+      "head": "晋灭燕幽州之战",
+      "relation": "防守方",
+      "tail": "燕"
+    },
+    {
+      "head": "晋梁沿河据点争夺战",
+      "relation": "发起方",
+      "tail": "晋"
+    },
+    {
+      "head": "晋梁沿河据点争夺战",
+      "relation": "防守方",
+      "tail": "后梁"
+    },
+    {
+      "head": "后唐灭后梁之战",
+      "relation": "发起方",
+      "tail": "后唐"
+    },
+    {
+      "head": "后唐灭后梁之战",
+      "relation": "防守方",
+      "tail": "后梁"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "发起方",
+      "tail": "石敬瑭集团/契丹"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "防守方",
+      "tail": "后唐"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "发起方",
+      "tail": "契丹"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "防守方",
+      "tail": "后晋"
+    },
+    {
+      "head": "刘知远建后汉",
+      "relation": "发起方",
+      "tail": "刘知远集团"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "发起方",
+      "tail": "后汉"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "防守方",
+      "tail": "李守贞等叛军"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "发起方",
+      "tail": "北汉"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "防守方",
+      "tail": "后周"
+    },
+    {
+      "head": "后周征后蜀之战",
+      "relation": "发起方",
+      "tail": "后周"
+    },
+    {
+      "head": "后周征后蜀之战",
+      "relation": "防守方",
+      "tail": "后蜀"
+    },
+    {
+      "head": "周世宗征南唐之战",
+      "relation": "发起方",
+      "tail": "后周"
+    },
+    {
+      "head": "周世宗征南唐之战",
+      "relation": "防守方",
+      "tail": "南唐"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "发起方",
+      "tail": "后周"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "防守方",
+      "tail": "契丹（辽）"
+    },
+    {
+      "head": "陈桥兵变",
+      "relation": "发起方",
+      "tail": "北宋"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "议和方",
+      "tail": "北宋"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "议和方",
+      "tail": "辽"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "防守方",
+      "tail": "南宋"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "发起方",
+      "tail": "金"
+    },
+    {
+      "head": "采石之战",
+      "relation": "防守方",
+      "tail": "南宋"
+    },
+    {
+      "head": "采石之战",
+      "relation": "发起方",
+      "tail": "金"
+    },
+    {
+      "head": "蒙古西征",
+      "relation": "发起方",
+      "tail": "蒙古"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "防守方",
+      "tail": "南宋"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "发起方",
+      "tail": "元"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "防守方",
+      "tail": "南宋"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "发起方",
+      "tail": "元"
+    },
+    {
+      "head": "红巾军起义",
+      "relation": "发起方",
+      "tail": "红巾军"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "发起方",
+      "tail": "明军"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "防守方",
+      "tail": "元军"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "发起方",
+      "tail": "朱元璋军"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "防守方",
+      "tail": "陈友谅军"
+    },
+    {
+      "head": "靖难之役",
+      "relation": "发起方",
+      "tail": "燕王朱棣军"
+    },
+    {
+      "head": "靖难之役",
+      "relation": "防守方",
+      "tail": "建文帝军"
+    },
+    {
+      "head": "明成祖五征塞北",
+      "relation": "发起方",
+      "tail": "明军"
+    },
+    {
+      "head": "明成祖五征塞北",
+      "relation": "防守方",
+      "tail": "蒙古鞑靼部、瓦剌部"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "发起方",
+      "tail": "明军"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "防守方",
+      "tail": "倭寇"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "发起方",
+      "tail": "明军"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "防守方",
+      "tail": "日军"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "同盟方",
+      "tail": "朝鲜军"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "发起方",
+      "tail": "后金军"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "防守方",
+      "tail": "明军"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "发起方",
+      "tail": "后金军"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "防守方",
+      "tail": "明军"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "发起方",
+      "tail": "大顺军"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "防守方",
+      "tail": "明军"
+    },
+    {
+      "head": "清军入关",
+      "relation": "发起方",
+      "tail": "清军"
+    },
+    {
+      "head": "清军入关",
+      "relation": "防守方",
+      "tail": "大顺军"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "发起方",
+      "tail": "清军"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "防守方",
+      "tail": "吴三桂军"
+    },
+    {
+      "head": "郑成功收复台湾",
+      "relation": "发起方",
+      "tail": "郑成功军"
+    },
+    {
+      "head": "郑成功收复台湾",
+      "relation": "防守方",
+      "tail": "荷兰殖民军"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "发起方",
+      "tail": "英军"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "发起方",
+      "tail": "英法联军"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "中法战争",
+      "relation": "发起方",
+      "tail": "法军"
+    },
+    {
+      "head": "中法战争",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "中法战争",
+      "relation": "同盟方",
+      "tail": "黑旗军"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "发起方",
+      "tail": "清军"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "防守方",
+      "tail": "法军"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "发起方",
+      "tail": "日军"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "发起方",
+      "tail": "八国联军"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "同盟方",
+      "tail": "义和团"
+    },
+    {
+      "head": "金田起义",
+      "relation": "发起方",
+      "tail": "拜上帝会/太平军"
+    },
+    {
+      "head": "金田起义",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "发起方",
+      "tail": "太平军"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "发起方",
+      "tail": "太平军"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "防守方",
+      "tail": "清军"
+    },
+    {
+      "head": "天京事变",
+      "relation": "发起方",
+      "tail": "北王韦昌辉部"
+    },
+    {
+      "head": "天京事变",
+      "relation": "防守方",
+      "tail": "东王杨秀清部"
+    }
+  ],
+  "event-person": [
+    {
+      "head": "启建立夏王朝",
+      "relation": "统帅",
+      "tail": "启"
+    },
+    {
+      "head": "启建立夏王朝",
+      "relation": "阵亡",
+      "tail": "伯益"
+    },
+    {
+      "head": "太康失国",
+      "relation": "君主",
+      "tail": "太康"
+    },
+    {
+      "head": "太康失国",
+      "relation": "统帅",
+      "tail": "后羿"
+    },
+    {
+      "head": "寒浞杀后羿",
+      "relation": "叛变",
+      "tail": "寒浞"
+    },
+    {
+      "head": "寒浞杀后羿",
+      "relation": "阵亡",
+      "tail": "后羿"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "统帅",
+      "tail": "寒浞"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "阵亡",
+      "tail": "帝相"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "统帅",
+      "tail": "少康"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "阵亡",
+      "tail": "寒浞"
+    },
+    {
+      "head": "少康中兴复国",
+      "relation": "参与者",
+      "tail": "靡"
+    },
+    {
+      "head": "商汤灭葛之战",
+      "relation": "统帅",
+      "tail": "商汤"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "统帅",
+      "tail": "商汤"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "统帅",
+      "tail": "商汤"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "统帅",
+      "tail": "夏桀"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "俘虏",
+      "tail": "夏桀"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "君主",
+      "tail": "武丁"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "将领",
+      "tail": "望乘"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "统帅",
+      "tail": "武丁"
+    },
+    {
+      "head": "商纣王征东夷",
+      "relation": "统帅",
+      "tail": "商纣王"
+    },
+    {
+      "head": "周文王灭崇之战",
+      "relation": "统帅",
+      "tail": "姬昌"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "统帅",
+      "tail": "姬发"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "谋士",
+      "tail": "吕望"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "君主",
+      "tail": "商纣王"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "阵亡",
+      "tail": "商纣王"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "统帅",
+      "tail": "武庚"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "统帅",
+      "tail": "管叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "叛变",
+      "tail": "武庚"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "叛变",
+      "tail": "管叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "叛变",
+      "tail": "蔡叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "阵亡",
+      "tail": "武庚"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "阵亡",
+      "tail": "管叔"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "统帅",
+      "tail": "周公旦"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "将领",
+      "tail": "伯禽"
+    },
+    {
+      "head": "成王东征",
+      "relation": "君主",
+      "tail": "姬诵"
+    },
+    {
+      "head": "成王东征",
+      "relation": "统帅",
+      "tail": "姬诵"
+    },
+    {
+      "head": "成王东征",
+      "relation": "统帅",
+      "tail": "毛公"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "君主",
+      "tail": "姬瑕"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "统帅",
+      "tail": "姬瑕"
+    },
+    {
+      "head": "周昭王南征荆楚",
+      "relation": "阵亡",
+      "tail": "姬瑕"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "君主",
+      "tail": "姬满"
+    },
+    {
+      "head": "周穆王北伐犬戎",
+      "relation": "统帅",
+      "tail": "姬满"
+    },
+    {
+      "head": "方叔征荆蛮",
+      "relation": "将领",
+      "tail": "方叔"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "参与者",
+      "tail": "申侯"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "君主",
+      "tail": "姬宫湦"
+    },
+    {
+      "head": "犬戎攻镐京",
+      "relation": "阵亡",
+      "tail": "姬宫湦"
+    },
+    {
+      "head": "郑庄公设伏败北戎",
+      "relation": "统帅",
+      "tail": "郑庄公"
+    },
+    {
+      "head": "郑庄公设伏败北戎",
+      "relation": "谋士",
+      "tail": "公子突"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "统帅",
+      "tail": "周桓王"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "统帅",
+      "tail": "郑庄公"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "谋士",
+      "tail": "子元"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "阵亡",
+      "tail": "周桓王"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "统帅",
+      "tail": "鲁庄公"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "统帅",
+      "tail": "齐桓公"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "统帅",
+      "tail": "齐桓公"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "统帅",
+      "tail": "鲁庄公"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "谋士",
+      "tail": "曹刿"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "统帅",
+      "tail": "齐桓公"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "统帅",
+      "tail": "燕庄公"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "统帅",
+      "tail": "宋襄公"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "统帅",
+      "tail": "楚成王"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "谋士",
+      "tail": "公孙固"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "阵亡",
+      "tail": "宋襄公"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "统帅",
+      "tail": "晋文公"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "俘虏",
+      "tail": "曹共公"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "统帅",
+      "tail": "晋文公"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "将领",
+      "tail": "先轸"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "将领",
+      "tail": "子玉"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "将领",
+      "tail": "狐毛"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "将领",
+      "tail": "栾枝"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "将领",
+      "tail": "胥臣"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "阵亡",
+      "tail": "子玉"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "统帅",
+      "tail": "秦穆公"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "统帅",
+      "tail": "晋襄公"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "将领",
+      "tail": "先轸"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "将领",
+      "tail": "孟明视"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "参与者",
+      "tail": "弦高"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "俘虏",
+      "tail": "孟明视"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "统帅",
+      "tail": "秦穆公"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "统帅",
+      "tail": "晋襄公"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "将领",
+      "tail": "孟明视"
+    },
+    {
+      "head": "秦晋王宫之战",
+      "relation": "统帅",
+      "tail": "秦穆公"
+    },
+    {
+      "head": "邲之战",
+      "relation": "统帅",
+      "tail": "楚庄王"
+    },
+    {
+      "head": "邲之战",
+      "relation": "君主",
+      "tail": "晋景公"
+    },
+    {
+      "head": "邲之战",
+      "relation": "统帅",
+      "tail": "荀林父"
+    },
+    {
+      "head": "邲之战",
+      "relation": "将领",
+      "tail": "赵旃"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "君主",
+      "tail": "晋景公"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "统帅",
+      "tail": "荀林父"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "君主",
+      "tail": "晋景公"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "君主",
+      "tail": "齐顷公"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "统帅",
+      "tail": "栾书"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "君主",
+      "tail": "晋厉公"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "君主",
+      "tail": "楚共王"
+    },
+    {
+      "head": "吴楚战于鹊岸",
+      "relation": "君主",
+      "tail": "楚灵王"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "君主",
+      "tail": "吴王僚"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "统帅",
+      "tail": "莲越"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "统帅",
+      "tail": "子瑕"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "统帅",
+      "tail": "吴王阖闾"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "将领",
+      "tail": "夫概"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "谋士",
+      "tail": "伍员"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "君主",
+      "tail": "楚昭王"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "统帅",
+      "tail": "子常"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "君主",
+      "tail": "吴王阖闾"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "君主",
+      "tail": "越王勾践"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "君主",
+      "tail": "吴王夫差"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "君主",
+      "tail": "越王勾践"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "参与者",
+      "tail": "文种"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "参与者",
+      "tail": "伍员"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "君主",
+      "tail": "吴王夫差"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "阵亡",
+      "tail": "国书"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "君主",
+      "tail": "越王勾践"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "谋士",
+      "tail": "范蠡"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "谋士",
+      "tail": "文种"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "君主",
+      "tail": "吴王夫差"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "统帅",
+      "tail": "越王勾践"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "谋士",
+      "tail": "范蠡"
+    },
+    {
+      "head": "笠泽之战",
+      "relation": "君主",
+      "tail": "吴王夫差"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "统帅",
+      "tail": "知伯"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "统帅",
+      "tail": "赵襄子"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "参与者",
+      "tail": "韩康子"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "参与者",
+      "tail": "魏桓子"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "将领",
+      "tail": "吴起"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "将领",
+      "tail": "庞涓"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "统帅",
+      "tail": "田忌"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "谋士",
+      "tail": "孙膑"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "将领",
+      "tail": "庞涓"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "统帅",
+      "tail": "太子申"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "统帅",
+      "tail": "田忌"
+    },
+    {
+      "head": "马陵之战",
+      "relation": "谋士",
+      "tail": "孙膑"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "谋士",
+      "tail": "公孙衍"
+    },
+    {
+      "head": "苏秦合纵五国攻秦",
+      "relation": "统帅",
+      "tail": "苏秦"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "将领",
+      "tail": "屈丐"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "将领",
+      "tail": "魏章"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "使者",
+      "tail": "张仪"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "将领",
+      "tail": "唐昧"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "统帅",
+      "tail": "白起"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "将领",
+      "tail": "公孙喜"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "统帅",
+      "tail": "乐毅"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "君主",
+      "tail": "齐湣王"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "将领",
+      "tail": "触子"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "将领",
+      "tail": "达子"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "将领",
+      "tail": "田单"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "将领",
+      "tail": "骑劫"
+    },
+    {
+      "head": "济西之战",
+      "relation": "统帅",
+      "tail": "乐毅"
+    },
+    {
+      "head": "济西之战",
+      "relation": "将领",
+      "tail": "触子"
+    },
+    {
+      "head": "济西之战",
+      "relation": "将领",
+      "tail": "达子"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "将领",
+      "tail": "白起"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "将领",
+      "tail": "王龁"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "将领",
+      "tail": "廉颇"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "将领",
+      "tail": "赵括"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "君主",
+      "tail": "嬴政"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "将领",
+      "tail": "王翦"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "将领",
+      "tail": "王贲"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "将领",
+      "tail": "李牧"
+    },
+    {
+      "head": "秦灭韩之战",
+      "relation": "将领",
+      "tail": "内史腾"
+    },
+    {
+      "head": "秦灭韩之战",
+      "relation": "君主",
+      "tail": "韩王安"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "将领",
+      "tail": "王翦"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "将领",
+      "tail": "李牧"
+    },
+    {
+      "head": "秦灭赵之战",
+      "relation": "君主",
+      "tail": "赵王迁"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "将领",
+      "tail": "王翦"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "将领",
+      "tail": "辛胜"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "使者",
+      "tail": "荆轲"
+    },
+    {
+      "head": "秦灭燕之战",
+      "relation": "君主",
+      "tail": "燕王喜"
+    },
+    {
+      "head": "秦灭魏之战",
+      "relation": "将领",
+      "tail": "王贲"
+    },
+    {
+      "head": "秦灭魏之战",
+      "relation": "君主",
+      "tail": "魏王假"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "将领",
+      "tail": "王翦"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "将领",
+      "tail": "项燕"
+    },
+    {
+      "head": "秦将王翦灭楚之战",
+      "relation": "君主",
+      "tail": "楚王负刍"
+    },
+    {
+      "head": "秦灭齐之战",
+      "relation": "将领",
+      "tail": "王贲"
+    },
+    {
+      "head": "秦灭齐之战",
+      "relation": "君主",
+      "tail": "齐王建"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "统帅",
+      "tail": "蒙恬"
+    },
+    {
+      "head": "北逐匈奴",
+      "relation": "君主",
+      "tail": "秦始皇"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "统帅",
+      "tail": "陈胜"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "将领",
+      "tail": "吴广"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "将领",
+      "tail": "章邯"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "统帅",
+      "tail": "项羽"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "将领",
+      "tail": "章邯"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "将领",
+      "tail": "王离"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "统帅",
+      "tail": "刘邦"
+    },
+    {
+      "head": "刘邦入关灭秦",
+      "relation": "君主",
+      "tail": "子婴"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "统帅",
+      "tail": "韩信"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "将领",
+      "tail": "章邯"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "统帅",
+      "tail": "项羽"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "统帅",
+      "tail": "项羽"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "将领",
+      "tail": "韩信"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "将领",
+      "tail": "彭越"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "统帅",
+      "tail": "韩信"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "将领",
+      "tail": "龙且"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "阵亡",
+      "tail": "龙且"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "统帅",
+      "tail": "韩信"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "统帅",
+      "tail": "项羽"
+    },
+    {
+      "head": "垓下之战",
+      "relation": "阵亡",
+      "tail": "项羽"
+    },
+    {
+      "head": "平定燕王臧荼",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "平定燕王臧荼",
+      "relation": "将领",
+      "tail": "臧荼"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "俘虏",
+      "tail": "韩信"
+    },
+    {
+      "head": "平城之围",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "平城之围",
+      "relation": "君主",
+      "tail": "冒顿"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "将领",
+      "tail": "陈豨"
+    },
+    {
+      "head": "平定陈豨叛乱",
+      "relation": "阵亡",
+      "tail": "韩王信"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "君主",
+      "tail": "吕后"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "谋士",
+      "tail": "萧何"
+    },
+    {
+      "head": "吕后诛韩信",
+      "relation": "阵亡",
+      "tail": "韩信"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "君主",
+      "tail": "吕后"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "阵亡",
+      "tail": "彭越"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "君主",
+      "tail": "刘邦"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "将领",
+      "tail": "英布"
+    },
+    {
+      "head": "平定英布叛乱",
+      "relation": "阵亡",
+      "tail": "英布"
+    },
+    {
+      "head": "平定卢绾叛乱",
+      "relation": "将领",
+      "tail": "卢绾"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "将领",
+      "tail": "吕产"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "将领",
+      "tail": "吕禄"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "将领",
+      "tail": "周勃"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "谋士",
+      "tail": "陈平"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "君主",
+      "tail": "刘濞"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "君主",
+      "tail": "刘戊"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "君主",
+      "tail": "刘启"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "统帅",
+      "tail": "周亚夫"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "阵亡",
+      "tail": "刘濞"
+    },
+    {
+      "head": "七国之乱",
+      "relation": "阵亡",
+      "tail": "刘戊"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "统帅",
+      "tail": "韩安国"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "统帅",
+      "tail": "卫青"
+    },
+    {
+      "head": "河西之战",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "河西之战",
+      "relation": "统帅",
+      "tail": "霍去病"
+    },
+    {
+      "head": "河西之战",
+      "relation": "投降",
+      "tail": "浑邪王"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "统帅",
+      "tail": "卫青"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "统帅",
+      "tail": "霍去病"
+    },
+    {
+      "head": "平定南越",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "平定南越",
+      "relation": "统帅",
+      "tail": "路博德"
+    },
+    {
+      "head": "平定南越",
+      "relation": "统帅",
+      "tail": "杨仆"
+    },
+    {
+      "head": "平定南越",
+      "relation": "俘虏",
+      "tail": "吕嘉"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "君主",
+      "tail": "汉武帝"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "统帅",
+      "tail": "杨仆"
+    },
+    {
+      "head": "东征朝鲜",
+      "relation": "统帅",
+      "tail": "荀彘"
+    },
+    {
+      "head": "陈汤灭郅支单于",
+      "relation": "统帅",
+      "tail": "陈汤"
+    },
+    {
+      "head": "陈汤灭郅支单于",
+      "relation": "阵亡",
+      "tail": "郅支单于"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "参与者",
+      "tail": "王匡"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "参与者",
+      "tail": "樊崇"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "将领",
+      "tail": "刘秀"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "统帅",
+      "tail": "王邑"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "君主",
+      "tail": "刘秀"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "君主",
+      "tail": "刘秀"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "统帅",
+      "tail": "冯异"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "投降",
+      "tail": "樊崇"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "君主",
+      "tail": "刘秀"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "将领",
+      "tail": "隗嚣"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "将领",
+      "tail": "来歙"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "君主",
+      "tail": "刘秀"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "君主",
+      "tail": "公孙述"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "统帅",
+      "tail": "吴汉"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "统帅",
+      "tail": "岑彭"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "阵亡",
+      "tail": "公孙述"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "统帅",
+      "tail": "窦宪"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "统帅",
+      "tail": "耿秉"
+    },
+    {
+      "head": "班超通西域",
+      "relation": "使者",
+      "tail": "班超"
+    },
+    {
+      "head": "段颎平定羌乱",
+      "relation": "统帅",
+      "tail": "段颎"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "统帅",
+      "tail": "曹操"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "将领",
+      "tail": "袁绍"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "统帅",
+      "tail": "曹操"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "统帅",
+      "tail": "袁绍"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "谋士",
+      "tail": "许攸"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "统帅",
+      "tail": "曹操"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "统帅",
+      "tail": "周瑜"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "君主",
+      "tail": "刘备"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "谋士",
+      "tail": "诸葛亮"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "将领",
+      "tail": "黄盖"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "君主",
+      "tail": "刘备"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "统帅",
+      "tail": "陆逊"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "统帅",
+      "tail": "诸葛亮"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "统帅",
+      "tail": "司马懿"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "将领",
+      "tail": "马谡"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "统帅",
+      "tail": "邓艾"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "统帅",
+      "tail": "钟会"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "统帅",
+      "tail": "姜维"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "君主",
+      "tail": "刘禅"
+    },
+    {
+      "head": "魏灭蜀之战",
+      "relation": "投降",
+      "tail": "刘禅"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "君主",
+      "tail": "司马炎"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "谋士",
+      "tail": "羊祜"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "王睿"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "杜预"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "王浑"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "君主",
+      "tail": "孙皓"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "张悌"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "沈莹"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "将领",
+      "tail": "吾彦"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "投降",
+      "tail": "孙皓"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "君主",
+      "tail": "司马炎"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "君主",
+      "tail": "晋惠帝"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马亮"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马玮"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马伦"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马冏"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马颖"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马颙"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马乂"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "参与者",
+      "tail": "司马越"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马亮"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马玮"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马伦"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马冏"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马乂"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "司马颖"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "阵亡",
+      "tail": "晋惠帝"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "君主",
+      "tail": "刘渊"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "谋士",
+      "tail": "刘宣"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "将领",
+      "tail": "刘聪"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "将领",
+      "tail": "石勒"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "将领",
+      "tail": "王弥"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "将领",
+      "tail": "刘曜"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "将领",
+      "tail": "呼延晏"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "君主",
+      "tail": "司马炽"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "君主",
+      "tail": "司马邺"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "俘虏",
+      "tail": "司马炽"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "投降",
+      "tail": "司马邺"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "阵亡",
+      "tail": "裴整"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "君主",
+      "tail": "石勒"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "谋士",
+      "tail": "张宾"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "将领",
+      "tail": "石虎"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "将领",
+      "tail": "石生"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "将领",
+      "tail": "石堪"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "君主",
+      "tail": "刘曜"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "将领",
+      "tail": "刘岳"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "君主",
+      "tail": "刘熙"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "俘虏",
+      "tail": "刘曜"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "阵亡",
+      "tail": "刘曜"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "阵亡",
+      "tail": "刘熙"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "阵亡",
+      "tail": "刘胤"
+    },
+    {
+      "head": "桓温北伐",
+      "relation": "统帅",
+      "tail": "桓温"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "君主",
+      "tail": "苻健"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "将领",
+      "tail": "姚襄"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "君主",
+      "tail": "慕容暐"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "将领",
+      "tail": "慕容垂"
+    },
+    {
+      "head": "桓温第三次北伐",
+      "relation": "阵亡",
+      "tail": "晋军士兵数万"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "君主",
+      "tail": "苻坚"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "谋士",
+      "tail": "王猛"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "将领",
+      "tail": "王猛"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "将领",
+      "tail": "杨安"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "君主",
+      "tail": "慕容暐"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "将领",
+      "tail": "慕容评"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "俘虏",
+      "tail": "慕容暐"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "投降",
+      "tail": "慕容垂"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "统帅",
+      "tail": "苻坚"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "苻融"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "慕容垂"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "梁成"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "统帅",
+      "tail": "谢安"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "谢石"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "谢玄"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "桓冲"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "胡彬"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "将领",
+      "tail": "刘牢之"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "使者",
+      "tail": "朱序"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "阵亡",
+      "tail": "苻融"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "阵亡",
+      "tail": "梁成"
+    },
+    {
+      "head": "刘裕北伐",
+      "relation": "统帅",
+      "tail": "刘裕"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "谋士",
+      "tail": "刘穆之"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "君主",
+      "tail": "慕容超"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "将领",
+      "tail": "公孙五楼"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "将领",
+      "tail": "胡藩"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "阵亡",
+      "tail": "慕容超"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "将领",
+      "tail": "王镇恶"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "将领",
+      "tail": "檀道济"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "将领",
+      "tail": "沈林子"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "将领",
+      "tail": "沈田子"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "将领",
+      "tail": "傅弘之"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "君主",
+      "tail": "姚泓"
+    },
+    {
+      "head": "刘裕灭后秦",
+      "relation": "阵亡",
+      "tail": "姚泓"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "君主",
+      "tail": "拓跋焘"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "谋士",
+      "tail": "崔浩"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "将领",
+      "tail": "奚斤"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "将领",
+      "tail": "周几"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "将领",
+      "tail": "长孙翰"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "君主",
+      "tail": "赫连昌"
+    },
+    {
+      "head": "魏灭大夏",
+      "relation": "君主",
+      "tail": "赫连定"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "可汗",
+      "tail": "纥升盖"
+    },
+    {
+      "head": "魏破柔然",
+      "relation": "可汗",
+      "tail": "吴提"
+    },
+    {
+      "head": "魏灭北燕",
+      "relation": "君主",
+      "tail": "冯弘"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "俘虏",
+      "tail": "赫连昌"
+    },
+    {
+      "head": "拓跋焘统一北方",
+      "relation": "阵亡",
+      "tail": "赫连定"
+    },
+    {
+      "head": "宋魏互伐",
+      "relation": "君主",
+      "tail": "刘义隆"
+    },
+    {
+      "head": "宋魏互伐",
+      "relation": "君主",
+      "tail": "拓跋焘"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "统帅",
+      "tail": "到彦之"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "将领",
+      "tail": "王仲德"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "将领",
+      "tail": "竺灵秀"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "统帅",
+      "tail": "刘义欣"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "谋士",
+      "tail": "崔浩"
+    },
+    {
+      "head": "刘义隆第一次北伐",
+      "relation": "将领",
+      "tail": "檀道济"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "将领",
+      "tail": "王玄谟"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "将领",
+      "tail": "垣护之"
+    },
+    {
+      "head": "刘义隆第二次北伐",
+      "relation": "将领",
+      "tail": "萧承之"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "将领",
+      "tail": "长孙真"
+    },
+    {
+      "head": "拓跋焘南征",
+      "relation": "将领",
+      "tail": "陆真"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "君主",
+      "tail": "魏孝文帝"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "君主",
+      "tail": "萧道成"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "君主",
+      "tail": "齐武帝"
+    },
+    {
+      "head": "北魏三伐南齐",
+      "relation": "君主",
+      "tail": "齐明帝"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "将领",
+      "tail": "元嘉"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "将领",
+      "tail": "元琛"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "将领",
+      "tail": "薛虎子"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "将领",
+      "tail": "刘昶"
+    },
+    {
+      "head": "魏第一次伐南齐",
+      "relation": "将领",
+      "tail": "垣崇祖"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "将领",
+      "tail": "元干"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "将领",
+      "tail": "崔慧景"
+    },
+    {
+      "head": "魏第二次伐南齐",
+      "relation": "谋士",
+      "tail": "张欣泰"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "将领",
+      "tail": "薛真度"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "将领",
+      "tail": "李崇"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "将领",
+      "tail": "房伯玉"
+    },
+    {
+      "head": "魏第三次伐南齐",
+      "relation": "将领",
+      "tail": "裴叔业"
+    },
+    {
+      "head": "魏梁互伐",
+      "relation": "君主",
+      "tail": "魏宣武帝"
+    },
+    {
+      "head": "魏梁互伐",
+      "relation": "君主",
+      "tail": "梁武帝"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "将领",
+      "tail": "元澄"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "将领",
+      "tail": "萧宝寅"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "将领",
+      "tail": "陈伯之"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "将领",
+      "tail": "元英"
+    },
+    {
+      "head": "魏第一次伐梁",
+      "relation": "将领",
+      "tail": "蔡道恭"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "将领",
+      "tail": "邢峦"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "将领",
+      "tail": "王足"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "统帅",
+      "tail": "萧宏"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "将领",
+      "tail": "韦叡"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "将领",
+      "tail": "曹景宗"
+    },
+    {
+      "head": "魏第二次伐梁",
+      "relation": "将领",
+      "tail": "杨大眼"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "俘虏",
+      "tail": "王万寿"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "将领",
+      "tail": "崔亮"
+    },
+    {
+      "head": "魏第三次伐梁",
+      "relation": "将领",
+      "tail": "萧宝寅"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "叛变",
+      "tail": "侯景"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "君主",
+      "tail": "梁武帝"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "参与者",
+      "tail": "萧正德"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "谋士",
+      "tail": "王伟"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "将领",
+      "tail": "韦黯"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "君主",
+      "tail": "简文帝"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "君主",
+      "tail": "萧栋"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "将领",
+      "tail": "陈霸先"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "阵亡",
+      "tail": "梁武帝"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "阵亡",
+      "tail": "简文帝"
+    },
+    {
+      "head": "侯景乱梁",
+      "relation": "阵亡",
+      "tail": "侯景"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "君主",
+      "tail": "宇文邕"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "君主",
+      "tail": "高纬"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "谋士",
+      "tail": "宇文宪"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "将领",
+      "tail": "赵煕"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "将领",
+      "tail": "梁士彦"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "将领",
+      "tail": "宇文忻"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "将领",
+      "tail": "高延宗"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "将领",
+      "tail": "斛律光"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "俘虏",
+      "tail": "高纬"
+    },
+    {
+      "head": "北周灭北齐",
+      "relation": "俘虏",
+      "tail": "高延宗"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "君主",
+      "tail": "杨坚"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "将领",
+      "tail": "韦孝宽"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "将领",
+      "tail": "王谊"
+    },
+    {
+      "head": "杨坚篡周",
+      "relation": "将领",
+      "tail": "梁睿"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "君主",
+      "tail": "杨坚"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "将领",
+      "tail": "杨爽"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "谋士",
+      "tail": "长孙晟"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "君主",
+      "tail": "杨坚"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "统帅",
+      "tail": "杨广"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "统帅",
+      "tail": "杨俊"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "统帅",
+      "tail": "杨素"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "谋士",
+      "tail": "高颎"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "将领",
+      "tail": "贺若弼"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "将领",
+      "tail": "韩擒虎"
+    },
+    {
+      "head": "隋灭陈之战",
+      "relation": "投降",
+      "tail": "陈叔宝"
+    },
+    {
+      "head": "隋炀帝东征高丽",
+      "relation": "君主",
+      "tail": "杨广"
+    },
+    {
+      "head": "隋炀帝东征高丽",
+      "relation": "将领",
+      "tail": "宇文述"
+    },
+    {
+      "head": "隋炀帝东征高丽",
+      "relation": "将领",
+      "tail": "来护儿"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "统帅",
+      "tail": "翟让"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "谋士",
+      "tail": "李密"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "统帅",
+      "tail": "李密"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "统帅",
+      "tail": "李密"
+    },
+    {
+      "head": "东都洛阳之战（瓦岗军）",
+      "relation": "将领",
+      "tail": "王世充"
+    },
+    {
+      "head": "童山之战",
+      "relation": "统帅",
+      "tail": "李密"
+    },
+    {
+      "head": "童山之战",
+      "relation": "将领",
+      "tail": "宇文化及"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "统帅",
+      "tail": "李密"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "将领",
+      "tail": "王世充"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "统帅",
+      "tail": "李渊"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "将领",
+      "tail": "李世民"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "将领",
+      "tail": "李建成"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "统帅",
+      "tail": "李世民"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "统帅",
+      "tail": "李世民"
+    },
+    {
+      "head": "洛阳虎牢之战",
+      "relation": "统帅",
+      "tail": "李世民"
+    },
+    {
+      "head": "平定箫铣之战",
+      "relation": "统帅",
+      "tail": "李靖"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "君主",
+      "tail": "李世民（唐太宗）"
+    },
+    {
+      "head": "北征东突厥",
+      "relation": "统帅",
+      "tail": "李靖"
+    },
+    {
+      "head": "征灭吐谷浑",
+      "relation": "统帅",
+      "tail": "李靖"
+    },
+    {
+      "head": "苏定方进攻西突厥",
+      "relation": "统帅",
+      "tail": "苏定方"
+    },
+    {
+      "head": "唐太宗征高丽",
+      "relation": "君主",
+      "tail": "李世民"
+    },
+    {
+      "head": "唐高宗征灭百济",
+      "relation": "统帅",
+      "tail": "苏定方"
+    },
+    {
+      "head": "唐高宗征灭高丽",
+      "relation": "君主",
+      "tail": "李治（唐高宗）"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "统帅",
+      "tail": "李尽忠"
+    },
+    {
+      "head": "契丹奉唐伐周",
+      "relation": "统帅",
+      "tail": "孙万荣"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "叛变",
+      "tail": "安禄山"
+    },
+    {
+      "head": "太原保卫战",
+      "relation": "将领",
+      "tail": "李光弼"
+    },
+    {
+      "head": "睢阳保卫战",
+      "relation": "将领",
+      "tail": "张巡"
+    },
+    {
+      "head": "睢阳保卫战",
+      "relation": "将领",
+      "tail": "许远"
+    },
+    {
+      "head": "肃宗讨安庆绪",
+      "relation": "君主",
+      "tail": "李亨（唐肃宗）"
+    },
+    {
+      "head": "肃宗讨安庆绪",
+      "relation": "统帅",
+      "tail": "郭子仪"
+    },
+    {
+      "head": "平定史思明",
+      "relation": "将领",
+      "tail": "李光弼"
+    },
+    {
+      "head": "唐代宗灭史朝义",
+      "relation": "君主",
+      "tail": "李俶（唐代宗）"
+    },
+    {
+      "head": "唐代宗灭史朝义",
+      "relation": "统帅",
+      "tail": "仆固怀恩"
+    },
+    {
+      "head": "黄巢起义",
+      "relation": "统帅",
+      "tail": "黄巢"
+    },
+    {
+      "head": "朱全忠篡唐建后梁",
+      "relation": "叛变",
+      "tail": "朱全忠（朱温）"
+    },
+    {
+      "head": "朱全忠篡唐建后梁",
+      "relation": "叛变",
+      "tail": "朱全忠（朱温）"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "将领",
+      "tail": "康怀贞"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "将领",
+      "tail": "李嗣昭"
+    },
+    {
+      "head": "柏乡之战",
+      "relation": "统帅",
+      "tail": "李存勖"
+    },
+    {
+      "head": "晋灭燕幽州之战",
+      "relation": "统帅",
+      "tail": "周德威"
+    },
+    {
+      "head": "后唐灭后梁之战",
+      "relation": "君主",
+      "tail": "李存勖（后唐庄宗）"
+    },
+    {
+      "head": "后唐灭后梁之战",
+      "relation": "将领",
+      "tail": "李嗣源"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "叛变",
+      "tail": "石敬瑭"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "君主",
+      "tail": "耶律德光（契丹主）"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "君主",
+      "tail": "耶律德光"
+    },
+    {
+      "head": "刘知远建后汉",
+      "relation": "君主",
+      "tail": "刘知远"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "统帅",
+      "tail": "郭威"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "君主",
+      "tail": "柴荣（周世宗）"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "将领",
+      "tail": "赵匡胤"
+    },
+    {
+      "head": "后周征后蜀之战",
+      "relation": "君主",
+      "tail": "柴荣"
+    },
+    {
+      "head": "周世宗征南唐之战",
+      "relation": "君主",
+      "tail": "柴荣"
+    },
+    {
+      "head": "周世宗攻辽河北之战",
+      "relation": "君主",
+      "tail": "柴荣"
+    },
+    {
+      "head": "陈桥兵变",
+      "relation": "统帅",
+      "tail": "赵匡胤"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "君主",
+      "tail": "宋真宗"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "君主",
+      "tail": "辽圣宗"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "统帅",
+      "tail": "韩世忠"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "统帅",
+      "tail": "完颜宗弼"
+    },
+    {
+      "head": "采石之战",
+      "relation": "将领",
+      "tail": "虞允文"
+    },
+    {
+      "head": "采石之战",
+      "relation": "统帅",
+      "tail": "完颜亮"
+    },
+    {
+      "head": "蒙古西征",
+      "relation": "统帅",
+      "tail": "成吉思汗"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "将领",
+      "tail": "吕文焕"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "统帅",
+      "tail": "阿术"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "统帅",
+      "tail": "张世杰"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "统帅",
+      "tail": "张弘范"
+    },
+    {
+      "head": "红巾军起义",
+      "relation": "统帅",
+      "tail": "刘福通"
+    },
+    {
+      "head": "红巾军起义",
+      "relation": "统帅",
+      "tail": "徐寿辉"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "统帅",
+      "tail": "朱元璋"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "将领",
+      "tail": "徐达"
+    },
+    {
+      "head": "朱元璋北伐灭元",
+      "relation": "将领",
+      "tail": "常遇春"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "统帅",
+      "tail": "朱元璋"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "将领",
+      "tail": "陈友谅"
+    },
+    {
+      "head": "鄱阳湖之战",
+      "relation": "阵亡",
+      "tail": "陈友谅"
+    },
+    {
+      "head": "靖难之役",
+      "relation": "统帅",
+      "tail": "朱棣"
+    },
+    {
+      "head": "靖难之役",
+      "relation": "君主",
+      "tail": "朱允炆"
+    },
+    {
+      "head": "明成祖五征塞北",
+      "relation": "统帅",
+      "tail": "朱棣"
+    },
+    {
+      "head": "土木堡之变",
+      "relation": "统帅",
+      "tail": "也先"
+    },
+    {
+      "head": "土木堡之变",
+      "relation": "君主",
+      "tail": "明英宗朱祁镇"
+    },
+    {
+      "head": "土木堡之变",
+      "relation": "俘虏",
+      "tail": "明英宗朱祁镇"
+    },
+    {
+      "head": "北京保卫战",
+      "relation": "统帅",
+      "tail": "于谦"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "将领",
+      "tail": "戚继光"
+    },
+    {
+      "head": "东南沿海抗倭",
+      "relation": "将领",
+      "tail": "俞大猷"
+    },
+    {
+      "head": "援朝抗日",
+      "relation": "将领",
+      "tail": "李如松"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "统帅",
+      "tail": "努尔哈赤"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "将领",
+      "tail": "杜松"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "阵亡",
+      "tail": "杜松"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "统帅",
+      "tail": "袁崇焕"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "统帅",
+      "tail": "努尔哈赤"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "阵亡",
+      "tail": "努尔哈赤"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "统帅",
+      "tail": "李自成"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "君主",
+      "tail": "崇祯帝朱由检"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "阵亡",
+      "tail": "崇祯帝朱由检"
+    },
+    {
+      "head": "清军入关",
+      "relation": "统帅",
+      "tail": "多尔衮"
+    },
+    {
+      "head": "清军入关",
+      "relation": "叛变",
+      "tail": "吴三桂"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "君主",
+      "tail": "康熙帝玄烨"
+    },
+    {
+      "head": "平定三藩之乱",
+      "relation": "将领",
+      "tail": "吴三桂"
+    },
+    {
+      "head": "郑成功收复台湾",
+      "relation": "统帅",
+      "tail": "郑成功"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "将领",
+      "tail": "林则徐"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "将领",
+      "tail": "关天培"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "阵亡",
+      "tail": "关天培"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "将领",
+      "tail": "僧格林沁"
+    },
+    {
+      "head": "中法战争",
+      "relation": "将领",
+      "tail": "刘永福"
+    },
+    {
+      "head": "中法战争",
+      "relation": "将领",
+      "tail": "冯子材"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "统帅",
+      "tail": "冯子材"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "将领",
+      "tail": "丁汝昌"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "将领",
+      "tail": "邓世昌"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "阵亡",
+      "tail": "邓世昌"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "统帅",
+      "tail": "瓦德西"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "君主",
+      "tail": "慈禧太后"
+    },
+    {
+      "head": "金田起义",
+      "relation": "统帅",
+      "tail": "洪秀全"
+    },
+    {
+      "head": "金田起义",
+      "relation": "将领",
+      "tail": "杨秀清"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "将领",
+      "tail": "林凤祥"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "将领",
+      "tail": "李开芳"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "阵亡",
+      "tail": "林凤祥"
+    },
+    {
+      "head": "太平天国北伐",
+      "relation": "阵亡",
+      "tail": "李开芳"
+    },
+    {
+      "head": "太平天国西征",
+      "relation": "统帅",
+      "tail": "石达开"
+    },
+    {
+      "head": "天京事变",
+      "relation": "参与者",
+      "tail": "杨秀清"
+    },
+    {
+      "head": "天京事变",
+      "relation": "参与者",
+      "tail": "韦昌辉"
+    },
+    {
+      "head": "天京事变",
+      "relation": "阵亡",
+      "tail": "杨秀清"
+    },
+    {
+      "head": "天京事变",
+      "relation": "阵亡",
+      "tail": "韦昌辉"
+    },
+    {
+      "head": "天京陷落",
+      "relation": "统帅",
+      "tail": "洪秀全"
+    },
+    {
+      "head": "天京陷落",
+      "relation": "将领",
+      "tail": "李秀成"
+    },
+    {
+      "head": "天京陷落",
+      "relation": "阵亡",
+      "tail": "洪秀全"
+    }
+  ],
+  "event-event": [
+    {
+      "head": "启建立夏王朝",
+      "relation": "顺承关系",
+      "tail": "太康失国"
+    },
+    {
+      "head": "太康失国",
+      "relation": "因果关系",
+      "tail": "寒浞杀后羿"
+    },
+    {
+      "head": "寒浞杀后羿",
+      "relation": "顺承关系",
+      "tail": "寒浞攻灭斟灌氏与斟寻氏"
+    },
+    {
+      "head": "寒浞攻灭斟灌氏与斟寻氏",
+      "relation": "因果关系",
+      "tail": "少康中兴复国"
+    },
+    {
+      "head": "商汤灭葛之战",
+      "relation": "顺承关系",
+      "tail": "商灭韦顾昆吾之战"
+    },
+    {
+      "head": "商灭韦顾昆吾之战",
+      "relation": "顺承关系",
+      "tail": "鸣条之战"
+    },
+    {
+      "head": "鸣条之战",
+      "relation": "顺承关系",
+      "tail": "武丁伐下旨"
+    },
+    {
+      "head": "武丁伐下旨",
+      "relation": "顺承关系",
+      "tail": "武丁伐鬼方"
+    },
+    {
+      "head": "武丁伐鬼方",
+      "relation": "顺承关系",
+      "tail": "商纣王征东夷"
+    },
+    {
+      "head": "周文王灭崇之战",
+      "relation": "条件关系",
+      "tail": "牧野之战"
+    },
+    {
+      "head": "牧野之战",
+      "relation": "因果关系",
+      "tail": "三监之乱"
+    },
+    {
+      "head": "三监之乱",
+      "relation": "顺承关系",
+      "tail": "成王东征"
+    },
+    {
+      "head": "方叔征荆蛮",
+      "relation": "顺承关系",
+      "tail": "犬戎攻镐京"
+    },
+    {
+      "head": "繻葛之战（葛之战）",
+      "relation": "顺承关系",
+      "tail": "乾时之战"
+    },
+    {
+      "head": "乾时之战",
+      "relation": "顺承关系",
+      "tail": "长勺之战"
+    },
+    {
+      "head": "长勺之战",
+      "relation": "顺承关系",
+      "tail": "齐桓公北伐山戎"
+    },
+    {
+      "head": "齐桓公北伐山戎",
+      "relation": "顺承关系",
+      "tail": "宋楚泓水之战"
+    },
+    {
+      "head": "宋楚泓水之战",
+      "relation": "因果关系",
+      "tail": "晋文公伐曹、卫"
+    },
+    {
+      "head": "晋文公伐曹、卫",
+      "relation": "因果关系",
+      "tail": "城濮之战"
+    },
+    {
+      "head": "城濮之战",
+      "relation": "因果关系",
+      "tail": "秦晋崤山之战"
+    },
+    {
+      "head": "秦晋崤山之战",
+      "relation": "因果关系",
+      "tail": "秦晋彭衙之战"
+    },
+    {
+      "head": "秦晋彭衙之战",
+      "relation": "顺承关系",
+      "tail": "秦晋王宫之战"
+    },
+    {
+      "head": "邲之战",
+      "relation": "因果关系",
+      "tail": "晋景公灭赤狄潞氏"
+    },
+    {
+      "head": "晋景公灭赤狄潞氏",
+      "relation": "并列关系",
+      "tail": "鞍之战"
+    },
+    {
+      "head": "鞍之战",
+      "relation": "顺承关系",
+      "tail": "麻隧之战"
+    },
+    {
+      "head": "麻隧之战",
+      "relation": "顺承关系",
+      "tail": "鄢陵之战"
+    },
+    {
+      "head": "鄢陵之战",
+      "relation": "并列关系",
+      "tail": "鸡父之战"
+    },
+    {
+      "head": "鸡父之战",
+      "relation": "因果关系",
+      "tail": "柏举之战"
+    },
+    {
+      "head": "柏举之战",
+      "relation": "因果关系",
+      "tail": "槜李之战"
+    },
+    {
+      "head": "槜李之战",
+      "relation": "因果关系",
+      "tail": "夫椒之战"
+    },
+    {
+      "head": "夫椒之战",
+      "relation": "条件关系",
+      "tail": "艾陵之战"
+    },
+    {
+      "head": "艾陵之战",
+      "relation": "条件关系",
+      "tail": "越王勾践袭吴都姑苏"
+    },
+    {
+      "head": "越王勾践袭吴都姑苏",
+      "relation": "因果关系",
+      "tail": "笠泽之战"
+    },
+    {
+      "head": "三家分晋",
+      "relation": "顺承关系",
+      "tail": "魏秦河西之战"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "并列关系",
+      "tail": "魏联合韩赵攻齐之战"
+    },
+    {
+      "head": "魏秦河西之战",
+      "relation": "并列关系",
+      "tail": "魏联合韩赵伐楚之战"
+    },
+    {
+      "head": "魏联合韩赵攻齐之战",
+      "relation": "并列关系",
+      "tail": "魏联合韩赵伐楚之战"
+    },
+    {
+      "head": "魏联合韩赵伐楚之战",
+      "relation": "顺承关系",
+      "tail": "桂陵之战"
+    },
+    {
+      "head": "桂陵之战",
+      "relation": "顺承关系",
+      "tail": "马陵之战"
+    },
+    {
+      "head": "函谷关之战",
+      "relation": "顺承关系",
+      "tail": "秦楚丹阳、兰田之战"
+    },
+    {
+      "head": "秦楚丹阳、兰田之战",
+      "relation": "顺承关系",
+      "tail": "秦齐韩魏攻楚重丘之战"
+    },
+    {
+      "head": "秦齐韩魏攻楚重丘之战",
+      "relation": "顺承关系",
+      "tail": "秦将白起攻韩魏伊阙之战"
+    },
+    {
+      "head": "秦将白起攻韩魏伊阙之战",
+      "relation": "顺承关系",
+      "tail": "苏秦合纵五国攻秦"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "包含关系",
+      "tail": "济西之战"
+    },
+    {
+      "head": "乐毅破齐之战",
+      "relation": "顺承关系",
+      "tail": "秦赵长平之战"
+    },
+    {
+      "head": "秦赵长平之战",
+      "relation": "顺承关系",
+      "tail": "秦灭六国之战"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "包含关系",
+      "tail": "秦灭韩之战"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "包含关系",
+      "tail": "秦灭赵之战"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "包含关系",
+      "tail": "秦灭魏之战"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "包含关系",
+      "tail": "秦灭燕之战"
+    },
+    {
+      "head": "秦灭六国之战",
+      "relation": "包含关系",
+      "tail": "秦将王翦灭楚之战"
+    },
+    {
+      "head": "陈胜吴广大泽乡起义",
+      "relation": "因果关系",
+      "tail": "巨鹿之战"
+    },
+    {
+      "head": "巨鹿之战",
+      "relation": "顺承关系",
+      "tail": "刘邦入关灭秦"
+    },
+    {
+      "head": "刘邦还定三秦",
+      "relation": "顺承关系",
+      "tail": "楚汉彭城大战"
+    },
+    {
+      "head": "楚汉彭城大战",
+      "relation": "因果关系",
+      "tail": "荥阳成皋相峙"
+    },
+    {
+      "head": "荥阳成皋相峙",
+      "relation": "条件关系",
+      "tail": "潍水之战"
+    },
+    {
+      "head": "潍水之战",
+      "relation": "因果关系",
+      "tail": "垓下之战"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "因果关系",
+      "tail": "吕后诛韩信"
+    },
+    {
+      "head": "诛彭越",
+      "relation": "因果关系",
+      "tail": "平定英布叛乱"
+    },
+    {
+      "head": "平定诸吕之乱",
+      "relation": "因果关系",
+      "tail": "七国之乱"
+    },
+    {
+      "head": "刘邦伪游云梦擒韩信",
+      "relation": "并列关系",
+      "tail": "诛彭越"
+    },
+    {
+      "head": "马邑之谋",
+      "relation": "顺承关系",
+      "tail": "汉匈河南漠南之战"
+    },
+    {
+      "head": "汉匈河南漠南之战",
+      "relation": "顺承关系",
+      "tail": "河西之战"
+    },
+    {
+      "head": "河西之战",
+      "relation": "顺承关系",
+      "tail": "漠北决战"
+    },
+    {
+      "head": "漠北决战",
+      "relation": "因果关系",
+      "tail": "陈汤灭郅支单于"
+    },
+    {
+      "head": "平定南越",
+      "relation": "并列关系",
+      "tail": "东征朝鲜"
+    },
+    {
+      "head": "河西之战",
+      "relation": "因果关系",
+      "tail": "漠北决战"
+    },
+    {
+      "head": "绿林赤眉起义",
+      "relation": "因果关系",
+      "tail": "昆阳之战"
+    },
+    {
+      "head": "昆阳之战",
+      "relation": "顺承关系",
+      "tail": "刘秀略定河北"
+    },
+    {
+      "head": "刘秀略定河北",
+      "relation": "顺承关系",
+      "tail": "刘秀平定赤眉"
+    },
+    {
+      "head": "刘秀平定赤眉",
+      "relation": "顺承关系",
+      "tail": "平定陇西隗嚣"
+    },
+    {
+      "head": "平定陇西隗嚣",
+      "relation": "顺承关系",
+      "tail": "平定公孙述"
+    },
+    {
+      "head": "平定公孙述",
+      "relation": "因果关系",
+      "tail": "班超通西域"
+    },
+    {
+      "head": "班超通西域",
+      "relation": "并列关系",
+      "tail": "窦宪破北匈奴"
+    },
+    {
+      "head": "窦宪破北匈奴",
+      "relation": "因果关系",
+      "tail": "段颎平定羌乱"
+    },
+    {
+      "head": "曹操统一北方",
+      "relation": "顺承关系",
+      "tail": "官渡之战"
+    },
+    {
+      "head": "官渡之战",
+      "relation": "因果关系",
+      "tail": "赤壁之战"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "因果关系",
+      "tail": "夷陵之战"
+    },
+    {
+      "head": "夷陵之战",
+      "relation": "因果关系",
+      "tail": "诸葛亮北伐"
+    },
+    {
+      "head": "诸葛亮北伐",
+      "relation": "因果关系",
+      "tail": "魏灭蜀之战"
+    },
+    {
+      "head": "赤壁之战",
+      "relation": "因果关系",
+      "tail": "夷陵之战"
+    },
+    {
+      "head": "司马氏篡魏",
+      "relation": "顺承关系",
+      "tail": "晋灭吴之战"
+    },
+    {
+      "head": "晋灭吴之战",
+      "relation": "因果关系",
+      "tail": "八王之乱"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "因果关系",
+      "tail": "刘渊建汉"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "因果关系",
+      "tail": "刘汉灭西晋"
+    },
+    {
+      "head": "杨骏专权",
+      "relation": "因果关系",
+      "tail": "八王之乱开始"
+    },
+    {
+      "head": "八王之乱",
+      "relation": "因果关系",
+      "tail": "刘渊建汉"
+    },
+    {
+      "head": "刘渊建汉",
+      "relation": "顺承关系",
+      "tail": "刘汉灭西晋"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "因果关系",
+      "tail": "北方十六国混战"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "因果关系",
+      "tail": "前赵建立"
+    },
+    {
+      "head": "前赵内乱",
+      "relation": "因果关系",
+      "tail": "石勒建后赵"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "北方短暂统一"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "石勒死后北方再度分裂"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "桓温第一次北伐"
+    },
+    {
+      "head": "前燕崛起",
+      "relation": "因果关系",
+      "tail": "桓温第三次北伐"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "并列关系",
+      "tail": "桓温第二次北伐"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "顺承关系",
+      "tail": "桓温第三次北伐"
+    },
+    {
+      "head": "桓温北伐",
+      "relation": "因果关系",
+      "tail": "桓温权势增强"
+    },
+    {
+      "head": "石勒死后北方分裂",
+      "relation": "因果关系",
+      "tail": "前秦崛起"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "顺承关系",
+      "tail": "前秦统一北方"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "因果关系",
+      "tail": "淝水之战"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "因果关系",
+      "tail": "淝水之战"
+    },
+    {
+      "head": "王猛去世",
+      "relation": "条件关系",
+      "tail": "苻坚南征"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "因果关系",
+      "tail": "前秦崩溃、北方再度分裂"
+    },
+    {
+      "head": "北方再度分裂",
+      "relation": "条件关系",
+      "tail": "刘裕北伐"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "顺承关系",
+      "tail": "刘裕灭后秦"
+    },
+    {
+      "head": "刘裕北伐",
+      "relation": "因果关系",
+      "tail": "刘裕篡晋"
+    },
+    {
+      "head": "刘汉灭西晋",
+      "relation": "因果关系",
+      "tail": "前赵建立"
+    },
+    {
+      "head": "前赵内乱",
+      "relation": "因果关系",
+      "tail": "石勒建后赵"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "北方短暂统一"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "石勒死后北方再度分裂"
+    },
+    {
+      "head": "石勒统一北方",
+      "relation": "因果关系",
+      "tail": "桓温第一次北伐"
+    },
+    {
+      "head": "前燕崛起",
+      "relation": "因果关系",
+      "tail": "桓温第三次北伐"
+    },
+    {
+      "head": "桓温第一次北伐",
+      "relation": "并列关系",
+      "tail": "桓温第二次北伐"
+    },
+    {
+      "head": "桓温第二次北伐",
+      "relation": "顺承关系",
+      "tail": "桓温第三次北伐"
+    },
+    {
+      "head": "桓温北伐",
+      "relation": "因果关系",
+      "tail": "桓温权势增强"
+    },
+    {
+      "head": "石勒死后北方分裂",
+      "relation": "因果关系",
+      "tail": "前秦崛起"
+    },
+    {
+      "head": "前秦灭前燕",
+      "relation": "顺承关系",
+      "tail": "前秦统一北方"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "因果关系",
+      "tail": "淝水之战"
+    },
+    {
+      "head": "前秦统一北方",
+      "relation": "因果关系",
+      "tail": "淝水之战"
+    },
+    {
+      "head": "王猛去世",
+      "relation": "条件关系",
+      "tail": "苻坚南征"
+    },
+    {
+      "head": "淝水之战",
+      "relation": "因果关系",
+      "tail": "前秦崩溃、北方再度分裂"
+    },
+    {
+      "head": "北方再度分裂",
+      "relation": "条件关系",
+      "tail": "刘裕北伐"
+    },
+    {
+      "head": "刘裕灭南燕",
+      "relation": "顺承关系",
+      "tail": "刘裕灭后秦"
+    },
+    {
+      "head": "刘裕北伐",
+      "relation": "因果关系",
+      "tail": "刘裕篡晋"
+    },
+    {
+      "head": "隋反击突厥",
+      "relation": "条件关系",
+      "tail": "隋灭陈之战"
+    },
+    {
+      "head": "瓦岗军起义",
+      "relation": "因果关系",
+      "tail": "隋朝灭亡"
+    },
+    {
+      "head": "童山之战",
+      "relation": "因果关系",
+      "tail": "瓦岗军战略失误"
+    },
+    {
+      "head": "北邙之战",
+      "relation": "顺承关系",
+      "tail": "瓦岗军失败"
+    },
+    {
+      "head": "李渊进取长安",
+      "relation": "顺承关系",
+      "tail": "浅水原之战"
+    },
+    {
+      "head": "浅水原之战",
+      "relation": "顺承关系",
+      "tail": "柏壁之战"
+    },
+    {
+      "head": "柏壁之战",
+      "relation": "顺承关系",
+      "tail": "洛阳虎牢之战"
+    },
+    {
+      "head": "安史之乱（安禄山阶段）",
+      "relation": "顺承关系",
+      "tail": "肃宗讨安庆绪"
+    },
+    {
+      "head": "肃宗讨安庆绪",
+      "relation": "顺承关系",
+      "tail": "平定史思明"
+    },
+    {
+      "head": "平定史思明",
+      "relation": "顺承关系",
+      "tail": "唐代宗灭史朝义"
+    },
+    {
+      "head": "黄巢起义",
+      "relation": "因果关系",
+      "tail": "唐朝统治基础崩溃"
+    },
+    {
+      "head": "梁晋潞州之战",
+      "relation": "顺承关系",
+      "tail": "柏乡之战"
+    },
+    {
+      "head": "柏乡之战",
+      "relation": "顺承关系",
+      "tail": "晋灭燕幽州之战"
+    },
+    {
+      "head": "晋灭燕幽州之战",
+      "relation": "顺承关系",
+      "tail": "后唐灭后梁之战"
+    },
+    {
+      "head": "石敬瑭引契丹灭后唐",
+      "relation": "因果关系",
+      "tail": "后晋建立"
+    },
+    {
+      "head": "契丹灭后晋之战",
+      "relation": "顺承关系",
+      "tail": "刘知远建后汉"
+    },
+    {
+      "head": "后汉讨关西三叛",
+      "relation": "因果关系",
+      "tail": "郭威建后周"
+    },
+    {
+      "head": "后周北汉高平之战",
+      "relation": "顺承关系",
+      "tail": "周世宗征南唐之战"
+    },
+    {
+      "head": "陈桥兵变",
+      "relation": "因果关系",
+      "tail": "北宋建立"
+    },
+    {
+      "head": "澶渊之盟",
+      "relation": "顺承关系",
+      "tail": "宋辽长期和平"
+    },
+    {
+      "head": "黄天荡之战",
+      "relation": "因果关系",
+      "tail": "金军北撤"
+    },
+    {
+      "head": "采石之战",
+      "relation": "因果关系",
+      "tail": "金军南侵失败"
+    },
+    {
+      "head": "蒙古西征",
+      "relation": "并列关系",
+      "tail": "蒙古灭金"
+    },
+    {
+      "head": "襄阳之战",
+      "relation": "因果关系",
+      "tail": "南宋长江防线崩溃"
+    },
+    {
+      "head": "崖山海战",
+      "relation": "因果关系",
+      "tail": "南宋灭亡"
+    },
+    {
+      "head": "红巾军起义",
+      "relation": "因果关系",
+      "tail": "元朝统治动摇"
+    },
+    {
+      "head": "金田起义",
+      "relation": "顺承关系",
+      "tail": "太平天国定都天京"
+    },
+    {
+      "head": "太平天国定都天京",
+      "relation": "因果关系",
+      "tail": "太平天国北伐"
+    },
+    {
+      "head": "太平天国定都天京",
+      "relation": "因果关系",
+      "tail": "太平天国西征"
+    },
+    {
+      "head": "天京事变",
+      "relation": "因果关系",
+      "tail": "太平天国由盛转衰"
+    },
+    {
+      "head": "太平天国由盛转衰",
+      "relation": "顺承关系",
+      "tail": "天京陷落"
+    },
+    {
+      "head": "萨尔浒之战",
+      "relation": "因果关系",
+      "tail": "后金掌握辽东战略主动权"
+    },
+    {
+      "head": "宁远之战",
+      "relation": "因果关系",
+      "tail": "努尔哈赤之死"
+    },
+    {
+      "head": "李自成入京灭明",
+      "relation": "因果关系",
+      "tail": "明朝灭亡"
+    },
+    {
+      "head": "明朝灭亡",
+      "relation": "条件关系",
+      "tail": "清军入关"
+    },
+    {
+      "head": "清军入关",
+      "relation": "顺承关系",
+      "tail": "平定三藩之乱"
+    },
+    {
+      "head": "郑成功收复台湾",
+      "relation": "并列关系",
+      "tail": "平定三藩之乱"
+    },
+    {
+      "head": "第一次鸦片战争",
+      "relation": "因果关系",
+      "tail": "《南京条约》签订"
+    },
+    {
+      "head": "第二次鸦片战争",
+      "relation": "因果关系",
+      "tail": "《北京条约》签订"
+    },
+    {
+      "head": "中法战争",
+      "relation": "因果关系",
+      "tail": "镇南关大捷"
+    },
+    {
+      "head": "镇南关大捷",
+      "relation": "并列关系",
+      "tail": "中法战争"
+    },
+    {
+      "head": "中日甲午战争",
+      "relation": "因果关系",
+      "tail": "《马关条约》签订"
+    },
+    {
+      "head": "八国联军侵华战争",
+      "relation": "因果关系",
+      "tail": "《辛丑条约》签订"
+    }
+  ]
+}
