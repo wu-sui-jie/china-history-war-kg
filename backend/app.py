@@ -16,6 +16,7 @@ import time
 import uuid
 import atexit
 import re
+import sys
 from collections import Counter
 
 # ================== Flask核心模块 ==================
@@ -50,6 +51,23 @@ user_id = None
 
 # ================== 数据库配置 ==================
 APP_PATH = os.path.dirname(__file__)
+
+# ================== entity-event-relation 模块路径注入 ==================
+# src.* 包位于同级目录 entity-event-relation 下，运行时需先加入 sys.path
+ENTITY_EVENT_RELATION_DIR = os.path.join(os.path.dirname(APP_PATH), 'entity-event-relation')
+if ENTITY_EVENT_RELATION_DIR not in sys.path:
+    sys.path.insert(0, ENTITY_EVENT_RELATION_DIR)
+
+from src.models import (
+    EntityExtractionResult,
+    EventExtractionResult,
+    RelationExtractionResult,
+)
+from src.extractors.entity_extractor import EntityExtractor
+from src.extractors.event_extractor import EventExtractor
+from src.extractors.relation_extractor import RelationExtractor
+from src.core.text_splitter import TextSplitter
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{APP_PATH}/database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
@@ -3179,20 +3197,9 @@ def extract_all_optimized(llm, text: str):
     - RelationExtractor: 关系抽取（RELATION_EXTRACTION_PROMPT）
     支持长文本分段处理，自动合并去重
     """
-    import json
-    from src.models import (
-        EntityExtractionResult, PlaceEntity, OrganizationEntity, PersonEntity,
-        EventExtractionResult, Event, EventRelation,
-        RelationExtractionResult, EventPlaceRelation, EventPersonRelation,
-        EventOrganizationRelation, EventEventRelation
-    )
-    from src.extractors.entity_extractor import EntityExtractor
-    from src.extractors.event_extractor import EventExtractor
-    from src.extractors.relation_extractor import RelationExtractor
 
     # 文本分段处理（减小分段，减少LLM调用次数）
     try:
-        from src.core.text_splitter import TextSplitter
         splitter = TextSplitter(chunk_size=1200, overlap=150)
         chunks = splitter.split(text)
     except Exception:
@@ -3428,12 +3435,6 @@ def extract_entities_events():
             return jsonify({"code": 400, "msg": "文本内容过长，请限制在1000字符以内", "data": {}})
 
         start_time = time.time()
-
-        # 导入entity-event-relation模块
-        import sys
-        entity_event_path = os.path.join(os.path.dirname(APP_PATH), 'entity-event-relation')
-        if entity_event_path not in sys.path:
-            sys.path.insert(0, entity_event_path)
 
         try:
             from src.extractors.entity_extractor import EntityExtractor
