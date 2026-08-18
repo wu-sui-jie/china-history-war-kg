@@ -29,7 +29,7 @@ DEFAULT_FINAL_JSON = (
     APP_PATH.parent
     / "entity-event-relation"
     / "output"
-    / "中国历代战争简史_测试数据"
+    / "中国历代战争简史"
     / "9_final_all.json"
 )
 CURRENT_DATASET_META = APP_PATH / "data" / "current_dataset.json"

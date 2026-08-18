@@ -663,7 +663,18 @@ def _coordinate_result(coords, source, confidence, label, matched_text='', note=
     }
 
 
+_COORD_REGION_SORTED = None
+_COORD_CACHE = {}
+
+
 def _resolve_place_coordinates(place):
+    global _COORD_REGION_SORTED
+    if _COORD_REGION_SORTED is None:
+        _COORD_REGION_SORTED = sorted(
+            HISTORICAL_REGION_CENTROIDS.items(),
+            key=lambda item: len(item[0]),
+            reverse=True,
+        )
     name = _safe_text(getattr(place, "name", None))
     city_key = _normalize_region_name(getattr(place, "city", None))
     province_key = _normalize_region_name(getattr(place, "province", None))
@@ -671,9 +682,17 @@ def _resolve_place_coordinates(place):
     specific_location = _safe_text(getattr(place, "specific_location", None))
     longitude = getattr(place, "longitude", None)
     latitude = getattr(place, "latitude", None)
+    cache_key = (
+        getattr(place, "id", None),
+        name, city_key, province_key, modern_name, specific_location,
+        longitude, latitude,
+    )
+    if cache_key in _COORD_CACHE:
+        cached = _COORD_CACHE[cache_key]
+        return dict(cached) if cached else None
 
     if longitude is not None and latitude is not None:
-        return _coordinate_result(
+        result = _coordinate_result(
             (float(longitude), float(latitude)),
             _safe_text(getattr(place, "coord_source", None)) or "manual",
             _safe_text(getattr(place, "coord_confidence", None)) or "high",
@@ -681,20 +700,30 @@ def _resolve_place_coordinates(place):
             "longitude/latitude",
             _safe_text(getattr(place, "coord_note", None)) or "地点表已提供经纬度",
         )
+    else:
+        result = None
+        for key, coords in CITY_CENTROIDS.items():
+            if key and (city_key == key or key in modern_name or key in name or key in specific_location):
+                result = _coordinate_result(coords, "city_centroid", "medium", "城市中心点", key, "按城市或现代地名匹配到城市中心点")
+                break
+        if result is None:
+            for key, coords in PROVINCE_CENTROIDS.items():
+                if key and (province_key == key or key in modern_name or key in specific_location):
+                    result = _coordinate_result(coords, "province_centroid", "low", "省级中心点", key, "仅能匹配到省级范围，坐标用于概览展示")
+                    break
+        if result is None:
+            for key, coords in _COORD_REGION_SORTED:
+                if key and (key == name or key == modern_name):
+                    result = _coordinate_result(coords, "historical_region", "medium", "历史区域估算", key, "按内置历史地名映射表精确匹配")
+                    break
+        if result is None:
+            for key, coords in _COORD_REGION_SORTED:
+                if key and (key in name or key in modern_name or key in specific_location):
+                    result = _coordinate_result(coords, "historical_region_fuzzy", "low", "历史区域模糊估算", key, "按内置历史地名映射表模糊匹配")
+                    break
 
-    for key, coords in CITY_CENTROIDS.items():
-        if key and (city_key == key or key in modern_name or key in name or key in specific_location):
-            return _coordinate_result(coords, "city_centroid", "medium", "城市中心点", key, "按城市或现代地名匹配到城市中心点")
-    for key, coords in PROVINCE_CENTROIDS.items():
-        if key and (province_key == key or key in modern_name or key in specific_location):
-            return _coordinate_result(coords, "province_centroid", "low", "省级中心点", key, "仅能匹配到省级范围，坐标用于概览展示")
-    for key, coords in sorted(HISTORICAL_REGION_CENTROIDS.items(), key=lambda item: len(item[0]), reverse=True):
-        if key and (key == name or key == modern_name):
-            return _coordinate_result(coords, "historical_region", "medium", "历史区域估算", key, "按内置历史地名映射表精确匹配")
-    for key, coords in sorted(HISTORICAL_REGION_CENTROIDS.items(), key=lambda item: len(item[0]), reverse=True):
-        if key and (key in name or key in modern_name or key in specific_location):
-            return _coordinate_result(coords, "historical_region_fuzzy", "low", "历史区域模糊估算", key, "按内置历史地名映射表模糊匹配")
-    return None
+    _COORD_CACHE[cache_key] = result
+    return dict(result) if result else None
 
 
 def _event_participants(event_id):

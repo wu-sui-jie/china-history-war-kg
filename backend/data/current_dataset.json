@@ -1,24 +1,24 @@
 {
-  "source_path": "F:\\python\\python_space\\china-history-war-kg\\entity-event-relation\\output\\中国历代战争简史_测试数据\\9_final_all.json",
+  "source_path": "F:\\python\\python_space\\debug-debug\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
   "source_kind": "final_json",
   "metadata": {
-    "extracted_at": "2026-04-27 21:31:01 +08:00",
+    "extracted_at": "2026-08-18 03:37:13 +08:00",
     "extraction_version": "extraction-v2-20260420",
     "prompt_version": "prompt-v2-20260420",
-    "input_file": "data\\中国历代战争简史_测试数据.txt",
-    "text_length": 8817
+    "input_file": "data\\中国历代战争简史.txt",
+    "text_length": 306730
   },
   "quality_report": {
-    "generated_at": "2026-04-27 21:31:01 +08:00",
+    "generated_at": "2026-08-18 03:37:13 +08:00",
     "extraction_version": "extraction-v2-20260420",
     "prompt_version": "prompt-v2-20260420",
     "counts": {
-      "places": 111,
-      "persons": 59,
-      "organizations": 81,
-      "events": 40,
-      "relations": 392,
-      "embedded_event_relations": 36
+      "places": 5316,
+      "persons": 2492,
+      "organizations": 1067,
+      "events": 1050,
+      "relations": 18146,
+      "embedded_event_relations": 995
     },
     "missing_source_text": {
       "places": 0,
@@ -30,14 +30,14 @@
       "relations": 0
     },
     "diagnostics": {
-      "event_event_relations": 36,
-      "events_with_embedded_relations": 26,
-      "duplicate_event_names": 0,
+      "event_event_relations": 914,
+      "events_with_embedded_relations": 826,
+      "duplicate_event_names": 22,
       "duplicate_org_names": 0,
       "duplicate_person_names": 0,
       "summary_like_events": 0,
-      "identified_event_count": 40,
-      "final_event_count": 40,
+      "identified_event_count": 1050,
+      "final_event_count": 1050,
       "event_count_expansion": 0,
       "missing_event_count": 0,
       "postprocess_filtered_count": 0,
@@ -45,10 +45,10 @@
     }
   },
   "sqlite_counts": {
-    "events": 40,
-    "places": 111,
-    "organizations": 81,
-    "persons": 59,
-    "relations": 378
+    "events": 1050,
+    "places": 5316,
+    "organizations": 1067,
+    "persons": 2492,
+    "relations": 17700
   }
 }
