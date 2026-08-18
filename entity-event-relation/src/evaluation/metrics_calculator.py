@@ -3,6 +3,7 @@
 提供准确率(P)、召回率(R)、F1值的标准化计算
 支持多层次、多类别的评估指标计算
 """
+from __future__ import annotations
 
 from typing import Dict, List, Tuple, Any, Optional
 from dataclasses import dataclass

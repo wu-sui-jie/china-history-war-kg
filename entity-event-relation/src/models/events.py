@@ -2,6 +2,7 @@
 事件数据模型
 简化版：删除子事件，增加关系字段，拆分规模字段
 """
+from __future__ import annotations
 
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict

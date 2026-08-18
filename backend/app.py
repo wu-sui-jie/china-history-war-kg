@@ -50,7 +50,7 @@ shared_rule_llm_integration = None
 user_id = None
 
 # ================== 数据库配置 ==================
-APP_PATH = os.path.dirname(__file__)
+APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # ================== entity-event-relation 模块路径注入 ==================
 # src.* 包位于同级目录 entity-event-relation 下，运行时需先加入 sys.path

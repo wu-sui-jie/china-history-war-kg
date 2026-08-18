@@ -2,6 +2,7 @@
 预测结果与标注数据对齐工具
 解决模型输出与人工标注在边界、表述上的差异问题
 """
+from __future__ import annotations
 
 import re
 from typing import List, Dict, Tuple

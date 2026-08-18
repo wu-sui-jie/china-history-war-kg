@@ -1,6 +1,7 @@
 """
 Shared entity classification helpers for extraction, backfill, and cleanup.
 """
+from __future__ import annotations
 
 from typing import Optional
 

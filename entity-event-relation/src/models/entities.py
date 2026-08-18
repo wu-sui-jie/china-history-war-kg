@@ -2,6 +2,7 @@
 实体数据模型
 定义地点、组织、人物三类实体的Pydantic模型
 """
+from __future__ import annotations
 
 from pydantic import BaseModel, Field
 from typing import List, Optional

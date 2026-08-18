@@ -2,6 +2,7 @@
 关系数据模型
 定义事件与实体、事件与事件之间关系的Pydantic模型
 """
+from __future__ import annotations
 
 from pydantic import BaseModel, Field
 from typing import List, Optional

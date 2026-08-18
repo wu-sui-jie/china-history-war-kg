@@ -1,6 +1,7 @@
 """
 Shared normalization helpers for extraction, evaluation, and import.
 """
+from __future__ import annotations
 
 import json
 import re

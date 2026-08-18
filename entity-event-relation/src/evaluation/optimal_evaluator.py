@@ -9,6 +9,7 @@
 - 事件-事件尾实体匹配阈值同步降至0.35
 - 保留别名映射、包含关系满分等所有有效优化
 """
+from __future__ import annotations
 
 import json
 import re

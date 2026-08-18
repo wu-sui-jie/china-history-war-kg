@@ -2,6 +2,7 @@
 长文本智能分段模块
 解决大模型上下文长度限制问题，确保语义完整性
 """
+from __future__ import annotations
 
 import re
 from typing import List, Tuple

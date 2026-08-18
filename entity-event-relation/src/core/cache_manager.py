@@ -2,6 +2,7 @@
 缓存管理模块
 避免重复处理相同文本，节省 API 费用
 """
+from __future__ import annotations
 
 import json
 import hashlib

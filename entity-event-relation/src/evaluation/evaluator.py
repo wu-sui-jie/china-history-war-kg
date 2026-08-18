@@ -2,6 +2,7 @@
 评估器主模块
 计算准确率(P)、召回率(R)、F1值，支持多层次评估
 """
+from __future__ import annotations
 
 import json
 from pathlib import Path
