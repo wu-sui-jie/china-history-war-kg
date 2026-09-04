@@ -35,6 +35,26 @@ INDEX_BUILD_EMBEDDINGS = True
 CHUNK_MAX_CHARS = 800          # 单片段最大字符数
 CHUNK_OVERLAP_CHARS = 80       # 相邻片段重叠字符数（按句子边界二次切分）
 
+# ---- 在线链路（RAGv2，F02–F06）----
+# 大模型（deepseek-v4-flash，OpenAI 兼容）
+LLM_BASE_URL = ""                      # 例如 https://api.deepseek.com/v1
+LLM_API_KEY = ""                       # 密钥只从 .env / 环境变量读取
+LLM_MODEL = "deepseek-v4-flash"
+LLM_TIMEOUT_SECONDS = 60
+LLM_MAX_RETRIES = 2
+# 备用生成模型（主模型失败降级用；为空 = 不降级）
+FALLBACK_LLM_BASE_URL = ""
+FALLBACK_LLM_API_KEY = ""
+FALLBACK_LLM_MODEL = ""
+
+# ---- 演示 / 限流 / 缓存（在线链路）----
+DEMO_MODE = False
+RATE_LIMIT_PER_MINUTE = 30            # 无登录公开接口的基础限流
+CACHE_TTL_SECONDS = 3600              # 回答缓存有效期
+HISTORY_MAX_TURNS = 4                 # 携带会话历史的最大轮数
+QUERY_TOP_K_GRAPH = 40                # F03 图谱证据上限
+QUERY_TOP_K_TEXT = 30                 # F04 文本证据上限（融合后再裁剪）
+
 # ---- 版本号 ----
 # 示例 "20260903_v1"。export/build 未显式给版本时取当天日期生成 v1。
 VERSION_DATE_FORMAT = "%Y%m%d"

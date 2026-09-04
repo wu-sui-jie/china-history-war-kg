@@ -1,8 +1,9 @@
 # F06 证据溯源回答生成
 
 - 功能编号：F06
-- 状态：待开发
+- 状态：部分完成（RAGv2 链路通：离线摘要回答器可验收；接真实 LLM key 后启用流式生成与降级）
 - 创建时间：2026-09-03
+- 实现说明：见 [RAG_v1/RAGv2-在线问答链路.md](../RAG_v1/RAGv2-在线问答链路.md)
 
 ## 功能作用
 
@@ -46,7 +47,9 @@
 1. 缓存键包含 rewritten_question、会话历史摘要、筛选条件、数据版本和模型版本。
 2. 缓存命中返回历史答案和对应引用。
 3. 缓存设置有效期，演示模式可手动清空。
-4. 缓存命中时按 SSE 推送 session_start、status（stage=cache_hit）、entities、完整 answer、citations、panel、done，与正常路径保持一致的实体展示和纠正能力，不再流式调用大模型。
+4. 缓存命中时仍先执行 F02：推送 session_start、status(entity_linking)、entities，
+   随后按 status（stage=cache_hit）→ 完整 answer → citations → panel → done 回放，
+   与正常路径保持一致的实体展示和纠正能力，不再流式调用大模型。
 
 ## 提示词与思考过程保护要求
 

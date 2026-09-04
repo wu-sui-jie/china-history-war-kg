@@ -55,6 +55,9 @@ class CandidateOption(BaseModel):
     name: str
     standard_name: str
     confidence: Optional[str] = None
+    dynasty: Optional[str] = None
+    event_type: Optional[str] = None
+    entity_id: Optional[str] = None
 
 
 @dataclass
@@ -77,6 +80,20 @@ class QueryRequest(BaseModel):
     history: List[HistoryTurn] = field(default_factory=list)
     filters: Filters = field(default_factory=Filters)
     corrected_entities: List[CorrectedEntity] = field(default_factory=list)
+
+    @staticmethod
+    def from_dict(d: dict) -> "QueryRequest":
+        """从请求 dict 构造（嵌套 dict → dataclass 转换，避免直接 ** 展开时
+        filters/corrected_entities/history 仍是 dict）。"""
+        return QueryRequest(
+            session_id=d.get("session_id", ""),
+            question=d.get("question", ""),
+            history=[HistoryTurn(**h) for h in (d.get("history") or [])],
+            filters=Filters(**(d.get("filters") or {})),
+            corrected_entities=[
+                CorrectedEntity(**c) for c in (d.get("corrected_entities") or [])
+            ],
+        )
 
 
 @dataclass

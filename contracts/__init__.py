@@ -28,6 +28,13 @@ from contracts.panel import (
     TimelineItem,
 )
 from contracts.question import QuestionType
+from contracts.retrieval import (
+    CitationAssign,
+    FusionOutput,
+    GraphResult,
+    TextResult,
+    build_text_content,
+)
 from contracts.request import (
     CandidateOption,
     CorrectionAction,
@@ -72,6 +79,11 @@ __all__ = [
     "TimelineGroup",
     "TimelineItem",
     "QuestionType",
+    "CitationAssign",
+    "FusionOutput",
+    "GraphResult",
+    "TextResult",
+    "build_text_content",
     "CandidateOption",
     "CorrectionAction",
     "CorrectedEntity",
