@@ -1,7 +1,7 @@
 # RAGv3 规划分析：前端问答页 F01 + 知识面板 F07
 
 - 阶段：RAGv3（前端单页）
-- 状态：📋 规划中（本文件为任务分析，非完成记录）
+- 状态：✅ 预开发分析完成（本文件为任务分析；前端实施待 RAGv3 开工）
 - 前置：RAGv2 已完成（SSE 问答链路，见 [RAGv2-在线问答链路.md](RAGv2-在线问答链路.md)）
 - 目标：实现**唯一用户可见页面**——智能问答页（F01 主界面 + F07 知识面板同页），
   消费 RAGv2 的 SSE 事件流，支持多轮追问、朝代/战争类型筛选、实体纠正重查、
@@ -77,6 +77,15 @@ RAGv2 SSE 实际推送（`server/sse.py`，字段与 data-contract 一致）：
 - `contracts/sse.py` 保留了 `thinking` 事件枚举，但 RAGv2 后端当前不发射该事件；
   前端状态机无需处理，避免误以为事件缺失。
 
+联调必读（2026-09-04 复测补充）：
+- SSE 实际有两种结束路径：**全量检索**与**缓存命中**。缓存命中时
+  事件序列为 session_start → status(entity_linking) → entities →
+  status(cache_hit) → answer → citations → panel → done，
+  **不会出现 graph_search/text_search/fusion 及其结果事件**；
+  前端状态机应把 cache_hit 视为正常路径，不能当丢事件处理。
+- 缓存命中的 answer 通常为单段完整事件，全量路径为多段增量；
+  页面渲染统一按“累积 answer 直到 done”，不要假设增量次数。
+
 ## 五、功能模块拆解（任务级）
 
 ### 1. 工程初始化
@@ -139,6 +148,12 @@ RAGv2 SSE 实际推送（`server/sse.py`，字段与 data-contract 一致）：
 
 ### 9. 质量与验收准备
 - 冒烟脚本（Node/curl）跑通完整 SSE 序列渲染；
+- 冒烟必须覆盖缓存命中路径与全量检索路径，并断言缓存命中仍收到 entities/citations/panel；
+- 冒烟必须含长改写问题（如“长平之战的主要经过和结果是什么？”），
+  只断言 text_results 非空不够：F04 长问题 AND 常为 0、OR 兜底存在排序噪音，
+  还应断言至少一条文本证据与本次实体/事件相关；
+- 若出现“只有图谱引用、无文本引用”，保留 graph_results/text_results/fusion 现场
+  并回传 F10 评测，区分 text_result 为空、相关文本被排序挤出、融合名额裁剪三类原因；
 - 手动验收清单映射 F01/F07 验收标准。
 
 ## 六、实施顺序（建议）
@@ -174,6 +189,11 @@ RAGv2 SSE 实际推送（`server/sse.py`，字段与 data-contract 一致）：
    保证与治理词典一致）。
 6. **跨域**：dev proxy 解决；生产同源部署或 CORS（后端已开 allow_origins=*）。
 7. 移动端：面板改抽屉/标签，防遮挡。
+8. **缓存回放被误判为丢事件**：缓存命中无 graph/text/fusion 事件是设计行为，
+   前端按 status(cache_hit)/done.cache_hit 分支处理（见第四节“联调必读”）。
+9. **长改写问题文本召回质量**：F04 AND 优先在长问题上常直接失败，
+   OR 兜底虽保证非空但排序噪音大，可能导致“回答只有图谱引用”；
+   前端保留检索事件现场，F10 用“相关文本是否进入回答/引用”作评测口径。
 
 ## 九、不在 RAGv3 范围
 
