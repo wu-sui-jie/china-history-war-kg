@@ -76,6 +76,12 @@
 - `RAG/docs/changes/20260904-ragv2-review-fix-requirements.md`
 - `RAG/docs/changes/20260904-ragv2-review-fix-summary.md`（本文件）
 
+第二轮文档补充（RAGv3 开工提示）：
+
+- `RAG/docs/RAG_v1/RAGv3-规划分析.md`：补充缓存命中/全量检索两条 SSE 路径、
+  长改写问题文本召回质量冒烟口径，并把状态更新为“预开发分析完成”；
+- `RAG/docs/RAG_v1/README.md`、`RAG/docs/README.md`：同步阶段状态。
+
 ## 三、验证结果
 
 使用 Python 3.11（`E:/anaconda/envs/AI_Agent`）直接调用 `run_query` 复测：
@@ -89,6 +95,14 @@
    `诸侯争霸` 命中 0 条，不过滤命中 19 条；
 4. history 裁剪：10 条 user/assistant 历史裁剪后保留最近 4 个 user 轮；
 5. 全部修改文件通过 `py_compile`。
+
+第二轮复测补充（2026-09-04）：
+
+1. 缓存命中与全量检索是两条独立 SSE 路径：命中路径无 graph/text/fusion
+   事件，属设计行为而非丢事件；
+2. F04 长改写问题 AND 优先几乎必然失败：5 个自然长问题 AND 均命中 0，
+   OR 兜底返回约 30 条但排序噪音明显，RAGv3 冒烟应断言“相关文本证据存在”，
+   不能只断言 text_results 非空。
 
 ## 四、未完成 / 未验证事项
 
