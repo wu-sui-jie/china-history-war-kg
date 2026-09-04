@@ -70,9 +70,10 @@ def build_messages(question: str, rewritten: str,
         question=rewritten or question,
     )
     messages = [{"role": "system", "content": sys_prompt}]
-    # 多轮历史（近期，字符串预算）
+    # 多轮历史：调用方已按 F02 口径裁剪（history_max_turns 个 user 轮及其后助手消息），
+    # 与缓存键同源，故整段入提示词，避免“缓存键含窗口 A、提示词只取窗口 B”的不一致。
     if history:
-        for turn in history[-4:]:
+        for turn in history:
             td = turn.to_dict() if hasattr(turn, "to_dict") else turn
             role = "assistant" if td.get("role") == "assistant" else "user"
             messages.append({"role": role, "content": (td.get("content") or "")[:800]})

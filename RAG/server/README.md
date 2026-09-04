@@ -4,7 +4,8 @@
 
 RAGv2 已实现：SSE 问答接口 `POST /api/query` 打通
 F02 问题理解 → F03 图谱检索 + F04 文本检索 → F05 融合重排（含冲突与 panel 装配）→
-F06 回答生成，事件序列严格按 `docs/data-contract.md`。
+F06 回答生成，事件序列严格按 `docs/data-contract.md`；RAGv3 追加
+`GET /api/dicts` 供前端筛选下拉使用。
 
 ## 分层（子目录）
 
@@ -15,7 +16,7 @@ F06 回答生成，事件序列严格按 `docs/data-contract.md`。
 | `text/` | F04 | 读 F11 FTS5（关键词 AND/OR），分数 min-max 归一，向量可用性校验（不可用自动关键词）。 |
 | `fusion/` | F05 | 证据合并去重、按问题类型加权排序、分配 citation_index、结构化冲突判定（读 relation_card_field_map.json）、panel 数据装配（唯一装配方）。 |
 | `generate/` | F06 | 提示词构造、LLM 流式回答（超时/重试/备用降级）、无 key 离线摘要回答器、拒答、回答缓存。 |
-| `api.py` | 入口 | FastAPI app：`POST /api/query`（SSE），`GET /api/health`，基础限流。 |
+| `api.py` | 入口 | FastAPI app：`POST /api/query`（SSE），`GET /api/health`，`GET /api/dicts`，基础限流。 |
 | `runtime.py` | 装配 | 启动加载快照/索引并校验版本一致，组装各层。 |
 | `sse.py` | 编排 | `run_query()` SSE 事件序列编排（事件顺序见 data-contract）。 |
 

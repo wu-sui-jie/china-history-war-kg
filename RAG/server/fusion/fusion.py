@@ -110,8 +110,6 @@ def fuse(graph_evidence: list[Evidence],
     text_evs.sort(key=lambda e: sort_key(e))
 
     # 3) 组装 keep：按问题类型权重分配名额 + 保底钳制（两类通道都进回答）
-    graph_dedup.sort(key=lambda e: sort_key(e))
-    text_evs.sort(key=lambda e: sort_key(e))
 
     # 图谱分得名额与问题类型图谱权重成比例（relation 高图、background 高文）
     gw_slots = round(limit * gw)

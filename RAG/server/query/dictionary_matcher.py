@@ -21,9 +21,6 @@ from typing import Optional
 # 事件名后缀规则（"XX之战"/"XX之变" 等启发式用于兜底标注 type=事件）
 _EVENT_SUFFIX = re.compile(r".*(之战|之变|之战役|大战|起义|战争|会战|之围|之役)$")
 
-# 朝代名列表（来自 dicts.json dynasty_aliases 键，运行时注入）
-_DYNASTY_TERMS: set[str] = set()
-
 # 简单疑问词规则
 _RELATION_WORDS = {"谁", "哪些", "哪个", "什么关系", "关系", "参与", "发起", "进攻",
                    "攻打", "主帅", "将领", "统帅", "主将", "兵力", "是哪个"}
@@ -45,12 +42,6 @@ class EntityHit:
     dynasty: Optional[str] = None
     event_type: Optional[str] = None
     source: str = "dict"
-
-
-def _init_dynasty_terms(dicts: dict) -> None:
-    _DYNASTY_TERMS.clear()
-    for k in (dicts.get("dynasty_aliases") or {}):
-        _DYNASTY_TERMS.add(k)
 
 
 def load_jieba(snapshot_dir: Path) -> None:
@@ -96,7 +87,6 @@ class DictionaryMatcher:
         if dicts_path.exists():
             self._dicts = json.loads(dicts_path.read_text(encoding="utf-8"))
             self._dynasty_terms = set(self._dicts.get("dynasty_aliases") or {})
-            _init_dynasty_terms(self._dicts)
 
     def _from_index(self, index: dict) -> None:
         ents = index["entities"]

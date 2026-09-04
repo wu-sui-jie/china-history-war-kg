@@ -31,8 +31,7 @@ _COREF_PRONOUNS = {"它", "他", "她", "这", "该", "此", "这个", "这场",
 _COREF_WITH_NOUN = {"这场战争", "该战争", "此战", "这次战争", "这个事件", "这一仗", "这个战役"}
 
 
-def classify(question: str, entity_types: list[str], entity_names: list[str],
-             has_history: bool) -> QuestionType:
+def classify(question: str, entity_types: list[str], has_history: bool) -> QuestionType:
     """基于词法 + 实体构成判定问题类型。entity_types 为 F02 已识别实体的类型列表。"""
     q = question
     # 代词开头 + 有历史 → 多半指代实体，按当前会话已有实体（由上层已解析）决定
