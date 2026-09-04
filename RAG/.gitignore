@@ -1,0 +1,17 @@
+# ---- 环境与密钥 ----
+.env
+*.env
+!.env.example
+
+# ---- 离线数据产物（不进 Git；路径相对本 .gitignore 所在 RAG/ 目录）----
+data/snapshot/
+data/index/
+data/raw/
+data/cache/
+logs/
+
+# ---- 运行时 / 测试产物 ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/

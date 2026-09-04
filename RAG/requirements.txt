@@ -1,0 +1,6 @@
+# RAG 子项目依赖（离线链路 F09/F11 运行所需）
+# 在线链路（server/）后续阶段会追加 fastapi / uvicorn / openai 等。
+pydantic>=1.10
+python-dotenv>=0.21
+jieba>=0.42
+numpy>=1.24
