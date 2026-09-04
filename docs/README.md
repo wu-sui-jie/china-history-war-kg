@@ -40,13 +40,13 @@ RAG/docs/
 
 | 编号 | 功能 | 状态 | 详细文档 |
 | --- | --- | --- | --- |
-| F01 | 智能问答主界面（单页面） | 规划中（RAGv3 前端） | [01-qa-main.md](features/01-qa-main.md) |
+| F01 | 智能问答主界面（单页面） | 已完成（RAGv3 前端） | [01-qa-main.md](features/01-qa-main.md) |
 | F02 | 实体识别与消歧 | 已完成（RAGv2 词典/规则版） | [02-entity-linking.md](features/02-entity-linking.md) |
 | F03 | 图谱检索通道（GraphRAG） | 已完成（RAGv2 服务版） | [03-graph-retrieval.md](features/03-graph-retrieval.md) |
 | F04 | 文本检索通道 | 已完成（RAGv2 关键词版，向量待接入） | [04-text-retrieval.md](features/04-text-retrieval.md) |
 | F05 | 检索结果融合与重排 | 已完成（RAGv2 服务版） | [05-fusion-rerank.md](features/05-fusion-rerank.md) |
 | F06 | 证据溯源回答生成 | 部分完成（链路通；LLM 需配 key 切换） | [06-grounded-answer.md](features/06-grounded-answer.md) |
-| F07 | 可视化知识面板 | 后端已就绪，前端规划中（RAGv3） | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
+| F07 | 可视化知识面板 | 已完成（RAGv3 前端渲染） | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
 | F08 | 演示模式与示例问题 | 暂缓 | [08-demo-mode.md](features/08-demo-mode.md) |
 | F09 | 数据快照与知识库治理 | 已完成 | [09-data-governance.md](features/09-data-governance.md) |
 | F10 | 问答效果评测 | 待开发 | [10-evaluation.md](features/10-evaluation.md) |
@@ -61,7 +61,9 @@ RAG/docs/
 >   F06 回答生成）。边界：F02 LLM 兜底默认关闭、F04 向量模式待云端 embed 接入、
 >   F06 无 LLM key 时用离线摘要回答器（配 key 后自动切真实流式）。详见
 >   [RAG_v1/RAGv2-在线问答链路.md](RAG_v1/RAGv2-在线问答链路.md)。
-> - F07 后端 panel 数据已由 F05 装配并通过 SSE panel 事件输出，前端渲染属 RAGv3。
+> - F01/F07 在 RAGv3 已交付**前端单页**（Vue3+TS+Vite）：SSE 消费会话、过程状态、引用、
+>   实体纠正与 panel 事件；地图无坐标时降级为地点列表；后端补充 `GET /api/dicts`
+>   供筛选下拉使用。详见 [RAG_v1/RAGv3-开发说明.md](RAG_v1/RAGv3-开发说明.md)。
 
 ## 数据流
 
@@ -109,7 +111,12 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 | --- | --- | --- | --- |
 | RAGv1 | F09 数据快照与治理 + F11 文本切分与关键词索引（离线数据底座） | ✅ 已完成 | [RAG_v1/RAGv1-离线数据链路.md](RAG_v1/RAGv1-离线数据链路.md) |
 | RAGv2 | 在线问答链路 F02→F03/F04→F05→F06 + SSE 服务 + F09 人工审核回填 | ✅ 已完成 | [RAG_v1/RAGv2-在线问答链路.md](RAG_v1/RAGv2-在线问答链路.md) |
-| RAGv3 | F01 问答页 + F07 知识面板（前端） | 预开发分析完成（前端待实施） | [RAG_v1/RAGv3-规划分析.md](RAG_v1/RAGv3-规划分析.md) |
+| RAGv3 | F01 问答页 + F07 知识面板（前端） | ✅ 已完成 | [RAG_v1/RAGv3-开发说明.md](RAG_v1/RAGv3-开发说明.md)（任务分析 [RAG_v1/RAGv3-规划分析.md](RAG_v1/RAGv3-规划分析.md)） |
+| RAGv4 | F10 问答效果评测（质量闭环） | ⬜ 规划中 | [RAG_v1/后续阶段规划.md](RAG_v1/后续阶段规划.md) |
+| RAGv5 | F08 演示模式 + 真实模型/向量接入与部署打磨 | ⬜ 规划中 | [RAG_v1/后续阶段规划.md](RAG_v1/后续阶段规划.md) |
+
+> 阶段命名说明：RAGv4/RAGv5 为后续工作提案性划分（正式文档原只命名到 RAGv3），
+> 编号若与项目既定口径不一致以既定口径为准。任务明细与建议顺序见上表「后续阶段规划」。
 
 阶段文档索引见 [RAG_v1/README.md](RAG_v1/README.md)。
 

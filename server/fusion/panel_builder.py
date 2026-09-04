@@ -38,6 +38,7 @@ class PanelBuilder:
         self.entities: dict[str, dict] = {}   # entity_id → EntityNode dict
         self.event_cards: dict[str, dict] = {}  # event_id → card dict
         self._name_to_id: dict[str, str] = {}  # 实体名/别名 → entity_id（subgraph 边反查用）
+        self._place_event_ids: dict[str, list[str]] = {}  # 地点实体 id → 相关事件 id（map_points，键用 entity_id 防同名地点串挂）
         self._load()
 
     def _load(self) -> None:
@@ -52,6 +53,25 @@ class PanelBuilder:
         cards = json.loads((self.snapshot_dir / "event_cards.json").read_text(encoding="utf-8"))
         for c in cards:
             self.event_cards[c["event_id"]] = c
+        # 地点 ↔ 事件关联（map_points[].events 只挂与该地点相关的事件，见 data-contract）。
+        # 键用 entity_id：知识库存在大量同名地点（如洛阳×40、涿鹿×2），
+        # 若按名称建键会把不同地点的关联事件串到一起。
+        rels_path = self.snapshot_dir / "relations.json"
+        if rels_path.exists():
+            rels = json.loads(rels_path.read_text(encoding="utf-8"))
+            place_events: dict[str, set[str]] = {}
+            for r in rels:
+                if r.get("pending_review"):
+                    continue
+                se_id, te_id = r.get("source_entity_id"), r.get("target_entity_id")
+                se, te = self.entities.get(se_id), self.entities.get(te_id)
+                if not se or not te:
+                    continue
+                if se["type"] == "地点" and te["type"] == "事件":
+                    place_events.setdefault(se_id, set()).add(te_id)
+                elif se["type"] == "事件" and te["type"] == "地点":
+                    place_events.setdefault(te_id, set()).add(se_id)
+            self._place_event_ids = {k: sorted(v) for k, v in place_events.items()}
 
     # ---- 单卡 ----
     def _entity_card(self, e: dict) -> EntityCard:
@@ -166,7 +186,7 @@ class PanelBuilder:
         timeline = self._build_timeline(related_event_ids or self._event_ids(entity_cards))
 
         # 4) map_points：graph evidence 中地点实体（含坐标）
-        map_points = self._build_map_points(entity_cards, graph_evidence)
+        map_points = self._build_map_points(graph_evidence)
 
         return PanelData(entity_cards=entity_cards, subgraph=subgraph,
                          timeline=timeline, map_points=map_points)
@@ -201,8 +221,7 @@ class PanelBuilder:
                                          items=groups[UNKNOWN_TIME_LABEL]).to_dict())
         return {"groups": ordered}
 
-    def _build_map_points(self, cards: list[EntityCard],
-                          graph_evidence: list) -> list[MapPoint]:
+    def _build_map_points(self, graph_evidence: list) -> list[MapPoint]:
         place_names = set()
         for ev in graph_evidence:
             c = ev.content or {}
@@ -210,7 +229,7 @@ class PanelBuilder:
                 place_names.add(c.get("object"))
             if c.get("subject_type") == "地点":
                 place_names.add(c.get("subject"))
-        # 快照地点实体查坐标
+        # 快照地点实体查坐标；同名不同地点（跨朝代）各自独立成点、挂各自事件
         points = []
         seen = set()
         for ent in self.entities.values():
@@ -221,15 +240,16 @@ class PanelBuilder:
                 continue
             if ent.get("longitude") is None or ent.get("latitude") is None:
                 continue  # 无坐标不进 map_points（降级为地点列表）
-            if nm in seen:
+            eid = ent.get("entity_id")
+            if eid in seen:
                 continue
-            seen.add(nm)
+            seen.add(eid)
             points.append(MapPoint(
-                place_id=ent.get("entity_id", ""),
+                place_id=eid,
                 name=nm,
                 modern_name=ent.get("modern_name"),
                 longitude=ent.get("longitude"),
                 latitude=ent.get("latitude"),
-                events=[c.entity_id for c in cards if c.type == "事件"],
+                events=list(self._place_event_ids.get(eid, [])),
             ))
         return points

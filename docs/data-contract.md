@@ -329,7 +329,7 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 4. graph_results：图谱证据，SSE 中只携带 evidence，不重复携带展示用 subgraph。
 5. text_results：文本证据。
 6. fusion：融合结果摘要，可携带 conflicts。
-7. thinking：脱敏后的思考过程摘要。
+7. thinking：脱敏后的思考过程摘要。（保留枚举：RAGv2/v3 后端当前不发射该事件，对接方勿依赖）
 8. answer：最终答案增量。
 9. citations：引用与证据对照，可携带 conflicts。
 10. panel：知识面板完整数据，F07 直接消费。
@@ -346,8 +346,8 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 4. graph_results：{evidence: [graph_triple]}
 5. text_results：{evidence: [raw_text/event_card/evidence]}
 6. fusion：{evidence: [...], citation_index: [...], conflicts: [...]}
-7. thinking：{summary: "脱敏后的推理摘要"}
-8. answer：{delta: "回答增量文本"}
+7. thinking：{summary: “脱敏后的推理摘要”}（保留枚举，后端当前不发射）
+8. answer：{delta: “回答增量文本”}
 9. citations：{citations: [{index, evidence_id, kind, title, snippet}], conflicts: [...]}
 10. panel：使用“知识面板数据结构”中的 data。
 11. error：{error_code, message}

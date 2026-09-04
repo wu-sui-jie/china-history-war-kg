@@ -89,8 +89,12 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.ENTITY_LINKING.value))
         t0 = time.time()
+        # 历史统一口径：F02 理解、缓存键、F06 提示词共用同一份裁剪后历史
+        # （history_max_turns 个 user 轮及其后助手消息），避免三个窗口不一致
+        # 造成“实际上下文相同却互不命中缓存”的效率损耗。
+        hist = runtime.question.trim_history(req.history)
         out = runtime.question.understand(
-            req.question, history=req.history,
+            req.question, history=hist,
             corrected=req.corrected_entities,
             filters=req.filters,
         )
@@ -103,7 +107,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                   "elapsed_ms": int((time.time() - t0) * 1000)}))
 
         # 缓存检查（在检索前查，命中则回放）
-        cache_key = gen.check_cache(out.rewritten_question, req.history,
+        cache_key = gen.check_cache(out.rewritten_question, hist,
                                     out.filters.to_dict() if out.filters else None)
         cached = cache_key[0]
 
@@ -210,7 +214,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         # 缓存 key 计算 & 写入
         finish_reason, model_used, full_answer = await gen.generate(
             req.question, out.rewritten_question, fused.evidence,
-            history=req.history,
+            history=hist,
             filters=out.filters.to_dict() if out.filters else None,
             on_delta=lambda _: None,   # 见下：真实 answer 增量用统一发射
         )

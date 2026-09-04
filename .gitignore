@@ -15,3 +15,15 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+
+# ---- RAGv3 前端（node_modules/dist 为构建产物，不入库）----
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+# vue-tsc build mode 的增量/声明产物
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+# 页面渲染冒烟残留（logs/ 已忽略，此两处为临时复制）
+ragv3-render-check.json
+frontend/ragv3-render-check.json

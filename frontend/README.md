@@ -1,39 +1,69 @@
-# frontend
+# frontend（RAGv3）
 
 **归属功能：F01 智能问答主界面 + F07 可视化知识面板（单页）。**
 
-> ⚠️ 本层为 RAGv3（前端），尚未开始实现。**任务分析见
-> [../docs/RAG_v1/RAGv3-规划分析.md](../docs/RAG_v1/RAGv3-规划分析.md)**（范围、模块拆解、
-> SSE 对接、验收、风险、实施顺序）。需求见 docs/features/01-qa-main.md 与 07-knowledge-panel.md。
-> 技术选型：Vue 3 + TypeScript + Vite（架构文档）。
+RAG 系统唯一用户可见页面：左侧对话区（流式回答 + 过程状态 + 引用 + 实体识别与纠正）、
+右侧知识面板（实体卡 / 图谱子图 / 时间线 / 地点列表降级 / 引用证据）、顶部朝代与战争类型
+筛选；数据全部来自 RAG 后端 SSE（`POST /api/query`）与普通接口（`/api/health`、`/api/dicts`），
+不依赖旧 `china-war/frontend/` 后台模板。
 
-## 关键结论（来自 RAGv3 规划分析）
+> 需求与验收：`../docs/features/01-qa-main.md`、`../docs/features/07-knowledge-panel.md`；
+> 阶段说明与对接细节：`../docs/RAG_v1/RAGv3-开发说明.md`、`../docs/RAG_v1/RAGv3-规划分析.md`；
+> 前后端数据契约：`../docs/data-contract.md`。
 
-1. **新建独立前端**（RAG/frontend），不复用旧 frontend 的 layui-vue-admin 后台模板壳
-   （登录/菜单/mock/多页后台与 F01 验收冲突），依赖选型沿用已验证的 Vue3/TS/pinia/
-   echarts/relation-graph-vue3。
-2. **SSE 用 fetch 流**（EventSource 不支持 POST body）；事件顺序与负载见 data-contract.md，
-   后端真实负载已核对（见 RAGv3 规划分析"四、后端已就绪的对接面"）。
-3. 知识面板数据全部来自 SSE panel 事件，前端不自行拼第二套 subgraph；
-   map_points 现为 0 → 地图降级为地点列表（RAGv1 坐标覆盖率为 0）。
-4. 引用 `[n]` 在整段累积后统一高亮（answer 按句增量可能跨 delta）。
-5. 需后端补 `GET /api/dicts`（朝代/战争类型清单供筛选下拉），属低风险小增强。
+## 技术栈
 
-## 规划模块
+- Vue 3 + TypeScript + Vite（build 走 `vue-tsc` 类型检查）+ pinia；
+- echarts（图谱子图，graph 力导）+ markdown-it（回答渲染）+ @vueuse/core（媒体查询）；
+- 无 vue-router（单页）；SSE 用 `fetch` + `ReadableStream` 解析（EventSource 不支持 POST body）。
 
-| 模块 | 功能 | 说明 |
-| --- | --- | --- |
-| `api/sse.ts` | F01 | fetch 流式 SSE 客户端、事件分发、AbortController 取消。 |
-| `stores/session.ts` | F01 | 会话本地持久化（localStorage，刷新保留）。 |
-| `views/QaPage.vue` | F01 | 单页布局：左对话 + 右面板 + 顶筛选。 |
-| `components/chat/` | F01 | 输入框、消息流、状态条、引用气泡、实体纠正。 |
-| `components/panel/` | F07 | EntityCard / SubGraph / Timeline / Map(降级地点) / Evidence。 |
-| `api/dicts.ts` | F01 | 筛选选项（朝代/战争类型，来源后端 /api/dicts）。 |
+## 运行方式
+
+前置：RAG 后端已启动（`python scripts/run_server.py --port 8000`），无 LLM key 也能跑
+检索链 + 离线回答器。
+
+```bash
+cd RAG/frontend
+npm install
+npm run dev          # http://127.0.0.1:5173（/api 代理到 127.0.0.1:8000）
+npm run build        # 类型检查 + 产物到 dist/（可静态托管）
+npm run preview      # 预览构建产物
+```
+
+## 目录结构
+
+```text
+frontend/
+├── index.html / vite.config.ts / tsconfig*.json
+├── package.json
+└── src/
+    ├── main.ts                  # 入口（pinia + App）
+    ├── App.vue                  # 顶栏 + 对话列 + 知识面板（窄屏抽屉）
+    ├── styles.css               # 全局样式
+    ├── types/contract.ts        # 前后端契约 TS 类型（镜像 data-contract）
+    ├── api/
+    │   ├── sse.ts               # fetch 流解析 data: 行 + AbortController
+    │   └── http.ts              # /api/health、/api/dicts
+    ├── stores/session.ts        # 会话持久化 + 问答状态机 + 纠正/取消/筛选
+    └── components/
+        ├── chat/                # F01：ChatInput / ChatPane / MessageBubble / MarkdownContent
+        ├── panel/               # F07：EntityCards / SubGraph / Timeline / Places / Evidence / Empty / Pane
+        └── ui/                  # FiltersBar（朝代/战争类型多选）、ToastView
+```
+
+## 关键交互规则
+
+- 会话保存在 localStorage（`ragv3-session-v1`），刷新保留历史；清空会话新建 session_id。
+- answer 增量整段累积后渲染，`[n]` 在正文统一转可点引用（跨 delta 不断）；点击定位证据。
+- 实体纠正/按实体重查：显式以某条 assistant 消息为源，取消进行中的流（如有）后按原问题
+  追加一轮“纠正重查”，不修改已结束历史；较早回答的实体 chips 只读展示。
+- 缓存命中与全量检索是两条 SSE 路径：命中路径无 graph/text/fusion 事件属设计行为。
+- 图谱子图画布节点可拖动缩放，追问入口在节点下方 chips（生成“介绍一下 XX”）。
+- 地点坐标覆盖率当前为 0：地图降级为地点列表（现代地名/省市区/暂无坐标提示）。
 
 ## 状态
 
-- [ ] F01 主界面 + 会话
-- [ ] F07 知识面板
-- [ ] SSE 流式 + 纠正交互
-
-规划进度以 [RAGv3-规划分析.md](../docs/RAG_v1/RAGv3-规划分析.md) 为准。
+- [x] F01 主界面 + 会话（流式/状态/引用/多轮/复制/清空）
+- [x] F07 知识面板（实体卡/图谱子图/时间线/地点降级/引用证据，均有空态降级）
+- [x] SSE 流式 + 纠正交互（替换/移除/新增实体、按实体重查）+ 朝代/战争类型筛选
+- [x] 移动端降级（面板抽屉）+ 后端 /api/dicts 联调

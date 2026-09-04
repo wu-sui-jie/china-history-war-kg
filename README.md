@@ -42,7 +42,7 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `server/generate/` | F06 | 在线：回答生成 | SSE 流式回答、拒答、缓存、降级（RAGv2 已实现，LLM 需配 key）。 |
 | `server/` | 入口 | FastAPI app + SSE 编排 | `api.py`、`sse.py`、`runtime.py`（RAGv2 已实现）。 |
 | `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3 阶段）问答页 + 知识面板。 |
-| `tests/` | 全部 | 测试 | 各层单元/集成测试。 |
+| `tests/` | 全部 | 测试 | 各层单元/集成测试（预留目录，尚未写入用例；现以端到端冒烟脚本验证）。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。
@@ -157,5 +157,5 @@ python scripts/apply_audit.py --decisions audit_decisions.json
 | --- | --- | --- |
 | RAGv1 | F09 快照与治理 + F11 文本切分与关键词索引（离线数据底座） | ✅ 已完成 |
 | RAGv2 | F02–F06 在线问答链路 + SSE 服务 + F09 人工审核回填 | ✅ 已完成（LLM/向量联调边界见 RAGv2 完成文档） |
-| RAGv3 | F01/F07 前端页面 | 后续 |
+| RAGv3 | F01/F07 前端页面 | ✅ 已完成（见 [docs/RAG_v1/RAGv3-开发说明.md](docs/RAG_v1/RAGv3-开发说明.md)） |
 | RAGv4 | F10 评测、F08 演示模式 | 后续 |

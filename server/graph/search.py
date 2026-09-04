@@ -7,7 +7,9 @@
 - 孤立节点不返回虚构关系（只进 hit_entities，由 F05 做实体卡）；
 - 同名多实体全部进入匹配（歧义交给 F02 candidates + filters 消歧）；
 - pending_review 关系已由 GraphIndex 加载时排除；
-- filters（朝代/事件类型）作为图谱节点过滤条件。
+- filters（朝代/事件类型）作为图谱节点过滤条件；
+- 证据 subject/object 恒按关系行原始方向（从任一端命中内容一致），
+  同一关系行在任何策略中只产出一份证据（行级去重）。
 """
 
 from __future__ import annotations
@@ -27,19 +29,46 @@ class GraphSearch:
         self.top_k = top_k
 
     # ---- 证据装配 ----
-    def _triple_evidence(self, row: dict, source_name: str, source_type: str,
-                         obj_name: str, obj_type: str) -> Evidence:
+    def _triple_from_row(self, row: dict) -> Evidence:
+        """按关系行原始方向构造图谱证据（subject=行 source）。
+
+        约定：同一条关系行只产出一份内容，从任何一端命中都得到一致的
+        (subject, relation, object)，避免同 ID 反向重复与方向翻转语义错。
+        证据 ID 优先用快照行 source_row_id（稳定）；缺失时用内容做确定性哈希
+        回退（不用进程内 hash()，避免跨进程不一致）。
+        """
+        sn = row.get("source_name") or self.graph.name_of(row.get("source_entity_id") or "")
+        tn = row.get("target_name") or self.graph.name_of(row.get("target_entity_id") or "")
+        # 实体类型以实体索引为准；关系行的 source_type 是证据来源类型（恒为
+        # kg_relation），不是实体类型，不能用作回退。graph_index 加载时只校验
+        # 端点 id 非空、不校验其存在于 entities.json，因此端点缺失时类型留空
+        # 即为防御：空类型的行不会进入地图选点/冲突匹配等按类型分支。
+        st = self.graph.type_of(row.get("source_entity_id") or "")
+        tt = self.graph.type_of(row.get("target_entity_id") or "")
+        rid = row.get("source_row_id")
+        if rid is None:
+            import hashlib
+            rid = hashlib.sha1(
+                f"{sn}|{row.get('relation')}|{tn}".encode("utf-8")).hexdigest()[:12]
         return Evidence(
-            evidence_id=f"graph_{row.get('source_row_id') or abs(hash((source_name, row['relation'], obj_name))) % 10**6}",
+            evidence_id=f"graph_{rid}",
             kind=EvidenceKind.GRAPH_TRIPLE,
             source_type=SourceType.KG_RELATION,
             source_version=self.graph.source_version,
             confidence=row.get("confidence") if row.get("confidence") in
                        ("high", "medium", "low") else Confidence.MEDIUM,
-            content=triple_content(source_name, source_type, row["relation"],
-                                   obj_name, obj_type),
-            related_entities=[source_name, obj_name],
+            content=triple_content(sn, st, row["relation"], tn, tt),
+            related_entities=[sn, tn] if sn != tn else [sn],
         )
+
+    @staticmethod
+    def _row_key(row: dict) -> str:
+        """行级去重键：同一关系行（含两跳路径的行）只保留一份证据。"""
+        rid = row.get("source_row_id")
+        if rid is not None:
+            return f"row:{rid}"
+        return "triple:%s|%s|%s" % (row.get("source_name"), row.get("relation"),
+                                    row.get("target_name"))
 
     def _entity_dict(self, ent: dict) -> dict:
         # 只携带 panel 需要的字段
@@ -79,13 +108,11 @@ class GraphSearch:
             other = self.graph.get_by_id(row["_other_id"])
             if not other:
                 continue
-            key = (row["_role"], row["_other_id"], row["relation"])
+            key = self._row_key(row)
             if key in seen:
                 continue
             seen.add(key)
-            sn, st = node["name"], node["type"]
-            on, ot = other["name"], other["type"]
-            ev.append(self._triple_evidence(row, sn, st, on, ot))
+            ev.append(self._triple_from_row(row))
             if len(ev) >= self.top_k:
                 break
         neighbors = self._collect_neighbors([node["entity_id"]])
@@ -94,7 +121,10 @@ class GraphSearch:
                            neighbors=neighbors)
 
     def _relation_edges(self, nodes: list[dict]) -> GraphResult:
-        """关系/参与方：对每个命中节点取 1 跳邻居（不限类型），过滤孤立。"""
+        """关系/参与方：对每个命中节点取 1 跳邻居（不限类型），过滤孤立。
+
+        行方向规范化后，同一条关系即使两端都命中也只保留一份证据。
+        """
         ev, hit = [], []
         rel_event_ids = []
         seen_rows = set()
@@ -104,18 +134,15 @@ class GraphSearch:
                 rel_event_ids.append(node["entity_id"])
             if node.get("is_isolated"):
                 continue
-            seen = set()
             for row in self.graph.neighbors(node["entity_id"]):
                 other = self.graph.get_by_id(row["_other_id"])
                 if not other:
                     continue
-                key = (row["_role"], row["_other_id"], row["relation"])
-                if key in seen:
+                key = self._row_key(row)
+                if key in seen_rows:
                     continue
-                seen.add(key)
-                seen_rows.add((row["_other_id"], row["relation"]))
-                ev.append(self._triple_evidence(row, node["name"], node["type"],
-                                                other["name"], other["type"]))
+                seen_rows.add(key)
+                ev.append(self._triple_from_row(row))
                 if len(ev) >= self.top_k:
                     return GraphResult(evidence=ev, hit_entities=hit,
                                        related_event_ids=rel_event_ids,
@@ -130,6 +157,7 @@ class GraphSearch:
         ev, hit = [], []
         event_nodes = [n for n in nodes if n["type"] == "事件"]
         rel_ids = [n["entity_id"] for n in event_nodes]
+        seen_rows = set()
         for n in event_nodes:
             hit.append(self._entity_dict(n))
             if n.get("is_isolated"):
@@ -138,9 +166,11 @@ class GraphSearch:
                 other = self.graph.get_by_id(row["_other_id"])
                 if not other or row["relation"] not in EVENT_EVENT_RELATIONS:
                     continue
-                if row["relation"] in ("顺承关系", "因果关系", "包含关系", "并列关系", "条件关系"):
-                    ev.append(self._triple_evidence(row, n["name"], "事件",
-                                                    other["name"], other["type"]))
+                key = self._row_key(row)
+                if key in seen_rows:
+                    continue
+                seen_rows.add(key)
+                ev.append(self._triple_from_row(row))
         # 双事件 → 两跳路径（缺直接边时）
         if len(event_nodes) == 2:
             a, b = event_nodes
@@ -148,11 +178,16 @@ class GraphSearch:
                 paths = self.graph.two_hop_paths(a["entity_id"], b["entity_id"])
                 for path in paths:
                     for row in path:
+                        # 与直接边循环共用行级去重：a↔mid 行若已在直接边循环
+                        # 进入过，此处不再重复 append（路径语义为连通路径，
+                        # 行方向规范化后同一条关系行只产出一份证据）
+                        key = self._row_key(row)
+                        if key in seen_rows:
+                            continue
+                        seen_rows.add(key)
                         mid = self.graph.get_by_id(row["_other_id"])
                         if mid:
-                            ev.append(self._triple_evidence(row, row["source_name"],
-                                                            self.graph.type_of(row["source_entity_id"]),
-                                                            mid["name"], mid["type"]))
+                            ev.append(self._triple_from_row(row))
         return GraphResult(evidence=ev, hit_entities=hit, related_event_ids=rel_ids,
                            neighbors=self._collect_neighbors([n["entity_id"] for n in event_nodes]))
 
@@ -167,6 +202,7 @@ class GraphSearch:
     def _background(self, nodes: list[dict]) -> GraphResult:
         """背景：图谱只返回实体上下文（一跳）供实体卡，主体文本通道。"""
         ev, hit = [], []
+        seen_rows = set()
         for node in nodes:
             hit.append(self._entity_dict(node))
             if node.get("is_isolated"):
@@ -175,8 +211,11 @@ class GraphSearch:
                 other = self.graph.get_by_id(row["_other_id"])
                 if not other:
                     continue
-                ev.append(self._triple_evidence(row, node["name"], node["type"],
-                                                other["name"], other["type"]))
+                key = self._row_key(row)
+                if key in seen_rows:
+                    continue
+                seen_rows.add(key)
+                ev.append(self._triple_from_row(row))
         return GraphResult(evidence=ev, hit_entities=hit,
                            related_event_ids=[n["entity_id"] for n in nodes if n["type"] == "事件"],
                            neighbors=self._collect_neighbors([n["entity_id"] for n in nodes]))

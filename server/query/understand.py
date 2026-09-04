@@ -83,6 +83,14 @@ class QuestionUnderstanding:
             return history
         return history[user_idx[-max_n]:]
 
+    def trim_history(self, history: list) -> list[dict]:
+        """公开历史裁剪（与 understand 内部口径一致，供缓存键等外部使用）。
+
+        避免缓存键基于“未裁剪原文”而实际上下文相同（超出裁剪窗口的历史）
+        的两次请求互不命中的效率损耗。
+        """
+        return self._trim_history([self._turn(t) for t in history or []])
+
     # ---- 主流程 ----
     def understand(self, question: str, history: Optional[list] = None,
                    corrected: Optional[list[CorrectedEntity]] = None,
@@ -103,11 +111,8 @@ class QuestionUnderstanding:
                 resolved_question = question.replace(coref_name, e.standard_name, 1)
                 break
 
-        # 2) 词典识别（对改写后问题）
+        # 2) 词典识别（对指代还原后的问题；与 1) 同一字符串，无需二次匹配）
         raw_hits = self.matcher.match(resolved_question)
-        if not raw_hits and coref_name and history:
-            # 指代还原后词典命中（如"神农斧隧之战"），继续
-            raw_hits = self.matcher.match(resolved_question)
 
         # 3) 朝代过滤器识别
         dynasty_terms = self.matcher._dynasty_terms
@@ -194,7 +199,6 @@ class QuestionUnderstanding:
     def _decide_type(self, question: str, entities: list[EntityRef],
                      history: list) -> QuestionType:
         etypes = [e.type or "" for e in entities]
-        enames = [e.standard_name or e.name for e in entities]
         # 指代 + 历史：若只有单指代问题，继承最近问题类型（简化规则）
         if clf.detect_coref_mention(question) and history:
             # 用上一轮问题类型
@@ -204,9 +208,8 @@ class QuestionUnderstanding:
                 prev_hits = self.matcher.match(prev_q)
                 prev_types = [h.type for h in prev_hits]
                 if prev_types:
-                    return clf.classify(prev_q, prev_types,
-                                        [h.standard_name for h in prev_hits], True)
-        return clf.classify(question, etypes, enames, bool(history))
+                    return clf.classify(prev_q, prev_types, True)
+        return clf.classify(question, etypes, bool(history))
 
     def _build_rewritten(self, resolved_q: str, original: str,
                          entities: list[EntityRef]) -> str:

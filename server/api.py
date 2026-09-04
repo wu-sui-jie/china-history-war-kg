@@ -2,6 +2,7 @@
 
 - POST /api/query：SSE 流式问答（F02→F03/F04→F05→F06）
 - GET /api/health：健康检查
+- GET /api/dicts：朝代/战争类型标准词典（F01 筛选下拉数据源，RAGv3）
 - 基础限流（无登录公开接口，按 IP 每分钟配额）
 
 启动方式：
@@ -47,6 +48,69 @@ except Exception as e:  # noqa: BLE001
 app.state.runtime = _runtime
 app.state.load_error = _load_error
 app.state.settings = _settings
+
+
+def _load_dicts_payload(rt) -> dict:
+    """读取当前快照的筛选词典（dicts.json）并转成 F01 需要的结构。
+
+    返回 {"status": "ok", "version": 快照版本, "dynasty": [...], "event_type": [...],
+          "sources": {...}}；运行时不完整/词典缺失时 status=error。
+    """
+    if rt is None:
+        return {"status": "error", "message": "runtime not loaded"}
+    try:
+        import json
+        import time as _t
+
+        dicts_path = rt.snapshot_dir / "dicts.json"
+        if not dicts_path.exists():
+            return {"status": "error", "message": f"dicts.json 不存在: {dicts_path}"}
+        raw = json.loads(dicts_path.read_text(encoding="utf-8"))
+        dynasty_aliases = raw.get("dynasty_aliases") or {}
+        # "不详"不作为筛选项；列表按名称排序，保证下拉稳定
+        dynasty = sorted(
+            [
+                {
+                    "standard": k,
+                    "aliases": [v] if isinstance(v, str) else (v or []),
+                }
+                for k, v in dynasty_aliases.items()
+                if k and str(k).strip() not in ("不详", "未知", "无")
+            ],
+            key=lambda x: x["standard"],
+        )
+        event_type = raw.get("event_type_standard") or []
+        # 字典可能是字符串列表，也可能是 {standard, aliases} 列表，统一成 {standard}
+        if event_type and isinstance(event_type[0], dict):
+            event_type = [x.get("standard") for x in event_type if x.get("standard")]
+        return {
+            "status": "ok",
+            "version": rt.version,
+            "data_version": rt.version,
+            "generated_at": _t.strftime("%Y-%m-%dT%H:%M:%S"),
+            "dynasty": dynasty,
+            "event_type": sorted(set(event_type)),
+            "sources": {
+                "file": str(dicts_path.name),
+                "counts": {
+                    "dynasty": len(dynasty),
+                    "event_type": len(event_type),
+                },
+            },
+        }
+    except Exception as e:  # noqa: BLE001
+        return {"status": "error", "message": f"读取词典失败: {e}"}
+
+
+@app.get("/api/dicts")
+def dicts():
+    """F01 筛选下拉用的标准词典（朝代 + 战争类型 + 数据版本）。"""
+    payload = _load_dicts_payload(app.state.runtime)
+    if payload.get("status") == "error":
+        from fastapi.responses import JSONResponse
+
+        return JSONResponse(payload, status_code=503)
+    return payload
 
 # ---- 基础限流（进程内滑动窗口）----
 class RateLimiter:

@@ -57,15 +57,20 @@ class LLMClient:
         """
         if not self.available and not self._fallback:
             return LLMResponse(error="llm_unavailable")
+        # 主模型未配置但备用已配置：直接走备用，不为 None 主模型空转重试
+        if self._primary is None:
+            try:
+                return await self._stream_once(
+                    self._fallback, self.settings.fallback_llm_model,
+                    messages, on_delta, degraded=True,
+                )
+            except Exception as e:  # noqa: BLE001
+                return LLMResponse(error=f"llm_error: {e}")
         last_err = None
         for attempt in range(max(1, self.settings.llm_max_retries + 1)):
             try:
-                client = self._primary
-                model = self.settings.llm_model
-                if client is None:
-                    raise RuntimeError("primary not configured")
-                return await self._stream_once(client, model, messages, on_delta,
-                                               degraded=False)
+                return await self._stream_once(self._primary, self.settings.llm_model,
+                                               messages, on_delta, degraded=False)
             except Exception as e:
                 last_err = e
                 if self._fallback and attempt == self.settings.llm_max_retries:
