@@ -45,14 +45,29 @@ class Settings:
     chunk_max_chars: int
     chunk_overlap_chars: int
 
-    # 在线链路后续使用的模型配置占位（先读取，暂不使用）
+    # ---- 在线链路（RAGv2，F02–F06）----
+    # 大模型（deepseek-v4-flash，OpenAI 兼容）
     llm_base_url: str = ""
     llm_api_key: str = ""
     llm_model: str = "deepseek-v4-flash"
+    llm_timeout_seconds: int = 60
+    llm_max_retries: int = 2
+    # 备用生成模型
+    fallback_llm_base_url: str = ""
+    fallback_llm_api_key: str = ""
+    fallback_llm_model: str = ""
+    # 云端文本向量模型（F11 构建 / F04 向量检索；无密钥则自动降级关键词）
     embedding_base_url: str = ""
     embedding_api_key: str = ""
     embedding_model: str = ""
     embedding_dim: int = 0
+    # 演示 / 限流 / 缓存
+    demo_mode: bool = False
+    rate_limit_per_minute: int = 30
+    cache_ttl_seconds: int = 3600
+    history_max_turns: int = 4
+    query_top_k_graph: int = 40
+    query_top_k_text: int = 30
 
     @property
     def default_snapshot_name(self) -> str:
@@ -90,11 +105,42 @@ def get_settings() -> Settings:
         chunk_overlap_chars=int(
             os.environ.get("CHUNK_OVERLAP_CHARS", defaults.CHUNK_OVERLAP_CHARS)
         ),
-        llm_base_url=os.environ.get("LLM_BASE_URL", ""),
-        llm_api_key=os.environ.get("LLM_API_KEY", ""),
-        llm_model=os.environ.get("LLM_MODEL", "deepseek-v4-flash"),
+        llm_base_url=os.environ.get("LLM_BASE_URL", defaults.LLM_BASE_URL),
+        llm_api_key=os.environ.get("LLM_API_KEY", defaults.LLM_API_KEY),
+        llm_model=os.environ.get("LLM_MODEL", defaults.LLM_MODEL),
+        llm_timeout_seconds=int(
+            os.environ.get("LLM_TIMEOUT_SECONDS", defaults.LLM_TIMEOUT_SECONDS)
+        ),
+        llm_max_retries=int(
+            os.environ.get("LLM_MAX_RETRIES", defaults.LLM_MAX_RETRIES)
+        ),
+        fallback_llm_base_url=os.environ.get(
+            "FALLBACK_LLM_BASE_URL", defaults.FALLBACK_LLM_BASE_URL
+        ),
+        fallback_llm_api_key=os.environ.get(
+            "FALLBACK_LLM_API_KEY", defaults.FALLBACK_LLM_API_KEY
+        ),
+        fallback_llm_model=os.environ.get(
+            "FALLBACK_LLM_MODEL", defaults.FALLBACK_LLM_MODEL
+        ),
         embedding_base_url=os.environ.get("EMBEDDING_BASE_URL", ""),
         embedding_api_key=os.environ.get("EMBEDDING_API_KEY", ""),
         embedding_model=os.environ.get("EMBEDDING_MODEL", ""),
         embedding_dim=int(os.environ.get("EMBEDDING_DIM", "0") or 0),
+        demo_mode=_bool_env("DEMO_MODE", defaults.DEMO_MODE),
+        rate_limit_per_minute=int(
+            os.environ.get("RATE_LIMIT_PER_MINUTE", defaults.RATE_LIMIT_PER_MINUTE)
+        ),
+        cache_ttl_seconds=int(
+            os.environ.get("CACHE_TTL_SECONDS", defaults.CACHE_TTL_SECONDS)
+        ),
+        history_max_turns=int(
+            os.environ.get("HISTORY_MAX_TURNS", defaults.HISTORY_MAX_TURNS)
+        ),
+        query_top_k_graph=int(
+            os.environ.get("QUERY_TOP_K_GRAPH", defaults.QUERY_TOP_K_GRAPH)
+        ),
+        query_top_k_text=int(
+            os.environ.get("QUERY_TOP_K_TEXT", defaults.QUERY_TOP_K_TEXT)
+        ),
     )

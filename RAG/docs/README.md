@@ -40,22 +40,28 @@ RAG/docs/
 
 | 编号 | 功能 | 状态 | 详细文档 |
 | --- | --- | --- | --- |
-| F01 | 智能问答主界面（单页面） | 待开发 | [01-qa-main.md](features/01-qa-main.md) |
-| F02 | 实体识别与消歧 | 待开发 | [02-entity-linking.md](features/02-entity-linking.md) |
-| F03 | 图谱检索通道（GraphRAG） | 待开发 | [03-graph-retrieval.md](features/03-graph-retrieval.md) |
-| F04 | 文本检索通道 | 待开发 | [04-text-retrieval.md](features/04-text-retrieval.md) |
-| F05 | 检索结果融合与重排 | 待开发 | [05-fusion-rerank.md](features/05-fusion-rerank.md) |
-| F06 | 证据溯源回答生成 | 待开发 | [06-grounded-answer.md](features/06-grounded-answer.md) |
-| F07 | 可视化知识面板 | 待开发 | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
+| F01 | 智能问答主界面（单页面） | 规划中（RAGv3 前端） | [01-qa-main.md](features/01-qa-main.md) |
+| F02 | 实体识别与消歧 | 已完成（RAGv2 词典/规则版） | [02-entity-linking.md](features/02-entity-linking.md) |
+| F03 | 图谱检索通道（GraphRAG） | 已完成（RAGv2 服务版） | [03-graph-retrieval.md](features/03-graph-retrieval.md) |
+| F04 | 文本检索通道 | 已完成（RAGv2 关键词版，向量待接入） | [04-text-retrieval.md](features/04-text-retrieval.md) |
+| F05 | 检索结果融合与重排 | 已完成（RAGv2 服务版） | [05-fusion-rerank.md](features/05-fusion-rerank.md) |
+| F06 | 证据溯源回答生成 | 部分完成（链路通；LLM 需配 key 切换） | [06-grounded-answer.md](features/06-grounded-answer.md) |
+| F07 | 可视化知识面板 | 后端已就绪，前端规划中（RAGv3） | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
 | F08 | 演示模式与示例问题 | 暂缓 | [08-demo-mode.md](features/08-demo-mode.md) |
 | F09 | 数据快照与知识库治理 | 已完成 | [09-data-governance.md](features/09-data-governance.md) |
 | F10 | 问答效果评测 | 待开发 | [10-evaluation.md](features/10-evaluation.md) |
 | F11 | 文本切分与索引构建 | 已完成 | [11-text-indexing.md](features/11-text-indexing.md) |
 
-> 状态说明：F09/F11 在 RAGv1 已完整交付——基础快照 + 治理（含事件卡片结构化字段、
-> 关系-事件卡片字段映射表、data_issues 明细）+ FTS5 关键词索引。F11 的云端向量索引
-> 属 RAGv2 联调项（v1 为结构占位），不阻塞 F09/F11 验收。详见
-> [RAG_v1/RAGv1-离线数据链路.md](RAG_v1/RAGv1-离线数据链路.md)。
+> 状态说明：
+> - F09/F11 在 RAGv1 已完整交付——基础快照 + 治理（含事件卡片结构化字段、
+>   关系-事件卡片字段映射表、data_issues 明细）+ FTS5 关键词索引。详见
+>   [RAG_v1/RAGv1-离线数据链路.md](RAG_v1/RAGv1-离线数据链路.md)。
+> - F02–F06 在 RAGv2 已交付**在线服务版**：SSE `POST /api/query`（含 F02 词典/规则
+>   识别+歧义降级+指代消解、F03 内存图谱检索、F04 关键词检索、F05 融合/冲突/panel 装配、
+>   F06 回答生成）。边界：F02 LLM 兜底默认关闭、F04 向量模式待云端 embed 接入、
+>   F06 无 LLM key 时用离线摘要回答器（配 key 后自动切真实流式）。详见
+>   [RAG_v1/RAGv2-在线问答链路.md](RAG_v1/RAGv2-在线问答链路.md)。
+> - F07 后端 panel 数据已由 F05 装配并通过 SSE panel 事件输出，前端渲染属 RAGv3。
 
 ## 数据流
 
@@ -87,10 +93,10 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 
 ## 建议开发顺序
 
-1. MVP：F09 基础快照 → F11 基础切分与向量索引 → F02/F03/F04 最小检索 → F05 融合 → F06 回答 → F01/F07 页面。
-2. 数据增强：F09 实体消歧、孤立节点处理、人工抽检。
-3. 质量闭环：F10 人工评测与问题题库。
-4. 演示稳定性：模型降级、回答缓存、限流、部署。
+1. MVP：F09 基础快照 → F11 基础切分与向量索引 → F02/F03/F04 最小检索 → F05 融合 → F06 回答 → F01/F07 页面。✅（F09/F11 已在 RAGv1 完成；F02–F06 检索与回答链已在 RAGv2 完成）
+2. 数据增强：F09 实体消歧、孤立节点处理、人工抽检。✅（RAGv1 分组清单；RAGv2 补充 apply_audit 人工审核回填）
+3. 质量闭环：F10 人工评测与问题题库。⬜（下一阶段）
+4. 演示稳定性：模型降级、回答缓存、限流、部署。◐（RAGv2 已含缓存/降级/限流，真实模型部署待定）
 5. 暂缓：F08 演示模式，待核心功能完成后补充。
 
 总体架构见 architecture.md，字段和流式协议见 data-contract.md。
@@ -102,8 +108,8 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 | 阶段 | 范围 | 状态 | 开发说明 |
 | --- | --- | --- | --- |
 | RAGv1 | F09 数据快照与治理 + F11 文本切分与关键词索引（离线数据底座） | ✅ 已完成 | [RAG_v1/RAGv1-离线数据链路.md](RAG_v1/RAGv1-离线数据链路.md) |
-| RAGv2 | 在线问答链路 F02→F03/F04→F05→F06 + 人工审核回填 | 📋 规划中 | [RAG_v1/RAGv2-规划说明.md](RAG_v1/RAGv2-规划说明.md) |
-| RAGv3 | F01 问答页 + F07 知识面板（前端） | 待规划 | — |
+| RAGv2 | 在线问答链路 F02→F03/F04→F05→F06 + SSE 服务 + F09 人工审核回填 | ✅ 已完成 | [RAG_v1/RAGv2-在线问答链路.md](RAG_v1/RAGv2-在线问答链路.md) |
+| RAGv3 | F01 问答页 + F07 知识面板（前端） | 📋 规划中 | [RAG_v1/RAGv3-规划分析.md](RAG_v1/RAGv3-规划分析.md) |
 
 阶段文档索引见 [RAG_v1/README.md](RAG_v1/README.md)。
 
