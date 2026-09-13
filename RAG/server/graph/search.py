@@ -23,6 +23,27 @@ from server.graph.graph_index import GraphIndex
 from server.graph.query_strategies import EVENT_EVENT_RELATIONS, strategy_for
 
 
+def evidence_id_of(row: dict, source_name: str = "", target_name: str = "") -> str:
+    """关系行 → 图谱证据 ID：`graph_{legacy表名}_{行号}`。
+
+    - `source_row_id` 只在各 legacy 表内唯一（跨表重复，实测 6437 个号），
+      故 ID 必须带表名，保证全局唯一；
+    - 缺失行号时用含表名与端点的内容哈希回退（确定性，不用进程内 hash()，
+      避免跨进程不一致）；
+    - 本函数独立成模块级纯函数，供 `_triple_from_row` 与测试共用
+      （测试不再复制规则，改坏规则时测试会红）。
+    """
+    table = row.get("legacy_table") or ""
+    rid = row.get("source_row_id")
+    if rid is None:
+        import hashlib
+        sn = source_name or row.get("source_name") or ""
+        tn = target_name or row.get("target_name") or ""
+        rid = "h" + hashlib.sha1(
+            f"{table}|{sn}|{row.get('relation')}|{tn}".encode("utf-8")).hexdigest()[:12]
+    return f"graph_{table}_{rid}" if table else f"graph_{rid}"
+
+
 class GraphSearch:
     def __init__(self, graph: GraphIndex, top_k: int = 40):
         self.graph = graph
@@ -34,8 +55,11 @@ class GraphSearch:
 
         约定：同一条关系行只产出一份内容，从任何一端命中都得到一致的
         (subject, relation, object)，避免同 ID 反向重复与方向翻转语义错。
-        证据 ID 优先用快照行 source_row_id（稳定）；缺失时用内容做确定性哈希
-        回退（不用进程内 hash()，避免跨进程不一致）。
+        证据 ID 用 `graph_{legacy表}_{source_row_id}`：source_row_id 只在各 legacy
+        表（event_person_relations / event_place_relations / event_event_relations /
+        event_organization_rel）内唯一，跨表重复（实测 6437 个号重复），只写行号会
+        产生同 ID 的不同证据；缺失行号时用内容确定性哈希回退（含表名，不用进程内
+        hash()，避免跨进程不一致）。
         """
         sn = row.get("source_name") or self.graph.name_of(row.get("source_entity_id") or "")
         tn = row.get("target_name") or self.graph.name_of(row.get("target_entity_id") or "")
@@ -45,13 +69,8 @@ class GraphSearch:
         # 即为防御：空类型的行不会进入地图选点/冲突匹配等按类型分支。
         st = self.graph.type_of(row.get("source_entity_id") or "")
         tt = self.graph.type_of(row.get("target_entity_id") or "")
-        rid = row.get("source_row_id")
-        if rid is None:
-            import hashlib
-            rid = hashlib.sha1(
-                f"{sn}|{row.get('relation')}|{tn}".encode("utf-8")).hexdigest()[:12]
         return Evidence(
-            evidence_id=f"graph_{rid}",
+            evidence_id=evidence_id_of(row, sn, tn),
             kind=EvidenceKind.GRAPH_TRIPLE,
             source_type=SourceType.KG_RELATION,
             source_version=self.graph.source_version,
@@ -223,7 +242,8 @@ class GraphSearch:
     # ---- 主入口 ----
     def search(self, entity_names: list[str], qtype: QuestionType,
                filters: Optional[dict] = None,
-               top_k: Optional[int] = None) -> GraphResult:
+               top_k: Optional[int] = None,
+               dynasty_bias: Optional[list] = None) -> GraphResult:
         if top_k:
             self.top_k = top_k
         nodes: list[dict] = []
@@ -242,6 +262,12 @@ class GraphSearch:
                     nodes.append(ent)
         if not nodes:
             return GraphResult()
+
+        # dynasty_bias（问句自动识别的朝代）：只把命中朝代的节点排到前面，
+        # 不剔除任何节点（硬过滤会因"被问到的朝代≠事件朝代"而清空检索）。
+        if dynasty_bias:
+            bias = {b for b in dynasty_bias if b}
+            nodes.sort(key=lambda e: 0 if e.get("dynasty") in bias else 1)
 
         strategy = strategy_for(qtype)
         if strategy == "single_entity":

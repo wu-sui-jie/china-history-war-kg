@@ -1,8 +1,13 @@
 # F10 问答效果评测
 
 - 功能编号：F10
-- 状态：待开发
+- 状态：已完成（RAGv4：评测闭环 + 题库 reviewed-2（39/39 通过）+ 39 条人工评分 +
+  F02 朝代误判/F03 证据 ID 修复复测；审核由 AI 代理执行，如需正式口径请人工复核
+  审核报告的存疑清单）
 - 创建时间：2026-09-03
+- 实现说明：见 [RAGv4-开发说明](../RAG_v1/RAGv4-开发说明.md) 与
+  [20260904-ragv4-summary](../changes/20260904-ragv4-summary.md)、
+  [20260913-ragv4-review-summary](../changes/20260913-ragv4-review-summary.md)。
 
 ## 功能作用
 

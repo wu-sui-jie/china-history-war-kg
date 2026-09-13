@@ -60,20 +60,36 @@ class TextSearcher:
             self.vector_available = False
 
     def search_keyword(self, query: str, limit: Optional[int] = None,
-                       metadata_filter: Optional[dict] = None) -> list[dict]:
+                       metadata_filter: Optional[dict] = None,
+                       keyword_mode: str = "and_or",
+                       dynasty_bias: Optional[list] = None) -> list[dict]:
         """FTS5 关键词检索，返回已归一化的 chunk dict 列表（保留元信息供 evidence 装配）。
 
-        检索策略：AND 优先、OR 兜底（RAGv2 第 2 步落地版，作为 F04 初检基线）。
-        改写后问题通常含实体全名，AND 能显著压掉 OR 召回的噪音；AND 无结果时
-        回退 OR 保证召回（F10 评测可再比较 OR/BM25 vs AND 差异）。
+        检索策略（keyword_mode）：
+        - and_or（生产口径，默认）：AND 优先、OR 兜底（RAGv2 第 2 步落地版）。
+          改写后问题通常含实体全名，AND 能显著压掉 OR 召回的噪音；AND 无结果时
+          回退 OR 保证召回（F10 评测用 and/or 拆分对比该策略差异）；
+        - and：仅 AND（AND 命中 0 即返回空，便于评测量化 AND 失效面）；
+        - or：仅 OR（供评测观察 OR 兜底噪音排序）。
+
+        dynasty_bias：问句自动识别的朝代，只把命中朝代的片段排到前面（稳定排序，
+        不剔除任何结果）；显式筛选仍走 metadata_filter 硬过滤。
+        注意：本函数返回的顺序不是最终证据顺序——F05 融合会按 `_score`（各条不同）
+        重排文本证据，因此文本侧偏置**不影响最终排序**（图谱侧偏置在 F03 策略前
+        重排节点、可经 top_k 影响证据集合）。详见 docs/features/02-entity-linking.md。
         """
         limit = limit or self.top_k
         words = fts_mod.tokenize(query)[:8]
         if not words:
             return []
-        hits = self._query_fts(words, mode="and", limit=limit)
-        if not hits:
+        if keyword_mode == "and":
+            hits = self._query_fts(words, mode="and", limit=limit)
+        elif keyword_mode == "or":
             hits = self._query_fts(words, mode="or", limit=limit)
+        else:
+            hits = self._query_fts(words, mode="and", limit=limit)
+            if not hits:
+                hits = self._query_fts(words, mode="or", limit=limit)
         if not hits:
             return []
         rows = self._fetch_chunks([cid for cid, _ in hits])
@@ -96,6 +112,10 @@ class TextSearcher:
         norm = _norm_minmax([-x for x in raw_ordered]) if raw_ordered else []
         for r, sc in zip(kept, norm):
             r["_score"] = sc
+        # dynasty_bias：命中朝代的片段前置（稳定排序，仅调整顺序不裁剪）
+        if dynasty_bias:
+            bias = {b for b in dynasty_bias if b}
+            kept.sort(key=lambda r: 0 if r.get("dynasty") in bias else 1)
         return kept
 
     def _query_fts(self, words: list[str], mode: str, limit: int) -> list[tuple]:

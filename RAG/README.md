@@ -32,9 +32,10 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `contracts/` | 全部 | 共享数据契约与类型 | evidence、SSE 事件、panel、词典结构。各层 import 这里，不各自复制。 |
 | `config/` | 全部 | 配置与环境变量加载 | `.env` 读取、默认配置、路径约定。 |
 | `lib/` | 全部 | 无业务小工具 | 版本号、JSON 读写、日志等跨层复用。 |
-| `scripts/` | F09/F11 入口 + RAGv2 服务 | 离线任务入口 + 在线服务/回填 | `export_snapshot.py`、`build_index.py`、`run_pipeline.py`、`run_server.py`、`apply_audit.py`。可命令行一键跑。 |
+| `scripts/` | F09/F11 入口 + RAGv2 服务 + F10 | 离线任务入口 + 在线服务/回填 + 评测 | `export_snapshot.py`、`build_index.py`、`run_pipeline.py`、`run_server.py`、`apply_audit.py`、`run_evaluation.py`、`gen_draft_bank.py`。可命令行一键跑。 |
 | `data/snapshot/` | F09 | 离线产物：治理快照 | 只读导出、别名/归一、词典、治理报告、人工审核回填（apply_audit）。 |
 | `data/index/` | F11 | 离线产物：文本与向量索引 | 切分、FTS5 关键词索引、向量索引。 |
+| `data/eval/` | F10 | 离线产物：评测题库与运行结果 | 题库 questions.jsonl（入 Git）+ runs/ 运行痕迹（不入 Git，见 evaluation/）。 |
 | `server/query/` | F02 | 在线：问题理解 | 词典/规则实体识别、歧义降级、指代消解、改写（RAGv2 已实现）。 |
 | `server/graph/` | F03 | 在线：图谱检索 | 加载快照，按问题类型执行图谱查询（RAGv2 已实现）。 |
 | `server/text/` | F04 | 在线：文本检索 | 读索引，关键词（AND/OR）检索 + 向量降级（RAGv2 已实现关键词版）。 |
@@ -42,7 +43,8 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `server/generate/` | F06 | 在线：回答生成 | SSE 流式回答、拒答、缓存、降级（RAGv2 已实现，LLM 需配 key）。 |
 | `server/` | 入口 | FastAPI app + SSE 编排 | `api.py`、`sse.py`、`runtime.py`（RAGv2 已实现）。 |
 | `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3 阶段）问答页 + 知识面板。 |
-| `tests/` | 全部 | 测试 | 各层单元/集成测试（预留目录，尚未写入用例；现以端到端冒烟脚本验证）。 |
+| `evaluation/` | F10 | 离线：问答效果评测 | （RAGv4 阶段）题库管理、进程内复跑、指标/报告、人工评分模板。见 `evaluation/README.md`。 |
+| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归，共 50 个；端到端冒烟仍以脚本验证）。运行：`python -m pytest tests -q`。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。
@@ -73,13 +75,15 @@ RAG/
 ├── config/                  # 配置加载
 ├── contracts/               # 共享数据契约 + 版本化的 Python dataclass
 ├── lib/                     # 无业务工具
-├── scripts/                 # 离线任务入口（F09/F11 一键跑）
+├── scripts/                 # 离线任务入口（F09/F11/F10 一键跑）
 ├── data/
 │   ├── raw/source_texts/    # 旧原文文本的软链/拷贝（utf-8）
 │   ├── snapshot/            # F09 治理后快照 + 治理报告（带版本）
 │   ├── index/               # F11 文本/向量索引（带版本）
+│   ├── eval/                # F10 评测题库（带版本；runs/ 运行痕迹不入库）
 │   └── cache/               # 运行时缓存（LLM 等），不入库
 ├── server/                  # 在线服务（FastAPI）各层
+├── evaluation/              # F10 离线评测（题库/指标/报告/评分）
 ├── frontend/                # Vue3 前端
 ├── logs/                    # 运行日志，不入库
 └── tests/
@@ -158,4 +162,5 @@ python scripts/apply_audit.py --decisions audit_decisions.json
 | RAGv1 | F09 快照与治理 + F11 文本切分与关键词索引（离线数据底座） | ✅ 已完成 |
 | RAGv2 | F02–F06 在线问答链路 + SSE 服务 + F09 人工审核回填 | ✅ 已完成（LLM/向量联调边界见 RAGv2 完成文档） |
 | RAGv3 | F01/F07 前端页面 | ✅ 已完成（见 [docs/RAG_v1/RAGv3-开发说明.md](docs/RAG_v1/RAGv3-开发说明.md)） |
-| RAGv4 | F10 评测、F08 演示模式 | 后续 |
+| RAGv4 | F10 评测（题库/指标/报告/人工评分 + 第三方审核整改） | ✅ 已完成（见 [docs/RAG_v1/RAGv4-开发说明.md](docs/RAG_v1/RAGv4-开发说明.md)、[阶段工作总结](docs/RAG_v1/RAGv4-阶段工作总结.md)） |
+| RAGv5 | F08 演示模式 + 真实 LLM/向量接入与部署打磨 | ⬜ 规划中（规划说明见 [docs/RAG_v1/RAGv5-规划说明.md](docs/RAG_v1/RAGv5-规划说明.md)） |

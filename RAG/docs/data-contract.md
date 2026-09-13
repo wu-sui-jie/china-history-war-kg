@@ -86,6 +86,13 @@ filter 中数组为空表示不过滤。例如 `"dynasty": []` 表示不按朝�
 
 rewritten_question 由 F02 根据原问题、会话历史和实体纠正结果生成。纠错重查时应使用上一轮会话历史，不能清空 history 后让 F02 重新猜测指代。
 
+dynasty_bias 是 F02 从问句中自动识别到的朝代（如问"商朝"→["商"]），**仅作排序软偏置，
+不作为过滤条件**；显式筛选走 filters.dynasty（硬过滤）。生效范围：F03 图谱侧在策略前
+重排节点（可经 top_k 影响证据集合）；F04 文本侧只是检索返回序，最终顺序由 F05 按相关分
+决定（当前不改变最终排序）——详见 `docs/features/02-entity-linking.md`。
+两者分开的原因见 `docs/features/02-entity-linking.md` 与
+`docs/changes/20260913-ragv4-review-summary.md`。
+
 entities 是 F02 判定并应用纠正后的最终实体，SSE entities 事件中的实体字段与它一致。
 
 candidates 是可选的候选实体列表，用于前端“手动纠正”交互展示；没有歧义时可以为空。
@@ -198,9 +205,15 @@ citation_index 由 F05 统一分配，F06 在回答中使用，F07 展示引用�
 
 ## 图谱三元组证据
 
+> evidence_id 格式（F03）：`graph_{legacy表名}_{source_row_id}`，如
+> `graph_event_person_relations_772`。`source_row_id` 只在各 legacy 表
+> （event_person_relations / event_place_relations / event_event_relations /
+> event_organization_rel）内唯一，跨表会重复，因此 ID 必须带表名以保证全局唯一
+> （缺行号时用含表名的内容哈希回退）。见 `docs/changes/20260913-ragv4-review-summary.md`。
+
 ```json
 {
-  "evidence_id": "graph_001",
+  "evidence_id": "graph_event_person_relations_772",
   "kind": "graph_triple",
   "source_type": "kg_relation",
   "source_version": "20260903_v1",
@@ -384,7 +397,7 @@ conflicts 示例：
 {
   "subject": "长平之战",
   "field": "发起方",
-  "evidence_ids": ["graph_001", "card_001"],
+  "evidence_ids": ["graph_event_person_relations_772", "card_001"],
   "conflict_type": "field_vs_triple",
   "description": "图谱三元组与事件卡片结构化字段存在不同表述"
 }

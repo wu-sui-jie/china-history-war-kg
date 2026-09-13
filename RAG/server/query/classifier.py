@@ -72,15 +72,71 @@ def classify(question: str, entity_types: list[str], has_history: bool) -> Quest
     return QuestionType.UNKNOWN
 
 
-def extract_dynasty_filter(question: str, dynasty_terms: set[str]) -> list[str]:
-    """识别问题中出现的朝代过滤器（"战国时期的XX"）。按最长词优先匹配。"""
-    found = []
-    terms = sorted(dynasty_terms, key=len, reverse=True)
-    for t in terms:
-        if t and t != "不详" and t in question:
-            found.append(t)
-            # 朝代术语作为过滤器时，避免与实体名重叠的双重识别（如"秦"）
+def extract_dynasty_mentions(question: str, dynasty_terms, entity_mentions=()) -> list[str]:
+    """识别问句中提到的朝代（标准名列表），**仅供排序加权，不作为硬过滤**。
+
+    语义（2026-09-13 审核后确定）：
+    - 返回值进 F02Output.dynasty_bias（F03/F04 用于排序优先），不进 filters；
+      显式筛选（F01 下拉）仍走 filters.dynasty 硬过滤。原因：硬过滤会把"被问到的
+      朝代"连同事件本身剔除——实测问"鸣条之战与商朝的建立有什么关系"时，事件朝代
+      为"夏"，一旦把"商朝"当硬筛选，图谱/文本/融合全为 0、直接拒答。
+    - 识别两类表面形式：
+      ① 词典多字别名（如"战国""三国""东汉"）直接命中；
+      ② 单字朝代键 + "朝/国/代/王朝"后缀（如"商朝"→商、"秦朝"→秦、"楚国"→楚）；
+      ② 与 ① 跨度重叠时不重复计（如"清朝末年"只出"清朝"，不再追加"清"）；
+    - 跳过落在已识别实体 mention 内部的词（属实体的一部分而非朝代指称）；
+    - 并列长度按词本身排序，保证跨进程确定（PYTHONHASHSEED 无关）。
+
+    dynasty_terms 可为 {别名: 标准名} 映射（推荐）或字符串集合。
+    """
+    if hasattr(dynasty_terms, "items"):
+        items = list(dynasty_terms.items())
+    else:
+        items = [(t, t) for t in (dynasty_terms or [])]
+    mentions = [m for m in (entity_mentions or []) if m]
+    single_char = {alias: std for alias, std in items
+                   if len(alias) == 1 and alias not in ("不详", "未知", "无")}
+
+    def _in_mention(term: str, start: int, end: int) -> bool:
+        for m in mentions:
+            i = question.find(m)
+            if i >= 0 and i <= start and end <= i + len(m) and len(m) > len(term):
+                return True
+        return False
+
+    found: list[str] = []
+    covered: list[tuple[int, int]] = []   # ① 已命中的表面跨度，供 ② 去重
+    # ① 多字别名（长度≥2）
+    for alias, standard in sorted(items, key=lambda kv: (-len(kv[0]), kv[0])):
+        t = alias or ""
+        if len(t) < 2 or t in ("不详", "未知", "无") or t not in question:
+            continue
+        start = question.find(t)
+        if _in_mention(t, start, start + len(t)):
+            continue
+        covered.append((start, start + len(t)))
+        val = standard or t
+        if val not in found:
+            found.append(val)
+    # ② 单字朝代 + 朝/国/代/王朝 后缀
+    import re
+    if single_char:
+        chars = "".join(sorted(single_char.keys()))
+        # 后缀含"代"（唐代/宋代/清代等正当写法）；"朝代/时代/近代"不会命中，
+        # 因为要求前缀字符本身是单字朝代键（"朝/时/近"都不是）
+        pattern = re.compile(f"([{chars}])(王朝|朝|国|代)")
+        for m in pattern.finditer(question):
+            # 与 ① 的多字别名重叠（如"清朝"）→ 同一朝代概念，不重复计
+            if any(s < m.end() and m.start() < e for s, e in covered):
+                continue
+            ch = m.group(1)
+            std = single_char.get(ch, ch)
+            if _in_mention(ch, m.start(), m.end()):
+                continue
+            if std not in found:
+                found.append(std)
     return found
+
 
 
 def detect_coref_mention(question: str) -> Optional[str]:
