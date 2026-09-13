@@ -32,17 +32,25 @@ def search(
     filters: Optional[dict] = None,
     mode: str = "keyword",
     top_k: Optional[int] = None,
+    keyword_mode: str = "and_or",
+    dynasty_bias: Optional[list] = None,
 ) -> TextResult:
     """关键词/向量/混合检索 → 统一 Evidence 列表。
 
-    filters: {"dynasty": [...], "event_type": [...], "chunk_type": [...]}（空数组不过滤）。
+    filters: {"dynasty": [...], "event_type": [...], "chunk_type": [...]}（空数组不过滤，硬过滤）。
+    keyword_mode: and_or（生产口径）/ and / or（F10 评测拆分关键词策略用）。
+    dynasty_bias: 问句自动识别的朝代，仅用于检索返回序（软偏置，不剔除结果）；
+        最终文本证据顺序由 F05 按 `_score` 重排决定，故文本侧偏置不影响最终排序
+        （图谱侧在 F03 策略前生效），见 docs/features/02-entity-linking.md。
     当前向量不可用；若 F11 已构建向量且校验通过，vector/hybrid 需在 searcher 内补充实现。
     """
     eff_mode = resolve_mode(mode, searcher.vector_available)
     limit = top_k or searcher.top_k
     results: list[dict] = []
     if eff_mode in ("keyword", "hybrid"):
-        results = searcher.search_keyword(query, limit=limit, metadata_filter=filters)
+        results = searcher.search_keyword(query, limit=limit, metadata_filter=filters,
+                                          keyword_mode=keyword_mode,
+                                          dynasty_bias=dynasty_bias)
     elif eff_mode == "vector":
         # 向量检索实现接入点：当 vector_available=True 时在此补余弦 top-k
         results = []

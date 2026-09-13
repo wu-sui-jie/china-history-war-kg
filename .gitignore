@@ -9,6 +9,9 @@ data/index/
 data/raw/
 data/cache/
 logs/
+# F10 评测运行痕迹/报告/评分中间件（题库 questions.jsonl 与其 meta 保留入库）
+data/eval/*/runs/
+# 人工审核工作表放在 data/eval/<v>/review/（需在编辑器可见，故不忽略）
 
 # ---- 运行时 / 测试产物 ----
 __pycache__/

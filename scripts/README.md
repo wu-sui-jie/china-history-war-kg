@@ -14,6 +14,9 @@
 | `run_pipeline.py` | 串联 F09 → F11 全流程 | F09+F11 |
 | `run_server.py` | 启动 RAGv2 SSE 问答服务（F02–F06） | F02–F06 |
 | `apply_audit.py` | 人工审核决定回填（audit_decisions.json → 新版本快照） | F09 增强 |
+| `run_evaluation.py` | F10 评测入口（check-bank/run/report，业务在 `evaluation/` 包） | F10（RAGv4） |
+| `gen_draft_bank.py` | 从快照数据生成黄金问答集草稿（之后以 questions.jsonl 人工维护） | F10（RAGv4） |
+| `review_bank.py` | 题库人工审核 / 人工评分的 Excel(CSV) 工作表导出与回填 | F10（RAGv4） |
 
 ## 用法
 

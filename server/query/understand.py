@@ -9,8 +9,11 @@
   5. 判定问题类型 + 抽取朝代过滤器；
   6. 生成 rewritten_question（指代还原 + 实体全名化）。
 
-LLM 兜底：若配置了 llm_client 且词典完全未命中，调用 deepseek 做实体识别/类型判定。
-当前默认不启用 LLM（词典命中且置信度足够即跳过），避免占用首 Token。
+LLM 兜底（**预留，尚未实现**）：load_understanding 接受 llm_client / enable_llm 参数并由
+本类保存，但 understand() 主流程当前**没有 LLM 分支**——词典完全未命中时不会调用模型
+（默认路径为词典/规则，命中即跳过 LLM）。该兜底的实现在 RAGv5 的 T2 任务：
+"词典未命中 → LLM 实体识别/类型判定 + 失败降级 + 用例"，见
+docs/RAG_v1/RAGv5-规划说明.md。
 """
 
 from __future__ import annotations
@@ -114,14 +117,18 @@ class QuestionUnderstanding:
         # 2) 词典识别（对指代还原后的问题；与 1) 同一字符串，无需二次匹配）
         raw_hits = self.matcher.match(resolved_question)
 
-        # 3) 朝代过滤器识别
-        dynasty_terms = self.matcher._dynasty_terms
-        dyn_filters = clf.extract_dynasty_filter(question, dynasty_terms)
-        # 合并外部 filters（前端显式）与问题内识别
+        # 3) 问句朝代识别 → dynasty_bias（仅排序加权，不作硬过滤）；
+        #    显式筛选（F01 下拉）仍走 filters.dynasty 硬过滤。
+        #    硬过滤会把"被问到的朝代"连同事件本身剔除（如问"商朝"时鸣条之战属夏），
+        #    见 classifier.extract_dynasty_mentions 的语义说明。
+        dynasty_aliases = self.matcher.dynasty_alias_map or self.matcher._dynasty_terms
+        dynasty_bias = clf.extract_dynasty_mentions(
+            question, dynasty_aliases,
+            entity_mentions=[h.name for h in raw_hits],
+        )
         filters_dynasty = list((filters.dynasty if filters else []) or [])
-        for d in dyn_filters:
-            if d not in filters_dynasty:
-                filters_dynasty.append(d)
+        # 显式筛选优先：已硬过滤的朝代不再重复作为偏置
+        dynasty_bias = [d for d in dynasty_bias if d not in filters_dynasty]
         f = Filters(dynasty=filters_dynasty,
                     event_type=list((filters.event_type if filters else []) or []))
 
@@ -176,6 +183,7 @@ class QuestionUnderstanding:
             entities=entities,
             candidates=candidates,
             filters=f,
+            dynasty_bias=dynasty_bias,
         )
 
     # ---- 指代消解 ----

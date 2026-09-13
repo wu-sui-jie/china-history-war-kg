@@ -104,11 +104,16 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                   "candidates": [c.to_dict() for c in out.candidates],
                   "question_type": out.question_type.value if out.question_type else "unknown",
                   "rewritten_question": out.rewritten_question,
+                  "dynasty_bias": list(out.dynasty_bias or []),
                   "elapsed_ms": int((time.time() - t0) * 1000)}))
 
         # 缓存检查（在检索前查，命中则回放）
+        # 缓存键需包含王朝偏置：它会影响图谱/文本排序结果
+        cache_filters = dict(out.filters.to_dict() if out.filters else {})
+        if out.dynasty_bias:
+            cache_filters["dynasty_bias"] = list(out.dynasty_bias)
         cache_key = gen.check_cache(out.rewritten_question, hist,
-                                    out.filters.to_dict() if out.filters else None)
+                                    cache_filters or None)
         cached = cache_key[0]
 
         if cached:
@@ -136,6 +141,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         names = [e.standard_name or e.name for e in out.entities if e.standard_name or e.name]
         qtype: QuestionType = out.question_type or QuestionType.UNKNOWN
         filters = out.filters.to_dict() if out.filters else None
+        bias = list(out.dynasty_bias or [])
 
         graph_result = None
         text_result = None
@@ -146,13 +152,15 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.GRAPH_SEARCH.value))
         graph_result = gsearch(runtime.graph, names, qtype, filters=filters,
-                               top_k=settings.query_top_k_graph)
+                               top_k=settings.query_top_k_graph,
+                               dynasty_bias=bias)
 
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.TEXT_SEARCH.value))
         text_result = tsearch(runtime.text, out.rewritten_question or req.question,
                               filters=filters, mode="keyword",
-                              top_k=settings.query_top_k_text)
+                              top_k=settings.query_top_k_text,
+                              dynasty_bias=bias)
 
         # 推送检索结果事件
         yield sse_format(_event(

@@ -103,6 +103,11 @@ class F02Output(BaseModel):
     entities: List[EntityRef] = field(default_factory=list)
     candidates: List[EntityCandidate] = field(default_factory=list)
     filters: Filters = field(default_factory=Filters)
+    # 问句中自动识别到的朝代（仅用于排序加权，**不作为硬过滤**）。
+    # 显式筛选（F01 下拉）走 filters.dynasty，保持硬过滤；两者分开是 2026-09-13
+    # 审核后修复：硬过滤会把"被问到的朝代"连同事件本身一起剔除（如问"商朝"时
+    # 鸣条之战属夏，被整题清空而拒答）。详见 docs/changes/20260913-ragv4-review-summary.md。
+    dynasty_bias: List[str] = field(default_factory=list)
 
     def to_dict(self, skip_none: bool = True) -> dict:
         d = super().to_dict(skip_none)

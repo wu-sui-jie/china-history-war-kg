@@ -26,5 +26,6 @@
 
 ## 边界
 
-- 不含 LLM 实现；`llm_client` 传入 + `enable_llm=True` 可扩展词典未命中路径。
+- 不含 LLM 实现（**预留**）：`llm_client` + `enable_llm=True` 仅为接口占位，`understand()` 主流程
+  当前无 LLM 分支，词典未命中时不会调用模型；该兜底列入 RAGv5 T2（见 docs/RAG_v1/RAGv5-规划说明.md）。
 - 词法与规则无法覆盖的口语复杂句，待 F10 评测后决定是否开 LLM。

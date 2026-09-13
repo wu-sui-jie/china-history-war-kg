@@ -123,6 +123,11 @@ class DictionaryMatcher:
         """朝代术语归一（命中 dicts 朝代别名键则返回标准朝代）。"""
         return self._dicts.get("dynasty_aliases", {}).get(mention)
 
+    @property
+    def dynasty_alias_map(self) -> dict:
+        """朝代别名 → 标准朝代名 映射（dicts.json 的 dynasty_aliases）。"""
+        return self._dicts.get("dynasty_aliases") or {}
+
     # ---- 主入口 ----
     def match(self, question: str) -> list[EntityHit]:
         """对问题文本做词典/规则实体识别，返回命中列表（含同名多实体）。
@@ -141,10 +146,13 @@ class DictionaryMatcher:
             if event_hits:
                 return event_hits
 
-        # 长度降序排列实体名，贪心最长匹配（避免"涿鹿"先于"涿鹿之战"命中子串）
+        # 长度降序排列实体名，贪心最长匹配（避免"涿鹿"先于"涿鹿之战"命中子串）。
+        # 并列长度必须加确定性次序：仅按 len 排序时等长词顺序取决于 set 迭代顺序，
+        # 而 set 顺序受 PYTHONHASHSEED 影响 → 跨进程结果不稳定（曾导致评测两次 run
+        # 的证据顺序/回答顺序不一致，破坏可复现性）。并列按词本身排序保证稳定。
         names = sorted(
             set(list(self._by_name.keys()) + list(self._alias.keys())),
-            key=len, reverse=True,
+            key=lambda w: (-len(w), w),
         )
         hits: list[EntityHit] = []
         text = question
