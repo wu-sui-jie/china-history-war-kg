@@ -24,11 +24,17 @@
 1. 使用 data-contract.md 中的统一证据结构，区分图谱事实、原始文本、事件卡片、关系证据。
 2. 根据问题类型调整权重：关系问题提高图谱权重，背景问题提高文本权重。
 3. 对重复实体和重复内容进行去重。
-4. 初版只做结构化冲突判定，范围限定为图谱三元组之间同 subject、同 relation、不同 object，以及图谱三元组与事件卡片结构化字段不一致；raw_text 不参与自动冲突判定。
+4. 初版只做结构化冲突判定，范围限定为图谱三元组之间同 subject、同 relation、不同 object
+   （**different_object 仅对单值关系生效**：只判定 field_map 中 exact 单值组如发起方/防守方；
+   主帅/将领等多值关系是并列事实行，多个 object 不报冲突，避免误报——实现见
+   `server/fusion/conflict.py`），以及图谱三元组与事件卡片结构化字段不一致；
+   raw_text 不参与自动冲突判定。
 5. 最终把证据列表组装成可 JSON 化、可追溯的上下文。
 6. 为最终进入提示词的证据统一分配 citation_index。
 7. 组装 panel 数据，subgraph 的 nodes/edges 只在此处生成一次，panel 是 subgraph 的唯一输出来源。
-8. timeline 按事件时间和朝代分组，map_points 只保留有坐标地点。
+8. timeline 按朝代分组、组内按可解析的 start_date 升序排序（起讫年份需从
+   "前2179年 / 公元前26世纪"等文本解析，无法解析的条目保持数据原序并置于组内末尾），
+   时间不详的条目归入“时间不详/仅知朝代”分组置尾；map_points 只保留有坐标地点。
 9. field_vs_triple 冲突使用 F09 输出的关系-事件卡片字段映射表。
 
 ## 依赖与前置条件

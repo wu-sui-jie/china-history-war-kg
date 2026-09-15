@@ -44,7 +44,7 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `server/` | 入口 | FastAPI app + SSE 编排 | `api.py`、`sse.py`、`runtime.py`（RAGv2 已实现）。 |
 | `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3/RAGv5 已实现）问答页 + 知识面板（实体卡/图谱子图/时间线/地图/证据）+ F08 示例题（按类别分组、能力标签、一键提问）。 |
 | `evaluation/` | F10 | 离线：问答效果评测 | （RAGv4 已实现）题库管理、进程内复跑、指标/报告、人工评分模板。见 `evaluation/README.md`。 |
-| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归；RAGv5 已补向量融合与降级、SSE 切分往返、LLM 字段兼容、F02 兜底与同名朝代消歧、生成降级、向量接线与 CLI 参数、地图点位装配，共 140 个；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
+| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归；RAGv5 已补向量融合与降级、SSE 切分往返、LLM 字段兼容、F02 兜底与同名朝代消歧、生成降级、向量接线与 CLI 参数、地图点位装配；2026-09-15 审核整改补 timeline 组内排序与模型自拒识别，共 154 个；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。

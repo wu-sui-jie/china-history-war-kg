@@ -106,7 +106,8 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 ```
 
 它按顺序检查：健康检查 → `GET /` 返回页面 → 示例题接口 → **逐条跑示例题**（断言
-`finish_reason=normal`、回答非空、有引用、证据数达标）→ 重复第一题验证缓存命中 → （可选
+`finish_reason=normal`、回答非空、有引用、证据数达标——即图谱/文本通道证据数不低于
+示例题 `expect.graph_min` / `text_min` 下限）→ 重复第一题验证缓存命中 → （可选
 `--check-rate-limit`）限流。报告落 `logs/smoke_<时间>.json`，失败时退出码非 0。
 
 **它同时是"预热"**：回答缓存是进程内的，冒烟会把示例题都跑一遍，之后演示时点击示例题
