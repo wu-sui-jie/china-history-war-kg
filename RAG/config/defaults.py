@@ -15,6 +15,8 @@ SNAPSHOT_DIR = DATA_DIR / "snapshot"             # F09 治理快照（带版本�
 INDEX_DIR = DATA_DIR / "index"                   # F11 索引（带版本子目录）
 CACHE_DIR = DATA_DIR / "cache"                   # 运行时缓存
 LOG_DIR = RAG_ROOT / "logs"
+# 同源托管（D8）：后端把前端构建产物一并发出，浏览器只访问一个地址
+FRONTEND_DIST = RAG_ROOT / "frontend" / "dist"
 
 # ---- 旧项目只读数据源默认值（可用 .env 覆盖）----
 LEGACY_SQLITE_PATH = RAG_ROOT.parent / "backend" / "database"
@@ -28,32 +30,61 @@ LEGACY_RAW_TEXTS = [
 GOVERNANCE_ENABLE_RELATION_EXTRACTION = False
 
 # ---- 索引开关 ----
-# 构建向量索引时是否调用云端向量模型；无密钥可关掉只建 FTS5 关键词索引
+# 构建索引时是否调用云端向量模型；无密钥可关掉只建 FTS5 关键词索引
 INDEX_BUILD_EMBEDDINGS = True
+
+# ---- 云端文本向量模型（F11 构建 / F04 向量检索；无密钥自动降级关键词）----
+EMBEDDING_BASE_URL = ""                # 阿里云百炼 https://dashscope.aliyuncs.com/compatible-mode/v1
+EMBEDDING_API_KEY = ""                 # 留空则读系统环境变量 DASHSCOPE_API_KEY
+EMBEDDING_MODEL = "text-embedding-v4"
+EMBEDDING_DIM = 1024                   # 实测接口返回 1024
+EMBEDDING_BATCH_SIZE = 10              # 百炼硬上限：单请求最多 10 条文本，不可配大
+EMBEDDING_TIMEOUT_SECONDS = 60
+# 向量库（D2）：Chroma 持久化集合
+CHROMA_COLLECTION = "chunks_v1"
+
+# ---- 文本检索模式（T3，部署级全局开关；vector/hybrid 依赖向量索引已构建）----
+TEXT_MODE = "keyword"                  # keyword / vector / hybrid
+TEXT_HYBRID_STRATEGY = "rrf"           # weighted / rrf / fallback
+# 2026-09-13 对照评测定档（main 套件 28 题）：rrf 文本召回 97.0% > weighted 95.2% > fallback 94.6%；
+# 回答覆盖 rrf/weighted 并列 85.1%，fallback 仅 71.7%（= 关键词基线，等于没做融合）
+TEXT_HYBRID_KEYWORD_WEIGHT = 0.5       # weighted 档位下关键词通道权重（向量权重 = 1 - 该值）
+# 向量/hybrid 模式下"无共享词"拒答规则的分数阈值（低于它才允许拒答，避免误拒语义命中）
+VECTOR_REFUSAL_MIN_SCORE = 0.25
 
 # ---- 文本切分参数 ----
 CHUNK_MAX_CHARS = 800          # 单片段最大字符数
 CHUNK_OVERLAP_CHARS = 80       # 相邻片段重叠字符数（按句子边界二次切分）
 
 # ---- 在线链路（RAGv2，F02–F06）----
-# 大模型（deepseek-v4-flash，OpenAI 兼容）
-LLM_BASE_URL = ""                      # 例如 https://api.deepseek.com/v1
-LLM_API_KEY = ""                       # 密钥只从 .env / 环境变量读取
-LLM_MODEL = "deepseek-v4-flash"
+# 大模型（OpenAI 兼容）。RAGv5 起默认走"中转" endpoint，具体地址与模型在 .env 配（密钥不入库）
+LLM_BASE_URL = ""                      # 中转示例 https://api.commandcode.ai/provider/v1；官方 https://api.deepseek.com/v1
+LLM_API_KEY = ""                       # 密钥只从环境变量读；见 settings.py 的别名链
+LLM_MODEL = "deepseek/deepseek-v4.1-flash"   # 中转模型 id；官方口径为 deepseek-flash
 LLM_TIMEOUT_SECONDS = 60
 LLM_MAX_RETRIES = 2
+# F02 LLM 兜底（词典完全未命中 → 模型抽实体）：默认关闭；开启后每问多一次串行调用，
+# 直接影响首 Token 预算，故演示默认不开（见 RAGv5 开发说明 §4.5）
+ENABLE_LLM_ENTITY_FALLBACK = False
+LLM_ENTITY_TIMEOUT_SECONDS = 8        # 兜底独立超时，不复用 F06 的 60 s
+# 输出上限：deepseek 系列是推理模型，会先消耗 reasoning token。v5 实测 1024 会被打满
+# （reasoning 736 + 正文 288）导致回答被截断，故默认 2048；设得过小还会导致正文为空。
+LLM_MAX_TOKENS = 3072
 # 备用生成模型（主模型失败降级用；为空 = 不降级）
 FALLBACK_LLM_BASE_URL = ""
 FALLBACK_LLM_API_KEY = ""
 FALLBACK_LLM_MODEL = ""
 
 # ---- 演示 / 限流 / 缓存（在线链路）----
-DEMO_MODE = False
+# 说明：无 DEMO_MODE 开关——示例区恒显示（F08）
 RATE_LIMIT_PER_MINUTE = 30            # 无登录公开接口的基础限流
 CACHE_TTL_SECONDS = 3600              # 回答缓存有效期
 HISTORY_MAX_TURNS = 4                 # 携带会话历史的最大轮数
 QUERY_TOP_K_GRAPH = 40                # F03 图谱证据上限
 QUERY_TOP_K_TEXT = 30                 # F04 文本证据上限（融合后再裁剪）
+# 送入 F06 的融合证据条数上限（18 = v4 口径）。实测：18 条 → prompt 约 4,300 token →
+# 推理模型更易把 max_tokens 吃满而截断、首正文更慢；演示可按需下调（见 RAGv5 开发说明 §四.11）
+QUERY_FUSION_LIMIT = 18
 
 # ---- 版本号 ----
 # 示例 "20260903_v1"。export/build 未显式给版本时取当天日期生成 v1。

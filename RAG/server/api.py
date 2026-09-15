@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import time
 from collections import defaultdict
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -112,6 +113,37 @@ def dicts():
         return JSONResponse(payload, status_code=503)
     return payload
 
+
+def _load_demo_examples(rt) -> dict:
+    """读取 F08 演示示例题清单（由 scripts/gen_demo_examples.py 生成并入库）。
+
+    清单来自已审核题库（reviewed=True 且评分非 incorrect），前端不再硬编码示例题。
+    """
+    if rt is None:
+        return {"status": "error", "message": "runtime not loaded"}
+    try:
+        import json
+
+        path = rt.settings.data_dir / "eval" / rt.version / "demo_examples.json"
+        if not path.exists():
+            return {"status": "error", "message": f"示例题清单不存在: {path}"}
+        data = json.loads(path.read_text(encoding="utf-8"))
+        data["status"] = "ok"
+        return data
+    except Exception as e:  # noqa: BLE001
+        return {"status": "error", "message": f"读取示例题失败: {e}"}
+
+
+@app.get("/api/demo/examples")
+def demo_examples():
+    """F08 演示模式：示例题清单（含类别标签、能力标注与实测时延）。"""
+    payload = _load_demo_examples(app.state.runtime)
+    if payload.get("status") == "error":
+        from fastapi.responses import JSONResponse
+
+        return JSONResponse(payload, status_code=503)
+    return payload
+
 # ---- 基础限流（进程内滑动窗口）----
 class RateLimiter:
     def __init__(self, per_minute: int):
@@ -200,3 +232,16 @@ def _err_stream(message: str, code: ErrorCode = ErrorCode.INTERNAL):
         yield sse_format(payload2)
 
     return gen()
+
+
+# ---- 同源托管（RAGv5 D8）：把前端构建产物一并发出，浏览器只访问一个地址 ----
+# 必须在所有 /api 路由注册之后挂载：mount("/") 会兜住未匹配路径，先注册的 /api/* 优先生效。
+_dist_dir = Path(str(_settings.frontend_dist or ""))
+if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
+    from fastapi.staticfiles import StaticFiles
+
+    app.mount("/", StaticFiles(directory=str(_dist_dir), html=True), name="frontend")
+    print(f"[api] 同源托管已启用：{_dist_dir}（浏览器直接访问 / 即可，无需另起前端服务）")
+else:
+    print(f"[api] 未启用同源托管：未发现前端产物 {_dist_dir}"
+          f"（需先 `cd frontend && npm run build`，或用 Vite 开发服务器联调）")

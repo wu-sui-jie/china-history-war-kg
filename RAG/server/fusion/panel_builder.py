@@ -29,6 +29,8 @@ from contracts.panel import (
 )
 
 MAX_SUBGRAPH_NODES = 24
+# 地图点位上限（面板可读性；事件多的排前，见 _build_map_points）
+MAP_MAX_POINTS = 8
 UNKNOWN_TIME_LABEL = "时间不详/仅知朝代"
 
 
@@ -222,6 +224,15 @@ class PanelBuilder:
         return {"groups": ordered}
 
     def _build_map_points(self, graph_evidence: list) -> list[MapPoint]:
+        """地点证据 → 地图点位（RAGv5 2026-09-15 加入坐标后启用）。
+
+        同名地点在快照里有多行（跨朝代重复），实测规律：**带地址线索（省/今址）的那一簇
+        才是正确位置**——长平 → 山西高平市、河内 → 河南沁阳；而无地址线索的行会被地理编码
+        落到同名村庄（如云南的"河内"、贵州的"长平"）。故：
+        1) 同一地名的带坐标行按坐标聚类（同簇多为同一地的重复行，事件合并去重）；
+        2) 优先选带地址线索的簇，多个则取行数最多者（数据共识）；
+        3) 事件多的点位排前，最多 `MAP_MAX_POINTS` 个。
+        """
         place_names = set()
         for ev in graph_evidence:
             c = ev.content or {}
@@ -229,27 +240,43 @@ class PanelBuilder:
                 place_names.add(c.get("object"))
             if c.get("subject_type") == "地点":
                 place_names.add(c.get("subject"))
-        # 快照地点实体查坐标；同名不同地点（跨朝代）各自独立成点、挂各自事件
-        points = []
-        seen = set()
+        if not place_names:
+            return []
+
+        clusters: dict[str, dict[tuple, list[dict]]] = {}
         for ent in self.entities.values():
-            if ent.get("type") != "地点":
-                continue
-            nm = ent.get("name")
-            if nm not in place_names:
+            if ent.get("type") != "地点" or ent.get("name") not in place_names:
                 continue
             if ent.get("longitude") is None or ent.get("latitude") is None:
-                continue  # 无坐标不进 map_points（降级为地点列表）
-            eid = ent.get("entity_id")
-            if eid in seen:
-                continue
-            seen.add(eid)
+                continue  # 无坐标不进 map_points（前端降级为地点列表）
+            coord = (round(float(ent["longitude"]), 3), round(float(ent["latitude"]), 3))
+            clusters.setdefault(ent["name"], {}).setdefault(coord, []).append(ent)
+
+        def _has_addr(rows: list[dict]) -> bool:
+            return any((r.get("province") or "").strip() or (r.get("modern_name") or "").strip()
+                       for r in rows)
+
+        points: list[MapPoint] = []
+        for name, by_coord in clusters.items():
+            cands = [(coord, rows) for coord, rows in by_coord.items() if _has_addr(rows)]
+            if not cands:
+                cands = list(by_coord.items())
+            coord, rows = max(cands, key=lambda item: len(item[1]))
+            best = max(rows, key=lambda r: sum(
+                bool((r.get(k) or "").strip()) for k in ("modern_name", "province", "city")))
+            events: list[str] = []
+            for r in rows:                       # 同簇重复行的事件合并去重（保序）
+                for eid in self._place_event_ids.get(r.get("entity_id"), []):
+                    if eid not in events:
+                        events.append(eid)
             points.append(MapPoint(
-                place_id=eid,
-                name=nm,
-                modern_name=ent.get("modern_name"),
-                longitude=ent.get("longitude"),
-                latitude=ent.get("latitude"),
-                events=list(self._place_event_ids.get(eid, [])),
+                place_id=best.get("entity_id"),
+                name=name,
+                modern_name=best.get("modern_name"),
+                longitude=coord[0],
+                latitude=coord[1],
+                events=events,
             ))
-        return points
+
+        points.sort(key=lambda p: (-len(p.events), p.name))
+        return points[:MAP_MAX_POINTS]

@@ -1,7 +1,8 @@
 """F06 回答缓存（server/generate/cache.py）。
 
-缓存键（features/06 + data-contract）：
-rewritten_question + 会话历史摘要 + 筛选条件 + 数据版本 + 模型版本。
+缓存键（features/06 + data-contract + RAGv5 审核 C3）：
+rewritten_question + 会话历史摘要 + 筛选条件 + 数据版本 + 模型版本 + **文本检索模式**。
+文本模式必须进键：同题在 keyword / vector / hybrid 下证据不同，答案不能跨模式复用。
 缓存 payload 除 answer/citations 外还保存 panel，供 SSE 缓存命中时完整回放：
 session_start → status(entity_linking) → entities → status(cache_hit) →
 answer → citations → panel → done。
@@ -22,7 +23,7 @@ _CACHE_TTL_DEFAULT = 3600
 
 
 def cache_key(rewritten: str, history: list | None, filters: dict | None,
-              source_version: str, model: str) -> str:
+              source_version: str, model: str, text_mode: str = "keyword") -> str:
     def _as_dicts(h):
         out = []
         for t in h or []:
@@ -31,7 +32,7 @@ def cache_key(rewritten: str, history: list | None, filters: dict | None,
 
     hist_sig = json.dumps(_as_dicts(history), ensure_ascii=False)[-400:]
     filt_sig = json.dumps(filters or {}, ensure_ascii=False, sort_keys=True)
-    raw = f"{rewritten}|{hist_sig}|{filt_sig}|{source_version}|{model}"
+    raw = f"{rewritten}|{hist_sig}|{filt_sig}|{source_version}|{model}|{(text_mode or 'keyword').lower()}"
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()
 
 

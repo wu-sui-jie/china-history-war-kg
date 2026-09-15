@@ -31,7 +31,7 @@ class EvalConfig:
     keyword_mode: str = "and_or"     # and_or = 生产口径(AND优先OR兜底)；and/or 专项对比
     text_top_k: int = 30
     mode: str = "keyword"            # 文本检索模式：keyword / vector / hybrid（v5 对照用）
-    fusion_limit: int = 18
+    fusion_limit: int = 0            # 0 = 取 runtime.settings.query_fusion_limit（与生产同源）
     graph_top_k: int = 0             # 0 = 取 runtime.settings.query_top_k_graph（与生产同源）
     note: str = ""
 
@@ -52,15 +52,20 @@ class EvalConfig:
         return " / ".join(parts)
 
 
-# 预设配置：dual 为生产口径基线；其余用于专项/对比
+# 预设配置：dual 为生产口径基线；其余用于专项/对比（RAGv5 T6 新增 vector/hybrid）
 CONFIG_DEFAULT = EvalConfig(label="dual")
 CONFIG_TEXT_ONLY = EvalConfig(label="text-only", use_graph=False)
 CONFIG_TEXT_ONLY_AND = EvalConfig(label="text-only-and", use_graph=False, keyword_mode="and")
 CONFIG_TEXT_ONLY_OR = EvalConfig(label="text-only-or", use_graph=False, keyword_mode="or")
+CONFIG_VECTOR = EvalConfig(label="vector", use_graph=False, mode="vector",
+                           note="向量通道（Chroma 余弦）")
+CONFIG_HYBRID = EvalConfig(label="hybrid", use_graph=False, mode="hybrid",
+                           note="关键词+向量融合（策略见 TEXT_HYBRID_STRATEGY）")
 
 CONFIG_PRESETS: dict[str, EvalConfig] = {
     c.label: c for c in
-    (CONFIG_DEFAULT, CONFIG_TEXT_ONLY, CONFIG_TEXT_ONLY_AND, CONFIG_TEXT_ONLY_OR)
+    (CONFIG_DEFAULT, CONFIG_TEXT_ONLY, CONFIG_TEXT_ONLY_AND, CONFIG_TEXT_ONLY_OR,
+     CONFIG_VECTOR, CONFIG_HYBRID)
 }
 
 
@@ -153,7 +158,6 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
          "type": e.type, "entity_id": e.entity_id, "dynasty": e.dynasty}
         for e in out.entities
     ]
-
     # ---- F03 + F04（通道开关由 cfg 控制）----
     graph_trace: dict = {
         "enabled": cfg.use_graph, "hit_entities": [], "evidence": [],
@@ -188,6 +192,8 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
         runtime.text, out.rewritten_question or question, filters=flt,
         mode=cfg.mode, top_k=cfg.text_top_k, keyword_mode=cfg.keyword_mode,
         dynasty_bias=bias,
+        hybrid_strategy=runtime.settings.text_hybrid_strategy,
+        hybrid_keyword_weight=runtime.settings.text_hybrid_keyword_weight,
     )
     stage_ms["text"] = int((time.time() - t0) * 1000)
     text_trace = {
@@ -202,7 +208,8 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
     if graph_result is None:
         graph_result = gmod.GraphResult()
     fused, panel = runtime.fusion.assemble(
-        graph_result, text_result, qtype, limit=cfg.fusion_limit,
+        graph_result, text_result, qtype,
+        limit=cfg.fusion_limit or runtime.settings.query_fusion_limit,
     )
     stage_ms["fusion"] = int((time.time() - t0) * 1000)
 
@@ -231,10 +238,23 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
         reason = f"知识库未检索到与「{question}」相关的史料，无法给出有依据的回答。"
         refusal = {"rule": "no_evidence", "text": reason}
     elif not names and text_result is not None and text_result.evidence:
-        if _refusal_text_rule2(question, text_result.evidence):
+        # 与 sse.py 同步：向量/hybrid 下按"无共享词 + 最高分低于阈值"才拒答，
+        # 避免把语义命中但词面不重合的证据误判为不相关（RAGv5 §四.2）
+        _mode = (text_result.mode or "keyword").lower()
+        _top = max((e.score or 0.0) for e in text_result.evidence)
+        _weak = _top < runtime.settings.vector_refusal_min_score
+        if _refusal_text_rule2(question, text_result.evidence) and (_mode == "keyword" or _weak):
             reason = (f"「{question}」未识别出知识库实体，且检索到的文本与问题不相关，"
                       "当前无法给出有依据的回答。建议换个说法或补充具体事件/人物名。")
             refusal = {"rule": "no_shared_word", "text": reason}
+
+    # 与 sse.py 同步的第三条规则：领域外谓词（RAGv5 §4.6）
+    if refusal is None:
+        from server.generate import refusal as _refusal_mod
+
+        _scope = _refusal_mod.out_of_scope_reason(question, fused.evidence)
+        if _scope:
+            refusal = {"rule": "out_of_scope_predicate", "text": _scope}
 
     # ---- F06 生成（无缓存；无 key 时离线摘要回答器保证确定性）----
     t0 = time.time()
@@ -274,6 +294,8 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
             "dynasty_bias": bias,
             "entities": entities_trace,
             "candidates_n": len(out.candidates),
+            "llm_entity_used": bool(getattr(out, "llm_entity_used", False)),
+            "dynasty_disambiguated": bool(getattr(out, "dynasty_disambiguated", False)),
         },
         "graph": graph_trace,
         "text": text_trace,

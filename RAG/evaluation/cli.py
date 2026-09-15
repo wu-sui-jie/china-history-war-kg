@@ -115,9 +115,40 @@ def cmd_check_bank(args) -> int:
 
 
 # ---- run ----
+def _split_suites(value: str) -> list[str]:
+    """解析 --suites：逗号分隔（空 = 全部套件）。
+
+    修复：原实现把字符串直接当可迭代对象，`--suites main` 会被拆成 ['m','a','i','n']
+    并报"未知套件"，导致文档里的 `run --suites main` 实际不可用。
+    """
+    return [s.strip() for s in (value or "").split(",") if s.strip()]
+
+
+def _read_chunk_params(index_dir: Path) -> dict:
+    """从索引 manifest 读取切分参数（索引变体对照实验用；读取失败不影响评测）。"""
+    try:
+        manifest = json.loads((index_dir / "manifest.json").read_text(encoding="utf-8"))
+        return manifest.get("chunk_params") or {}
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 async def _run_all(args) -> int:
     settings = get_settings()
-    version = _resolve_version(settings, args.version)
+    # version_arg 可以是"索引目录名"（含变体后缀，如 20260904_v2_c500o100）；
+    # version 是解析出的快照版本（题库路径与 run 目录命名都用它）。
+    # 注意：不能用 _resolve_version（它对显式值原样返回，会把变体名当快照名去找题库）。
+    version_arg = (args.version or "").strip()
+    if version_arg:
+        from server.runtime import resolve_version as _resolve_index_version
+
+        try:
+            version = _resolve_index_version(settings, version_arg)[0]
+        except (FileNotFoundError, ValueError) as e:
+            print(f"版本/索引解析失败：{e}")
+            return 2
+    else:
+        version = _resolve_version(settings, "")
     bank_path = _bank_path_of(version, args.bank)
     from evaluation.bank import load_bank, save_bank
     from evaluation import chain
@@ -133,7 +164,7 @@ async def _run_all(args) -> int:
             print(f"- {e['id']}: {'; '.join(e['problems'])}")
         return 2
 
-    requested = args.suites or list(SUITE_DEFAULT_CONFIGS)
+    requested = _split_suites(args.suites) or list(SUITE_DEFAULT_CONFIGS)
     bad = [s for s in requested if s not in SUITE_DEFAULT_CONFIGS]
     if bad:
         print(f"未知套件: {bad}（可用: {list(SUITE_DEFAULT_CONFIGS)}）")
@@ -178,7 +209,7 @@ async def _run_all(args) -> int:
     run_dir = _run_dir_of(version) / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    runtime = _build_runtime(settings, version, allow_llm=args.llm)
+    runtime = _build_runtime(settings, version_arg or version, allow_llm=args.llm)
     print(f"数据版本: {runtime.version}　text_mode={runtime.meta.get('text_mode')} "
           f"llm_available={runtime.meta.get('llm_available')}")
     print(f"评测用例: {len(cases)}（题目 {len({c['question_id'] for c in cases})} × 变体/配置）")
@@ -223,6 +254,8 @@ async def _run_all(args) -> int:
         "suites": requested,
         "llm_used": bool(args.llm),
         "text_mode": runtime.meta.get("text_mode"),
+        "index_version": runtime.meta.get("index_version"),
+        "chunk_params": _read_chunk_params(runtime.index_dir),
         "command": "python -m evaluation.cli run" + _cmd_suffix(args, bank_path),
     }
     (run_dir / "meta.json").write_text(

@@ -12,9 +12,10 @@ session_start → status(entity_linking) → entities →
 
 from __future__ import annotations
 
+import asyncio
 import json
 import time
-from typing import AsyncIterator
+from typing import AsyncIterator, Optional
 
 from config.settings import Settings
 from contracts.request import QueryRequest
@@ -42,21 +43,30 @@ def sse_format(payload: dict) -> str:
 
 
 def _chunk_answer_stream(text: str, chunk_chars: int = 160):
-    """把完整答案切成小段，模拟 SSE 增量（真实 LLM 接入后按 token 事件替换）。
+    """把完整答案切成小段用于 SSE 增量（离线摘要回答器/拒答文案等非 token 流路径）。
 
-    切分优先找句子边界（。！？换行），避免把一句劈成两半产生生硬断句。
+    硬要求：**增量拼接必须严格等于原文**。旧实现用 `re.split(r"(?<=[。！？!?；;])\\s*|\\n+")`
+    会把句末标点后的空白/换行一起吃掉，导致流式拼回的答案丢换行（实测比原文少 19 个字符，
+    前端 markdown 列表会粘连），而缓存回放的是完整文本 → 两边不一致。
     """
     if not text:
         return
     import re
-    # 按 句子分隔符 + 换行 保留标点切
-    parts = re.split(r"(?<=[。！？!?；;])\s*|\n+", text)
+
+    # 切成"保留全部字符"的最小单元：整行（含行尾换行）+ 行内按句末标点切分
+    units: list[str] = []
+    for line in text.splitlines(keepends=True):
+        start = 0
+        for m in re.finditer(r"[。！？!?；;]+", line):
+            units.append(line[start:m.end()])
+            start = m.end()
+        if start < len(line):
+            units.append(line[start:])
+
     buf = ""
-    for p in parts:
-        if not p:
-            continue
-        buf += p
-        if len(buf) >= chunk_chars or p[-1] in "。！？!?；;":
+    for u in units:
+        buf += u
+        if len(buf) >= chunk_chars or u.rstrip("\n")[-1:] in ("。", "！", "？", "!", "?", "；", ";"):
             yield buf
             buf = ""
     if buf:
@@ -105,6 +115,8 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                   "question_type": out.question_type.value if out.question_type else "unknown",
                   "rewritten_question": out.rewritten_question,
                   "dynasty_bias": list(out.dynasty_bias or []),
+                  "llm_entity_used": bool(getattr(out, "llm_entity_used", False)),
+                  "dynasty_disambiguated": bool(getattr(out, "dynasty_disambiguated", False)),
                   "elapsed_ms": int((time.time() - t0) * 1000)}))
 
         # 缓存检查（在检索前查，命中则回放）
@@ -158,9 +170,11 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.TEXT_SEARCH.value))
         text_result = tsearch(runtime.text, out.rewritten_question or req.question,
-                              filters=filters, mode="keyword",
+                              filters=filters, mode=settings.text_mode,
                               top_k=settings.query_top_k_text,
-                              dynasty_bias=bias)
+                              dynasty_bias=bias,
+                              hybrid_strategy=settings.text_hybrid_strategy,
+                              hybrid_keyword_weight=settings.text_hybrid_keyword_weight)
 
         # 推送检索结果事件
         yield sse_format(_event(
@@ -176,7 +190,8 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         # ---- F05 融合 ----
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.FUSION.value))
-        fused, panel = runtime.fusion.assemble(graph_result, text_result, qtype)
+        fused, panel = runtime.fusion.assemble(graph_result, text_result, qtype,
+                                               limit=settings.query_fusion_limit)
 
         yield sse_format(_event(
             SSEEventType.FUSION, sid, stage=StatusStage.FUSION.value,
@@ -187,6 +202,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
             }))
 
         # ---- 拒答硬规则 ----
+        from server.generate import refusal as refusal_mod
         # 1) 完全无证据 → 直接拒答
         if not fused.evidence:
             reason = f"知识库未检索到与「{req.question}」相关的史料，无法给出有依据的回答。"
@@ -201,10 +217,17 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         # 2) 实体为空 + 文本证据与问题无共享词 → 依据不足（拒绝给噪音回答）
         #    词法层面判断"证据与问题不相关"，避免 OR 兜底召回完全无关片段。
         #    阈值保守：query 与任一证据 text 共享 ≥1 个长度≥2 的关键词即放行。
+        #    注意（RAGv5）：向量通道按语义召回，证据可能**不含问题里的任何词**，
+        #    因此该规则只在关键词模式严格生效；vector/hybrid 下放宽为
+        #    "无共享词 **且** 证据最高分低于阈值" 才拒答，避免误拒语义命中。
         if not names and text_result is not None and text_result.evidence:
             from data.index import fts as _fts
             q_words = {w for w in _fts.tokenize(req.question) if len(w) >= 2}
-            if q_words and not _text_shares_any(text_result.evidence, q_words):
+            mode = (text_result.mode or "keyword").lower()
+            top_score = max((e.score or 0.0) for e in text_result.evidence)
+            weak_score = top_score < settings.vector_refusal_min_score
+            if q_words and not _text_shares_any(text_result.evidence, q_words) \
+                    and (mode == "keyword" or weak_score):
                 reason = (f"「{req.question}」未识别出知识库实体，且检索到的文本与问题不相关，"
                           "当前无法给出有依据的回答。建议换个说法或补充具体事件/人物名。")
                 yield sse_format(_event(SSEEventType.ANSWER, sid,
@@ -215,17 +238,79 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                     data={"finish_reason": FinishReason.REFUSED.value, "model_used": ""}))
                 return
 
+        # 3) 领域外谓词（RAGv5 §4.6）：问的是知识库不可能覆盖的属性/器物
+        #    （邮箱、电话、度假、坦克、股票…），且这些词在所有证据里都不出现 → 拒答。
+        #    保守优先：证据里出现过该词就放行，避免把可答题误拒（X01–X03 应拒答却作答的补强）。
+        scope_reason = refusal_mod.out_of_scope_reason(req.question, fused.evidence)
+        if scope_reason:
+            yield sse_format(_event(SSEEventType.ANSWER, sid,
+                                    stage=StatusStage.GENERATING.value,
+                                    data={"delta": scope_reason}))
+            yield sse_format(_event(
+                SSEEventType.DONE, sid,
+                data={"finish_reason": FinishReason.REFUSED.value, "model_used": ""}))
+            return
+
         # ---- F06 生成 ----
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.GENERATING.value))
 
-        # 缓存 key 计算 & 写入
-        finish_reason, model_used, full_answer = await gen.generate(
-            req.question, out.rewritten_question, fused.evidence,
-            history=hist,
-            filters=out.filters.to_dict() if out.filters else None,
-            on_delta=lambda _: None,   # 见下：真实 answer 增量用统一发射
-        )
+        gen_filters = out.filters.to_dict() if out.filters else None
+
+        if gen.llm.available:
+            # 真实 LLM：on_delta/on_thinking 经队列桥接进 SSE（token 级增量）。
+            # run_query 是异步生成器，而 generate() 是 coroutine，故用 task + 队列边产边发。
+            answer_q: asyncio.Queue = asyncio.Queue()
+            think_q: asyncio.Queue = asyncio.Queue()
+
+            def _on_delta(text: str) -> None:
+                answer_q.put_nowait(text)
+
+            def _on_thinking(text: str) -> None:
+                think_q.put_nowait(text)
+
+            task = asyncio.create_task(gen.generate(
+                req.question, out.rewritten_question, fused.evidence,
+                history=hist, filters=gen_filters,
+                on_delta=_on_delta, on_thinking=_on_thinking,
+            ))
+            # 首个增量的长度决定"是否真的是 token 级流式"：
+            # 降级/启发式路径会一次性回调整段文本，此时退回按句切分，避免"一大坨瞬时出现"。
+            split_mode: Optional[bool] = None
+            while True:
+                while not think_q.empty():
+                    yield sse_format(_event(
+                        SSEEventType.THINKING, sid, stage=StatusStage.GENERATING.value,
+                        data={"delta": think_q.get_nowait()}))
+                while not answer_q.empty():
+                    delta = answer_q.get_nowait()
+                    if split_mode is None:
+                        split_mode = len(delta) > 200
+                    if split_mode:
+                        for part in _chunk_answer_stream(delta):
+                            yield sse_format(_event(
+                                SSEEventType.ANSWER, sid,
+                                stage=StatusStage.GENERATING.value,
+                                data={"delta": part}))
+                    else:
+                        yield sse_format(_event(
+                            SSEEventType.ANSWER, sid,
+                            stage=StatusStage.GENERATING.value,
+                            data={"delta": delta}))
+                if task.done() and answer_q.empty() and think_q.empty():
+                    break
+                await asyncio.sleep(0.02)   # 让出事件循环，等下一个增量
+            finish_reason, model_used, full_answer = await task
+        else:
+            # 无 LLM（离线摘要回答器/拒答）：一次性拿到全文，再按句切分模拟打字机
+            finish_reason, model_used, full_answer = await gen.generate(
+                req.question, out.rewritten_question, fused.evidence,
+                history=hist, filters=gen_filters,
+            )
+            for part in _chunk_answer_stream(full_answer):
+                yield sse_format(_event(SSEEventType.ANSWER, sid,
+                                        stage=StatusStage.GENERATING.value,
+                                        data={"delta": part}))
 
         # 缓存 payload（含 citations + panel，供命中时完整回放）
         from server.generate.cache import build_cache_payload
@@ -238,15 +323,11 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
             model_used,
             panel=panel.to_dict() if hasattr(panel, "to_dict") else panel,
         )
-        if cache_key[1]:
+        # 缓存卫生：degraded（网络抖动/降级）与 cancelled 不写缓存，
+        # 否则一次抖动会被回放整个 TTL 周期；normal / refused 是确定性结果，可缓存。
+        if cache_key[1] and finish_reason in (FinishReason.NORMAL.value,
+                                             FinishReason.REFUSED.value):
             gen.cache.put(cache_key[1], payload)
-
-        # 逐句增量发射 answer（模拟流式：真实 LLM 接入后按 token 切）
-        # 先发 status(generating)，再按 句子/换行 拆段推送
-        for part in _chunk_answer_stream(full_answer):
-            yield sse_format(_event(SSEEventType.ANSWER, sid,
-                                    stage=StatusStage.GENERATING.value,
-                                    data={"delta": part}))
 
         # citations + panel
         yield sse_format(_event(SSEEventType.CITATIONS, sid,
