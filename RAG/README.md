@@ -34,17 +34,17 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `lib/` | 全部 | 无业务小工具 | 版本号、JSON 读写、日志等跨层复用。 |
 | `scripts/` | F09/F11 入口 + RAGv2 服务 + F10 | 离线任务入口 + 在线服务/回填 + 评测 | `export_snapshot.py`、`build_index.py`、`run_pipeline.py`、`run_server.py`、`apply_audit.py`、`run_evaluation.py`、`gen_draft_bank.py`。可命令行一键跑。 |
 | `data/snapshot/` | F09 | 离线产物：治理快照 | 只读导出、别名/归一、词典、治理报告、人工审核回填（apply_audit）。 |
-| `data/index/` | F11 | 离线产物：文本与向量索引 | 切分、FTS5 关键词索引、向量索引。 |
+| `data/index/` | F11 | 离线产物：文本与向量索引 | 切分、FTS5 关键词索引、Chroma 向量索引（百炼 `text-embedding-v4` / 1024 维）。 |
 | `data/eval/` | F10 | 离线产物：评测题库与运行结果 | 题库 questions.jsonl（入 Git）+ runs/ 运行痕迹（不入 Git，见 evaluation/）。 |
 | `server/query/` | F02 | 在线：问题理解 | 词典/规则实体识别、歧义降级、指代消解、改写（RAGv2 已实现）。 |
 | `server/graph/` | F03 | 在线：图谱检索 | 加载快照，按问题类型执行图谱查询（RAGv2 已实现）。 |
-| `server/text/` | F04 | 在线：文本检索 | 读索引，关键词（AND/OR）检索 + 向量降级（RAGv2 已实现关键词版）。 |
+| `server/text/` | F04 | 在线：文本检索 | 读索引：关键词（AND/OR/BM25）+ 向量（Chroma HNSW）+ hybrid 融合，向量不可用自动降级关键词（RAGv5 已接入）。 |
 | `server/fusion/` | F05 | 在线：融合重排 | 证据合并、去重、引用编号、冲突判定、panel 装配（RAGv2 已实现）。 |
-| `server/generate/` | F06 | 在线：回答生成 | SSE 流式回答、拒答、缓存、降级（RAGv2 已实现，LLM 需配 key）。 |
+| `server/generate/` | F06 | 在线：回答生成 | SSE 流式回答（真实 LLM token 增量 + 推理 `thinking`）、拒答、缓存、降级（RAGv5 已接真实模型，无 key 走离线摘要回答器）。 |
 | `server/` | 入口 | FastAPI app + SSE 编排 | `api.py`、`sse.py`、`runtime.py`（RAGv2 已实现）。 |
-| `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3 阶段）问答页 + 知识面板。 |
-| `evaluation/` | F10 | 离线：问答效果评测 | （RAGv4 阶段）题库管理、进程内复跑、指标/报告、人工评分模板。见 `evaluation/README.md`。 |
-| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归，共 50 个；端到端冒烟仍以脚本验证）。运行：`python -m pytest tests -q`。 |
+| `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3/RAGv5 已实现）问答页 + 知识面板（实体卡/图谱子图/时间线/地图/证据）+ F08 示例题（按类别分组、能力标签、一键提问）。 |
+| `evaluation/` | F10 | 离线：问答效果评测 | （RAGv4 已实现）题库管理、进程内复跑、指标/报告、人工评分模板。见 `evaluation/README.md`。 |
+| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归；RAGv5 已补向量融合与降级、SSE 切分往返、LLM 字段兼容、F02 兜底与同名朝代消歧、生成降级、向量接线与 CLI 参数、地图点位装配，共 140 个；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。
@@ -107,11 +107,15 @@ data/index/<版本>/               FTS5 关键词索引 + 向量索引
 
 ## 五、环境与配置
 
-密钥/接口不硬编码。复制 `.env.example` 为 `.env` 并填写（在线链路需要 LLM/向量模型密钥；离线链路可先不填）。配置读取统一走 `config/`。
+密钥/接口不硬编码。复制 `.env.example` 为 `.env` 并填写（LLM/向量模型密钥；离线链路可先不填）。配置读取统一走 `config/`。
 
 ```bash
 cp .env.example .env
 ```
+
+密钥两种来源都支持：写进 `.env`，或放在**系统环境变量**里（推荐，避免误提交）；读取优先级为
+`LLM_API_KEY → DEEPSEEK_API_KEY → RAG-command → RAG-deepseek-v4`（生成模型）与
+`EMBEDDING_API_KEY → DASHSCOPE_API_KEY`（向量模型），完整清单与部署口径见 [docs/deploy.md](docs/deploy.md)。
 
 ## 六、如何运行
 
@@ -134,7 +138,18 @@ python scripts/run_server.py --port 8000
 
 # —— 人工审核回填（RAGv2 F09 增强）——
 python scripts/apply_audit.py --decisions audit_decisions.json
+
+# —— 演示部署（RAGv5：同源托管，前端 dist 由后端一并提供）——
+# 1. 构建前端（一次性）
+cd frontend && npm run build && cd ..
+# 2. 启动（服务端同时提供页面与 /api/*；.env 里 FRONTEND_DIST 指向 dist）
+python scripts/run_server.py --port 8000
+# 3. 冒烟六步（health/页面/示例题/逐条问答/缓存命中/限流）——演示前跑一次顺带预热缓存
+python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 ```
+
+演示与部署的完整口径（环境变量、数据制品清单、从零构建、演示预期延迟、故障排查、授权边界）
+见 [docs/deploy.md](docs/deploy.md)。
 
 详细命令、参数与产物说明见各层 README。运行环境：Python 3.11；离线链路依赖 jieba/numpy/pydantic，
 在线链路另需 fastapi/uvicorn/openai（见 requirements.txt）。本机建议使用
@@ -163,4 +178,4 @@ python scripts/apply_audit.py --decisions audit_decisions.json
 | RAGv2 | F02–F06 在线问答链路 + SSE 服务 + F09 人工审核回填 | ✅ 已完成（LLM/向量联调边界见 RAGv2 完成文档） |
 | RAGv3 | F01/F07 前端页面 | ✅ 已完成（见 [docs/RAG_v1/RAGv3-开发说明.md](docs/RAG_v1/RAGv3-开发说明.md)） |
 | RAGv4 | F10 评测（题库/指标/报告/人工评分 + 第三方审核整改） | ✅ 已完成（见 [docs/RAG_v1/RAGv4-开发说明.md](docs/RAG_v1/RAGv4-开发说明.md)、[阶段工作总结](docs/RAG_v1/RAGv4-阶段工作总结.md)） |
-| RAGv5 | F08 演示模式 + 真实 LLM/向量接入与部署打磨 | ⬜ 规划中（规划说明见 [docs/RAG_v1/RAGv5-规划说明.md](docs/RAG_v1/RAGv5-规划说明.md)） |
+| RAGv5 | F08 演示模式 + 真实 LLM/向量接入与部署打磨 | ✅ 已完成（见 [开发说明](docs/RAG_v1/RAGv5-开发说明.md)、[阶段工作总结](docs/RAG_v1/RAGv5-阶段工作总结.md)、[部署手册](docs/deploy.md)） |

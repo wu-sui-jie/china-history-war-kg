@@ -43,14 +43,14 @@ RAG/docs/
 | F01 | 智能问答主界面（单页面） | 已完成（RAGv3 前端） | [01-qa-main.md](features/01-qa-main.md) |
 | F02 | 实体识别与消歧 | 已完成（RAGv2 词典/规则版） | [02-entity-linking.md](features/02-entity-linking.md) |
 | F03 | 图谱检索通道（GraphRAG） | 已完成（RAGv2 服务版） | [03-graph-retrieval.md](features/03-graph-retrieval.md) |
-| F04 | 文本检索通道 | 已完成（RAGv2 关键词版，向量待接入） | [04-text-retrieval.md](features/04-text-retrieval.md) |
+| F04 | 文本检索通道 | 已完成（RAGv5：关键词 + 向量 + hybrid 融合，默认 hybrid/rrf） | [04-text-retrieval.md](features/04-text-retrieval.md) |
 | F05 | 检索结果融合与重排 | 已完成（RAGv2 服务版） | [05-fusion-rerank.md](features/05-fusion-rerank.md) |
-| F06 | 证据溯源回答生成 | 部分完成（链路通；LLM 需配 key 切换） | [06-grounded-answer.md](features/06-grounded-answer.md) |
+| F06 | 证据溯源回答生成 | 已完成（RAGv5：真实 LLM 流式 + 推理增量 + 降级链） | [06-grounded-answer.md](features/06-grounded-answer.md) |
 | F07 | 可视化知识面板 | 已完成（RAGv3 前端渲染） | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
-| F08 | 演示模式与示例问题 | 暂缓 | [08-demo-mode.md](features/08-demo-mode.md) |
+| F08 | 演示模式与示例问题 | 已完成（RAGv5：示例题来自已审核题库 + 按类别/能力标签 + 一键提问） | [08-demo-mode.md](features/08-demo-mode.md) |
 | F09 | 数据快照与知识库治理 | 已完成 | [09-data-governance.md](features/09-data-governance.md) |
 | F10 | 问答效果评测 | 已完成（RAGv4：评测闭环 + 题库 reviewed-2 全通过 + 人工评分） | [10-evaluation.md](features/10-evaluation.md) |
-| F11 | 文本切分与索引构建 | 已完成 | [11-text-indexing.md](features/11-text-indexing.md) |
+| F11 | 文本切分与索引构建 | 已完成（RAGv5 补齐向量索引：百炼 v4 + Chroma，9,544 条 / 1024 维） | [11-text-indexing.md](features/11-text-indexing.md) |
 
 > 状态说明：
 > - F09/F11 在 RAGv1 已完整交付——基础快照 + 治理（含事件卡片结构化字段、
@@ -113,8 +113,8 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 1. MVP：F09 基础快照 → F11 基础切分与向量索引 → F02/F03/F04 最小检索 → F05 融合 → F06 回答 → F01/F07 页面。✅（F09/F11 已在 RAGv1 完成；F02–F06 检索与回答链已在 RAGv2 完成）
 2. 数据增强：F09 实体消歧、孤立节点处理、人工抽检。✅（RAGv1 分组清单；RAGv2 补充 apply_audit 人工审核回填）
 3. 质量闭环：F10 人工评测与问题题库。✅（RAGv4 已交付题库 reviewed-2 + 评测工具 + 双通道基线与人工评分）
-4. 演示稳定性：模型降级、回答缓存、限流、部署。◐（RAGv2 已含缓存/降级/限流；v5 规划见 [RAG_v1/RAGv5-规划说明.md](RAG_v1/RAGv5-规划说明.md)）
-5. 暂缓：F08 演示模式，待核心功能完成后补充。
+4. 演示稳定性：模型降级、回答缓存、限流、部署。✅（RAGv5 已完成：真实 LLM 流式 + 向量/hybrid 检索 + 同源托管 + 冒烟/预热脚本；见 [RAG_v1/RAGv5-开发说明.md](RAG_v1/RAGv5-开发说明.md) 与 [deploy.md](deploy.md)）
+5. F08 演示模式：✅ 已完成（RAGv5：示例题取自已审核题库，按类别分组 + 能力标签 + 一键提问）。
 
 总体架构见 architecture.md，字段和流式协议见 data-contract.md。
 
@@ -128,10 +128,10 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 | RAGv2 | 在线问答链路 F02→F03/F04→F05→F06 + SSE 服务 + F09 人工审核回填 | ✅ 已完成 | [RAG_v1/RAGv2-在线问答链路.md](RAG_v1/RAGv2-在线问答链路.md) |
 | RAGv3 | F01 问答页 + F07 知识面板（前端） | ✅ 已完成 | [RAG_v1/RAGv3-开发说明.md](RAG_v1/RAGv3-开发说明.md)（任务分析 [RAG_v1/RAGv3-规划分析.md](RAG_v1/RAGv3-规划分析.md)） |
 | RAGv4 | F10 问答效果评测（质量闭环） | ✅ 已完成（题库 reviewed-2 全通过 + 人工评分完成 + F02/F03 修复复测） | [RAG_v1/RAGv4-开发说明.md](RAG_v1/RAGv4-开发说明.md)（任务规划 [RAG_v1/后续阶段规划.md](RAG_v1/后续阶段规划.md)；变更总结 [changes/20260904-ragv4-summary.md](changes/20260904-ragv4-summary.md)、[changes/20260913-ragv4-review-summary.md](changes/20260913-ragv4-review-summary.md)；送审总结 [RAG_v1/RAGv4-阶段工作总结.md](RAG_v1/RAGv4-阶段工作总结.md)） |
-| RAGv5 | F08 演示模式 + 真实模型/向量接入与部署打磨 | ⬜ 规划中（规划说明已完成） | [RAG_v1/RAGv5-规划说明.md](RAG_v1/RAGv5-规划说明.md)（任务规划 [RAG_v1/后续阶段规划.md](RAG_v1/后续阶段规划.md)） |
+| RAGv5 | F08 演示模式 + 真实模型/向量接入与部署打磨 | ✅ 已完成（向量/hybrid 检索 + 真实 LLM 流式 + 同源部署 + F08 示例题 + T5 质量优化；LLM 对照 25 correct/3 partial/0 incorrect，评分口径为 AI 代理） | [RAG_v1/RAGv5-开发说明.md](RAG_v1/RAGv5-开发说明.md)（需求与验收 [RAG_v1/RAGv5-规划说明.md](RAG_v1/RAGv5-规划说明.md)；送审总结 [RAG_v1/RAGv5-阶段工作总结.md](RAG_v1/RAGv5-阶段工作总结.md)；部署 [deploy.md](deploy.md)） |
 
-> 阶段命名说明：RAGv4 编号已按提案实际启用（题库/评测工具/首轮报告落地）；
-> RAGv5 仍为规划提案（编号若与项目既定口径不一致以既定口径为准）。
+> 阶段命名说明：RAGv4、RAGv5 编号均已按提案实际启用并完成（RAGv5 于 2026-09-13 收口，
+> 2026-09-14 复查补齐 T3 收尾项；编号若与项目既定口径不一致以既定口径为准）。
 > 任务明细与建议顺序见上表「后续阶段规划」。
 
 阶段文档索引见 [RAG_v1/README.md](RAG_v1/README.md)。
