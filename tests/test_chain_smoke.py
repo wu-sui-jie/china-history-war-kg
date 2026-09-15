@@ -72,10 +72,11 @@ def test_text_only_disables_graph(runtime):
 
 
 def test_text_mode_passthrough_and_autodowngrade(runtime):
-    """EvalConfig.mode 透传到 text 检索；无向量索引时 vector 自动降级为 keyword。
+    """EvalConfig.mode 透传到文本检索（RAGv5 T3 起向量已可用）。
 
-    守护 v5 的 vector/hybrid 对照前提（第四轮审核 B2）：若 mode 未透传或降级失效，
-    本用例会失败。
+    两条断言覆盖两件事：
+    1. mode="vector" 且向量后端可用 → 实际执行 vector 并返回结果；
+    2. 向量不可用（无密钥/集合缺失）→ resolve_mode 自动降级关键词（纯函数，见下一条用例）。
     """
     from dataclasses import replace
 
@@ -84,9 +85,35 @@ def test_text_mode_passthrough_and_autodowngrade(runtime):
     cfg = replace(CONFIG_DEFAULT, mode="vector")
     tr = _run(run_question(runtime, cfg, "介绍一下长平之战。",
                            filters={}, expected_names=["长平之战"]))
-    # 当前索引无向量（embeddings 占位）→ resolve_mode 自动降级关键词
-    assert tr["text"]["mode"] == "keyword"
+    if runtime.text.vector_available:
+        assert tr["text"]["mode"] == "vector"
+        assert tr["text"]["n"] > 0
+    else:
+        # 本机未构建向量/未配密钥时，仍应降级关键词并保持有结果
+        assert tr["text"]["mode"] == "keyword"
+        assert tr["text"]["n"] > 0
+
+
+def test_hybrid_mode_passthrough(runtime):
+    """hybrid 模式在两个通道之间做融合；向量不可用时降级关键词。"""
+    from evaluation.chain import run_question, CONFIG_HYBRID
+
+    tr = _run(run_question(runtime, CONFIG_HYBRID, "介绍一下赤壁之战。",
+                           filters={}, expected_names=["赤壁之战"]))
+    expect = "hybrid" if runtime.text.vector_available else "keyword"
+    assert tr["text"]["mode"] == expect
     assert tr["text"]["n"] > 0
+
+
+def test_resolve_mode_autodowngrade_unit():
+    """向量不可用时 vector/hybrid 一律降级 keyword（不依赖本地索引的纯函数守护）。"""
+    from server.text.scoring import resolve_mode
+
+    assert resolve_mode("vector", False) == "keyword"
+    assert resolve_mode("hybrid", False) == "keyword"
+    assert resolve_mode("vector", True) == "vector"
+    assert resolve_mode("hybrid", True) == "hybrid"
+    assert resolve_mode("bogus", True) == "keyword"
 
 
 def test_parity_with_server_run_query(runtime):
