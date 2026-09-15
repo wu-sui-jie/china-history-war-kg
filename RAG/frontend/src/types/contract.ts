@@ -215,3 +215,33 @@ export const ENTITY_TYPE_COLORS: Record<string, string> = {
   组织: '#1d4ed8',
   地点: '#7c3aed',
 }
+
+/** F08 演示示例题（后端由已审核题库生成，见 scripts/gen_demo_examples.py）。 */
+export interface DemoExample {
+  id: string
+  question: string
+  category: string
+  /** 展示用中文类别标签（实体介绍 / 关系型 / 背景型 / 时间线型…） */
+  category_label: string
+  /** 能力标注：graph / text / both（F08 验收：示例题要覆盖图谱与文本两类能力） */
+  capability: string
+  expect: { graph_min?: number; text_min?: number }
+  baseline_score?: string
+  measured?: {
+    first_thinking_ms?: number | null
+    first_answer_ms?: number | null
+    total_ms?: number
+    truncated?: boolean
+    finish_reason?: string
+  }
+}
+
+export interface DemoExamplesResponse {
+  status: string
+  version?: string
+  generated_at?: string
+  source_run?: string
+  counts?: { bank_total?: number; candidates?: number; selected?: number }
+  notes?: string
+  examples?: DemoExample[]
+}
