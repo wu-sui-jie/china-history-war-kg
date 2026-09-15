@@ -82,3 +82,14 @@ def test_error_path_still_degrades():
     g = _gen(_FakeLLM(text="", error="llm_error: timeout"))
     reason, model, answer = asyncio.run(g.generate("问题", "问题", _evidence()))
     assert reason == FinishReason.DEGRADED.value and answer.strip()
+
+
+def test_error_path_logs_reason(caplog):
+    """降级必须留下可诊断的日志（2026-09-15 冒烟发现：此前静默降级，排障困难）。"""
+    import logging
+
+    g = _gen(_FakeLLM(text="", error="llm_error: Connection error."))
+    with caplog.at_level(logging.WARNING, logger="rag.generate"):
+        reason, _model, _answer = asyncio.run(g.generate("问题", "问题", _evidence()))
+    assert reason == FinishReason.DEGRADED.value
+    assert any("Connection error" in r.getMessage() for r in caplog.records)

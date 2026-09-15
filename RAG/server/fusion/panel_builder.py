@@ -7,13 +7,15 @@ F07 只消费本模块产物，不自行拼第二套 subgraph。
 字段与降级：
 - entity_cards：命中实体转卡片（事件用 event_cards 结构化字段增强）。
 - subgraph：命中实体 + 其 1 跳邻居（≤ 上限），边带关系名。
-- timeline：相关事件按 dynasty 分组（groups）；start_date 缺失/不详 → "时间不详/仅知朝代"。
+- timeline：相关事件按 dynasty 分组（groups），组内按可解析的 start_date 升序
+  （无法解析的日期保持数据原序置于组内末尾）；start_date 缺失/不详 → "时间不详/仅知朝代"。
 - map_points：地点需坐标；坐标缺失不进 map_points（降级为地点列表由前端处理）。
 """
 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -32,6 +34,41 @@ MAX_SUBGRAPH_NODES = 24
 # 地图点位上限（面板可读性；事件多的排前，见 _build_map_points）
 MAP_MAX_POINTS = 8
 UNKNOWN_TIME_LABEL = "时间不详/仅知朝代"
+
+
+def _start_year(date_str) -> Optional[int]:
+    """从 start_date 文本解析纪年，仅用于 timeline 组内排序；无法可靠解析时返回 None。
+
+    数据里的 start_date 是自由文本（实测："前2179年"、"公元前26世纪"、"约四五千年前"、
+    "夏朝末年"…）。只解析两种可靠格式，其余保持数据原序——宁可排不完美，
+    也不把"约四五千年前"这类模糊表述猜错位置：
+    - "前 N 年 / 公元前 N 年" → -N；
+    - "前 N 世纪 / 公元前 N 世纪" → 世纪中点，如公元前 26 世纪 ≈ 前 2550。
+    """
+    if not date_str:
+        return None
+    s = str(date_str).strip()
+    m = re.search(r"公元前\s*(\d+)\s*世纪|前\s*(\d+)\s*世纪", s)
+    if m:
+        century = int(m.group(1) or m.group(2))
+        return -(century * 100 - 50)
+    m = re.search(r"公元前\s*(\d+)\s*年|前\s*(\d+)\s*年", s)
+    if m:
+        return -int(m.group(1) or m.group(2))
+    m = re.search(r"^(\d{3,4})\s*年", s)
+    if m:
+        return int(m.group(1))
+    return None
+
+
+def _sort_by_start_date(items: list[TimelineItem]) -> list[TimelineItem]:
+    """组内按可解析的 start_date 升序（稳定排序）；无法解析的条目保持原序置于末尾。"""
+    def key(pair):
+        i, it = pair
+        year = _start_year(it.start_date)
+        return (0, year, i) if year is not None else (1, 0, i)
+
+    return [it for _, it in sorted(enumerate(items), key=key)]
 
 
 class PanelBuilder:
@@ -215,9 +252,10 @@ class PanelBuilder:
             label = str(item.dynasty or UNKNOWN_TIME_LABEL)
             groups.setdefault(label, []).append(item)
         ordered = []
-        # 有准确时间的朝代放前，时间不详放最后
+        # 有准确时间的朝代放前，时间不详放最后；组内按可解析的 start_date 升序
         for label in sorted([k for k in groups if k != UNKNOWN_TIME_LABEL]):
-            ordered.append(TimelineGroup(label=label, items=groups[label]).to_dict())
+            ordered.append(TimelineGroup(label=label,
+                                         items=_sort_by_start_date(groups[label])).to_dict())
         if groups.get(UNKNOWN_TIME_LABEL):
             ordered.append(TimelineGroup(label=UNKNOWN_TIME_LABEL,
                                          items=groups[UNKNOWN_TIME_LABEL]).to_dict())

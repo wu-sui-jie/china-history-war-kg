@@ -90,9 +90,10 @@ class Settings:
     # 向量库（D2）：Chroma 持久化集合名
     chroma_collection: str = "chunks_v1"
     # 文本检索模式（T3）：keyword / vector / hybrid —— 部署级全局开关（D3 推荐形态）
-    text_mode: str = "keyword"
+    # 兜底值与 defaults 对齐 hybrid/rrf（2026-09-15 审核整改，消除静默回退）
+    text_mode: str = "hybrid"
     # hybrid 融合策略与权重（§四.2）：weighted / rrf / fallback
-    text_hybrid_strategy: str = "weighted"
+    text_hybrid_strategy: str = "rrf"
     text_hybrid_keyword_weight: float = 0.5
     # 向量/hybrid 下"无共享词"拒答的分数阈值
     vector_refusal_min_score: float = 0.25
@@ -186,9 +187,9 @@ def get_settings() -> Settings:
         embedding_timeout_seconds=int(os.environ.get(
             "EMBEDDING_TIMEOUT_SECONDS", defaults.EMBEDDING_TIMEOUT_SECONDS)),
         chroma_collection=os.environ.get("CHROMA_COLLECTION", defaults.CHROMA_COLLECTION),
-        text_mode=(os.environ.get("TEXT_MODE", defaults.TEXT_MODE) or "keyword").strip().lower(),
+        text_mode=(os.environ.get("TEXT_MODE", defaults.TEXT_MODE) or "hybrid").strip().lower(),
         text_hybrid_strategy=(os.environ.get(
-            "TEXT_HYBRID_STRATEGY", defaults.TEXT_HYBRID_STRATEGY) or "weighted").strip().lower(),
+            "TEXT_HYBRID_STRATEGY", defaults.TEXT_HYBRID_STRATEGY) or "rrf").strip().lower(),
         text_hybrid_keyword_weight=float(os.environ.get(
             "TEXT_HYBRID_KEYWORD_WEIGHT", defaults.TEXT_HYBRID_KEYWORD_WEIGHT)),
         vector_refusal_min_score=float(os.environ.get(
