@@ -199,7 +199,7 @@ pending_review 数据不进入 F03 可查询图谱，也不作为运行链路证
 
 score 取值范围为 0 到 1。F04 文本检索结果必须输出 score；F03 图谱证据的 score 可选。
 
-F04 归一化方法：先取当前查询 Top N 候选的原始分，再按 min-max 归一化。max 等于 min 时，该条候选的归一化 score 记为 0.5。关键词、向量、混合三种模式都在各自模式内部完成该归一化。score 只用于排序和证据融合，不用于拒答阈值。
+F04 归一化方法：先取当前查询 Top N 候选的原始分，再按 min-max 归一化。max 等于 min 时，该条候选的归一化 score 记为 0.5。关键词、向量、混合三种模式都在各自模式内部完成该归一化。score 主要用于排序和证据融合，不单独作为拒答阈值；向量/hybrid 模式下作为低分兜底信号之一与「实体为空且证据无共享词」叠加生效（`VECTOR_REFUSAL_MIN_SCORE`，默认 0.25，见 F06 拒答规则第 3 条）。
 
 citation_index 由 F05 统一分配，F06 在回答中使用，F07 展示引用。
 
@@ -367,30 +367,38 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 
 1. session_start：{session_id, stage: "start"}
 2. status：{session_id, stage: "entity_linking" 或 "graph_search" 等}
-3. entities：{entities: [...], candidates: [...], llm_entity_used: bool, dynasty_disambiguated: bool}
+3. entities：{entities: [...], candidates: [...], question_type, rewritten_question,
+   dynasty_bias: [...], llm_entity_used: bool, dynasty_disambiguated: bool, elapsed_ms}
    （`llm_entity_used` 为 RAGv5 起新增：本次实体是否来自 F02 的 LLM 兜底——词典完全未命中时才会触发，
    默认关闭 `ENABLE_LLM_ENTITY_FALLBACK`；对接方可据此提示"实体由模型识别，可能有误"）
    （`dynasty_disambiguated` 为 RAGv5 起新增：同名多实体时是否由**问句里提到的朝代**选定——如问
    "西汉的井陉之战"命中西汉那条；只做偏好不做硬过滤，候选集合不变、页面仍可点选纠正）
-4. graph_results：{evidence: [graph_triple]}
+   （`question_type` / `rewritten_question` / `dynasty_bias` / `elapsed_ms` 同样为超集字段：
+   问题类型、F02 改写后问题、朝代软偏置、本阶段耗时；对接方可按需消费，不消费不影响。）
+4. graph_results：{evidence: [graph_triple], hit_entities: [...]}
+   （`hit_entities` 为超集字段：本次图谱命中的实体名列表，供前端/评测展示。）
 5. text_results：{evidence: [raw_text/event_card/evidence], mode: "keyword|vector|hybrid|none"}
    （`mode` 为 **RAGv5 起新增**：本次实际执行的文本检索模式；请求 vector/hybrid 但向量不可用时
    自动降级为 keyword，对接方以此字段为准。`vector_available` 只在内部 TextResult 上，不进 SSE。）
-6. fusion：{evidence: [...], citation_index: [...], conflicts: [...]}
+6. fusion：{evidence_count: <条数>, citation_index: [...], conflicts: [...]}
+   （**RAGv5 口径**：fusion 事件只携带融合后证据的**条数**，不携带完整证据数组；完整证据由后续
+   citations（引用摘要）与 panel 事件承载，对接方不要在 fusion 事件里取 evidence 数组。
+   2026-09-15 前的文档曾写为 `evidence: [...]`，以本节为准。）
 7. thinking：{delta: “推理增量片段”}（RAGv5 起实际发射；对接方可忽略）
 8. answer：{delta: “回答增量文本”}
 9. citations：{citations: [{index, evidence_id, kind, title, snippet}], conflicts: [...]}
 10. panel：使用“知识面板数据结构”中的 data。
 11. error：{error_code, message}
-12. done：{session_id, finish_reason, model_used?}
+12. done：{session_id, finish_reason, model_used?, cache_hit?}
+    （`cache_hit` 只在命中回答缓存回放时出现，值为 true；正常路径不发送该字段。）
 
 entities 事件中的候选列表用于前端实体卡展示和手动纠正。
 
 done 事件的 finish_reason 枚举：
 
 1. normal：正常完成。
-2. refused：系统判定证据不足并拒答。
-3. degraded：使用备用模型完成，model_used 记录实际模型。
+2. refused：证据不足拒答（含硬规则拒答与模型自拒，见 F06 拒答判定规则第 4 条）。
+3. degraded：使用备用模型或离线摘要回答器完成，model_used 记录实际模型。
 4. cancelled：连接断开或请求取消。
 
 SSE 连接断开后服务端无法再向前端推送 done；cancelled 主要用于服务端日志和统计。若后端在连接仍存活时主动终止生成，也可以推送 finish_reason=cancelled。
@@ -427,7 +435,9 @@ conflicts 示例：
 
 1. 初版不做通用语义矛盾检测。
 2. 初版只对结构化数据做冲突判定，范围限定为：
-   - graph_triple 与 graph_triple：同 subject、同 relation、不同 object。
+   - graph_triple 与 graph_triple：同 subject、同 relation、不同 object；且**仅对单值关系生效**
+     （field_map 中 exact 单值组，如发起方/防守方）——多值关系（主帅/将领等）是并列事实行，
+     多个 object 不判冲突，避免误报。
    - graph_triple 与 event_card：图谱关系字段与事件卡片结构化字段不一致。
 3. raw_text 和 evidence 不参与自动冲突判定，只作为说明性证据保留。
 4. conflict_type 取值：different_object、field_vs_triple。

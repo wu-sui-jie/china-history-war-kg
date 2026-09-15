@@ -13,8 +13,9 @@
 ## 设计要点
 
 1. F04 只做检索，不做切分/索引（那是 F11）。
-2. 三种可切换模式（keyword/vector/hybrid）：**部署级开关 `TEXT_MODE`**（仓库默认 keyword，
-   演示 `.env` 设 `hybrid`）；**加载校验**用 Chroma `count()` 与 `ids.json` 比对，
+2. 三种可切换模式（keyword/vector/hybrid）：**部署级开关 `TEXT_MODE`**（代码级默认
+   `hybrid` + `rrf`，2026-09-15 审核整改后与部署一致，丢失 `.env` 不再静默回退关键词）；
+   **加载校验**用 Chroma `count()` 与 `ids.json` 比对，
    集合缺失/损坏/条数不一致 → `vector_available=False` → 自动降级关键词，不报错。
 3. 各模式内部 min-max 归一 score 到 0~1（data-contract 约定：max==min → 0.5）；
    hybrid 在各通道内先归一、融合后对融合分再归一。

@@ -16,7 +16,7 @@
 | 3 | `--rebuild-chroma`（T3 计划项） | 从审计副本（`vectors/ids.json` + `embeddings.npy`）重建 Chroma，不调云端；行数/维度/占位态不一致即报错；与 `--vectors-only` 互斥 | 真索引实测 **9,544 条 / 10.6 s**；重建后 `check_vector_consistency.py` 重合率 **0.932**（下限 0.9）；5 条用例 |
 | 4 | `demo_mode` 死配置（T1 遗留） | 按开发说明 §4.7 结论②**删除**（示例区恒显示），涉及 `config/defaults.py`、`config/settings.py`、`.env.example` | 全仓 grep 无残留引用；`pytest` 全过 |
 | 5 | 文档同步（开发说明 §十 未打勾项） | ① `server/query/README.md`（F02 兜底已实现）、`server/text/README.md`（Chroma 向量与 hybrid）、`scripts/README.md`（4 个新脚本）、根 `README.md`（用例数、启动与部署入口、依赖、密钥来源）；② v5 两份文档收口：规划说明状态行/里程碑/§八-7 `thinking` 边界条目/§4.2 待确认结论，开发说明 M 步骤标记、§十一 快照、§十 清单；③ `docs/RAG_v1/README.md` 与 `docs/README.md` 的 v5 状态行 | 见各文件；`docs/deploy.md` 补 `--rebuild-chroma` 与一步构建说明 |
-| 6 | 回归 | 用例 **105 → 134 全过**（含 2026-09-14 的同名朝代消歧 21 条）；真索引一致性抽检通过 | `pytest tests -q` |
+| 6 | 回归 | 用例 **105 → 134 全过**（截至 2026-09-14，含同名朝代消歧 21 条）；真索引一致性抽检通过。**2026-09-15 全项目审核时点为 140 全过**（其后新增 `test_panel_map_points.py` 等） | `pytest tests -q` |
 
 > `data/index/vectors.py` 的计划改造**不再执行**（设计变更，已在开发说明 §三 记录）：审计副本写入与
 > 断点续跑已由 `vector_pipeline.py` 承担，该文件保持占位时代的空实现、全仓无调用点。
