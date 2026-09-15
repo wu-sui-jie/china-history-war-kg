@@ -44,7 +44,9 @@ EMBEDDING_TIMEOUT_SECONDS = 60
 CHROMA_COLLECTION = "chunks_v1"
 
 # ---- 文本检索模式（T3，部署级全局开关；vector/hybrid 依赖向量索引已构建）----
-TEXT_MODE = "keyword"                  # keyword / vector / hybrid
+# 2026-09-15 审核整改：代码级兜底与部署默认对齐为 hybrid/rrf，换环境丢失 .env 时
+# 不再静默回退关键词模式；向量/Chroma 不可用时由检索层自动降级 keyword 并上报 mode。
+TEXT_MODE = "hybrid"                   # keyword / vector / hybrid
 TEXT_HYBRID_STRATEGY = "rrf"           # weighted / rrf / fallback
 # 2026-09-13 对照评测定档（main 套件 28 题）：rrf 文本召回 97.0% > weighted 95.2% > fallback 94.6%；
 # 回答覆盖 rrf/weighted 并列 85.1%，fallback 仅 71.7%（= 关键词基线，等于没做融合）

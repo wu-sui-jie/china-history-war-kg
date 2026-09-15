@@ -47,6 +47,8 @@ def _sse_query(base: str, question: str, session_id: str, timeout: float = 180.0
     n_think = n_answer = 0
     answer_parts: list[str] = []
     citations = 0
+    graph_evidence = 0
+    text_evidence = 0
     finish_reason = ""
     error: dict | None = None
     cache_hit = False
@@ -80,6 +82,10 @@ def _sse_query(base: str, question: str, session_id: str, timeout: float = 180.0
                     answer_parts.append(data.get("delta") or "")
                 elif etype == "citations":
                     citations = len(data.get("citations") or [])
+                elif etype == "graph_results":
+                    graph_evidence = len(data.get("evidence") or [])
+                elif etype == "text_results":
+                    text_evidence = len(data.get("evidence") or [])
                 elif etype == "done":
                     finish_reason = data.get("finish_reason") or ""
                     if data.get("cache_hit"):
@@ -96,6 +102,8 @@ def _sse_query(base: str, question: str, session_id: str, timeout: float = 180.0
         "answer_frames": n_answer,
         "thinking_frames": n_think,
         "citations": citations,
+        "graph_evidence": graph_evidence,
+        "text_evidence": text_evidence,
         "finish_reason": finish_reason,
         "cache_hit": cache_hit,
         "answer_len": len("".join(answer_parts)),
@@ -195,11 +203,21 @@ def main() -> int:
             problems.append("回答为空")
         if res["citations"] <= 0:
             problems.append("无引用")
+        # 证据数达标：示例题的 expect 是题库实测得到的通道证据数下限
+        # （graph_min/text_min），低于下限说明检索链路相对基线退化。
+        expect = res.get("expect") or {}
+        g_min = int(expect.get("graph_min") or 0)
+        t_min = int(expect.get("text_min") or 0)
+        if g_min and res["graph_evidence"] < g_min:
+            problems.append(f"图谱证据 {res['graph_evidence']} < expect.graph_min={g_min}")
+        if t_min and res["text_evidence"] < t_min:
+            problems.append(f"文本证据 {res['text_evidence']} < expect.text_min={t_min}")
         if problems:
             fail(f"{ex.get('id')} {'；'.join(problems)}")
         else:
             ok(f"完成 {res['elapsed_ms']} ms（首思考 {res['first_thinking_ms']} / "
-               f"首正文 {res['first_answer_ms']}，{res['answer_frames']} 帧，{res['citations']} 条引用）")
+               f"首正文 {res['first_answer_ms']}，{res['answer_frames']} 帧，{res['citations']} 条引用，"
+               f"图谱证据 {res['graph_evidence']} / 文本证据 {res['text_evidence']}）")
 
     # 5) 缓存命中（同进程重复提问）
     if examples:

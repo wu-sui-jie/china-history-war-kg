@@ -1,15 +1,21 @@
 """F06 拒答判定与文案（server/generate/refusal.py）。
 
-拒答路径（features/06 初版规则 + RAGv5 补强）：
+拒答路径（features/06 规则 + RAGv5 补强）：
 1. 图谱证据为空 且 文本证据为空 → 直接拒答（finish_reason=refused）。
 2. 实体为空 且 文本证据与问题无共享词 → 依据不足拒答（sse.py / evaluation 两处同口径）。
 3. **（RAGv5 §4.6 新增）领域外谓词**：问题问的是知识库不可能覆盖的属性/器物
    （邮箱、电话、度假、坦克、股票…），**且这些词在所有证据里都不出现** → 拒答。
    保守优先：只要证据里出现过该词，就不拒答（宁可少拒，不可把可答题拒掉）。
-4. score 不作为拒答阈值（向量模式下的分数阈值另见 VECTOR_REFUSAL_MIN_SCORE）。
+4. score 不单独作为拒答阈值；向量/hybrid 模式下作为低分兜底信号之一，与规则 2
+   叠加生效（VECTOR_REFUSAL_MIN_SCORE 在 sse.py 的编排里读取）。
+5. **模型自拒识别（2026-09-15 全项目审核 P0-1 落地）**：模型按提示词规则在
+   证据不足时用固定句式说明（见 prompts.py 规则 4），生成返回前经
+   detect_model_refusal 识别 → finish_reason=refused，前端据此标记"依据不足"。
 """
 
 from __future__ import annotations
+
+import re
 
 from contracts.evidence import Evidence
 
@@ -26,6 +32,42 @@ OUT_OF_SCOPE_PREDICATES: tuple[str, ...] = (
     # 个人身体/隐私信息
     "身高", "体重", "生日", "星座", "血型", "爱好", "性格测试",
 )
+
+
+# 模型自拒文本的识别句式：提示词要求模型在证据不足时使用「依据现有资料无法确认」
+# （见 prompts.py 规则 4），以下为实测常见等价表述。只收录语义明确的自拒短语，
+# 不收录"无法回答"这类单独出现的短语，避免把正常回答误判为拒答。
+MODEL_REFUSAL_PATTERNS: tuple[str, ...] = (
+    # 提示词规则 4 要求的固定句式及其变体
+    "依据现有资料无法", "根据现有资料无法", "现有资料无法确认",
+    "依据现有史料无法", "根据现有史料无法",
+    # 常见等价自拒表述
+    "现有资料不足以", "现有史料不足以",
+    "无法给出有依据的回答", "无法提供有依据的回答",
+    "资料中没有相关记载", "史料中没有相关记载",
+    "未检索到相关", "没有检索到相关",
+)
+
+# 拒答句式只在正文前 N 字内判定：模型按提示词应在开头说明依据不足；
+# 正文中后段出现的"某细节无法确认"属于局部不确定，不应整体判为拒答。
+MODEL_REFUSAL_HEAD_CHARS = 200
+
+# 引用编号（如 [1][2]）：模型被要求对引用处标注编号；自拒回答没有可支撑的引用。
+_CITATION_RE = re.compile(r"\[\d+\]")
+
+
+def detect_model_refusal(text: str) -> bool:
+    """识别模型自拒文本：正文前 200 字内命中固定拒答句式，且全文不含引用编号。
+
+    要求"不含引用编号"的原因：像"依据现有资料无法确认其出生年份，但据 [1] 他参与了
+    长平之战"这类**局部不确定**的正常回答带引用，不应整体判为拒答；
+    宁可漏判（保持 normal），不误判可用回答。
+    """
+    if not text:
+        return False
+    if not any(p in text[:MODEL_REFUSAL_HEAD_CHARS] for p in MODEL_REFUSAL_PATTERNS):
+        return False
+    return not _CITATION_RE.search(text)
 
 
 def has_any_evidence(evidence: list[Evidence]) -> bool:

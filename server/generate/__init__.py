@@ -1,10 +1,11 @@
 """F06 回答生成对外入口（server/generate/__init__.py）。
 
 生成器分三层：
-1. LLM 可用（deepseek-v4-flash）→ 流式真实回答，失败重试→备用模型。
+1. LLM 可用（deepseek/deepseek-v4.1-flash）→ 流式真实回答，失败重试→备用模型。
 2. LLM 不可用（无密钥）→ 启发式摘要回答器（把融合证据组织为可读回答，
    带引用编号），保证离线端到端验收与演示链路完整；model_used='heuristic-offline'。
-3. 无证据 → 拒答路径（finish_reason=refused）。
+3. 无证据 → 拒答路径（finish_reason=refused）；模型自判证据不足（自拒文本，
+   见 refusal.detect_model_refusal）同样返回 refused。
 
 回答缓存命中时不再调用模型，直接回放 answer/citations/panel。
 """
@@ -12,6 +13,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 from typing import Optional
 
@@ -84,6 +86,10 @@ class AnswerGenerator:
             self.last_truncated = (resp.api_finish_reason == "length")
             if resp.error:
                 # LLM 调用失败 → 降级启发式回答器
+                # 2026-09-15 冒烟实践：此前降级原因不落日志，部署排障只能看到 degraded 结果，
+                # 分不清是网络/密钥/额度问题；补一条 warning（含错误摘要）。
+                logging.getLogger("rag.generate").warning(
+                    "LLM 生成失败，降级离线摘要回答器：%s", str(resp.error)[:200])
                 text = self._heuristic_answer(question, evidence)
                 if on_delta:
                     on_delta(text)
@@ -96,6 +102,11 @@ class AnswerGenerator:
                 if on_delta:
                     on_delta(text)
                 return FinishReason.DEGRADED.value, "heuristic-offline", text
+            # 模型自拒识别（2026-09-15 全项目审核 P0-1）：命中固定拒答句式且无引用编号
+            # → 按拒答路径返回，前端据此显示"依据不足"。拒答语义优先于降级标记：
+            # 备用模型返回的自拒文本同样记 refused（refused 是确定性结果，可入缓存）。
+            if refusal_mod.detect_model_refusal(resp.text):
+                return FinishReason.REFUSED.value, resp.model_used, resp.text
             return (FinishReason.DEGRADED.value if resp.degraded else FinishReason.NORMAL.value,
                     resp.model_used, resp.text)
         # 无 LLM → 启发式离线回答器

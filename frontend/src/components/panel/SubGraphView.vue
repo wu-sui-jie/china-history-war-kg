@@ -18,9 +18,18 @@ function cleanName(name: string): string {
   return name.replace(/(之战|之变|之役|之围|大战|起义|战争|会战)$/, '')
 }
 
+function onChartClick(params: unknown): void {
+  // 只响应节点点击（echarts graph 的边点击也会派发 click，需按 dataType 过滤）
+  const p = params as { dataType?: string; name?: string } | null
+  if (p?.dataType === 'node' && p.name) askNode(p.name)
+}
+
 function render(): void {
   if (!el.value) return
-  if (!chart) chart = echarts.init(el.value)
+  if (!chart) {
+    chart = echarts.init(el.value)
+    chart.on('click', onChartClick)
+  }
   const nodes = (props.graph.nodes || []).map((n) => ({
     id: n.id,
     name: n.name,
@@ -82,7 +91,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="props.graph.nodes.length" class="graph-wrap">
     <div ref="el" class="subgraph-canvas" aria-label="知识图谱子图"></div>
-    <p class="graph-hint">图中节点可拖动缩放查看；点击下方实体可继续提问。</p>
+    <p class="graph-hint">图中节点可拖动缩放查看；点击图中节点或下方实体可继续提问。</p>
     <div class="graph-followups">
       <button
         v-for="n in props.graph.nodes"
