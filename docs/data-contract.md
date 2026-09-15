@@ -259,6 +259,11 @@ F04 文本检索输出为 raw_text、event_card、evidence 列表。
 
 “命中关键词”不是强制字段，只在关键词检索模式下存在。
 
+**文本检索模式（RAGv5）**：`keyword`（FTS5/BM25）/ `vector`（Chroma 余弦）/ `hybrid`（关键词+向量融合，
+策略见 `TEXT_HYBRID_STRATEGY`）。模式由部署级开关 `TEXT_MODE` 决定，向量不可用时自动降级 keyword；
+实际执行模式随 `text_results` 事件的 `mode` 字段上报。筛选条件的语义（RAGv5 §2.5-3）：
+`event_type` 只对**有该元数据的片段**（事件卡片、已关联事件的关系证据）生效，原文片段（无事件归属）放行。
+
 ## 知识面板数据结构
 
 F07 知识面板使用独立的 panel 数据结构，推荐随 SSE 的 panel 事件推送：
@@ -332,6 +337,11 @@ F07 知识面板使用独立的 panel 数据结构，推荐随 SSE 的 panel 事
 
 没有坐标的地点不进入 map_points，以地点列表文本展示。没有准确时间的事件进入“时间不详/仅知朝代”分组。
 
+map_points 选点口径（RAGv5 2026-09-15 起，`server/fusion/panel_builder.py`）：同名地点在快照里有多行
+（跨朝代重复），按坐标聚类后**优先取带地址线索（省/今址）的簇**（实测：长平→山西高平市、河内→河南沁阳；
+无地址线索的行会被地理编码落到同名村庄），簇内重复行合并、`events` 取并集；点位按相关事件数排序，
+最多 8 个。
+
 ## 流式事件协议
 
 F01 与 F06 之间建议使用 SSE，事件按顺序推送：
@@ -342,7 +352,9 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 4. graph_results：图谱证据，SSE 中只携带 evidence，不重复携带展示用 subgraph。
 5. text_results：文本证据。
 6. fusion：融合结果摘要，可携带 conflicts。
-7. thinking：脱敏后的思考过程摘要。（保留枚举：RAGv2/v3 后端当前不发射该事件，对接方勿依赖）
+7. thinking：推理模型的思考增量（**RAGv5 起实际发射**：`data={"delta": "..."}`）。
+   仅在生成阶段、模型流式输出推理时发送，可能有多帧；对接方可直接忽略。
+   注意：中转 endpoint 的推理字段为 `reasoning`、官方为 `reasoning_content`，后端已同时兼容。
 8. answer：最终答案增量。
 9. citations：引用与证据对照，可携带 conflicts。
 10. panel：知识面板完整数据，F07 直接消费。
@@ -355,11 +367,17 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 
 1. session_start：{session_id, stage: "start"}
 2. status：{session_id, stage: "entity_linking" 或 "graph_search" 等}
-3. entities：{entities: [...], candidates: [...]}
+3. entities：{entities: [...], candidates: [...], llm_entity_used: bool, dynasty_disambiguated: bool}
+   （`llm_entity_used` 为 RAGv5 起新增：本次实体是否来自 F02 的 LLM 兜底——词典完全未命中时才会触发，
+   默认关闭 `ENABLE_LLM_ENTITY_FALLBACK`；对接方可据此提示"实体由模型识别，可能有误"）
+   （`dynasty_disambiguated` 为 RAGv5 起新增：同名多实体时是否由**问句里提到的朝代**选定——如问
+   "西汉的井陉之战"命中西汉那条；只做偏好不做硬过滤，候选集合不变、页面仍可点选纠正）
 4. graph_results：{evidence: [graph_triple]}
-5. text_results：{evidence: [raw_text/event_card/evidence]}
+5. text_results：{evidence: [raw_text/event_card/evidence], mode: "keyword|vector|hybrid|none"}
+   （`mode` 为 **RAGv5 起新增**：本次实际执行的文本检索模式；请求 vector/hybrid 但向量不可用时
+   自动降级为 keyword，对接方以此字段为准。`vector_available` 只在内部 TextResult 上，不进 SSE。）
 6. fusion：{evidence: [...], citation_index: [...], conflicts: [...]}
-7. thinking：{summary: “脱敏后的推理摘要”}（保留枚举，后端当前不发射）
+7. thinking：{delta: “推理增量片段”}（RAGv5 起实际发射；对接方可忽略）
 8. answer：{delta: “回答增量文本”}
 9. citations：{citations: [{index, evidence_id, kind, title, snippet}], conflicts: [...]}
 10. panel：使用“知识面板数据结构”中的 data。
