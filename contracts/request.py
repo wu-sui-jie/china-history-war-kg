@@ -108,6 +108,13 @@ class F02Output(BaseModel):
     # 审核后修复：硬过滤会把"被问到的朝代"连同事件本身一起剔除（如问"商朝"时
     # 鸣条之战属夏，被整题清空而拒答）。详见 docs/changes/20260913-ragv4-review-summary.md。
     dynasty_bias: List[str] = field(default_factory=list)
+    # 是否走了 F02 的 LLM 兜底（词典完全未命中 → 模型抽实体，RAGv5 §4.5）。
+    # 仅作可观测性：默认关闭；开启后进入 entities 事件与评测 trace，便于核对是否误触发。
+    llm_entity_used: bool = False
+    # 同名多实体时，是否由"问句里提到的朝代"选定（偏好而非硬过滤，RAGv5 2026-09-14）。
+    # 例：问"西汉的井陉之战"→ 候选含战国/西汉两条，命中西汉那条并前置。
+    # 仅作可观测性：进入 entities 事件与评测 trace；候选集合不变，页面仍可纠正。
+    dynasty_disambiguated: bool = False
 
     def to_dict(self, skip_none: bool = True) -> dict:
         d = super().to_dict(skip_none)

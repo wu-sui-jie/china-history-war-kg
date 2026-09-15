@@ -43,32 +43,53 @@ class Runtime:
         pass
 
 
+def _resolve_index(settings: Settings, index_name: str) -> tuple[str, Path, Path]:
+    """由索引目录名定位 (快照版本, 快照目录, 索引目录)。
+
+    普通索引：目录名 == 快照版本号，manifest.source_snapshot 必须一致（RAGv1 起的约定）。
+    索引变体：目录名 = <快照版本><后缀> 且 manifest 带 variant 标记，此时以
+    manifest.source_snapshot 回指真实快照（供分块/向量参数对比等实验使用）。
+    """
+    index_dir = settings.index_dir / index_name
+    if not index_dir.exists():
+        raise FileNotFoundError(f"索引版本不存在: {index_dir}")
+    manifest_path = index_dir / "manifest.json"
+    source_version = index_name
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        source_version = manifest.get("source_snapshot") or index_name
+        if source_version != index_name and not manifest.get("variant"):
+            raise ValueError(
+                f"索引 manifest.source_snapshot={source_version} 与索引目录 {index_name} "
+                f"不一致（且无 variant 标记）"
+            )
+    snap_dir = settings.snapshot_dir / source_version
+    if not snap_dir.exists():
+        raise FileNotFoundError(
+            f"索引 {index_name} 声明的来源快照不存在: {snap_dir}"
+        )
+    return source_version, snap_dir, index_dir
+
+
 def resolve_version(settings: Settings, version: Optional[str] = None) -> tuple[str, Path, Path]:
-    """定位快照+索引同版本目录；校验 manifest 一致。找不到则抛 FileNotFoundError。"""
+    """定位快照+索引目录，返回 (快照版本, 快照目录, 索引目录)。
+
+    version=None 取"最新快照中已有同版本索引"的那一个（仅精确同名匹配，
+    不会自动选到索引变体）；显式传入时可传索引目录名（含变体后缀）。
+    """
     if version is None:
         snaps = versions.list_versions(settings.snapshot_dir)
         if not snaps:
             raise FileNotFoundError(f"无可用快照: {settings.snapshot_dir}")
         for v in snaps:
             if (settings.index_dir / v).exists():
-                return v, settings.snapshot_dir / v, settings.index_dir / v
+                return _resolve_index(settings, v)
         # 快照有但索引没同版本：回退最新快照（F03 可服务但 F04 不可用）
         v = snaps[0]
         raise FileNotFoundError(
             f"快照 {v} 无同版本索引目录，无法启动（快照与索引版本须一致）"
         )
-    snap_dir = settings.snapshot_dir / version
-    index_dir = settings.index_dir / version
-    if not snap_dir.exists():
-        raise FileNotFoundError(f"快照版本不存在: {snap_dir}")
-    if not index_dir.exists():
-        raise FileNotFoundError(f"索引版本不存在: {index_dir}")
-    # 校验 manifest 版本一致
-    idx_manifest = json.loads((index_dir / "manifest.json").read_text(encoding="utf-8"))
-    if idx_manifest.get("source_snapshot") != version:
-        raise ValueError(f"索引 manifest.source_snapshot={idx_manifest.get('source_snapshot')} "
-                         f"与版本 {version} 不一致")
-    return version, snap_dir, index_dir
+    return _resolve_index(settings, version)
 
 
 def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
@@ -78,10 +99,13 @@ def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
 
     # F02
     from server.query import load_understanding
+    from server.query.llm_fallback import EntityFallbackClient
+    # LLM 兜底默认关闭（每问多一次串行调用，吃首 Token 预算）；开启后词典完全未命中才触发
+    fb_client = EntityFallbackClient(settings) if settings.enable_llm_entity_fallback else None
     rt.question = load_understanding(
         snap_dir,
-        llm_client=None,           # 词典优先，LLM 兜底预留（接入 llm_client 后可开）
-        enable_llm=False,
+        llm_client=fb_client,
+        enable_llm=bool(settings.enable_llm_entity_fallback and fb_client and fb_client.available),
         history_max_turns=settings.history_max_turns,
     )
 
@@ -89,9 +113,12 @@ def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
     from server.graph import load_graph
     rt.graph = load_graph(snap_dir, version, top_k=settings.query_top_k_graph)
 
-    # F04
+    # F04（向量检索：查询侧要调云端向量模型；密钥缺失/集合缺失/条数不一致 → 自动降级关键词）
+    from data.index.embeddings import build_embed_fn
     from server.text import load_searcher
-    rt.text = load_searcher(index_dir, version, top_k=settings.query_top_k_text)
+    rt.text = load_searcher(index_dir, version, top_k=settings.query_top_k_text,
+                            collection_name=settings.chroma_collection,
+                            embed_fn=build_embed_fn(settings))
 
     # F05
     from server.fusion import load_fusion
@@ -103,11 +130,13 @@ def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
 
     rt.meta = {
         "version": version,
+        "index_version": index_dir.name,
         "graph_entities": len(rt.graph.entities),
         "graph_relations": len(rt.graph.relations),
-        "text_mode": "keyword",
+        "text_mode": settings.text_mode,          # 配置的目标模式（keyword/vector/hybrid）
         "vector_available": bool(rt.text.vector_available),
         "llm_available": rt.generate.llm.available,
         "llm_model": settings.llm_model,
+        "llm_entity_fallback": bool(settings.enable_llm_entity_fallback),
     }
     return rt

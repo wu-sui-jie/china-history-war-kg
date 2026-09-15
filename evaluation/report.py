@@ -188,7 +188,9 @@ def build_report(run: dict, scores_path: Optional[Path] = None,
     A(f"- 本 run 评测记录：{len(recs)} 条（题目 × 配置 × variant）。")
     A("")
     A("配置说明：dual = 生产口径双通道（图谱+文本，AND 优先/OR 兜底）；text-only = "
-      "关闭图谱通道；text-only-and / text-only-or = 关键词纯 AND / 纯 OR（专项用）。"
+      "关闭图谱通道；text-only-and / text-only-or = 关键词纯 AND / 纯 OR（专项用）；"
+      "vector = 纯向量通道（Chroma HNSW + 余弦）；hybrid = 关键词+向量融合"
+      "（策略由 TEXT_HYBRID_STRATEGY 决定：weighted 线性加权 / rrf 倒数排名 / fallback）。"
       "variant：'-' 为默认变体；filter_loss 套件额外跑 filters-on（带事件类型筛选）与 "
       "filters-off（不筛选）两种变体做损耗对比。")
 
@@ -277,9 +279,18 @@ def build_report(run: dict, scores_path: Optional[Path] = None,
 
 
 # ---- 记录选取辅助 ----
+# 报告中的配置顺序：已知配置按固定序排前，**未知配置按 meta 记录顺序补在后面**。
+# 不要用白名单过滤——RAGv5 新增 vector/hybrid 时就出现过"跑了 112 条但报告只列 2 个配置"
+# 的静默丢弃（配置白名单把新配置过滤掉了）。
+_PREFERRED_CFG_ORDER = ("dual", "text-only", "text-only-and", "text-only-or",
+                        "vector", "hybrid")
+
+
 def _cfg_order(meta) -> list[str]:
-    order = meta.get("configs") or []
-    return [c for c in order if c in ("dual", "text-only", "text-only-and", "text-only-or")]
+    order = list(meta.get("configs") or [])
+    known = [c for c in _PREFERRED_CFG_ORDER if c in order]
+    rest = [c for c in order if c not in _PREFERRED_CFG_ORDER]
+    return known + rest
 
 
 def _suite_cases(recs: list, suite: str, cfg: str) -> list[dict]:

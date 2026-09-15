@@ -34,11 +34,15 @@ class AnswerGenerator:
         self.cache = AnswerCache(cache_dir, ttl=settings.cache_ttl_seconds)
         self.llm = LLMClient(settings)
         self._data_version = source_version
+        # 最近一次生成的 token 用量（含 reasoning_tokens）；供评测/日志归因，不进 SSE 契约
+        self.last_usage: Optional[dict] = None
+        # 最近一次生成是否因 max_tokens 被截断（finish_reason=length）；示例题筛选用
+        self.last_truncated: bool = False
 
     def check_cache(self, rewritten: str, history: list | None,
                     filters: dict | None):
         key = cache_key(rewritten, history, filters, self._data_version,
-                        self.settings.llm_model)
+                        self.settings.llm_model, self.settings.text_mode)
         return self.cache.get(key), key
 
     # ---- 主流程：返回 (finish_reason, model_used, full_answer) ----
@@ -46,8 +50,13 @@ class AnswerGenerator:
                        evidence: list[Evidence],
                        history: list | None = None,
                        filters: dict | None = None,
-                       on_delta=None) -> tuple[str, str, str]:
-        """执行生成。on_delta(text) 收到回答增量（SSE answer 事件用）。"""
+                       on_delta=None,
+                       on_thinking=None) -> tuple[str, str, str]:
+        """执行生成。on_delta(text) 收到回答增量（SSE answer 事件用）；
+        on_thinking(text) 收到推理增量（SSE thinking 事件用；仅官方 endpoint 会流式输出思考内容）。
+        """
+        self.last_usage = None
+        self.last_truncated = False
         # 拒答硬规则：无证据
         if not evidence:
             reason = refusal_mod.refusal_reply(question)
@@ -66,9 +75,23 @@ class AnswerGenerator:
             question, rewritten, evidence, history=history)
 
         if self.llm.available:
-            resp = await self.llm.stream_chat(messages, on_delta or (lambda _: None))
+            resp = await self.llm.stream_chat(
+                messages, on_delta or (lambda _: None),
+                on_thinking=on_thinking,
+                max_tokens=self.settings.llm_max_tokens,
+            )
+            self.last_usage = resp.usage
+            self.last_truncated = (resp.api_finish_reason == "length")
             if resp.error:
                 # LLM 调用失败 → 降级启发式回答器
+                text = self._heuristic_answer(question, evidence)
+                if on_delta:
+                    on_delta(text)
+                return FinishReason.DEGRADED.value, "heuristic-offline", text
+            if not (resp.text or "").strip():
+                # 推理模型把 max_tokens 全花在 reasoning 上会导致**正文为空**（v5 实测：
+                # 28 题里有 2 题如此，而 finish_reason 仍是 length 不是 error）。
+                # 空回答对演示是致命的 → 一律降级到离线摘要回答器兜底（degraded 不入缓存）。
                 text = self._heuristic_answer(question, evidence)
                 if on_delta:
                     on_delta(text)
