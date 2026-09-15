@@ -4,8 +4,14 @@
 !.env.example
 
 # ---- 离线数据产物（不进 Git；路径相对本 .gitignore 所在 RAG/ 目录）----
-data/snapshot/
-data/index/
+# snapshot/ 与 index/ 里同时放着 F09/F11 的源码（含 RAGv5 的向量构建），
+# 故不整目录忽略，改为"忽略产物、保留源码与说明"（避免源码从未入库）。
+data/snapshot/*
+!data/snapshot/*.py
+!data/snapshot/README.md
+data/index/*
+!data/index/*.py
+!data/index/README.md
 data/raw/
 data/cache/
 logs/
