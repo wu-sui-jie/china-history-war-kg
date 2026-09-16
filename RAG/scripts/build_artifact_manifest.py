@@ -27,7 +27,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import get_settings  # noqa: E402
-from lib.release_info import repo_root  # noqa: E402
+from lib.release_info import (  # noqa: E402
+    RELEASE_IGNORE_PREFIXES,
+    git_status_lines,
+    repo_root,
+)
 
 # 运行时真正要读的东西；不含 logs/、cache/、runs/（评测痕迹，不参与服务）
 SNAPSHOT_FILES = ("*.json",)
@@ -221,8 +225,6 @@ def cmd_build(args) -> int:
         print("未指定版本且 RAG_ACTIVE_VERSION 为空：请用 --version 指定")
         return 2
     root = repo_root()
-    from lib.release_info import RELEASE_IGNORE_PREFIXES, git_status_lines
-
     dirty_lines = git_status_lines(root) or []
     if args.require_clean and dirty_lines:
         print("工作区存在未提交改动（已按约定排除 " + ", ".join(RELEASE_IGNORE_PREFIXES) + "）："
