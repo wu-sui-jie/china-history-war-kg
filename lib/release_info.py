@@ -80,13 +80,14 @@ def git_commit(root: Path) -> str:
         return ""
 
 
-def git_dirty(root: Path) -> Optional[bool]:
-    """工作区是否有未提交改动；非仓库或 git 不可用返回 None。
+# 明确排除在发布范围外的工作目录（2026-09-16 工作单要求 RAG/new/ 不修改、不提交）。
+# 它未跟踪是"约定内"的状态，不应让发布门禁永远判脏。
+RELEASE_IGNORE_PREFIXES = ("new/",)
 
-    为什么要它（第四轮复核 P0-4）：`git_commit` 只报告 HEAD，脏工作区里运行的代码
-    可能和 HEAD 完全不同，验收证据无法反向定位到唯一源码。health 暴露该字段，
-    release 构建脚本据此拒绝带未提交改动发布。
-    """
+
+def git_status_lines(root: Path, ignore_prefixes: tuple[str, ...] = RELEASE_IGNORE_PREFIXES
+                     ) -> Optional[list[str]]:
+    """`git status --porcelain` 的行（已过滤约定的排除目录）；失败返回 None。"""
     try:
         out = subprocess.run(
             ["git", "status", "--porcelain"],
@@ -94,9 +95,27 @@ def git_dirty(root: Path) -> Optional[bool]:
         )
         if out.returncode != 0:
             return None
-        return bool(out.stdout.strip())
+        lines = []
+        for raw in out.stdout.splitlines():
+            path = raw[3:].strip().strip('"')
+            if any(path.startswith(p) or f"/{p}" in path for p in ignore_prefixes):
+                continue
+            lines.append(raw)
+        return lines
     except Exception:  # noqa: BLE001
         return None
+
+
+def git_dirty(root: Path, ignore_prefixes: tuple[str, ...] = RELEASE_IGNORE_PREFIXES
+              ) -> Optional[bool]:
+    """工作区是否有未提交改动（不含约定的排除目录）；非仓库或 git 不可用返回 None。
+
+    为什么要它（第四轮复核 P0-4）：`git_commit` 只报告 HEAD，脏工作区里运行的代码
+    可能和 HEAD 完全不同，验收证据无法反向定位到唯一源码。health 暴露该字段，
+    release 构建脚本据此拒绝带未提交改动发布。
+    """
+    lines = git_status_lines(root, ignore_prefixes)
+    return None if lines is None else bool(lines)
 
 
 def config_fingerprint(settings: Any) -> str:
