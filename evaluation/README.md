@@ -52,7 +52,8 @@ python scripts/run_evaluation.py report --scores <scores.jsonl>
 
 1. 覆盖统计基于题库 `expected_entities` 标注词（可短于实体标准名）；拒答时"回答覆盖"
    一律记 0（拒答文案只是机械复述问句）。
-2. 评测驱动绕过回答缓存（缓存键不区分检索通道，跨配置共享缓存会污染对比结论）；
+2. 评测驱动绕过回答缓存（缓存键已含文本检索模式与数据/模型版本，见
+   `server/generate/cache.py`；跨配置共享缓存仍会污染对比结论，故评测一律绕过）；
    与生产链路的差异：绕过缓存 + 通道/取词/名额可配（`graph_top_k` 默认取
    `settings.query_top_k_graph`，与生产同源；`text_top_k`/`fusion_limit` 显式参数化）。
 3. 人工评分取值见 `grading.py`：答案 correct/partial/incorrect/unknown_answer；

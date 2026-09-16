@@ -7,7 +7,14 @@
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "typecheck": "vue-tsc -b",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:component": "vitest run tests/component",
+    "test:contract": "node scripts/e2e-check.mjs",
+    "test:e2e": "playwright test",
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "verify": "npm run typecheck && npm run test && npm run build && npm run check:bundle"
   },
   "dependencies": {
     "@vueuse/core": "^11.2.0",
@@ -17,11 +24,16 @@
     "vue": "^3.5.12"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.9.0",
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/test-utils": "^2.5.0",
+    "esbuild": "^0.21.5",
+    "jsdom": "^29.1.1",
     "typescript": "~5.6.3",
     "vite": "^5.4.10",
+    "vitest": "^2.1.9",
     "vue-tsc": "^2.1.8"
   }
 }

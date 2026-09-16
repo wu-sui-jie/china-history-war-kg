@@ -77,16 +77,56 @@ FALLBACK_LLM_BASE_URL = ""
 FALLBACK_LLM_API_KEY = ""
 FALLBACK_LLM_MODEL = ""
 
+# ---- 数据版本（2026-09-15 审核 P0-7）----
+# 活跃数据版本必须显式固定，否则进程重启时目录里出现更大版本号就会静默切换，
+# 灰度/回滚都不可控。留空 = 开发态取"最新一致版本"；生产请在 .env 配 RAG_ACTIVE_VERSION。
+ACTIVE_VERSION = ""
+
+# ---- 进程外/内资源边界（2026-09-15 审核 P0-2）----
+REQUEST_MAX_BYTES = 65536             # /api/query 请求体上限（字节）；超限 413
+QUESTION_MAX_CHARS = 500              # 单次提问字符数上限
+SESSION_ID_MAX_CHARS = 128            # 会话 id 字符数上限
+HISTORY_CONTENT_MAX_CHARS = 4000      # 单条历史消息字符数上限
+HISTORY_MAX_ITEMS = 40               # 历史的条数上限（角色消息总数）
+CORRECTIONS_MAX_ITEMS = 20            # corrected_entities 条数上限
+FILTERS_MAX_ITEMS = 20                # 单个筛选维度的取值个数上限
+FILTER_VALUE_MAX_CHARS = 64           # 单个筛选值字符数上限
+
 # ---- 演示 / 限流 / 缓存（在线链路）----
 # 说明：无 DEMO_MODE 开关——示例区恒显示（F08）
 RATE_LIMIT_PER_MINUTE = 30            # 无登录公开接口的基础限流
+RATE_LIMIT_MAX_KEYS = 4096            # 限流 key 表容量上限（防伪造来源刷爆内存）
+# 是否信任 X-Forwarded-For：默认**不信任**（直连安全）。部署在反向代理后才开启，
+# 并配合 RATE_LIMIT_TRUSTED_PROXIES 限定可信代理，否则任何人可伪造首段 IP 绕过限流。
+RATE_LIMIT_TRUST_FORWARDED_FOR = False
+RATE_LIMIT_TRUSTED_PROXIES = ""       # 逗号分隔的代理 IP；空 = 信任任意直连方（仅当上面的开关为真）
 CACHE_TTL_SECONDS = 3600              # 回答缓存有效期
+CACHE_MAX_ENTRIES = 2048              # 进程内回答缓存条目上限（超出按最旧淘汰）
 HISTORY_MAX_TURNS = 4                 # 携带会话历史的最大轮数
 QUERY_TOP_K_GRAPH = 40                # F03 图谱证据上限
 QUERY_TOP_K_TEXT = 30                 # F04 文本证据上限（融合后再裁剪）
 # 送入 F06 的融合证据条数上限（18 = v4 口径）。实测：18 条 → prompt 约 4,300 token →
 # 推理模型更易把 max_tokens 吃满而截断、首正文更慢；演示可按需下调（见 RAGv5 开发说明 §四.11）
 QUERY_FUSION_LIMIT = 18
+
+# ---- 在线链路安全与稳定性（2026-09-15 审核 P0-3 / P1-8）----
+# 是否把模型原始 reasoning 增量推给公共 SSE。默认关闭：
+# 推理内容可能包含中间判断与上下文复述，属于模型内部过程，不应直接暴露给调用方
+# （见 docs/features/06-grounded-answer.md 的过滤要求）。开启仅用于本地调试。
+EXPOSE_THINKING = False
+# SSE 连接保活与整体上限：心跳让反代/浏览器知道连接还活着；deadline 防止挂死连接占资源。
+SSE_HEARTBEAT_SECONDS = 15
+SSE_MAX_DURATION_SECONDS = 300
+# CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
+CORS_ALLOW_ORIGINS = "*"
+
+# ---- 同步工作线程池（2026-09-15 第四轮复核 P1-5）----
+# F02/F03/F04 的同步调用（embedding/Chroma/SQLite/图谱）走这个独立线程池。
+# max_workers 限制并发；max_queue 限制排队，超出以 server_busy 拒绝，避免断连请求无限堆积。
+SYNC_POOL_MAX_WORKERS = 8
+SYNC_POOL_MAX_QUEUE = 32
+# 收尾余量：外部调用预算 + 余量必须严格小于 SSE_MAX_DURATION_SECONDS（工作单 P1-5）
+SHUTDOWN_MARGIN_SECONDS = 15
 
 # ---- 版本号 ----
 # 示例 "20260903_v1"。export/build 未显式给版本时取当天日期生成 v1。

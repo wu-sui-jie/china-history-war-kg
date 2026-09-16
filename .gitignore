@@ -19,6 +19,10 @@ logs/
 data/eval/*/runs/
 # 人工审核工作表放在 data/eval/<v>/review/（需在编辑器可见，故不忽略）
 
+# ---- 发布证据（由脚本生成，含本机绝对路径，可从 data/ 重建）----
+# 生成命令：build_lineage.py → audit_chroma_segments.py → build_artifact_manifest.py
+data/release/
+
 # ---- 运行时 / 测试产物 ----
 __pycache__/
 *.py[cod]

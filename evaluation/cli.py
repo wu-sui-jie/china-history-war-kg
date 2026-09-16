@@ -289,7 +289,9 @@ def _case_of(q, config: str, variant: str, filters) -> dict:
 def _cmd_suffix(args, bank_path) -> str:
     parts = [f" --bank {bank_path}"]
     if args.suites:
-        parts.append(f" --suites {','.join(args.suites)}")
+        # args.suites 是原始字符串：必须先按逗号拆分再回填，
+        # 否则 `--suites main` 会被记录成 `--suites m,a,i,n`（meta.command 里的历史 bug）
+        parts.append(f" --suites {','.join(_split_suites(args.suites))}")
     return "".join(parts)
 
 

@@ -16,8 +16,8 @@
    - 实测第二次同问时事件序列为：
      `session_start -> status -> entities -> status(cache_hit) -> answer -> citations -> done`，
      **没有 `panel`**；
-   - 与 [RAGv2-在线问答链路.md](../../RAG_v1/RAGv2-在线问答链路.md) 第 61/103 行、
-     [F06](../../features/06-grounded-answer.md) 中“缓存命中含 panel”的声明不符，
+   - 与 [RAGv2-在线问答链路.md](../RAG_v1/RAGv2-在线问答链路.md) 第 61/103 行、
+     [F06](../features/06-grounded-answer.md) 中“缓存命中含 panel”的声明不符，
      也与 RAGv3 的 F07“面板不空白”验收冲突。
 
 2. **filters 未传给文本检索，且 event_type 过滤目前是 no-op**
@@ -28,7 +28,7 @@
      事件卡片片段也无法按战争类型过滤；
    - 实测带 `Filters(dynasty=["三国"], event_type=["统一战争"])` 请求时，
      文本检索收到 `filters=None`；
-   - 与 [RAGv3-规划分析.md](../../RAG_v1/RAGv3-规划分析.md) 第 119 行
+   - 与 [RAGv3-规划分析.md](../RAG_v1/RAGv3-规划分析.md) 第 119 行
      “图谱+文本都过滤，后端已支持”的声明不符。
 
 3. **`history_max_turns` 配置项是死参数**

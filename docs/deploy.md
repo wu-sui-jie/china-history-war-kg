@@ -118,7 +118,7 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 | 场景 | 预期 | 说明 |
 | --- | --- | --- |
 | 点击已预热的示例题 | 立即（<100 ms） | 命中回答缓存，界面直接回放答案 + 引用 + 面板 |
-| 现场临时提问（未缓存） | 首段文字 **2–14 秒**；整段生成耗时中位 **约 10 秒**、最长约 25 秒 | 推理模型先"思考"；期间前端显示"正在思考"（`thinking` 事件），不是卡死。数据来自 2×28 题的真实 LLM 评测 |
+| 现场临时提问（未缓存） | 首段文字 **2–14 秒**；整段生成耗时中位 **约 10 秒**、最长约 25 秒 | 推理模型先"思考"；期间前端显示"正在生成"状态条，不是卡死。默认**不**外发原始 reasoning（只报 `done.first_thinking_ms`），需要时才设 `EXPOSE_THINKING=true`。数据来自 2×28 题的真实 LLM 评测 |
 | 一次问答的总耗时 | 4–20 秒 | 与题目长度、证据数量、中转当时负载都有关，**同一题不同时刻也会波动** |
 | 检索通道 | hybrid（关键词 + 向量融合） | 面板里能看到图谱证据与文本证据两类 |
 | 断网/中转不可用 | 自动降级 | 回答由离线摘要回答器产出，`finish_reason=degraded`，页面仍可用 |
@@ -133,8 +133,8 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 | 回答被截断（日志 `LLM 输出触及 max_tokens`） | 调小 `QUERY_FUSION_LIMIT`（先试 8）或调大 `LLM_MAX_TOKENS` |
 | 首字很久（>15 s） | 中转负载波动或该题推理很长；换题目、或先跑一次让它进缓存 |
 | 缓存"不生效" | 缓存是进程内的：重启后首次必然全量；另外改变 `TEXT_MODE` 也会换缓存键 |
-| 限流误伤 | 按客户端 IP 计数（`X-Forwarded-For` 优先）；演示前确认出口 IP，必要时调 `RATE_LIMIT_PER_MINUTE` |
-| `chromadb` 导入失败 | 确认安装的是已锁定版本（本项目环境为 `chromadb 1.3.4`） |
+| 限流误伤 | 默认按**直连来源 IP** 计数，`X-Forwarded-For` 不参与（防伪造）；部署在反向代理后才设 `RATE_LIMIT_TRUST_FORWARDED_FOR=true` 并用 `RATE_LIMIT_TRUSTED_PROXIES` 限定可信代理。演示前确认出口 IP，必要时调 `RATE_LIMIT_PER_MINUTE` |
+| `chromadb` 导入失败 | 依赖只声明下界（`chromadb>=1.3`），本项目实测环境为 `chromadb 1.3.4`；如需可复现请自行生成锁文件（见 P2-6） |
 
 ## 九、数据来源与授权
 

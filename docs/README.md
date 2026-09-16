@@ -139,6 +139,12 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 > 2026-09-15 全项目审核（文档与代码一致性）的整改工作单与整改记录见
 > [20260915-全项目审核报告.md](20260915-全项目审核报告.md)，
 > 改动清单与理由见 [changes/20260915-full-audit-fix-summary.md](changes/20260915-full-audit-fix-summary.md)。
+>
+> 同日第四轮全项目复核（[20260915-RAG全项目复核分析与优化建议.md](20260915-RAG全项目复核分析与优化建议.md)，
+> 含第三轮工作单 [20260915-第三轮审核报告与整改方案.md](20260915-第三轮审核报告与整改方案.md)）的
+> 代码整改与验证证据见 [changes/20260915-round4-review-fix-summary.md](changes/20260915-round4-review-fix-summary.md)；
+> 复核（第四轮）发现的发布阻断与正确性问题的修复记录见
+> [changes/20260915-round4-review-fix-summary-2.md](changes/20260915-round4-review-fix-summary-2.md)。
 
 ## 文档维护约定
 

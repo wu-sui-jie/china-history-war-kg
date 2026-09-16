@@ -67,6 +67,9 @@ class DictionaryMatcher:
         # 预构建 name→实体 索引（由 factory 或直接传 entities）
         self.snapshot_dir = Path(snapshot_dir)
         self._by_name: dict[str, list[dict]] = {}
+        # entity_id → 实体：同名不同朝代的实体共享标准名，纠正链路必须能按 ID 精确定位
+        # （2026-09-16 工作单 P1-3：没有它就只能"按名字取第一项"）
+        self._by_id: dict[str, dict] = {}
         self._alias: dict[str, list[dict]] = {}
         self._entity_type_terms: dict[str, set[str]] = {
             "事件": set(), "人物": set(), "组织": set(), "地点": set(),
@@ -94,9 +97,18 @@ class DictionaryMatcher:
         self._dicts = index.get("dicts", {})
         self._dynasty_terms = set(self._dicts.get("dynasty_aliases") or {})
 
+    def by_id(self, entity_id: Optional[str]) -> Optional[dict]:
+        """按 entity_id 精确取实体；不存在返回 None。"""
+        if not entity_id:
+            return None
+        return self._by_id.get(entity_id)
+
     def _index_entities(self, ents: list[dict]) -> None:
         for e in ents:
             self._by_name.setdefault(e["name"], []).append(e)
+            eid = e.get("entity_id")
+            if eid and eid not in self._by_id:
+                self._by_id[eid] = e
             # 按类型建词集便于规则排除太泛的词
             self._entity_type_terms.setdefault(e["type"], set()).add(e["name"])
             for a in e.get("aliases") or []:

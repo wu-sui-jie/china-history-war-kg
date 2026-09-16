@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as echarts from 'echarts'
+import type { ECharts } from 'echarts/core'
 import { onBeforeUnmount, onMounted, ref, watch, type PropType } from 'vue'
 
 import PanelEmpty from '@/components/panel/PanelEmpty.vue'
@@ -11,8 +11,45 @@ const props = defineProps({
 
 const emit = defineEmits<{ (e: 'ask', question: string): void }>()
 const el = ref<HTMLDivElement | null>(null)
-let chart: echarts.ECharts | null = null
+let chart: ECharts | null = null
 let ro: ResizeObserver | null = null
+let echartsCore: typeof import('echarts/core') | null = null
+let disposed = false
+
+/** 懒加载 ECharts（P1-15）：整包按需引入，且只在真正要画图时才下载。 */
+async function ensureEcharts(): Promise<typeof import('echarts/core')> {
+  if (echartsCore) return echartsCore
+  const [core, charts, components, renderers] = await Promise.all([
+    import('echarts/core'),
+    import('echarts/charts'),
+    import('echarts/components'),
+    import('echarts/renderers'),
+  ])
+  core.use([charts.GraphChart, components.TooltipComponent, renderers.CanvasRenderer])
+  echartsCore = core
+  return core
+}
+
+// 动态 chunk 加载失败（离线/发布后文件名变化）要有可见降级与重试，
+// 不能变成未处理的 Promise rejection（第四轮复核 P2-8）。
+const loadError = ref('')
+const loading = ref(false)
+
+async function ensureEchartsSafe(): Promise<typeof import('echarts/core') | null> {
+  loading.value = true
+  try {
+    const core = await ensureEcharts()
+    loadError.value = ''
+    return core
+  } catch (err) {
+    loadError.value = navigator.onLine === false
+      ? '当前处于离线状态，图谱组件无法加载'
+      : `图谱组件加载失败：${String(err)}`
+    return null
+  } finally {
+    loading.value = false
+  }
+}
 
 function cleanName(name: string): string {
   return name.replace(/(之战|之变|之役|之围|大战|起义|战争|会战)$/, '')
@@ -24,9 +61,11 @@ function onChartClick(params: unknown): void {
   if (p?.dataType === 'node' && p.name) askNode(p.name)
 }
 
-function render(): void {
+async function render(): Promise<void> {
   if (!el.value) return
-  if (!chart) {
+  const echarts = await ensureEchartsSafe()
+  if (!echarts || disposed || !el.value) return
+  if (!chart || chart.isDisposed?.()) {
     chart = echarts.init(el.value)
     chart.on('click', onChartClick)
   }
@@ -75,21 +114,32 @@ function askNode(name: string): void {
 }
 
 onMounted(() => {
-  render()
+  void render()
   ro = new ResizeObserver(() => chart?.resize())
   if (el.value) ro.observe(el.value)
 })
 
-watch(() => props.graph, render, { deep: true })
+watch(() => props.graph, () => void render(), { deep: true })
 onBeforeUnmount(() => {
+  disposed = true
   ro?.disconnect()
+  ro = null
   chart?.dispose()
   chart = null
 })
 </script>
 
 <template>
-  <div v-if="props.graph.nodes.length" class="graph-wrap">
+  <div v-if="loadError" class="graph-wrap">
+    <PanelEmpty :text="loadError" />
+    <p class="graph-hint">
+      <button type="button" class="ghost-btn" @click="() => void render()">重试图谱加载</button>
+    </p>
+  </div>
+  <div v-else-if="loading && !props.graph.nodes.length" class="panel-loading" role="status">
+    正在加载图谱组件…
+  </div>
+  <div v-else-if="props.graph.nodes.length" class="graph-wrap">
     <div ref="el" class="subgraph-canvas" aria-label="知识图谱子图"></div>
     <p class="graph-hint">图中节点可拖动缩放查看；点击图中节点或下方实体可继续提问。</p>
     <div class="graph-followups">

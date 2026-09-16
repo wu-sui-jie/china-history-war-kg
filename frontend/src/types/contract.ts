@@ -10,8 +10,21 @@ export interface Filters {
   event_type: string[]
 }
 
+/** 一次实体纠正指令（与后端 contracts/request.py 的 CorrectedEntity 一一对应）。
+ *
+ * 源与目标必须是**两个**字段（2026-09-16 工作单 P1-3）：同名不同朝代的实体共享
+ * standard_name，一个含混的 entity_id 无法表达"把 A 换成 B"。
+ *
+ * | 动作 | 源实体 | 目标实体 | 其他 |
+ * | --- | --- | --- | --- |
+ * | add | — | `replacement_entity_id` 可选 | `name` + `entity_type` 必填 |
+ * | replace | `source_entity_id` 或 `original` | `replacement_entity_id` 或 `replacement` | — |
+ * | remove | `source_entity_id` 或 `original` | — | — |
+ */
 export interface CorrectedEntity {
   action: 'add' | 'replace' | 'remove'
+  source_entity_id?: string
+  replacement_entity_id?: string
   entity_type?: string
   name?: string
   original?: string
@@ -156,7 +169,7 @@ export type SSEEventType =
   | 'graph_results'
   | 'text_results'
   | 'fusion'
-  | 'thinking' // 保留枚举：后端当前不发射（见 data-contract），前端状态机不依赖
+  | 'thinking' // 仅在 EXPOSE_THINKING=true 时后端才外发原始推理，默认不发
   | 'answer'
   | 'citations'
   | 'panel'
@@ -168,6 +181,37 @@ export interface SSEEnvelope {
   session_id: string
   stage?: string
   data?: any
+}
+
+/** done 事件载荷（后端 FinishReason 枚举的前端镜像）。 */
+export interface DoneData {
+  finish_reason?: string
+  model_used?: string
+  cache_hit?: boolean
+  /** 首思考时延与推理增量条数：只报度量，不含推理内容 */
+  first_thinking_ms?: number | null
+  thinking_frames?: number
+  truncated?: boolean
+}
+
+/** 一轮问答的终态（与后端 FinishReason 对齐，另加前端侧派生态）。 */
+export type TurnStatus =
+  | 'connecting' // 已发出请求，尚未收到事件
+  | 'streaming' // 正在接收增量
+  | 'completed' // normal/未知但无错误
+  | 'refused' // 依据不足
+  | 'degraded' // 降级生成
+  | 'cancelled' // 用户取消
+  | 'failed' // 服务异常 / 网络错误 / 超时
+  | 'interrupted' // 流意外中断（EOF 无 done / 刷新后恢复）
+
+/** 可作为后续多轮上下文的历史终态。 */
+export const HISTORY_SAFE_STATUSES: TurnStatus[] = ['completed', 'refused', 'degraded']
+
+export interface ApiErrorBody {
+  status?: string
+  error_code?: string
+  message?: string
 }
 
 export interface DictEntry {

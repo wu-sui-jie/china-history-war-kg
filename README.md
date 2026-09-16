@@ -44,7 +44,12 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 | `server/` | 入口 | FastAPI app + SSE 编排 | `api.py`、`sse.py`、`runtime.py`（RAGv2 已实现）。 |
 | `frontend/` | F01/F07 | 在线：单页前端 | （RAGv3/RAGv5 已实现）问答页 + 知识面板（实体卡/图谱子图/时间线/地图/证据）+ F08 示例题（按类别分组、能力标签、一键提问）。 |
 | `evaluation/` | F10 | 离线：问答效果评测 | （RAGv4 已实现）题库管理、进程内复跑、指标/报告、人工评分模板。见 `evaluation/README.md`。 |
-| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归；RAGv5 已补向量融合与降级、SSE 切分往返、LLM 字段兼容、F02 兜底与同名朝代消歧、生成降级、向量接线与 CLI 参数、地图点位装配；2026-09-15 审核整改补 timeline 组内排序与模型自拒识别，共 154 个；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
+| `docs/current-status.md` | — | **当前状态唯一事实源** | 版本、测试数、demo 状态、依赖锁定、发布状态只在这一处维护，其他文档引用它 |
+| `tests/` | 全部 | 测试 | 单元/集成测试（RAGv4 已补 evaluation / keyword_mode / 跨进程确定性 / 朝代识别 / 证据 ID / F02 端到端回归；RAGv5 已补向量融合与降级、SSE 切分往返、LLM 字段兼容、F02 兜底与同名朝代消歧、生成降级、向量接线与 CLI 参数、地图点位装配；2026-09-15 审核整改补 timeline 组内排序与模型自拒识别；第四轮全项目复核整改再补
+在线链路守护用例（事件循环不阻塞、请求尺寸上限、断连取消回收、流式中断不重试、
+缓存淘汰、限流器有界、版本固定、`.env.example` 与配置一致性）；同日第四轮复核整改
+（发布阻断与正确性收口）补强制版本检查、严格 deadline、异步关闭、纠正语义、缓存键、
+限流 churn 等用例，共 **225 个**（Python）；前端另有 24 个 Node 用例（`cd frontend && npm test`）；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。
@@ -130,11 +135,14 @@ python scripts/run_pipeline.py
 
 # —— 在线问答链路（RAGv2）——
 # 启动 SSE 问答服务（无 LLM key 也能跑检索链，F06 走离线摘要回答器）
-python scripts/run_server.py --port 8000
+# --version 会把版本写进 RAG_ACTIVE_VERSION：数据版本被显式固定，不再按目录名猜最新
+python scripts/run_server.py --port 8000 --version 20260915_v1
 # 冒烟：curl -N -X POST http://127.0.0.1:8000/api/query \
 #   -H "Content-Type: application/json; charset=utf-8" \
 #   -d '{"session_id":"s1","question":"赤壁之战的主帅是谁？"}'
 # 健康检查：curl http://127.0.0.1:8000/api/health
+#   （返回 version/index_version/git_commit 与快照、索引 manifest 的 SHA-256）
+# 请求边界：体 64 KiB、问题 500 字、历史 40 条等；超限在调用模型前返回 4xx
 
 # —— 人工审核回填（RAGv2 F09 增强）——
 python scripts/apply_audit.py --decisions audit_decisions.json
@@ -149,7 +157,8 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 ```
 
 演示与部署的完整口径（环境变量、数据制品清单、从零构建、演示预期延迟、故障排查、授权边界）
-见 [docs/deploy.md](docs/deploy.md)。
+见 [docs/deploy.md](docs/deploy.md)。**当前版本、测试数、demo 与依赖锁定状态**见
+[docs/current-status.md](docs/current-status.md)（唯一事实源，不要在其他文档里复制这些数字）。
 
 详细命令、参数与产物说明见各层 README。运行环境：Python 3.11；离线链路依赖 jieba/numpy/pydantic，
 在线链路另需 fastapi/uvicorn/openai（见 requirements.txt）。本机建议使用

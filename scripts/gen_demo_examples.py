@@ -14,8 +14,14 @@
 输出：`data/eval/<v>/demo_examples.json`（入 Git、可人工复核），结构见 RAGv5-开发说明 §四.7。
 
 用法：
-  python scripts/gen_demo_examples.py --version 20260904_v2 --run run_20260913_postaudit
+  python scripts/gen_demo_examples.py --version 20260915_v1 --run v5_coords_v1
   python scripts/gen_demo_examples.py --measure --max-examples 12      # 实测后再定清单
+
+版本口径（2026-09-15 审核 P0-9）：
+- `--version` 缺省取 RAG_ACTIVE_VERSION / 最新一致版本，**不再硬编码**某个历史版本；
+- `--run` 缺省读该版本 `runs/latest.txt`，找不到就报错而不是回落到别的版本；
+- run 的 meta.json 若声明了 version，必须与目标版本一致（除非显式 --allow-run-version-mismatch），
+  否则"示例时延来自另一份数据"会被写进清单，展示出来就是误导。
 """
 
 from __future__ import annotations
@@ -177,8 +183,11 @@ def _pick_balanced(cands: list[dict], limit: int) -> list[dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="F08 演示示例题清单生成")
-    ap.add_argument("--version", default="20260904_v2", help="快照/题库版本")
-    ap.add_argument("--run", default="run_20260913_postaudit", help="评分与 trace 来源 run")
+    ap.add_argument("--version", default="",
+                    help="快照/题库版本（缺省取 RAG_ACTIVE_VERSION，未配置则取最新一致版本）")
+    ap.add_argument("--run", default="", help="评分与 trace 来源 run（缺省读该版本 runs/latest.txt）")
+    ap.add_argument("--allow-run-version-mismatch", action="store_true",
+                    help="允许 run 的 meta.version 与目标版本不一致（默认拒绝，避免元数据串版本）")
     ap.add_argument("--suites", default="main", help="允许的套件（逗号分隔，默认 main）")
     ap.add_argument("--max-examples", type=int, default=12, help="清单条数上限（默认 12）")
     ap.add_argument("--measure", action="store_true",
@@ -190,15 +199,49 @@ def main() -> int:
     args = ap.parse_args()
 
     settings = get_settings()
-    version = args.version
+    version = args.version or settings.active_version
+    if not version:
+        from lib.versions import list_versions
+
+        snaps = list_versions(settings.snapshot_dir)
+        if not snaps:
+            print(f"无可用快照: {settings.snapshot_dir}；请显式传 --version")
+            return 2
+        version = snaps[0]
+    run_id = args.run
+    runs_root = settings.data_dir / "eval" / version / "runs"
+    if not run_id:
+        latest = runs_root / "latest.txt"
+        if latest.exists():
+            run_id = latest.read_text(encoding="utf-8").strip()
+        if not run_id:
+            available = sorted(p.name for p in runs_root.iterdir()) if runs_root.is_dir() else []
+            print(f"未指定 --run，且 {runs_root}\\latest.txt 不存在；"
+                  f"可用 run: {available or '（无）'}")
+            return 2
+    print(f"目标版本 {version}（{'显式固定' if args.version else '按活跃版本/最新一致版本解析'}）"
+          f" | 来源 run {run_id}")
+
     bank_path = settings.data_dir / "eval" / version / "questions.jsonl"
-    run_dir = settings.data_dir / "eval" / version / "runs" / args.run
+    run_dir = runs_root / run_id
     if not bank_path.exists():
         print(f"题库不存在: {bank_path}")
         return 2
     if not run_dir.exists():
         print(f"run 目录不存在: {run_dir}（需要其中的 scores.jsonl 与 traces.jsonl）")
         return 2
+    run_meta_path = run_dir / "meta.json"
+    if run_meta_path.exists() and not args.allow_run_version_mismatch:
+        try:
+            run_meta = json.loads(run_meta_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            run_meta = {}
+        run_version = str(run_meta.get("version") or "")
+        if run_version and run_version != version:
+            print(f"run 的 meta.version={run_version} 与目标版本 {version} 不一致："
+                  f"示例的评分/时延来自另一份数据。"
+                  f"请换用该版本的 run，或显式加 --allow-run-version-mismatch 认可这一事实。")
+            return 3
 
     suites = {s.strip() for s in args.suites.split(",") if s.strip()}
     bank = _load_bank(bank_path)
@@ -260,13 +303,19 @@ def main() -> int:
         cands = [c for c in cands if c not in slow]
         measured_note = f"已实测（阈值 {args.max_first_answer_ms} ms）"
 
+    if not cands:
+        print("没有可用示例题（候选为空）：不写文件，避免把空清单当成正常结果上线")
+        return 4
     picked = _pick_balanced(cands, args.max_examples)
+    if not picked:
+        print("按类别轮转后仍无示例题：不写文件")
+        return 4
     out_path = Path(args.out) if args.out else \
         settings.data_dir / "eval" / version / "demo_examples.json"
     payload = {
         "version": version,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
-        "source_run": args.run,
+        "source_run": run_id,
         "filter": {
             "reviewed": True,
             "exclude_answer_correctness": ["incorrect"],

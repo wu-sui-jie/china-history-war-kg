@@ -26,6 +26,9 @@ class LLMResponse:
     usage: Optional[dict] = None
     # 服务端返回的 finish_reason（"length" = 触及 max_tokens 被截断，需告警）
     api_finish_reason: Optional[str] = None
+    # 已把部分正文推给调用方之后才失败：调用方**不得**再叠加重试/降级文本
+    # （2026-09-15 审核 P1-5：透明重试会把两次尝试的正文拼在一起，用户看到重复答案）。
+    partial: bool = False
 
 
 class LLMClient:
@@ -52,49 +55,122 @@ class LLMClient:
     def model_name(self) -> str:
         return self.settings.llm_model or ""
 
+    async def aclose(self) -> None:
+        """关闭底层 HTTP 客户端（lifespan 关闭时调用，避免连接池悬挂）。"""
+        for client in (self._primary, self._fallback):
+            if client is None:
+                continue
+            try:
+                await client.close()
+            except Exception:  # noqa: BLE001
+                pass
+        self._primary = None
+        self._fallback = None
+
     # ---- 流式 ----
     async def stream_chat(self, messages: list[dict],
                           on_delta, on_thinking=None,
-                          max_tokens: Optional[int] = None) -> LLMResponse:
+                          max_tokens: Optional[int] = None,
+                          stats_out: Optional[dict] = None) -> LLMResponse:
         """流式调用主模型，失败自动重试→降级备用。
 
         on_delta(delta_text) 收到正文增量；on_thinking(text) 收到推理增量（可为 None）。
         推理增量的字段名两端不同（中转 reasoning / 官方 reasoning_content），见 _reasoning_of。
+
+        重试边界（2026-09-15 审核 P1-5）：**只要已经向调用方推过正文增量，就不再重试、
+        不再切换备用模型**——已发送的文本无法撤回，第二次尝试只会把两段答案拼在一起。
+        此时以 partial=True 返回，由上层标记为"回答可能不完整"。
+
+        stats_out：可选的可变 dict，回填本次调用的 model/usage/truncated 等，
+        供并发场景取本次调用的准确统计（实例属性 last_usage 在多请求下会互相覆盖）。
         """
+        emitted = {"chars": 0}
+
+        def _counting_on_delta(text: str) -> None:
+            emitted["chars"] += len(text or "")
+            if on_delta:
+                on_delta(text)
+
         if not self.available and not self._fallback:
             return LLMResponse(error="llm_unavailable")
         # 主模型未配置但备用已配置：直接走备用，不为 None 主模型空转重试
         if self._primary is None:
+            collected: list[str] = []
             try:
-                return await self._stream_once(
+                resp = await self._stream_once(
                     self._fallback, self.settings.fallback_llm_model,
-                    messages, on_delta, degraded=True,
+                    messages, _counting_on_delta, degraded=True,
                     on_thinking=on_thinking, max_tokens=max_tokens,
+                    collected=collected,
                 )
             except Exception as e:  # noqa: BLE001
-                return LLMResponse(error=f"llm_error: {e}")
+                resp = LLMResponse(error=f"llm_error: {e}", text="".join(collected),
+                                   model_used=self.settings.fallback_llm_model,
+                                   partial=emitted["chars"] > 0)
+            self._fill_stats(stats_out, resp)
+            return resp
         last_err = None
         for attempt in range(max(1, self.settings.llm_max_retries + 1)):
+            collected = []
             try:
-                return await self._stream_once(self._primary, self.settings.llm_model,
-                                               messages, on_delta, degraded=False,
-                                               on_thinking=on_thinking,
-                                               max_tokens=max_tokens)
-            except Exception as e:
+                resp = await self._stream_once(
+                    self._primary, self.settings.llm_model,
+                    messages, _counting_on_delta, degraded=False,
+                    on_thinking=on_thinking, max_tokens=max_tokens,
+                    collected=collected,
+                )
+                self._fill_stats(stats_out, resp)
+                return resp
+            except Exception as e:  # noqa: BLE001
                 last_err = e
+                if emitted["chars"] > 0:
+                    # 正文已流出：重试会拼接重复答案，立即止损
+                    logging.getLogger("rag.llm").warning(
+                        "流式生成在已输出 %s 字符后失败，放弃重试/降级：%s",
+                        emitted["chars"], str(e)[:200],
+                    )
+                    resp = LLMResponse(error=f"llm_error: {e}",
+                                       text="".join(collected),
+                                       model_used=self.settings.llm_model,
+                                       partial=True)
+                    self._fill_stats(stats_out, resp)
+                    return resp
                 if self._fallback and attempt == self.settings.llm_max_retries:
-                    # 主模型耗尽 → 备用
+                    # 主模型耗尽 → 备用（仅当尚未输出任何正文）
                     try:
-                        return await self._stream_once(
+                        resp = await self._stream_once(
                             self._fallback, self.settings.fallback_llm_model,
-                            messages, on_delta, degraded=True,
+                            messages, _counting_on_delta, degraded=True,
                             on_thinking=on_thinking, max_tokens=max_tokens,
+                            collected=collected,
                         )
-                    except Exception as e2:
+                        self._fill_stats(stats_out, resp)
+                        return resp
+                    except Exception as e2:  # noqa: BLE001
                         last_err = e2
+                        if emitted["chars"] > 0:
+                            break
                 # 继续重试主模型
                 await asyncio.sleep(0.5 * (attempt + 1))
-        return LLMResponse(error=f"llm_error: {last_err}")
+        resp = LLMResponse(error=f"llm_error: {last_err}",
+                           text="".join(collected) if emitted["chars"] else "",
+                           partial=emitted["chars"] > 0)
+        self._fill_stats(stats_out, resp)
+        return resp
+
+    @staticmethod
+    def _fill_stats(stats_out: Optional[dict], resp: LLMResponse) -> None:
+        if stats_out is None:
+            return
+        stats_out.update({
+            "model_used": resp.model_used,
+            "usage": resp.usage,
+            "truncated": resp.api_finish_reason == "length",
+            "api_finish_reason": resp.api_finish_reason,
+            "degraded": resp.degraded,
+            "error": resp.error,
+            "partial": resp.partial,
+        })
 
     @staticmethod
     def _reasoning_of(delta) -> str:
@@ -117,8 +193,11 @@ class LLMClient:
     async def _stream_once(self, client, model: str, messages: list[dict],
                            on_delta, degraded: bool,
                            on_thinking=None,
-                           max_tokens: Optional[int] = None) -> LLMResponse:
-        collected: list[str] = []
+                           max_tokens: Optional[int] = None,
+                           collected: Optional[list] = None) -> LLMResponse:
+        # collected 由调用方传入：流中途抛错时上层还能拿到"已经流出去的那部分正文"
+        if collected is None:
+            collected = []
         usage: Optional[dict] = None
         api_finish_reason: Optional[str] = None
         kwargs: dict = {"model": model, "messages": messages, "stream": True}

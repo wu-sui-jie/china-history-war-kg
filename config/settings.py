@@ -10,6 +10,7 @@ from typing import List
 from dotenv import load_dotenv
 
 from config import defaults
+from lib.versions import is_valid_version
 
 # 从仓库根 / RAG 根加载 .env（若存在）。keys=True 表示不覆盖已有环境变量。
 load_dotenv(defaults.RAG_ROOT / ".env", override=False)
@@ -106,6 +107,41 @@ class Settings:
     # 送入 F06 的融合证据条数上限（18 = v4 口径；调小可压制推理长度/截断与首延迟）
     query_fusion_limit: int = 18
 
+    # ---- 数据版本固定（2026-09-15 审核 P0-7）----
+    # 显式活跃版本；空字符串 = 开发态"最新一致版本"。生产必须显式设置，
+    # 否则目录里出现更大版本号时重启会静默切换数据，无法灰度/回滚。
+    active_version: str = ""
+    require_active_version: bool = False
+
+    # ---- 请求尺寸/长度边界（2026-09-15 审核 P0-2）----
+    request_max_bytes: int = 65536
+    question_max_chars: int = 500
+    session_id_max_chars: int = 128
+    history_content_max_chars: int = 4000
+    history_max_items: int = 40
+    corrections_max_items: int = 20
+    filters_max_items: int = 20
+    filter_value_max_chars: int = 64
+
+    # ---- 限流与缓存容量（2026-09-15 审核 P1-3 / P1-4）----
+    rate_limit_max_keys: int = 4096
+    rate_limit_trust_forwarded_for: bool = False
+    rate_limit_trusted_proxies: List[str] = field(default_factory=list)
+    cache_max_entries: int = 2048
+
+    # ---- 流式安全与保活（2026-09-15 审核 P0-3 / P1-8）----
+    expose_thinking: bool = False
+    sse_heartbeat_seconds: float = 15.0
+    sse_max_duration_seconds: float = 300.0
+    cors_allow_origins: List[str] = field(default_factory=lambda: ["*"])
+
+    # ---- 同步工作线程池（2026-09-15 第四轮复核 P1-5）----
+    sync_pool_max_workers: int = 8
+    sync_pool_max_queue: int = 32
+    # 收尾余量：外部调用预算 + 余量 必须严格小于 SSE 总上限，
+    # 否则会出现"外部调用还没返回、服务端已经按 deadline 收流"的现象（2026-09-16 工作单 P1-5）
+    shutdown_margin_seconds: int = 15
+
     @property
     def default_snapshot_name(self) -> str:
         """生成默认快照子目录名：YYYYMMDD_v1。"""
@@ -113,9 +149,156 @@ class Settings:
 
         return datetime.datetime.now().strftime(defaults.VERSION_DATE_FORMAT) + "_v1"
 
+    def validate(self) -> None:
+        """启动期配置校验：非法值直接抛错，避免"启动成功但行为异常"。
+
+        覆盖三类历史坑（2026-09-15 审核 P1-6）：
+        - 负值/零值（限流 0 会把所有请求判为超限、top_k 0 会静默返回空证据）；
+        - 未知枚举（TEXT_MODE 拼错会静默走 keyword，用户以为在用 hybrid）；
+        - 尺寸边界越界（过小会误伤正常请求，过大等于没有保护）。
+        """
+        problems: list[str] = []
+
+        def _positive(name: str, value) -> None:
+            if value is None or value <= 0:
+                problems.append(f"{name} 必须为正数，当前 {value!r}")
+
+        text_mode = (self.text_mode or "").strip().lower()
+        if text_mode not in ("keyword", "vector", "hybrid"):
+            problems.append(f"TEXT_MODE 必须是 keyword/vector/hybrid，当前 {self.text_mode!r}")
+        strategy = (self.text_hybrid_strategy or "").strip().lower()
+        if strategy not in ("weighted", "rrf", "fallback"):
+            problems.append(
+                f"TEXT_HYBRID_STRATEGY 必须是 weighted/rrf/fallback，当前 {self.text_hybrid_strategy!r}"
+            )
+        if not 0.0 <= float(self.text_hybrid_keyword_weight) <= 1.0:
+            problems.append(
+                f"TEXT_HYBRID_KEYWORD_WEIGHT 必须在 0~1，当前 {self.text_hybrid_keyword_weight!r}"
+            )
+        if not 0.0 <= float(self.vector_refusal_min_score) <= 1.0:
+            problems.append(
+                f"VECTOR_REFUSAL_MIN_SCORE 必须在 0~1，当前 {self.vector_refusal_min_score!r}"
+            )
+
+        for name, value in (
+            ("RATE_LIMIT_PER_MINUTE", self.rate_limit_per_minute),
+            ("RATE_LIMIT_MAX_KEYS", self.rate_limit_max_keys),
+            ("CACHE_TTL_SECONDS", self.cache_ttl_seconds),
+            ("CACHE_MAX_ENTRIES", self.cache_max_entries),
+            ("HISTORY_MAX_TURNS", self.history_max_turns),
+            ("QUERY_TOP_K_GRAPH", self.query_top_k_graph),
+            ("QUERY_TOP_K_TEXT", self.query_top_k_text),
+            ("QUERY_FUSION_LIMIT", self.query_fusion_limit),
+            ("REQUEST_MAX_BYTES", self.request_max_bytes),
+            ("QUESTION_MAX_CHARS", self.question_max_chars),
+            ("SESSION_ID_MAX_CHARS", self.session_id_max_chars),
+            ("HISTORY_CONTENT_MAX_CHARS", self.history_content_max_chars),
+            ("HISTORY_MAX_ITEMS", self.history_max_items),
+            ("CORRECTIONS_MAX_ITEMS", self.corrections_max_items),
+            ("FILTERS_MAX_ITEMS", self.filters_max_items),
+            ("FILTER_VALUE_MAX_CHARS", self.filter_value_max_chars),
+            ("LLM_TIMEOUT_SECONDS", self.llm_timeout_seconds),
+            ("LLM_MAX_TOKENS", self.llm_max_tokens),
+        ):
+            _positive(name, value)
+
+        if self.llm_max_retries < 0:
+            problems.append(f"LLM_MAX_RETRIES 不能为负，当前 {self.llm_max_retries!r}")
+        if self.llm_entity_timeout_seconds <= 0:
+            problems.append(
+                f"LLM_ENTITY_TIMEOUT_SECONDS 必须为正数，当前 {self.llm_entity_timeout_seconds!r}"
+            )
+        if self.embedding_dim <= 0:
+            problems.append(f"EMBEDDING_DIM 必须为正数，当前 {self.embedding_dim!r}")
+        if self.embedding_timeout_seconds <= 0:
+            problems.append(
+                f"EMBEDDING_TIMEOUT_SECONDS 必须为正数，当前 {self.embedding_timeout_seconds!r}"
+            )
+        if self.sse_heartbeat_seconds < 0:
+            problems.append(
+                f"SSE_HEARTBEAT_SECONDS 不能为负，当前 {self.sse_heartbeat_seconds!r}"
+            )
+        if self.sse_max_duration_seconds <= 0:
+            problems.append(
+                f"SSE_MAX_DURATION_SECONDS 必须为正数，当前 {self.sse_max_duration_seconds!r}"
+            )
+        if self.chunk_max_chars <= 0 or self.chunk_overlap_chars < 0:
+            problems.append(
+                f"分块参数非法：CHUNK_MAX_CHARS={self.chunk_max_chars!r} "
+                f"CHUNK_OVERLAP_CHARS={self.chunk_overlap_chars!r}"
+            )
+        if self.chunk_overlap_chars >= self.chunk_max_chars:
+            problems.append(
+                f"CHUNK_OVERLAP_CHARS({self.chunk_overlap_chars}) 必须小于 "
+                f"CHUNK_MAX_CHARS({self.chunk_max_chars})"
+            )
+        if self.active_version and not is_valid_version(self.active_version):
+            problems.append(
+                f"RAG_ACTIVE_VERSION 必须形如 YYYYMMDD_vN，当前 {self.active_version!r}"
+            )
+
+        # 取值范围（第四轮复核 P1-7）：越界不再静默修正，直接给出变量名与合法区间
+        if not 1 <= self.embedding_batch_size <= MAX_EMBEDDING_BATCH:
+            problems.append(
+                f"EMBEDDING_BATCH_SIZE 必须在 1~{MAX_EMBEDDING_BATCH}"
+                f"（云端接口硬上限），当前 {self.embedding_batch_size!r}"
+            )
+        if not 1 <= self.query_fusion_limit <= 100:
+            problems.append(
+                f"QUERY_FUSION_LIMIT 必须在 1~100，当前 {self.query_fusion_limit!r}"
+            )
+        if not 0.0 <= self.text_hybrid_keyword_weight <= 1.0:  # noqa: SIM108
+            problems.append(
+                f"TEXT_HYBRID_KEYWORD_WEIGHT 必须在 0~1，当前 {self.text_hybrid_keyword_weight!r}"
+            )
+        if not 1 <= self.sync_pool_max_workers <= 64:
+            problems.append(
+                f"SYNC_POOL_MAX_WORKERS 必须在 1~64，当前 {self.sync_pool_max_workers!r}"
+            )
+        if not 0 <= self.sync_pool_max_queue <= 4096:
+            problems.append(
+                f"SYNC_POOL_MAX_QUEUE 必须在 0~4096，当前 {self.sync_pool_max_queue!r}"
+            )
+
+        # 外部调用超时预算必须**严格小于** SSE 总上限，并留出收尾余量（P1-5）：
+        # 单次 llm 超时 × (重试次数+1) 与 embedding 超时 × 3 次尝试，加上
+        # SHUTDOWN_MARGIN_SECONDS 之后仍要有富余，否则会出现"外部调用还没返回、
+        # 服务端已经按 deadline 收流"的现象，日志与用户看到的现象对不上。
+        # 注意用的是 >=：预算正好等于 deadline 也不允许（调度与序列化都要时间）。
+        margin = self.shutdown_margin_seconds
+        if margin < 0:
+            problems.append(f"SHUTDOWN_MARGIN_SECONDS 不能为负，当前 {margin!r}")
+        llm_budget = self.llm_timeout_seconds * (max(1, self.llm_max_retries + 1))
+        if llm_budget + margin >= self.sse_max_duration_seconds:
+            problems.append(
+                f"LLM 超时预算 {llm_budget}s（LLM_TIMEOUT_SECONDS={self.llm_timeout_seconds} × "
+                f"(LLM_MAX_RETRIES={self.llm_max_retries}+1)）+ 收尾余量 {margin}s "
+                f"必须严格小于 SSE_MAX_DURATION_SECONDS={self.sse_max_duration_seconds}s"
+            )
+        embedding_budget = self.embedding_timeout_seconds * 3
+        if embedding_budget + margin >= self.sse_max_duration_seconds:
+            problems.append(
+                f"embedding 超时预算 {embedding_budget}s（EMBEDDING_TIMEOUT_SECONDS="
+                f"{self.embedding_timeout_seconds} × 3 次尝试）+ 收尾余量 {margin}s "
+                f"必须严格小于 SSE_MAX_DURATION_SECONDS={self.sse_max_duration_seconds}s"
+            )
+
+        if problems:
+            raise ValueError("配置校验失败：\n- " + "\n- ".join(problems))
+
+
+def _active_version() -> str:
+    return (os.environ.get("RAG_ACTIVE_VERSION", defaults.ACTIVE_VERSION) or "").strip()
+
+
+def _csv_env(key: str, default: str = "") -> List[str]:
+    """逗号分隔环境变量 → 去除空白项后的列表。"""
+    raw = os.environ.get(key, default)
+    return [item.strip() for item in str(raw or "").split(",") if item.strip()]
+
 
 def get_settings() -> Settings:
-    return Settings(
+    settings = Settings(
         data_dir=_path_env("RAG_DATA_DIR", defaults.DATA_DIR),
         raw_dir=_path_env("RAG_RAW_DIR", defaults.RAW_DIR),
         snapshot_dir=_path_env("RAG_SNAPSHOT_DIR", defaults.SNAPSHOT_DIR),
@@ -180,10 +363,9 @@ def get_settings() -> Settings:
         embedding_api_key=os.environ.get("EMBEDDING_API_KEY", defaults.EMBEDDING_API_KEY),
         embedding_model=os.environ.get("EMBEDDING_MODEL", defaults.EMBEDDING_MODEL),
         embedding_dim=int(os.environ.get("EMBEDDING_DIM", defaults.EMBEDDING_DIM) or 0),
-        embedding_batch_size=max(1, min(
-            MAX_EMBEDDING_BATCH,
-            int(os.environ.get("EMBEDDING_BATCH_SIZE", defaults.EMBEDDING_BATCH_SIZE)),
-        )),
+        # 不再静默 clamp：原值进配置，由 validate() 给出变量名与合法区间（第四轮复核 P1-7）
+        embedding_batch_size=int(os.environ.get(
+            "EMBEDDING_BATCH_SIZE", defaults.EMBEDDING_BATCH_SIZE)),
         embedding_timeout_seconds=int(os.environ.get(
             "EMBEDDING_TIMEOUT_SECONDS", defaults.EMBEDDING_TIMEOUT_SECONDS)),
         chroma_collection=os.environ.get("CHROMA_COLLECTION", defaults.CHROMA_COLLECTION),
@@ -209,7 +391,52 @@ def get_settings() -> Settings:
         query_top_k_text=int(
             os.environ.get("QUERY_TOP_K_TEXT", defaults.QUERY_TOP_K_TEXT)
         ),
-        query_fusion_limit=max(4, int(
-            os.environ.get("QUERY_FUSION_LIMIT", defaults.QUERY_FUSION_LIMIT)
-        )),
+        query_fusion_limit=int(os.environ.get(
+            "QUERY_FUSION_LIMIT", defaults.QUERY_FUSION_LIMIT)),
+        active_version=_active_version(),
+        # 显式配了版本就默认要求它可用（写错版本名必须启动失败，而不是静默回退最新）；
+        # 想临时忽略用 RAG_REQUIRE_ACTIVE_VERSION=false。
+        require_active_version=_bool_env(
+            "RAG_REQUIRE_ACTIVE_VERSION", bool(_active_version())
+        ),
+        request_max_bytes=int(os.environ.get(
+            "REQUEST_MAX_BYTES", defaults.REQUEST_MAX_BYTES)),
+        question_max_chars=int(os.environ.get(
+            "QUESTION_MAX_CHARS", defaults.QUESTION_MAX_CHARS)),
+        session_id_max_chars=int(os.environ.get(
+            "SESSION_ID_MAX_CHARS", defaults.SESSION_ID_MAX_CHARS)),
+        history_content_max_chars=int(os.environ.get(
+            "HISTORY_CONTENT_MAX_CHARS", defaults.HISTORY_CONTENT_MAX_CHARS)),
+        history_max_items=int(os.environ.get(
+            "HISTORY_MAX_ITEMS", defaults.HISTORY_MAX_ITEMS)),
+        corrections_max_items=int(os.environ.get(
+            "CORRECTIONS_MAX_ITEMS", defaults.CORRECTIONS_MAX_ITEMS)),
+        filters_max_items=int(os.environ.get(
+            "FILTERS_MAX_ITEMS", defaults.FILTERS_MAX_ITEMS)),
+        filter_value_max_chars=int(os.environ.get(
+            "FILTER_VALUE_MAX_CHARS", defaults.FILTER_VALUE_MAX_CHARS)),
+        rate_limit_max_keys=int(os.environ.get(
+            "RATE_LIMIT_MAX_KEYS", defaults.RATE_LIMIT_MAX_KEYS)),
+        rate_limit_trust_forwarded_for=_bool_env(
+            "RATE_LIMIT_TRUST_FORWARDED_FOR", defaults.RATE_LIMIT_TRUST_FORWARDED_FOR
+        ),
+        rate_limit_trusted_proxies=_csv_env(
+            "RATE_LIMIT_TRUSTED_PROXIES", defaults.RATE_LIMIT_TRUSTED_PROXIES
+        ),
+        cache_max_entries=int(os.environ.get(
+            "CACHE_MAX_ENTRIES", defaults.CACHE_MAX_ENTRIES)),
+        expose_thinking=_bool_env("EXPOSE_THINKING", defaults.EXPOSE_THINKING),
+        sse_heartbeat_seconds=float(os.environ.get(
+            "SSE_HEARTBEAT_SECONDS", defaults.SSE_HEARTBEAT_SECONDS)),
+        sse_max_duration_seconds=float(os.environ.get(
+            "SSE_MAX_DURATION_SECONDS", defaults.SSE_MAX_DURATION_SECONDS)),
+        cors_allow_origins=_csv_env("CORS_ALLOW_ORIGINS", defaults.CORS_ALLOW_ORIGINS) or ["*"],
+        sync_pool_max_workers=int(os.environ.get(
+            "SYNC_POOL_MAX_WORKERS", defaults.SYNC_POOL_MAX_WORKERS)),
+        sync_pool_max_queue=int(os.environ.get(
+            "SYNC_POOL_MAX_QUEUE", defaults.SYNC_POOL_MAX_QUEUE)),
+        shutdown_margin_seconds=int(os.environ.get(
+            "SHUTDOWN_MARGIN_SECONDS", defaults.SHUTDOWN_MARGIN_SECONDS)),
     )
+    settings.validate()
+    return settings

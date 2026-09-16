@@ -45,9 +45,16 @@ onMounted(async () => {
   try {
     const data = await fetchDemoExamples()
     examples.value = data.examples ?? []
-    examplesNote.value = data.status === 'ok' && examples.value.length ? '' : '示例题暂不可用'
-  } catch {
-    examplesNote.value = '示例题加载失败，可直接在下方输入问题'
+    examplesNote.value =
+      data.status === 'ok' && examples.value.length
+        ? ''
+        : data.notes || '示例题暂不可用'
+  } catch (err) {
+    // 后端会返回可执行的原因（如"示例清单版本与运行时不一致"），直接透出比通用文案有用
+    examplesNote.value =
+      err instanceof Error && err.message
+        ? `示例题加载失败：${err.message}`
+        : '示例题加载失败，可直接在下方输入问题'
   }
 })
 
@@ -78,11 +85,8 @@ watch(
 )
 
 function openCitation(index: number): void {
-  window.dispatchEvent(
-    new CustomEvent('rag:citation', {
-      detail: { index, openPanel: true },
-    }),
-  )
+  // 走 store 而不是 window 事件：移动端面板未挂载时事件会丢，导致"点了引用没反应"
+  store.requestCitation(index)
 }
 
 function ask(question: string): void {

@@ -26,7 +26,8 @@ class _FakeLLM:
         self._error = error
         self._truncated = truncated
 
-    async def stream_chat(self, messages, on_delta, on_thinking=None, max_tokens=None):
+    async def stream_chat(self, messages, on_delta, on_thinking=None, max_tokens=None,
+                          stats_out=None):
         from server.generate.llm_client import LLMResponse
 
         if self._text:

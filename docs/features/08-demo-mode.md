@@ -42,7 +42,11 @@
 
 ## 已确认事项（RAGv5 §4.2）
 
-1. 示例问题固定为 **9 条**（实测筛出，`data/eval/20260915_v1/demo_examples.json`），
+1. 示例问题条数由实测确定（上一轮为 9 条，见 `data/eval/20260904_v2/demo_examples.json`），
    由 `scripts/gen_demo_examples.py` 从已审核题库生成、按时延与截断筛题。
+   **当前状态（2026-09-15 第四轮复核 P2-1）**：活跃版本 `20260915_v1` 的清单尚未重建，
+   `/api/demo/examples` 会做版本一致性校验并返回 503（宁可不显示，也不展示旧版本的实测时延）。
+   重建需要一次真实模型实测：
+   `python scripts/gen_demo_examples.py --version 20260915_v1 --run <真实模型 run> --measure`。
 2. **不做**独立的“评委模式”面板；示例区按类别分组 + 能力标签 + 实测时延展示。
 3. `demo_mode` 配置项已删除（示例区恒显示），不留死配置。

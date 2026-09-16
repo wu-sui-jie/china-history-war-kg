@@ -38,6 +38,17 @@ class EntityFallbackClient:
                 self._client = None
         self.available = self._client is not None
 
+    def close(self) -> None:
+        """关闭同步 HTTP 客户端（lifespan 关闭时调用）。"""
+        client, self._client = self._client, None
+        self.available = False
+        if client is None:
+            return
+        try:
+            client.close()
+        except Exception:  # noqa: BLE001
+            pass
+
     def extract(self, question: str) -> list[dict]:
         """返回 [{"name","type"}]；任何失败都返回空列表（不抛错）。
 

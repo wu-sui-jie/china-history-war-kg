@@ -1,8 +1,9 @@
 # RAG 数据契约
 
 - 文档类型：接口与数据契约
-- 状态：初稿
+- 状态：生效（实现与本文不一致时以本文为准反查代码，先改代码或先改契约二者必须同步）
 - 创建时间：2026-09-03
+- 最近核验：2026-09-15
 
 ## 文档目的
 
@@ -38,6 +39,25 @@
 2. question：前端必填，用户问题原文。
 3. question_type：由 F02 判定，前端不直接指定。
 4. history：前端携带当前会话近期历史，初版建议最多 2 到 4 轮。
+
+请求边界（2026-09-15 审核 P0-2）：以下上限由契约层强制，超限在调用检索/模型之前
+返回 HTTP 4xx（`{"status":"error","error_code":"invalid_request|payload_too_large",...}`），
+不会进入 SSE 流。默认值见 `config/defaults.py`，可用环境变量覆盖。
+
+| 字段 | 上限 | 环境变量 |
+| --- | --- | --- |
+| 请求体 | 64 KiB | `REQUEST_MAX_BYTES` |
+| `question` | 500 字符 | `QUESTION_MAX_CHARS` |
+| `session_id` | 128 字符 | `SESSION_ID_MAX_CHARS` |
+| `history` | 40 条 | `HISTORY_MAX_ITEMS` |
+| `history[].content` | 4000 字符 | `HISTORY_CONTENT_MAX_CHARS` |
+| `history[].role` | 仅 user / assistant | — |
+| `filters.*` | 每维 20 项、单项 64 字符 | `FILTERS_MAX_ITEMS` / `FILTER_VALUE_MAX_CHARS` |
+| `corrected_entities` | 20 条，action 仅 add/replace/remove | `CORRECTIONS_MAX_ITEMS` |
+
+数据版本（2026-09-15 审核 P0-7）：服务的数据版本优先取 `RAG_ACTIVE_VERSION`（显式固定，
+版本目录缺失即启动失败），未配置时才扫描"最新一致版本"。`GET /api/health` 返回
+`version`、`index_version`、`git_commit`、快照/索引 manifest 与向量 ids 的 SHA-256。
 5. corrected_entities：前端在用户手动纠正实体时填写；未纠正时不传。
 6. filters：前端可选，朝代和战争类型来自 F09 生成的词典。
 
@@ -352,9 +372,11 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 4. graph_results：图谱证据，SSE 中只携带 evidence，不重复携带展示用 subgraph。
 5. text_results：文本证据。
 6. fusion：融合结果摘要，可携带 conflicts。
-7. thinking：推理模型的思考增量（**RAGv5 起实际发射**：`data={"delta": "..."}`）。
-   仅在生成阶段、模型流式输出推理时发送，可能有多帧；对接方可直接忽略。
-   注意：中转 endpoint 的推理字段为 `reasoning`、官方为 `reasoning_content`，后端已同时兼容。
+7. thinking：推理模型的思考增量（`data={"delta": "..."}`）。
+   **默认不发射**（2026-09-15 审核 P0-3）：推理内容可能包含中间判断与上下文复述，
+   公共接口只通过 done 事件的 `first_thinking_ms` / `thinking_frames` 暴露“思考了多久、多少段”，
+   不含内容。本地调试设 `EXPOSE_THINKING=true` 后才会收到该事件，对接方可直接忽略。
+   开启后 reasoning 字段名两端不同（中转 `reasoning` / 官方 `reasoning_content`），后端同时兼容。
 8. answer：最终答案增量。
 9. citations：引用与证据对照，可携带 conflicts。
 10. panel：知识面板完整数据，F07 直接消费。
@@ -384,7 +406,7 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
    （**RAGv5 口径**：fusion 事件只携带融合后证据的**条数**，不携带完整证据数组；完整证据由后续
    citations（引用摘要）与 panel 事件承载，对接方不要在 fusion 事件里取 evidence 数组。
    2026-09-15 前的文档曾写为 `evidence: [...]`，以本节为准。）
-7. thinking：{delta: “推理增量片段”}（RAGv5 起实际发射；对接方可忽略）
+7. thinking：{delta: “推理增量片段”}（仅 EXPOSE_THINKING=true 时发射，默认不发；对接方可忽略）
 8. answer：{delta: “回答增量文本”}
 9. citations：{citations: [{index, evidence_id, kind, title, snippet}], conflicts: [...]}
 10. panel：使用“知识面板数据结构”中的 data。
@@ -399,23 +421,43 @@ done 事件的 finish_reason 枚举：
 1. normal：正常完成。
 2. refused：证据不足拒答（含硬规则拒答与模型自拒，见 F06 拒答判定规则第 4 条）。
 3. degraded：使用备用模型或离线摘要回答器完成，model_used 记录实际模型。
-4. cancelled：连接断开或请求取消。
+4. cancelled：用户主动取消（前端 abort）。
+5. failed：服务端内部异常收尾（error 事件之后必推 failed，不再复用 cancelled——
+   否则前端会把异常轮误判成正常结束并写进下一轮历史）。
+6. interrupted：正文已部分送达后中断（重试耗尽/网络中断），回答可能不完整；
+   **不得**作为下一轮问答的历史上下文。
 
-SSE 连接断开后服务端无法再向前端推送 done；cancelled 主要用于服务端日志和统计。若后端在连接仍存活时主动终止生成，也可以推送 finish_reason=cancelled。
+SSE 连接断开后服务端无法再向前端推送 done；此时前端把该轮收敛为 interrupted
+（EOF 无 done）。服务端在连接存活时主动终止生成，按原因推送 cancelled 或 failed。
+
+终态与历史（前端口径）：只有 normal / refused / degraded 可作为后续多轮的历史上下文；
+cancelled / failed / interrupted 一律排除。被实体纠正或重试取代的轮次由 `supersededBy`
+标记，同样不进入历史，历史使用纠正后的新回答。
 
 error_code 枚举：
 
 1. retrieval_empty：无检索结果。
 2. llm_timeout：大模型超时。
 3. llm_unavailable：大模型不可用且无可用备用模型。
-4. invalid_request：请求格式不合法。
-5. internal：内部错误。
+4. invalid_request：请求格式不合法（含字段长度/数量超限）。
+5. rate_limited：超过限流配额（HTTP 429）。
+6. payload_too_large：请求体超过 `REQUEST_MAX_BYTES`（HTTP 413）。
+7. internal：内部错误。
+
+非 SSE 的 4xx 返回 JSON：`{"status":"error","error_code":...,"message":...}`；
+进入 SSE 之后才发生的内部错误仍走 `error` + `done(finish_reason=failed)`。
 
 ## 流取消
 
 1. SSE 连接断开视为取消请求。
-2. 后端检测到连接断开时立即终止大模型生成，避免继续消耗 token。
+2. 后端在生成器 `finally` 中取消并 await 模型任务（`server/sse.py`），
+   API 层心跳包装器关闭时同样回收内层生成（`server/api.py`），避免继续消耗 token。
 3. 取消后如需纠正重查，前端重新建立连接并发送新请求。
+4. 保活与上限：空闲超过 `SSE_HEARTBEAT_SECONDS` 发送 `: ping` 注释行；
+   单次问答超过 `SSE_MAX_DURATION_SECONDS` 以 `error` + `done(failed)` 收流
+   （默认 15s / 300s）。
+5. 正文已开始输出后不再透明重试（`server/generate/llm_client.py`）：
+   失败以 `interrupted` 收敛并保留部分正文，避免两次尝试的文本被拼成重复答案。
 
 conflicts 示例：
 

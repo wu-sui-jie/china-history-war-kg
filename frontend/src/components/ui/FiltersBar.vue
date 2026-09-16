@@ -1,11 +1,44 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 import { useSessionStore } from '@/stores/session'
 
 const store = useSessionStore()
 const dynastyOpen = ref(false)
 const typeOpen = ref(false)
+
+// 两个弹层互斥 + 点击外部/Escape 关闭（2026-09-15 审核 P2）：
+// 旧实现两个弹层可同时打开，且只能再次点击触发按钮才关闭，桌面端会互相遮挡。
+watch(dynastyOpen, (open) => {
+  if (open) typeOpen.value = false
+})
+watch(typeOpen, (open) => {
+  if (open) dynastyOpen.value = false
+})
+
+function closeAll(): void {
+  dynastyOpen.value = false
+  typeOpen.value = false
+}
+
+function onDocumentClick(event: MouseEvent): void {
+  const target = event.target as HTMLElement | null
+  if (!target || target.closest('.filter-control')) return
+  closeAll()
+}
+
+function onKeydown(event: KeyboardEvent): void {
+  if (event.key === 'Escape') closeAll()
+}
+
+onMounted(() => {
+  document.addEventListener('click', onDocumentClick)
+  document.addEventListener('keydown', onKeydown)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', onDocumentClick)
+  document.removeEventListener('keydown', onKeydown)
+})
 
 const dynastyText = computed(() =>
   store.filters.dynasty.length ? `${store.filters.dynasty.length} 个朝代` : '全部朝代',
