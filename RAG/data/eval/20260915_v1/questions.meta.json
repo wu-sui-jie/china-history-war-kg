@@ -1,6 +1,9 @@
 {
-  "version": "20260904_v2",
+  "version": "20260915_v1",
+  "derived_from_version": "20260904_v2",
+  "source_questions_sha256": "2430f97f1b5168fd569a94d5dff23f0bfc28600d7695abeff6a223ff44a6a909",
   "annotation_version": "reviewed-2",
-  "generated_at": "2026-09-13T14:33:45",
-  "count": 39
+  "count": 39,
+  "generated_at": "2026-09-15T20:38:27",
+  "notes": "题库内容与 20260904_v2 逐字节一致（原样继承人工审核结果）；本文件把继承关系与内容哈希显式记录下来，避免用旧版本号冒充新版本。"
 }

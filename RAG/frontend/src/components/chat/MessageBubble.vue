@@ -35,10 +35,13 @@ const latestAssistantId = computed(() => {
   }
   return ''
 })
-// 仅最新一轮（正在流或刚结束的最新答复）可发起“纠正重查”；较早回答的实体 chips 仅供查看
+// 仅最新一轮（正在流或刚结束的最新答复）可发起“纠正重查”；较早回答的实体 chips 仅供查看。
+// 另外要求"有可纠正的内容"：失败/取消/中断且没有正文时只给"重试本轮"，
+// 不再显示实体纠正菜单与手工补实体输入框（否则空回答旁会多出一个无意义的输入行）。
 const actionable = computed(() => {
   const a = assistant.value
   if (!a) return false
+  if (!a.streaming && !a.answer) return false
   const activeId = store.activeMessage?.id
   return activeId ? activeId === a.id : a.id === latestAssistantId.value
 })
@@ -62,6 +65,35 @@ function closeOutside(event: MouseEvent): void {
 onMounted(() => document.addEventListener('click', closeOutside))
 onBeforeUnmount(() => document.removeEventListener('click', closeOutside))
 
+/** 与某个实体同 mention 的候选组。
+ *
+ * 纠正菜单只能列"这个 mention 的候选"：旧实现把所有候选组的选项汇总后混在一起，
+ * 会把别的 mention（甚至别的实体类型）的同名项塞进替换列表（2026-09-15 审核 P1-11）。
+ */
+function candidatesFor(entity: EntityInfo): EntityCandidate[] {
+  const names = new Set([entity.name, entity.standard_name || entity.name])
+  return (assistant.value?.candidates || []).filter((c) => names.has(c.mention))
+}
+
+/** 候选的稳定标识（第四轮复核 P1-3）。
+ *
+ * 同名不同朝代的候选项共享 standard_name：用它当 key/value 会出现重复 key，
+ * 且 select 永远回落到第一项，用户选了"西汉"却被替换成"战国"。
+ * 有 entity_id 时用 id；旧数据没有 id 时退回"标准名|朝代|类型"组合键。
+ */
+function optionKey(option: CandidateOption): string {
+  if (option.entity_id) return option.entity_id
+  return `${option.standard_name}|${option.dynasty || ''}|${option.entity_type || ''}`
+}
+
+/** 候选展示文案：同名时用朝代/类型区分，避免用户看到两个一模一样的选项。 */
+function optionLabel(option: CandidateOption): string {
+  const parts = [option.standard_name]
+  if (option.dynasty) parts.push(option.dynasty)
+  if (option.entity_type) parts.push(option.entity_type)
+  return parts.length > 1 ? `${parts[0]}（${parts.slice(1).join(' · ')}）` : parts[0]
+}
+
 /** 该实体可替换的标准候选（含自身，避免误删后无候选）。 */
 function entityOptions(entity: EntityInfo): CandidateOption[] {
   const current: CandidateOption = {
@@ -73,16 +105,17 @@ function entityOptions(entity: EntityInfo): CandidateOption[] {
     entity_type: entity.type,
   }
   const extra: CandidateOption[] = []
-  for (const cand of assistant.value?.candidates || []) {
+  for (const cand of candidatesFor(entity)) {
     for (const opt of cand.options) {
-      if (opt.standard_name === current.standard_name) continue
+      if (optionKey(opt) === optionKey(current)) continue
       extra.push({ ...opt })
     }
   }
   const seen = new Set<string>()
   return [current, ...extra].filter((o) => {
-    if (seen.has(o.standard_name)) return false
-    seen.add(o.standard_name)
+    const key = optionKey(o)
+    if (seen.has(key)) return false
+    seen.add(key)
     return true
   })
 }
@@ -98,7 +131,11 @@ function copyAnswer(): void {
 function replaceEntity(option: CandidateOption, entity: EntityInfo): void {
   const a = assistant.value
   if (!a || !actionable.value) return
-  if (option.standard_name === (entity.standard_name || entity.name)) return
+  // 同 ID（或都无 ID 时同名同朝代）视为"没有变化"，不发无效纠正
+  const sameId = option.entity_id && entity.entity_id
+    ? option.entity_id === entity.entity_id
+    : option.standard_name === (entity.standard_name || entity.name)
+  if (sameId) return
   store.correctEntity(a, { action: 'replace', option, entity })
   openMenus.clear()
 }
@@ -110,7 +147,10 @@ function removeEntity(entity: EntityInfo): void {
   openMenus.clear()
 }
 
-function chooseCandidate(candidate: EntityCandidate, option: CandidateOption): void {
+function chooseCandidateByKey(candidate: EntityCandidate, key: string): void {
+  if (!key) return
+  const option = candidate.options.find((o) => optionKey(o) === key)
+  if (!option) return
   const a = assistant.value
   if (!a || !actionable.value) return
   store.correctEntity(a, { action: 'add', option, candidate })
@@ -133,6 +173,40 @@ function openManual(): void {
   showAddPanel.value = !showAddPanel.value
   openMenus.clear()
 }
+
+/** 失败/中断/取消轮的重试入口：沿用原问题、原筛选与原纠正项（P1-20）。 */
+function retryTurn(): void {
+  const a = assistant.value
+  if (!a) return
+  store.retryTurn(a)
+}
+
+const canRetry = computed(() => {
+  const s = assistant.value?.turnStatus
+  return s === 'failed' || s === 'interrupted' || s === 'cancelled'
+})
+
+const statusText = computed(() => {
+  const a = assistant.value
+  if (!a) return ''
+  switch (a.turnStatus) {
+    case 'cancelled':
+      return '已取消'
+    case 'failed':
+      return '生成失败'
+    case 'interrupted':
+      return '连接中断 · 回答可能不完整'
+    case 'refused':
+      return '依据不足'
+    case 'degraded':
+      return '降级生成'
+    case 'connecting':
+    case 'streaming':
+      return '进行中'
+    default:
+      return a.truncated ? '已生成（触及长度上限）' : '已生成'
+  }
+})
 </script>
 
 <template>
@@ -178,6 +252,8 @@ function openManual(): void {
             "
             @click.stop="actionable && toggleMenu(e.standard_name || e.name)"
             @keydown.enter.stop="actionable && toggleMenu(e.standard_name || e.name)"
+            @keydown.space.prevent.stop="actionable && toggleMenu(e.standard_name || e.name)"
+            :aria-expanded="actionable ? openMenus.has(e.standard_name || e.name) : undefined"
           >
             <span class="entity-dot" :data-type="e.type"></span>
             {{ e.standard_name || e.name }}
@@ -193,13 +269,16 @@ function openManual(): void {
               <span class="entity-menu-title">纠正“{{ e.standard_name || e.name }}”</span>
               <button
                 v-for="o in entityOptions(e)"
-                :key="o.standard_name"
+                :key="optionKey(o)"
                 type="button"
-                :disabled="o.standard_name === (e.standard_name || e.name)"
+                :disabled="
+                  o.entity_id && e.entity_id
+                    ? o.entity_id === e.entity_id
+                    : o.standard_name === (e.standard_name || e.name)
+                "
                 @click="replaceEntity(o, e)"
               >
-                替换为 {{ o.standard_name
-                }}{{ o.dynasty ? '（' + o.dynasty + '）' : '' }}
+                替换为 {{ optionLabel(o) }}
               </button>
               <button type="button" class="danger" @click="removeEntity(e)">
                 移除该实体
@@ -216,22 +295,15 @@ function openManual(): void {
             <select
               class="candidate-select"
               :disabled="!actionable"
+              :aria-label="`“${cand.mention}”的同名候选（${cand.options.length} 项）`"
               :title="actionable ? '同名候选，点击选择替换' : '较早回答的候选，不可纠正'"
               @change="
-                ($event.target as HTMLSelectElement).value
-                  ? chooseCandidate(
-                      cand,
-                      cand.options.find(
-                        (o) =>
-                          o.standard_name === ($event.target as HTMLSelectElement).value,
-                      )!,
-                    )
-                  : null
+                chooseCandidateByKey(cand, ($event.target as HTMLSelectElement).value)
               "
             >
               <option value="">同名 {{ cand.options.length }} 项</option>
-              <option v-for="o in cand.options" :key="o.standard_name" :value="o.standard_name">
-                {{ o.standard_name }}（{{ o.dynasty || '朝代不详' }}）
+              <option v-for="o in cand.options" :key="optionKey(o)" :value="optionKey(o)">
+                {{ optionLabel(o) }}
               </option>
             </select>
           </span>
@@ -272,6 +344,9 @@ function openManual(): void {
           正在{{ stage }}
         </div>
         <div v-if="assistant.error" class="msg-error">{{ assistant.error }}</div>
+        <div v-if="assistant.partial && assistant.answer" class="msg-partial">
+          以上内容可能不完整（生成过程中断了）。
+        </div>
 
         <div v-if="assistant.answer" class="assistant-answer">
           <MarkdownContent
@@ -303,14 +378,10 @@ function openManual(): void {
           <button v-if="assistant.answer" type="button" class="ghost-btn" @click="copyAnswer">
             复制回答
           </button>
-          <span class="msg-meta">
-            <template v-if="assistant.cancelled">已取消</template>
-            <template v-else-if="assistant.error">异常中断</template>
-            <template v-else-if="assistant.finishReason === 'refused'">依据不足</template>
-            <template v-else-if="assistant.finishReason === 'degraded'">降级生成</template>
-            <template v-else-if="!assistant.finished">进行中</template>
-            <template v-else>已生成</template>
-          </span>
+          <button v-if="canRetry" type="button" class="ghost-btn" @click="retryTurn">
+            重试本轮
+          </button>
+          <span class="msg-meta">{{ statusText }}</span>
         </div>
       </template>
     </div>

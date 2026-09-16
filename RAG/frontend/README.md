@@ -53,10 +53,14 @@ frontend/
 
 ## 关键交互规则
 
-- 会话保存在 localStorage（`ragv3-session-v1`），刷新保留历史；清空会话新建 session_id。
+- 会话保存在 localStorage（`ragv5-session-v2`，带 `schemaVersion`；旧键 `ragv3-session-v1` 会自动迁移，
+  更高版本或损坏的数据隔离到 `ragv5-session-quarantine`），刷新保留历史与已收到的正文（中断轮恢复为
+  `interrupted`）；流式正文按 ~800ms 节流落盘；清空会话新建 session_id。
 - answer 增量整段累积后渲染，`[n]` 在正文统一转可点引用（跨 delta 不断）；点击定位证据。
-- 实体纠正/按实体重查：显式以某条 assistant 消息为源，取消进行中的流（如有）后按原问题
-  追加一轮“纠正重查”，不修改已结束历史；较早回答的实体 chips 只读展示。
+- 实体纠正/按实体重查：显式以某条 assistant 消息为源，走统一的 `beginTurn`（先取消并等待
+  前一条流，保证任何时刻只有一条活动流），按原问题追加一轮“纠正重查”；被取代的轮次标记
+  `supersededBy` 并退出多轮历史。纠正指令携带 `entity_id`，同名不同朝代的实体按 ID 精确匹配。
+- 只有 completed / refused / degraded 进入多轮历史；failed / cancelled / interrupted 一律排除。
 - 缓存命中与全量检索是两条 SSE 路径：命中路径无 graph/text/fusion 事件属设计行为。
 - 图谱子图画布节点可拖动缩放，追问入口在节点下方 chips（生成“介绍一下 XX”）。
 - 地点：有坐标时出地图（`MapView.vue`，echarts geo + 省级底图 `src/assets/china-map.json`，

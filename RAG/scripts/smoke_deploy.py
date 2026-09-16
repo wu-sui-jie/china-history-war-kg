@@ -255,6 +255,9 @@ def main() -> int:
         settings.log_dir / f"smoke_{time.strftime('%Y%m%d_%H%M%S')}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     report["finished_at"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    # 显式写入退出码：只看 JSON 的调用方（CI / 运维脚本）不必再靠"failures 是否为空"推断结果
+    report["exit_code"] = 1 if report["failures"] else 0
+    report["passed"] = not report["failures"]
     write_json(out_path, report)
 
     print(f"\n报告: {out_path}")

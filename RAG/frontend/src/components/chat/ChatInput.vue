@@ -39,7 +39,9 @@ function autoResize(): void {
 
 <template>
   <div class="chat-input-wrap">
+    <label class="sr-only" for="chat-question-input">输入历史战争相关问题</label>
     <textarea
+      id="chat-question-input"
       ref="inputEl"
       v-model="text"
       class="chat-input"

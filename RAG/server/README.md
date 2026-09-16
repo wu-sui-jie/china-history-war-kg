@@ -48,7 +48,8 @@ curl -N -X POST http://127.0.0.1:8000/api/query \
 ## 边界 / 不做什么
 
 - F02 LLM 兜底默认关闭（词典优先默认路径；`enable_llm` 开关预留）。
-- F04 向量模式待云端 embed 全量重建后启用（`vector_available=False` 自动关键词）。
+- F04 向量模式已接入（Chroma + 云端 embedding）；集合缺失/条数不一致/无密钥时
+  `vector_available=False` 自动降级关键词并在 `text_results.mode` 上报实际模式。
 - F06 无 key 时用离线摘要回答器（model_used=heuristic-offline），非规划定义 degraded。
 - 不包含前端页面（RAGv3）；不包含 F10 评测。
 - 实现细节与边界详见 [../docs/RAG_v1/RAGv2-在线问答链路.md](../docs/RAG_v1/RAGv2-在线问答链路.md)。
@@ -57,7 +58,7 @@ curl -N -X POST http://127.0.0.1:8000/api/query \
 
 - [x] F02 query 层
 - [x] F03 graph 层
-- [x] F04 text 层（关键词；向量待接入）
+- [x] F04 text 层（关键词 + 向量 + hybrid/rrf，向量不可用自动降级）
 - [x] F05 fusion 层
 - [x] F06 generate 层（无 key 离线回答器 + LLM 接入点）
 - [x] SSE 编排 + 限流 + 缓存

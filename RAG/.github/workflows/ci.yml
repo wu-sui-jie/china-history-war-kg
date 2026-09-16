@@ -1,0 +1,80 @@
+name: ci
+
+# 每次 push / PR 都跑：**不依赖 data/ 下的大制品**（快照与索引不入库）。
+# 需要完整数据的发布门禁在 release.yml，由 workflow_dispatch / tag 触发。
+on:
+  push:
+    branches: [main, ragv5-demo-deploy, round4-review-remediation]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 支持范围见 README：开发环境 3.11；3.9 用于确认代码不依赖新语法
+        python-version: ["3.9", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: 安装依赖（优先锁文件）
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements-dev.lock ]; then
+            pip install --require-hashes -r requirements-dev.lock
+          else
+            pip install -r requirements-dev.txt
+          fi
+      - name: 收集用例数（写入日志，供文档引用真实数字）
+        run: python -m pytest tests -q --collect-only | tail -3
+      - name: 全量测试
+        run: python -m pytest tests -q
+      - name: 守护用例（发布阻断 + 在线链路）
+        run: python -m pytest tests/test_release_guards.py tests/test_online_guards.py -q
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: 安装依赖
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+      - name: 类型检查
+        run: npm run typecheck
+      - name: 单元测试（SSE / 状态机 / 持久化）
+        run: npm run test:unit
+      - name: 组件测试（Vue Test Utils）
+        run: npm run test:component
+      - name: 构建
+        run: npm run build
+      - name: 首屏体积门禁（含"不预加载 ECharts/地图"）
+        run: npm run check:bundle
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 安装依赖
+        run: pip install -r requirements-dev.txt
+      - name: 文档链接 / current 口径 / .env.example 一致性
+        run: python scripts/check_docs.py --strict
+      - name: 密钥扫描
+        run: python scripts/check_secrets.py
+      - name: 空白与冲突标记检查
+        run: git diff --check

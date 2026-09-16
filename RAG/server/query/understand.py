@@ -326,36 +326,105 @@ class QuestionUnderstanding:
         return out
 
     # ---- 纠正应用 ----
+    def _resolve_by_name(self, standard_name: Optional[str]) -> tuple[Optional[str], Optional[str]]:
+        """按标准名查 (entity_id, type)。
+
+        **同名多候选时返回 (None, ...)**（工作单 P1-3 第 4 条）：旧实现取列表第一项，
+        等于用顺序猜测用户意图——同名不同朝代时必然出错。宁可让调用方走"无 ID"路径，
+        也不要静默改错实体。
+        """
+        if not standard_name:
+            return None, None
+        ents = self.matcher._by_name.get(standard_name) or []
+        if len(ents) == 1:
+            return ents[0].get("entity_id"), ents[0].get("type")
+        if len(ents) > 1:
+            # 多候选：只保留类型信息（相同类型时可用），ID 交给 ID 路径
+            types = {e.get("type") for e in ents if e.get("type")}
+            return None, (types.pop() if len(types) == 1 else None)
+        return None, None
+
     def _apply_corrections(self, entities: list[EntityRef],
                            candidates: list[EntityCandidate],
                            corrected: list[CorrectedEntity]):
+        """按指令顺序应用 add/replace/remove（工作单 P1-2 / P1-3）。
+
+        定位规则：
+        - 源实体（replace/remove）：`source_entity_id` 优先，缺失时按 `original` 名称匹配；
+        - 目标实体（add/replace）：`replacement_entity_id` 优先，缺失时按 `replacement`/`name`
+          名称匹配，且**同名多候选时不猜**（只取类型，ID 置空由调用方决定）。
+        """
         for c in corrected:
             act = c.action.value if hasattr(c.action, "value") else c.action
+            src_id = getattr(c, "source_entity_id", None)
+            dst_id = getattr(c, "replacement_entity_id", None)
+            # add 的兼容别名（契约层已把 add 的 entity_id 归一到 replacement_entity_id）
+            if act == "add" and not dst_id:
+                dst_id = getattr(c, "entity_id", None)
+
+            def _matches(e: EntityRef) -> bool:
+                if src_id:
+                    return e.entity_id == src_id
+                if c.original:
+                    return e.name == c.original or e.standard_name == c.original
+                return False
+
             if act == "remove":
-                entities = [e for e in entities
-                            if not (e.name == c.original or e.standard_name == c.original)]
+                entities = [e for e in entities if not _matches(e)]
             elif act == "replace":
-                entities = [
-                    EntityRef(name=e.name,
-                              type=c.entity_type or e.type,
-                              standard_name=c.replacement,
-                              confidence=e.confidence,
-                              dynasty=e.dynasty)
-                    if (e.name == c.original or e.standard_name == c.original) else e
-                    for e in entities
-                ]
-            elif act == "add":
-                # add 的 name = standard_name（契约规定前端回传标准名）
-                nm = c.name or c.replacement
-                if nm and not any(e.standard_name == nm for e in entities):
-                    # 尝试从词典补充 entity_id / 朝代
-                    eid, dtype = None, c.entity_type
-                    for ent in self.matcher._by_name.get(nm, []):
-                        eid = ent["entity_id"]
-                        dtype = dtype or ent["type"]
-                        break
-                    entities.append(EntityRef(
-                        name=nm, type=dtype, standard_name=nm,
-                        confidence="high", entity_id=eid,
+                replaced: list[EntityRef] = []
+                for e in entities:
+                    if not _matches(e):
+                        replaced.append(e)
+                        continue
+                    # 目标实体：优先用用户选中的 ID 去词典取真实信息
+                    target = self.matcher.by_id(dst_id) if dst_id else None
+                    if target is None:
+                        name_id, name_type = self._resolve_by_name(c.replacement)
+                        target = {"name": c.replacement, "entity_id": name_id,
+                                  "type": name_type, "dynasty": None} if c.replacement else None
+                    if target is None:
+                        # 没有目标信息（理论上契约层已拦住）：保持原实体不变，不做静默改名
+                        replaced.append(e)
+                        continue
+                    replaced.append(EntityRef(
+                        name=e.name,
+                        type=c.entity_type or target.get("type") or e.type,
+                        standard_name=target.get("name") or c.replacement,
+                        confidence=e.confidence,
+                        dynasty=target.get("dynasty") or e.dynasty,
+                        entity_id=target.get("entity_id"),
                     ))
+                # 去重（按 entity_id / 标准名）：把 A 替换成"列表里已经存在的 B"
+                # 语义上等于删掉 A，不能留下两条同 ID 实体让后续检索重复计数
+                seen: set = set()
+                deduped: list[EntityRef] = []
+                for e in replaced:
+                    key = e.entity_id or f"name:{e.standard_name or e.name}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    deduped.append(e)
+                entities = deduped
+            elif act == "add":
+                nm = c.name or c.replacement
+                if not nm:
+                    continue
+                target = self.matcher.by_id(dst_id) if dst_id else None
+                if target is None:
+                    name_id, name_type = self._resolve_by_name(nm)
+                    target = {"name": nm, "entity_id": name_id,
+                              "type": name_type, "dynasty": None}
+                if any(e.standard_name == target.get("name") and
+                       (not target.get("entity_id") or e.entity_id == target.get("entity_id"))
+                       for e in entities):
+                    continue
+                entities.append(EntityRef(
+                    name=target.get("name") or nm,
+                    type=c.entity_type or target.get("type"),
+                    standard_name=target.get("name") or nm,
+                    confidence="high",
+                    entity_id=target.get("entity_id"),
+                    dynasty=target.get("dynasty"),
+                ))
         return entities, candidates

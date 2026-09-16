@@ -29,11 +29,21 @@ from server.generate.llm_client import LLMClient
 _Emitter = object
 
 
+def _stamp(stats_out: Optional[dict], **fields) -> None:
+    """给统计 dict 打标（离线/拒答等非 LLM 终态也要有可归因的字段）。"""
+    if stats_out is not None:
+        stats_out.update(fields)
+
+
 class AnswerGenerator:
     def __init__(self, settings: Settings, cache_dir: Path, source_version: str):
         self.settings = settings
         self.source_version = source_version
-        self.cache = AnswerCache(cache_dir, ttl=settings.cache_ttl_seconds)
+        self.cache = AnswerCache(
+            cache_dir,
+            ttl=settings.cache_ttl_seconds,
+            max_entries=getattr(settings, "cache_max_entries", 2048),
+        )
         self.llm = LLMClient(settings)
         self._data_version = source_version
         # 最近一次生成的 token 用量（含 reasoning_tokens）；供评测/日志归因，不进 SSE 契约
@@ -42,9 +52,16 @@ class AnswerGenerator:
         self.last_truncated: bool = False
 
     def check_cache(self, rewritten: str, history: list | None,
-                    filters: dict | None):
+                    filters: dict | None,
+                    entities: list | None = None,
+                    corrections: list | None = None,
+                    dynasty_bias: list | None = None):
+        """查缓存。entities/corrections/dynasty_bias 必须与 generate 时同源，
+        否则"纠正前后"会共用同一条缓存（第四轮复核 P1-1）。"""
         key = cache_key(rewritten, history, filters, self._data_version,
-                        self.settings.llm_model, self.settings.text_mode)
+                        self.settings.llm_model, self.settings.text_mode,
+                        entities=entities, corrections=corrections,
+                        dynasty_bias=dynasty_bias)
         return self.cache.get(key), key
 
     # ---- 主流程：返回 (finish_reason, model_used, full_answer) ----
@@ -53,17 +70,24 @@ class AnswerGenerator:
                        history: list | None = None,
                        filters: dict | None = None,
                        on_delta=None,
-                       on_thinking=None) -> tuple[str, str, str]:
+                       on_thinking=None,
+                       stats_out: Optional[dict] = None) -> tuple[str, str, str]:
         """执行生成。on_delta(text) 收到回答增量（SSE answer 事件用）；
         on_thinking(text) 收到推理增量（SSE thinking 事件用；仅官方 endpoint 会流式输出思考内容）。
+
+        stats_out：可选可变 dict，回填**本次调用**的 usage/截断/降级信息；
+        实例属性 last_usage/last_truncated 仍是"最近一次"口径，多请求并发时只作参考。
         """
         self.last_usage = None
         self.last_truncated = False
+        if stats_out is not None:
+            stats_out.clear()
         # 拒答硬规则：无证据
         if not evidence:
             reason = refusal_mod.refusal_reply(question)
             if on_delta:
                 on_delta(reason)
+            _stamp(stats_out, offline=True, reason="no_evidence")
             return FinishReason.REFUSED.value, "", reason
 
         # 提示词泄露请求 → 固定回复（不调用模型）
@@ -71,6 +95,7 @@ class AnswerGenerator:
             fixed = prompts_mod.refusal_fixed_reply()
             if on_delta:
                 on_delta(fixed)
+            _stamp(stats_out, offline=True, reason="prompt_leak_guard")
             return FinishReason.NORMAL.value, "", fixed
 
         messages, _ = prompts_mod.build_messages(
@@ -81,11 +106,20 @@ class AnswerGenerator:
                 messages, on_delta or (lambda _: None),
                 on_thinking=on_thinking,
                 max_tokens=self.settings.llm_max_tokens,
+                stats_out=stats_out,
             )
             self.last_usage = resp.usage
             self.last_truncated = (resp.api_finish_reason == "length")
             if resp.error:
-                # LLM 调用失败 → 降级启发式回答器
+                if resp.partial:
+                    # 正文已流出一部分才失败：绝不叠加第二段（重试/降级的文本会和已发送的
+                    # 内容拼成重复答案）。以 interrupted 收敛，前端标记"回答可能不完整"。
+                    logging.getLogger("rag.generate").warning(
+                        "LLM 流中断且已输出 %s 字符，保留部分正文不再降级：%s",
+                        len(resp.text or ""), str(resp.error)[:200])
+                    return (FinishReason.INTERRUPTED.value,
+                            resp.model_used or "partial", resp.text or "")
+                # LLM 调用失败（尚未输出正文）→ 降级启发式回答器
                 # 2026-09-15 冒烟实践：此前降级原因不落日志，部署排障只能看到 degraded 结果，
                 # 分不清是网络/密钥/额度问题；补一条 warning（含错误摘要）。
                 logging.getLogger("rag.generate").warning(
@@ -93,6 +127,7 @@ class AnswerGenerator:
                 text = self._heuristic_answer(question, evidence)
                 if on_delta:
                     on_delta(text)
+                _stamp(stats_out, offline=True, reason="llm_error")
                 return FinishReason.DEGRADED.value, "heuristic-offline", text
             if not (resp.text or "").strip():
                 # 推理模型把 max_tokens 全花在 reasoning 上会导致**正文为空**（v5 实测：
@@ -101,6 +136,7 @@ class AnswerGenerator:
                 text = self._heuristic_answer(question, evidence)
                 if on_delta:
                     on_delta(text)
+                _stamp(stats_out, offline=True, reason="empty_completion")
                 return FinishReason.DEGRADED.value, "heuristic-offline", text
             # 模型自拒识别（2026-09-15 全项目审核 P0-1）：命中固定拒答句式且无引用编号
             # → 按拒答路径返回，前端据此显示"依据不足"。拒答语义优先于降级标记：
@@ -113,6 +149,7 @@ class AnswerGenerator:
         text = self._heuristic_answer(question, evidence)
         if on_delta:
             on_delta(text)
+        _stamp(stats_out, offline=True, reason="llm_unavailable")
         return FinishReason.NORMAL.value, "heuristic-offline", text
 
     # ---- 启发式离线回答器（无密钥演示/降级用）----

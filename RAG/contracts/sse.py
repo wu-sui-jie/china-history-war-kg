@@ -38,10 +38,21 @@ class StatusStage(str, Enum):
 
 
 class FinishReason(str, Enum):
+    """一轮生成的终态枚举（前后端共同事实源）。
+
+    取值语义（2026-09-15 审核 方案 B）：
+    - normal / refused / degraded：模型侧正常终态，回答可作为历史上下文；
+    - cancelled：用户主动取消；
+    - failed：服务端异常（不再复用 cancelled，否则前端会把异常轮当成正常结束）；
+    - interrupted：正文已部分送达后中断（回答可能不完整，不得进入下一轮历史）。
+    """
+
     NORMAL = "normal"
     REFUSED = "refused"
     DEGRADED = "degraded"
     CANCELLED = "cancelled"
+    FAILED = "failed"
+    INTERRUPTED = "interrupted"
 
 
 class ErrorCode(str, Enum):
@@ -49,6 +60,10 @@ class ErrorCode(str, Enum):
     LLM_TIMEOUT = "llm_timeout"
     LLM_UNAVAILABLE = "llm_unavailable"
     INVALID_REQUEST = "invalid_request"
+    RATE_LIMITED = "rate_limited"
+    PAYLOAD_TOO_LARGE = "payload_too_large"
+    TIMEOUT = "timeout"
+    SERVER_BUSY = "server_busy"
     INTERNAL = "internal"
 
 

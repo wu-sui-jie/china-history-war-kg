@@ -1,0 +1,157 @@
+name: release
+
+# 发布门禁（2026-09-16 工作单 P0-4 / P2-7）。
+#
+# 触发方式修好了原先的 bug：旧文件里 job 条件写了 `github.event_name == 'workflow_dispatch'`，
+# 但 workflow 根本没有声明 workflow_dispatch —— 条件恒为假，release-gate 永远不可能运行。
+on:
+  workflow_dispatch:
+    inputs:
+      data_artifact_url:
+        description: "数据制品（snapshot/index/eval 打包）的下载地址；留空则从 RELEASE_DATA_URL Secret 读"
+        required: false
+        default: ""
+      version:
+        description: "数据版本（如 20260915_v1）"
+        required: true
+        default: "20260915_v1"
+  push:
+    tags: ["v*"]
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    env:
+      RAG_ACTIVE_VERSION: ${{ github.event.inputs.version || '20260915_v1' }}
+      RAG_REQUIRE_ACTIVE_VERSION: "true"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 工作区必须干净（发布门禁的基础）
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::工作区存在未提交改动，禁止发布"; git status --short; exit 1
+          fi
+
+      - name: 恢复数据制品
+        env:
+          DATA_URL: ${{ github.event.inputs.data_artifact_url }}
+          DATA_URL_SECRET: ${{ secrets.RELEASE_DATA_URL }}
+        run: |
+          url="${DATA_URL:-$DATA_URL_SECRET}"
+          if [ -z "$url" ]; then
+            echo "::error::未提供数据制品地址：data/（snapshot、index、eval）约 200MB，不入 Git。
+          请在 workflow_dispatch 输入 data_artifact_url，或配置 RELEASE_DATA_URL Secret。"
+            exit 1
+          fi
+          mkdir -p .tmp && curl -fsSL "$url" -o .tmp/data.zip
+          python - <<'PY'
+import hashlib, pathlib, zipfile
+p = pathlib.Path(".tmp/data.zip")
+print("数据制品 sha256:", hashlib.sha256(p.read_bytes()).hexdigest())
+zipfile.ZipFile(p).extractall(".")
+print("解包完成")
+PY
+
+      - name: 安装依赖（锁文件优先）
+        run: |
+          pip install --upgrade pip
+          if [ -f requirements-dev.lock ]; then pip install --require-hashes -r requirements-dev.lock;
+          else pip install -r requirements-dev.txt; fi
+          cd frontend && (npm ci || npm install --no-audit --no-fund)
+
+      - name: 后端全量测试
+        run: python -m pytest tests -q
+
+      - name: 前端 verify（typecheck + unit + component + build + bundle）
+        working-directory: frontend
+        run: npm run verify
+
+      - name: Playwright 浏览器验收
+        working-directory: frontend
+        run: |
+          npx playwright install --with-deps chromium
+          (cd .. && python scripts/run_server.py --port 8125 --version "$RAG_ACTIVE_VERSION" > /tmp/server.log 2>&1 &)
+          for i in $(seq 1 60); do curl -sf http://127.0.0.1:8125/api/health >/dev/null && break; sleep 2; done
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 7
+
+      - name: 服务冒烟 + 契约端到端
+        run: |
+          (python scripts/run_server.py --port 8125 --version "$RAG_ACTIVE_VERSION" > /tmp/server2.log 2>&1 &)
+          for i in $(seq 1 60); do curl -sf http://127.0.0.1:8125/api/health >/dev/null && break; sleep 2; done
+          python scripts/smoke_deploy.py --base http://127.0.0.1:8125 --report logs/smoke_release.json || true
+          (cd frontend && npm run test:contract -- --base http://127.0.0.1:8125)
+
+      - name: demo 接口必须可用（P2-1 验收）
+        run: |
+          code=$(curl -s -o /tmp/demo.json -w "%{http_code}" http://127.0.0.1:8125/api/demo/examples)
+          cat /tmp/demo.json | head -c 400; echo
+          if [ "$code" != "200" ]; then
+            echo "::error::/api/demo/examples 返回 $code：demo 制品与运行时版本不一致"
+            exit 1
+          fi
+
+      - name: 生成血缘与制品清单
+        run: |
+          python scripts/build_lineage.py --version "$RAG_ACTIVE_VERSION"
+          python scripts/audit_chroma_segments.py --version "$RAG_ACTIVE_VERSION"
+          python scripts/build_artifact_manifest.py build --version "$RAG_ACTIVE_VERSION" --require-clean
+          python scripts/build_artifact_manifest.py verify
+
+      - name: 生成 SBOM（依赖清单，非完整 SPDX）
+        run: |
+          mkdir -p data/release
+          python - <<'PY'
+import json, pathlib, subprocess, sys
+try:
+    from importlib.metadata import distributions
+    pkgs = sorted({f"{d.metadata['Name']}=={d.version}" for d in distributions() if d.metadata.get('Name')})
+except Exception:
+    pkgs = []
+sbom = {
+    "spdxVersion": "SPDX-2.3",
+    "name": "china-war-rag",
+    "packages": [{"name": p.split("==")[0], "version": p.split("==")[-1]} for p in pkgs],
+}
+pathlib.Path("data/release/sbom.json").write_text(json.dumps(sbom, ensure_ascii=False, indent=2), encoding="utf-8")
+print(f"SBOM: {len(pkgs)} 个 Python 包")
+PY
+          python scripts/build_artifact_manifest.py build --version "$RAG_ACTIVE_VERSION" >/dev/null
+          python scripts/build_artifact_manifest.py verify
+
+      - name: 打包 release 产物
+        run: |
+          mkdir -p release
+          cp data/release/artifact-manifest.json data/release/SHA256SUMS data/release/lineage.json \
+             data/release/chroma-segment-audit.json release/ 2>/dev/null || true
+          cp requirements.txt requirements-dev.txt requirements*.lock release/ 2>/dev/null || true
+          cp frontend/package.json frontend/package-lock.json release/ 2>/dev/null || true
+          python - <<'PY'
+import hashlib, pathlib, tarfile
+out = pathlib.Path("release/china-war-rag-release.tar.gz")
+with tarfile.open(out, "w:gz") as tar:
+    for p in sorted(pathlib.Path("release").rglob("*")):
+        if p.is_file() and p.name != out.name:
+            tar.add(p, arcname=p.relative_to("release"))
+print("release 包:", out, hashlib.sha256(out.read_bytes()).hexdigest())
+PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: release/
+          retention-days: 30
