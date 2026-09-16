@@ -997,7 +997,8 @@ def test_manifest_build_refuses_dirty_worktree(tmp_path, monkeypatch):
     """未提交改动时禁止生成发布清单（release 门禁）。"""
     from scripts import build_artifact_manifest as bam
 
-    monkeypatch.setattr(bam, "_git", lambda args, cwd: " M dirty.py\n" if "status" in args else "abc")
+    # 脏检查现在走 release_info.git_status_lines（内含 new/ 等约定排除清单），直接替换它
+    monkeypatch.setattr(bam, "git_status_lines", lambda root, prefixes=None: [" M dirty.py"])
     settings = _settings(data_dir=tmp_path)
     monkeypatch.setattr(bam, "get_settings", lambda: settings)
     monkeypatch.setattr(bam, "repo_root", lambda: tmp_path)
