@@ -2,7 +2,7 @@
 
 > 执行依据：[20260916-round4-review-remediation-work-order.md](20260916-round4-review-remediation-work-order.md)
 > （13 项遗留问题）。范围：仅 `RAG/`，严格排除 `RAG/new/`。
-> 完成日期：2026-09-16。当前状态数字统一维护在 [../current-status.md](../current-status.md)。
+> 完成日期：2026-09-16。分支 `round4-review-remediation`，验证时 commit `cbedc91`（已推送到 origin）。当前状态数字统一维护在 [../current-status.md](../current-status.md)。
 
 ## 一、结论
 
@@ -69,6 +69,7 @@ embeddings=9544 = ids.json=9544，随机 get/query 均成功
 ## 四、验证证据（同一次工作树）
 
 ```text
+（工作区 clean；commit cbedc91；分支 round4-review-remediation）
 pytest tests -q                      → 250 passed
 cd frontend && npm run test:unit     → 27 passed
 cd frontend && npm run test:component→ 16 passed
@@ -77,6 +78,9 @@ python scripts/check_docs.py --strict→ 通过（相对链接、current 口径�
 python scripts/check_secrets.py      → 未发现明文密钥
 python scripts/build_artifact_manifest.py verify
   测试前 → 36/36 一致；全量测试后 → 36/36 一致
+python scripts/build_artifact_manifest.py build --require-clean
+  → 成功（git_dirty=false，36 条目 / 166.9 MB；被忽略的约定外目录：new/）
+git status --porcelain -- ':!new'    → 空（工作区 clean）
 ```
 
 ## 五、未完成事项与环境限制（诚实清单）
