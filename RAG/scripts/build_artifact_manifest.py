@@ -186,7 +186,8 @@ def collect(settings, version: str) -> dict:
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "source_version": version,
         "git_commit": _git(["rev-parse", "HEAD"], root) or "",
-        "git_dirty": bool((_git(["status", "--porcelain"], root) or "").strip()),
+        "git_dirty": bool(git_status_lines(root) or []),
+        "git_dirty_ignored_paths": list(RELEASE_IGNORE_PREFIXES),
         "python_version": sys.version.split()[0],
         "entry_count": len(entries),
         "total_bytes": sum(e["size"] for e in entries),
@@ -220,9 +221,14 @@ def cmd_build(args) -> int:
         print("未指定版本且 RAG_ACTIVE_VERSION 为空：请用 --version 指定")
         return 2
     root = repo_root()
-    dirty = bool((_git(["status", "--porcelain"], root) or "").strip())
-    if args.require_clean and dirty:
-        print("工作区存在未提交改动（git status --porcelain 非空）：发布门禁拒绝生成清单")
+    from lib.release_info import RELEASE_IGNORE_PREFIXES, git_status_lines
+
+    dirty_lines = git_status_lines(root) or []
+    if args.require_clean and dirty_lines:
+        print("工作区存在未提交改动（已按约定排除 " + ", ".join(RELEASE_IGNORE_PREFIXES) + "）："
+              "发布门禁拒绝生成清单")
+        for line in dirty_lines[:20]:
+            print(f"  - {line}")
         return 3
 
     manifest = collect(settings, version)
