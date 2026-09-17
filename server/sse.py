@@ -65,7 +65,10 @@ class SyncWorkPool:
         self.max_queue = max(0, int(max_queue))
         self._executor = ThreadPoolExecutor(
             max_workers=self.max_workers, thread_name_prefix="rag-sync")
-        self._lock = threading.Lock()
+        # 用 RLock 而不是 Lock：Future.cancel() 会在**持锁路径上同步触发** done 回调，
+        # 回调 _forget 需要同一把锁；非重入锁会在 note_cancel/begin_drain 里自锁死
+        # （实测：整份测试套件卡在 test_sync_pool_cancel_before_start_frees_queue_slot）。
+        self._lock = threading.RLock()
         # 分离计数（工作单 P1-5）：active = 正在执行的线程任务；queued = 已提交未开始；
         # in_flight = active + queued（容量判定用后者）
         self._active = 0
@@ -76,13 +79,37 @@ class SyncWorkPool:
         self._rejected = 0
         self._cancelled_before_start = 0
         self._running_after_disconnect = 0
+        self._drained_out = 0
         self._closed = False
+        self._draining = False
+        # 未完成任务句柄：停机时要能逐个 cancel()，否则排队任务仍会在客户端关闭后开跑
+        self._futures: "set" = set()
+        # "彻底空闲"事件（active == 0 且 queued == 0）：等待方阻塞在 Event 上，
+        # 不再用 time.sleep 轮询（第五轮整改复核 B2：轮询若发生在 async 路径上，
+        # 会把事件循环按 SHUTDOWN_DRAIN_SECONDS 的时长整个卡住）
+        self._idle = threading.Event()
+        self._idle.set()
+
+    def _refresh_idle_locked(self) -> None:
+        """调用方必须持锁：按 active/queued 重算空闲事件。
+
+        只看 active 是不够的：排队任务随时可能被 worker 捞起来执行，
+        提前判空会让"收尾完成"变成假信号（B2）。
+        """
+        if self._active == 0 and self._queued == 0:
+            self._idle.set()
+        else:
+            self._idle.clear()
 
     def submit(self, fn, *args, **kwargs):
         with self._lock:
             if self._closed:
                 self._rejected += 1
                 raise SyncPoolBusy("同步工作池已关闭")
+            if self._draining:
+                # 停机中：不再接收新任务，让调用方立刻拿到 server_busy 而不是排队等死
+                self._rejected += 1
+                raise SyncPoolBusy("同步工作池正在停机，不再接收新任务")
             in_flight = self._active + self._queued
             if in_flight >= self.max_workers + self.max_queue:
                 self._rejected += 1
@@ -92,27 +119,38 @@ class SyncWorkPool:
                 )
             self._queued += 1
             self._peak_in_flight = max(self._peak_in_flight, in_flight + 1)
+            self._refresh_idle_locked()
 
-        def _wrapped(*a, **kw):
-            # 任务真正开始时才从 queued 转入 active
-            with self._lock:
-                self._queued = max(0, self._queued - 1)
-                self._active += 1
-                self._peak_active = max(self._peak_active, self._active)
-            try:
-                return fn(*a, **kw)
-            finally:
+            def _wrapped(*a, **kw):
+                # 任务真正开始时才从 queued 转入 active
                 with self._lock:
-                    self._active = max(0, self._active - 1)
-                    self._completed += 1
+                    self._queued = max(0, self._queued - 1)
+                    self._active += 1
+                    self._peak_active = max(self._peak_active, self._active)
+                    self._refresh_idle_locked()
+                try:
+                    return fn(*a, **kw)
+                finally:
+                    with self._lock:
+                        self._active = max(0, self._active - 1)
+                        self._completed += 1
+                        self._refresh_idle_locked()
 
-        try:
-            future = self._executor.submit(_wrapped, *args, **kwargs)
-        except BaseException:
-            with self._lock:
+            # 提交与登记必须在**同一个临界区**里完成（B2）：否则 begin_drain 的快照
+            # 可能落在"已提交、未登记"之间，该排队任务逃过撤销并可能在客户端关闭后开跑
+            try:
+                future = self._executor.submit(_wrapped, *args, **kwargs)
+            except BaseException:
                 self._queued = max(0, self._queued - 1)
-            raise
+                self._refresh_idle_locked()
+                raise
+            self._futures.add(future)
+        future.add_done_callback(self._forget)
         return future
+
+    def _forget(self, future) -> None:
+        with self._lock:
+            self._futures.discard(future)
 
     def note_cancel(self, future) -> None:
         """调用方在等待期间被取消：能撤就撤掉尚未开始的任务，并记账（P1-5 第 3/4 条）。"""
@@ -122,13 +160,61 @@ class SyncWorkPool:
                 # 的补偿路径归还（这里直接扣减以避免永久占用队列名额）
                 self._queued = max(0, self._queued - 1)
                 self._cancelled_before_start += 1
+                self._drained_out += 1
+                self._refresh_idle_locked()
             else:
                 # 已经在跑：同步函数无法中断，只能等它自己超时（记为观测项）
                 self._running_after_disconnect += 1
 
+    def begin_drain(self) -> int:
+        """停止接收新任务，并撤销所有尚未开始的排队任务；返回被撤销条数。
+
+        停机顺序（工作单 P0-3）的第一、二步：先关闸，再把"还没开跑"的任务撤掉。
+        撤销必须在关闭外部客户端**之前**完成，否则这些任务会在客户端已关闭后开跑
+        （同步函数无法中断，只能先于客户端关闭把它们清掉）。
+        """
+        with self._lock:
+            self._draining = True
+            futures = list(self._futures)
+        cancelled = 0
+        for future in futures:
+            with self._lock:
+                if future.cancel():
+                    self._queued = max(0, self._queued - 1)
+                    self._cancelled_before_start += 1
+                    self._drained_out += 1
+                    cancelled += 1
+                    self._refresh_idle_locked()
+        return cancelled
+
+    def wait_idle(self, timeout: float) -> bool:
+        """有上限地等待**彻底空闲**（active 与 queued 都为 0）；返回是否达成。
+
+        同步版本（供非 async 调用方与测试使用）。不要用
+        `executor.shutdown(wait=True)`：那会无限期阻塞退出流程，
+        而同步调用（embedding HTTP / Chroma / SQLite）最坏要等自身超时。
+        """
+        return self._idle.wait(max(0.0, float(timeout)))
+
+    async def wait_idle_async(self, timeout: float) -> bool:
+        """`wait_idle` 的异步版本：用 `asyncio.sleep` 让出事件循环（B2）。
+
+        async 路径（`Runtime.shutdown`）必须用它——停机期间事件循环仍要服务
+        正在收尾的 SSE 流与健康检查，被 `time.sleep` 卡住等于整站冻结。
+        """
+        deadline = time.monotonic() + max(0.0, float(timeout))
+        while True:
+            if self._idle.is_set():
+                return True
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return False
+            await asyncio.sleep(min(0.02, remaining))
+
     def stats(self) -> dict:
         with self._lock:
             return {
+                "initialized": True,
                 "scope": "process",       # 进程级单例；多实例部署各自统计
                 "max_workers": self.max_workers,
                 "max_queue": self.max_queue,
@@ -141,6 +227,8 @@ class SyncWorkPool:
                 "rejected": self._rejected,
                 "cancelled_before_start": self._cancelled_before_start,
                 "running_after_disconnect": self._running_after_disconnect,
+                "drained_out": self._drained_out,
+                "draining": self._draining,
                 "closed": self._closed,
             }
 
@@ -149,6 +237,7 @@ class SyncWorkPool:
             if self._closed:
                 return
             self._closed = True
+            self._draining = True
         self._executor.shutdown(wait=wait, cancel_futures=True)
 
 
@@ -172,18 +261,92 @@ def get_sync_pool(settings: Optional[Settings] = None) -> SyncWorkPool:
         return _sync_pool
 
 
-def shutdown_sync_pool() -> None:
-    """关闭同步工作池（lifespan 退出时调用）。"""
+async def shutdown_sync_pool_async(drain_seconds: float = 0.0) -> dict:
+    """`shutdown_sync_pool` 的异步版本：等待期间让出事件循环（第五轮复核 B2）。
+
+    async 路径（`Runtime.shutdown`）必须用它：停机时事件循环还要服务正在收尾的
+    SSE 流与健康检查，用同步轮询等待会把整个进程冻结 `drain_seconds` 那么久。
+    """
     global _sync_pool
     with _sync_pool_lock:
         pool, _sync_pool = _sync_pool, None
-    if pool is not None:
-        pool.shutdown(wait=False)
+    if pool is None:
+        return {"initialized": False, "cancelled_queued": 0, "drained": True, "active_left": 0}
+    cancelled = pool.begin_drain()
+    drained = await pool.wait_idle_async(max(0.0, float(drain_seconds)))
+    active_left = pool.stats()["active"]
+    pool.shutdown(wait=False)
+    return {
+        "initialized": True,
+        "cancelled_queued": cancelled,
+        "drained": drained,
+        "active_left": active_left,
+    }
+
+
+def shutdown_sync_pool(drain_seconds: float = 0.0) -> dict:
+    """关闭同步工作池（同步调用方：脚本、测试、无 Runtime 的 lifespan 兜底）。
+
+    停机顺序（工作单 P0-3）：
+    1. 停止接收新任务（begin_drain 置位 draining）；
+    2. 撤销全部尚未开始的排队任务；
+    3. 用 `drain_seconds` 上限等待彻底空闲（active 与 queued 都为 0）；
+    4. 关闭执行器（不等待）。
+
+    调用方必须**先**执行本函数、**再**关闭外部 HTTP 客户端：反过来会让在途任务
+    拿着已关闭的客户端发请求。返回值是这次收尾的观测快照，便于写进日志/健康报告。
+    """
+    global _sync_pool
+    with _sync_pool_lock:
+        pool, _sync_pool = _sync_pool, None
+    if pool is None:
+        return {"initialized": False, "cancelled_queued": 0, "drained": True, "active_left": 0}
+    cancelled = pool.begin_drain()
+    drained = pool.wait_idle(max(0.0, float(drain_seconds)))
+    active_left = pool.stats()["active"]
+    pool.shutdown(wait=False)
+    return {
+        "initialized": True,
+        "cancelled_queued": cancelled,
+        "drained": drained,
+        "active_left": active_left,
+    }
+
+
+def empty_sync_pool_stats(settings: Optional[Settings] = None) -> dict:
+    """同步池尚未创建时的**零值统计**，字段与 `SyncWorkPool.stats()` 完全一致。
+
+    为什么需要（第五轮审核 R5-6）：旧实现在池未创建时返回 `{}`，
+    监控看到的 schema 会随"是否已经跑过第一次查询"变化，无法写稳定的告警规则。
+    """
+    if settings is None:
+        from config.settings import get_settings
+
+        settings = get_settings()
+    return {
+        "initialized": False,
+        "scope": "process",
+        "max_workers": max(1, int(getattr(settings, "sync_pool_max_workers", 8))),
+        "max_queue": max(0, int(getattr(settings, "sync_pool_max_queue", 32))),
+        "active": 0,
+        "queued": 0,
+        "in_flight": 0,
+        "peak_active": 0,
+        "peak_in_flight": 0,
+        "completed": 0,
+        "rejected": 0,
+        "cancelled_before_start": 0,
+        "running_after_disconnect": 0,
+        "drained_out": 0,
+        "draining": False,
+        "closed": False,
+    }
 
 
 def sync_pool_stats() -> dict:
+    """同步池统计：无论是否已创建，都返回同一套字段（R5-6）。"""
     pool = _sync_pool
-    return pool.stats() if pool is not None else {}
+    return pool.stats() if pool is not None else empty_sync_pool_stats()
 
 
 async def run_in_thread(fn, *args, **kwargs):

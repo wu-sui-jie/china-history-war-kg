@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from dotenv import load_dotenv
 
@@ -112,6 +112,14 @@ class Settings:
     # 否则目录里出现更大版本号时重启会静默切换数据，无法灰度/回滚。
     active_version: str = ""
     require_active_version: bool = False
+    # 上面这项是不是**被显式配置**过（.env 或环境变量里写了 RAG_REQUIRE_ACTIVE_VERSION）。
+    # 只设了 RAG_ACTIVE_VERSION（或 run_server --version）时它会被推导为 True，
+    # 那种"隐式生产"只告警；显式写了才当作生产档，触发 CORS 等启动门禁（R5-5）。
+    require_active_version_explicit: bool = False
+    # 版本来源声明（第五轮审核 P0-4）：由启动方写入，让 health 能区分
+    # "CLI 显式指定"与"环境变量固定"——两者都会被 run_server 写进 RAG_ACTIVE_VERSION，
+    # 只看环境变量会丢掉来源。取值：cli_explicit / env_pinned / latest_scan（空=未声明）。
+    version_source_hint: str = ""
 
     # ---- 请求尺寸/长度边界（2026-09-15 审核 P0-2）----
     request_max_bytes: int = 65536
@@ -134,6 +142,9 @@ class Settings:
     sse_heartbeat_seconds: float = 15.0
     sse_max_duration_seconds: float = 300.0
     cors_allow_origins: List[str] = field(default_factory=lambda: ["*"])
+    # 显式确认"就是要公开 API"（第五轮审核 R5-5）：生产 + wildcard CORS 时
+    # 必须为真，否则 server.api 启动即失败，避免漏配把公开接口暴露给任意站点。
+    allow_public_cors: bool = False
 
     # ---- 同步工作线程池（2026-09-15 第四轮复核 P1-5）----
     sync_pool_max_workers: int = 8
@@ -141,6 +152,45 @@ class Settings:
     # 收尾余量：外部调用预算 + 余量 必须严格小于 SSE 总上限，
     # 否则会出现"外部调用还没返回、服务端已经按 deadline 收流"的现象（2026-09-16 工作单 P1-5）
     shutdown_margin_seconds: int = 15
+    # 停机时有上限地等待在途同步任务（第五轮审核 P0-3）
+    shutdown_drain_seconds: float = 10.0
+
+    @property
+    def cors_allows_any_origin(self) -> bool:
+        """CORS 是否为通配（任意站点可跨域调用）。"""
+        return "*" in [o.strip() for o in (self.cors_allow_origins or [])]
+
+    def cors_startup_problem(self) -> Optional[str]:
+        """**显式生产档** + 通配 CORS 且未显式确认时返回错误说明，否则 None（R5-5）。
+
+        触发条件刻意收窄到"显式配置了 RAG_REQUIRE_ACTIVE_VERSION=true"：
+        `run_server.py --version` 也会让 require_active_version 推导为真，但那是
+        本地/演示启动方式（README 的推荐命令），没理由因此拒绝启动——
+        隐式生产只告警（见 `cors_warning()`），显式生产才 fail-fast。
+
+        放在这里而不是 `validate()`：config 校验被所有离线脚本共享，
+        而 CORS 只对**对外服务**有意义，没理由让离线构建脚本因此起不来。
+        """
+        if not self.cors_allows_any_origin or self.allow_public_cors:
+            return None
+        if not (self.require_active_version and self.require_active_version_explicit):
+            return None
+        return (
+            "生产模式（显式设置 RAG_REQUIRE_ACTIVE_VERSION=true）下 CORS_ALLOW_ORIGINS 仍为 *："
+            "任意站点都能从浏览器直接调用公开问答接口，消耗限流配额与模型成本。"
+            "请设置 CORS_ALLOW_ORIGINS=<站点域名[,域名]>；"
+            "若确实要公开 API，显式设置 ALLOW_PUBLIC_CORS=true 确认这一决定。"
+        )
+
+    def cors_warning(self) -> Optional[str]:
+        """通配 CORS 的告警文案（不阻断启动）；非通配返回 None。"""
+        if not self.cors_allows_any_origin:
+            return None
+        if self.allow_public_cors:
+            return "CORS_ALLOW_ORIGINS=*：已用 ALLOW_PUBLIC_CORS=true 显式确认公开跨域访问"
+        return ("CORS_ALLOW_ORIGINS=*（任意站点可跨域调用）：本地开发可接受，"
+                "生产必须限定站点域名；显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）"
+                "下服务会因此拒绝启动")
 
     @property
     def default_snapshot_name(self) -> str:
@@ -236,6 +286,13 @@ class Settings:
             problems.append(
                 f"RAG_ACTIVE_VERSION 必须形如 YYYYMMDD_vN，当前 {self.active_version!r}"
             )
+        hint = (self.version_source_hint or "").strip()
+        if hint not in ("", "cli_explicit", "env_pinned", "latest_scan"):
+            # 非法取值若静默回落，health 的来源字段会与真实行为不符（第五轮整改复核 B4）
+            problems.append(
+                "RAG_VERSION_SOURCE 必须是 cli_explicit / env_pinned / latest_scan（或留空），"
+                f"当前 {self.version_source_hint!r}"
+            )
 
         # 取值范围（第四轮复核 P1-7）：越界不再静默修正，直接给出变量名与合法区间
         if not 1 <= self.embedding_batch_size <= MAX_EMBEDDING_BATCH:
@@ -258,6 +315,17 @@ class Settings:
         if not 0 <= self.sync_pool_max_queue <= 4096:
             problems.append(
                 f"SYNC_POOL_MAX_QUEUE 必须在 0~4096，当前 {self.sync_pool_max_queue!r}"
+            )
+        if not 0.0 <= float(self.shutdown_drain_seconds) <= 120.0:
+            problems.append(
+                f"SHUTDOWN_DRAIN_SECONDS 必须在 0~120，当前 {self.shutdown_drain_seconds!r}"
+            )
+        if not self.cors_allow_origins:
+            # 显式写空（CORS_ALLOW_ORIGINS=）在旧实现里被 `or ["*"]` 静默变成通配符，
+            # 等于"漏配保护"反过来成了"放开保护"（第五轮整改复核 B8）
+            problems.append(
+                "CORS_ALLOW_ORIGINS 不能为空：留空会失去跨域白名单语义。"
+                "开发用 `*`，生产填站点域名（逗号分隔）；两者都要显式写出"
             )
 
         # 外部调用超时预算必须**严格小于** SSE 总上限，并留出收尾余量（P1-5）：
@@ -399,6 +467,9 @@ def get_settings() -> Settings:
         require_active_version=_bool_env(
             "RAG_REQUIRE_ACTIVE_VERSION", bool(_active_version())
         ),
+        # 「显式配置过」= 该键出现在环境变量或 .env 里（load_dotenv 写进 os.environ）
+        require_active_version_explicit=os.environ.get("RAG_REQUIRE_ACTIVE_VERSION") is not None,
+        version_source_hint=(os.environ.get("RAG_VERSION_SOURCE", "") or "").strip(),
         request_max_bytes=int(os.environ.get(
             "REQUEST_MAX_BYTES", defaults.REQUEST_MAX_BYTES)),
         question_max_chars=int(os.environ.get(
@@ -430,13 +501,17 @@ def get_settings() -> Settings:
             "SSE_HEARTBEAT_SECONDS", defaults.SSE_HEARTBEAT_SECONDS)),
         sse_max_duration_seconds=float(os.environ.get(
             "SSE_MAX_DURATION_SECONDS", defaults.SSE_MAX_DURATION_SECONDS)),
-        cors_allow_origins=_csv_env("CORS_ALLOW_ORIGINS", defaults.CORS_ALLOW_ORIGINS) or ["*"],
+        # 不再 `or ["*"]`：显式空值必须报错，不能静默变成通配符（第五轮整改复核 B8）
+        cors_allow_origins=_csv_env("CORS_ALLOW_ORIGINS", defaults.CORS_ALLOW_ORIGINS),
+        allow_public_cors=_bool_env("ALLOW_PUBLIC_CORS", defaults.ALLOW_PUBLIC_CORS),
         sync_pool_max_workers=int(os.environ.get(
             "SYNC_POOL_MAX_WORKERS", defaults.SYNC_POOL_MAX_WORKERS)),
         sync_pool_max_queue=int(os.environ.get(
             "SYNC_POOL_MAX_QUEUE", defaults.SYNC_POOL_MAX_QUEUE)),
         shutdown_margin_seconds=int(os.environ.get(
             "SHUTDOWN_MARGIN_SECONDS", defaults.SHUTDOWN_MARGIN_SECONDS)),
+        shutdown_drain_seconds=float(os.environ.get(
+            "SHUTDOWN_DRAIN_SECONDS", defaults.SHUTDOWN_DRAIN_SECONDS)),
     )
     settings.validate()
     return settings

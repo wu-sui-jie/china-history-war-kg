@@ -64,20 +64,36 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         # 必须 await：AsyncOpenAI 的关闭是 coroutine，同步调用会抛 RuntimeError 并被吞掉，
-        # 连接池实际不会释放（第四轮复核 P0-3）。同时回收同步工作线程池（P1-5）。
+        # 连接池实际不会释放（第四轮复核 P0-3）。
+        # 收尾顺序由 Runtime.shutdown 保证（第五轮审核 P0-3）：先停收同步任务并撤销排队、
+        # 有上限地等待在途任务，再关闭外部客户端，避免在途任务用到已关闭的客户端。
         if runtime is not None:
             await runtime.shutdown()
-        shutdown_sync_pool()
+        else:
+            # runtime 构建失败时没有 Runtime 对象，仍要回收可能已创建的同步池
+            shutdown_sync_pool()
 
 
 app = FastAPI(title="中国历代战争史 RAG 问答", version="ragv5", lifespan=lifespan)
 
 _settings_boot = get_settings()
 
-# CORS：默认 * 便于本地开发，生产用 CORS_ALLOW_ORIGINS 限定站点域名
+# CORS 启动门禁（第五轮审核 R5-5）：默认 * 只适用于本地开发。
+# 显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下若仍是 *，任意站点都能从浏览器调用
+# 公开问答接口——没有登录，限流也只按来源 IP 计，等于把配额与模型成本开放出去。
+# 这里直接失败而不是打日志：漏配的默认行为必须是拒绝，而不是静默放开。
+_cors_problem = _settings_boot.cors_startup_problem()
+if _cors_problem:
+    raise RuntimeError(f"CORS 配置被拒绝：{_cors_problem}")
+_cors_warning = _settings_boot.cors_warning()
+if _cors_warning:
+    print(f"[api] 注意：{_cors_warning}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=list(_settings_boot.cors_allow_origins or ["*"]),
+    # 配置校验保证非空（显式空值会被拒绝，见 Settings.validate）；这里不再 `or ["*"]`——
+    # 那会把"显式写空的错误配置"静默变成通配符（第五轮整改复核 B8）
+    allow_origins=list(_settings_boot.cors_allow_origins),
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -364,8 +380,15 @@ def health():
     第四轮复核 P0-4：健康接口必须能让验收证据反向定位到唯一源码与配置。
     为此补齐 source_dirty / release_id / config_fingerprint / artifact_manifest_sha256
     与 demo_ready；同时在活跃版本未显式固定时给出告警字段，避免"看起来正常但换了数据"。
+
+    第五轮整改复核 B8：**schema 不依赖运行态**——runtime 加载失败时也要返回与正常态
+    完全相同的键（`cache` / `sync_pool` / `rate_limit` 等为零值对象），否则监控在最需要
+    观测的失败时刻反而拿到不同字段。
     """
+    from server.generate.cache import empty_cache_stats
+
     rt = _runtime()
+    meta = (rt.meta if rt else {}) or {}
     payload = {
         "status": "ok" if rt else "error",
         "version": rt.version if rt else None,
@@ -373,28 +396,30 @@ def health():
         "llm_available": rt.generate.llm.available if rt else False,
         "load_error": _load_error(),
         "meta": rt.meta if rt else None,
-    }
-    if not rt:
-        return payload
-    meta = rt.meta or {}
-    payload.update({
-        "index_version": rt.index_dir.name,
+        "index_version": rt.index_dir.name if rt else None,
         "git_commit": meta.get("git_commit", ""),
         "source_dirty": meta.get("source_dirty"),
         "release_id": meta.get("release_id", ""),
         "config_fingerprint": meta.get("config_fingerprint", ""),
         "artifact_manifest_sha256": meta.get("artifact_manifest_sha256", ""),
         "version_selection": meta.get("version_selection", ""),
-        "cache": rt.generate.cache.stats(),
+        "cache": rt.generate.cache.stats() if rt else empty_cache_stats(),
         "rate_limit": _rate_limiter().stats(),
         "sync_pool": sync_pool_stats(),
-    })
+    }
     payload.update(_demo_status(rt))
-    if not meta.get("active_version_pinned"):
-        payload["warnings"] = [
+    warnings: list[str] = []
+    if rt and not meta.get("active_version_pinned"):
+        warnings.append(
             "数据版本未显式固定（RAG_ACTIVE_VERSION / --version 未设置）："
-            "当前按目录扫描选择最新一致版本，重启可能切换数据",
-        ]
+            "当前按目录扫描选择最新一致版本，重启可能切换数据"
+        )
+    if _settings_boot.cors_allows_any_origin:
+        # 能走到这里说明要么是开发态、要么已显式 ALLOW_PUBLIC_CORS=true；
+        # 仍要在 health 里留痕，避免"公开 CORS"成为看不见的既成事实
+        warnings.append(_settings_boot.cors_warning() or "")
+    if warnings:
+        payload["warnings"] = warnings
     return payload
 
 
@@ -484,6 +509,22 @@ async def query(req: Request):
     )
 
 
+def _frame_type(frame: str) -> str:
+    """取 SSE 帧的事件类型（超时终态判定用）。
+
+    第六轮复核 D1：旧实现用子串 `'"type": "answer"' in frame` 判断"是否已送出正文"，
+    而正文是用户可控/模型可控内容——只要回答里出现该字面量（例如讲解 JSON 格式），
+    超时终态就会被误判成 interrupted。这里解析帧本身取 `type` 字段。
+    """
+    if not frame.startswith("data: "):
+        return ""
+    try:
+        payload = json.loads(frame[len("data: "):].strip())
+    except Exception:  # noqa: BLE001
+        return ""
+    return str(payload.get("type") or "") if isinstance(payload, dict) else ""
+
+
 async def _stream_with_heartbeat(rt, q: QueryRequest, settings: Settings):
     """给 run_query 套上心跳与整体 deadline。
 
@@ -542,7 +583,7 @@ async def _stream_with_heartbeat(rt, q: QueryRequest, settings: Settings):
             except StopAsyncIteration:
                 break
             pending = None
-            if '"type": "answer"' in frame:
+            if _frame_type(frame) == "answer":
                 saw_answer = True
             yield frame
     finally:

@@ -56,21 +56,47 @@ class Runtime:
              if getattr(self.text, "embed_fn", None) is not self.embedding_client else None),
         ]
 
-    async def shutdown(self) -> None:
-        """释放资源：关闭全部外部 HTTP 客户端（异步客户端必须 await 关闭）。
+    async def shutdown(self, drain_seconds: Optional[float] = None) -> None:
+        """释放资源：先收尾同步工作池，再关闭全部外部 HTTP 客户端。
 
         第四轮复核 P0-3：旧实现是同步方法，在 FastAPI 正在运行的事件循环里对 coroutine
         调用 `asyncio.run()`，必然抛 RuntimeError（事件循环已在运行），异常又被吞掉，
         结果 AsyncOpenAI 客户端从未真正关闭。
 
-        本工作单 P0-3 补齐三点：
-        - 资源枚举统一走 `resources()`，向量客户端（EmbeddingClient）也在其中；
-        - 幂等：重复 shutdown 不重复关闭同一资源；
-        - 单个资源关闭失败只记 warning，其余资源继续关闭。
+        第五轮审核 P0-3 修正**顺序**：旧实现先 `await` 关闭 Embedding/LLM 客户端、
+        再关闭同步池，于是同步池里仍在跑的 embedding / LLM 兜底任务会在客户端已关闭
+        之后继续访问资源（同步函数无法中断）。现在的顺序是：
+
+        1. 同步工作池停止接收新任务并撤销排队任务；
+        2. 有上限地等待在途任务（`SHUTDOWN_DRAIN_SECONDS`，默认 10 s）；
+        3. 再关闭外部客户端（此时不会再有人调用它们）；
+        4. 单个资源关闭失败只记 warning，其余资源继续关闭；重复调用幂等。
         """
         if self._shutdown_done:
             return
         self._shutdown_done = True
+        log = logging.getLogger("rag.runtime")
+
+        if drain_seconds is None:
+            drain_seconds = float(getattr(self.settings, "shutdown_drain_seconds", 10.0) or 0.0)
+        try:
+            # 用异步版本：等待期间让出事件循环（第五轮复核 B2）。同步轮询会把
+            # 正在收尾的 SSE 流与健康检查一起冻结，最长可达 drain_seconds。
+            from server.sse import shutdown_sync_pool_async
+
+            outcome = await shutdown_sync_pool_async(drain_seconds=float(drain_seconds))
+            self.meta["shutdown_sync_pool"] = outcome
+            if outcome.get("initialized"):
+                log.info("同步工作池收尾：撤销排队 %s 条，在途剩余 %s（drained=%s）",
+                         outcome.get("cancelled_queued"), outcome.get("active_left"),
+                         outcome.get("drained"))
+                if not outcome.get("drained"):
+                    log.warning(
+                        "仍有 %s 个同步任务未在 %.1fs 内结束（同步调用无法中断，"
+                        "由各自的超时兜底）", outcome.get("active_left"), float(drain_seconds))
+        except Exception as exc:  # noqa: BLE001
+            log.warning("收尾同步工作池失败：%s", exc)
+
         for name, owner in self.resources():
             if owner is None:
                 continue
@@ -82,16 +108,7 @@ class Runtime:
                 if inspect.isawaitable(result):
                     await result
             except Exception as exc:  # noqa: BLE001
-                logging.getLogger("rag.runtime").warning(
-                    "关闭 %s 失败（其余资源继续释放）：%s", name, exc)
-        # 关闭顺序：先释放外部客户端，再回收同步工作池（lifespan 里也会调用一次，
-        # 那里针对"runtime 构建失败"的情况兜底）
-        try:
-            from server.sse import shutdown_sync_pool
-
-            shutdown_sync_pool()
-        except Exception as exc:  # noqa: BLE001
-            logging.getLogger("rag.runtime").warning("关闭同步工作池失败：%s", exc)
+                log.warning("关闭 %s 失败（其余资源继续释放）：%s", name, exc)
 
 
 def _resolve_index(settings: Settings, index_name: str) -> tuple[str, Path, Path]:
@@ -159,21 +176,61 @@ def version_source(settings: Settings, version: Optional[str] = None) -> str:
     """版本来源（工作单 P0-4）：CLI 显式 / 环境变量固定 / 扫描最新。
 
     原先只用 `settings.active_version` 判断，CLI 传 `--version` 时 health 会显示成
-    `latest_scan`——那会让"我到底跑的是哪份数据"这个问题的答案失真。
+    `env_pinned`——因为 run_server.py 把参数写进了 `RAG_ACTIVE_VERSION`，来源信息
+    在"写环境变量"这一步就丢了（第五轮审核 P0-4 第 2 条）。
+
+    现在由启动方额外写一个 `RAG_VERSION_SOURCE`（settings.version_source_hint）声明来源，
+    并且**与实际情况交叉校验**（第五轮整改复核 B4）：声明 `cli_explicit`/`env_pinned`
+    却没有固定的活跃版本，说明声明是残留（例如同进程里先跑过一次带 `--version` 的
+    启动），此时以实际行为为准返回 `latest_scan`，不盲信声明。
     """
     if version:
         return "cli_explicit"
+    hint = (getattr(settings, "version_source_hint", "") or "").strip()
+    if hint in ("cli_explicit", "env_pinned", "latest_scan"):
+        if hint in ("cli_explicit", "env_pinned") and not settings.active_version:
+            logging.getLogger("rag.runtime").warning(
+                "RAG_VERSION_SOURCE 声明为 %s，但 RAG_ACTIVE_VERSION 为空："
+                "声明与实际行为不符，按 latest_scan 记录（请检查启动脚本或环境变量残留）",
+                hint)
+            return "latest_scan"
+        return hint
     if settings.active_version:
         return "env_pinned"
     return "latest_scan"
 
 
 def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
+    """按 F02→F06 顺序加载运行时；**半途失败时不能泄漏已建好的外部客户端**。
+
+    第六轮复核 Z3：旧实现先建 embedding 客户端、再逐个加载后续层；任何一步抛错时
+    局部 `rt` 直接丢弃，已建立的 HTTP 连接池没人关闭（进程里留着直到退出）。
+    这里把加载过程包起来，失败时关闭已登记的资源再抛。
+    """
     version_arg = version
     version, snap_dir, index_dir = resolve_version(settings, version)
     rt = Runtime(settings=settings, version=version,
                  snapshot_dir=snap_dir, index_dir=index_dir)
+    try:
+        return _load_layers(rt, settings, version, snap_dir, index_dir, version_arg)
+    except BaseException:
+        # 关闭已建立的资源（embedding 客户端等），不让连接池悬空
+        try:
+            for name, owner in rt.resources():
+                if owner is None:
+                    continue
+                closer = getattr(owner, "close", None) or getattr(owner, "aclose", None)
+                if callable(closer):
+                    result = closer()
+                    if inspect.isawaitable(result):   # 同步路径下不应出现，防御性处理
+                        result.close()
+        except Exception as exc:  # noqa: BLE001
+            logging.getLogger("rag.runtime").warning("构建失败后回收资源时出错：%s", exc)
+        raise
 
+
+def _load_layers(rt: Runtime, settings: Settings, version: str, snap_dir,
+                 index_dir, version_arg: Optional[str]) -> Runtime:
     # F02
     from server.query import load_understanding
     from server.query.llm_fallback import EntityFallbackClient

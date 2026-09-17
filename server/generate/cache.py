@@ -161,6 +161,26 @@ class AnswerCache:
             self._store.clear()
 
 
+def empty_cache_stats(settings=None) -> dict:
+    """缓存尚未创建时的**零值统计**，字段与 `AnswerCache.stats()` 完全一致。
+
+    为什么需要（第五轮整改复核 B8）：runtime 加载失败时 health 原实现提前 return，
+    返回体里没有 `cache` / `sync_pool` 这些键——监控在"服务启动失败"这个最需要
+    观测的时刻反而拿到了不同 schema。字段集合是否一致由测试断言。
+    """
+    if settings is None:
+        from config.settings import get_settings
+
+        settings = get_settings()
+    return {
+        "entries": 0,
+        "max_entries": max(1, int(getattr(settings, "cache_max_entries", 2048) or 2048)),
+        "evictions": 0,
+        "ttl_seconds": int(getattr(settings, "cache_ttl_seconds", _CACHE_TTL_DEFAULT)
+                           or _CACHE_TTL_DEFAULT),
+    }
+
+
 def build_cache_payload(answer_text: str, citations: list, conflicts: list,
                         finish_reason: FinishReason, model_used: str,
                         panel: Optional[dict] = None) -> dict:

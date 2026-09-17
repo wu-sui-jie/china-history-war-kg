@@ -16,6 +16,11 @@ export default defineConfig({
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
   use: {
     baseURL: process.env.RAG_BASE_URL || 'http://127.0.0.1:8125',
+    // 用完整 Chromium 的新 headless 模式（channel: 'chromium'），不依赖单独的
+    // chromium-headless-shell 包：本机两次下载 headless shell 都被网络中断（ECONNRESET），
+    // 而完整 Chromium 已可用（第五轮审核 P1-12 的"浏览器装不上"根因之一）。
+    // channel 同时让本地与 CI 的行为更接近真实 Chrome。
+    channel: 'chromium',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'off',

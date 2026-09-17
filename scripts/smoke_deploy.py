@@ -30,6 +30,42 @@ from config.settings import get_settings  # noqa: E402
 from lib.json_io import write_json         # noqa: E402
 
 
+def _stdout_encoding() -> str:
+    """当前输出流的编码名（拿不到就按 UTF-8 处理）。"""
+    enc = getattr(sys.stdout, "encoding", None)
+    return (enc or "utf-8").lower()
+
+
+def _output_symbols() -> tuple[str, str]:
+    """选择跨平台安全的通过/失败前缀（第五轮审核 R5-1）。
+
+    Windows 默认控制台是 GBK，直接 print("✓") 会抛 UnicodeEncodeError 让脚本在
+    健康检查阶段就崩掉——检查项没跑完，退出码也没有参考价值。这里先探测编码，
+    不能编码就退回 ASCII 的 [OK]/[FAIL]；Linux/macOS（UTF-8）仍保留符号外观。
+    """
+    enc = _stdout_encoding()
+    if enc.replace("-", "") in ("utf8", "utf8mb4", "cp65001"):
+        return "✓", "✗"
+    try:
+        "✓✗".encode(enc, errors="strict")
+    except Exception:  # noqa: BLE001
+        return "[OK]", "[FAIL]"
+    return "✓", "✗"
+
+
+def _safe_print(text: str) -> None:
+    """按输出流编码安全打印：编码不了的字符替换为 ?，绝不因日志符号崩溃。"""
+    enc = _stdout_encoding()
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        sys.stdout.write(text.encode(enc, errors="replace").decode(enc, errors="replace") + "\n")
+        sys.stdout.flush()
+
+
+_OK_PREFIX, _FAIL_PREFIX = _output_symbols()
+
+
 def _get(base: str, path: str, timeout: float = 30.0):
     req = urllib.request.Request(base + path, headers={"Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -128,13 +164,13 @@ def main() -> int:
 
     def fail(msg: str) -> None:
         report["failures"].append(msg)
-        print(f"  ✗ {msg}")
+        _safe_print(f"  {_FAIL_PREFIX} {msg}")
 
     def ok(msg: str) -> None:
-        print(f"  ✓ {msg}")
+        _safe_print(f"  {_OK_PREFIX} {msg}")
 
     # 1) 健康检查
-    print("[1] GET /api/health")
+    _safe_print("[1] GET /api/health")
     try:
         status, body, _ = _get(args.base, "/api/health")
         health = json.loads(body)
@@ -151,7 +187,7 @@ def main() -> int:
         fail(f"health 请求失败: {e}")
 
     # 2) 同源页面
-    print("[2] GET /（同源托管）")
+    _safe_print("[2] GET /（同源托管）")
     try:
         status, body, headers = _get(args.base, "/")
         is_html = "<html" in body[:500].lower()
@@ -164,7 +200,7 @@ def main() -> int:
         fail(f"GET / 失败: {e}（未构建前端？先 cd frontend && npm run build）")
 
     # 3) 示例题清单
-    print("[3] GET /api/demo/examples")
+    _safe_print("[3] GET /api/demo/examples")
     examples: list[dict] = []
     try:
         status, body, _ = _get(args.base, "/api/demo/examples")
@@ -188,7 +224,7 @@ def main() -> int:
     # 4) 逐条示例题
     for i, ex in enumerate(examples, start=1):
         q = ex.get("question") or ""
-        print(f"[4.{i}] 示例题 {ex.get('id')}: {q}")
+        _safe_print(f"[4.{i}] 示例题 {ex.get('id')}: {q}")
         res = _sse_query(args.base, q, f"smoke-{ex.get('id')}")
         res["id"] = ex.get("id")
         res["expect"] = ex.get("expect") or {}
@@ -222,7 +258,7 @@ def main() -> int:
     # 5) 缓存命中（同进程重复提问）
     if examples:
         q = examples[0].get("question") or ""
-        print(f"[5] 缓存命中复跑：{q}")
+        _safe_print(f"[5] 缓存命中复跑：{q}")
         res = _sse_query(args.base, q, "smoke-repeat")
         report["checks"]["cache_repeat"] = res
         first = report["examples"][0] if report["examples"] else {}
@@ -234,7 +270,7 @@ def main() -> int:
 
     # 6) 限流（可选，放在最后）
     if args.check_rate_limit:
-        print("[6] 限流检查（连续请求直到出现 'rate limited'）")
+        _safe_print("[6] 限流检查（连续请求直到出现 'rate limited'）")
         hit = 0
         for i in range(1, 41):
             # 用空问题发请求：请求体会被拒（invalid_request），但**限流在其之前生效**，
@@ -260,13 +296,13 @@ def main() -> int:
     report["passed"] = not report["failures"]
     write_json(out_path, report)
 
-    print(f"\n报告: {out_path}")
+    _safe_print(f"\n报告: {out_path}")
     if report["failures"]:
-        print(f"冒烟失败 {len(report['failures'])} 项：")
+        _safe_print(f"冒烟失败 {len(report['failures'])} 项：")
         for f in report["failures"]:
-            print(f"  - {f}")
+            _safe_print(f"  - {f}")
         return 1
-    print(f"冒烟全部通过（{len(report['examples'])} 条示例题）")
+    _safe_print(f"冒烟全部通过（{len(report['examples'])} 条示例题）")
     return 0
 
 

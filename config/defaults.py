@@ -119,6 +119,11 @@ SSE_HEARTBEAT_SECONDS = 15
 SSE_MAX_DURATION_SECONDS = 300
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
+# 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。
+# 生产（RAG_REQUIRE_ACTIVE_VERSION=true）下若 CORS 仍为 *，服务启动会直接失败：
+# 无登录的公开问答接口暴露给任意站点，等于把限流配额与模型成本开放给所有人
+# （第五轮审核 R5-5）。确实需要公开时把这个开关打开，让风险变成显式决定。
+ALLOW_PUBLIC_CORS = False
 
 # ---- 同步工作线程池（2026-09-15 第四轮复核 P1-5）----
 # F02/F03/F04 的同步调用（embedding/Chroma/SQLite/图谱）走这个独立线程池。
@@ -127,6 +132,10 @@ SYNC_POOL_MAX_WORKERS = 8
 SYNC_POOL_MAX_QUEUE = 32
 # 收尾余量：外部调用预算 + 余量必须严格小于 SSE_MAX_DURATION_SECONDS（工作单 P1-5）
 SHUTDOWN_MARGIN_SECONDS = 15
+# 停机时等待在途同步任务的上限（秒）：先停收新任务、撤销排队任务，再用这个上限
+# 等正在跑的任务结束，最后才关闭外部 HTTP 客户端（第五轮审核 P0-3）。
+# 同步调用无法中断，超时未结束的会被记录为警告并由各自的 HTTP 超时兜底。
+SHUTDOWN_DRAIN_SECONDS = 10
 
 # ---- 版本号 ----
 # 示例 "20260903_v1"。export/build 未显式给版本时取当天日期生成 v1。

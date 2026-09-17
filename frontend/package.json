@@ -13,6 +13,8 @@
     "test:component": "vitest run tests/component",
     "test:contract": "node scripts/e2e-check.mjs",
     "test:e2e": "playwright test",
+    "test:e2e:offline": "node scripts/e2e-run.mjs",
+    "e2e:server": "node scripts/e2e-server.mjs",
     "check:bundle": "node scripts/check-bundle.mjs",
     "verify": "npm run typecheck && npm run test && npm run build && npm run check:bundle"
   },
