@@ -29,6 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import get_settings  # noqa: E402
+from lib.json_io import write_text_lf  # noqa: E402
 from lib.release_info import repo_root  # noqa: E402
 
 _CHUNK = 1 << 20
@@ -59,27 +60,54 @@ def collect_mapping(db: Path) -> dict:
             "SELECT id, name, dimension FROM collections ORDER BY name")]
         segments = [dict(r) for r in con.execute(
             "SELECT id, type, scope, collection FROM segments ORDER BY id")]
-        counts = {}
-        for c in collections:
-            row = con.execute("SELECT COUNT(*) AS n FROM embeddings WHERE segment_id = ?",
-                              (None,)).fetchone() if False else None
-            counts[c["id"]] = row["n"] if row else None
         emb_total = con.execute("SELECT COUNT(*) AS n FROM embeddings").fetchone()["n"]
         emb_by_segment = {r["segment_id"]: r["n"] for r in con.execute(
             "SELECT segment_id, COUNT(*) AS n FROM embeddings GROUP BY segment_id")}
     finally:
         con.close()
+    # 每个 collection 的向量条数 = 它名下**全部** segment 的 embeddings 条数之和，
+    # 与 Chroma `collection.count()` 的口径一致（实测：embedding 行挂在 METADATA 段上，
+    # VECTOR 段只存 HNSW 索引文件，因此只数 VECTOR 段会得到 0）。
+    # 只读元数据库即可算出，不必打开 PersistentClient（那会写 WAL，污染正在审计的制品）。
+    collection_counts: dict = {}
+    collection_scopes: dict = {}
+    for c in collections:
+        seg_ids = {s["id"] for s in segments if s["collection"] == c["id"]}
+        collection_counts[c["name"]] = sum(emb_by_segment.get(sid, 0) for sid in seg_ids)
+        collection_scopes[c["name"]] = {
+            (s["scope"] or "UNKNOWN"): emb_by_segment.get(s["id"], 0)
+            for s in segments if s["collection"] == c["id"]
+        }
     return {
         "collections": collections,
         "segments": segments,
         "embeddings_total": emb_total,
         "embeddings_by_segment": emb_by_segment,
-        "counts": counts,
+        "collection_counts": collection_counts,
+        "collection_scopes": collection_scopes,
         "segment_ids": {s["id"] for s in segments},
     }
 
 
-def audit(index_dir: Path, *, do_random: int = 0) -> dict:
+def _manifest_vector_count(manifest: dict) -> tuple:
+    """从索引清单读取向量条数，返回 (值, 来源字段)。
+
+    已知两种形态（按优先级）：`manifest["vectors"]["count"]`（当前构建脚本写入）
+    与旧的 `manifest["counts"]["vectors"]` / `manifest["vector_count"]`。
+    都读不到时返回 (None, "")，由调用方判为"计数缺失"而不是默认通过。
+    """
+    vectors = manifest.get("vectors")
+    if isinstance(vectors, dict) and isinstance(vectors.get("count"), int):
+        return vectors["count"], "vectors.count"
+    counts = manifest.get("counts")
+    if isinstance(counts, dict) and isinstance(counts.get("vectors"), int):
+        return counts["vectors"], "counts.vectors"
+    if isinstance(manifest.get("vector_count"), int):
+        return manifest["vector_count"], "vector_count"
+    return None, ""
+
+
+def audit(index_dir: Path, *, do_random: int = 0, collection_name: str = "") -> dict:
     vectors_dir = index_dir / "vectors"
     chroma_dir = vectors_dir / "chroma"
     db = chroma_dir / "chroma.sqlite3"
@@ -123,13 +151,37 @@ def audit(index_dir: Path, *, do_random: int = 0) -> dict:
             ids_count = None
 
     manifest_count = None
+    manifest_count_source = ""
     manifest_path = index_dir / "manifest.json"
     if manifest_path.is_file():
         try:
             m = json.loads(manifest_path.read_text(encoding="utf-8"))
-            manifest_count = (m.get("counts") or {}).get("vectors") or m.get("vector_count")
+            # 第五轮审核 P2-5：索引清单的计数在 manifest["vectors"]["count"]，
+            # 旧实现读的是不存在的 "counts.vectors" / "vector_count"，永远是 null，
+            # 于是"计数一致"只比了 ids 与 embeddings，低于验收要求。
+            manifest_count, manifest_count_source = _manifest_vector_count(m)
         except Exception:  # noqa: BLE001
             manifest_count = None
+
+    # 四方计数（P2-5 验收）：ids.json / 元数据库 embeddings / collection 向量数 / 清单声明
+    if not collection_name:
+        collection_name = get_settings().chroma_collection
+    expected_collection = collection_name
+    collection_count = mapping["collection_counts"].get(expected_collection)
+    counts_detail = {
+        "ids_json_count": ids_count,
+        "embeddings_total": mapping["embeddings_total"],
+        "collection_name": expected_collection,
+        "collection_vector_count": collection_count,
+        "manifest_vector_count": manifest_count,
+        "manifest_count_source": manifest_count_source,
+    }
+    missing = [k for k, v in counts_detail.items()
+               if k.endswith(("_count", "_total")) and v is None]
+    values = [counts_detail[k] for k in
+              ("ids_json_count", "embeddings_total", "collection_vector_count",
+               "manifest_vector_count")]
+    counts_consistent = not missing and len(set(values)) == 1
 
     report.update({
         "collections": mapping["collections"],
@@ -139,12 +191,14 @@ def audit(index_dir: Path, *, do_random: int = 0) -> dict:
         "orphan_dirs": [d.name for d in orphans],
         "embeddings_total": mapping["embeddings_total"],
         "embeddings_by_segment": mapping["embeddings_by_segment"],
+        "collection_counts": mapping["collection_counts"],
+        "collection_scopes": mapping["collection_scopes"],
         "ids_json_count": ids_count,
+        "collection_vector_count": collection_count,
         "manifest_vector_count": manifest_count,
-        "counts_consistent": (
-            ids_count is not None
-            and ids_count == mapping["embeddings_total"]
-        ),
+        "counts_detail": counts_detail,
+        "counts_missing": missing,
+        "counts_consistent": counts_consistent,
     })
 
     # 随机抽样 get/query：证明"当前引用到的段"确实可查
@@ -203,7 +257,7 @@ def apply_cleanup(index_dir: Path, report: dict, out_path: Path) -> dict:
     report["cleanup"] = {"action": "moved_to_backup", "backup_root": str(backup_root),
                          "moved": moved}
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    write_text_lf(out_path, json.dumps(report, ensure_ascii=False, indent=2))
     return report
 
 
@@ -224,26 +278,44 @@ def main() -> int:
         print(f"索引目录不存在: {index_dir}")
         return 2
 
-    report = audit(index_dir, do_random=args.random)
+    report = audit(index_dir, do_random=args.random, collection_name=settings.chroma_collection)
     out_path = settings.data_dir / "release" / "chroma-segment-audit.json"
 
     if args.apply:
         report = apply_cleanup(index_dir, report, out_path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        # 清理后重新审计：一致性结论必须反映**清理后**的磁盘状态，
+        # 否则报告里写的是清理前的计数，结论与制品对不上（P2-5）
+        after = audit(index_dir, do_random=args.random,
+                      collection_name=settings.chroma_collection)
+        after["cleanup"] = report.get("cleanup")
+        report = after
+    write_text_lf(out_path, json.dumps(report, ensure_ascii=False, indent=2))
 
     print(f"审计报告: {out_path}")
     print(f"  collections: {[c['name'] for c in report.get('collections', [])]}")
     print(f"  segments: {[(s['id'][:8], s['scope']) for s in report.get('segments', [])]}")
     print(f"  磁盘段目录: {report.get('segment_dir_count')} 个"
           f"，孤儿: {report.get('orphan_dirs')}")
-    print(f"  embeddings={report.get('embeddings_total')} "
-          f"ids.json={report.get('ids_json_count')} "
-          f"一致={report.get('counts_consistent')}")
+    detail = report.get("counts_detail") or {}
+    print(f"  四方计数: ids.json={detail.get('ids_json_count')} "
+          f"embeddings={detail.get('embeddings_total')} "
+          f"collection[{detail.get('collection_name')}]={detail.get('collection_vector_count')} "
+          f"manifest={detail.get('manifest_vector_count')}"
+          f"（来源 {(detail.get('manifest_count_source') or '未读到')}）"
+          f" → 一致={report.get('counts_consistent')}")
+    if report.get("counts_missing"):
+        print(f"  ::error:: 计数缺失字段: {report['counts_missing']}")
     if "cleanup" in report:
         print(f"  清理: {report['cleanup'].get('action')}")
     if report.get("random_sample"):
         print(f"  随机抽样: {report['random_sample']}")
+    if report.get("error"):
+        print(f"  ::error:: {report['error']}")
+        return 1
+    # 任意一项为空或不一致 → 非零退出（P2-5 完成标准）
+    if not report.get("counts_consistent"):
+        print("  ::error:: 四方计数不一致或缺失，判定为不一致（退出码 1）")
+        return 1
     return 0
 
 

@@ -120,6 +120,7 @@ async def _measure_one(rt, question: str, sid: str, timeout_s: float = 90.0) -> 
         t_think = t_answer = None
         n_think = n_answer = 0
         finish = ""
+        model_used = ""
         async for frame in run_query(rt, req):
             payload = json.loads(frame[len("data: "):])
             etype = payload.get("type")
@@ -132,7 +133,11 @@ async def _measure_one(rt, question: str, sid: str, timeout_s: float = 90.0) -> 
                     t_answer = time.time() - t0
                 n_answer += 1
             elif etype == "done":
-                finish = (payload.get("data") or {}).get("finish_reason", "")
+                done = payload.get("data") or {}
+                finish = done.get("finish_reason", "")
+                # 记录实际使用的模型：血缘据此判断"demo 是否真的来自模型"
+                # （第五轮整改复核 B3——只写 measurement_mode 声明还不够）
+                model_used = str(done.get("model_used") or "")
         return {
             "first_thinking_ms": int(t_think * 1000) if t_think else None,
             "first_answer_ms": int(t_answer * 1000) if t_answer else None,
@@ -140,6 +145,7 @@ async def _measure_one(rt, question: str, sid: str, timeout_s: float = 90.0) -> 
             "answer_frames": n_answer,
             "thinking_frames": n_think,
             "finish_reason": finish,
+            "model_used": model_used,
             "truncated": bool(getattr(rt.generate, "last_truncated", False)),
             "usage": rt.generate.last_usage,
         }
@@ -283,11 +289,16 @@ def main() -> int:
     print(f"题库 {total} 条 → 候选 {len(cands)} 条；剔除：{dict(dropped)}")
 
     measured_note = "未实测"
+    measurement_mode = None
     if args.measure:
         rt = build_runtime(settings, version)
         if not rt.generate.llm.available:
             print("⚠ 未配置可用 LLM，实测只反映离线回答器（无法评估真实时延/截断）")
-        print(f"开始实测 {len(cands)} 条（TEXT_MODE={settings.text_mode}，模型={settings.llm_model}）…")
+        # 真实模型 / 离线摘要回答器必须显式区分（第五轮整改复核 B3）：
+        # demo 的时延与措辞来自哪条链路，直接决定它能不能当作"真实模型"证据
+        measurement_mode = "real_llm" if rt.generate.llm.available else "offline"
+        print(f"开始实测 {len(cands)} 条（TEXT_MODE={settings.text_mode}，模型={settings.llm_model}，"
+              f"measurement_mode={measurement_mode}）…")
         asyncio.run(_measure_all(rt, cands))
         before = len(cands)
         ok = [c for c in cands if "error" not in (c.get("measured") or {})]
@@ -316,6 +327,9 @@ def main() -> int:
         "version": version,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "source_run": run_id,
+        # 实测链路：real_llm（真实模型）/ offline（离线摘要回答器）/ null（未实测）
+        # 服务端校验与 lineage 都读它；缺字段等于"测了什么"无从判断（B3）
+        "measurement_mode": measurement_mode,
         "filter": {
             "reviewed": True,
             "exclude_answer_correctness": ["incorrect"],

@@ -27,6 +27,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import get_settings  # noqa: E402
+from lib.json_io import write_text_lf  # noqa: E402
 from lib.release_info import (  # noqa: E402
     RELEASE_IGNORE_PREFIXES,
     git_status_lines,
@@ -153,8 +154,14 @@ def expected_paths(settings, version: str) -> dict[str, str]:
     release_dir = settings.data_dir / "release"
     if release_dir.is_dir():
         for path in sorted(release_dir.glob("*.json")):
-            # 清单自身不可能登记自己（会形成"先有鸡还是先有蛋"），SHA256SUMS 同理
-            if path.name == "artifact-manifest.json":
+            # 以下文件不能登记自己：
+            # - artifact-manifest.json：先有鸡还是先有蛋；
+            # - LOGICAL_HASHES.json：由清单内容派生，写完就变了（与 SHA256SUMS 同理，
+            #   它作为校验链的产物流转，而不是被清单校验的制品）；
+            # - smoke_release.json：发布**之后**才会产生的运行报告（每次跑都不一样），
+            #   它是门禁的证据，不是被门禁校验的制品。
+            if path.name in ("artifact-manifest.json", "LOGICAL_HASHES.json",
+                             "smoke_release.json"):
                 continue
             _add(path, "release_evidence")
 
@@ -189,7 +196,11 @@ def collect(settings, version: str) -> dict:
         "manifest_version": 1,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "source_version": version,
-        "git_commit": _git(["rev-parse", "HEAD"], root) or "",
+        # 与 lineage 统一口径：`<sha12>@<branch>`（第六轮复核 D4——两份发布证据
+        # 原先一个写全哈希、一个写短哈希@分支，交叉核对还得换算）；
+        # 需要精确哈希时看 git_commit_full
+        "git_commit": _git_commit_label(root),
+        "git_commit_full": _git(["rev-parse", "HEAD"], root) or "",
         "git_dirty": bool(git_status_lines(root) or []),
         "git_dirty_ignored_paths": list(RELEASE_IGNORE_PREFIXES),
         "python_version": sys.version.split()[0],
@@ -198,6 +209,13 @@ def collect(settings, version: str) -> dict:
         "missing": missing,
         "entries": entries,
     }
+
+
+def _git_commit_label(root: Path) -> str:
+    """`<sha12>@<branch>` 形式；非仓库/无 git 时返回空串。"""
+    from lib.release_info import git_commit as _label
+
+    return _label(root)
 
 
 def _add_tree_small(entries: list, directory: Path, root: Path, kind: str, version: str) -> None:
@@ -213,7 +231,9 @@ def _git(args: list[str], cwd: Path) -> str:
     try:
         out = subprocess.run(["git", *args], cwd=str(cwd), capture_output=True,
                              text=True, timeout=10)
-        return out.stdout if out.returncode == 0 else ""
+        # 统一 strip：git 输出带尾换行，写进 JSON 会变成 "abc...\n"，
+        # 严格比较、签名与外部工具消费都会因此对不上（第五轮审核 R5-7）
+        return out.stdout.strip() if out.returncode == 0 else ""
     except Exception:  # noqa: BLE001
         return ""
 
@@ -242,14 +262,57 @@ def cmd_build(args) -> int:
 
     out_path = settings.data_dir / "release" / "artifact-manifest.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    sums_path = _write_sha256sums(settings, manifest, out_path)
+    # 必须 LF 写出：CRLF 会让 sha256sum -c 在 Linux 上逐行失败（第五轮复核 B1）
+    write_text_lf(out_path, json.dumps(manifest, ensure_ascii=False, indent=2))
+    sums_path, logical_path = _write_sha256sums(settings, manifest, out_path)
     print(f"清单已写入: {out_path}")
-    print(f"校验和文件: {sums_path}")
-    print(f"  版本 {version} | commit {manifest['git_commit'][:12] or '(无)'} "
+    print(f"物理校验和: {sums_path}")
+    print(f"逻辑哈希表: {logical_path}")
+    print(f"  版本 {version} | commit {manifest['git_commit'] or '(无)'} "
           f"| dirty={manifest['git_dirty']} | 条目 {manifest['entry_count']} "
           f"| 合计 {manifest['total_bytes'] / 1024 / 1024:.1f} MB")
     print(f"  清单 sha256: {_sha256(out_path)}")
+    return 0
+
+
+def cmd_verify_sums(args) -> int:
+    """校验 SHA256SUMS 的**物理**哈希（等价于 `sha256sum -c SHA256SUMS`）。
+
+    第五轮审核 P2-3 的验收要求之一：标准工具语义必须成立。这里不调用系统
+    sha256sum（Windows/Git Bash 上不保证存在），而是用同一套算法逐行核对；
+    任何一行对不上、缺文件或格式非法都返回非零。
+    """
+    settings = get_settings()
+    root = repo_root()
+    sums_path = settings.data_dir / "release" / "SHA256SUMS"
+    if not sums_path.is_file():
+        print(f"校验和文件不存在: {sums_path}（先运行 build）")
+        return 2
+    problems: list[str] = []
+    checked = 0
+    for lineno, raw in enumerate(sums_path.read_text(encoding="utf-8").splitlines(), start=1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split("  ", 1)
+        if len(parts) != 2 or len(parts[0]) != 64:
+            problems.append(f"第 {lineno} 行格式非法: {raw[:80]}")
+            continue
+        digest, rel = parts
+        path = root / rel
+        if not path.is_file():
+            problems.append(f"缺失: {rel}")
+            continue
+        checked += 1
+        if _sha256(path) != digest:
+            problems.append(f"物理哈希不一致: {rel}")
+    print(f"物理校验 {checked} 个文件（{sums_path.relative_to(root).as_posix()}）")
+    if problems:
+        print(f"发现 {len(problems)} 处问题：")
+        for item in problems[:50]:
+            print(f"  - {item}")
+        return 1
+    print("SHA256SUMS 物理校验全部通过")
     return 0
 
 
@@ -303,16 +366,50 @@ def cmd_verify(args) -> int:
     return 0
 
 
-def _write_sha256sums(settings, manifest: dict, out_path: Path) -> Path:
-    """生成 SHA256SUMS（工作单 P2-3 第 6 条）：把清单本身也纳入校验链。"""
+def _write_sha256sums(settings, manifest: dict, out_path: Path) -> tuple[Path, Path]:
+    """生成 SHA256SUMS（**物理**哈希）与 LOGICAL_HASHES.json（逻辑哈希）。
+
+    第五轮审核 P2-3 修正了旧实现的语义错误：旧版把 Chroma 元数据库的**逻辑哈希**
+    写进 SHA256SUMS，于是 `sha256sum -c SHA256SUMS` 必然报不一致——那不是文件被改了，
+    而是两种哈希本来就是不同口径。现在分工明确：
+
+    - `SHA256SUMS`：标准语义，逐文件物理 sha256，`sha256sum -c` 可直接通过；
+    - `LOGICAL_HASHES.json`：`hash_mode=sqlite_logical` 的条目单独存放逻辑哈希，
+      由 `build_artifact_manifest.py verify` 校验，不与物理校验混用。
+    """
     root = repo_root()
     lines = []
+    logical = []
     for entry in manifest.get("entries", []):
-        lines.append(f"{entry['sha256']}  {entry['relative_path']}")
+        rel = entry["relative_path"]
+        if entry.get("hash_mode") == "sqlite_logical":
+            # 物理哈希只作参考，单独成表；SHA256SUMS 里放物理值才是标准语义
+            physical = entry.get("physical_sha256") or ""
+            if physical:
+                lines.append(f"{physical}  {rel}")
+            logical.append({
+                "relative_path": rel,
+                "hash_mode": entry.get("hash_mode"),
+                "logical_sha256": entry.get("sha256"),
+                "physical_sha256": physical,
+                "note": "Chroma 元数据库运行时会自更新：以逻辑哈希为准，物理哈希仅供比对",
+            })
+            continue
+        lines.append(f"{entry['sha256']}  {rel}")
+    # 清单自身也纳入校验链（它不登记自己，但必须在 SHA256SUMS 里）
     lines.append(f"{_sha256(out_path)}  {out_path.relative_to(root).as_posix()}")
+
     sums_path = out_path.parent / "SHA256SUMS"
-    sums_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return sums_path
+    write_text_lf(sums_path, "\n".join(lines) + "\n")
+
+    logical_path = out_path.parent / "LOGICAL_HASHES.json"
+    write_text_lf(logical_path, json.dumps({
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "source_version": manifest.get("source_version", ""),
+        "hash_mode_doc": "sqlite_logical = 按语义内容（集合/段/向量条数）规范化后哈希",
+        "entries": logical,
+    }, ensure_ascii=False, indent=2))
+    return sums_path, logical_path
 
 
 def main() -> int:
@@ -323,6 +420,7 @@ def main() -> int:
     b.add_argument("--require-clean", action="store_true",
                    help="工作区有未提交改动时拒绝生成（发布门禁）")
     v = sub.add_parser("verify", help="按清单校验制品")
+    s = sub.add_parser("verify-sums", help="按 SHA256SUMS 做物理校验（等价 sha256sum -c）")
     args = ap.parse_args()
 
     if args.command in (None, "build"):
@@ -332,6 +430,8 @@ def main() -> int:
         return cmd_build(args)
     if args.command == "verify":
         return cmd_verify(args)
+    if args.command == "verify-sums":
+        return cmd_verify_sums(args)
     ap.print_help()
     return 2
 

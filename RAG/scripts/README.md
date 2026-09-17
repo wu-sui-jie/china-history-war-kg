@@ -22,20 +22,30 @@
 | `check_vector_consistency.py` | 向量一致性：条数校验 + Chroma top-k 与暴力余弦 top-k 抽样重合率（下限 0.9） | F04/F11（RAGv5） |
 | `compare_chunking.py` | 分块参数对比实验：建索引变体 → 跑评测 → 汇总报告 | F11（RAGv5 T8） |
 | `fetch_place_coords.py` | 批量获取高德坐标（复用旧项目编码器 + 断点续跑 + 配额保护 + 按（地名+省）去重） | F09/F07（RAGv5） |
+| `build_lineage.py` | 数据血缘（`data/release/lineage.json`）+ `--check` 校验 schema 与 run→demo→runtime 一致性 | 发布（第五轮 P2-4） |
+| `audit_chroma_segments.py` | Chroma collection/segment 映射、孤儿目录审计、四方计数一致性（不一致即退出非零） | 发布（第五轮 P2-5） |
+| `build_artifact_manifest.py` | 制品清单 + `verify`（含逻辑哈希）/ `verify-sums`（标准物理 SHA256SUMS） | 发布（第四轮 P2-3） |
+| `gen_sbom.py` | 生成/校验 SPDX 2.3 SBOM（Python + Node 依赖） | 发布（第五轮 P2-7） |
+| `lock_hashes.py` | 给 Python 锁文件补 `--hash`（走 PyPI JSON API，不下载制品）；`--check` 供 CI 门禁 | 发布（第五轮 P2-6） |
+| `fetch_data_artifact.py` | 数据制品打包（`--pack`）/ 下载 / 预期哈希校验 / 可选 gpg 验签 / 安全解包（zip-slip 与范围限制） | 发布（第五轮 P2-7） |
+| `build_release_bundle.py` | 组装完整 release 包（源码 + 数据 + dist + 证据 + SBOM + 依赖声明） | 发布（第五轮 P2-7） |
+| `check_docs.py` | 文档一致性：相对链接、current 口径、`.env.example` 键、**数据计数与清单一致** | 文档（第五轮 R5-2） |
+| `check_secrets.py` | 明文密钥扫描（提交与发布前门禁） | 安全 |
 
 ## 用法
 
 ```bash
 # 从 RAG/ 根执行（依赖相对 import 项目包）
-python scripts/export_snapshot.py --version 20260904_v3   # 可省 --version（自动取当天 vN）
-python scripts/build_index.py --version 20260904_v3        # 默认取最新快照；有向量密钥则同时嵌入并写 Chroma
+# 版本号示例用当前实际存在的版本；<v> 也可写成当天日期 _v1（export 未指定时自动生成）
+python scripts/export_snapshot.py --version 20260915_v1   # 可省 --version（自动取当天 vN）
+python scripts/build_index.py --version 20260915_v1        # 默认取最新快照；有向量密钥则同时嵌入并写 Chroma
 python scripts/build_index.py --no-embeddings              # 无向量密钥时只建 FTS5（向量写空占位）
-python scripts/build_index.py --vectors-only --version 20260904_v2   # 只补/重建向量（断点续跑，不重切分）
-python scripts/build_index.py --rebuild-chroma --version 20260904_v2 # 从 npy 审计副本重建 Chroma（不调云端）
+python scripts/build_index.py --vectors-only --version 20260915_v1   # 只补/重建向量（断点续跑，不重切分）
+python scripts/build_index.py --rebuild-chroma --version 20260915_v1 # 从 npy 审计副本重建 Chroma（不调云端）
 python scripts/run_pipeline.py                             # 一键全流程
 
 # 在线服务（RAGv2，需 fastapi/uvicorn，见 RAG/requirements.txt）
-python scripts/run_server.py --port 8000                   # SSE 问答服务（同源托管前端 dist）
+python scripts/run_server.py --port 8000 --version 20260915_v1   # SSE 问答服务（同源托管前端 dist）
 # 人工审核回填（RAGv2 F09 增强；decisions 结构见 data/snapshot/apply_audit.py）
 python scripts/apply_audit.py --decisions audit_decisions.json
 
@@ -44,6 +54,15 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟（演示�
 python scripts/check_vector_consistency.py                    # 向量一致性抽检（抽样比对暴力余弦）
 python scripts/gen_demo_examples.py                           # 生成 F08 示例清单（含实测时延）
 python scripts/compare_chunking.py                            # 分块参数对比实验（T8）
+
+# 发布链路（第六轮复核后新增/更新，详见 docs/deploy.md 第九节）
+python scripts/lock_hashes.py --check                     # 锁文件是否每条需求都带 --hash
+python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_lineage.py --check
+python scripts/audit_chroma_segments.py --version 20260915_v1
+python scripts/gen_sbom.py generate --version 20260915_v1 && python scripts/gen_sbom.py validate
+python scripts/build_artifact_manifest.py build --version 20260915_v1 --require-clean
+python scripts/build_artifact_manifest.py verify && python scripts/build_artifact_manifest.py verify-sums
+python scripts/build_release_bundle.py --version 20260915_v1 --smoke-report logs/smoke_release.json
 ```
 
 说明：`run_server.py` / `apply_audit.py` 属 RAGv2 新增；运行环境建议用

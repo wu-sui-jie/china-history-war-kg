@@ -70,6 +70,46 @@ test.describe('移动端抽屉', () => {
     await expect(trigger).toBeFocused()
   })
 
+  test('抽屉焦点陷阱：Tab / Shift+Tab 都不会把焦点带到抽屉外', async ({ page }) => {
+    // 第五轮审核 P1-13：旧用例只验证"焦点进入抽屉"与 Escape 回焦，
+    // 没有真正按 Tab 循环，因此"焦点陷阱"从未被证明存在。
+    await page.goto('/')
+    const trigger = page.getByRole('button', { name: /知识面板|收起面板/ })
+    await expect(trigger).toBeVisible()
+    if ((await trigger.textContent())?.includes('收起')) {
+      await trigger.click()
+    }
+    await trigger.click()
+
+    const dialog = page.getByRole('dialog', { name: '知识面板' })
+    await expect(dialog).toBeVisible()
+
+    const insideCount = async () =>
+      dialog.evaluate((el) => el.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ).length)
+    const focusables = await insideCount()
+    expect(focusables).toBeGreaterThan(0)
+
+    // 正向循环：按满一圈再多按两次，焦点必须始终留在抽屉内
+    for (let i = 0; i < focusables + 2; i += 1) {
+      await page.keyboard.press('Tab')
+      const trapped = await dialog.evaluate((el) => el.contains(document.activeElement))
+      expect(trapped, `第 ${i + 1} 次 Tab 后焦点逃出抽屉`).toBe(true)
+    }
+
+    // 反向循环：Shift+Tab 同样不得逃逸（从第一个元素往回绕到最后一个）
+    for (let i = 0; i < focusables + 2; i += 1) {
+      await page.keyboard.press('Shift+Tab')
+      const trapped = await dialog.evaluate((el) => el.contains(document.activeElement))
+      expect(trapped, `第 ${i + 1} 次 Shift+Tab 后焦点逃出抽屉`).toBe(true)
+    }
+
+    // 焦点确实在动（不是"所有按键都被吞掉"的假通过）
+    const moved = await dialog.evaluate(() => document.activeElement?.textContent?.trim() || '')
+    expect(moved.length).toBeGreaterThan(0)
+  })
+
   test('移动端点击引用会自动打开抽屉并定位证据', async ({ page }) => {
     await page.goto('/')
     const input = page.getByRole('textbox', { name: '输入历史战争相关问题' })
@@ -85,6 +125,9 @@ test.describe('移动端抽屉', () => {
 })
 
 test.describe('动态内容播报与减少动效', () => {
+  // 抽屉只在窄视口存在，而"减少动效"要断言的正是抽屉/蒙层的过渡，故用窄视口
+  test.use({ viewport: { width: 420, height: 820 } })
+
   test('toast 使用常驻 live region', async ({ page }) => {
     await page.goto('/')
     const region = page.locator('.toast-region')
@@ -92,14 +135,40 @@ test.describe('动态内容播报与减少动效', () => {
   })
 
   test('prefers-reduced-motion 下动画被压制', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
+    // 第五轮整改复核 B5：断言必须落在**真的有过渡**的元素上，并且同时测两种状态——
+    // 只测 reduce 态会空转：元素本来就没有 transition 时任何断言都通过（旧用例正是如此，
+    // 它断言的 .qa-topbar 全站没有任何 transition）。
     await page.goto('/')
-    const duration = await page.evaluate(() => {
-      const el = document.querySelector('.qa-topbar')
-      if (!el) return ''
-      return getComputedStyle(el).transitionDuration
-    })
-    // 规则把过渡压到 0.001ms；只断言"不是正常量级"
-    expect(duration).toMatch(/0\.001ms|0s/)
+    const trigger = page.getByRole('button', { name: /知识面板|收起面板/ })
+    await expect(trigger).toBeVisible()
+    if ((await trigger.textContent())?.includes('收起')) {
+      await trigger.click()
+    }
+    await trigger.click()
+    await expect(page.getByRole('dialog', { name: '知识面板' })).toBeVisible()
+
+    const durationSeconds = async () =>
+      page.evaluate(() => {
+        const el = document.querySelector('.panel-drawer-mask')
+          || document.querySelector('.qa-panel-drawer')
+        if (!el) return Number.NaN
+        // 浏览器会把 0.001ms 规范化成 1e-06s 之类的科学计数法字符串，
+        // 因此按"秒"解析数值再比较，而不是匹配固定字符串形态
+        const raw = getComputedStyle(el).transitionDuration
+        const value = parseFloat(raw)
+        return raw.trim().endsWith('ms') ? value / 1000 : value
+      })
+
+    // 正常态：过渡确实存在（否则下面的压制断言毫无意义）
+    const normal = await durationSeconds()
+    expect(Number.isFinite(normal)).toBe(true)
+    expect(normal).toBeGreaterThan(0.05)
+
+    // reduce 态：被压到 0.001ms 量级（对应 1e-06 s）
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    const reduced = await durationSeconds()
+    expect(Number.isFinite(reduced)).toBe(true)
+    expect(reduced).toBeLessThanOrEqual(0.001)
+    expect(reduced).toBeLessThan(normal)
   })
 })

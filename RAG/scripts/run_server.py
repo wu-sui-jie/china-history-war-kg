@@ -10,6 +10,10 @@ F06 自动使用离线摘要回答器；配好 LLM_BASE_URL/LLM_API_KEY 后接�
 数据版本（2026-09-15 审核 P0-7）：`--version` 会写入环境变量 RAG_ACTIVE_VERSION，
 由 app 的 lifespan 读取并显式加载——旧实现只把这个参数用于启动自检打印，
 uvicorn 重新导入模块后 API 仍按"最新目录"选版本，两者可能不是同一份数据。
+
+版本来源（2026-09-16 第五轮审核 P0-4）：传了 `--version` 时同时写 RAG_VERSION_SOURCE
+=cli_explicit，否则 health 只能看到"环境变量被固定"（env_pinned），无法区分
+"命令行显式指定"与".env 固定"。
 """
 
 from __future__ import annotations
@@ -27,6 +31,27 @@ import uvicorn  # noqa: E402
 from config.settings import get_settings  # noqa: E402
 
 
+def pin_version(version: str | None) -> str:
+    """把 `--version` 固定进环境变量，并声明来源；返回来源标识（空=未固定）。
+
+    必须在 `get_settings()` / 导入 `server.api` **之前**调用：uvicorn 在同一个进程里
+    按字符串导入模块，晚一步就会出现"启动日志说 A、API 实际用 B"（2026-09-15 审核 P0-7）；
+    来源声明（RAG_VERSION_SOURCE）则让 health 能区分 cli_explicit 与 env_pinned
+    （2026-09-16 第五轮审核 P0-4）。
+
+    不传 `--version` 时必须**清掉**本进程可能残留的 `RAG_VERSION_SOURCE=cli_explicit`
+    （第五轮整改复核 B4）：否则"没传 CLI 参数、实际按环境/扫描选版"的运行会被
+    health 错标成"CLI 显式固定"，而这种错标恰好出现在最需要准确诊断的场合。
+    """
+    if not version:
+        if os.environ.get("RAG_VERSION_SOURCE") == "cli_explicit":
+            os.environ.pop("RAG_VERSION_SOURCE", None)
+        return ""
+    os.environ["RAG_ACTIVE_VERSION"] = version
+    os.environ["RAG_VERSION_SOURCE"] = "cli_explicit"
+    return "cli_explicit"
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="启动 RAGv5 SSE 问答服务")
     p.add_argument("--host", default="127.0.0.1")
@@ -38,8 +63,7 @@ def main() -> None:
     args = p.parse_args()
 
     # 版本必须在导入 server.api 之前固定下来（uvicorn 在同一进程导入字符串模块）
-    if args.version:
-        os.environ["RAG_ACTIVE_VERSION"] = args.version
+    pin_version(args.version)
 
     s = get_settings()
     effective = args.version or s.active_version or "latest"

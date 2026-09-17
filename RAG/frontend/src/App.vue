@@ -42,6 +42,30 @@ function closePanel(): void {
   void nextTick(() => panelTriggerEl.value?.focus())
 }
 
+/** 真正可 Tab 到的元素：排除 disabled / 隐藏 / aria-hidden / roving tabindex(-1)。
+ *
+ * 第五轮审核 P1-13：旧实现直接 querySelectorAll('button, ...')，把 tablist 里
+ * `:tabindex="tab === item.id ? 0 : -1"` 的**非当前 tab** 也算成"可聚焦"，
+ * 于是"最后一个元素"往往是一个根本 Tab 不到的元素，`active === last` 永远不成立，
+ * 焦点就从中途逃出抽屉（浏览器实测：第 2 次 Tab 即逃逸）。
+ *
+ * `tabIndex >= 0` 这一条是关键：`button:not([disabled])` 这类选择器仍会匹配
+ * `tabindex="-1"` 的按钮，而浏览器在 Tab 序列里会跳过它们。
+ */
+function tabbableIn(root: HTMLElement): HTMLElement[] {
+  const selector =
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
+    'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  return Array.from(root.querySelectorAll<HTMLElement>(selector)).filter((el) => {
+    if (el.tabIndex < 0) return false
+    if (el.getAttribute('aria-hidden') === 'true') return false
+    const style = window.getComputedStyle(el)
+    if (style.display === 'none' || style.visibility === 'hidden') return false
+    // getClientRects 对 position: fixed 元素同样有效（offsetParent 会误判为 null）
+    return el.getClientRects().length > 0
+  })
+}
+
 function onDrawerKeydown(event: KeyboardEvent): void {
   if (event.key === 'Escape') {
     event.stopPropagation()
@@ -52,14 +76,19 @@ function onDrawerKeydown(event: KeyboardEvent): void {
   // 焦点陷阱：Tab 在抽屉内部循环，避免焦点落到被遮挡的聊天区
   const root = drawerEl.value
   if (!root) return
-  const focusables = root.querySelectorAll<HTMLElement>(
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-  )
+  const focusables = tabbableIn(root)
   if (!focusables.length) return
   const first = focusables[0]
   const last = focusables[focusables.length - 1]
   const active = document.activeElement as HTMLElement | null
-  if (event.shiftKey && (active === first || !root.contains(active))) {
+  const index = active ? focusables.indexOf(active) : -1
+  if (index === -1) {
+    // 焦点在抽屉容器自身（tabindex=-1）或已跑到外面：无论方向都拉回抽屉内
+    event.preventDefault()
+    ;(event.shiftKey ? last : first).focus()
+    return
+  }
+  if (event.shiftKey && active === first) {
     event.preventDefault()
     last.focus()
   } else if (!event.shiftKey && active === last) {
@@ -78,7 +107,7 @@ watch(
     if (!open) return
     void nextTick(() => {
       drawerEl.value
-        ?.querySelector<HTMLElement>('button, [href], input, select, textarea')
+        ?.querySelector<HTMLElement>('button:not([disabled]), [href], input, select, textarea')
         ?.focus()
     })
   },

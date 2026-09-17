@@ -19,9 +19,13 @@ logs/
 data/eval/*/runs/
 # 人工审核工作表放在 data/eval/<v>/review/（需在编辑器可见，故不忽略）
 
-# ---- 发布证据（由脚本生成，含本机绝对路径，可从 data/ 重建）----
-# 生成命令：build_lineage.py → audit_chroma_segments.py → build_artifact_manifest.py
+# ---- 发布证据与 release 包（由脚本生成，含本机绝对路径，可从 data/ 重建）----
+# 生成命令：build_lineage.py → audit_chroma_segments.py → gen_sbom.py → build_artifact_manifest.py
 data/release/
+release/
+release.tar.gz
+release.tar.gz.sha256
+.tmp/
 
 # ---- 运行时 / 测试产物 ----
 __pycache__/
@@ -37,6 +41,12 @@ frontend/.vite/
 frontend/*.tsbuildinfo
 frontend/vite.config.js
 frontend/vite.config.d.ts
+# Playwright 产物（第五轮审核 R5-4）：test-results/ 与 playwright-report/ 是运行痕迹，
+# 不忽略会让 health 误报 dirty、并让 release 的 --require-clean 门禁永远失败
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/.playwright/
 # 页面渲染冒烟残留（logs/ 已忽略，此两处为临时复制）
 ragv3-render-check.json
 frontend/ragv3-render-check.json
