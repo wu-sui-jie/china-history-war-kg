@@ -49,7 +49,12 @@ RAG 运行时不依赖旧后端服务、旧前端、Neo4j 是否启动，只读�
 在线链路守护用例（事件循环不阻塞、请求尺寸上限、断连取消回收、流式中断不重试、
 缓存淘汰、限流器有界、版本固定、`.env.example` 与配置一致性）；同日第四轮复核整改
 （发布阻断与正确性收口）补强制版本检查、严格 deadline、异步关闭、纠正语义、缓存键、
-限流 churn 等用例，共 **225 个**（Python）；前端另有 24 个 Node 用例（`cd frontend && npm test`）；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
+限流 churn；第五轮复核整改补停机顺序与排队撤销、同步池零值 schema、CLI 版本来源、
+生产 CORS 门禁、smoke 跨平台输出，以及发布链路脚本（SHA256SUMS 物理校验、Chroma 四方计数、
+lineage schema、SPDX SBOM、数据制品安全解包）的守护用例。**用例数不写在这里**：
+以 `docs/current-status.md` 为准（唯一事实源，避免同一数字在多份文档里各写一个版本）。
+前端另有 Vitest 单测/组件测试与 Playwright 浏览器验收（`cd frontend && npm run verify`、
+`npm run test:e2e:offline`）；端到端冒烟用 `scripts/smoke_deploy.py`）。运行：`python -m pytest tests -q`。 |
 
 > **功能编号 Fxx 怎么追踪？**
 > 不放进目录名，而是放进**文档**与**模块 docstring / 注释**。例如 `data/snapshot/` 在 README 中注明“本层实现 F09”，`scripts/build_index.py` docstring 注明“F11”。这样功能清单仍能一对一追到代码模块，又不会造成契约复制。

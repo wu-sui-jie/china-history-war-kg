@@ -6,12 +6,18 @@
 
 ## 一、结论
 
-13 项中 **11 项已完成、2 项部分完成**（均因环境限制，见第五节）。所有"已完成"项都具备:
-实际实现 + 针对根因的自动化测试 + 全量回归通过 + 文档口径同步；涉及发布的两项另附
-可重复执行的验证命令与产物。
+> **口径修正（2026-09-16 第五轮独立复核）**：本节原写"13 项中 11 项已完成、2 项部分完成"，
+> 与下面的逐项表格不符——按表格实际统计为 **8 项完成、4 项部分完成、1 项未完成**；
+> 第五轮复核结合动态验证、GitHub Actions 实际状态与全项目静态复核后，进一步裁定为
+> **2 项完成、8 项部分完成、3 项未完成**
+> （依据：[20260916-round5-remediation-review-and-full-project-audit.md](20260916-round5-remediation-review-and-full-project-audit.md)）。
+> 下表保留整改方的**自评**原样以便对照，不代表复核结论；第五轮已按裁定逐项修复，
+> 结果见 [20260916-round5-review-remediation-summary.md](20260916-round5-review-remediation-summary.md)。
+> 教训：状态统计必须由表格机械汇总而不能手写——两者不一致时，读者会拿到与事实相反的结论（R5-3）。
 
-**回归门禁**：后端 `pytest tests -q` → **250 passed**；前端 `npm test` → **43 passed**
+**回归门禁（本轮执行时的实测值）**：后端 `pytest tests -q` → **250 passed**；前端 `npm test` → **43 passed**
 （unit 27 + component 16）；`npm run verify`（typecheck + test + build + bundle 门禁）通过。
+（当前数字见 [../current-status.md](../current-status.md)，本段只记录当轮证据。）
 
 ## 二、逐项状态
 

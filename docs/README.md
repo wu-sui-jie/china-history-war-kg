@@ -145,6 +145,22 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 > 代码整改与验证证据见 [changes/20260915-round4-review-fix-summary.md](changes/20260915-round4-review-fix-summary.md)；
 > 复核（第四轮）发现的发布阻断与正确性问题的修复记录见
 > [changes/20260915-round4-review-fix-summary-2.md](changes/20260915-round4-review-fix-summary-2.md)。
+>
+> 第五轮复核（[changes/20260916-round5-remediation-review-and-full-project-audit.md](changes/20260916-round5-remediation-review-and-full-project-audit.md)：
+> 13 项重裁定 + R5-1…R5-7 新增问题）的整改，见两份配套文档：
+> **修改说明**（依据哪条审核要求改了哪些文件、如何验证）
+> [changes/20260916-round5-remediation-change-note.md](changes/20260916-round5-remediation-change-note.md)、
+> **结论对照**（每项的重裁定与完成判定）
+> [changes/20260916-round5-review-remediation-summary.md](changes/20260916-round5-review-remediation-summary.md)。
+> 当前状态数字统一见 [current-status.md](current-status.md)。
+>
+> 第六轮独立复核（对第五轮整改修改说明的核验 + 全项目增量清查，含 SHA256SUMS 行尾、
+> drain 并发、血缘判定缺口等 8 项 B 类遗留与增量发现，及下一轮整改顺序）见
+> [changes/20260916-round6-review-of-round5-remediation.md](changes/20260916-round6-review-of-round5-remediation.md)。
+>
+> 第六轮复核的整改，见两份配套文档：**修改说明**
+> [changes/20260916-round6-remediation-change-note.md](changes/20260916-round6-remediation-change-note.md)、
+> **结论对照** [changes/20260916-round6-review-remediation-summary.md](changes/20260916-round6-review-remediation-summary.md)。
 
 ## 文档维护约定
 
