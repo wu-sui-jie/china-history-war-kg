@@ -2,7 +2,7 @@
 
 > 本文件是**当前**运行事实的唯一入口：版本、测试数、demo 状态、依赖锁定状态、发布状态。
 > 其他文档（README、部署手册、阶段总结、整改记录）只做引用，不再各自维护这些数字。
-> 最近更新：2026-09-16（第六轮复核整改后）。数据计数由 `scripts/check_docs.py --strict`
+> 最近更新：2026-09-17（P2-1 真实模型 demo 制品重建后）。数据计数由 `scripts/check_docs.py --strict`
 > 与快照/索引清单机械核对，避免唯一事实源自身写错数字。
 
 ## 一、版本与运行
@@ -30,7 +30,7 @@
 | 制品清单 | `python scripts/build_artifact_manifest.py verify` | 通过（37/37 文件；Chroma 元数据库按逻辑哈希校验） |
 | 标准校验和（**标准工具**） | `sha256sum -c data/release/SHA256SUMS` | 通过（38 项全部 OK；证据文件写入固定 LF，跨平台字节一致） |
 | Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260915_v1` | 四方计数一致（ids/embeddings/collection/manifest 均 9544），退出码 0 |
-| 数据血缘 | `python scripts/build_lineage.py --check` | **未通过**：demo 链断裂（见第四节），其余各层哈希齐全 |
+| 数据血缘 | `python scripts/build_lineage.py --check` | 通过（2026-09-17 demo 链重建后 run → demo → runtime 全部一致） |
 | 依赖锁 | `python scripts/lock_hashes.py --check` + `pip install --dry-run --require-hashes -r requirements-dev.lock` | **逐条**需求带 `--hash`；dry-run 通过；抽样（chromadb/numpy/openai）实际下载校验哈希一致；锁内不含 `--index-url`（镜像由本机/CI 各自指定） |
 
 ## 三、数据与发布制品
@@ -46,33 +46,36 @@
 | `frontend/package-lock.json` | ✅ 已存在（npm 侧可 `npm ci`） |
 | release 包 | ✅ 组装脚本就绪（`scripts/build_release_bundle.py`：源码 + 数据 + dist + 证据 + SBOM + 依赖声明）；smoke 报告缺失/失败时硬拒绝；**本机未在干净 commit 上执行完整发布** |
 
-## 四、F08 演示示例（当前**不可用**，接口返回 503）
+## 四、F08 演示示例（已恢复，2026-09-17 重建）
 
-`data/eval/20260915_v1/demo_examples.json` **文件存在但属于旧版本产物**（内部
-`version=20260904_v2`、无 `measurement_mode`）。`/api/demo/examples` 按版本一致性校验
-返回 503 并给出重建命令——宁可让示例区显示"暂不可用"，也不展示旧版本的实测时延。
+`data/eval/20260915_v1/demo_examples.json` 已于 2026-09-17 用**真实模型**评测重建：
+`version=20260915_v1`、`measurement_mode=real_llm`、来源 run
+`run_20260917_203558`（llm_used=true，模型 deepseek-v4.1-flash，双通道+纯文本共 56 条）。
+候选 25 条（28 题 main 套件剔除 3 条评分为 incorrect 的拒答型检索失败题），实测后入选
+12 条，首正文时延 2.4s~6.3s（阈值 9000 ms）。`/api/demo/examples` 返回 200。
 
-血缘校验（`build_lineage.py --check`）会把这条链**判为不一致**并退出非零：
-`demo.source_run=run_20260913_postaudit` 在 `20260915_v1/runs/` 下不存在，
-且 demo 版本与运行时版本不同。
+评分环节按 P2-22 口径由 AI 代理完成（correct 23 / partial 2 / incorrect 3，
+reviewer 字段标注"未人工复核"）；正式交付前应人工复核评分（见第五节）。
 
-重建需要一次**真实模型**评测（会产生模型调用费用，由仓库维护者决定何时执行）：
+历史背景：此前 demo 文件为旧版本产物（`version=20260904_v2`），接口按版本一致性
+校验返回 503，宁可让示例区显示"暂不可用"也不展示旧版本的实测时延。重建流程：
 
 ```bash
-# 1) 真实模型评测（llm_used=true 的 run）
-python scripts/run_evaluation.py run --bank data/eval/20260915_v1/questions.jsonl --suites main
-# 2) 用该 run 重建 demo（--measure 会实测首字时延）
+# 1) 真实模型评测（必须加 --llm，否则默认强制离线回答器）
+python scripts/run_evaluation.py run --bank data/eval/20260915_v1/questions.jsonl --suites main --llm
+# 2) 评分：将 scoring_template.jsonl 填分为 scores.jsonl（人工或 AI 代理，标注 reviewer）
+# 3) 用该 run 重建 demo（--measure 会实测首字时延）
 python scripts/gen_demo_examples.py --version 20260915_v1 --run <真实模型 run> --measure
-# 3) 重新生成血缘并确认一致性
-python scripts/build_lineage.py --version 20260915_v1 --check
+# 4) 重新生成血缘并确认一致性（demo 父 run 必须是 latest_run）
+python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_lineage.py --version 20260915_v1 --check
 ```
 
 ## 五、未闭环事项（诚实清单）
 
-1. **真实模型 demo 制品**：见第四节，需要付费模型调用；代码与校验链路已就绪，
-   缺的只是一次真实 run 与随之重生成的 demo。
-2. **GitHub Actions 绿色流水线**：本地全部门禁可复现通过，但远端 CI/release 的
-   绿色结论要以推送后的实际 run 为准（本轮未推送，不宣称"CI 已绿"）。
+1. ~~**真实模型 demo 制品**~~：✅ 已闭环（2026-09-17 重建，见第四节）。遗留其中的人工
+   复核部分：评分由 AI 代理完成（P2-22 口径），正式交付前应人工复核 28 条评分。
+2. **GitHub Actions 绿色流水线**：✅ 已达成（2026-09-17，run 35214127469 及合并 PR #1
+   后的 main 分支 CI 全绿）；release workflow 仍待手动触发演练（需数据制品）。
 3. **release 只在干净 commit 上有效**：`build_artifact_manifest.py build --require-clean`
    与 release workflow 都要求工作区干净；本机当前工作区含本轮改动，故发布证据里
    `git_dirty=true`。发布时应先提交，再重跑证据生成链。
