@@ -5,7 +5,7 @@ name: ci
 # Chromium；需要完整数据链路的发布门禁在 release.yml，由 workflow_dispatch / tag 触发。
 on:
   push:
-    branches: [main, ragv5-demo-deploy, round4-review-remediation]
+    branches: [main, ragv5-demo-deploy, round4-review-remediation, round6-review-remediation]
   pull_request:
   workflow_dispatch:
 
