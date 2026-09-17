@@ -1,0 +1,135 @@
+name: ci
+
+# 每次 push / PR 都跑：**不依赖 data/ 下的大制品**（快照与索引不入库）。
+# 浏览器用例走 frontend 里的桩后端（scripts/e2e-server.mjs），因此在这里也能跑真实
+# Chromium；需要完整数据链路的发布门禁在 release.yml，由 workflow_dispatch / tag 触发。
+on:
+  push:
+    branches: [main, ragv5-demo-deploy, round4-review-remediation, round6-review-remediation]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 正式支持的运行版本：Python 3.11（锁文件即按 3.11 生成，带 hashes）。
+        # 3.9 只做语法兜底检查，见 syntax-floor job。
+        python-version: ["3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: 安装依赖（锁文件优先）
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements-dev.lock ]; then
+            if grep -q -- '--hash=' requirements-dev.lock; then
+              # 锁文件带哈希：按供应链要求强制校验（P2-6 验收）
+              python -m pip install --require-hashes -r requirements-dev.lock
+            else
+              echo "::warning::requirements-dev.lock 不含 --hash=，暂时按普通模式安装（见 docs/current-status.md）"
+              python -m pip install -r requirements-dev.lock
+            fi
+          else
+            python -m pip install -r requirements-dev.txt
+          fi
+      - name: 收集用例数（写入日志，供文档引用真实数字）
+        run: python -m pytest tests -q --collect-only | tail -3
+      - name: 全量测试
+        run: python -m pytest tests -q
+      - name: 守护用例（发布阻断 + 在线链路）
+        run: python -m pytest tests/test_release_guards.py tests/test_online_guards.py -q
+      - name: 脚本语法编译（全部 Python 源码）
+        run: python -m compileall -q server config contracts lib data scripts evaluation tests
+
+  syntax-floor:
+    # 语法兜底（原 3.9 矩阵的意图）：确认代码不依赖新语法，不需要装依赖。
+    # 依赖矩阵只支持 3.11（chromadb 依赖树要求 ≥3.10），把"语法兼容"与
+    # "依赖可安装"分开声明，避免出现一份 lock 谁都用不了的矩阵（第五轮审核 P2-6）。
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+      - name: 语法检查（3.9 解释器，不安装依赖）
+        run: python -m compileall -q server config contracts lib data scripts evaluation tests
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: 安装依赖
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+      - name: 类型检查
+        run: npm run typecheck
+      - name: 单元测试（SSE / 状态机 / 持久化）
+        run: npm run test:unit
+      - name: 组件测试（Vue Test Utils）
+        run: npm run test:component
+      - name: 构建
+        run: npm run build
+      - name: 首屏体积门禁（含"不预加载 ECharts/地图"）
+        run: npm run check:bundle
+
+  browser:
+    # 浏览器验收（第五轮审核 P1-12 / P1-13）：desktop + mobile 两套 project，
+    # 跑在桩后端上，因此不需要 data/ 也能在普通 CI 里执行。
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: 安装依赖
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+      - name: 安装 Chromium
+        run: npx playwright install --with-deps chromium
+      - name: 构建前端（桩后端托管 dist/）
+        run: npm run build
+      - name: 浏览器验收（桩后端 + Playwright desktop/mobile）
+        run: npm run test:e2e:offline
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 7
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 安装依赖
+        run: pip install -r requirements-dev.txt
+      - name: 锁文件必须带哈希（P2-6 门禁）
+        run: python scripts/lock_hashes.py --check
+      - name: 文档链接 / current 口径 / .env.example 一致性 / 数据计数
+        run: python scripts/check_docs.py --strict
+      - name: 密钥扫描
+        run: python scripts/check_secrets.py
+      - name: 空白与冲突标记检查
+        run: git diff --check

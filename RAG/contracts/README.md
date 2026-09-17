@@ -14,6 +14,7 @@ data-contract.md 规定了一组统一结构。本层把它们落成 Python data
 | 证据对象（evidence）与 kind/source_type/confidence | F03/F04/F05/F06 | `evidence.py` |
 | 问题类型枚举 | F02 判定、F03/F04/F05 消费 | `question.py` |
 | 查询请求 / F02 内部输出 / 纠正实体 | F01→F06 链路 | `request.py` |
+| 检索通道输出信封（GraphResult/TextResult/FusionOutput 等） | F03/F04/F05 | `retrieval.py` |
 | SSE 事件协议与事件类型 | F01/F06 | `sse.py` |
 | 知识面板数据（entity_cards/subgraph/timeline/map_points） | F05 装配 / F07 展示 | `panel.py` |
 | 冲突对象与 conflict_type | F05 | `conflict.py` |

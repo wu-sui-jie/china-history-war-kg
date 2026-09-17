@@ -1,0 +1,393 @@
+{
+  "version": "20260904_v2",
+  "generated_at": "2026-09-13T21:55:25",
+  "source_run": "run_20260913_postaudit",
+  "filter": {
+    "reviewed": true,
+    "exclude_answer_correctness": [
+      "incorrect"
+    ],
+    "answerable": true,
+    "suites": [
+      "main"
+    ],
+    "measured": true,
+    "max_first_answer_ms": 9000,
+    "exclude_truncated": true
+  },
+  "counts": {
+    "bank_total": 39,
+    "candidates": 9,
+    "selected": 9,
+    "dropped": {
+      "评分为 incorrect": 10,
+      "非目标套件": 11,
+      "实测失败": 0,
+      "实测被截断": 3,
+      "首正文>9000ms": 6
+    }
+  },
+  "notes": "已实测（阈值 9000 ms）",
+  "examples": [
+    {
+      "id": "M14",
+      "question": "介绍一下诸葛亮。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 2798,
+        "first_answer_ms": 6190,
+        "total_ms": 8896,
+        "answer_frames": 631,
+        "thinking_frames": 626,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1270,
+          "prompt_tokens": 1642,
+          "total_tokens": 2912,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 633,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R01",
+      "question": "长平之战中赵军的统帅是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 3398,
+        "first_answer_ms": 3765,
+        "total_ms": 4545,
+        "answer_frames": 130,
+        "thinking_frames": 63,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 194,
+          "prompt_tokens": 1797,
+          "total_tokens": 1991,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 63,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "T02",
+      "question": "赤壁之战发生在哪一年？",
+      "category": "timeline",
+      "category_label": "时间线型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 2928,
+        "first_answer_ms": 3775,
+        "total_ms": 4475,
+        "answer_frames": 155,
+        "thinking_frames": 141,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 297,
+          "prompt_tokens": 2265,
+          "total_tokens": 2562,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 141,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B03",
+      "question": "淝水之战为什么以东晋胜利而告终？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 2716,
+        "first_answer_ms": 7680,
+        "total_ms": 10234,
+        "answer_frames": 536,
+        "thinking_frames": 796,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1345,
+          "prompt_tokens": 2990,
+          "total_tokens": 4335,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 802,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M10",
+      "question": "介绍一下阪泉之战。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 4652,
+        "first_answer_ms": 6571,
+        "total_ms": 8123,
+        "answer_frames": 334,
+        "thinking_frames": 370,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 717,
+          "prompt_tokens": 1751,
+          "total_tokens": 2468,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 376,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R06",
+      "question": "项羽指挥过哪些重要的战役？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 2255,
+        "first_answer_ms": 3960,
+        "total_ms": 5326,
+        "answer_frames": 311,
+        "thinking_frames": 323,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 635,
+          "prompt_tokens": 1070,
+          "total_tokens": 1705,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 323,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M13",
+      "question": "介绍一下韩信。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 3753,
+        "first_answer_ms": 6677,
+        "total_ms": 9451,
+        "answer_frames": 554,
+        "thinking_frames": 517,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1077,
+          "prompt_tokens": 1317,
+          "total_tokens": 2394,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 519,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M12",
+      "question": "介绍一下白起。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 4047,
+        "first_answer_ms": 6944,
+        "total_ms": 9071,
+        "answer_frames": 427,
+        "thinking_frames": 534,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 978,
+          "prompt_tokens": 1162,
+          "total_tokens": 2140,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 543,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M05",
+      "question": "介绍一下涿鹿之战。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": 3428,
+        "first_answer_ms": 7171,
+        "total_ms": 9331,
+        "answer_frames": 483,
+        "thinking_frames": 689,
+        "finish_reason": "normal",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1220,
+          "prompt_tokens": 1726,
+          "total_tokens": 2946,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 717,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    }
+  ]
+}

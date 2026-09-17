@@ -4,14 +4,49 @@
 !.env.example
 
 # ---- 离线数据产物（不进 Git；路径相对本 .gitignore 所在 RAG/ 目录）----
-data/snapshot/
-data/index/
+# snapshot/ 与 index/ 里同时放着 F09/F11 的源码（含 RAGv5 的向量构建），
+# 故不整目录忽略，改为"忽略产物、保留源码与说明"（避免源码从未入库）。
+data/snapshot/*
+!data/snapshot/*.py
+!data/snapshot/README.md
+data/index/*
+!data/index/*.py
+!data/index/README.md
 data/raw/
 data/cache/
 logs/
+# F10 评测运行痕迹/报告/评分中间件（题库 questions.jsonl 与其 meta 保留入库）
+data/eval/*/runs/
+# 人工审核工作表放在 data/eval/<v>/review/（需在编辑器可见，故不忽略）
+
+# ---- 发布证据与 release 包（由脚本生成，含本机绝对路径，可从 data/ 重建）----
+# 生成命令：build_lineage.py → audit_chroma_segments.py → gen_sbom.py → build_artifact_manifest.py
+data/release/
+release/
+release.tar.gz
+release.tar.gz.sha256
+.tmp/
 
 # ---- 运行时 / 测试产物 ----
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+
+# ---- RAGv3 前端（node_modules/dist 为构建产物，不入库）----
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+# vue-tsc build mode 的增量/声明产物
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+# Playwright 产物（第五轮审核 R5-4）：test-results/ 与 playwright-report/ 是运行痕迹，
+# 不忽略会让 health 误报 dirty、并让 release 的 --require-clean 门禁永远失败
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/.playwright/
+# 页面渲染冒烟残留（logs/ 已忽略，此两处为临时复制）
+ragv3-render-check.json
+frontend/ragv3-render-check.json
