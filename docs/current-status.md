@@ -1,0 +1,100 @@
+# 当前状态（唯一事实源）
+
+> 本文件是**当前**运行事实的唯一入口：版本、测试数、demo 状态、依赖锁定状态、发布状态。
+> 其他文档（README、部署手册、阶段总结、整改记录）只做引用，不再各自维护这些数字。
+> 最近更新：2026-09-16（第六轮复核整改后）。数据计数由 `scripts/check_docs.py --strict`
+> 与快照/索引清单机械核对，避免唯一事实源自身写错数字。
+
+## 一、版本与运行
+
+| 项 | 值 | 说明 |
+| --- | --- | --- |
+| 活跃数据版本 | `RAG_ACTIVE_VERSION`（未配置时按目录扫描最新一致版本） | 生产要求显式固定；`version_selection` 在 health 中区分 `cli_explicit` / `env_pinned` / `latest_scan` |
+| 默认启动命令 | `python scripts/run_server.py --port 8000 --version <版本>` | `--version` 写入 `RAG_ACTIVE_VERSION` 并声明来源为 `cli_explicit`（第五轮 P0-4） |
+| 数据集 | 9925 实体 / 17700 关系 / 9544 向量条 | 以 `data/snapshot/20260915_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
+| 运行环境 | Python 3.11（锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本 |
+| 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`、`GET /` | 契约见 [data-contract.md](data-contract.md) |
+
+## 二、测试与门禁（本地实测，2026-09-16）
+
+| 层 | 命令 | 结果 |
+| --- | --- | --- |
+| 后端 | `python -m pytest tests -q` | **298 passed** |
+| 前端单元（Vitest） | `cd frontend && npm run test:unit` | **27 passed**（SSE 解析/超时分类、状态机、持久化与迁移） |
+| 前端组件（Vue Test Utils） | `npm run test:component` | **16 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级）；合计 `npm test` = **43 passed** |
+| 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |
+| 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **12 passed / 2 skipped**（desktop + mobile；含 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言）；两种后端各跑通一次 |
+| 首屏体积门禁 | `npm run check:bundle` | 通过（入口 gzip ≈20 kB、首屏合计 ≈96 kB，上限 190 kB） |
+| 文档与配置一致性 | `python scripts/check_docs.py --strict` | 通过（相对链接、current 口径、`.env.example`、**数据计数与清单一致**） |
+| 密钥扫描 | `python scripts/check_secrets.py` | 未发现明文密钥 |
+| 制品清单 | `python scripts/build_artifact_manifest.py verify` | 通过（37/37 文件；Chroma 元数据库按逻辑哈希校验） |
+| 标准校验和（**标准工具**） | `sha256sum -c data/release/SHA256SUMS` | 通过（38 项全部 OK；证据文件写入固定 LF，跨平台字节一致） |
+| Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260915_v1` | 四方计数一致（ids/embeddings/collection/manifest 均 9544），退出码 0 |
+| 数据血缘 | `python scripts/build_lineage.py --check` | **未通过**：demo 链断裂（见第四节），其余各层哈希齐全 |
+| 依赖锁 | `python scripts/lock_hashes.py --check` + `pip install --dry-run --require-hashes -r requirements-dev.lock` | **逐条**需求带 `--hash`；dry-run 通过；抽样（chromadb/numpy/openai）实际下载校验哈希一致；锁内不含 `--index-url`（镜像由本机/CI 各自指定） |
+
+## 三、数据与发布制品
+
+| 制品 | 状态 |
+| --- | --- |
+| `data/release/artifact-manifest.json` + `SHA256SUMS` + `LOGICAL_HASHES.json` | ✅ 已生成（物理哈希与逻辑哈希分离；行尾固定 LF，`sha256sum -c` 38/38 通过） |
+| `data/release/lineage.json` | ✅ 已生成（source → snapshot → index → eval → demo → release 全链路哈希 + demo 父 run 解析 + 跨层一致性 `checks`，含 index_version 与 measurement_mode 判定） |
+| `data/release/chroma-segment-audit.json` | ✅ 已生成；结论：1 个 collection、2 个 segment（VECTOR + METADATA）、无孤儿目录 |
+| `data/release/sbom.json` | ✅ 已生成（SPDX 2.3，Python + Node 共 306 个包，命名空间可重现，`gen_sbom.py validate` 通过） |
+| 前端 `dist` | ✅ 已构建（`npm run build`；桩后端与 release 包都以它为准） |
+| Python 锁文件 | ✅ `requirements.lock`（93 需求）/ `requirements-dev.lock`（99 需求）：版本与开发环境实测一致，**每条需求均带 `--hash`**，不含 `--index-url` |
+| `frontend/package-lock.json` | ✅ 已存在（npm 侧可 `npm ci`） |
+| release 包 | ✅ 组装脚本就绪（`scripts/build_release_bundle.py`：源码 + 数据 + dist + 证据 + SBOM + 依赖声明）；smoke 报告缺失/失败时硬拒绝；**本机未在干净 commit 上执行完整发布** |
+
+## 四、F08 演示示例（当前**不可用**，接口返回 503）
+
+`data/eval/20260915_v1/demo_examples.json` **文件存在但属于旧版本产物**（内部
+`version=20260904_v2`、无 `measurement_mode`）。`/api/demo/examples` 按版本一致性校验
+返回 503 并给出重建命令——宁可让示例区显示"暂不可用"，也不展示旧版本的实测时延。
+
+血缘校验（`build_lineage.py --check`）会把这条链**判为不一致**并退出非零：
+`demo.source_run=run_20260913_postaudit` 在 `20260915_v1/runs/` 下不存在，
+且 demo 版本与运行时版本不同。
+
+重建需要一次**真实模型**评测（会产生模型调用费用，由仓库维护者决定何时执行）：
+
+```bash
+# 1) 真实模型评测（llm_used=true 的 run）
+python scripts/run_evaluation.py run --bank data/eval/20260915_v1/questions.jsonl --suites main
+# 2) 用该 run 重建 demo（--measure 会实测首字时延）
+python scripts/gen_demo_examples.py --version 20260915_v1 --run <真实模型 run> --measure
+# 3) 重新生成血缘并确认一致性
+python scripts/build_lineage.py --version 20260915_v1 --check
+```
+
+## 五、未闭环事项（诚实清单）
+
+1. **真实模型 demo 制品**：见第四节，需要付费模型调用；代码与校验链路已就绪，
+   缺的只是一次真实 run 与随之重生成的 demo。
+2. **GitHub Actions 绿色流水线**：本地全部门禁可复现通过，但远端 CI/release 的
+   绿色结论要以推送后的实际 run 为准（本轮未推送，不宣称"CI 已绿"）。
+3. **release 只在干净 commit 上有效**：`build_artifact_manifest.py build --require-clean`
+   与 release workflow 都要求工作区干净；本机当前工作区含本轮改动，故发布证据里
+   `git_dirty=true`。发布时应先提交，再重跑证据生成链。
+4. **数据制品下载**：release workflow 需要 `data_artifact_url` + `data_artifact_sha256`
+   （可再加 gpg 签名）；数据约 210 MB 不入 Git。可用
+   `python scripts/fetch_data_artifact.py --pack` 在本机生成 zip 与其哈希。
+5. **tested commit 与 evidence commit**：证据绑定的是产出证据时的代码 commit；
+   把证据文档提交本身会产生新 commit。发布记录里应同时写 `tested_commit`
+   （跑测试时）与 `evidence_commit`（生成制品时），两者不要求相等，但都必须可追溯。
+
+## 六、历史文档入口
+
+- 第三轮审核：`docs/20260915-第三轮审核报告与整改方案.md`
+- 第四轮复核：`docs/20260915-RAG全项目复核分析与优化建议.md`
+- 第四轮复核的后续工作单：`docs/changes/20260916-round4-review-remediation-work-order.md`
+- 第五轮复核（第五轮整改的输入）：`docs/changes/20260916-round5-remediation-review-and-full-project-audit.md`
+- 第五轮整改：`docs/changes/20260916-round5-remediation-change-note.md`（修改说明）、
+  `docs/changes/20260916-round5-review-remediation-summary.md`（结论对照）
+- 第六轮复核（第六轮整改的输入，被审核对象为第五轮修改说明）：
+  `docs/changes/20260916-round6-review-of-round5-remediation.md`
+- 第六轮整改：`docs/changes/20260916-round6-remediation-change-note.md`（修改说明）、
+  `docs/changes/20260916-round6-review-remediation-summary.md`（结论对照）
+- 更早的整改记录：`docs/changes/20260915-round4-review-fix-summary.md`、
+  `docs/changes/20260915-round4-review-fix-summary-2.md`、
+  `docs/changes/20260916-round4-review-remediation-summary.md`

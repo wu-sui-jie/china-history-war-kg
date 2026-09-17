@@ -1,8 +1,10 @@
 # RAG 问答系统总体架构
 
 - 文档类型：总体架构
-- 状态：初稿
+- 状态：生效（已按在线链路实现核对）
 - 创建时间：2026-09-03
+- 最近核验：2026-09-15
+- 适用数据版本：`RAG_ACTIVE_VERSION`（未配置时取最新一致版本）
 
 ## 文档目的
 
@@ -28,7 +30,7 @@
 1. 后端：FastAPI + Uvicorn。
 2. 图谱存储：RAG 内部只读数据快照，不使用旧 Neo4j。
 3. 文本索引：关键词索引 + 云端向量索引。
-4. 大模型：deepseek-v4-flash，通过 OpenAI 兼容接口调用。
+4. 大模型：`deepseek/deepseek-v4.1-flash`（中转 id；官方口径 `deepseek-flash`），通过 OpenAI 兼容接口调用。
 5. 前端：Vue 3 + TypeScript + Vite，图谱使用前端图表库。
 6. 会话与状态：页面本地保存会话历史，后端按请求携带上下文，不实现账号体系。
 
@@ -36,10 +38,14 @@
 
 ```text
 RAG/
-├── docs/
+├── docs/               # 总览、架构、数据契约与功能文档
 ├── data/
 │   ├── snapshot/       # F09 治理后快照
 │   └── index/          # F11 构建的文本与向量索引
+├── contracts/          # 统一数据契约的 Python 实现（证据/SSE/panel/请求等）
+├── config/             # 默认值（defaults.py）与 .env/环境变量加载（settings.py）
+├── evaluation/         # F10 评测包（题库/链式复跑/指标/报告/评分）
+├── lib/                # 通用工具（JSON 读写、日志、版本号）
 ├── server/
 │   ├── query/          # F02 问题理解与改写
 │   ├── graph/          # F03 图谱检索
@@ -100,11 +106,13 @@ F02 属于请求流入口，不消费 F09 输出；F09 和 F11 属于离线数�
 代码中不硬编码密钥，统一通过环境变量或 .env 提供。
 
 1. 向量模型接口地址与密钥。
-2. deepseek-v4-flash 接口地址、密钥和模型名。
+2. 生成模型（默认 `deepseek/deepseek-v4.1-flash`）接口地址、密钥和模型名。
 3. 备用生成模型接口与模型名。
 4. 缓存目录、索引目录、快照目录。
 5. 限流参数。
-6. 演示模式开关。
+6. 检索与拒答阈值（`TEXT_MODE` / `TEXT_HYBRID_STRATEGY` / `VECTOR_REFUSAL_MIN_SCORE`）。
+
+（F08 示例区无演示模式开关，恒显示，不占环境变量。）
 
 ## 运行与部署
 
