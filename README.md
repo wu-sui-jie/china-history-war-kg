@@ -172,6 +172,21 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 在线链路另需 fastapi/uvicorn/openai（见 requirements.txt）。本机建议使用
 已装上述依赖的 `E:/anaconda/envs/AI_Agent` 环境。
 
+依赖声明与锁定分四个文件（Python 项目的标准组合，各司其职，不要合并或删除）：
+
+| 文件 | 角色 | 维护方式 |
+| --- | --- | --- |
+| `requirements.txt` | 直接依赖声明（`>=` 下界），回答"要什么" | 人工 |
+| `requirements-dev.txt` | `-r requirements.txt` + 测试/审计依赖（pytest/httpx/pandas） | 人工 |
+| `requirements.lock` | pip-compile 解析出的完整依赖树（含传递依赖） | 工具生成 |
+| `requirements-dev.lock` | 同上、含开发依赖；CI 与发布用它安装（`--require-hashes`） | 工具生成 |
+
+锁文件体积较大（≈150 KB）属正常：**每条依赖带多个 sha256 哈希**——同一个包在不同 Python 版本与
+平台的发布产物各有哈希，实测平均约 17 个/条，用于供应链校验与跨机器复现；哈希由
+`scripts/lock_hashes.py` 经 PyPI JSON API 补齐。日常开发安装 `requirements-dev.txt` 即可，
+只在 CI、发布、复现历史依赖树时才用 lock（条数与校验状态见
+[docs/current-status.md](docs/current-status.md)）。
+
 ## 七、开发约定（项目级）
 
 > 本仓库 = RAG 问答系统（独立仓库，仅含 RAG 子项目代码与需求文档）。
