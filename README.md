@@ -106,6 +106,9 @@ RAG/
    │  scripts/export_snapshot.py   （F09）
    ▼
 data/snapshot/<版本>/            干净图谱快照 + 词典 + 治理报告
+   │  scripts/build_inferred_relations.py（P2 规则推理固化，可选步骤）
+   ▼
+data/snapshot/<版本>/inferred_relations.json   规则推理边（20 条规则，带溯源标记）
    │  scripts/build_index.py       （F11）
    ▼
 data/index/<版本>/               FTS5 关键词索引 + 向量索引

@@ -69,14 +69,23 @@ class GraphSearch:
         # 即为防御：空类型的行不会进入地图选点/冲突匹配等按类型分支。
         st = self.graph.type_of(row.get("source_entity_id") or "")
         tt = self.graph.type_of(row.get("target_entity_id") or "")
+        # 推理边（离线固化产物，P2）：证据带规则与溯源链，引用/面板据此与原始关系区分
+        is_inferred = bool(row.get("inferred"))
+        content = triple_content(sn, st, row["relation"], tn, tt)
+        if is_inferred:
+            content["inferred"] = True
+            content["rule_id"] = row.get("rule_id", "")
+            content["rule_name"] = row.get("rule_name", "")
+            content["derived_from"] = row.get("derived_from", "")
+            content["derived_from_rows"] = row.get("derived_from_rows", [])
         return Evidence(
             evidence_id=evidence_id_of(row, sn, tn),
             kind=EvidenceKind.GRAPH_TRIPLE,
-            source_type=SourceType.KG_RELATION,
+            source_type=(SourceType.KG_INFERENCE if is_inferred else SourceType.KG_RELATION),
             source_version=self.graph.source_version,
             confidence=row.get("confidence") if row.get("confidence") in
                        ("high", "medium", "low") else Confidence.MEDIUM,
-            content=triple_content(sn, st, row["relation"], tn, tt),
+            content=content,
             related_entities=[sn, tn] if sn != tn else [sn],
         )
 

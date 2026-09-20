@@ -145,6 +145,12 @@ export interface EntityCard {
   description?: string
   aliases?: string[]
   source?: string
+  /** 事件叙事字段（2026-09-20 起由 F05 从 event_cards 快照装配，仅事件卡有值） */
+  aggressor?: string | null
+  defender?: string | null
+  action?: string | null
+  impact?: string | null
+  place?: string | null
   role?: string
   org?: string
   org_type?: string

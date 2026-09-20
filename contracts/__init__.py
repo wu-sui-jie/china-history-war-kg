@@ -17,6 +17,15 @@ from contracts.governance import (
     RelationEdge,
 )
 from contracts.index import TextChunk
+from contracts.inference import (
+    INFERENCE_LEGACY_TABLE,
+    INFERENCE_SOURCE_TYPE,
+    InferenceAction,
+    InferenceCondition,
+    InferenceReport,
+    InferenceRule,
+    InferredRelation,
+)
 from contracts.panel import (
     EntityCard,
     GraphEdge,
@@ -70,6 +79,13 @@ __all__ = [
     "EntityNode",
     "RelationEdge",
     "TextChunk",
+    "INFERENCE_SOURCE_TYPE",
+    "INFERENCE_LEGACY_TABLE",
+    "InferenceAction",
+    "InferenceCondition",
+    "InferenceReport",
+    "InferenceRule",
+    "InferredRelation",
     "EntityCard",
     "GraphEdge",
     "GraphNode",

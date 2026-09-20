@@ -17,6 +17,7 @@ F11 文本索引使用。本层不依赖旧服务是否启动，只读旧 SQLite
 | `isolate.py` | 孤立节点统计与标记（保留、不删除）。 |
 | `governance.py` | 编排上述步骤，产出快照目录 + `governance_report.json` 治理报告。 |
 | `apply_audit.py` | **RAGv2 新增**：人工审核决定回填（add_alias/remove_alias/merge），输出新版本快照 + audit_applied 明细。 |
+| `inference.py` | **2026-09-20 新增（P2）**：规则推理固化——对快照应用 `data/rules/rule_base.json` 的 20 条规则，产出 `inferred_relations.json` + `inference_report.json`（入口 `scripts/build_inferred_relations.py`）。 |
 
 ## 产物（每版本一个目录 `data/snapshot/<YYYYMMDD_vN>/`）
 
@@ -31,6 +32,8 @@ F11 文本索引使用。本层不依赖旧服务是否启动，只读旧 SQLite
 | `dicts.json` | 词典（标准战争类型、事件类型映射、朝代别名、现代地名映射）。 |
 | `governance_report.json` | 治理报告：治理前后对比、孤立节点数、重复名称数、归一映射、data_issues（含处理前/后明细）、待人工项。 |
 | `audit/` | 待人工审核项（如名称歧义组、映射建议）。 |
+| `inferred_relations.json` | **2026-09-20 起（P2 规则推理移植）**：规则推理边，与 `relations.json` 同构 + `inferred`/`rule_id`/`rule_name`/`derived_from`/`derived_from_rows` 标记；由 `scripts/build_inferred_relations.py` 用 `data/rules/rule_base.json` 的 20 条规则生成（见 [../../docs/RAG_v2/RAG规则推理移植-需求与设计.md](../../docs/RAG_v2/RAG规则推理移植-需求与设计.md)）。 |
+| `inference_report.json` | 规则推理构建报告：规则文件哈希、逐规则产出与跳过原因、产物 SHA256。 |
 
 ## 版本与一致性
 

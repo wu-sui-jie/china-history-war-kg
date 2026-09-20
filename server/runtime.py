@@ -285,6 +285,8 @@ def _load_layers(rt: Runtime, settings: Settings, version: str, snap_dir,
                       f"{'' if not git_dirty else '+dirty'}",
         "graph_entities": len(rt.graph.entities),
         "graph_relations": len(rt.graph.relations),
+        # 规则推理边（P2 离线固化产物）：0 表示该快照没有产物或已降级为纯原始图谱
+        "graph_inferred_relations": rt.graph.inferred_edge_count,
         "text_mode": settings.text_mode,          # 配置的目标模式（keyword/vector/hybrid）
         "vector_available": bool(rt.text.vector_available),
         "llm_available": rt.generate.llm.available,

@@ -4,6 +4,13 @@
 - entities: {entity_id, type(事件/人物/组织/地点), name, dynasty, ...}
 - relations: {source_entity_id, source_name, relation, target_entity_id, target_name,
   confidence, evidence, pending_review}
+
+推理关系（2026-09-20，P2 规则推理移植）：
+- 快照目录内的 `inferred_relations.json`（由 `scripts/build_inferred_relations.py` 离线固化，
+  见 docs/RAG_v2/RAG规则推理移植-需求与设计.md）与原始关系**同构**，一并灌入同一张邻接表——
+  六种检索策略因此自动能看到推理边，不需要第二套检索路径；
+- 缺文件即降级为纯原始图谱（未产出推理产物的快照行为与移植前完全一致）；
+- 推理行带 `inferred/rule_id/rule_name/derived_from`，证据装配处据此与事实层区分。
 """
 
 from __future__ import annotations
@@ -19,6 +26,8 @@ class GraphIndex:
         self.source_version = source_version
         self.entities: list[dict] = []
         self.relations: list[dict] = []
+        # 推理关系（独立于 relations 保存，便于观测与测试断言；不参与事实层的语义）
+        self.inferred_relations: list[dict] = []
         self._by_id: dict[str, dict] = {}
         self._by_name: dict[str, list[dict]] = {}       # 标准名 → 实体
         self._alias_to_id: dict[str, str] = {}          # 别名 → 实体 id
@@ -37,8 +46,13 @@ class GraphIndex:
         for e in ents:
             self._by_id[e["entity_id"]] = e
             self._by_name.setdefault(e["name"], []).append(e)
-        # pending_review 关系不进入可查询图谱（data-contract）
-        for r in rels:
+        inferred_path = self.snapshot_dir / "inferred_relations.json"
+        self.inferred_relations = (
+            json.loads(inferred_path.read_text(encoding="utf-8"))
+            if inferred_path.exists() else []
+        )
+        # pending_review 关系不进入可查询图谱（data-contract）；推理行无该字段
+        for r in rels + self.inferred_relations:
             if r.get("pending_review"):
                 continue
             s, t = r.get("source_entity_id"), r.get("target_entity_id")
@@ -46,6 +60,11 @@ class GraphIndex:
                 continue
             self._adj_out.setdefault(s, []).append((r["relation"], t, r))
             self._adj_in.setdefault(t, []).append((r["relation"], s, r))
+
+    @property
+    def inferred_edge_count(self) -> int:
+        """进入邻接表的推理边数（供 health / 日志观测）。"""
+        return sum(1 for r in self.inferred_relations if not r.get("pending_review"))
 
     # ---- 查询辅助 ----
     def get_by_id(self, eid: str) -> Optional[dict]:

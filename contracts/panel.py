@@ -23,6 +23,12 @@ class EntityCard(BaseModel):
     description: Optional[str] = None
     aliases: List[str] = field(default_factory=list)
     source: Optional[str] = None
+    # 事件的叙事字段（2026-09-20 起从 event_cards 快照装配，只对事件卡有值）
+    aggressor: Optional[str] = None
+    defender: Optional[str] = None
+    action: Optional[str] = None
+    impact: Optional[str] = None
+    place: Optional[str] = None
     # 人物/组织/地点的附加信息
     role: Optional[str] = None
     org: Optional[str] = None

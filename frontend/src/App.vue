@@ -8,6 +8,7 @@ import PanelPane from '@/components/panel/PanelPane.vue'
 import FiltersBar from '@/components/ui/FiltersBar.vue'
 import ToastView from '@/components/ui/ToastView.vue'
 import { useSessionStore } from '@/stores/session'
+import { buildSessionMarkdown, downloadMarkdown, exportFilename } from '@/utils/sessionExport'
 
 const store = useSessionStore()
 const isNarrow = useMediaQuery('(max-width: 980px)')
@@ -62,6 +63,11 @@ function onPickTurn(id: string): void {
   if (isNarrow.value) historyOpen.value = false
 }
 
+/** 会话切换/新建/删除：移动端收起历史抽屉，让出聊天区。 */
+function onSessionChange(): void {
+  if (isNarrow.value) historyOpen.value = false
+}
+
 /** 移动端切知识面板时收起历史抽屉（两个抽屉互斥）。 */
 function togglePanelDrawer(): void {
   const next = !store.panelOpen
@@ -69,12 +75,23 @@ function togglePanelDrawer(): void {
   if (next) historyOpen.value = false
 }
 
-function clearAsk(): void {
-  if (
-    window.confirm('清空本轮会话？历史记录将从本页移除，并新建会话 ID。')
-  ) {
-    store.clearConversation()
-  }
+const hasTurns = computed(() => store.messages.some((m) => m.role === 'assistant'))
+
+/** 新建会话：当前会话会自动留在左侧列表里（不丢数据），所以不需要确认框。 */
+function createAsk(): void {
+  store.createSession()
+}
+
+/** 会话级导出：正文 + 引用编号到来源的对照清单（需求分析 §4.2）。 */
+function exportSession(): void {
+  const at = Date.now()
+  const markdown = buildSessionMarkdown(store.messages, {
+    title: store.activeSessionTitle,
+    sessionId: store.sessionId,
+    exportedAt: at,
+  })
+  downloadMarkdown(exportFilename(store.activeSessionTitle, at), markdown)
+  store.showToast('info', '已导出当前会话（Markdown）')
 }
 
 // 移动端抽屉的对话框语义（第四轮复核 P1-13）：
@@ -221,13 +238,22 @@ onBeforeUnmount(() => {
         >
           {{ panelOpen ? '收起面板' : '知识面板' }}
         </button>
-        <button class="ghost-btn" type="button" @click="clearAsk">清空会话</button>
+        <button class="ghost-btn" type="button" @click="createAsk">新建会话</button>
+        <button
+          class="ghost-btn"
+          type="button"
+          :disabled="!hasTurns"
+          :title="hasTurns ? '把当前会话导出为 Markdown（含引用来源清单）' : '当前会话还没有回答可导出'"
+          @click="exportSession"
+        >
+          导出
+        </button>
       </div>
     </header>
 
     <main class="qa-main">
       <aside v-if="!isNarrow && historyVisible" class="qa-history-col" aria-label="提问历史">
-        <HistoryPane @pick="onPickTurn" />
+        <HistoryPane @pick="onPickTurn" @session-change="onSessionChange" />
       </aside>
       <aside
         v-else-if="isNarrow && historyOpen"
@@ -242,7 +268,7 @@ onBeforeUnmount(() => {
         <button class="ghost-btn drawer-close" type="button" @click="closeHistory">
           关闭历史
         </button>
-        <HistoryPane @pick="onPickTurn" />
+        <HistoryPane @pick="onPickTurn" @session-change="onSessionChange" />
       </aside>
       <div
         v-if="isNarrow && historyOpen"
