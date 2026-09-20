@@ -6,6 +6,10 @@ let user: User = {
     'username': 'admin',
 }
 
+// 注意：src/main.ts 无条件 `import './mockjs'`，而 mockjs 在 XHR 层拦下了
+// `/user/login`、`/user/menu`、`/user/permission`，所以**侧边栏菜单实际渲染的是这份数据**，
+// 不是 backend/app.py 的 `get_menu()`（那份至今未被这个前端调用过）。
+// 新增菜单项要改这里；另需同步 store/user.ts 的 id 白名单，否则会被过滤掉。
 const menus = [
     {
         id: '/workspace/dashboard',
@@ -56,6 +60,11 @@ const menus = [
                 id: '/knowledge/inference',
                 icon: 'layui-icon-engine',
                 title: '历史问答助手'
+            },
+            {
+                id: '/knowledge/rag',
+                icon: 'layui-icon-chat',
+                title: 'RAG 智能问答'
             },
             {
                 id: '/knowledge/text-extract',

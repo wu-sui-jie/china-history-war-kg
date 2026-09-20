@@ -37,6 +37,8 @@ const WORKSPACE_GROUP = {
   ]
 }
 
+// 注意：下面两份 id 清单是 backend/app.py `get_menu()` 的白名单，
+// 后端加了菜单项但没同步加进来，会因为 `.filter(Boolean)` 被静默丢弃（页面上就是不出现）。
 function mergeWorkspaceMenus(source: any[] = []) {
   const menus = Array.isArray(source) ? [...source] : []
   const menuMap = new Map(menus.map((item) => [item?.id, item]))
@@ -51,6 +53,7 @@ function mergeWorkspaceMenus(source: any[] = []) {
       childMap.get('/knowledge/graph/person'),
       childMap.get('/knowledge/graph/place'),
       childMap.get('/knowledge/inference'),
+      childMap.get('/knowledge/rag'),
       childMap.get('/knowledge/text-extract'),
       childMap.get('/knowledge/relation-analysis'),
       childMap.get('/knowledge/search'),

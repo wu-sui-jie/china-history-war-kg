@@ -3724,6 +3724,11 @@ def get_menu():
                     "title": "历史问答助手"
                 },
                 {
+                    "id": "/knowledge/rag",
+                    "icon": "layui-icon-chat",
+                    "title": "RAG 智能问答"
+                },
+                {
                     "id": "/knowledge/text-extract",
                     "icon": "layui-icon-read",
                     "title": "文本实体识别"

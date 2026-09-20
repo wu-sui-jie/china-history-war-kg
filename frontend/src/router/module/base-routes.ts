@@ -42,6 +42,7 @@ export default [
       { path: '/knowledge/relation-analysis', component: () => import('../../views/knowledge/RelationAnalysis.vue'), meta: { title: '关系分析', requireAuth: true } },
       { path: '/knowledge/search', component: () => import('../../views/knowledge/GlobalSearch.vue'), meta: { title: '全局搜索', requireAuth: true } },
       { path: '/knowledge/inference', component: () => import('../../views/inference/index.vue'), meta: { title: '历史问答助手', requireAuth: true } },
+      { path: '/knowledge/rag', component: () => import('../../views/knowledge/RagAssistant.vue'), meta: { title: 'RAG 智能问答', requireAuth: true } },
       { path: '/knowledge/text-extract', component: () => import('../../views/knowledge/TextEntityExtract.vue'), meta: { title: '文本实体识别', requireAuth: true } },
     ],
   },
