@@ -1,6 +1,6 @@
 # 20260915 第四轮复核整改实施记录（代码）
 
-- 文档类型：整改实施记录（对应 [20260915-RAG全项目复核分析与优化建议](../20260915-RAG全项目复核分析与优化建议.md)）
+- 文档类型：整改实施记录（对应 [第四轮复核分析与优化建议](20260915-round4-full-review-analysis.md)）
 - 状态：**主体已实施；经第四轮复核发现 4 项发布阻断与若干收口项，已在后续整改中修复**
   （见 [20260915-round4-review-audit-and-next-optimization.md](20260915-round4-review-audit-and-next-optimization.md)
   与其修复记录 [20260915-round4-review-fix-summary-2.md](20260915-round4-review-fix-summary-2.md)）

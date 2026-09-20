@@ -15,25 +15,47 @@
 - F11 文本切分与索引构建属于离线数据流程，不进入页面。
 - F10 问答效果评测属于离线评测流程，不进入页面。
 
-## 文档结构
+## 文档地图
+
+docs/ 下的文档按三层组织，**读什么取决于你要做什么**：
+
+**1. 现役文档（日常开发看这些）**
+
+| 文档 | 什么时候看 |
+| --- | --- |
+| [current-status.md](current-status.md) | **唯一事实源**：版本、测试数、门禁状态、数据计数、发布状态 |
+| [data-contract.md](data-contract.md) | 改接口/字段/证据结构/SSE 事件前必读（字段调整必须同步本文件与 `contracts/`） |
+| [architecture.md](architecture.md) | 理解整体分层与调用关系 |
+| [deploy.md](deploy.md) | 部署、排障、环境变量 |
+| [features/](features/)（11 份） | 每个功能的“作用 / 实现 / 验收标准”；改某功能前先看对应那份 |
+
+**2. 需求与设计（改动立项时的口径）**
+
+| 目录 | 内容 |
+| --- | --- |
+| [RAG_v2/](RAG_v2/) | 借鉴旧问答系统的需求分析、P2 规则推理移植的需求与设计（2026-09-20） |
+
+**3. 历史过程记录（审计追溯用，日常不必读）**
+
+| 目录 | 内容 | 讲什么 |
+| --- | --- | --- |
+| [RAG_v1/](RAG_v1/)（13 份 + 索引） | 阶段开发说明（RAGv1–v5）、规划说明、阶段总结 | 这个阶段做了什么、怎么用 |
+| [changes/](changes/)（24 份 + 索引） | 各轮审核报告、整改工作单、复核裁定、变更总结 | 这一轮改了什么、依据是什么 |
+
+历史记录**只增不改**：后续若推翻前轮结论，在新文档里说明而不是回改旧文档；归档文档顶部都有
+“归档说明”横幅，标明其性质与现行事实源。
 
 ```text
 RAG/docs/
 ├── README.md                  # 总览与功能索引（本文件）
-├── architecture.md            # 总体架构
+├── current-status.md          # 唯一事实源：版本 / 测试 / 门禁 / 数据计数
 ├── data-contract.md           # 统一数据契约与流式协议
-└── features/                  # 功能分块文档
-    ├── 01-qa-main.md
-    ├── 02-entity-linking.md
-    ├── 03-graph-retrieval.md
-    ├── 04-text-retrieval.md
-    ├── 05-fusion-rerank.md
-    ├── 06-grounded-answer.md
-    ├── 07-knowledge-panel.md
-    ├── 08-demo-mode.md
-    ├── 09-data-governance.md
-    ├── 10-evaluation.md
-    └── 11-text-indexing.md
+├── architecture.md            # 总体架构
+├── deploy.md                  # 部署与排障
+├── features/                  # 功能分块文档（F01–F11，现役）
+├── RAG_v2/                    # 需求与设计（借鉴旧问答系统 / 规则推理移植）
+├── RAG_v1/                    # 阶段开发说明（历史）→ 索引 RAG_v1/README.md
+└── changes/                   # 审核与整改过程记录（历史）→ 索引 changes/README.md
 ```
 
 ## 功能清单
@@ -137,11 +159,11 @@ F09、F11 是离线数据流；F02 至 F06 是请求时运行链，不要混读�
 阶段文档索引见 [RAG_v1/README.md](RAG_v1/README.md)。
 
 > 2026-09-15 全项目审核（文档与代码一致性）的整改工作单与整改记录见
-> [20260915-全项目审核报告.md](20260915-全项目审核报告.md)，
+> [第一轮全项目审核报告](changes/20260915-round1-full-audit-report.md)，
 > 改动清单与理由见 [changes/20260915-full-audit-fix-summary.md](changes/20260915-full-audit-fix-summary.md)。
 >
-> 同日第四轮全项目复核（[20260915-RAG全项目复核分析与优化建议.md](20260915-RAG全项目复核分析与优化建议.md)，
-> 含第三轮工作单 [20260915-第三轮审核报告与整改方案.md](20260915-第三轮审核报告与整改方案.md)）的
+> 同日第四轮全项目复核（[第四轮复核分析与优化建议](changes/20260915-round4-full-review-analysis.md)，
+> 含第三轮工作单 [第三轮审核报告与整改方案](changes/20260915-round3-audit-and-remediation-plan.md)）的
 > 代码整改与验证证据见 [changes/20260915-round4-review-fix-summary.md](changes/20260915-round4-review-fix-summary.md)；
 > 复核（第四轮）发现的发布阻断与正确性问题的修复记录见
 > [changes/20260915-round4-review-fix-summary-2.md](changes/20260915-round4-review-fix-summary-2.md)。

@@ -1,5 +1,12 @@
 # 20260915 全项目审核报告（文档与代码一致性）
 
+> **归档说明（2026-09-20 文档整理）**：本文档是**第一轮全项目审核的过程记录**（工作单性质），
+> 所列问题已整改闭环（复查见 [第二轮复查报告](20260915-round2-audit-recheck.md)、
+> 改动清单见 [整改总结](20260915-full-audit-fix-summary.md)）。归档于 `docs/changes/`，
+> 与 `docs/RAG_v1/`（阶段开发说明）共同构成审计链。
+> **现行事实以 [docs/current-status.md](../current-status.md) 为准**；日常开发不必读本文档。
+
+
 > 本报告是一次全项目审核的产物，用途是作为**整改工作单**交给执行方（人或模型）。
 > 审核时间：2026-09-15。审核方式：四路并行核对（后端链路 F02–F06、前端 F01/F07/F08、
 > 离线流程 F09/F10/F11、主文档与测试），全部结论均给出 文件:行号 证据。
@@ -333,7 +340,7 @@
 - **测试结果**：`E:/anaconda/envs/AI_Agent/python.exe -m pytest tests/ -q` → **154 passed**
   （整改前 140；新增 `tests/test_panel_timeline_order.py` 6 条、`tests/test_model_refusal.py` 8 条）
 - **前端构建**：`cd frontend && npm run build`（vue-tsc 类型检查 + vite build）通过，`frontend/dist` 已更新
-- **改动文件清单与理由**：见 [changes/20260915-full-audit-fix-summary.md](changes/20260915-full-audit-fix-summary.md) 第二、三、四节
+- **改动文件清单与理由**：见 [changes/20260915-full-audit-fix-summary.md](20260915-full-audit-fix-summary.md) 第二、三、四节
 
 ### 逐条处置摘要
 
