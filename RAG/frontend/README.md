@@ -30,6 +30,19 @@ npm run build        # 类型检查 + 产物到 dist/（可静态托管）
 npm run preview      # 预览构建产物
 ```
 
+## 并入旧知识库系统 Web 入口（可选）
+
+RAG 也可以挂到旧后台（layui 管理台）的 `/rag/` 子路径下，由反代把 `/rag/*` 转发给本服务，
+用户从旧后台菜单「RAG 智能问答」进入——见 `../../docs/RAG集成-Web入口合并.md`。
+
+```bash
+npm run build:integration   # base=/rag/ + 接口前缀=/rag/api（参数在 .env.integration）
+```
+
+并入模式只改构建期参数（`VITE_BASE_PATH` / `VITE_API_BASE`），服务端与数据链路不动。
+`npm run build` 仍是独立部署口径（base `/`、接口前缀 `/api`）；两个模式的 dist 互斥，
+切换后必须重新构建，否则页面与接口前缀对不上。
+
 ## 目录结构
 
 ```text
@@ -42,6 +55,7 @@ frontend/
     ├── styles.css               # 全局样式
     ├── types/contract.ts        # 前后端契约 TS 类型（镜像 data-contract）
     ├── api/
+    │   ├── base.ts              # 接口前缀（默认 /api，并入模式 /rag/api）+ 路径拼接
     │   ├── sse.ts               # fetch 流解析 data: 行 + AbortController
     │   └── http.ts              # /api/health、/api/dicts
     ├── stores/session.ts        # 会话持久化 + 问答状态机 + 纠正/取消/筛选

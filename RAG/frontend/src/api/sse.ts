@@ -10,6 +10,7 @@
  * - 连接超时 / 空闲超时 / 整体上限三档，避免"永久转圈"。
  */
 
+import { apiUrl } from '@/api/base'
 import type { ApiErrorBody, QueryRequest, SSEEnvelope } from '@/types/contract'
 
 export interface StreamOptions {
@@ -191,7 +192,7 @@ export async function streamQuery(
 
   try {
     armTimer()
-    const resp = await fetch('/api/query', {
+    const resp = await fetch(apiUrl('/query'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(request),

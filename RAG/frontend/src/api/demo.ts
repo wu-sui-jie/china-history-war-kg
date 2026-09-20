@@ -1,5 +1,6 @@
 /** F08 演示示例题客户端：读取后端由题库生成的示例清单（前端不再硬编码问题）。 */
 
+import { apiUrl } from '@/api/base'
 import { ApiError, DEFAULT_GET_TIMEOUT_MS } from '@/api/http'
 import type { ApiErrorBody, DemoExamplesResponse } from '@/types/contract'
 
@@ -28,5 +29,5 @@ async function getJson<T>(path: string, timeoutMs = DEFAULT_GET_TIMEOUT_MS): Pro
 }
 
 export function fetchDemoExamples(): Promise<DemoExamplesResponse> {
-  return getJson<DemoExamplesResponse>('/api/demo/examples')
+  return getJson<DemoExamplesResponse>(apiUrl('/demo/examples'))
 }

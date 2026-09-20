@@ -4,6 +4,7 @@
  * 现在统一 8 s 上限，并把后端的 JSON 错误信息（如版本不一致）透出给界面。
  */
 
+import { apiUrl } from '@/api/base'
 import type { ApiErrorBody, DictsResponse, HealthResponse } from '@/types/contract'
 
 export const DEFAULT_GET_TIMEOUT_MS = 8000
@@ -43,9 +44,9 @@ async function getJson<T>(path: string, timeoutMs = DEFAULT_GET_TIMEOUT_MS): Pro
 }
 
 export function fetchHealth(): Promise<HealthResponse> {
-  return getJson<HealthResponse>('/api/health')
+  return getJson<HealthResponse>(apiUrl('/health'))
 }
 
 export function fetchDicts(): Promise<DictsResponse> {
-  return getJson<DictsResponse>('/api/dicts')
+  return getJson<DictsResponse>(apiUrl('/dicts'))
 }
