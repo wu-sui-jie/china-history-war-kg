@@ -207,6 +207,7 @@ source_type 取值：
 3. original_text：原始正文。
 4. event_card_json：事件卡片。
 5. relation_evidence：关系证据。
+6. kg_inference：规则推理边（离线固化产物，见“规则推理产物”节）。
 
 confidence 取值：
 
@@ -248,6 +249,58 @@ citation_index 由 F05 统一分配，F06 在回答中使用，F07 展示引用�
   "related_entities": ["长平之战", "秦军"]
 }
 ```
+
+## 规则推理产物（inferred_relations.json）
+
+P2 规则推理移植（2026-09-20，设计见 [RAG_v2/RAG规则推理移植-需求与设计.md](RAG_v2/RAG规则推理移植-需求与设计.md)）
+的离线固化产物，与 `relations.json` 同级写在快照目录内，由 `scripts/build_inferred_relations.py`
+应用 `data/rules/rule_base.json`（20 条规则）生成：
+
+| 文件 | 内容 |
+| --- | --- |
+| `inferred_relations.json` | 推理关系行（与 relations.json 同构 + 推理标记） |
+| `inference_report.json` | 构建报告：规则文件哈希、逐规则产出、跳过原因、产物 SHA256 |
+
+推理行字段（在 RelationEdge 之上追加）：
+
+```json
+{
+  "source_entity_id": "place_0001",
+  "source_name": "涿鹿",
+  "relation": "发生于",
+  "target_entity_id": "event_0005",
+  "target_name": "涿鹿之战",
+  "confidence": "medium",
+  "source_type": "inference",
+  "legacy_table": "inference",
+  "inferred": true,
+  "rule_id": "war_001",
+  "rule_name": "主战场反向推理规则",
+  "derived_from": "主战场",
+  "derived_from_rows": [[6, "event_place_relations"]],
+  "composite": false,
+  "path": [],
+  "source_version": "20260915_v1"
+}
+```
+
+- `source_type` 恒为 `inference`、`legacy_table` 恒为 `inference`：推理边的证据 ID 形如
+  `graph_inference_h<哈希>`，与原始行的 `graph_<旧表>_<行号>` 天然隔离（不会出现同 ID 的不同证据）；
+- `derived_from`：反向规则为原始关系名；复合规则为 `"<关系>链"`；
+- `derived_from_rows`：溯源链 `[[source_row_id, legacy_table], ...]`，可回指到 `relations.json` 的真实行；
+- `composite` / `path`：复合规则为 `true`，`path` 记录路径上的中间节点 `{entity_id, name, type}`；
+- `confidence` 继承来源原始关系（复合规则取路径上最低的一档），不做放大。
+
+在线口径（F03，2026-09-20 起）：
+
+1. `GraphIndex` 把 `inferred_relations.json` 与 `relations.json` 一并灌入同一张邻接表，
+   六种检索策略自动可见推理边；**缺文件即降级**为纯原始图谱（未产出推理产物的快照行为与移植前一致）；
+2. 推理边仍是 `kind=graph_triple` 证据，但 `source_type=kg_inference`，且 `content` 追加
+   `inferred / rule_id / rule_name / derived_from / derived_from_rows`；
+3. 事件-事件关系白名单（`server/graph/query_strategies.py::EVENT_EVENT_RELATIONS`）已包含
+   推理关系名（间接因果 / 连续演进 / 战争阶段 / 隶属于战役），否则事件类问题会把推理边过滤掉；
+4. 引用标题与提示词都对推理边标注来源规则（`（推理·规则名）` / `[推理关系：由「X」按规则推导]`），
+   使“原始关系 vs 推理得出”在引用清单与回答里可辨；推理边不参与冲突判定的事实侧。
 
 ## 文本证据
 
@@ -303,7 +356,12 @@ F07 知识面板使用独立的 panel 数据结构，推荐随 SSE 的 panel 事
         "start_date": "前262年",
         "description": "事件简介或摘要",
         "aliases": ["长平大战"],
-        "source": "来源标识"
+        "source": "来源标识",
+        "aggressor": "秦国",
+        "defender": "赵国",
+        "action": "决战",
+        "impact": "赵国精锐尽失，东方六国再无力单独抗秦",
+        "place": "长平"
       }
     ],
     "subgraph": {
@@ -356,6 +414,10 @@ F07 知识面板使用独立的 panel 数据结构，推荐随 SSE 的 panel 事
 ```
 
 没有坐标的地点不进入 map_points，以地点列表文本展示。没有准确时间的事件进入“时间不详/仅知朝代”分组。
+
+`entity_cards` 中事件卡的叙事字段（`aggressor` / `defender` / `action` / `impact` / `place`，2026-09-20 起）：
+取自快照 `event_cards.json` 的同名字段，由 `server/fusion/panel_builder.py::_entity_card` 在装配事件卡时映射，
+**仅事件卡有值**（人物/组织/地点的卡片为 `null`）；快照缺失时该字段为 `null`，F07 按缺失不渲染。
 
 map_points 选点口径（RAGv5 2026-09-15 起，`server/fusion/panel_builder.py`）：同名地点在快照里有多行
 （跨朝代重复），按坐标聚类后**优先取带地址线索（省/今址）的簇**（实测：长平→山西高平市、河内→河南沁阳；

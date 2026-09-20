@@ -25,6 +25,22 @@ defineProps<{ cards: EntityCard[] }>()
           <dt>战争类型</dt>
           <dd>{{ card.event_type }}</dd>
         </div>
+        <div v-if="card.aggressor">
+          <dt>攻方</dt>
+          <dd>{{ card.aggressor }}</dd>
+        </div>
+        <div v-if="card.defender">
+          <dt>守方</dt>
+          <dd>{{ card.defender }}</dd>
+        </div>
+        <div v-if="card.action">
+          <dt>作战行动</dt>
+          <dd>{{ card.action }}</dd>
+        </div>
+        <div v-if="card.place">
+          <dt>地点</dt>
+          <dd>{{ card.place }}</dd>
+        </div>
         <div v-if="card.role">
           <dt>身份</dt>
           <dd>{{ card.role }}</dd>
@@ -46,6 +62,9 @@ defineProps<{ cards: EntityCard[] }>()
         </div>
       </dl>
       <p v-if="card.description" class="entity-card-desc">{{ card.description }}</p>
+      <p v-if="card.impact" class="entity-card-impact">
+        <span class="entity-card-impact-label">历史影响</span>{{ card.impact }}
+      </p>
       <footer v-if="card.source" class="entity-card-source">来源：{{ card.source }}</footer>
     </article>
   </div>

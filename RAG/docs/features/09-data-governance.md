@@ -29,6 +29,12 @@
 7. 标准化战争类型词典与事件类型映射表。
 8. 治理版本号与版本清单，供 F03、F11 和数据契约统一引用。
 9. 关系类型到事件卡片字段的映射表，供 F05 做 field_vs_triple 冲突判定。
+10. 规则推理产物（2026-09-20 起，P2 规则推理移植）：`inferred_relations.json`
+    （由 `data/rules/rule_base.json` 的 20 条规则在快照上推导出的关系，带
+    inferred/rule_id/rule_name/derived_from/derived_from_rows 标记）与 `inference_report.json`
+    （规则文件哈希、逐规则产出、跳过原因）。由 `scripts/build_inferred_relations.py` 生成，
+    已接入 `scripts/run_pipeline.py`（治理 → 规则推理 → 索引）；口径见
+    [data-contract.md](../data-contract.md) 的“规则推理产物”节。
 
 ## 输入与输出
 

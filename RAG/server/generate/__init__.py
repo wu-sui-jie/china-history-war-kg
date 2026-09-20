@@ -189,6 +189,12 @@ class AnswerGenerator:
                 "evidence": c.get("doc_id") or "关系证据",
             }.get(kind_val, kind_val)
             snippet = (c.get("text") or "")[:120]
+            if c.get("inferred"):
+                # 推理边：引用标题与摘要都标注来源规则，使"事实 / 推理"在引用清单里可辨（P2）
+                rule = c.get("rule_name") or c.get("rule_id") or ""
+                title = f"{title}（推理{'·' + rule if rule else ''}）"
+                derived = c.get("derived_from") or ""
+                snippet = f"由「{derived}」推导（推理关系）" if derived else "由原始关系按规则推导"
             out.append(SSECitation(
                 index=idx,
                 evidence_id=ev.evidence_id,

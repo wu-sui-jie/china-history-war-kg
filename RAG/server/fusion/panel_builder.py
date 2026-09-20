@@ -61,6 +61,13 @@ def _start_year(date_str) -> Optional[int]:
     return None
 
 
+def _text(value) -> Optional[str]:
+    """叙事字段归一：None / 空白串 → None（前端按缺失不渲染，避免空标签行）。"""
+    if value is None:
+        return None
+    return str(value).strip() or None
+
+
 def _sort_by_start_date(items: list[TimelineItem]) -> list[TimelineItem]:
     """组内按可解析的 start_date 升序（稳定排序）；无法解析的条目保持原序置于末尾。"""
     def key(pair):
@@ -126,6 +133,12 @@ class PanelBuilder:
                 description=card.get("description") or e.get("description"),
                 aliases=e.get("aliases") or [],
                 source=card.get("source") or e.get("source"),
+                # 叙事字段：只来自 event_cards（实体表没有这几列），缺失/空白归一为 None
+                aggressor=_text(card.get("aggressor")),
+                defender=_text(card.get("defender")),
+                action=_text(card.get("action")),
+                impact=_text(card.get("impact")),
+                place=_text(card.get("place")),
             )
         return EntityCard(
             entity_id=e.get("entity_id", ""),

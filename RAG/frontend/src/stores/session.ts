@@ -6,6 +6,13 @@
  * - 只有 completed/refused/degraded 进入多轮历史，且被纠正结果替代的轮次会被排除；
  * - 流自然结束但没收到 done → interrupted（半截回答不进历史，也不再永久转圈）；
  * - 刷新恢复时把所有未收敛的瞬态状态迁移为 interrupted（幽灵流式消息没有 AbortController）。
+ *
+ * 多会话（2026-09-20 借鉴项 P1）：
+ * - 存储结构升到 v3：会话索引（id/标题/时间）+ 每个会话各自的消息体；
+ * - 活动会话的消息体就是 `messages`，非活动会话的消息体在 `sessionBodies` 里，
+ *   二者在切换/持久化时显式交换，避免"数组引用脱节"这类静默错位；
+ * - 旧键（v2 单会话 / v1）读取时自动迁移成"单会话"；
+ * - 会话数上限与每会话消息上限共同约束 localStorage 占用，超限时按最近更新裁剪。
  */
 
 import { computed, reactive, ref } from 'vue'
@@ -33,13 +40,21 @@ import {
 } from '@/types/contract'
 
 /** 存储键带 schema 版本：字段结构变化时可以并存而不是把旧数据读坏。 */
-const STORAGE_KEY = 'ragv5-session-v2'
-const LEGACY_STORAGE_KEYS = ['ragv3-session-v1', 'ragv5-session-v1']
-const STORAGE_SCHEMA_VERSION = 2
+const STORAGE_KEY = 'ragv5-session-v3'
+const LEGACY_STORAGE_KEYS = ['ragv5-session-v2', 'ragv3-session-v1', 'ragv5-session-v1']
+const STORAGE_SCHEMA_VERSION = 3
 /** 无法安全解析/版本过新的原值隔离位置（不删除，便于排查） */
 const STORAGE_QUARANTINE_KEY = 'ragv5-session-quarantine'
-/** 持久化上限：超长会话只保留最近若干条，避免把 localStorage 写爆导致恢复整体失效。 */
+/** 持久化上限：每会话只保留最近若干条，避免把 localStorage 写爆导致恢复整体失效。 */
 const MAX_PERSISTED_MESSAGES = 60
+/** 会话数上限：多会话会放大 localStorage 占用，超限时按"最近更新"裁剪（活动会话必留） */
+const MAX_SESSIONS = 20
+/** 读写配额不足时的降级档位（会话数 / 每会话消息数） */
+const DEGRADED_SESSIONS = 8
+const DEGRADED_MESSAGES = 20
+const DEFAULT_SESSION_TITLE = '新会话'
+/** 自动命名取首条提问的前 N 字（沿用旧问答系统的 15 字口径） */
+const TITLE_MAX_CHARS = 15
 const DEFAULT_FILTERS: Filters = { dynasty: [], event_type: [] }
 
 const EMPTY_PANEL: PanelData = {
@@ -231,10 +246,49 @@ function asReactiveMessage<T extends ChatMessage>(msg: T): T {
 }
 
 /** 裁剪：只留最近 N 条，且不以助手消息开头（避免恢复出"没有问题的回答"）。 */
-function cropMessages(messages: ChatMessage[]): ChatMessage[] {
-  let kept = messages.slice(-MAX_PERSISTED_MESSAGES)
+function cropMessages(
+  messages: ChatMessage[],
+  limit = MAX_PERSISTED_MESSAGES,
+): ChatMessage[] {
+  let kept = messages.slice(-limit)
   while (kept.length && kept[0].role === 'assistant') kept = kept.slice(1)
   return kept
+}
+
+/** 会话索引条目（消息体不在这里，见 store 内的 messages / sessionBodies）。 */
+export interface SessionMeta {
+  id: string
+  title: string
+  createdAt: number
+  updatedAt: number
+}
+
+/** 会话列表渲染项。 */
+export interface SessionEntry extends SessionMeta {
+  active: boolean
+  /** 该会话已有多少条消息（活动会话实时取自 messages） */
+  messageCount: number
+}
+
+/** 会话自动命名：首条提问的前 15 字（旧问答系统口径），空提问保持默认标题。 */
+function deriveTitle(question: string): string {
+  const text = (question || '').trim()
+  if (!text) return DEFAULT_SESSION_TITLE
+  return text.length > TITLE_MAX_CHARS ? `${text.slice(0, TITLE_MAX_CHARS)}...` : text
+}
+
+/** 一段消息里的首个提问（迁移旧数据时用来给会话命名）。 */
+function firstQuestion(messages: ChatMessage[]): string {
+  for (const m of messages) {
+    if (m.role === 'user' && m.question) return m.question
+    if (m.role === 'assistant' && m.question) return m.question
+  }
+  return ''
+}
+
+function newSessionMeta(id?: string): SessionMeta {
+  const at = Date.now()
+  return { id: id || newId('session'), title: DEFAULT_SESSION_TITLE, createdAt: at, updatedAt: at }
 }
 
 /** 去掉体积最大的面板与过程记录（配额不足时的降级持久化）。 */
@@ -250,27 +304,122 @@ export interface PersistNotice {
   text: string
 }
 
-/** schema 迁移（第四轮复核 P2-11）：
- * - 当前版本：正常解析；
- * - 更早版本：交给 normalizeStoredMessage 逐条升级；
+/** 从持久化结构得到的运行时视图：会话索引 + 各自的全部消息体。 */
+interface PersistedSessions {
+  sessions: SessionMeta[]
+  messages: ChatMessage[]
+  /** 非活动会话的消息体（活动会话的消息体就是 `messages`） */
+  bodies: Map<string, ChatMessage[]>
+  activeSessionId: string
+}
+
+/** 首启 / 隔离后的空会话。 */
+function emptyPersisted(): PersistedSessions {
+  const meta = newSessionMeta()
+  return { sessions: [meta], messages: [], bodies: new Map(), activeSessionId: meta.id }
+}
+
+/** 数据损坏或版本过新时的统一出口：隔离原值 + 从空会话开始（不静默丢弃）。 */
+function quarantined(
+  key: string,
+  raw: string,
+  reason: string,
+  text: string,
+): PersistedSessions & { notice: PersistNotice | null } {
+  quarantine(key, raw, reason)
+  return { ...emptyPersisted(), notice: { kind: 'warn', text } as PersistNotice }
+}
+
+/** 超会话上限时按"最近更新"裁剪（活动会话必留），并回收对应消息体。 */
+function trimSessions(
+  sessions: SessionMeta[],
+  bodies: Map<string, ChatMessage[]>,
+  activeIdRaw: unknown,
+): { sessions: SessionMeta[]; bodies: Map<string, ChatMessage[]>; activeSessionId: string } {
+  const wanted = typeof activeIdRaw === 'string' ? activeIdRaw : ''
+  let kept = sessions
+  if (sessions.length > MAX_SESSIONS) {
+    const byRecent = [...sessions].sort((a, b) => b.updatedAt - a.updatedAt)
+    const top = byRecent.slice(0, MAX_SESSIONS)
+    if (wanted && !top.some((s) => s.id === wanted)) {
+      const active = byRecent.find((s) => s.id === wanted)
+      if (active) top[top.length - 1] = active
+    }
+    const keepIds = new Set(top.map((s) => s.id))
+    for (const id of [...bodies.keys()]) {
+      if (!keepIds.has(id)) bodies.delete(id)
+    }
+    kept = sessions.filter((s) => keepIds.has(s.id))
+  }
+  const activeSessionId = kept.some((s) => s.id === wanted) ? wanted : kept[0].id
+  return { sessions: kept, bodies, activeSessionId }
+}
+
+/** v3 多会话结构 → 会话索引 + 消息体。 */
+function readMultiSession(parsed: Record<string, unknown>): PersistedSessions | null {
+  const rawList = parsed.sessions as unknown[]
+  const sessions: SessionMeta[] = []
+  const bodies = new Map<string, ChatMessage[]>()
+  for (const item of rawList) {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) continue
+    const rec = item as Record<string, unknown>
+    const id = typeof rec.id === 'string' && rec.id ? rec.id : newId('session')
+    const messages = (Array.isArray(rec.messages) ? rec.messages : [])
+      .map(normalizeStoredMessage)
+      .filter((m): m is ChatMessage => !!m)
+    const createdAt = Number(rec.createdAt) || messages[0]?.createdAt || Date.now()
+    const title = typeof rec.title === 'string' && rec.title.trim()
+      ? rec.title.trim().slice(0, 60)
+      : deriveTitle(firstQuestion(messages))
+    sessions.push({ id, title, createdAt, updatedAt: Number(rec.updatedAt) || createdAt })
+    bodies.set(id, cropMessages(messages))
+  }
+  if (!sessions.length) return null
+  const trimmed = trimSessions(sessions, bodies, parsed.activeSessionId)
+  return { ...trimmed, messages: messagesOf(trimmed.bodies, trimmed.activeSessionId) }
+}
+
+/** v2（或更早）单会话结构 → 迁移为"第一条会话"。 */
+function readLegacySingleSession(parsed: Record<string, unknown>): PersistedSessions {
+  const messages = (Array.isArray(parsed.messages) ? parsed.messages : [])
+    .map(normalizeStoredMessage)
+    .filter((m): m is ChatMessage => !!m)
+  const id = typeof parsed.sessionId === 'string' && parsed.sessionId
+    ? parsed.sessionId
+    : newId('session')
+  const createdAt = messages[0]?.createdAt || Date.now()
+  const meta: SessionMeta = {
+    id,
+    title: deriveTitle(firstQuestion(messages)),
+    createdAt,
+    updatedAt: messages[messages.length - 1]?.createdAt || createdAt,
+  }
+  const bodies = new Map<string, ChatMessage[]>([[id, cropMessages(messages)]])
+  return { sessions: [meta], messages: bodies.get(id) as ChatMessage[], bodies, activeSessionId: id }
+}
+
+/** 取某会话的消息体（活动会话的消息体由 store 的 messages 持有，这里只处理非活动）。 */
+function messagesOf(bodies: Map<string, ChatMessage[]>, id: string): ChatMessage[] {
+  return bodies.get(id) || []
+}
+
+/** schema 迁移（第四轮复核 P2-11 + 2026-09-20 多会话 P1）：
+ * - 当前版本（v3 多会话）：正常解析；
+ * - v2/v1（单会话）：迁移为"第一条会话"，消息逐条升级；
  * - 更新版本：不猜结构，原值隔离到 quarantined 并向用户提示；
  * - 结构非法：同样隔离原值后从空会话开始（不再静默丢弃）。
  */
-function readPersisted(): {
-  sessionId: string
-  messages: ChatMessage[]
-  notice: PersistNotice | null
-} {
+function readPersisted(): PersistedSessions & { notice: PersistNotice | null } {
   const keys = [STORAGE_KEY, ...LEGACY_STORAGE_KEYS]
   for (const key of keys) {
     let raw: string | null = null
     try {
       raw = localStorage.getItem(key)
     } catch {
-      return { sessionId: newId('session'), messages: [], notice: null }
+      return { ...emptyPersisted(), notice: null }
     }
     if (!raw) continue
-    let parsed: { schemaVersion?: unknown; sessionId?: unknown; messages?: unknown } | null = null
+    let parsed: Record<string, unknown> | null = null
     try {
       const candidate = JSON.parse(raw) as Record<string, unknown>
       if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) {
@@ -278,40 +427,32 @@ function readPersisted(): {
       }
       parsed = candidate
     } catch {
-      quarantine(key, raw, '本地会话数据无法解析')
-      return {
-        sessionId: newId('session'),
-        messages: [],
-        notice: { kind: 'warn', text: '本地会话数据已损坏，已备份并新建会话' },
-      }
+      return quarantined(key, raw, '本地会话数据无法解析',
+                         '本地会话数据已损坏，已备份并新建会话')
     }
     const version = typeof parsed.schemaVersion === 'number' ? parsed.schemaVersion : 1
     if (version > STORAGE_SCHEMA_VERSION) {
-      quarantine(key, raw, `schemaVersion=${version} 高于当前支持的 ${STORAGE_SCHEMA_VERSION}`)
-      return {
-        sessionId: newId('session'),
-        messages: [],
-        notice: {
-          kind: 'warn',
-          text: '本地会话来自更新版本的页面，已隔离保存并新建会话（旧数据未被删除）',
-        },
-      }
+      return quarantined(
+        key, raw,
+        `schemaVersion=${version} 高于当前支持的 ${STORAGE_SCHEMA_VERSION}`,
+        '本地会话来自更新版本的页面，已隔离保存并新建会话（旧数据未被删除）',
+      )
     }
-    const rawMessages = Array.isArray(parsed.messages) ? parsed.messages : []
-    const messages = rawMessages
-      .map(normalizeStoredMessage)
-      .filter((m): m is ChatMessage => !!m)
+    if (version >= 3 && Array.isArray(parsed.sessions)) {
+      const read = readMultiSession(parsed)
+      if (!read) {
+        return quarantined(key, raw, 'sessions 结构非法',
+                           '本地会话结构异常，已备份并新建会话')
+      }
+      return { ...read, notice: null }
+    }
+    const migrated = readLegacySingleSession(parsed)
     return {
-      sessionId: typeof parsed.sessionId === 'string' && parsed.sessionId
-        ? parsed.sessionId
-        : newId('session'),
-      messages: cropMessages(messages),
-      notice: version < STORAGE_SCHEMA_VERSION
-        ? { kind: 'info', text: '已从旧版本本地会话迁移到当前结构' }
-        : null,
+      ...migrated,
+      notice: { kind: 'info', text: '已从旧版本本地会话迁移到当前结构' },
     }
   }
-  return { sessionId: newId('session'), messages: [], notice: null }
+  return { ...emptyPersisted(), notice: null }
 }
 
 /** 把无法安全解析的原始值挪到隔离键（不删除，便于用户/我们排查）。 */
@@ -331,8 +472,12 @@ function quarantine(sourceKey: string, raw: string, reason: string): void {
 
 export const useSessionStore = defineStore('session', () => {
   const persisted = readPersisted()
-  const sessionId = ref<string>(persisted.sessionId)
+  // 会话索引（标题/时间）与活动会话：活动会话的消息体就是下面的 messages
+  const sessions = ref<SessionMeta[]>(persisted.sessions)
+  const activeSessionId = ref<string>(persisted.activeSessionId)
   const messages = ref<ChatMessage[]>(persisted.messages)
+  /** 非活动会话的消息体：只在切换/持久化时与 messages 显式交换，避免数组引用脱节 */
+  const sessionBodies = new Map<string, ChatMessage[]>(persisted.bodies)
   const filters = reactive<Filters>(clone(DEFAULT_FILTERS))
 
   const backendReady = ref(false)
@@ -355,6 +500,29 @@ export const useSessionStore = defineStore('session', () => {
   // 历史视图：selectedTurnId 为 null 表示跟随最新轮；focusMessage 是"滚动定位到某一轮"的信号
   const selectedTurnId = ref<string | null>(null)
   const focusMessage = ref<{ id: string; nonce: number } | null>(null)
+
+  /** 当前会话 ID（发往后端；后端只用它做 SSE 事件关联）。 */
+  const sessionId = computed(() => activeSessionId.value)
+
+  const activeSessionMeta = computed<SessionMeta | null>(
+    () => sessions.value.find((s) => s.id === activeSessionId.value) || null,
+  )
+
+  /** 当前会话标题（列表高亮与导出文件名用）。 */
+  const activeSessionTitle = computed(
+    () => activeSessionMeta.value?.title || DEFAULT_SESSION_TITLE,
+  )
+
+  /** 左侧会话列表（保持索引顺序：新会话在前，不随活动状态重排）。 */
+  const sessionList = computed<SessionEntry[]>(() =>
+    sessions.value.map((s) => ({
+      ...s,
+      active: s.id === activeSessionId.value,
+      messageCount: s.id === activeSessionId.value
+        ? messages.value.length
+        : (sessionBodies.get(s.id)?.length ?? 0),
+    })),
+  )
 
   const activeMessage = computed<AssistantMessage | null>(() => active.value)
 
@@ -449,26 +617,58 @@ export const useSessionStore = defineStore('session', () => {
 
   let quotaWarned = false
 
-  function persist(): void {
-    const payload = {
-      schemaVersion: STORAGE_SCHEMA_VERSION,
-      sessionId: sessionId.value,
-      messages: cropMessages(messages.value),
+  /** 某会话的消息体：活动会话取 messages，其余取 sessionBodies。 */
+  function messagesFor(id: string): ChatMessage[] {
+    return id === activeSessionId.value ? messages.value : (sessionBodies.get(id) || [])
+  }
+
+  /** 组装持久化载荷（会话数/每会话条数/是否剥离重字段由降级档位决定）。 */
+  function buildPayload(options: {
+    maxSessions: number
+    perSession: number
+    stripPanel: boolean
+  }): Record<string, unknown> {
+    const keep = [...sessions.value]
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .slice(0, options.maxSessions)
+    const active = activeSessionMeta.value
+    if (active && !keep.some((s) => s.id === active.id)) {
+      keep[keep.length - 1] = active      // 活动会话必留（哪怕它是刚建的空会话）
     }
+    return {
+      schemaVersion: STORAGE_SCHEMA_VERSION,
+      activeSessionId: activeSessionId.value,
+      sessions: keep.map((s) => {
+        let list = cropMessages(messagesFor(s.id), options.perSession)
+        if (options.stripPanel) list = stripHeavy(list)
+        return {
+          id: s.id, title: s.title, createdAt: s.createdAt, updatedAt: s.updatedAt,
+          messages: list,
+        }
+      }),
+    }
+  }
+
+  function persist(): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildPayload({
+        maxSessions: MAX_SESSIONS,
+        perSession: MAX_PERSISTED_MESSAGES,
+        stripPanel: false,
+      })))
       return
     } catch {
-      // 配额/隐私模式：先降级（去掉面板与过程记录、只留最近 20 条）再试一次
+      // 配额/隐私模式：先降级（减会话数、去掉面板与过程记录、每会话只留 20 条）再试一次
     }
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ ...payload, messages: stripHeavy(payload.messages).slice(-20) }),
-      )
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildPayload({
+        maxSessions: DEGRADED_SESSIONS,
+        perSession: DEGRADED_MESSAGES,
+        stripPanel: true,
+      })))
       if (!quotaWarned) {
         quotaWarned = true
-        showToast('warn', '本地存储接近上限：已裁剪历史附件，仅影响刷新恢复')
+        showToast('warn', '本地存储接近上限：已裁剪历史附件与较早会话，仅影响刷新恢复')
       }
     } catch {
       if (!quotaWarned) {
@@ -556,14 +756,119 @@ export const useSessionStore = defineStore('session', () => {
     filters.event_type.splice(0)
   }
 
-  function clearConversation(): void {
-    cancelStream()
-    sessionId.value = newId('session')
-    messages.value = []
+  // ---- 多会话管理（2026-09-20 借鉴项 P1）----
+  /** 视图类状态复位：切换/新建会话后，面板与历史选择不能停留在旧会话上。 */
+  function resetViewState(): void {
     active.value = null
     citationFocus.value = null
     selectedTurnId.value = null
     focusMessage.value = null
+  }
+
+  /** 把当前会话的消息体挪进非活动区（切换/新建前调用）。 */
+  function stashActiveBody(): void {
+    sessionBodies.set(activeSessionId.value, messages.value)
+  }
+
+  function touchSession(id: string): void {
+    const meta = sessions.value.find((s) => s.id === id)
+    if (meta) meta.updatedAt = Date.now()
+  }
+
+  /** 会话索引超上限时按"最近更新"裁剪（活动会话必留），并回收对应消息体。 */
+  function trimSessionIndex(): void {
+    if (sessions.value.length <= MAX_SESSIONS) return
+    const keep = [...sessions.value]
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .slice(0, MAX_SESSIONS)
+    const active = activeSessionMeta.value
+    if (active && !keep.some((s) => s.id === active.id)) {
+      keep[keep.length - 1] = active
+    }
+    const keepIds = new Set(keep.map((s) => s.id))
+    for (const meta of sessions.value) {
+      if (!keepIds.has(meta.id)) sessionBodies.delete(meta.id)
+    }
+    sessions.value = sessions.value.filter((s) => keepIds.has(s.id))
+  }
+
+  /** 首条提问自动命名会话（旧页口径：前 15 字）；已自动命名或被重命名的不覆盖。 */
+  function autoTitleSession(question: string): void {
+    const meta = activeSessionMeta.value
+    if (!meta) return
+    if (meta.title && meta.title !== DEFAULT_SESSION_TITLE) return
+    meta.title = deriveTitle(question)
+  }
+
+  /** 切换会话：保存当前会话的消息体，装载目标会话。 */
+  function switchSession(id: string): void {
+    if (!id || id === activeSessionId.value) return
+    const target = sessions.value.find((s) => s.id === id)
+    if (!target) return
+    cancelStream()
+    stashActiveBody()
+    const body = sessionBodies.get(id) || []
+    sessionBodies.delete(id)        // 目标成为活动会话：消息体改由 messages 持有
+    activeSessionId.value = id
+    messages.value = body
+    resetViewState()
+    touchSession(id)
+    persist()
+  }
+
+  /** 新建会话；当前会话还没有任何消息时不重复新建（避免堆一堆空会话）。 */
+  function createSession(): void {
+    if (!messages.value.length && !active.value) {
+      showToast('info', '当前已经是新会话')
+      return
+    }
+    cancelStream()
+    stashActiveBody()
+    const meta = newSessionMeta()
+    sessions.value.unshift(meta)
+    trimSessionIndex()
+    activeSessionId.value = meta.id
+    messages.value = []
+    resetViewState()
+    persist()
+  }
+
+  /** 删除会话；删掉活动会话时切到最近更新的其它会话，删空后补一条空会话。 */
+  function deleteSession(id: string): void {
+    const index = sessions.value.findIndex((s) => s.id === id)
+    if (index < 0) return
+    const wasActive = id === activeSessionId.value
+    if (wasActive) cancelStream()
+    sessionBodies.delete(id)
+    sessions.value.splice(index, 1)
+
+    if (!sessions.value.length) {
+      const meta = newSessionMeta()
+      sessions.value.push(meta)
+      if (wasActive) {
+        activeSessionId.value = meta.id
+        messages.value = []
+        resetViewState()
+      }
+      persist()
+      return
+    }
+    if (wasActive) {
+      const next = [...sessions.value].sort((a, b) => b.updatedAt - a.updatedAt)[0]
+      activeSessionId.value = next.id
+      messages.value = sessionBodies.get(next.id) || []
+      sessionBodies.delete(next.id)
+      resetViewState()
+    }
+    persist()
+  }
+
+  /** 重命名会话（空标题回退默认名；不改 updatedAt——重命名不是"使用"）。 */
+  function renameSession(id: string, title: string): void {
+    const meta = sessions.value.find((s) => s.id === id)
+    if (!meta) return
+    const text = (title || '').trim().slice(0, 60)
+    meta.title = text || DEFAULT_SESSION_TITLE
     persist()
   }
 
@@ -637,6 +942,7 @@ export const useSessionStore = defineStore('session', () => {
       options.source.supersededBy = assistant.id
     }
     if (options.pushUser) {
+      autoTitleSession(question)     // 首条提问即给会话命名（列表里可辨认）
       messages.value.push({
         id: newId('user'),
         role: 'user',
@@ -647,6 +953,7 @@ export const useSessionStore = defineStore('session', () => {
     }
     messages.value.push(assistant)
     active.value = assistant
+    touchSession(activeSessionId.value)   // 会话"最近使用"时间（删除后回退与容量裁剪依据）
     flushPersist()          // 入队即落盘：刷新后至少能看到问题与"已中断"的空回答
 
     const mySeq = ++turnSeq
@@ -1021,6 +1328,14 @@ export const useSessionStore = defineStore('session', () => {
   return {
     sessionId,
     messages,
+    // 多会话：索引、活动会话标题、切换/新建/删除/重命名
+    activeSessionId,
+    activeSessionTitle,
+    sessionList,
+    switchSession,
+    createSession,
+    deleteSession,
+    renameSession,
     // 暴露给组件/测试观察：实际发给后端的多轮上下文（只含可用终态、排除被取代轮次）
     history,
     filters,
@@ -1044,7 +1359,6 @@ export const useSessionStore = defineStore('session', () => {
     toggleFilter,
     setFilter,
     clearFilters,
-    clearConversation,
     sendQuestion,
     cancelStream,
     correctEntity,

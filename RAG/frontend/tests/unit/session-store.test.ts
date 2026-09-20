@@ -236,7 +236,7 @@ test('流式正文节流写入 localStorage，刷新后恢复为 interrupted', a
   await store.sendQuestion('介绍一下赤壁之战。')
   stream.push({ type: 'answer', session_id: 's', data: { delta: '半截正文' } })
   await new Promise((r) => setTimeout(r, 900))    // 等节流落盘
-  const raw = localStorage.getItem('ragv5-session-v2')
+  const raw = localStorage.getItem('ragv5-session-v3')
   assert.ok(raw && raw.includes('半截正文'), '流式正文应被节流落盘')
 
   // 模拟刷新：用同一份 localStorage 重建 store
@@ -250,10 +250,10 @@ test('流式正文节流写入 localStorage，刷新后恢复为 interrupted', a
 })
 
 test('schemaVersion 高于当前时隔离原值并新建会话', async () => {
-  localStorage.setItem('ragv5-session-v2', JSON.stringify({
+  localStorage.setItem('ragv5-session-v3', JSON.stringify({
     schemaVersion: 99,
-    sessionId: 'future',
-    messages: [{ role: 'user', question: '未来结构' }],
+    activeSessionId: 'future',
+    sessions: [{ id: 'future', title: '未来结构', messages: [] }],
   }))
   setActivePinia(createPinia())
   const store = useSessionStore()
@@ -281,11 +281,35 @@ test('旧版本（无 schemaVersion）会话按迁移读取', async () => {
 })
 
 test('损坏的持久化数据被隔离而不是静默丢弃', async () => {
-  localStorage.setItem('ragv5-session-v2', '{不是 JSON')
+  localStorage.setItem('ragv5-session-v3', '{不是 JSON')
   setActivePinia(createPinia())
   const store = useSessionStore()
   assert.equal(store.messages.length, 0)
   assert.ok(localStorage.getItem('ragv5-session-quarantine'))
+})
+
+test('v2 单会话数据迁移为一条会话（消息与标题都带上）', async () => {
+  localStorage.setItem('ragv5-session-v2', JSON.stringify({
+    schemaVersion: 2,
+    sessionId: 'single-1',
+    messages: [
+      { id: 'u1', role: 'user', question: '介绍一下赤壁之战。', filters: { dynasty: [], event_type: [] } },
+      { id: 'a1', role: 'assistant', question: '介绍一下赤壁之战。', answer: '赤壁之战…',
+        turnStatus: 'completed', createdAt: Date.now() },
+    ],
+  }))
+  setActivePinia(createPinia())
+  const store = useSessionStore()
+  assert.equal(store.sessionId, 'single-1')
+  assert.equal(store.messages.length, 2)
+  assert.equal(store.sessionList.length, 1, '旧单会话迁移为唯一会话')
+  assert.equal(store.sessionList[0].title, '介绍一下赤壁之战。', '标题取首条提问')
+  assert.equal(store.sessionList[0].active, true)
+  // 迁移是惰性的（不主动改写存储）：再次刷新仍从旧键迁移出同一条会话，幂等
+  setActivePinia(createPinia())
+  const again = useSessionStore()
+  assert.equal(again.sessionList.length, 1)
+  assert.equal(again.messages.length, 2)
 })
 
 test('取消流后状态为 cancelled 且可再次提问', async () => {
@@ -538,4 +562,130 @@ test('turnHistory 保留被重查取代的旧轮并标记 superseded', async () 
   assert.equal(list[1].id, first.id)
   assert.equal(list[1].superseded, true)
   assert.equal(list[1].turnStatus, 'failed')
+})
+
+// ---------- 多会话管理（2026-09-20 借鉴项 P1）----------
+// 存储结构升到 v3：会话索引 + 每会话消息体。这些用例守住
+// "自动命名 / 新建-切换-删除 / 刷新保持 / 超限裁剪 / 不串消息" 五条链路。
+
+test('首条提问自动命名会话（前 15 字），已有标题不被后续提问覆盖', async () => {
+  const store = useSessionStore()
+  assert.equal(store.activeSessionTitle, '新会话')
+
+  const question = '介绍一下赤壁之战的历史背景与影响。'
+  await completeTurn(store, question)
+  assert.equal(store.activeSessionTitle, `${question.slice(0, 15)}...`)
+
+  await completeTurn(store, '第二个问题')
+  assert.equal(store.activeSessionTitle, `${question.slice(0, 15)}...`,
+               '会话已命名后不再被后续提问改写')
+})
+
+test('新建会话保留旧会话并可切回（刷新后仍在）', async () => {
+  const store = useSessionStore()
+  await completeTurn(store, '介绍一下赤壁之战。')
+  const firstId = store.sessionId
+
+  store.createSession()
+  assert.notEqual(store.sessionId, firstId, '新会话是新 ID')
+  assert.equal(store.messages.length, 0)
+  assert.equal(store.sessionList.length, 2)
+  assert.equal(store.sessionList[0].active, true, '新会话排在最前')
+
+  store.switchSession(firstId)
+  assert.equal(store.messages.length, 2, '切回后旧会话的消息还在')
+  assert.equal(store.sessionList.find((s) => s.id === firstId)?.active, true)
+
+  setActivePinia(createPinia())
+  const revived = useSessionStore()
+  assert.equal(revived.sessionId, firstId, '刷新后停留在被选中的会话')
+  assert.equal(revived.sessionList.length, 2)
+  assert.equal(revived.sessionList.find((s) => s.id === firstId)?.messageCount, 2)
+  assert.equal((revived.messages[1] as any).answer, '回答：介绍一下赤壁之战。')
+})
+
+test('会话切换不串消息：各自内容独立', async () => {
+  const store = useSessionStore()
+  await completeTurn(store, '赤壁之战是什么')
+  const firstId = store.sessionId
+
+  store.createSession()
+  const secondId = store.sessionId
+  await completeTurn(store, '官渡之战是什么')
+  assert.ok((store.messages[1] as any).answer.includes('官渡之战是什么'))
+
+  store.switchSession(firstId)
+  assert.ok((store.messages[1] as any).answer.includes('赤壁之战是什么'),
+            '切回后看到的是第一个会话的回答')
+  assert.ok(!store.messages.some((m: any) => String(m.question || '').includes('官渡之战')),
+            '第二个会话的问题不得混进第一个会话')
+
+  store.switchSession(secondId)
+  assert.ok((store.messages[1] as any).answer.includes('官渡之战是什么'))
+})
+
+test('删除会话：活动会话被删时回退到最近更新的其它会话，删空后补空会话', async () => {
+  const store = useSessionStore()
+  await completeTurn(store, '第一个问题')
+  const firstId = store.sessionId
+
+  store.createSession()
+  const secondId = store.sessionId
+  await completeTurn(store, '第二个问题')
+
+  store.deleteSession(secondId)
+  assert.equal(store.sessionId, firstId, '回退到剩下的最近会话')
+  assert.equal(store.messages.length, 2)
+  assert.equal(store.sessionList.length, 1)
+
+  store.deleteSession(firstId)
+  assert.equal(store.sessionList.length, 1, '删空后自动补一条空会话')
+  assert.equal(store.messages.length, 0)
+})
+
+test('重命名会话并持久化，空标题回退默认名', async () => {
+  const store = useSessionStore()
+  await completeTurn(store, '介绍一下巨鹿之战。')
+  const id = store.sessionId
+
+  store.renameSession(id, '巨鹿之战专题')
+  assert.equal(store.activeSessionTitle, '巨鹿之战专题')
+
+  setActivePinia(createPinia())
+  assert.equal(useSessionStore().activeSessionTitle, '巨鹿之战专题', '重命名要落盘')
+
+  store.renameSession(id, '   ')
+  assert.equal(store.activeSessionTitle, '新会话')
+})
+
+test('会话数超上限时按最近更新裁剪，活动会话必留', async () => {
+  const sessions = Array.from({ length: 25 }, (_, i) => ({
+    id: `s-${i}`, title: `会话 ${i}`, createdAt: 1000 + i, updatedAt: 1000 + i, messages: [],
+  }))
+  localStorage.setItem('ragv5-session-v3', JSON.stringify({
+    schemaVersion: 3, activeSessionId: 's-0', sessions,
+  }))
+  setActivePinia(createPinia())
+  const store = useSessionStore()
+  assert.equal(store.sessionList.length, 20, '超限会话被裁剪')
+  assert.ok(store.sessionList.some((s) => s.id === 's-0' && s.active),
+            '活动会话虽然最旧也必须保留')
+})
+
+test('每会话消息超上限时只留最近若干条，且不以回答开头', async () => {
+  const messages: unknown[] = []
+  for (let i = 0; i < 40; i += 1) {
+    messages.push({ id: `u${i}`, role: 'user', question: `问题${i}`,
+                    filters: { dynasty: [], event_type: [] }, createdAt: i })
+    messages.push({ id: `a${i}`, role: 'assistant', question: `问题${i}`, answer: `回答${i}`,
+                    turnStatus: 'completed', createdAt: i })
+  }
+  localStorage.setItem('ragv5-session-v3', JSON.stringify({
+    schemaVersion: 3, activeSessionId: 's1',
+    sessions: [{ id: 's1', title: '长会话', createdAt: 0, updatedAt: 0, messages }],
+  }))
+  setActivePinia(createPinia())
+  const store = useSessionStore()
+  assert.equal(store.messages.length, 60)
+  assert.equal(store.messages[0].role, 'user', '裁剪后不能以没有问题的回答开头')
 })

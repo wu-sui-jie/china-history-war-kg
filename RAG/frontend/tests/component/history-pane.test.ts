@@ -1,11 +1,11 @@
 /** 提问历史侧栏用例（2026-09-20）。
  *
  * 覆盖：空态、倒序渲染与状态徽标、默认/手选高亮、点击 emit 该轮 id、
- * 被重查取代轮次的标注。
+ * 被重查取代轮次的标注；以及同日的多会话 P1：会话列表渲染/切换/新建/删除/折叠。
  */
 
 import assert from 'node:assert/strict'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 
@@ -47,7 +47,12 @@ function userWith(id: string, question: string, at: number): UserMessage {
 }
 
 beforeEach(() => {
+  localStorage.clear()
   setActivePinia(createPinia())
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
 })
 
 describe('提问历史侧栏', () => {
@@ -120,5 +125,92 @@ describe('提问历史侧栏', () => {
     ]
     const wrapper = mount(HistoryPane)
     assert.ok(wrapper.text().includes('已被重查取代'))
+  })
+})
+
+describe('会话列表（2026-09-20 借鉴项 P1）', () => {
+  /** 让当前会话非空（新建会话的前置条件），返回该会话 id。 */
+  function seedTurn(id: string, question: string): string {
+    const store = useSessionStore()
+    store.messages = [
+      userWith(id, question, Date.now()),
+      assistantWith({ id: `a-${id}`, question }),
+    ]
+    return store.sessionId
+  }
+
+  test('渲染会话列表，当前会话高亮且排在最前', () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')
+
+    const wrapper = mount(HistoryPane)
+    const items = wrapper.findAll('.session-item')
+    assert.equal(items.length, 2)
+    assert.ok(items[0].classes().includes('active'), '当前会话排最前且高亮')
+    assert.ok(items[0].text().includes('2 条'), '显示该会话消息条数')
+    assert.ok(!items[1].classes().includes('active'))
+  })
+
+  test('点击其它会话切过去并发出 session-change', async () => {
+    const store = useSessionStore()
+    const firstId = seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')
+
+    const wrapper = mount(HistoryPane)
+    const other = wrapper.findAll('.session-item').find((i) => !i.classes().includes('active'))
+    await other!.find('.session-pick').trigger('click')
+
+    assert.equal(store.sessionId, firstId, '切到被点击的会话')
+    assert.equal(store.messages.length, 2, '带出该会话的消息')
+    assert.equal(wrapper.emitted('session-change')?.length, 1)
+  })
+
+  test('新建按钮创建一个空会话', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    const wrapper = mount(HistoryPane)
+
+    await wrapper.find('.session-new').trigger('click')
+    assert.equal(store.sessionList.length, 2)
+    assert.equal(store.messages.length, 0)
+    assert.equal(store.sessionList[0].active, true)
+  })
+
+  test('删除会话先确认，确认后从列表移除', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')
+
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action.danger').trigger('click')
+
+    assert.equal(confirmSpy.mock.calls.length, 1, '删除前必须确认')
+    assert.equal(store.sessionList.length, 1)
+  })
+
+  test('删除确认被取消时不删（避免误触）', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')
+
+    vi.spyOn(window, 'confirm').mockReturnValue(false)
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action.danger').trigger('click')
+    assert.equal(store.sessionList.length, 2)
+  })
+
+  test('会话列表可折叠（状态落到本地偏好）', async () => {
+    const wrapper = mount(HistoryPane)
+    assert.ok(wrapper.find('.session-list').exists(), '默认展开')
+
+    await wrapper.find('.session-toggle').trigger('click')
+    assert.ok(!wrapper.find('.session-list').exists(), '折叠后列表隐藏')
+    assert.equal(localStorage.getItem('ragv5-ui-sessions-open'), '0')
   })
 })

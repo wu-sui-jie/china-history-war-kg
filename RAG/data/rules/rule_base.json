@@ -1,0 +1,270 @@
+[
+  {
+    "rule_id": "war_001",
+    "name": "主战场反向推理规则",
+    "condition": {
+      "relation": "主战场"
+    },
+    "inference": {
+      "relation": "发生于",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[主战场]-->地点，则地点发生于该事件"
+  },
+
+  {
+    "rule_id": "war_002",
+    "name": "出发地反向推理规则",
+    "condition": {
+      "relation": "出发地"
+    },
+    "inference": {
+      "relation": "出征起点",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[出发地]-->地点，则地点为事件出征起点"
+  },
+
+  {
+    "rule_id": "war_003",
+    "name": "目的地反向推理规则",
+    "condition": {
+      "relation": "目的地"
+    },
+    "inference": {
+      "relation": "作战目标地",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[目的地]-->地点，则地点为事件作战目标地"
+  },
+
+  {
+    "rule_id": "war_004",
+    "name": "指挥所反向推理规则",
+    "condition": {
+      "relation": "指挥所"
+    },
+    "inference": {
+      "relation": "指挥中心",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[指挥所]-->地点，则地点为事件指挥中心"
+  },
+
+  {
+    "rule_id": "war_005",
+    "name": "补给地反向推理规则",
+    "condition": {
+      "relation": "补给地"
+    },
+    "inference": {
+      "relation": "承担补给",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[补给地]-->地点，则地点承担该事件补给任务"
+  },
+
+  {
+    "rule_id": "war_006",
+    "name": "发起方反向推理规则",
+    "condition": {
+      "relation": "发起方"
+    },
+    "inference": {
+      "relation": "发起战争",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[发起方]-->组织，则组织发起该战争事件"
+  },
+
+  {
+    "rule_id": "war_007",
+    "name": "防守方反向推理规则",
+    "condition": {
+      "relation": "防守方"
+    },
+    "inference": {
+      "relation": "防御战争",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[防守方]-->组织，则组织防御该战争事件"
+  },
+
+  {
+    "rule_id": "war_008",
+    "name": "同盟方反向推理规则",
+    "condition": {
+      "relation": "同盟方"
+    },
+    "inference": {
+      "relation": "结盟参战",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[同盟方]-->组织，则组织以同盟身份参战"
+  },
+
+  {
+    "rule_id": "war_009",
+    "name": "统帅反向推理规则",
+    "condition": {
+      "relation": "统帅"
+    },
+    "inference": {
+      "relation": "统帅作战",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[统帅]-->人物，则人物统帅该战争事件"
+  },
+
+  {
+    "rule_id": "war_010",
+    "name": "将领反向推理规则",
+    "condition": {
+      "relation": "将领"
+    },
+    "inference": {
+      "relation": "率军参战",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[将领]-->人物，则人物率军参与该战争"
+  },
+
+  {
+    "rule_id": "war_011",
+    "name": "谋士反向推理规则",
+    "condition": {
+      "relation": "谋士"
+    },
+    "inference": {
+      "relation": "军事策划",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[谋士]-->人物，则人物参与军事策划"
+  },
+
+  {
+    "rule_id": "war_012",
+    "name": "阵亡反向推理规则",
+    "condition": {
+      "relation": "阵亡"
+    },
+    "inference": {
+      "relation": "战死于",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[阵亡]-->人物，则人物战死于该事件"
+  },
+
+  {
+    "rule_id": "war_013",
+    "name": "投降反向推理规则",
+    "condition": {
+      "relation": "投降"
+    },
+    "inference": {
+      "relation": "向其投降",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[投降]-->人物，则人物向该事件投降"
+  },
+
+  {
+    "rule_id": "war_014",
+    "name": "事件因果链推理规则",
+    "condition": {
+      "relation": "因果关系",
+      "composite": true,
+      "path_length": 2
+    },
+    "inference": {
+      "relation": "间接因果",
+      "direction": "forward",
+      "transitive": true
+    },
+    "description": "如果A导致B，B导致C，则A间接导致C"
+  },
+
+  {
+    "rule_id": "war_015",
+    "name": "事件顺承链推理规则",
+    "condition": {
+      "relation": "顺承关系",
+      "composite": true,
+      "path_length": 2
+    },
+    "inference": {
+      "relation": "连续演进",
+      "direction": "forward",
+      "transitive": true
+    },
+    "description": "如果A顺承B，B顺承C，则A连续演进C"
+  },
+
+  {
+    "rule_id": "war_016",
+    "name": "包含关系推理规则",
+    "condition": {
+      "relation": "包含关系"
+    },
+    "inference": {
+      "relation": "隶属于战役",
+      "direction": "reverse"
+    },
+    "description": "如果A包含B，则B隶属于A战役"
+  },
+
+  {
+    "rule_id": "war_017",
+    "name": "战略要地反向推理规则",
+    "condition": {
+      "relation": "战略要地"
+    },
+    "inference": {
+      "relation": "战略核心",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[战略要地]-->地点，则该地点为战略核心区域"
+  },
+
+  {
+    "rule_id": "war_018",
+    "name": "议和地点反向推理规则",
+    "condition": {
+      "relation": "议和地点"
+    },
+    "inference": {
+      "relation": "议和发生地",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[议和地点]-->地点，则该地为议和发生地"
+  },
+
+  {
+    "rule_id": "war_019",
+    "name": "议和方反向推理规则",
+    "condition": {
+      "relation": "议和方"
+    },
+    "inference": {
+      "relation": "参与议和",
+      "direction": "reverse"
+    },
+    "description": "如果事件--[议和方]-->组织，则组织参与该议和事件"
+  },
+
+  {
+    "rule_id": "war_020",
+    "name": "战争阶段推理规则",
+    "condition": {
+      "relation": "包含关系",
+      "composite": true,
+      "path_length": 3
+    },
+    "inference": {
+      "relation": "战争阶段",
+      "direction": "forward",
+      "transitive": true
+    },
+    "description": "如果事件A包含B，B包含C，C包含D，则A为总体战争阶段"
+  }
+]

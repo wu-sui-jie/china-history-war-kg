@@ -26,6 +26,9 @@ class SourceType(str, Enum):
     ORIGINAL_TEXT = "original_text"
     EVENT_CARD_JSON = "event_card_json"
     RELATION_EVIDENCE = "relation_evidence"
+    # 规则推理边（离线固化产物 inferred_relations.json，P2 规则推理移植）：
+    # 证据仍来自知识图谱，但来源是"由事实按规则推导"，与 kg_relation 区别对待
+    KG_INFERENCE = "kg_inference"
 
 
 class Confidence(str, Enum):

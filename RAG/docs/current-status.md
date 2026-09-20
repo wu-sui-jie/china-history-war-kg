@@ -2,7 +2,9 @@
 
 > 本文件是**当前**运行事实的唯一入口：版本、测试数、demo 状态、依赖锁定状态、发布状态。
 > 其他文档（README、部署手册、阶段总结、整改记录）只做引用，不再各自维护这些数字。
-> 最近更新：2026-09-17（P2-1 真实模型 demo 制品重建后）。数据计数由 `scripts/check_docs.py --strict`
+> 最近更新：2026-09-20（借鉴旧问答系统：P0 事件卡叙事字段 + P1 会话级导出与会话管理；
+> P2 规则推理移植：离线固化 11,833 条推理边并接入 F03 检索、引用与提示词）。
+> 数据计数由 `scripts/check_docs.py --strict`
 > 与快照/索引清单机械核对，避免唯一事实源自身写错数字。
 
 ## 一、版本与运行
@@ -19,12 +21,12 @@
 
 | 层 | 命令 | 结果 |
 | --- | --- | --- |
-| 后端 | `python -m pytest tests -q` | **298 passed** |
-| 前端单元（Vitest） | `cd frontend && npm run test:unit` | **27 passed**（SSE 解析/超时分类、状态机、持久化与迁移） |
-| 前端组件（Vue Test Utils） | `npm run test:component` | **16 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级）；合计 `npm test` = **43 passed** |
+| 后端 | `python -m pytest tests -q` | **298 passed**（2026-09-16 基线）；2026-09-20 新增 23 条（`test_panel_event_card_fields.py` 4 + `test_inference_rules.py` 11 + `test_graph_inferred_edges.py` 8）。本机无 pytest 环境，用等价 runner 实跑 10 个相关文件：**76 passed / 10 skipped**（skip 均为 runner 不支持的 fixture，非失败） |
+| 前端单元（Vitest） | `cd frontend && npm run test:unit` | **47 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出） |
+| 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **78 passed** |
 | 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |
-| 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **12 passed / 2 skipped**（desktop + mobile；含 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言）；两种后端各跑通一次 |
-| 首屏体积门禁 | `npm run check:bundle` | 通过（入口 gzip ≈20 kB、首屏合计 ≈96 kB，上限 190 kB） |
+| 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **14 passed / 4 skipped**（desktop + mobile；含 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言、多会话切换与刷新保持、导出 .md 下载）；桩后端 2026-09-20 实测 14 passed |
+| 首屏体积门禁 | `npm run check:bundle` | 通过（入口 gzip 25.1 kB、vendor 75.9 kB、首屏合计 101.0 kB，上限 190 kB） |
 | 文档与配置一致性 | `python scripts/check_docs.py --strict` | 通过（相对链接、current 口径、`.env.example`、**数据计数与清单一致**） |
 | 密钥扫描 | `python scripts/check_secrets.py` | 未发现明文密钥 |
 | 制品清单 | `python scripts/build_artifact_manifest.py verify` | 通过（37/37 文件；Chroma 元数据库按逻辑哈希校验） |
@@ -41,7 +43,8 @@
 | `data/release/lineage.json` | ✅ 已生成（source → snapshot → index → eval → demo → release 全链路哈希 + demo 父 run 解析 + 跨层一致性 `checks`，含 index_version 与 measurement_mode 判定） |
 | `data/release/chroma-segment-audit.json` | ✅ 已生成；结论：1 个 collection、2 个 segment（VECTOR + METADATA）、无孤儿目录 |
 | `data/release/sbom.json` | ✅ 已生成（SPDX 2.3，Python + Node 共 306 个包，命名空间可重现，`gen_sbom.py validate` 通过） |
-| 前端 `dist` | ✅ 已构建（`npm run build`；桩后端与 release 包都以它为准） |
+| 前端 `dist` | ✅ 已构建，**当前为并入模式产物**（`npm run build:integration`，base=/rag/、接口前缀=/rag/api，供旧系统 3001 → `/rag` 反代）；独立部署与 release 包需用 `npm run build` 覆盖，两者共用同一目录、互相覆盖（口径见旧知识库系统 `docs/RAG集成-Web入口合并.md` 第三节） |
+| 规则推理产物（P2） | ✅ 对活跃快照 `20260915_v1` 生成：**11,833 条推理边**（反向 11,559 + 因果链 3 + 顺承链 271 + 战争阶段 0），`inferred_relations.json` 6.9 MB + `inference_report.json`；`war_020`（3 步包含链）在当前数据无命中，报告已注明；重复构建字节一致（SHA256 `8ad76f0e71f1e15c…`） |
 | Python 锁文件 | ✅ `requirements.lock`（93 需求）/ `requirements-dev.lock`（99 需求）：版本与开发环境实测一致，**每条需求均带 `--hash`**，不含 `--index-url` |
 | `frontend/package-lock.json` | ✅ 已存在（npm 侧可 `npm ci`） |
 | release 包 | ✅ 组装脚本就绪（`scripts/build_release_bundle.py`：源码 + 数据 + dist + 证据 + SBOM + 依赖声明）；smoke 报告缺失/失败时硬拒绝；**本机未在干净 commit 上执行完整发布** |
@@ -88,8 +91,8 @@ python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_li
 
 ## 六、历史文档入口
 
-- 第三轮审核：`docs/20260915-第三轮审核报告与整改方案.md`
-- 第四轮复核：`docs/20260915-RAG全项目复核分析与优化建议.md`
+- 第三轮审核：`docs/changes/20260915-round3-audit-and-remediation-plan.md`
+- 第四轮复核：`docs/changes/20260915-round4-full-review-analysis.md`
 - 第四轮复核的后续工作单：`docs/changes/20260916-round4-review-remediation-work-order.md`
 - 第五轮复核（第五轮整改的输入）：`docs/changes/20260916-round5-remediation-review-and-full-project-audit.md`
 - 第五轮整改：`docs/changes/20260916-round5-remediation-change-note.md`（修改说明）、

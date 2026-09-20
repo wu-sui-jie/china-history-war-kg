@@ -10,6 +10,7 @@ import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 
 import EvidenceView from '@/components/panel/EvidenceView.vue'
+import EntityCardsView from '@/components/panel/EntityCardsView.vue'
 import MapView from '@/components/panel/MapView.vue'
 import PanelPane from '@/components/panel/PanelPane.vue'
 import SubGraphView from '@/components/panel/SubGraphView.vue'
@@ -110,6 +111,35 @@ describe('tabs 的 ARIA 语义（P1-13）', () => {
     await tabs[0].trigger('keydown', { key: 'ArrowRight' })
     assert.equal(store.panelTab, 'cards', '右方向键应切到下一个 tab')
     wrapper.unmount()
+  })
+})
+
+describe('事件实体卡叙事字段（2026-09-20 借鉴项 P0）', () => {
+  const battleCard = {
+    entity_id: 'event_0224', type: '事件', name: '赤壁之战',
+    dynasty: '东汉', start_date: '208年', event_type: '战争',
+    aggressor: '曹操', defender: '孙刘联军', action: '水战',
+    impact: '奠定三国鼎立格局', place: '赤壁',
+  }
+
+  test('攻方/守方/作战行动/地点与历史影响都渲染', () => {
+    const wrapper = mount(EntityCardsView, { props: { cards: [battleCard] } })
+    const text = wrapper.text()
+    for (const piece of ['攻方', '曹操', '守方', '孙刘联军', '作战行动', '水战',
+                         '地点', '赤壁', '历史影响', '奠定三国鼎立格局']) {
+      expect(text).toContain(piece)
+    }
+    expect(wrapper.find('.entity-card-impact').exists()).toBe(true)
+  })
+
+  test('叙事字段缺失时整行不渲染，其它字段不受影响', () => {
+    const wrapper = mount(EntityCardsView, {
+      props: { cards: [{ entity_id: 'person_1', type: '人物', name: '曹操', role: '统帅' }] },
+    })
+    expect(wrapper.find('.entity-card-meta').text()).not.toContain('攻方')
+    expect(wrapper.find('.entity-card-meta').text()).not.toContain('历史影响')
+    expect(wrapper.find('.entity-card-impact').exists()).toBe(false)
+    expect(wrapper.text()).toContain('统帅')
   })
 })
 
