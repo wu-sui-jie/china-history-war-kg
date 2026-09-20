@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 import { fetchDemoExamples } from '@/api/demo'
 import ChatInput from '@/components/chat/ChatInput.vue'
@@ -84,10 +84,38 @@ watch(
   () => scrollToBottom(),
 )
 
-function openCitation(index: number): void {
+function openCitation(index: number, messageId: string): void {
   // 走 store 而不是 window 事件：移动端面板未挂载时事件会丢，导致"点了引用没反应"
-  store.requestCitation(index)
+  store.requestCitation(index, messageId)
 }
+
+// 历史记录跳转：滚动定位到目标轮次的消息，并短暂高亮（nonce 支持重复点击同一轮）
+const highlightId = ref('')
+let highlightTimer: number | undefined
+
+watch(
+  () => store.focusMessage,
+  (target) => {
+    if (!target) return
+    void nextTick(() => {
+      const el = listEl.value?.querySelector<HTMLElement>(
+        `[data-message-id="${CSS.escape(target.id)}"]`,
+      )
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      highlightId.value = target.id
+      if (highlightTimer !== undefined) window.clearTimeout(highlightTimer)
+      highlightTimer = window.setTimeout(() => {
+        highlightId.value = ''
+        highlightTimer = undefined
+      }, 1600)
+    })
+  },
+)
+
+onBeforeUnmount(() => {
+  if (highlightTimer !== undefined) window.clearTimeout(highlightTimer)
+})
 
 function ask(question: string): void {
   void store.sendQuestion(question)
@@ -126,7 +154,11 @@ function ask(question: string): void {
         </div>
       </div>
       <template v-for="m in store.messages" :key="m.id">
-        <MessageBubble :message="m" @citation="openCitation" />
+        <MessageBubble
+          :message="m"
+          :highlighted="m.id === highlightId"
+          @citation="openCitation"
+        />
       </template>
     </div>
     <ChatInput />

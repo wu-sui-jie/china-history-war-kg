@@ -71,6 +71,31 @@ describe('面板生命周期空状态', () => {
   })
 })
 
+describe('历史轮次提示条（2026-09-20）', () => {
+  test('面板停留在历史轮次时显示提示与“返回最新”', async () => {
+    const store = useSessionStore()
+    store.messages = [
+      assistantWith({ id: 'a1', question: '第一轮问题' }),
+      assistantWith({ id: 'a2', question: '第二轮问题' }),
+    ]
+    store.selectTurn('a1')
+    const wrapper = mount(PanelPane)
+    expect(wrapper.text()).toContain('正在查看历史轮次')
+    const back = wrapper.findAll('button').find((b) => b.text().includes('返回最新'))
+    assert.ok(back, '历史视图必须给出返回入口')
+    await back!.trigger('click')
+    assert.equal(store.isViewingHistory, false)
+    assert.equal(store.panelMessage?.id, 'a2', '返回最新后面板跟随最新一轮')
+  })
+
+  test('跟随最新轮时不显示提示条', () => {
+    const store = useSessionStore()
+    store.messages = [assistantWith({ id: 'a1' })]
+    const wrapper = mount(PanelPane)
+    assert.ok(!wrapper.text().includes('正在查看历史轮次'))
+  })
+})
+
 describe('tabs 的 ARIA 语义（P1-13）', () => {
   test('tablist/tab/aria-selected 对应正确，方向键可切换', async () => {
     const store = useSessionStore()

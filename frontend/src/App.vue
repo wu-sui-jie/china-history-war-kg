@@ -3,6 +3,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
 import ChatPane from '@/components/chat/ChatPane.vue'
+import HistoryPane from '@/components/history/HistoryPane.vue'
 import PanelPane from '@/components/panel/PanelPane.vue'
 import FiltersBar from '@/components/ui/FiltersBar.vue'
 import ToastView from '@/components/ui/ToastView.vue'
@@ -20,9 +21,53 @@ const panelOpen = computed({
 
 // 桌面默认展开面板；移动端收起为抽屉
 store.panelOpen = !window.matchMedia('(max-width: 980px)').matches
+
+// 提问历史：桌面是常驻左栏（显隐持久化），移动端是左侧抽屉
+const HISTORY_VISIBLE_KEY = 'ragv5-ui-history-visible'
+
+function readHistoryVisible(): boolean {
+  try {
+    return localStorage.getItem(HISTORY_VISIBLE_KEY) !== '0'
+  } catch {
+    return true // 隐私模式：默认显示
+  }
+}
+
+const historyVisible = ref(readHistoryVisible())
+const historyOpen = ref(false)
+
 watch(isNarrow, (narrow) => {
   store.panelOpen = !narrow
+  historyOpen.value = false
 })
+
+function toggleHistory(): void {
+  if (isNarrow.value) {
+    const next = !historyOpen.value
+    historyOpen.value = next
+    if (next) store.panelOpen = false // 两个抽屉不同时展开
+    return
+  }
+  historyVisible.value = !historyVisible.value
+  try {
+    localStorage.setItem(HISTORY_VISIBLE_KEY, historyVisible.value ? '1' : '0')
+  } catch {
+    // 存储不可用时仅本次会话生效
+  }
+}
+
+/** 点历史记录：切换面板到该轮；移动端收起历史抽屉，让位给知识面板。 */
+function onPickTurn(id: string): void {
+  store.selectTurn(id)
+  if (isNarrow.value) historyOpen.value = false
+}
+
+/** 移动端切知识面板时收起历史抽屉（两个抽屉互斥）。 */
+function togglePanelDrawer(): void {
+  const next = !store.panelOpen
+  store.panelOpen = next
+  if (next) historyOpen.value = false
+}
 
 function clearAsk(): void {
   if (
@@ -36,10 +81,17 @@ function clearAsk(): void {
 // Escape 关闭、打开时把焦点移入抽屉、关闭后焦点回到触发按钮。
 const drawerEl = ref<HTMLElement | null>(null)
 const panelTriggerEl = ref<HTMLButtonElement | null>(null)
+const historyDrawerEl = ref<HTMLElement | null>(null)
+const historyTriggerEl = ref<HTMLButtonElement | null>(null)
 
 function closePanel(): void {
   store.panelOpen = false
   void nextTick(() => panelTriggerEl.value?.focus())
+}
+
+function closeHistory(): void {
+  historyOpen.value = false
+  void nextTick(() => historyTriggerEl.value?.focus())
 }
 
 /** 真正可 Tab 到的元素：排除 disabled / 隐藏 / aria-hidden / roving tabindex(-1)。
@@ -66,15 +118,15 @@ function tabbableIn(root: HTMLElement): HTMLElement[] {
   })
 }
 
-function onDrawerKeydown(event: KeyboardEvent): void {
+/** 抽屉的对话框键盘语义（知识面板 / 提问历史两个抽屉共用）：
+ * Escape 关闭、Tab 在抽屉内部循环（避免焦点落到被遮挡的聊天区）。 */
+function trapFocus(event: KeyboardEvent, root: HTMLElement | null, close: () => void): void {
   if (event.key === 'Escape') {
     event.stopPropagation()
-    closePanel()
+    close()
     return
   }
   if (event.key !== 'Tab') return
-  // 焦点陷阱：Tab 在抽屉内部循环，避免焦点落到被遮挡的聊天区
-  const root = drawerEl.value
   if (!root) return
   const focusables = tabbableIn(root)
   if (!focusables.length) return
@@ -113,6 +165,18 @@ watch(
   },
 )
 
+watch(
+  () => isNarrow.value && historyOpen.value,
+  (open) => {
+    if (!open) return
+    void nextTick(() => {
+      historyDrawerEl.value
+        ?.querySelector<HTMLElement>('button:not([disabled]), [href], input, select, textarea')
+        ?.focus()
+    })
+  },
+)
+
 onBeforeUnmount(() => {
   store.cancelStream()
 })
@@ -137,13 +201,23 @@ onBeforeUnmount(() => {
 
       <div class="qa-topbar-actions">
         <button
+          ref="historyTriggerEl"
+          class="ghost-btn"
+          type="button"
+          :aria-expanded="isNarrow ? historyOpen : historyVisible"
+          aria-controls="qa-history-drawer"
+          @click="toggleHistory"
+        >
+          历史记录
+        </button>
+        <button
           v-if="isNarrow"
           ref="panelTriggerEl"
           class="ghost-btn"
           type="button"
           :aria-expanded="panelOpen"
           aria-controls="qa-panel-drawer"
-          @click="panelOpen = !panelOpen"
+          @click="togglePanelDrawer"
         >
           {{ panelOpen ? '收起面板' : '知识面板' }}
         </button>
@@ -152,6 +226,31 @@ onBeforeUnmount(() => {
     </header>
 
     <main class="qa-main">
+      <aside v-if="!isNarrow && historyVisible" class="qa-history-col" aria-label="提问历史">
+        <HistoryPane @pick="onPickTurn" />
+      </aside>
+      <aside
+        v-else-if="isNarrow && historyOpen"
+        id="qa-history-drawer"
+        ref="historyDrawerEl"
+        class="qa-history-col qa-history-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="提问历史"
+        @keydown="trapFocus($event, historyDrawerEl, closeHistory)"
+      >
+        <button class="ghost-btn drawer-close" type="button" @click="closeHistory">
+          关闭历史
+        </button>
+        <HistoryPane @pick="onPickTurn" />
+      </aside>
+      <div
+        v-if="isNarrow && historyOpen"
+        class="panel-drawer-mask"
+        role="presentation"
+        @click="closeHistory"
+      ></div>
+
       <section class="qa-chat-col">
         <ChatPane />
       </section>
@@ -166,7 +265,7 @@ onBeforeUnmount(() => {
         role="dialog"
         aria-modal="true"
         aria-label="知识面板"
-        @keydown="onDrawerKeydown"
+        @keydown="trapFocus($event, drawerEl, closePanel)"
       >
         <button class="ghost-btn drawer-close" type="button" @click="closePanel">
           关闭面板

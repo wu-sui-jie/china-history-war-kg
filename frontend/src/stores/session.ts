@@ -103,6 +103,24 @@ export interface UserMessage {
 
 export type ChatMessage = UserMessage | AssistantMessage
 
+/** 历史提问记录条目（由 messages 派生，供历史侧栏渲染）。
+ *
+ * 与 `history`（发给后端的多轮上下文）不同：这里保留失败/取消/被重查取代的轮次，
+ * 因为"回看某一轮的知识面板"不应被可用性过滤挡住。 */
+export interface HistoryEntry {
+  id: string
+  /** 第几轮（按 assistant 消息出现顺序编号，含重试/纠正轮） */
+  index: number
+  question: string
+  createdAt: number
+  turnStatus: TurnStatus
+  live: boolean
+  /** 被纠正/重试的新轮取代（仍可回看） */
+  superseded: boolean
+  /** 是否带有可展示的面板数据（配额降级持久化后可能为 false） */
+  hasPanel: boolean
+}
+
 function newId(prefix: string): string {
   const tail =
     typeof crypto !== 'undefined' && 'randomUUID' in crypto
@@ -334,6 +352,9 @@ export const useSessionStore = defineStore('session', () => {
   const panelOpen = ref(true)
   const panelTab = ref<PanelTab>('evidence')
   const citationFocus = ref<{ index: number; nonce: number } | null>(null)
+  // 历史视图：selectedTurnId 为 null 表示跟随最新轮；focusMessage 是"滚动定位到某一轮"的信号
+  const selectedTurnId = ref<string | null>(null)
+  const focusMessage = ref<{ id: string; nonce: number } | null>(null)
 
   const activeMessage = computed<AssistantMessage | null>(() => active.value)
 
@@ -358,8 +379,8 @@ export const useSessionStore = defineStore('session', () => {
     return out
   })
 
-  /** 面板当前展示的轮次：活动轮优先，否则最近一条已收敛的回答。 */
-  const panelMessage = computed<AssistantMessage | null>(() => {
+  /** 最新一轮：活动流优先，否则最近一条已收敛的回答（判断"是否偏离最新"的基准）。 */
+  const latestTurn = computed<AssistantMessage | null>(() => {
     if (active.value) return active.value
     for (let i = messages.value.length - 1; i >= 0; i -= 1) {
       const m = messages.value[i]
@@ -373,6 +394,57 @@ export const useSessionStore = defineStore('session', () => {
       if (m.role === 'assistant') return m as AssistantMessage
     }
     return null
+  })
+
+  /** 历史记录里选中的轮次；该轮已被清空/裁剪时返回 null（面板自动回退到最新）。 */
+  const selectedTurn = computed<AssistantMessage | null>(() => {
+    const id = selectedTurnId.value
+    if (!id) return null
+    for (let i = messages.value.length - 1; i >= 0; i -= 1) {
+      const m = messages.value[i]
+      if (m.role === 'assistant' && m.id === id) return m as AssistantMessage
+    }
+    return null
+  })
+
+  /** 面板当前展示的轮次：手选的历史轮 > 活动轮 > 最近一条已收敛的回答。 */
+  const panelMessage = computed<AssistantMessage | null>(() => {
+    if (selectedTurn.value) return selectedTurn.value
+    return latestTurn.value
+  })
+
+  /** 面板是否停留在历史轮次（提示条与"返回最新"入口据此显示）。 */
+  const isViewingHistory = computed(
+    () => !!selectedTurn.value && selectedTurn.value.id !== latestTurn.value?.id,
+  )
+
+  /** 历史提问记录（倒序，最新在前）：含失败/取消/被重查取代的轮次，均可点回查看。 */
+  const turnHistory = computed<HistoryEntry[]>(() => {
+    const out: HistoryEntry[] = []
+    let pendingQuestion = ''
+    let index = 0
+    for (const m of messages.value) {
+      if (m.role === 'user') {
+        pendingQuestion = m.question
+        continue
+      }
+      const msg = m as AssistantMessage
+      index += 1
+      const question = msg.question || pendingQuestion
+      pendingQuestion = ''
+      out.push({
+        id: msg.id,
+        index,
+        question,
+        createdAt: msg.createdAt,
+        turnStatus: msg.turnStatus,
+        live: isLive(msg.turnStatus),
+        superseded: !!msg.supersededBy,
+        hasPanel: !!msg.panel,
+      })
+    }
+    out.reverse()
+    return out
   })
 
   let quotaWarned = false
@@ -490,6 +562,8 @@ export const useSessionStore = defineStore('session', () => {
     messages.value = []
     active.value = null
     citationFocus.value = null
+    selectedTurnId.value = null
+    focusMessage.value = null
     persist()
   }
 
@@ -552,6 +626,7 @@ export const useSessionStore = defineStore('session', () => {
     },
   ): AssistantMessage {
     cancelStream()          // 立刻中断当前活动流（若有）
+    selectedTurnId.value = null   // 新提问回到最新视图：历史面板不停留在被点开的旧轮上
 
     const assistant = createTurn(question)
     assistant.requestFilters = options.filters
@@ -912,11 +987,27 @@ export const useSessionStore = defineStore('session', () => {
   }
 
   // ---- 知识面板导航（移动端可从引用直达证据）----
-  function requestCitation(index: number): void {
+  function requestCitation(index: number, messageId?: string): void {
     if (typeof index !== 'number' || Number.isNaN(index)) return
+    // 带轮次 id 时先切到该轮：否则点历史消息的引用会把高亮打到最新一轮上
+    if (messageId) selectedTurnId.value = messageId
     panelTab.value = 'evidence'
     panelOpen.value = true
     citationFocus.value = { index, nonce: (citationFocus.value?.nonce ?? 0) + 1 }
+  }
+
+  /** 跳转到某一轮问答（点历史记录）：面板展示该轮数据，聊天区滚动定位到该轮。 */
+  function selectTurn(id: string): void {
+    if (!id) return
+    selectedTurnId.value = id
+    panelOpen.value = true
+    citationFocus.value = null
+    focusMessage.value = { id, nonce: (focusMessage.value?.nonce ?? 0) + 1 }
+  }
+
+  /** 从历史轮次返回最新一轮（面板恢复跟随最新）。 */
+  function returnToLatest(): void {
+    selectedTurnId.value = null
   }
 
   function setPanelTab(tab: PanelTab): void {
@@ -963,5 +1054,14 @@ export const useSessionStore = defineStore('session', () => {
     requestCitation,
     setPanelTab,
     togglePanel,
+    // 历史提问记录：选中的轮次、派生列表与"返回最新"
+    selectedTurnId,
+    selectedTurn,
+    latestTurn,
+    isViewingHistory,
+    turnHistory,
+    focusMessage,
+    selectTurn,
+    returnToLatest,
   }
 })

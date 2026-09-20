@@ -16,9 +16,11 @@ import type {
 
 const props = defineProps({
   message: { type: Object as PropType<UserMessage | AssistantMessage>, required: true },
+  /** 历史记录跳转后短暂高亮该条消息 */
+  highlighted: { type: Boolean, default: false },
 })
 
-const emit = defineEmits<{ (e: 'citation', index: number): void }>()
+const emit = defineEmits<{ (e: 'citation', index: number, messageId: string): void }>()
 const store = useSessionStore()
 
 const isAssistant = computed(() => props.message.role === 'assistant')
@@ -210,7 +212,11 @@ const statusText = computed(() => {
 </script>
 
 <template>
-  <article class="msg-row" :class="message.role === 'user' ? 'row-user' : 'row-assistant'">
+  <article
+    class="msg-row"
+    :class="[message.role === 'user' ? 'row-user' : 'row-assistant', { 'msg-flash': highlighted }]"
+    :data-message-id="message.id"
+  >
     <div class="msg-avatar" :class="message.role === 'user' ? 'avatar-user' : 'avatar-ai'">
       {{ message.role === 'user' ? '我' : '史' }}
     </div>
@@ -353,7 +359,7 @@ const statusText = computed(() => {
             :text="assistant.answer"
             :citations="assistant.citations"
             :entities="assistant.entities"
-            @citation="(n) => emit('citation', n)"
+            @citation="(n) => emit('citation', n, message.id)"
           />
         </div>
 
@@ -368,7 +374,7 @@ const statusText = computed(() => {
             class="cite-chip"
             type="button"
             :title="c.title"
-            @click="emit('citation', c.index)"
+            @click="emit('citation', c.index, message.id)"
           >
             [{{ c.index }}] {{ c.title }}
           </button>
