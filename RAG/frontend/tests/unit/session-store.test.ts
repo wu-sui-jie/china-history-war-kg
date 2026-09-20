@@ -406,3 +406,136 @@ test('add / remove 纠正的字段口径', async () => {
   stream2.close()
   await store.whenIdle()
 })
+
+// ---------- 历史提问记录（2026-09-20）----------
+// 面板可以回到任意一轮：这些用例守住"派生列表 / 选中切换 / 新提问回到最新"三条链路。
+
+/** 完成一轮问答（answer → 可选 panel → done），返回该轮 assistant 消息。 */
+async function completeTurn(
+  store: ReturnType<typeof useSessionStore>,
+  question: string,
+  panel?: any,
+): Promise<any> {
+  const stream = installStream()
+  await store.sendQuestion(question)
+  const turn = store.messages[store.messages.length - 1] as any
+  stream.push({ type: 'answer', session_id: 's', data: { delta: `回答：${question}` } })
+  if (panel) stream.push({ type: 'panel', session_id: 's', data: panel })
+  stream.push({ type: 'done', session_id: 's', data: { finish_reason: 'normal' } })
+  stream.close()
+  await store.whenIdle()
+  return turn
+}
+
+const PANEL_WITH_CARDS = {
+  entity_cards: [{ entity_id: 'event_0224', name: '垓下之战' }],
+  subgraph: { nodes: [{ id: 'event_0224', name: '垓下之战', type: '事件' }], edges: [] },
+  timeline: { groups: [] },
+  map_points: [],
+}
+
+test('turnHistory 倒序派生每一轮（含无面板数据的轮）', async () => {
+  const store = useSessionStore()
+  const first = await completeTurn(store, '介绍一下垓下之战。', PANEL_WITH_CARDS)
+  const second = await completeTurn(store, '介绍一下巨鹿之战。')
+
+  const list = store.turnHistory
+  assert.equal(list.length, 2)
+  assert.equal(list[0].id, second.id, '最新一轮在前')
+  assert.equal(list[0].index, 2)
+  assert.equal(list[0].question, '介绍一下巨鹿之战。')
+  assert.equal(list[0].hasPanel, false, '未收到 panel 事件的轮次没有面板数据')
+  assert.equal(list[1].id, first.id)
+  assert.equal(list[1].index, 1)
+  assert.equal(list[1].hasPanel, true)
+  assert.equal(list[1].superseded, false)
+})
+
+test('selectTurn 切换面板到历史轮，returnToLatest 回到最新', async () => {
+  const store = useSessionStore()
+  const first = await completeTurn(store, '介绍一下垓下之战。', PANEL_WITH_CARDS)
+  const second = await completeTurn(store, '介绍一下巨鹿之战。')
+
+  assert.equal(store.panelMessage?.id, second.id, '默认跟随最新一轮')
+  assert.equal(store.isViewingHistory, false)
+
+  store.selectTurn(first.id)
+  assert.equal(store.panelMessage?.id, first.id, '面板切到历史轮')
+  assert.equal(store.selectedTurn?.panel?.entity_cards.length, 1, '历史轮的实体卡随面板恢复')
+  assert.equal(store.isViewingHistory, true)
+  assert.equal(store.panelOpen, true, '切历史轮应顺带打开面板')
+  assert.equal(store.focusMessage?.id, first.id, '发出滚动定位信号')
+
+  store.returnToLatest()
+  assert.equal(store.panelMessage?.id, second.id)
+  assert.equal(store.isViewingHistory, false)
+})
+
+test('新提问回到最新视图（历史选择被重置）', async () => {
+  const store = useSessionStore()
+  const first = await completeTurn(store, '介绍一下垓下之战。')
+  await completeTurn(store, '介绍一下巨鹿之战。')
+  store.selectTurn(first.id)
+  assert.equal(store.isViewingHistory, true)
+
+  const stream = installStream()
+  await store.sendQuestion('介绍一下赤壁之战。')
+  assert.equal(store.selectedTurnId, null, '新提问清空历史选择')
+  assert.equal(store.isViewingHistory, false)
+  const live = store.panelMessage
+  assert.ok(live && (live.turnStatus === 'connecting' || live.turnStatus === 'streaming'),
+            '面板回到正在进行的这一轮')
+  stream.close()
+  await store.whenIdle()
+})
+
+test('选中的轮次被移除（裁剪/清空会话）后自动回退到最新', async () => {
+  const store = useSessionStore()
+  const first = await completeTurn(store, '介绍一下垓下之战。')
+  const second = await completeTurn(store, '介绍一下巨鹿之战。')
+  store.selectTurn(first.id)
+
+  store.messages = store.messages.filter((m) => m.id !== first.id)
+  assert.equal(store.panelMessage?.id, second.id, '选中轮不存在时面板回退到最新')
+  assert.equal(store.isViewingHistory, false)
+})
+
+test('requestCitation 带轮次 id 时面板先切到该轮', async () => {
+  const store = useSessionStore()
+  const first = await completeTurn(store, '介绍一下垓下之战。')
+  await completeTurn(store, '介绍一下巨鹿之战。')
+  store.setPanelTab('cards')
+
+  store.requestCitation(2, first.id)
+  assert.equal(store.panelMessage?.id, first.id, '点历史消息的引用应切到该轮，而不是最新轮')
+  assert.equal(store.panelTab, 'evidence')
+  assert.equal(store.citationFocus?.index, 2)
+})
+
+test('turnHistory 保留被重查取代的旧轮并标记 superseded', async () => {
+  const store = useSessionStore()
+  const stream1 = installStream()
+  await store.sendQuestion('介绍一下赤壁之战。')
+  const first = store.messages[1] as any
+  stream1.push({ type: 'error', session_id: 's', data: { message: '内部错误' } })
+  stream1.push({ type: 'done', session_id: 's', data: { finish_reason: 'failed' } })
+  stream1.close()
+  await store.whenIdle()
+
+  const stream2 = installStream()
+  store.retryTurn(first)
+  await settle()
+  const second = store.messages[store.messages.length - 1] as any
+  assert.equal(first.supersededBy, second.id)
+  stream2.push({ type: 'answer', session_id: 's', data: { delta: '重试后的回答' } })
+  stream2.push({ type: 'done', session_id: 's', data: { finish_reason: 'normal' } })
+  stream2.close()
+  await store.whenIdle()
+
+  const list = store.turnHistory
+  assert.equal(list.length, 2, '失败的旧轮也保留在历史记录里可回看')
+  assert.equal(list[0].id, second.id)
+  assert.equal(list[1].id, first.id)
+  assert.equal(list[1].superseded, true)
+  assert.equal(list[1].turnStatus, 'failed')
+})

@@ -36,6 +36,14 @@ function focusTab(step: number): void {
 
 const msg = computed<AssistantMessage | null>(() => store.panelMessage)
 
+/** 选中轮次的时间（历史提示条用）。 */
+const historyTime = computed(() => {
+  const at = msg.value?.createdAt
+  if (!at) return ''
+  const d = new Date(at)
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+})
+
 /** 面板生命周期空状态（2026-09-15 审核 P1-19 + 第四轮复核 P2-9）：
  * "还没提问 / 正在识别实体 / 正在检索 / 正在生成 / 已完成但该 tab 无数据 / 失败 / 已取消"要分开说，
  * 旧实现统一显示"暂无数据"，用户分不清是没数据还是还在跑。
@@ -106,6 +114,14 @@ watch(
         {{ msg.panel.entity_cards.length }} 实体 · {{ msg.panel.subgraph.nodes.length }} 节点
       </div>
     </header>
+
+    <!-- 历史轮次提示：让用户知道面板不是最新一轮，并提供一键返回 -->
+    <div v-if="store.isViewingHistory" class="panel-history-bar">
+      <span>
+        正在查看历史轮次<template v-if="historyTime">（{{ historyTime }} 的提问）</template>
+      </span>
+      <button class="ghost-btn" type="button" @click="store.returnToLatest()">返回最新</button>
+    </div>
 
     <!-- 标准 tabs 语义（第四轮复核 P1-13）：role=tablist/tab + aria-selected/aria-controls，
          键盘用户与读屏可以知道"当前在哪个视图、有哪些视图" -->

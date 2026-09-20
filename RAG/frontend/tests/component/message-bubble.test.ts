@@ -108,10 +108,10 @@ describe('同名候选', () => {
 })
 
 describe('引用与状态展示', () => {
-  test('点击引用 chip 抛出 citation 事件', async () => {
+  test('点击引用 chip 抛出 citation 事件（带轮次 id，历史轮也能正确定位）', async () => {
     const wrapper = mountBubble(makeAssistant(), useSessionStore())
     await wrapper.find('.cite-chip').trigger('click')
-    assert.deepEqual(wrapper.emitted('citation')?.[0], [1])
+    assert.deepEqual(wrapper.emitted('citation')?.[0], [1, 'a1'])
   })
 
   test('interrupted 轮显示“回答可能不完整”提示', () => {
