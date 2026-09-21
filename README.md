@@ -101,19 +101,90 @@ china-history-war-kg/
 
 ## 运行项目
 
-### 启动后端
+本项目由**两个独立环境**组成，运行时不同、需要分别启动；浏览器只访问旧前端一个入口：
+
+| 环境 | 组成 | 运行时 | 端口 |
+| --- | --- | --- | --- |
+| 旧知识库系统 | Flask 后端（`backend/`）+ layui 管理台（`frontend/`） | Python 3.8、Node ≥ 18 | 5000 / 3001 |
+| RAG 问答系统（独立仓库 `RAG/`） | FastAPI 服务 + Vue3 前端（dist 由 RAG 服务同源托管） | Python 3.11 | 8000 |
+
+`frontend/vite.config.ts` 已配好代理：`/api` → 5000、`/rag` → 8000，所以浏览器只需访问
+**http://localhost:3001**；RAG 问答页入口为菜单「知识图谱 → RAG 智能问答」，或直接访问 `/#/knowledge/rag`。
+
+### 前置条件
+
+**两个模块必须用不同的 Python 环境**：RAG 的 chromadb 要求 Python ≥ 3.10，而旧后端整套按
+Python 3.8 编写（Flask + py2neo 生态），装进同一个环境必有一边跑不起来。
+
+| 组件 | 要求 | 本机对应环境（`E:/anaconda`） |
+| --- | --- | --- |
+| Node.js | ≥ 18（旧前端与 RAG 前端构建） | —（走 Node/pnpm，不用 conda） |
+| 旧后端 | Python 3.8+；Neo4j 5.x（默认 `bolt://localhost:7687`，图谱可视化与问答）；Ollama 及模型（旧智能问答用，见 [backend/README.md](backend/README.md)）；同级 `entity-event-relation/` 目录必须完整——后端通过 `sys.path` 引用其 `src.*`（`backend/app.py:56-59`） | **`place-name-KG`**（Python 3.8.20；Flask / flask-cors / SQLAlchemy / py2neo / PyJWT / werkzeug 已装齐） |
+| RAG 服务 | Python 3.11 + RAG 依赖（见 `RAG/requirements.txt`：fastapi / uvicorn / chromadb / openai 等） | **`AI_Agent`**（Python 3.11.15；fastapi / uvicorn / chromadb / openai / jieba 已装齐） |
+| RAG 前端产物 | `RAG/frontend/dist` 必须是**并入模式**构建产物（`npm run build:integration`），否则 `/rag/` 页面白屏 | — |
+
+> `backend/` 目录下目前没有 `requirements.txt`（`backend/README.md` 里的 `pip install -r requirements.txt`
+> 已失效）。实际依赖为 Flask、flask-cors、SQLAlchemy、PyJWT、py2neo、Werkzeug、requests 等；
+> 本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
+
+### 启动顺序
+
+**1. 构建 RAG 前端产物**（首次、或 RAG 前端代码有改动时）
+
+```bash
+cd RAG/frontend
+npm install                 # 首次
+npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=/rag/api
+```
+
+> 若之前在 RAG 前端执行过 `npm run build`（独立部署模式），`dist` 会被覆盖成 `base=/`，
+> 页面在 `/rag/` 下会白屏——补跑一次 `npm run build:integration` 即可恢复。
+> 口径见 [docs/RAG集成-Web入口合并.md](docs/RAG集成-Web入口合并.md) 第三节。
+
+**2. 启动 RAG 服务（:8000，用 `AI_Agent` 环境）**
+
+```bash
+cd RAG
+E:/anaconda/envs/AI_Agent/python.exe scripts/run_server.py --port 8000 --version 20260915_v1
+# Anaconda Prompt / CMD 下等价写法：
+#   conda activate AI_Agent && python scripts/run_server.py --port 8000 --version 20260915_v1
+```
+
+- `--version` 固定数据版本（省略则自动取最新一致版本）
+
+**3. 启动旧后端（:5000，用 `place-name-KG` 环境）**
+
 ```bash
 cd backend
-python app.py
+E:/anaconda/envs/place-name-KG/python.exe app.py
+# Anaconda Prompt / CMD 下等价写法：
+#   conda activate place-name-KG && python app.py
 ```
-- 服务地址: http://localhost:5000
 
-### 启动前端
+- 首次启动会自动初始化 SQLite schema；Neo4j/Ollama 配置与数据导入见 [backend/README.md](backend/README.md)
+- 三个终端（RAG / 旧后端 / 旧前端）各用各的环境，互不影响
+
+**4. 启动旧前端（:3001）**
+
 ```bash
 cd frontend
-pnpm dev
+pnpm install    # 首次（或 npm install）
+pnpm dev        # 或 npm run dev
 ```
-- 访问地址: http://localhost:5173
+
+- 访问 **http://localhost:3001**（端口在 `vite.config.ts` 固定为 3001，不是 Vite 默认的 5173）
+
+### 启动后自检
+
+```bash
+curl -s http://127.0.0.1:5000/api/graph/event_event | head -c 120   # 旧后端：应返回图谱 JSON
+curl -s http://127.0.0.1:8000/api/health | head -c 200              # RAG：应返回 status=ok
+curl -s http://127.0.0.1:3001/rag/ | grep assets                    # 代理：应看到 /rag/assets/... 前缀
+```
+
+更细的口径：旧后端 [backend/README.md](backend/README.md)、旧前端 [frontend/README.md](frontend/README.md)、
+RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/docs/deploy.md)、
+两个环境的集成约定 [docs/RAG集成-Web入口合并.md](docs/RAG集成-Web入口合并.md)。
 
 ## API接口
 
