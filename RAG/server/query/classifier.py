@@ -27,7 +27,6 @@ _TIMELINE_HINT = {"先后", "时间线", "顺序", "哪个先", "哪个后", "�
 _SINGLE_HINT = {"介绍", "是什么", "简介", "了解", "说说", "讲讲"}
 
 # 指代词集合（多轮追问用）
-_COREF_PRONOUNS = {"它", "他", "她", "这", "该", "此", "这个", "这场", "那", "那个"}
 _COREF_WITH_NOUN = {"这场战争", "该战争", "此战", "这次战争", "这个事件", "这一仗", "这个战役"}
 
 
@@ -119,7 +118,6 @@ def extract_dynasty_mentions(question: str, dynasty_terms, entity_mentions=()) -
         if val not in found:
             found.append(val)
     # ② 单字朝代 + 朝/国/代/王朝 后缀
-    import re
     if single_char:
         chars = "".join(sorted(single_char.keys()))
         # 后缀含"代"（唐代/宋代/清代等正当写法）；"朝代/时代/近代"不会命中，
@@ -149,16 +147,3 @@ def detect_coref_mention(question: str) -> Optional[str]:
             return c
     return None
 
-
-def last_event_name_from_history(history: list) -> Optional[str]:
-    """从最近用户轮取最后一个事件名（供指代消解）。简单启发式。"""
-    for turn in reversed(history or []):
-        if turn.get("role") != "user":
-            continue
-        content = turn.get("content") or ""
-        # 以"XX之战"为事件名锚点，取最后一个
-        import re
-        m = re.findall(r"[^，。？、\s]{2,10}?(?:之战|之役|之变|大战|会战|起义)", content)
-        if m:
-            return m[-1]
-    return None

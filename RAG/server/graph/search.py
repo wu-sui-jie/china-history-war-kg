@@ -223,10 +223,6 @@ class GraphSearch:
         """比较：分别做一跳，不强合并。"""
         return self._relation_edges(nodes)
 
-    def _timeline(self, nodes: list[dict]) -> GraphResult:
-        """时间线：取事件节点一跳作锚点，事件详情由 F05 用快照属性补。"""
-        return self._relation_edges(nodes)
-
     def _background(self, nodes: list[dict]) -> GraphResult:
         """背景：图谱只返回实体上下文（一跳）供实体卡，主体文本通道。"""
         ev, hit = [], []

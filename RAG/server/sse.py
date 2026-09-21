@@ -33,9 +33,6 @@ from contracts.question import QuestionType
 from server.runtime import Runtime
 
 # query 级错误（不可恢复，直接 error+done）
-_RECOVERABLE = set()
-
-
 def _event(type_: SSEEventType, session_id: str, stage=None, data=None) -> dict:
     ev = SSEEvent(type=type_, session_id=session_id, stage=stage, data=data)
     return ev.to_dict()
@@ -419,7 +416,6 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
     """编排一次完整查询，产出 SSE 帧序列。"""
     sid = req.session_id
     gen = runtime.generate
-    cache_dir = runtime.settings.cache_dir
     settings = runtime.settings
 
     # 生成任务句柄：断连/异常时必须在 finally 里取消并回收（P1-1）

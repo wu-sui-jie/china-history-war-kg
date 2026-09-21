@@ -87,24 +87,3 @@ def build_fts5(db_path: Path, chunks: list[dict], logger=None) -> int:
         logger.info(f"FTS5 建库完成: {db_path.name} 片段{len(chunks)} 可检索{seen}")
     return seen
 
-
-def query_fts(db_path: Path, query: str, limit: int = 20) -> list[tuple]:
-    """按分词 OR 匹配 + BM25 排序检索，返回 [(chunk_id, bm25)] 升序（值小=更相关）。
-
-    说明：这里采用召回优先的 OR 策略，适合作为冒烟验证与 F04 的初检基线。
-    AND / 混合 / 加权等精确检索策略属于 F04 融合层范畴，按 F10 评测结果再定。
-    """
-    words = [w for w in tokenize(query) if w][:8]
-    if not words:
-        return []
-    q = " OR ".join(f'"{w}"' for w in words)
-    con = sqlite3.connect(str(db_path))
-    con.row_factory = sqlite3.Row
-    try:
-        rows = con.execute(
-            "SELECT chunk_id, bm25(chunks_fts) AS s FROM chunks_fts "
-            "WHERE chunks_fts MATCH ? ORDER BY s LIMIT ?", (q, limit)
-        ).fetchall()
-        return [(r["chunk_id"], r["s"]) for r in rows]
-    finally:
-        con.close()

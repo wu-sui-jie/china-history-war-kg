@@ -43,7 +43,7 @@
 | `data/release/lineage.json` | ✅ 已生成（source → snapshot → index → eval → demo → release 全链路哈希 + demo 父 run 解析 + 跨层一致性 `checks`，含 index_version 与 measurement_mode 判定） |
 | `data/release/chroma-segment-audit.json` | ✅ 已生成；结论：1 个 collection、2 个 segment（VECTOR + METADATA）、无孤儿目录 |
 | `data/release/sbom.json` | ✅ 已生成（SPDX 2.3，Python + Node 共 306 个包，命名空间可重现，`gen_sbom.py validate` 通过） |
-| 前端 `dist` | ✅ 已构建，**当前为并入模式产物**（`npm run build:integration`，base=/rag/、接口前缀=/rag/api，供旧系统 3001 → `/rag` 反代）；独立部署与 release 包需用 `npm run build` 覆盖，两者共用同一目录、互相覆盖（口径见旧知识库系统 `docs/RAG集成-Web入口合并.md` 第三节） |
+| 前端 `dist` | ✅ 已构建，**当前为并入模式产物**（`npm run build:integration`，base=/rag/、接口前缀=/rag/api，供旧系统 3001 → `/rag` 反代）；独立部署与 release 包需用 `npm run build` 覆盖，两者共用同一目录、互相覆盖（口径见旧知识库系统 `docs/集成与入口约定.md` 第三节） |
 | 规则推理产物（P2） | ✅ 对活跃快照 `20260915_v1` 生成：**11,833 条推理边**（反向 11,559 + 因果链 3 + 顺承链 271 + 战争阶段 0），`inferred_relations.json` 6.9 MB + `inference_report.json`；`war_020`（3 步包含链）在当前数据无命中，报告已注明；重复构建字节一致（SHA256 `8ad76f0e71f1e15c…`） |
 | Python 锁文件 | ✅ `requirements.lock`（94 需求）/ `requirements-dev.lock`（100 需求；含 2026-09-16 为修 CI 补的 `uvloop==0.22.1`）：版本与开发环境实测一致，**每条需求均带 `--hash`**，不含 `--index-url` |
 | `frontend/package-lock.json` | ✅ 已存在（npm 侧可 `npm ci`） |
@@ -89,18 +89,13 @@ python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_li
    把证据文档提交本身会产生新 commit。发布记录里应同时写 `tested_commit`
    （跑测试时）与 `evidence_commit`（生成制品时），两者不要求相等，但都必须可追溯。
 
-## 六、历史文档入口
+## 六、历史记录入口
 
-- 第三轮审核：`docs/changes/20260915-round3-audit-and-remediation-plan.md`
-- 第四轮复核：`docs/changes/20260915-round4-full-review-analysis.md`
-- 第四轮复核的后续工作单：`docs/changes/20260916-round4-review-remediation-work-order.md`
-- 第五轮复核（第五轮整改的输入）：`docs/changes/20260916-round5-remediation-review-and-full-project-audit.md`
-- 第五轮整改：`docs/changes/20260916-round5-remediation-change-note.md`（修改说明）、
-  `docs/changes/20260916-round5-review-remediation-summary.md`（结论对照）
-- 第六轮复核（第六轮整改的输入，被审核对象为第五轮修改说明）：
-  `docs/changes/20260916-round6-review-of-round5-remediation.md`
-- 第六轮整改：`docs/changes/20260916-round6-remediation-change-note.md`（修改说明）、
-  `docs/changes/20260916-round6-review-remediation-summary.md`（结论对照）
-- 更早的整改记录：`docs/changes/20260915-round4-review-fix-summary.md`、
-  `docs/changes/20260915-round4-review-fix-summary-2.md`、
-  `docs/changes/20260916-round4-review-remediation-summary.md`
+阶段交付与六轮审核整改的归纳记录见 **[CHANGELOG.md](CHANGELOG.md)**（2026-09-21 由原
+`docs/RAG_v1/` 与 `docs/changes/` 共 38 份过程文档压缩而成）。逐条的改动清单、
+复现命令与原始审核记录保留在 Git 历史中：
+
+```bash
+git log --diff-filter=D --oneline -- docs/changes/ docs/RAG_v1/   # 找到整理前的提交
+git show <整理前提交>:docs/changes/20260916-round6-review-of-round5-remediation.md
+```

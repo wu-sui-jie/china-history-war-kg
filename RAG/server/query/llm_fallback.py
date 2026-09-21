@@ -12,7 +12,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 
 from config.settings import Settings
 from server.query import prompts as q_prompts

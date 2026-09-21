@@ -192,13 +192,6 @@ class Settings:
                 "生产必须限定站点域名；显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）"
                 "下服务会因此拒绝启动")
 
-    @property
-    def default_snapshot_name(self) -> str:
-        """生成默认快照子目录名：YYYYMMDD_v1。"""
-        import datetime
-
-        return datetime.datetime.now().strftime(defaults.VERSION_DATE_FORMAT) + "_v1"
-
     def validate(self) -> None:
         """启动期配置校验：非法值直接抛错，避免"启动成功但行为异常"。
 

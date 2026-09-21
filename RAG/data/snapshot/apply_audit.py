@@ -47,7 +47,6 @@ from typing import Optional
 from config.settings import Settings
 from lib import versions
 from lib.json_io import read_json, write_json
-from lib.logging_util import get_logger
 
 # 合法 action
 _ACTIONS = {"add_alias", "remove_alias", "merge"}

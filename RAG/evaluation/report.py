@@ -509,7 +509,7 @@ def _human_scores_section(A, run, bank):
                          "正确拒答" if v == "correct_refusal" else "需复核"])
         A(_table(["qid", "问题", "verdict", "结论"], rows))
         A("")
-    A("评分规则见 `docs/RAG_v1/RAGv4-开发说明.md` 附录（correct/partial/incorrect/"
+    A("评分规则见 `evaluation/grading.py` 的取值定义（correct/partial/incorrect/"
       "unknown_answer；supported/unrelated/unsupported）。")
     A("")
 

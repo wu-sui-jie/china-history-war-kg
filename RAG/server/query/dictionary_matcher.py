@@ -14,22 +14,14 @@
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
 # 事件名后缀规则（"XX之战"/"XX之变" 等启发式用于兜底标注 type=事件）
-_EVENT_SUFFIX = re.compile(r".*(之战|之变|之战役|大战|起义|战争|会战|之围|之役)$")
-
 # 简单疑问词规则
 _RELATION_WORDS = {"谁", "哪些", "哪个", "什么关系", "关系", "参与", "发起", "进攻",
                    "攻打", "主帅", "将领", "统帅", "主将", "兵力", "是哪个"}
-_PLACE_WORDS = {"在哪里", "发生于", "发生地点", "战场", "何地", "地点"}
-_WHY_WORDS = {"为什么", "原因", "为何", "起因", "背景", "怎么", "如何", "经过", "过程"}
-_WHEN_WORDS = {"什么时候", "哪一年", "何时", "时间", "年代", "先后"}
-_COMPARE_WORDS = {"比较", "对比", "谁更", "有什么不同", "区别", "异同", "vs"}
-
-
 @dataclass
 class EntityHit:
     """词典一次命中的候选实体。同名多实体时产生多条。"""
@@ -48,10 +40,6 @@ def load_jieba(snapshot_dir: Path) -> None:
     """复用 RAGv1 实体名/别名入 jieba 词典，保证分词时整名命中。"""
     from data.index import fts as fts_mod
     fts_mod.load_jieba_dicts(snapshot_dir)
-
-
-def _overlap_contains(text: str, word: str) -> bool:
-    return word in text
 
 
 class DictionaryMatcher:
@@ -130,10 +118,6 @@ class DictionaryMatcher:
                 seen.add(e["entity_id"])
                 out.append(e)
         return out
-
-    def dynasty_lookup(self, mention: str) -> Optional[str]:
-        """朝代术语归一（命中 dicts 朝代别名键则返回标准朝代）。"""
-        return self._dicts.get("dynasty_aliases", {}).get(mention)
 
     @property
     def dynasty_alias_map(self) -> dict:

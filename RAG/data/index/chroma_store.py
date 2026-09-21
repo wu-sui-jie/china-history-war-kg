@@ -1,6 +1,6 @@
 """Chroma 持久化向量库（RAGv5 D2）。
 
-口径（docs/RAG_v1/RAGv5-开发说明.md §四.3）：
+口径（docs/CHANGELOG.md 的 RAGv5 阶段条目）：
 - 落盘位置：`data/index/<索引版本>/vectors/chroma/`（`PersistentClient`，进程内嵌入，无需独立服务）
 - 相似度空间：**建集合时锁定 `hnsw:space=cosine`**（事后改无效，只能重建集合）
 - `embedding_function=None`：显式禁用默认嵌入模型，避免混入与我们不同的向量空间
@@ -11,11 +11,9 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import Iterable, List
 
-from lib.json_io import write_json
 
 # 需要写入向量库的元数据列（与 server/text/searcher.py 的过滤项一致）
 META_FIELDS = ("chunk_type", "doc_id", "event_id", "event_name", "event_type", "dynasty")

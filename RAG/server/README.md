@@ -52,7 +52,7 @@ curl -N -X POST http://127.0.0.1:8000/api/query \
   `vector_available=False` 自动降级关键词并在 `text_results.mode` 上报实际模式。
 - F06 无 key 时用离线摘要回答器（model_used=heuristic-offline），非规划定义 degraded。
 - 不包含前端页面（RAGv3）；不包含 F10 评测。
-- 实现细节与边界详见 [../docs/RAG_v1/RAGv2-在线问答链路.md](../docs/RAG_v1/RAGv2-在线问答链路.md)。
+- 实现细节与阶段边界详见 [../docs/CHANGELOG.md](../docs/CHANGELOG.md)。
 
 ## 状态
 

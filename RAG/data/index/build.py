@@ -9,7 +9,7 @@ import datetime
 import logging
 from pathlib import Path
 
-from config.settings import Settings, get_settings
+from config.settings import Settings
 from lib import versions
 from lib.json_io import write_json, write_jsonl
 

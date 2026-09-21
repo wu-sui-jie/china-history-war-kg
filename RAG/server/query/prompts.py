@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Optional
 
 # 与快照实体类型一致（contracts.governance / data 快照）
 ENTITY_TYPES = ("事件", "人物", "组织", "地点")

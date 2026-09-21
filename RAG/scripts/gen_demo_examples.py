@@ -38,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import get_settings            # noqa: E402
 from contracts.request import QueryRequest          # noqa: E402
-from lib.json_io import read_json, write_json       # noqa: E402
+from lib.json_io import write_json       # noqa: E402
 from server.runtime import build_runtime            # noqa: E402
 
 # 类别 → 展示用中文标签（F08 要求"能力分类标签"）

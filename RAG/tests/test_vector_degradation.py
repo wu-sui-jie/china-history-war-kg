@@ -16,7 +16,6 @@ from __future__ import annotations
 import json
 
 import numpy as np
-import pytest
 
 from data.index import chroma_store
 from server.text.searcher import TextSearcher

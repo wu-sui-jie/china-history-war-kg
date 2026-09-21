@@ -14,7 +14,7 @@ import logging
 from collections import Counter
 from pathlib import Path
 
-from config.settings import Settings, get_settings
+from config.settings import Settings
 from lib import versions
 from lib.json_io import write_json
 
@@ -39,7 +39,6 @@ def _assign_entity_ids(entities: list[dict], events: list[dict]) -> tuple[list[d
         rec["entity_id"] = f"{PREFIX[etype]}_{counters[etype]:04d}"
         rec["entity_type"] = etype  # 统一字段名：type/entity_type 并用
         out.append(rec)
-    name_counter = Counter(r.get("name") for r in out)
     return out, {"by_type": {k: counters[k] for k in PREFIX}}
 
 
@@ -219,7 +218,6 @@ def run_governance(settings: Settings, version: str | None = None,
     # 1) 导出
     logger.info("step1 导出旧数据…")
     exported = export_mod.export_snapshot(settings, out_dir, logger)
-    raw_entities = exported["entity_records"]  # 数量
     # export 当前不返回原始记录列表，重新读一次原始便于治理：
     # （export_snapshot 只写 raw；治理实体需在内存中加工）
     # 因此这里直接从 sqlite 取原始记录由 governance 组装 —— 见下方直接调用 export_entities 等。
@@ -238,8 +236,6 @@ def run_governance(settings: Settings, version: str | None = None,
     all_entities, id_counts = _assign_entity_ids(entities_raw, events_raw)
     # 4) 构建别名/词典
     logger.info("step3 构建别名与词典…")
-    place_alias = alias_mod.build_place_aliases(
-        [e for e in all_entities if e["type"] == "地点"])
     dup_groups = alias_mod.duplicate_name_groups(
         [e for e in all_entities if e["type"] in ("事件", "人物", "组织", "地点")])
 

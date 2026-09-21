@@ -5,7 +5,7 @@
 - id：题目编号（Q001…），题库内唯一；
 - suite：评测套件分组。main = 主基线套件（进入总指标统计）；
   long_rewrite / filter_loss / refusal 为专项套件（单独统计口径，
-  见 docs/RAG_v1/RAGv4-开发说明.md 的"专项评测口径"）；
+  见 docs/CHANGELOG.md 的 RAGv4 阶段条目）；
 - category：问题类型，取 QuestionType 枚举值 + other（未答/拒答类）；
 - question：自然语言问题（发送给系统的原文）；
 - filters：随请求携带的朝代/战争类型筛选 {"dynasty": [], "event_type": []}；

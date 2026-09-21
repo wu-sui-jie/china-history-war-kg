@@ -17,7 +17,6 @@ import sqlite3
 import zipfile
 from pathlib import Path
 
-import pytest
 
 from config.settings import Settings, get_settings
 
@@ -312,7 +311,6 @@ def test_lineage_requires_real_llm_measurement_mode():
 def test_gen_demo_examples_writes_measurement_mode(tmp_path, monkeypatch):
     """B3：生成器的 payload 必须带 measurement_mode 与实测 model_used。"""
     import scripts.gen_demo_examples as gde
-    from lib.json_io import read_json
 
     written: dict = {}
 

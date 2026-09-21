@@ -8,18 +8,13 @@
 
 from __future__ import annotations
 
-import shutil
 import sqlite3
 from pathlib import Path
 from typing import Any
 
-from config.settings import Settings, get_settings
-from lib.json_io import write_json
+from config.settings import Settings
 
 # 旧表 → (类型, id 字段名)
-EVENT_TABLES = {
-    "events": ("事件", "id"),
-}
 ENTITY_TABLES = {
     "places": ("地点", "id"),
     "persons": ("人物", "id"),

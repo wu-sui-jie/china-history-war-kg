@@ -4,8 +4,7 @@
 - 状态：已完成（RAGv5：真实 LLM token 级流式 + `thinking` 推理增量 + 超时/重试/备用模型降级 +
   离线摘要回答器兜底；缓存卫生：degraded 结果不入缓存；`max_tokens` 截断有告警）
 - 创建时间：2026-09-03
-- 实现说明：见 [RAG_v1/RAGv2-在线问答链路.md](../RAG_v1/RAGv2-在线问答链路.md)（RAGv2 链路）与
-  [RAG_v1/RAGv5-开发说明.md](../RAG_v1/RAGv5-开发说明.md) §四.4/§四.9/§四.11（流式、缓存卫生、LLM 口径）
+- 实现说明：见 [../CHANGELOG.md](../CHANGELOG.md)（流式、缓存卫生、LLM 口径）与 [data-contract.md](../data-contract.md)
 
 ## 功能作用
 

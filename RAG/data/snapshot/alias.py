@@ -64,14 +64,6 @@ def build_place_aliases(places: list[dict]) -> dict[str, list[str]]:
     return dict(alias_map)
 
 
-def build_person_org_aliases(persons: list[dict], orgs: list[dict]) -> dict[str, list[str]]:
-    """人物/组织别名：初版保留空映射（不自动猜测简称，避免高误合并）。
-
-    后续若需“曹操→曹孟德”这类别名，应由人工维护别名配置表，本函数读取配置合并。
-    """
-    return {}
-
-
 def duplicate_name_groups(records: Iterable[dict]) -> list[dict]:
     """按 display 名称（归一）对实体分组，找出 1 个名称对应多个实体的歧义组。
 

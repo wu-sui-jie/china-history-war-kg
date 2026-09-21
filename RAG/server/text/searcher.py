@@ -1,6 +1,6 @@
 """F04 文本检索：关键词（FTS5/BM25）+ 向量（Chroma/HNSW 余弦）+ hybrid 融合。
 
-关键词检索复用 RAGv1 `data/index/fts.query_fts`（OR 召回 + BM25 排序，冒烟基线），
+关键词检索在本层自实现 `_query_fts`（AND/OR 召回 + BM25 排序 + 兜底），
 在此基础上按需读取 chunks 元信息，并做 min-max 归一化与 mode 标记。
 
 向量检索（RAGv5 T3）：查询侧调云端模型得到问题向量，交给 `data/index/vectors/chroma/`

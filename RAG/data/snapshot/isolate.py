@@ -16,7 +16,6 @@ def compute_isolated(entities: list[dict], relations: list[dict]) -> tuple[set, 
     关系按 source_id / target_id 关联（id 已映射为快照 id 时生效）。
     """
     linked: set[str] = set()
-    rel_counts: Counter = Counter()
     for rel in relations:
         s = rel.get("source_entity_id")
         t = rel.get("target_entity_id")

@@ -150,7 +150,7 @@ async def _run_all(args) -> int:
     else:
         version = _resolve_version(settings, "")
     bank_path = _bank_path_of(version, args.bank)
-    from evaluation.bank import load_bank, save_bank
+    from evaluation.bank import load_bank
     from evaluation import chain
 
     if not bank_path.exists():

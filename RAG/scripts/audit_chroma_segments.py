@@ -30,7 +30,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from config.settings import get_settings  # noqa: E402
 from lib.json_io import write_text_lf  # noqa: E402
-from lib.release_info import repo_root  # noqa: E402
 
 _CHUNK = 1 << 20
 

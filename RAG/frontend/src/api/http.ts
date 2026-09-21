@@ -19,7 +19,7 @@ export class ApiError extends Error {
   }
 }
 
-async function getJson<T>(path: string, timeoutMs = DEFAULT_GET_TIMEOUT_MS): Promise<T> {
+export async function getJson<T>(path: string, timeoutMs = DEFAULT_GET_TIMEOUT_MS): Promise<T> {
   const controller = new AbortController()
   const timer = window.setTimeout(() => controller.abort(), timeoutMs)
   try {

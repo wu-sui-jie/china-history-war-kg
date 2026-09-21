@@ -404,7 +404,7 @@ class F02Output(BaseModel):
     # 问句中自动识别到的朝代（仅用于排序加权，**不作为硬过滤**）。
     # 显式筛选（F01 下拉）走 filters.dynasty，保持硬过滤；两者分开是 2026-09-13
     # 审核后修复：硬过滤会把"被问到的朝代"连同事件本身一起剔除（如问"商朝"时
-    # 鸣条之战属夏，被整题清空而拒答）。详见 docs/changes/20260913-ragv4-review-summary.md。
+    # 鸣条之战属夏，被整题清空而拒答）。详见 docs/CHANGELOG.md（RAGv4 系统问题 1）。
     dynasty_bias: List[str] = field(default_factory=list)
     # 是否走了 F02 的 LLM 兜底（词典完全未命中 → 模型抽实体，RAGv5 §4.5）。
     # 仅作可观测性：默认关闭；开启后进入 entities 事件与评测 trace，便于核对是否误触发。

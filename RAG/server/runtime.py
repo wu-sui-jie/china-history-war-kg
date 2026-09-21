@@ -24,9 +24,6 @@ from config.settings import Settings
 from lib import release_info, versions
 
 # 允许运行期覆盖的版本（测试用）
-DEFAULT_VERSION = None  # None → settings.active_version，未配置则取最新一致版本
-
-
 @dataclass
 class Runtime:
     settings: Settings
