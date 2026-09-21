@@ -18,7 +18,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import subprocess
 import sys
 import time
@@ -35,7 +34,6 @@ from lib.release_info import (  # noqa: E402
 )
 
 # 运行时真正要读的东西；不含 logs/、cache/、runs/（评测痕迹，不参与服务）
-SNAPSHOT_FILES = ("*.json",)
 INDEX_FILES = ("manifest.json", "chunks_fts.db", "chunks.jsonl", "vectors/ids.json",
                "vectors/embeddings.npy")
 EVAL_FILES = ("questions.jsonl", "questions.meta.json", "demo_examples.json")
@@ -99,22 +97,6 @@ def _entry(path: Path, root: Path, artifact_type: str, source_version: str) -> d
         # 物理哈希只作参考：Chroma 运行时改写元数据库属正常行为，不参与校验
         entry["physical_sha256"] = _sha256(path)
     return entry
-
-
-def _add_file(entries: list, path: Path, root: Path, kind: str, version: str,
-              missing: list) -> None:
-    if path.is_file():
-        entries.append(_entry(path, root, kind, version))
-    else:
-        missing.append(f"{kind}: {path.relative_to(root).as_posix()}")
-
-
-def _add_tree(entries: list, directory: Path, root: Path, kind: str, version: str) -> None:
-    if not directory.is_dir():
-        return
-    for path in sorted(directory.rglob("*")):
-        if path.is_file():
-            entries.append(_entry(path, root, kind, version))
 
 
 def expected_paths(settings, version: str) -> dict[str, str]:
@@ -216,15 +198,6 @@ def _git_commit_label(root: Path) -> str:
     from lib.release_info import git_commit as _label
 
     return _label(root)
-
-
-def _add_tree_small(entries: list, directory: Path, root: Path, kind: str, version: str) -> None:
-    """递归记录目录下所有文件（用于 Chroma 段与前端 dist）。"""
-    if not directory or not Path(directory).is_dir():
-        return
-    for path in sorted(Path(directory).rglob("*")):
-        if path.is_file():
-            entries.append(_entry(path, root, kind, version))
 
 
 def _git(args: list[str], cwd: Path) -> str:
@@ -419,8 +392,8 @@ def main() -> int:
     b.add_argument("--version", default="", help="数据版本（缺省取 RAG_ACTIVE_VERSION）")
     b.add_argument("--require-clean", action="store_true",
                    help="工作区有未提交改动时拒绝生成（发布门禁）")
-    v = sub.add_parser("verify", help="按清单校验制品")
-    s = sub.add_parser("verify-sums", help="按 SHA256SUMS 做物理校验（等价 sha256sum -c）")
+    sub.add_parser("verify", help="按清单校验制品")
+    sub.add_parser("verify-sums", help="按 SHA256SUMS 做物理校验（等价 sha256sum -c）")
     args = ap.parse_args()
 
     if args.command in (None, "build"):

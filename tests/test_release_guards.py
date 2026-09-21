@@ -1,4 +1,4 @@
-"""第四轮复核（docs/changes/20260915-round4-review-audit-and-next-optimization.md）的守护用例。
+"""第四轮复核（见 docs/CHANGELOG.md 第二节）的守护用例。
 
 覆盖发布阻断与正确性项：
 - P0-1 强制版本检查必须在扫描目录之前生效；

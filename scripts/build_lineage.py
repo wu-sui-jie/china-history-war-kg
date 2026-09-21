@@ -15,7 +15,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import subprocess
 import sys
 import time
@@ -34,9 +33,6 @@ from lib.release_info import (  # noqa: E402
 
 _CHUNK = 1 << 20
 # 上游只读数据源（旧项目）：不参与发布，但必须可追溯
-SOURCE_FILES = ("database", "中国历代战争简史.txt", "中国战争史地图集.txt")
-
-
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with open(path, "rb") as f:

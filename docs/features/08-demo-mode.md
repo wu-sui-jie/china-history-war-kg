@@ -3,8 +3,7 @@
 - 功能编号：F08
 - 状态：已完成（RAGv5 实现：示例题由 `scripts/gen_demo_examples.py` 从已审核题库生成并按实测时延/截断筛题，
   后端 `GET /api/demo/examples` 提供，前端按类别分组渲染 + 能力标签 + 一键提问；前端不再硬编码示例题）。
-  需求与验收见 [../RAG_v1/RAGv5-规划说明.md](../RAG_v1/RAGv5-规划说明.md) 第二节，
-  实现细节见 [../RAG_v1/RAGv5-开发说明.md](../RAG_v1/RAGv5-开发说明.md) §四.7 与 §十一
+  阶段交付与设计口径见 [../CHANGELOG.md](../CHANGELOG.md)，当前 demo 状态见 [../current-status.md](../current-status.md) 第四节
 - 创建时间：2026-09-03
 
 ## 功能作用

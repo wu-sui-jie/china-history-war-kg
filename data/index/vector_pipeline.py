@@ -128,8 +128,6 @@ def build_vector_store(
                 # 逐批提交并即时抛出异常（失败即中断，已落盘的批次仍可续跑）
                 for _ in pool.map(_do_batch, pending):
                     pass
-    dim_seen = dim_cfg
-
     # 拼装：按批次顺序拼接，行序 == chunks 顺序（ids 以此为对齐依据）
     mats = [np.load(parts / f"batch_{bi:05d}.npy") for bi in range(n_batches)]
     mat = np.concatenate(mats, axis=0) if mats else np.zeros((0, 0), dtype=np.float32)

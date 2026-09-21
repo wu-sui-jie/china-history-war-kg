@@ -12,7 +12,6 @@
 
 from __future__ import annotations
 
-import json
 import logging
 from pathlib import Path
 from typing import Optional
@@ -26,9 +25,6 @@ from server.generate.cache import AnswerCache, cache_key
 from server.generate.llm_client import LLMClient
 
 # SSE 事件发射器：给编排层回调
-_Emitter = object
-
-
 def _stamp(stats_out: Optional[dict], **fields) -> None:
     """给统计 dict 打标（离线/拒答等非 LLM 终态也要有可归因的字段）。"""
     if stats_out is not None:

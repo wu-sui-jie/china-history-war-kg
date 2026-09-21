@@ -32,16 +32,6 @@ def write_json(path: Path, data: Any, indent: int = 2) -> None:
         json.dump(data, f, ensure_ascii=False, indent=indent)
 
 
-def read_jsonl(path: Path) -> list[dict]:
-    out = []
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                out.append(json.loads(line))
-    return out
-
-
 def write_jsonl(path: Path, rows: list[dict]) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)

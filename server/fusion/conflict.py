@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
-from typing import Optional
 
 from contracts.conflict import Conflict, ConflictType
 from contracts.evidence import Evidence, EvidenceKind
@@ -54,7 +53,6 @@ def detect_conflicts(evidence: list[Evidence],
                      ctx: dict) -> list[Conflict]:
     """对融合后证据列表做两类结构化冲突判定。"""
     graph_evs = [e for e in evidence if e.kind == EvidenceKind.GRAPH_TRIPLE]
-    card_evs = [e for e in evidence if e.kind == EvidenceKind.EVENT_CARD]
     field_map, cards = _load_context(ctx)
     out: list[Conflict] = []
 

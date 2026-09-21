@@ -676,7 +676,7 @@ def scores_apply(args) -> int:
     from evaluation import report as report_mod
 
     sheet = _load_sheet(Path(args.sheet))
-    run = report_mod.load_run(args.run)
+    report_mod.load_run(args.run)  # 校验 run 目录可读，结果此处不需要
     out_path = Path(args.run) / "scores.jsonl"
     rows = []
     used = 0

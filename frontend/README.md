@@ -8,7 +8,7 @@ RAG 系统唯一用户可见页面：左侧提问历史栏（可折叠，点任�
 与普通接口（`/api/health`、`/api/dicts`），不依赖旧 `china-war/frontend/` 后台模板。
 
 > 需求与验收：`../docs/features/01-qa-main.md`、`../docs/features/07-knowledge-panel.md`；
-> 阶段说明与对接细节：`../docs/RAG_v1/RAGv3-开发说明.md`、`../docs/RAG_v1/RAGv3-规划分析.md`；
+> 阶段交付与对接细节：`../docs/CHANGELOG.md`；
 > 前后端数据契约：`../docs/data-contract.md`。
 
 ## 技术栈
@@ -33,7 +33,7 @@ npm run preview      # 预览构建产物
 ## 并入旧知识库系统 Web 入口（可选）
 
 RAG 也可以挂到旧后台（layui 管理台）的 `/rag/` 子路径下，由反代把 `/rag/*` 转发给本服务，
-用户从旧后台菜单「RAG 智能问答」进入——见 `../../docs/RAG集成-Web入口合并.md`。
+用户从旧后台菜单「RAG 智能问答」进入——见 `../../docs/集成与入口约定.md`。
 
 ```bash
 npm run build:integration   # base=/rag/ + 接口前缀=/rag/api（参数在 .env.integration）

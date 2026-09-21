@@ -28,7 +28,6 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from config.settings import Settings, get_settings
 from contracts.request import QueryRequest, RequestValidationError
 from contracts.sse import ErrorCode, FinishReason
-from lib import release_info
 from server.runtime import Runtime, build_runtime
 from server.sse import sse_format, shutdown_sync_pool, sync_pool_stats
 
@@ -171,7 +170,7 @@ def _demo_path(rt) -> Path:
     return rt.settings.data_dir / "eval" / rt.version / "demo_examples.json"
 
 
-def _validate_demo_examples(data: dict, rt) -> Optional[str]:
+def _validate_demo_examples(data: dict, rt) -> str | None:
     """校验演示清单结构与版本一致性，返回错误信息（None = 通过）。
 
     第四轮复核 P1-6：旧实现只在 `file_version` 为真且不等时拒绝，**缺失/空值/类型错误

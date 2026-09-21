@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import asyncio
 
-import pytest
 
 from contracts.evidence import Confidence, Evidence, EvidenceKind, SourceType
 from contracts.sse import FinishReason

@@ -14,7 +14,7 @@ event_card 额外携带事件名/朝代/时间/参与方/结果等结构化字�
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List
 
 from contracts.base import BaseModel
 from contracts.conflict import Conflict

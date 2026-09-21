@@ -1,6 +1,6 @@
 """云端文本向量模型客户端（阿里云百炼 text-embedding-v4，OpenAI 兼容）。
 
-RAGv5 已确认的模型口径（见 docs/RAG_v1/RAGv5-开发说明.md §四.3）：
+RAGv5 已确认的模型口径（见 docs/CHANGELOG.md 的 RAGv5 阶段条目）：
 - base_url  https://dashscope.aliyuncs.com/compatible-mode/v1
 - model     text-embedding-v4，默认 1024 维（可用 dimensions 指定）
 - 密钥      EMBEDDING_API_KEY 留空时读系统环境变量 DASHSCOPE_API_KEY

@@ -4,8 +4,7 @@
 - 状态：已完成（RAGv5：关键词（FTS5/BM25）+ 向量（Chroma 余弦）+ hybrid 融合三模式可用，
   部署级开关 `TEXT_MODE` 默认 hybrid/rrf；评测结论：回答覆盖 71.7% → 85.1%、长改写 AND 失效被向量通道弥补）
 - 创建时间：2026-09-03
-- 实现说明：见 [RAG_v1/RAGv2-在线问答链路.md](../RAG_v1/RAGv2-在线问答链路.md)（RAGv2 关键词版）与
-  [RAG_v1/RAGv5-开发说明.md](../RAG_v1/RAGv5-开发说明.md) §四.2/§四.3（RAGv5 向量与融合）
+- 实现说明：见 [../CHANGELOG.md](../CHANGELOG.md)（RAGv2 关键词版、RAGv5 向量与融合）与 [data-contract.md](../data-contract.md)
 
 ## 功能作用
 

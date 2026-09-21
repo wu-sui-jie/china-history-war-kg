@@ -97,17 +97,6 @@ class GraphIndex:
     def in_edges(self, eid: str) -> list[tuple]:
         return self._adj_in.get(eid, [])
 
-    def neighbors_of_type(self, eid: str, types: set[str]) -> list[dict]:
-        """1 跳邻居中另一端类型 ∈ types 的行。"""
-        rows = []
-        for rel, tgt, row in self._adj_out.get(eid, []):
-            if self.type_of(tgt) in types:
-                rows.append({**row, "_role": "source", "_other_id": tgt})
-        for rel, src, row in self._adj_in.get(eid, []):
-            if self.type_of(src) in types:
-                rows.append({**row, "_role": "target", "_other_id": src})
-        return rows
-
     def neighbors_with_type(self, eid: str) -> list[dict]:
         """1 跳邻居，附带对方 id/name/type（供 subgraph 绘制）。"""
         seen = set()

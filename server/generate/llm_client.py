@@ -12,7 +12,7 @@ from __future__ import annotations
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import AsyncIterator, Optional
+from typing import Optional
 
 from config.settings import Settings
 
@@ -51,9 +51,6 @@ class LLMClient:
                 api_key=settings.fallback_llm_api_key,
                 timeout=settings.llm_timeout_seconds,
             )
-
-    def model_name(self) -> str:
-        return self.settings.llm_model or ""
 
     async def aclose(self) -> None:
         """关闭底层 HTTP 客户端（lifespan 关闭时调用，避免连接池悬挂）。"""

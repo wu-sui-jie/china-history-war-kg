@@ -18,8 +18,6 @@ LLM 兜底（RAGv5 §4.5 已实现）：词典**完全未命中**时，用一次
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
 from typing import Optional
 
 from contracts.question import QuestionType

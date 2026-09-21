@@ -6,14 +6,6 @@
 
 from __future__ import annotations
 
-from enum import Enum
-
-
-class TextMode(str, Enum):
-    KEYWORD = "keyword"
-    VECTOR = "vector"
-    HYBRID = "hybrid"
-    NONE = "none"
 
 
 def resolve_mode(requested: str | None, vector_available: bool) -> str:
@@ -60,9 +52,6 @@ def fuse_rrf(keyword: list, vector: list, k: int = 60) -> dict:
     for rank, (cid, _s) in enumerate(sorted(vector, key=lambda x: -x[1]), start=1):
         raw[cid] = raw.get(cid, 0.0) + 1.0 / (k + rank)
     return _norm_dict(raw)
-
-
-HYBRID_STRATEGIES = ("weighted", "rrf", "fallback")
 
 
 def fuse_hybrid(keyword: list, vector: list, strategy: str = "weighted",

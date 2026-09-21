@@ -70,16 +70,6 @@ class DictItem(BaseModel):
 # 事件类型映射：旧值 → 标准值（用于旧事件事件类型归一）
 # 关系-事件卡片字段映射表（随 F09 快照输出，F05 field_vs_triple 判定读取）
 @dataclass
-class FieldMapRow(BaseModel):
-    relation: str
-    target_type: str                  # 人物/组织/地点/事件
-    group: str                        # aggressor/defender/place/person/org_other/event_event/unknown
-    card_field: Optional[str] = None  # 事件卡片结构化字段名；event_event/unknown 为 None
-    method: str = "none"              # exact/contains/none
-    note: Optional[str] = None
-
-
-@dataclass
 class EntityDicts(BaseModel):
     entities: dict = field(default_factory=dict)        # type → List[DictItem]（或 EntityNode 快照 id 引用）
     event_type_standard: List[DictItem] = field(default_factory=list)   # 标准战争类型（别名=旧写法）

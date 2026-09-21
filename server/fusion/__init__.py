@@ -10,7 +10,6 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from contracts.evidence import Evidence
 from contracts.question import QuestionType
 from contracts.retrieval import FusionOutput, GraphResult, TextResult
 from server.fusion.fusion import fuse

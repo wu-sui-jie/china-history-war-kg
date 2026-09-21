@@ -70,10 +70,6 @@ def detect_model_refusal(text: str) -> bool:
     return not _CITATION_RE.search(text)
 
 
-def has_any_evidence(evidence: list[Evidence]) -> bool:
-    return bool(evidence)
-
-
 def refusal_reply(question: str) -> str:
     return (
         f"抱歉，关于「{question}」，当前知识库中没有检索到足够的相关史料，"

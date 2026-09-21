@@ -4,8 +4,7 @@
 - 状态：已完成（RAGv1 交付切分 + FTS5；**RAGv5 补齐向量索引**：百炼 text-embedding-v4 + Chroma
   持久化集合，9,544 条 / 1024 维；关系证据按事件卡片补齐 `event_type` 元数据）
 - 创建时间：2026-09-03
-- 实现说明：见 [RAG_v1/RAGv1-离线数据链路.md](../RAG_v1/RAGv1-离线数据链路.md)（切分与关键词索引）与
-  [RAG_v1/RAGv5-开发说明.md](../RAG_v1/RAGv5-开发说明.md) §四.3（向量构建链）
+- 实现说明：见 [../CHANGELOG.md](../CHANGELOG.md)（切分与关键词索引、向量构建链）与 [../data-contract.md](../data-contract.md)
 
 ## 功能作用
 

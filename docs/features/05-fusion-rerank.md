@@ -3,7 +3,7 @@
 - 功能编号：F05
 - 状态：已完成（RAGv2 服务版；panel 唯一装配方）
 - 创建时间：2026-09-03
-- 实现说明：见 [RAG_v1/RAGv2-在线问答链路.md](../RAG_v1/RAGv2-在线问答链路.md)
+- 实现说明：见 [../CHANGELOG.md](../CHANGELOG.md) 与 [data-contract.md](../data-contract.md)
 
 ## 功能作用
 
