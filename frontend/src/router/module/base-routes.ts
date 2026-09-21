@@ -17,10 +17,10 @@ export default [
         meta: { title: '战争关系图', requireAuth: true },
         children: [
           { path: '', component: () => import('../../views/knowledge/graph/OverviewGraph.vue'), meta: { title: '战争关系图总览', requireAuth: true } },
-          { path: 'event', component: () => import('../../views/knowledge/graph/event/EventGraph.vue'), meta: { title: '历史战争', requireAuth: true } },
-          { path: 'organization', component: () => import('../../views/knowledge/graph/organization/OrganizationGraph.vue'), meta: { title: '参战势力', requireAuth: true } },
-          { path: 'person', component: () => import('../../views/knowledge/graph/person/PersonGraph.vue'), meta: { title: '历史人物', requireAuth: true } },
-          { path: 'place', component: () => import('../../views/knowledge/graph/place/PlaceGraph.vue'), meta: { title: '战争地点', requireAuth: true } },
+          { path: 'event', component: () => import('../../views/knowledge/graph/EntityGraph.vue'), meta: { title: '历史战争', graphKind: 'event', requireAuth: true } },
+          { path: 'organization', component: () => import('../../views/knowledge/graph/EntityGraph.vue'), meta: { title: '参战势力', graphKind: 'organization', requireAuth: true } },
+          { path: 'person', component: () => import('../../views/knowledge/graph/EntityGraph.vue'), meta: { title: '历史人物', graphKind: 'person', requireAuth: true } },
+          { path: 'place', component: () => import('../../views/knowledge/graph/EntityGraph.vue'), meta: { title: '战争地点', graphKind: 'place', requireAuth: true } },
         ],
       },
       {
@@ -35,7 +35,6 @@ export default [
           { path: 'place', component: () => import('../../views/knowledge-list/place/PlaceNode.vue'), meta: { title: '战争地点', requireAuth: true } },
         ],
       },
-      { path: '/knowledge/entity/:type/:id', component: () => import('../../views/knowledge/EntityDetail.vue'), meta: { title: '实体详情', requireAuth: true } },
       { path: '/knowledge/entity-detail', component: () => import('../../views/knowledge/EntityDetail.vue'), meta: { title: '实体详情', requireAuth: true } },
       { path: '/knowledge/map', component: () => import('../../views/knowledge/HistoricalMapView.vue'), meta: { title: '历史地图视图', requireAuth: true } },
       { path: '/knowledge/timeline', component: () => import('../../views/knowledge/TimelineView.vue'), meta: { title: '战争时间轴', requireAuth: true } },
@@ -55,7 +54,7 @@ export default [
       { path: '/workspace/dataset', component: () => import('../../views/workspace/DatasetCenter.vue'), meta: { title: '数据集中心', requireAuth: true } },
       { path: '/workspace/dataset-versions', component: () => import('../../views/workspace/DatasetVersions.vue'), meta: { title: '数据版本管理', requireAuth: true } },
       { path: '/workspace/quality', component: () => import('../../views/workspace/QualityInspection.vue'), meta: { title: '图谱质检', requireAuth: true } },
-      { path: '/workspace/repair', component: () => import('../../views/workspace/RepairWorkbench.vue'), meta: { title: '数据修复工作台', requireAuth: true } },
+      { path: '/workspace/repair', component: () => import('../../views/workspace/QualityInspection.vue'), meta: { title: '数据修复工作台', requireAuth: true } },
     ],
   },
   {

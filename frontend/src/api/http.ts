@@ -1,6 +1,5 @@
 ﻿import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import {useUserStore} from "../store/user";
-import {layer} from '@layui/layui-vue';
 import router from '../router'
 import config from '@/config'
 
@@ -37,11 +36,8 @@ class Http {
 
         /* 响应拦截 */
         this.service.interceptors.response.use((response: AxiosResponse<any>) => {
-            console.log('API响应原始数据:', response.data)
-            
             // 统一返回数据，不执行其他操作
             return response.data;
-            
         }, error => {
             console.error('API请求错误:', error);
             return Promise.reject(error)

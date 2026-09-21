@@ -1,13 +1,20 @@
+<!--
+  战争关系图的四个子页（历史战争 / 参战势力 / 历史人物 / 战争地点）。
+
+  四者原本是四份逐行相同的文件，唯一差异是「名称标签、搜索提示、关系筛选枚举、接口路径」，
+  现已收敛为路由 meta.graphKind 驱动的一份实现。新增关系维度时只需在 GRAPH_CONFIGS 加一项
+  并在 base-routes.ts 注册路由。
+-->
 <template>
   <lay-container fluid="true" class="graph-subpage">
     <lay-card class="graph-filter-card">
       <lay-form style="margin-top: 10px">
         <lay-row>
           <lay-col :md="8">
-            <lay-form-item label="名称" label-width="80">
+            <lay-form-item :label="config.label" label-width="80">
               <lay-input
                 v-model="searchQuery.name"
-                placeholder="请输入战争或地点名称"
+                :placeholder="config.placeholder"
                 size="sm"
                 :allow-clear="true"
                 style="width: 98%"
@@ -24,7 +31,7 @@
                 style="width: 98%"
               >
                 <lay-select-option
-                  v-for="type in relTypes"
+                  v-for="type in config.relTypes"
                   :key="type"
                   :value="type"
                   :label="type"
@@ -51,16 +58,46 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref } from 'vue'
-import EChartsGraph from '../EChartsGraph.vue'
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import EChartsGraph from './EChartsGraph.vue'
 import Http from '@/api/http'
+
+/** 四个子页的全部差异集中在这里，模板与逻辑共享。 */
+const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTypes: string[]; endpoint: string }> = {
+  event: {
+    label: '战争名称',
+    placeholder: '请输入战争名称，如：淝水之战',
+    relTypes: ['因果关系', '顺承关系', '并列关系', '包含关系', '条件关系'],
+    endpoint: '/api/graph/event_event'
+  },
+  organization: {
+    label: '名称',
+    placeholder: '请输入战争或势力名称',
+    relTypes: ['发起方', '防守方', '支援方', '同盟方', '投降方', '被俘方', '议和方', '调停方'],
+    endpoint: '/api/graph/event_organization'
+  },
+  person: {
+    label: '名称',
+    placeholder: '请输入战争或人物名称',
+    relTypes: ['统帅', '将领', '谋士', '使者', '君主', '参与者', '俘虏', '阵亡', '投降', '叛变', '可汗'],
+    endpoint: '/api/graph/event_person'
+  },
+  place: {
+    label: '名称',
+    placeholder: '请输入战争或地点名称',
+    relTypes: ['主战场', '次要战场', '出发地', '目的地', '途经地', '驻防地', '指挥所', '补给地', '战略要地', '议和地点'],
+    endpoint: '/api/graph/event_place'
+  }
+}
+
+const route = useRoute()
+const config = computed(() => GRAPH_CONFIGS[route.meta.graphKind as string] || GRAPH_CONFIGS.event)
 
 const datasource = ref<any>({ nodes: [], lines: [] })
 const loading = ref(false)
 const expanding = ref(false)
 const graphPageSummary = inject<any>('graphPageSummary', null)
-
-const relTypes = ['主战场', '次要战场', '出发地', '目的地', '途经地', '驻防地', '指挥所', '补给地', '战略要地', '议和地点']
 
 const searchQuery = ref({
   name: '',
@@ -115,7 +152,7 @@ async function getGraph() {
       name: searchQuery.value.name?.trim() || '',
       rel_type: searchQuery.value.rel_type || ''
     })
-    const response = await Http.get(`/api/graph/event_place?${params.toString()}`)
+    const response = await Http.get(`${config.value.endpoint}?${params.toString()}`)
     if (response.code === 200) {
       datasource.value = response.data
     } else {
@@ -129,6 +166,13 @@ async function getGraph() {
     loading.value = false
   }
 }
+
+// 四个子页共用同一组件实例（路由切换不重建），切换维度时必须重置筛选并重新取数
+watch(() => route.meta.graphKind, () => {
+  searchQuery.value.name = ''
+  searchQuery.value.rel_type = ''
+  getGraph()
+})
 
 onMounted(() => {
   getGraph()

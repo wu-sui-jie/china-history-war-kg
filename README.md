@@ -1,103 +1,110 @@
-# 干戈纪略
+# 干戈纪略 · 中国历史战争知识图谱
+
+一套以中国历代战争史为对象的知识图谱与智能问答系统，由三部分组成：
+
+| 部分 | 内容 | 运行时 |
+| --- | --- | --- |
+| **旧知识库系统** | `backend/`（Flask + SQLite + Neo4j）与 `frontend/`（Vue3 + layui-vue 管理台）：图谱可视化、节点关系管理、数据运营、旧版智能问答 | Python 3.8 / Node ≥ 18 |
+| **RAG 问答系统** | `RAG/`（独立仓库、以 submodule 接入）：图谱 + 文本双通道检索增强问答，自带 Vue3 前端 | Python 3.11 |
+| **知识抽取** | `entity-event-relation/`：从战争史文献抽取实体/事件/关系的离线流水线，附学术评估 | Python 3.8+ |
+
+> **先看文档总索引：[docs/README.md](docs/README.md)** —— 按"我想做什么"定位到具体文档。
+> 跨模块的路径/端口/反代与安全边界见 [docs/集成与入口约定.md](docs/集成与入口约定.md)。
 
 ## 系统架构
 
 本项目采用 **SQLite + Neo4j** 双数据库架构：
-- **SQLite**: 关系型数据库，作为主数据存储，负责数据的增删改查
-- **Neo4j**: 图数据库，用于知识图谱可视化展示
-- **数据流向**: SQLite → Neo4j（同步操作）
+
+- **SQLite**：关系型数据库，作为主数据存储，负责数据的增删改查
+- **Neo4j**：图数据库，用于知识图谱可视化展示与问答时的图谱查询
+- **数据流向**：SQLite → Neo4j（同步操作）
+
+RAG 子系统不直接连这两个库，只读取自己目录下的治理快照与索引（由 RAG 的 F09/F11 离线流程从旧库导出）。
 
 ## 环境配置
 
-### 1. 基础环境
-- **JDK**: 17 (C:\Program Files\Java\jdk-17)
-- **Python**: 3.8.10
-- **Node.js**: 16+ (用于前端)
+### 基础环境
 
-### 2. 数据库配置
+- **JDK**: 17（`C:\Program Files\Java\jdk-17`）
+- **Python**: 3.8.10（旧后端）/ 3.11（RAG，见下方前置条件）
+- **Node.js**: ≥ 18（旧前端与 RAG 前端构建）
 
-#### Neo4j 图数据库
-- **安装路径**: D:\neo4j\neo4j-community-5.26.19
-- **用户名**: neo4j
-- **密码**: 12345678
-- **启动方式**:
-  1. 终端输入 `neo4j console` 打开控制台
-  2. 访问 http://localhost:7474/ 进入Neo4j前端页面
+### 数据库配置
 
-#### SQLite 数据库
+**Neo4j 图数据库**
+
+- **安装路径**: `D:\neo4j\neo4j-community-5.26.19`
+- **连接**: 默认 `bolt://localhost:7687`，用户名 `neo4j`，口令由 `backend/.env` 的 `NEO4J_PASSWORD` 提供（见下）
+- **启动方式**: 终端执行 `neo4j console`，然后访问 http://localhost:7474/
+
+**SQLite 数据库**
+
 - **文件位置**: `backend/database`
-- **WAL模式**: 已启用，支持高并发读写
+- **WAL 模式**: 已启用，支持高并发读写
 
-### 3. 安装依赖
+**Ollama**（旧版智能问答用）
+
 ```bash
-pip install -r requirements.txt
+ollama serve                 # 启动服务
+ollama pull deepseek-r1:7b   # 首次需拉取模型（约 4GB）
 ```
 
 ## 项目结构
 
+```text
+china-war/
+├── README.md                  # 本文件：项目总入口
+├── docs/                      # 文档总索引 + 跨模块集成约定
+├── backend/                   # 旧后端（Flask + SQLite + Neo4j）→ backend/README.md
+│   ├── app.py                 #   Flask 应用入口（:5000）
+│   ├── db_utils.py            #   SQLite 读写与 Neo4j 同步
+│   ├── model_search.py        #   Neo4j 图查询
+│   ├── models.py              #   SQLAlchemy 数据模型
+│   ├── common_utils.py        #   跨模块小工具（safe_text / LRU 等）
+│   ├── relation_types.py      #   事件-事件关系类型唯一权威表
+│   ├── import_json_to_sqlite.py / sync_sqlite_to_neo4j.py   # 数据导入与同步
+│   ├── entity_extract/        #   实体抽取（规则 + Ollama 兜底）
+│   ├── inference/             #   旧版智能问答（规则引擎 + 大模型）
+│   ├── rules/rule_base.json   #   推理规则库（20 条）
+│   └── data/                  #   current_dataset.json（数据集元信息）
+│                              #   processed/ 由导入脚本重建（已 gitignore）；raw/ 原始文本存档
+├── frontend/                  # 旧前端（Vue3 + TS + layui-vue，:3001）→ frontend/README.md
+│   └── src/
+│       ├── views/knowledge/       # 图谱可视化、实体详情、时间轴、地图、RAG 入口
+│       ├── views/knowledge-list/  # 节点关系管理（事件/组织/人物/地点）
+│       ├── views/inference/       # 旧版智能问答页
+│       ├── views/workspace/       # 数据运营（仪表盘/数据集/质检/修复）
+│       └── layouts/ router/ api/ store/ utils/
+├── entity-event-relation/     # 知识抽取与评估（离线）→ entity-event-relation/README.md
+├── RAG/                       # RAG 问答系统（独立仓库 submodule）→ RAG/README.md
+└── requirements.txt           # 旧项目的 Python 依赖（见下方说明）
 ```
-china-history-war-kg/
-├── backend/              # 后端服务
-│   ├── app.py           # Flask应用入口
-│   ├── db_utils.py      # SQLite数据库操作
-│   ├── model_search.py  # Neo4j图数据库操作
-│   ├── models.py        # SQLAlchemy数据模型
-│   ├── jwt_util.py      # JWT认证工具
-│   ├── entity_extract/  # 实体抽取模块
-│   ├── inference/       # 智能问答模块
-│   └── data/            # 数据文件
-│       ├── processed/   # 处理后的JSON数据
-│       └── raw/         # 原始数据
-├── frontend/            # 前端服务(Vue3)
-│   ├── src/
-│   │   ├── views/
-│   │   │   ├── knowledge/
-│   │   │   │   └── graph/      # 战争关系图
-│   │   │   │       ├── OverviewGraph.vue    # 总览
-│   │   │   │       ├── event/EventGraph.vue # 关联战争
-│   │   │   │       ├── organization/        # 参战势力
-│   │   │   │       ├── person/              # 相关人物
-│   │   │   │       └── place/               # 发生地点
-│   │   │   └── knowledge-list/  # 节点关系管理
-│   │   │       ├── NodeLayout.vue
-│   │   │       ├── event/EventNode.vue      # 战争事件
-│   │   │       ├── organization/            # 参战组织
-│   │   │       ├── person/                  # 相关人物
-│   │   │       └── place/                   # 发生地点
-│   │   └── layouts/     # 布局组件
-│   └── ...
-└── README.md
-```
+
+`backend/` 目前没有 `requirements.txt`。实际依赖为 Flask、flask-cors、SQLAlchemy、PyJWT、py2neo、
+Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
 
 ## 功能模块
 
 ### 1. 战争关系图
-知识图谱可视化展示，包含以下子页面：
 
-| 子页面 | 展示内容 | 关系筛选选项 |
-|--------|----------|--------------|
-| **关联战争** | 事件与事件之间的关系 | 因果关系、顺承关系、并列关系、包含关系、条件关系 |
-| **参战势力** | 组织与事件之间的关系 | 发起方、防守方、支援方、同盟方、投降方、被俘方、议和方、调停方 |
-| **相关人物** | 人物与事件之间的关系 | 统帅、将领、谋士、使者、君主、参与者、俘虏、阵亡、投降、叛变、可汗 |
-| **发生地点** | 地点与事件之间的关系 | 主战场、次要战场、出发地、目的地、途经地、驻防地、指挥所、补给地、战略要地、议和地点 |
+知识图谱可视化，分四个子页面：**关联战争**（事件-事件）、**参战势力**（事件-组织）、
+**相关人物**（事件-人物）、**发生地点**（事件-地点）。每页支持按名称搜索与按关系类型筛选，
+点击节点可展开其关联关系。四个子页面由同一份实现按维度参数化渲染
+（`frontend/src/views/knowledge/graph/EntityGraph.vue`），新增维度只需加一份配置。
 
 ### 2. 节点关系管理
-节点数据的增删改查管理，包含四个子页面：
-- **战争事件**: 管理战争事件实体（名称、朝代、时间、地点等）
-- **参战组织**: 管理势力组织实体（名称、朝代、组织类型等）
-- **相关人物**: 管理历史人物实体（名称、朝代、所属势力、角色等）
-- **发生地点**: 管理战争地点实体（名称、朝代、现代名称、所属省市等）
 
-**数据操作说明**:
-- 新增/修改/删除节点：直接操作SQLite数据库
-- 同步机制：SQLite数据变更后同步更新到Neo4j
-- 节点属性：支持完整的CRUD操作
+战争事件 / 参战组织 / 相关人物 / 发生地点四类实体的增删改查与属性编辑，
+直接操作 SQLite 并同步到 Neo4j（创建节点时保存 Neo4j ID 到 SQLite 的 `neo4j_id` 字段）。
 
-### 3. 智能问答
-基于大模型的历史战争知识问答系统：
-- 自然语言提问
-- 实体识别与关系抽取
-- 知识图谱数据展示
+### 3. 智能问答（两套并存）
+
+| 入口 | 实现 | 说明 |
+| --- | --- | --- |
+| 菜单「历史问答助手」 | `backend/inference/` + `frontend/src/views/inference/` | 规则引擎（20 条推理规则）辅助大模型回答，SSE 流式输出，附带知识图谱可视化 |
+| 菜单「RAG 智能问答」 | `RAG/`（iframe 承载） | 图谱 + 文本双通道检索、证据溯源引用、知识面板（实体卡/子图/时间线/地图） |
+
+两者的关系与边界见 [docs/集成与入口约定.md](docs/集成与入口约定.md)。
 
 ## 运行项目
 
@@ -119,13 +126,9 @@ Python 3.8 编写（Flask + py2neo 生态），装进同一个环境必有一边
 | 组件 | 要求 | 本机对应环境（`E:/anaconda`） |
 | --- | --- | --- |
 | Node.js | ≥ 18（旧前端与 RAG 前端构建） | —（走 Node/pnpm，不用 conda） |
-| 旧后端 | Python 3.8+；Neo4j 5.x（默认 `bolt://localhost:7687`，图谱可视化与问答）；Ollama 及模型（旧智能问答用，见 [backend/README.md](backend/README.md)）；同级 `entity-event-relation/` 目录必须完整——后端通过 `sys.path` 引用其 `src.*`（`backend/app.py:56-59`） | **`place-name-KG`**（Python 3.8.20；Flask / flask-cors / SQLAlchemy / py2neo / PyJWT / werkzeug 已装齐） |
-| RAG 服务 | Python 3.11 + RAG 依赖（见 `RAG/requirements.txt`：fastapi / uvicorn / chromadb / openai 等） | **`AI_Agent`**（Python 3.11.15；fastapi / uvicorn / chromadb / openai / jieba 已装齐） |
+| 旧后端 | Python 3.8+；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；同级 `entity-event-relation/` 目录必须完整——后端通过 `sys.path` 引用其 `src.*`（`backend/app.py:56-59`） | **`place-name-KG`**（Python 3.8.20） |
+| RAG 服务 | Python 3.11 + RAG 依赖（见 `RAG/requirements.txt`） | **`AI_Agent`**（Python 3.11.15） |
 | RAG 前端产物 | `RAG/frontend/dist` 必须是**并入模式**构建产物（`npm run build:integration`），否则 `/rag/` 页面白屏 | — |
-
-> `backend/` 目录下目前没有 `requirements.txt`（`backend/README.md` 里的 `pip install -r requirements.txt`
-> 已失效）。实际依赖为 Flask、flask-cors、SQLAlchemy、PyJWT、py2neo、Werkzeug、requests 等；
-> 本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
 
 ### 启动顺序
 
@@ -139,7 +142,7 @@ npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=
 
 > 若之前在 RAG 前端执行过 `npm run build`（独立部署模式），`dist` 会被覆盖成 `base=/`，
 > 页面在 `/rag/` 下会白屏——补跑一次 `npm run build:integration` 即可恢复。
-> 口径见 [docs/RAG集成-Web入口合并.md](docs/RAG集成-Web入口合并.md) 第三节。
+> 口径见 [docs/集成与入口约定.md](docs/集成与入口约定.md) 第三节。
 
 **2. 启动 RAG 服务（:8000，用 `AI_Agent` 环境）**
 
@@ -150,7 +153,7 @@ E:/anaconda/envs/AI_Agent/python.exe scripts/run_server.py --port 8000 --version
 #   conda activate AI_Agent && python scripts/run_server.py --port 8000 --version 20260915_v1
 ```
 
-- `--version` 固定数据版本（省略则自动取最新一致版本）
+`--version` 固定数据版本（省略则自动取最新一致版本；生产档下必须显式指定）。
 
 **3. 启动旧后端（:5000，用 `place-name-KG` 环境）**
 
@@ -161,8 +164,7 @@ E:/anaconda/envs/place-name-KG/python.exe app.py
 #   conda activate place-name-KG && python app.py
 ```
 
-- 首次启动会自动初始化 SQLite schema；Neo4j/Ollama 配置与数据导入见 [backend/README.md](backend/README.md)
-- 三个终端（RAG / 旧后端 / 旧前端）各用各的环境，互不影响
+首次启动会自动初始化 SQLite schema；Neo4j/Ollama 配置与数据导入见 [backend/README.md](backend/README.md)。
 
 **4. 启动旧前端（:3001）**
 
@@ -172,7 +174,7 @@ pnpm install    # 首次（或 npm install）
 pnpm dev        # 或 npm run dev
 ```
 
-- 访问 **http://localhost:3001**（端口在 `vite.config.ts` 固定为 3001，不是 Vite 默认的 5173）
+访问 **http://localhost:3001**（端口在 `vite.config.ts` 固定为 3001，不是 Vite 默认的 5173）。
 
 ### 启动后自检
 
@@ -184,53 +186,70 @@ curl -s http://127.0.0.1:3001/rag/ | grep assets                    # 代理：�
 
 更细的口径：旧后端 [backend/README.md](backend/README.md)、旧前端 [frontend/README.md](frontend/README.md)、
 RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/docs/deploy.md)、
-两个环境的集成约定 [docs/RAG集成-Web入口合并.md](docs/RAG集成-Web入口合并.md)。
+两个环境的集成约定 [docs/集成与入口约定.md](docs/集成与入口约定.md)。
 
-## API接口
+## API 接口
 
-### 知识图谱接口
+### 知识图谱接口（旧后端）
+
 | 接口 | 方法 | 说明 |
-|------|------|------|
-| `/search_name_kg` | POST | 搜索知识图谱 |
-| `/api/graph/event_event` | GET | 获取事件-事件关系图 |
-| `/api/graph/event_organization` | GET | 获取事件-组织关系图 |
-| `/api/graph/event_person` | GET | 获取事件-人物关系图 |
-| `/api/graph/event_place` | GET | 获取事件-地点关系图 |
+| --- | --- | --- |
+| `/search_name_kg` | POST | 搜索知识图谱（按名称/类型/关系分发） |
+| `/api/graph/event_event` | GET | 事件-事件关系图 |
+| `/api/graph/event_organization` | GET | 事件-组织关系图 |
+| `/api/graph/event_person` | GET | 事件-人物关系图 |
+| `/api/graph/event_place` | GET | 事件-地点关系图 |
+| `/api/node/relations` | GET | 指定节点的关联关系 |
 
-### 节点管理接口
+### 节点管理接口（旧后端）
+
 | 接口 | 方法 | 说明 |
-|------|------|------|
+| --- | --- | --- |
 | `/api/find_node_page` | POST | 分页查询节点 |
 | `/create_node` | POST | 创建节点 |
 | `/update_node` | POST | 更新节点 |
 | `/delete_node` | POST | 删除节点 |
 | `/api/node/detail` | GET | 获取节点详情 |
+| `/api/node/update_properties` | POST | 更新节点属性 |
 
-### 智能问答接口
+### 数据运营接口（旧后端）
+
 | 接口 | 方法 | 说明 |
-|------|------|------|
-| `/api/ai/inference` | POST/GET | 智能问答 |
+| --- | --- | --- |
+| `/api/dashboard/overview` | GET | 首页仪表盘 |
+| `/api/dataset/overview` | GET | 数据集概览 |
+| `/api/dataset/versions` | GET | 数据版本列表 |
+| `/api/quality/workbench` | GET | 图谱质检工作台 |
+| `/api/entity/detail` | GET | 实体详情（含关系/质检/时间线） |
+| `/api/timeline/overview` | GET | 战争时间轴总览 |
+| `/api/map/events` | GET | 事件地图点位 |
+
+### 问答接口
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/ai/inference` | POST | 旧版智能问答（非流式） |
+| `/api/ai/inference/stream` | POST | 旧版智能问答（SSE 流式） |
+| `/api/query` | POST | RAG 问答（SSE 流式，由 RAG 服务提供） |
+| `/api/health` / `/api/dicts` / `/api/demo/examples` | GET | RAG 健康检查 / 筛选项词典 / 演示示例题 |
+
+完整接口清单与请求/响应示例见 [backend/README.md](backend/README.md)（旧后端）与
+[RAG/docs/data-contract.md](RAG/docs/data-contract.md)（RAG）。
 
 ## 技术栈
 
-### 后端
-- **Flask**: Web框架
-- **SQLAlchemy**: ORM框架，操作SQLite
-- **Py2neo**: Neo4j图数据库驱动
-- **JWT**: 用户认证
-- **jieba**: 中文分词
+**旧后端**：Flask、SQLAlchemy、Py2neo、JWT、jieba、Ollama（大模型服务）
 
-### 前端
-- **Vue 3**: 前端框架
-- **TypeScript**: 类型安全
-- **LayUI Vue**: UI组件库
-- **ECharts**: 知识图谱可视化
-- **Axios**: HTTP请求
+**旧前端**：Vue 3、TypeScript、layui-vue、ECharts（图谱可视化）、Axios、Pinia、Vite
+
+**RAG**：FastAPI、pydantic、chromadb（向量检索）、jieba、Vue 3（前端）、百炼 `text-embedding-v4`
 
 ## 注意事项
 
-1. **数据存储**: 所有数据操作首先写入SQLite，然后同步到Neo4j
-2. **节点ID**: 创建节点时会同时获取Neo4j ID并保存到SQLite
-3. **可视化**: 知识图谱展示从Neo4j读取数据
-4. **文字颜色**: 所有节点文字颜色为黑色，便于阅读
-5. **图谱居中**: 图表加载完成后自动居中显示
+1. **数据存储**：所有数据操作首先写入 SQLite，然后同步到 Neo4j
+2. **节点 ID**：创建节点时会同时获取 Neo4j ID 并保存到 SQLite，供后续更新/删除使用
+3. **可视化**：知识图谱展示从 Neo4j 读取数据
+4. **两套问答互不影响**：旧问答依赖 Ollama 常驻；RAG 无 LLM 密钥时走离线摘要回答器，仍可端到端验收
+5. **密钥一律走 .env**（两个子系统都是，均已 gitignore）：RAG 见 `RAG/.env.example`；
+   旧后端见 `backend/.env.example`（`NEO4J_PASSWORD`、`JWT_SECRET`）。源码里不再有明文凭据——
+   本仓库是公开仓库，不要把口令提交进来

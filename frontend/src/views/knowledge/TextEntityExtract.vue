@@ -35,7 +35,7 @@
         >
           <div class="history-item-content" @click="loadHistory(index)">
             <div class="history-title">{{ item.title || '未命名识别' }}</div>
-            <div class="history-time">{{ formatTime(item.time) }}</div>
+            <div class="history-time">{{ formatChatTime(item.time) }}</div>
             <div class="history-stats">
               <span v-if="item.result?.summary?.event_count">⚔️{{ item.result.summary.event_count }}</span>
               <span v-if="item.result?.summary?.person_count">👤{{ item.result.summary.person_count }}</span>
@@ -413,7 +413,7 @@
           </div>
           <div v-if="expandedSections.graph" class="card-content graph-content">
             <div class="graph-container">
-              <kg-graph :data="graphData" @node-click="handleNodeClick"></kg-graph>
+              <kg-graph :data="graphData"></kg-graph>
             </div>
             <div class="graph-legend">
               <div class="legend-item"><span class="legend-dot event"></span> 事件</div>
@@ -429,10 +429,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, onMounted, watch } from 'vue';
+import { ref, computed, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Http from '../../api/http';
 import KgGraph from '../inference/components/KgGraph.vue';
+import { formatChatTime } from '../../utils/date';
 
 const router = useRouter();
 
@@ -650,22 +651,6 @@ function clearAll() {
 function useExample(example: any) {
   inputText.value = example.text;
   textLength.value = example.text.length;
-}
-
-function handleNodeClick(node: any) {
-  // 点击节点时的处理
-  console.log('Node clicked:', node);
-}
-
-// 格式化时间
-function formatTime(timestamp: number): string {
-  const date = new Date(timestamp);
-  const now = new Date();
-  if (date.toDateString() === now.toDateString()) {
-    return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-  }
-  return date.toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric' }) + ' ' +
-         date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
 }
 
 // 从localStorage加载历史记录

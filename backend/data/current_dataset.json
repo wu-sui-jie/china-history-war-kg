@@ -1,5 +1,5 @@
 {
-  "source_path": "F:\\python\\python_space\\debug-debug\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+  "source_path": "entity-event-relation/output/中国历代战争简史/9_final_all.json",
   "source_kind": "final_json",
   "metadata": {
     "extracted_at": "2026-08-18 03:37:13 +08:00",
@@ -50,5 +50,6 @@
     "organizations": 1067,
     "persons": 2492,
     "relations": 17700
-  }
+  },
+  "source_path_note": "原值指向已废弃的 debug-debug 仓库绝对路径；2026-09-21 数据整理时改为仓库内相对路径。下次运行 import_json_to_sqlite.py 会按当时的数据源重写本文件。"
 }

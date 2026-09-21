@@ -8,8 +8,12 @@ JWT认证工具模块
 """
 
 import jwt
-# 定义密钥
-secret = 'REDACTED-USE-JWT_SECRET-ENV'
+
+import local_settings
+
+# 密钥来源见 local_settings（环境变量 → backend/.env → 进程内随机）。
+# 不要在源码里硬编码：本仓库是公开仓库。
+secret = local_settings.jwt_secret()
 
 
 # 把 user_id 生成一个 JWT 字符串（token）并返回

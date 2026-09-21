@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationN
 import routes from './module/base-routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { useUserStore } from "../store/user";
 
 NProgress.configure({ showSpinner: false })
 
@@ -24,13 +23,10 @@ const router = createRouter({
 router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   NProgress.start();
 
-  const userStore = useUserStore();
-
-  if(to.meta.requireAuth) {
-    next();
-  } else if(to.matched.length == 0) {
+  // 无匹配路由 -> 404（实际鉴权在 api/http.ts 的请求拦截器里做）
+  if (to.matched.length == 0) {
     next({path: '/error/404'})
-  }  else {
+  } else {
     next();
   }
 })

@@ -6,6 +6,8 @@
 import argparse
 import os
 
+import local_settings
+from relation_types import normalize_event_relation_type
 from flask import Flask
 from py2neo import Graph
 
@@ -27,30 +29,11 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(APP_PATH, 'dat
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-NEO4J_URI = "bolt://localhost:7687"
-NEO4J_USER = "neo4j"
-NEO4J_PASSWORD = "REDACTED-USE-NEO4J_PASSWORD-ENV"
+NEO4J_URI = local_settings.NEO4J_URI
+NEO4J_USER = local_settings.NEO4J_USER
+NEO4J_PASSWORD = local_settings.require_neo4j_password()
 graph = Graph(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
-EVENT_RELATION_TYPE_ALIASES = {
-    "因果": "因果关系",
-    "因果关系": "因果关系",
-    "顺承": "顺承关系",
-    "顺承关系": "顺承关系",
-    "并列": "并列关系",
-    "并发": "并列关系",
-    "并列关系": "并列关系",
-    "并发关系": "并列关系",
-    "包含": "包含关系",
-    "包含关系": "包含关系",
-    "条件": "条件关系",
-    "条件关系": "条件关系",
-}
-
-
-def normalize_event_relation_type(value):
-    value = (value or "").strip()
-    return EVENT_RELATION_TYPE_ALIASES.get(value, value)
 
 
 class SqliteToNeo4jSync:

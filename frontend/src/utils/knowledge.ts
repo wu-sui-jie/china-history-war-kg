@@ -115,3 +115,60 @@ export const toEditableFields = (node: Record<string, any>) => {
   const hiddenKeys = new Set(['id', 'neo4j_id', 'created_at', 'updated_at', 'type'])
   return Object.entries(node || {}).filter(([key]) => !hiddenKeys.has(key))
 }
+
+/** 把节点 relations 字段（数组 / JSON 字符串 / 单个对象）按关系类型分组。
+ *  原先在 inference/index.vue 与 knowledge/EntityDetail.vue 各写一份，逐字相同。 */
+export const groupRelationAttributes = (rawValue: any) => {
+  if (!rawValue) return []
+
+  let relationItems: any[] = []
+  if (Array.isArray(rawValue)) {
+    relationItems = rawValue
+  } else if (typeof rawValue === 'string') {
+    try {
+      const parsed = JSON.parse(rawValue)
+      relationItems = Array.isArray(parsed) ? parsed : [parsed]
+    } catch {
+      return []
+    }
+  } else if (typeof rawValue === 'object') {
+    relationItems = [rawValue]
+  }
+
+  const grouped = new Map<string, { relation: string; targets: Set<string>; evidences: Set<string> }>()
+
+  relationItems.forEach((item) => {
+    if (!item || typeof item !== 'object') return
+
+    const relation = String(item.type || item.relation || item.label || '未标注关系').trim()
+    const targets = [
+      item.to,
+      item.target,
+      item.object,
+      ...(Array.isArray(item.targets) ? item.targets : []),
+      ...(Array.isArray(item.objects) ? item.objects : []),
+    ]
+      .flat()
+      .map((value) => String(value || '').trim())
+      .filter(Boolean)
+
+    const evidences = [item.evidence, ...(Array.isArray(item.evidences) ? item.evidences : [])]
+      .flat()
+      .map((value) => String(value || '').trim())
+      .filter(Boolean)
+
+    if (!grouped.has(relation)) {
+      grouped.set(relation, { relation, targets: new Set<string>(), evidences: new Set<string>() })
+    }
+
+    const current = grouped.get(relation)!
+    targets.forEach((target) => current.targets.add(target))
+    evidences.forEach((evidence) => current.evidences.add(evidence))
+  })
+
+  return Array.from(grouped.values()).map((item) => ({
+    relation: item.relation,
+    targets: Array.from(item.targets),
+    evidences: Array.from(item.evidences),
+  }))
+}

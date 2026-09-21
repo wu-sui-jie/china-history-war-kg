@@ -14,39 +14,19 @@ Neo4j图数据库操作类
     - 智能问答从此库查询图谱数据
 """
 
-from py2neo import Graph, Node
+from py2neo import Graph
 
-
-EVENT_RELATION_TYPE_ALIASES = {
-    "因果关系": ["因果关系", "因果"],
-    "顺承关系": ["顺承关系", "顺承"],
-    "并列关系": ["并列关系", "并列", "并发", "并发关系"],
-    "包含关系": ["包含关系", "包含"],
-    "条件关系": ["条件关系", "条件"],
-}
-
-EVENT_RELATION_TYPE_CANONICAL = {
-    alias: standard
-    for standard, aliases in EVENT_RELATION_TYPE_ALIASES.items()
-    for alias in aliases
-}
-
-
-def relationship_type_aliases(rel_type):
-    rel_type = (rel_type or "").strip()
-    standard = EVENT_RELATION_TYPE_CANONICAL.get(rel_type)
-    if not standard:
-        return [rel_type] if rel_type else []
-    return EVENT_RELATION_TYPE_ALIASES[standard]
+import local_settings
+from relation_types import relationship_type_aliases
 
 
 class neo4j_db():
     '''neo4j的操作'''
     def __init__(self, uri="bolt://localhost:7687", user=None, password=None, **kwargs):
         if user is None:
-            user = "neo4j"
+            user = local_settings.NEO4J_USER
         if password is None:
-            password = "REDACTED-USE-NEO4J_PASSWORD-ENV"  # 确认这是你的实际密码
+            password = local_settings.require_neo4j_password()
 
         try:
             self.graph = Graph(uri, user=user, password=password)
@@ -56,86 +36,6 @@ class neo4j_db():
         except Exception as e:
             print(f"❌ Neo4j连接失败: {e}")
             raise
-
-    def find_node_page(self, current, limit, name_query):
-        """
-        分页查询节点信息，支持按名称模糊搜索
-
-        :param current: 当前页码
-        :param limit: 每页条数
-        :param name_query: 搜索关键字
-        :return: 包含总数和节点列表的字典
-        """
-
-        # 计算分页偏移量
-        skip = (current - 1) * limit
-
-        # 构造MATCH语句，匹配所有节点
-        match_clause = "MATCH (n)"
-
-        # 构造WHERE条件，实现名称模糊查询
-        # 若name_query为空，则不添加WHERE条件
-        where_clause = f"WHERE n.name CONTAINS '{name_query}'" if name_query else ""
-
-        # 指定返回字段：节点ID、标签和名称
-        return_clause = "RETURN id(n), labels(n), n.name"
-
-        # 按名称排序
-        order_by_clause = "ORDER BY n.name"
-
-        # 设置分页范围
-        skip_limit_clause = f"SKIP {skip} LIMIT {limit}"
-
-        # 拼接完整Cypher查询语句
-        query = " ".join([
-            match_clause,
-            where_clause,
-            return_clause,
-            order_by_clause,
-            skip_limit_clause
-        ])
-
-        # 执行查询，获取当前页数据
-        results = self.graph.run(query).data()
-
-        # 查询总节点数量（用于分页）
-        if name_query:
-            # 构造统计条件（精确匹配，存在优化空间）
-            name_condition = f' {{name: "{name_query}"}}'
-        else:
-            name_condition = ''
-
-        # 构造统计查询语句
-        count_query = f"MATCH (n{name_condition}) RETURN count(DISTINCT n)"
-
-        # 执行统计查询
-        total_count = self.graph.run(count_query).evaluate() or 0
-
-        # 整理查询结果
-        nodes = []
-
-        for record in results:
-            # 获取节点ID
-            node_id = record['id(n)']
-
-            # 获取节点类型标签
-            node_labels = record['labels(n)']
-
-            # 获取节点名称
-            node_name = record['n.name'] if 'n.name' in record else None
-
-            # 构造返回数据格式
-            nodes.append({
-                "id": node_id,
-                "type": node_labels[0] if node_labels else None,
-                "name": node_name
-            })
-
-        # 返回分页结果
-        return {
-            "total": total_count,  # 总记录数
-            "records": nodes  # 当前页数据
-        }
 
     # 创建节点
     def create_node(self, label, name):
@@ -363,54 +263,6 @@ class neo4j_db():
                 rel_types.append(record['type'])
         return sorted(rel_types)
 
-
-    def get_relationship_types_by_Organization(self):
-        """根据节点类型 Organization 获取关系类型"""
-
-        query = f"""
-        MATCH (n:Event)-[r]-(m:Organization)
-        RETURN DISTINCT type(r) AS type
-        ORDER BY type
-        """
-        results = self.graph.run(query)
-        print("执行cypher查询")
-        rel_types = []
-        for record in results:
-            if record['type']:
-                rel_types.append(record['type'])
-        return sorted(rel_types)
-
-    def get_relationship_types_by_Person(self):
-        """根据节点类型 Organization 获取关系类型"""
-
-        query = f"""
-        MATCH (n:Event)-[r]-(m:Person)
-        RETURN DISTINCT type(r) AS type
-        ORDER BY type
-        """
-        results = self.graph.run(query)
-        print("执行cypher查询")
-        rel_types = []
-        for record in results:
-            if record['type']:
-                rel_types.append(record['type'])
-        return sorted(rel_types)
-
-    def get_relationship_types_by_Place(self):
-        """根据节点类型 Organization 获取关系类型"""
-
-        query = f"""
-         MATCH (n:Event)-[r]-(m:Place)
-         RETURN DISTINCT type(r) AS type
-         ORDER BY type
-         """
-        results = self.graph.run(query)
-        print("执行cypher查询")
-        rel_types = []
-        for record in results:
-            if record['type']:
-                rel_types.append(record['type'])
-        return sorted(rel_types)
 
     def get_node_relations(self, node_id):
         """

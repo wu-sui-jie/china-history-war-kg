@@ -142,7 +142,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { getEntityDetail } from '../../api/module/workspace'
-import { fieldLabel, fieldValueLabel, problemLabel, toEditableFields, typeLabel } from '../../utils/knowledge'
+import { fieldLabel, fieldValueLabel, groupRelationAttributes, problemLabel, toEditableFields, typeLabel } from '@/utils/knowledge'
 
 const route = useRoute()
 const router = useRouter()
@@ -171,68 +171,7 @@ const coordinateQualityText = computed(() => {
   if (coord.note) parts.push(coord.note)
   return parts.join('；')
 })
-const structuredRelationAttributes = computed(() => {
-  const rawValue = entity.value.node?.relations
-  if (!rawValue) return []
-
-  let relationItems: any[] = []
-  if (Array.isArray(rawValue)) {
-    relationItems = rawValue
-  } else if (typeof rawValue === 'string') {
-    try {
-      const parsed = JSON.parse(rawValue)
-      relationItems = Array.isArray(parsed) ? parsed : [parsed]
-    } catch {
-      return []
-    }
-  } else if (typeof rawValue === 'object') {
-    relationItems = [rawValue]
-  }
-
-  const grouped = new Map<string, { relation: string; targets: Set<string>; evidences: Set<string> }>()
-
-  relationItems.forEach((item) => {
-    if (!item || typeof item !== 'object') return
-
-    const relation = String(item.type || item.relation || item.label || '未标注关系').trim()
-    const targets = [
-      item.to,
-      item.target,
-      item.object,
-      ...(Array.isArray(item.targets) ? item.targets : []),
-      ...(Array.isArray(item.objects) ? item.objects : []),
-    ]
-      .flat()
-      .map((value) => String(value || '').trim())
-      .filter(Boolean)
-
-    const evidences = [
-      item.evidence,
-      ...(Array.isArray(item.evidences) ? item.evidences : []),
-    ]
-      .flat()
-      .map((value) => String(value || '').trim())
-      .filter(Boolean)
-
-    if (!grouped.has(relation)) {
-      grouped.set(relation, {
-        relation,
-        targets: new Set<string>(),
-        evidences: new Set<string>(),
-      })
-    }
-
-    const current = grouped.get(relation)!
-    targets.forEach((target) => current.targets.add(target))
-    evidences.forEach((evidence) => current.evidences.add(evidence))
-  })
-
-  return Array.from(grouped.values()).map((item) => ({
-    relation: item.relation,
-    targets: Array.from(item.targets),
-    evidences: Array.from(item.evidences),
-  }))
-})
+const structuredRelationAttributes = computed(() => groupRelationAttributes(entity.value.node?.relations))
 const isAllowedBackPath = (path: string) => {
   if (!path.startsWith('/')) return false
   if (path.startsWith('/knowledge-list/')) return true

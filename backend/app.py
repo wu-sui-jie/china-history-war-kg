@@ -28,6 +28,7 @@ from sqlalchemy import func, text
 # ================== 自定义模块 ==================
 from db_utils import DbUtil
 from jwt_util import decode, encode
+from common_utils import safe_text as _safe_text
 from model_search import neo4j_db
 from inference.rule_llm_integration import DYNASTY_SCOPE_MAP
 from models import (
@@ -193,9 +194,6 @@ with app.app_context():
     except Exception as e:
         print(f"⚠️ 设置 WAL 模式失败: {e}")
 
-# 历史地名词典
-historical_places = []
-
 DYNASTY_DISPLAY_ORDER = [
     "夏",
     "商",
@@ -266,12 +264,6 @@ TYPE_ALIASES = {
     "Person": "Person",
     "历史人物": "Person",
     "人物": "Person",
-}
-
-SOURCE_TYPE_LABELS = {
-    "graph": "来自图谱",
-    "rule": "规则推理",
-    "llm": "大模型补充",
 }
 
 PROVINCE_CENTROIDS = {
@@ -384,13 +376,6 @@ def load_current_dataset_meta():
     except Exception as exc:
         print(f"读取当前数据集元信息失败: {exc}")
         return {}
-
-
-def _safe_text(value):
-    """将任意值转换为字符串，便于做空值判断。"""
-    if value is None:
-        return ''
-    return str(value).strip()
 
 
 def _normalize_dynasty_name(name):
@@ -654,13 +639,6 @@ def _parse_year_value(text):
     return year
 
 
-def _safe_int(value, default=0):
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return default
-
-
 def _normalize_region_name(value):
     text = _safe_text(value)
     if not text:
@@ -818,22 +796,6 @@ def _event_brief(event):
         "defender": event.defender,
         "detail_route": f"/knowledge/entity-detail?id={event.id}&type=Event",
         "quality_flags": _quality_flags_for_record("Event", event),
-    }
-
-
-def _triple_from_relation(source_name, source_type, relation):
-    target_name = relation.get("target_name") or ""
-    target_type = relation.get("target_type") or ""
-    relation_type = relation.get("relation_type") or "关联"
-    return {
-        "subject": source_name,
-        "subject_type": source_type,
-        "predicate": relation_type,
-        "object": target_name,
-        "object_type": target_type,
-        "source_type": "graph",
-        "source_label": SOURCE_TYPE_LABELS["graph"],
-        "detail_route": relation.get("detail_route", ""),
     }
 
 
@@ -2065,7 +2027,7 @@ def update_node_properties():
         if not node_type and 'type' in properties:
             node_type = properties['type']
 
-        if not node_id:
+        if not node_type:
             return jsonify({
                 "code": 400,
                 "msg": "无法确定节点类型"
@@ -2077,46 +2039,6 @@ def update_node_properties():
 
         result = DbUtil.update_node_properties(node_id, node_type, properties)
         return jsonify(result)
-
-    except Exception as e:
-        return jsonify({
-            "code": 500,
-            "msg": str(e)
-        })
-
-
-# ================== 同步状态监控接口 ==================
-
-def get_sync_manager():
-    """获取同步管理器（如果没有则返回None）"""
-    # 如果你还没有实现同步管理器，暂时返回None
-    # 或者返回一个模拟对象
-    return None
-
-@app.route('/api/sync/stats', methods=['GET'])
-def get_sync_stats():
-    """
-    获取同步状态统计
-    用于监控SQLite到Neo4j的同步队列状态
-    """
-    try:
-        manager = get_sync_manager()
-        if not manager:
-            return jsonify({
-                "code": 200,
-                "data": {
-                    "status": "未初始化",
-                    "queue_size": 0,
-                    "success_count": 0,
-                    "failed_count": 0
-                }
-            })
-
-        stats = manager.get_stats()
-        return jsonify({
-            "code": 200,
-            "data": stats
-        })
 
     except Exception as e:
         return jsonify({
@@ -2947,39 +2869,6 @@ def get_repair_issues():
         return jsonify({"code": 200, "data": {"summary": workbench.get("summary", {}), "issues": issues}})
     except Exception as e:
         return jsonify({"code": 500, "msg": str(e), "data": {"issues": []}})
-
-
-@app.route('/api/repair/update_entity', methods=['POST'])
-def repair_update_entity():
-    """修复工作台快速更新实体字段。"""
-    try:
-        data = request.get_json() or {}
-        node_id = data.get("id")
-        node_type = data.get("type")
-        properties = data.get("properties", {})
-        if not node_id or not node_type:
-            return jsonify({"code": 400, "msg": "id 和 type 不能为空"})
-        return jsonify(DbUtil.update_node_properties(int(node_id), node_type, properties))
-    except Exception as e:
-        return jsonify({"code": 500, "msg": str(e)})
-
-
-@app.route('/api/repair/merge_nodes', methods=['POST'])
-def repair_merge_nodes():
-    """重复节点合并建议接口。默认不执行删除，避免误合并。"""
-    try:
-        data = request.get_json() or {}
-        return jsonify({
-            "code": 200,
-            "msg": "已生成合并建议，未自动合并节点",
-            "data": {
-                "primary_id": data.get("primary_id"),
-                "duplicate_ids": data.get("duplicate_ids", []),
-                "suggestion": "建议先核对名称、朝代、来源文本和关联关系，再人工确认合并。"
-            }
-        })
-    except Exception as e:
-        return jsonify({"code": 500, "msg": str(e)})
 
 
 @app.route('/api/timeline/events', methods=['GET'])

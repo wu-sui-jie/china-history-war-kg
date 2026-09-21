@@ -14,28 +14,17 @@
     4. 使用大模型生成最终回答
     5. 返回回答和知识图谱可视化数据
 """
-import os
 import json
 import time
 import ollama
 import hashlib
 from typing import List, Dict, Any, Optional
 from collections import OrderedDict
+
+from common_utils import lru_get as _lru_get
+from common_utils import lru_set as _lru_set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-
-def _lru_get(cache, key):
-    if key not in cache:
-        return None
-    value = cache.pop(key)
-    cache[key] = value
-    return value
-
-
-def _lru_set(cache, key, value, max_size=128):
-    cache[key] = value
-    while len(cache) > max_size:
-        cache.popitem(last=False)
 
 
 def _stable_hash(data: Any) -> str:
@@ -104,7 +93,6 @@ class RuleLLMIntegration:
         
         # 加载规则库
         self.rules = self._load_rules(rule_file_path)
-        self.rule_id_map = {rule['rule_id']: rule for rule in self.rules}
         
         # 规则分类缓存，用于快速查找
         self._build_rule_indices()
@@ -360,23 +348,8 @@ class RuleLLMIntegration:
             if rel.get('properties', {}).get('inferred', False):
                 continue
             
-            # 细分规则
-            specific_rules = []      # 细分规则
-            
-            # 获取可应用的规则
-            for rule in self.rules:
-                condition = rule.get('condition', {})
-                # 跳过复合规则，复合规则单独处理
-                if condition.get('composite', False):
-                    continue
-
-                rule_relation = condition.get('relation', '')
-                
-                if rule_relation:
-                    if rule_relation == relation:
-                        specific_rules.append(rule)
-            
-            applicable_rules =  specific_rules
+            # 走 _build_rule_indices 建好的按关系索引，避免每次全表扫描
+            applicable_rules = self._find_applicable_rules(relation)
             
             if not applicable_rules:
                 continue

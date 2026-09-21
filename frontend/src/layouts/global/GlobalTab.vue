@@ -45,19 +45,13 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '../../store/app'
 import { useTab } from '../composable/useTab'
 
 const appStore = useAppStore()
-const route = useRoute()
 
 const { tabs, to, close, closeAll, closeOther, closeCurrent, currentPath } =
   useTab()
-function toChangPage(id: any) {
-  to(id)
-}
 </script>
 
 <style lang="less">

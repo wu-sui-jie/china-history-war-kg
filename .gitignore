@@ -19,8 +19,27 @@ __pycache__/
 logs/
 cache/
 
+# 由脚本从源数据重建的派生数据（不进库，避免与源 JSON 重复）
+backend/data/processed/
+
 # IDE / 系统文件
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# ---- 本仓库是公开仓库：以下内容一律不入库（本地保留，路径见各 README）----
+# 1) 原书全文（受版权约束，不得公开发布）
+entity-event-relation/data/中国历代战争简史.txt
+entity-event-relation/data/中国战争史地图集.txt
+entity-event-relation/data/中国历代战争简史_测试数据.txt
+backend/data/raw/
+# 2) 由原书派生的数据制品（抽取结果、数据库、评测产物）
+entity-event-relation/output/
+backend/database
+backend/database.bak-*
+# 3) 本机敏感配置（Neo4j 口令、JWT 密钥等）
+backend/.env
+
+# ZCode 会话内部文件（计划/记录），不属于项目内容
+.zcode/

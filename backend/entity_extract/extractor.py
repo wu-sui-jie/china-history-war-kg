@@ -15,19 +15,9 @@ import ollama
 import time
 from collections import OrderedDict
 
+from common_utils import lru_get as _cache_get
+from common_utils import lru_set as _cache_set
 
-def _cache_get(cache, key):
-    if key not in cache:
-        return None
-    value = cache.pop(key)
-    cache[key] = value
-    return list(value)
-
-
-def _cache_set(cache, key, value, max_size=128):
-    cache[key] = list(value)
-    while len(cache) > max_size:
-        cache.popitem(last=False)
 
 class Extractor:
     """

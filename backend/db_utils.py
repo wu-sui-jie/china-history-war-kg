@@ -69,15 +69,6 @@ class DbUtil:
         }.get(node_type)
 
     @staticmethod
-    def _name_keys_by_type(node_type: str):
-        return {
-            "Event": ["EventName", "name"],
-            "Place": ["geo_name", "name"],
-            "Organization": ["OrgName", "name"],
-            "Person": ["PersonName", "name"],
-        }.get(node_type, ["name"])
-
-    @staticmethod
     def _field_mapping_by_type(node_type: str):
         return {
             "Event": {
@@ -191,14 +182,6 @@ class DbUtil:
                 "Remark": data.get("remark"),
             }
         return {}
-
-    @staticmethod
-    def _extract_name(node_type: str, data: dict):
-        for key in DbUtil._name_keys_by_type(node_type):
-            value = (data or {}).get(key)
-            if value:
-                return value
-        return None
 
     @staticmethod
     def create_node(node_type: str, name: str, properties: dict = None):
@@ -456,16 +439,3 @@ class DbUtil:
             return None
         except Exception:
             return None
-
-    @staticmethod
-    def get_statistics():
-        try:
-            stats = {
-                "战争事件": Event.query.count(),
-                "战争地点": Place.query.count(),
-                "势力组织": Organization.query.count(),
-                "历史人物": Person.query.count(),
-            }
-            return {"code": 200, "data": stats}
-        except Exception as e:
-            return {"code": 500, "msg": f"获取统计失败: {str(e)}"}

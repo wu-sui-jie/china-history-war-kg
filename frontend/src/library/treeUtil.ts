@@ -1,5 +1,3 @@
-const getDepth = function () {};
-
 /**
  * 获取当前节点
  *  
@@ -40,31 +38,4 @@ export const getParents = function(list:any[], id: string) : any{
         }
       }
    }    
-}
-
-export const treeToList = function (arr: any[]){
-  let res: any[] = []
-  let fn = (source: any[])=>{
-    source.forEach(el=>{
-      res.push(el)
-      el.children && el.children.length>0 ? fn(el.children) : "";
-    });
-  };
-  fn(arr);
-  return res;
-}
-
-export const listToTree = function(arr:any[]) {
-    arr.forEach(e => {
-      arr.forEach(y => { 
-        if (y.parentId == e.id) { 
-          if (!e.children) {
-            e.children = []
-          }
-          e.children.push(y)
-        }
-      })
-    })
-    arr = arr.filter(ele => ele.parentId === null)
-    return arr
 }

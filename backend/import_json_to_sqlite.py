@@ -35,26 +35,6 @@ DEFAULT_FINAL_JSON = (
 CURRENT_DATASET_META = APP_PATH / "data" / "current_dataset.json"
 LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
 
-EVENT_RELATION_TYPE_ALIASES = {
-    "因果": "因果关系",
-    "因果关系": "因果关系",
-    "顺承": "顺承关系",
-    "顺承关系": "顺承关系",
-    "并列": "并列关系",
-    "并发": "并列关系",
-    "并列关系": "并列关系",
-    "并发关系": "并列关系",
-    "包含": "包含关系",
-    "包含关系": "包含关系",
-    "条件": "条件关系",
-    "条件关系": "条件关系",
-}
-
-
-def normalize_event_relation_type(value):
-    """统一事件-事件关系类型，保持与前端筛选枚举一致。"""
-    value = _safe_text(value)
-    return EVENT_RELATION_TYPE_ALIASES.get(value, value)
 
 
 def clear_migration_tables():
@@ -95,21 +75,6 @@ def clear_migration_tables():
         except Exception as exc:
             db.session.rollback()
             return False, str(exc)
-
-
-def _safe_text(value):
-    if value is None:
-        return ""
-    return str(value).strip()
-
-
-def _safe_float(value):
-    try:
-        if value is None or str(value).strip() == "":
-            return None
-        return float(value)
-    except (TypeError, ValueError):
-        return None
 
 
 def _build_legacy_filename_map(importer):

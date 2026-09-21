@@ -21,7 +21,7 @@ export default {
 
   // RAG 智能问答页的挂载路径（并入模式）。
   // 用同源相对路径：开发由 vite 代理 /rag → 8000，生产由 nginx 按路径分流，
-  // 详见 docs/RAG集成-Web入口合并.md。RAG 服务独立部署时改这里即可指向它。
+  // 详见 docs/集成与入口约定.md。RAG 服务独立部署时改这里即可指向它。
   ragBase: '/rag/',
 
   // API请求超时时间（毫秒）

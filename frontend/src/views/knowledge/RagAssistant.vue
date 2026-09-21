@@ -4,7 +4,7 @@
   功能: 以 iframe 嵌入独立的 RAG 问答服务（图谱 + 文本双通道检索、答案带引用证据）。
   并入方式: 同源子路径反代 /rag/ → RAG 服务（FastAPI），页面与接口都挂在该前缀下，
   所以这里不需要跨域配置；开发由 vite.config.ts 的 /rag 代理承担，生产由 nginx 分流。
-  详见 docs/RAG集成-Web入口合并.md。
+  详见 docs/集成与入口约定.md。
 -->
 <template>
   <div class="rag-page">

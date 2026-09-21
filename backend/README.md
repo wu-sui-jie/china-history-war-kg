@@ -1,313 +1,183 @@
-# 后端模块说明
+# backend — 旧知识库后端
+
+Flask 应用，为管理台（`frontend/`）提供图谱查询、节点 CRUD、数据运营与旧版智能问答接口。
+
+- **运行时**：Python 3.8（`place-name-KG` 环境），端口 **5000**
+- **数据**：SQLite（主存储，WAL 模式）+ Neo4j（可视化与图谱查询，SQLite 变更后同步）
+- **智能问答**：规则引擎（`rules/rule_base.json`，20 条）+ Ollama 本地大模型
+- **问答设计细节**：见 [规则引擎与LLM问答设计.md](规则引擎与LLM问答设计.md)
 
 ## 目录结构
 
-```
+```text
 backend/
-├── app.py                  # Flask应用入口，Web服务主文件
-├── db_utils.py             # SQLite数据库操作工具类
-├── model_search.py         # Neo4j图数据库查询与操作
-├── models.py               # SQLAlchemy数据模型定义
-├── jwt_util.py             # JWT认证工具
-├── import_json_to_sqlite.py # JSON数据导入工具
-├── sync_sqlite_to_neo4j.py  # SQLite到Neo4j同步工具
-├── database                # SQLite数据库文件
-├── requirements.txt        # Python依赖
-├── historical_places.txt   # 历史实体词典（用于jieba）
-│
-├── entity_extract/         # 实体抽取模块（基于大模型）
-│   ├── __init__.py
-│   └── extractor.py        # 实体提取器（Ollama+deepseek）
-│
-├── inference/              # 智能问答模块
-│   ├── __init__.py
-│   └── rule_llm_integration.py  # 规则引擎与大模型集成
-│
-├── data/                   # 数据目录
-│   ├── processed/          # 处理后的JSON数据
-│   │   ├── 事件表_Event.json
-│   │   ├── 人物表_Person.json
-│   │   ├── 地点表_Place.json
-│   │   ├── 组织表_Organization.json
-│   │   ├── 事件-事件关系表_event_event_relations.json
-│   │   ├── 事件-人物关系表_event_person_relations.json
-│   │   ├── 事件-地点关系表_event_place_relations.json
-│   │   └── 事件-组织关系表_event_organization_rel.json
-│   └── raw/                # 原始数据文件
-│
-└── rules/                  # 规则配置
-    └── rule_base.json      # 战争事件推理规则库
+├── app.py                    # Flask 应用入口与全部路由（:5000）
+├── db_utils.py               # DbUtil：SQLite 读写 + 同步 Neo4j
+├── model_search.py           # neo4j_db：Neo4j 图查询与节点写操作
+├── models.py                 # SQLAlchemy 模型（UserInfo + 4 实体 + 4 关系表）
+├── jwt_util.py               # JWT 签发与校验
+├── common_utils.py           # 跨模块小工具：safe_text / safe_float / LRU 缓存
+├── relation_types.py         # 事件-事件关系类型的唯一权威表（别名 ↔ 标准名）
+├── import_json_to_sqlite.py  # 从抽取结果 JSON 导入 SQLite（--source 可指定）
+├── sync_sqlite_to_neo4j.py   # SQLite → Neo4j 同步（全量/增量）
+├── entity_extract/           # 实体抽取：规则快速命中 + Ollama 兜底
+├── inference/                # 旧版智能问答：规则引擎与大模型集成
+├── rules/rule_base.json      # 推理规则库（20 条：细分规则 17 + 复合规则 3）
+├── data/current_dataset.json # 当前数据集元信息（由 import 脚本写入，app.py 5 处读取）
+├── data/raw/                 # 原始战争史文本存档（**无代码读取**，仅作留档）
+└── data/processed/           # 分表 JSON：由 import 脚本每次导入时重建，已 gitignore
+├── database                  # SQLite 数据库文件
+└── historical_places.txt     # 历史地名词典（jieba 自定义词典）
 ```
 
-## 核心文件说明
-
-### app.py
-Flask应用主入口，提供以下功能：
-- **用户认证**: 登录、注册、JWT token验证
-- **知识图谱接口**: 搜索、关系图谱查询
-- **节点管理接口**: 节点的增删改查（操作SQLite）
-- **智能问答接口**: AI推理与知识图谱展示
-- **数据同步**: SQLite到Neo4j的同步管理
-
-主要接口：
-```python
-# 用户认证
-POST   /api/login                    # 用户登录
-POST   /api/sign_in                  # 用户注册
-GET    /api/userinfo                 # 获取用户信息
-
-# 知识图谱
-POST   /search_name_kg               # 搜索图谱
-GET    /api/graph/event_event        # 事件-事件关系
-GET    /api/graph/event_organization # 事件-组织关系
-GET    /api/graph/event_person       # 事件-人物关系
-GET    /api/graph/event_place        # 事件-地点关系
-GET    /api/node_types               # 获取节点类型
-GET    /api/relationship_types       # 获取关系类型
-
-# 节点管理
-POST   /api/find_node_page           # 分页查询节点
-POST   /create_node                  # 创建节点
-POST   /update_node                  # 更新节点
-POST   /delete_node                  # 删除节点
-GET    /api/node/detail              # 获取节点详情
-POST   /api/node/update_properties   # 更新节点属性
-
-# 智能问答
-POST   /api/ai/inference             # AI推理问答
-```
-
-### db_utils.py
-SQLite数据库操作工具类 `DbUtil`，提供：
-- **用户管理**: `authentication()`, `find_user()`, `add_user()`
-- **节点管理**: `create_node()`, `update_node()`, `delete_node()`, `update_node_properties()`
-- **数据查询**: `find_node_page()`, `get_node_detail_sqlite()`
-- **数据导入**: 支持从JSON文件导入数据到SQLite
-
-**数据同步机制**:
-- 节点操作（增删改）首先执行SQLite操作
-- 然后同步执行Neo4j操作
-- 创建节点时保存Neo4j ID到SQLite的 `neo4j_id` 字段
-
-### model_search.py
-Neo4j图数据库操作类 `neo4j_db`，提供：
-- **节点查询**: `search_nodes_by_name()`, `get_nodes_by_type()`
-- **关系查询**: `get_relationship_types()`, `get_node_relations()`
-- **关系图谱**: `get_event_event_relations()`, `get_event_organization_relations()` 等
-- **节点操作**: `create_node()`, `update_node()`, `delete_node()`
-
-### models.py
-SQLAlchemy数据模型定义：
+## 数据模型
 
 | 模型 | 表名 | 说明 |
-|------|------|------|
-| `UserInfo` | UserInfo | 用户信息表 |
-| `Event` | events | 战争事件表 |
-| `Place` | places | 战争地点表 |
-| `Organization` | organizations | 势力组织表 |
-| `Person` | persons | 历史人物表 |
-| `EventEventRelation` | event_event_relations | 事件-事件关系表 |
-| `EventOrganizationRel` | event_organization_rel | 事件-组织关系表 |
-| `EventPlaceRelation` | event_place_relations | 事件-地点关系表 |
-| `EventPersonRelation` | event_person_relations | 事件-人物关系表 |
+| --- | --- | --- |
+| `UserInfo` | `UserInfo` | 用户信息（登录/注册） |
+| `Event` | `events` | 战争事件（名称、类型、起止时间、朝代、地点、攻守方、结果、影响、坐标、质检标记等） |
+| `Place` | `places` | 战争地点（历史地名、现代地名、省市区、具体位置、经纬度、坐标来源与置信度） |
+| `Organization` | `organizations` | 势力组织（名称、类型、朝代、简介） |
+| `Person` | `persons` | 历史人物（名称、朝代、所属势力、角色） |
+| `EventEventRelation` | `event_event_relations` | 事件-事件关系（因果/顺承/并列/包含/条件） |
+| `EventOrganizationRel` | `event_organization_rel` | 事件-组织关系（发起方/防守方/…） |
+| `EventPlaceRelation` | `event_place_relations` | 事件-地点关系（主战场/出发地/…） |
+| `EventPersonRelation` | `event_person_relations` | 事件-人物关系（统帅/谋士/…） |
 
-### entity_extract/
-实体抽取模块：
-- **extractor.py**: 使用Ollama+deepseek-r1:7b大模型进行实体识别
-- 支持提取四种类型的实体：战争事件、人物、组织、地点
-- 包含实体相关性过滤功能，只返回最相关的实体
-- 后处理包括去重、过滤和排序
+Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类型即业务关系名。
 
-### inference/
-智能问答模块：
-- **rule_llm_integration.py**: 规则引擎与大模型集成
-- 支持基于知识图谱的问答推理
-- 规则引擎支持战争事件-地点、战争事件-组织关系的反向推理
-- 复合规则支持多步推理
+## 数据流
 
-## 数据库架构
-
-### SQLite (主存储)
-```sql
--- 事件表
-CREATE TABLE events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    neo4j_id INTEGER UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    event_type VARCHAR(100),
-    start_date VARCHAR(50),
-    end_date VARCHAR(50),
-    dynasty VARCHAR(100),
-    place VARCHAR(255),
-    aggressor VARCHAR(255),
-    defender VARCHAR(255),
-    person VARCHAR(255),
-    action VARCHAR(50),
-    result TEXT,
-    scale VARCHAR(255),
-    impact TEXT,
-    source VARCHAR(255),
-    relations VARCHAR(255),
-    remark TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- 地点表
-CREATE TABLE places (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    neo4j_id INTEGER UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    modern_name VARCHAR(255),
-    dynasty VARCHAR(100),
-    province VARCHAR(100),
-    city VARCHAR(100),
-    district VARCHAR(100),
-    specific_location VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- 组织表
-CREATE TABLE organizations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    neo4j_id INTEGER UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    org_type VARCHAR(50),
-    dynasty VARCHAR(50),
-    description TEXT,
-    remark TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- 人物表
-CREATE TABLE persons (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    neo4j_id INTEGER UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    dynasty VARCHAR(100),
-    org VARCHAR(255),
-    role VARCHAR(255),
-    remark TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+```text
+用户操作 → 前端请求 → Flask 路由（app.py）
+    → SQLite 操作（db_utils.py，SQLAlchemy 模型 models.py）
+    → 同步 Neo4j（model_search.py）→ 图谱可视化
 ```
 
-### Neo4j (可视化)
-- **节点标签**: `:Event`, `:Place`, `:Organization`, `:Person`
-- **关系类型**: 根据业务定义（如'发起方', '防守方', '主战场'等）
+**同步规则**：节点增删改一律先写 SQLite，再按 `neo4j_id` 同步 Neo4j；创建节点时把 Neo4j ID 回写
+SQLite 的 `neo4j_id` 字段，供后续更新/删除定位。如果某节点还没有 `neo4j_id`，同步逻辑会按名字回退查找。
 
-## 数据流向
+## 接口清单
 
-```
-用户操作
-    ↓
-前端请求
-    ↓
-Flask接口 (app.py)
-    ↓
-SQLite操作 (db_utils.py) ←→ SQLAlchemy模型 (models.py)
-    ↓ (同步)
-Neo4j操作 (model_search.py)
-    ↓
-图谱可视化
-```
+### 认证
 
-智能问答数据流：
-```
-用户问题
-    ↓
-实体提取 (entity_extract/extractor.py)
-    ↓
-图谱查询 (inference/rule_llm_integration.py)
-    ↓
-规则推理 + 大模型生成
-    ↓
-返回答案和图谱数据
-```
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/login` | POST | 登录，返回 JWT token |
+| `/api/sign_in` | POST | 注册 |
+| `/api/userinfo` | GET/POST | 当前用户信息 |
+| `/user/menu` / `/user/permission` | GET | 菜单与权限（**前端实际未使用**，见下） |
+
+除 `/`、`/api/login`、`/api/sign_in`、`/static*` 外，所有接口经全局 `before_request` 校验 token。
+注意：未通过时响应体是 `{"code": 403, ...}`，但 **HTTP 状态码是 200**——判断鉴权必须读响应体里的 `code`。
+
+### 图谱查询（读 Neo4j）
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/search_name_kg` | POST | 按名称/类型/关系搜索图谱（前端图谱页用这个） |
+| `/api/graph/event_event` | GET | 事件-事件关系图（支持 `name`、`rel_type`） |
+| `/api/graph/event_organization` | GET | 事件-组织关系图 |
+| `/api/graph/event_person` | GET | 事件-人物关系图 |
+| `/api/graph/event_place` | GET | 事件-地点关系图 |
+| `/api/graph/node_context` | GET | 指定节点的上下文子图 |
+| `/api/node/relations` | GET | 指定节点的关联关系（图谱页点节点展开用） |
+| `/api/node_types` / `/api/relationship_types` / `/api/relationship_types_by_Event` | GET | 类型枚举 |
+
+### 节点管理（写 SQLite 并同步 Neo4j）
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/find_node_page` | POST | 分页查询节点（管理台列表用） |
+| `/create_node` / `/update_node` / `/delete_node` | POST | 节点增删改 |
+| `/api/node/update_properties` | POST | 更新节点属性（质检页用） |
+| `/api/node/detail` | GET | 节点详情（SQLite 优先，回退 Neo4j） |
+
+### 数据运营
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/dashboard/overview` | GET | 首页仪表盘 |
+| `/api/dataset/overview` / `/api/dataset/versions` / `/api/dataset/version_detail` | GET | 数据集概览、版本列表与详情 |
+| `/api/quality/report` / `/api/quality/workbench` | GET | 图谱质检报告与工作台 |
+| `/api/entity/detail` | GET | 实体详情（聚合关系、质检项、时间线） |
+| `/api/timeline/overview` / `/api/timeline/events` | GET | 战争时间轴 |
+| `/api/map/events` | GET | 事件地图点位（含坐标缺失标记） |
+| `/api/relation-analysis/query` | GET/POST | 关系分析 |
+| `/api/search/global` | GET | 全局搜索 |
+| `/api/extract/entities-events` | POST | 文本实体/事件识别（调用 `entity-event-relation`） |
+
+### 智能问答（旧版）
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/ai/inference` | POST/GET | 非流式问答，返回回答 + 图谱数据 |
+| `/api/ai/inference/stream` | POST | SSE 流式问答（前端实际使用） |
 
 ## 运行方式
 
-### 环境要求
-- Python 3.8+
-- Neo4j 5.x
-- Ollama（用于大模型推理）
-
-### 安装依赖
 ```bash
-# 进入后端目录
+# 用 place-name-KG 环境（Python 3.8.20，依赖已装齐）
 cd backend
-
-# 安装依赖
-pip install -r requirements.txt
-```
-
-### 启动Ollama服务（用于智能问答）
-```bash
-# 启动Ollama服务
-ollama serve
-
-# 拉取模型（如果未安装）
-ollama pull deepseek-r1:7b
-```
-
-### 启动后端服务
-```bash
-# 启动服务
-python app.py
-
+E:/anaconda/envs/place-name-KG/python.exe app.py
 # 服务地址: http://localhost:5000
 ```
 
-### 数据导入（可选）
+依赖（Flask、flask-cors、SQLAlchemy、PyJWT、py2neo、Werkzeug、requests、ollama）已装在该环境。
+**`backend/` 下没有 `requirements.txt`**——如需在新机器复现，按上面清单安装即可。
+首次启动会自动初始化 SQLite schema。
+
+Ollama（智能问答用）：
+
 ```bash
-# 默认直接导入完整提取结果 entity-event-relation/output/.../9_final_all.json
+ollama serve
+ollama pull deepseek-r1:7b
+```
+
+## 数据导入与同步（可选，换数据集时用）
+
+```bash
+# 默认读取 entity-event-relation/output/.../9_final_all.json
 python import_json_to_sqlite.py
 
-# 将SQLite数据同步到Neo4j
+# 也可指定数据源：单个结果 JSON，或发布子集
+python import_json_to_sqlite.py --source ../entity-event-relation/output/<...>/9_final_all.json
+python import_json_to_sqlite.py --source ../entity-event-relation/output/<...>/published/final.json
+
+# 每次导入都会把源数据拆成 8 个分表 JSON 写到 data/processed/（供旧版按表读取）；
+# 该目录已 gitignore，是产物不是输入，删掉也不影响下次导入。
+
+# 将 SQLite 数据同步到 Neo4j
 python sync_sqlite_to_neo4j.py
 ```
 
-也可以手动指定数据源：
+## 环境变量与配置位置
+
+敏感配置统一由 `local_settings.py` 读取，顺序为**环境变量 → `backend/.env` → 占位默认值**；
+真实值写在 `backend/.env`（已 gitignore，模板见 `backend/.env.example`）。
+
+| 配置 | 键名 | 默认值 |
+| --- | --- | --- |
+| Neo4j 地址 / 用户 | `NEO4J_URI` / `NEO4J_USER` | `bolt://localhost:7687` / `neo4j` |
+| Neo4j 口令 | `NEO4J_PASSWORD` | 无默认值；未配置时启动即报出配置指引 |
+| JWT 密钥 | `JWT_SECRET` | 无默认值；未配置时进程内随机生成（重启后旧 token 失效，生产必须显式配置） |
 
 ```bash
-# 指定完整提取结果
-python import_json_to_sqlite.py --source ../entity-event-relation/output/中国历代战争简史_测试数据/9_final_all.json
-
-# 如需只导入高置信发布子集，也可以指定 published/final.json
-python import_json_to_sqlite.py --source ../entity-event-relation/output/中国历代战争简史_测试数据/published/final.json
-
-# 或兼容旧的 backend/data/processed 目录
-python import_json_to_sqlite.py --source ./data/processed
+cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT 密钥
 ```
 
-## 环境变量
+非敏感配置：
 
-```bash
-# Neo4j配置 (model_search.py中配置)
-NEO4J_URI=bolt://localhost:7687
-NEO4J_USER=neo4j
-NEO4J_PASSWORD=12345678
-
-# SQLite配置 (app.py中配置)
-SQLITE_PATH=./database
-
-# Ollama配置 (默认使用本地服务)
-OLLAMA_HOST=http://localhost:11434
-```
+| 配置 | 位置 | 默认值 |
+| --- | --- | --- |
+| SQLite 路径 | 各入口脚本按 `APP_PATH` 推导 | `backend/database` |
+| Ollama 服务 | 各调用点（`ollama` 客户端默认） | `http://localhost:11434` |
+| 推理规则库 | `rules/rule_base.json`（相对 CWD） | 必须从 `backend/` 目录启动 |
 
 ## 注意事项
 
-1. **数据库初始化**: 首次运行会自动创建SQLite表结构
-2. **WAL模式**: SQLite已启用WAL模式，支持高并发
-3. **数据同步**: 节点操作同步执行，确保数据一致性
-4. **Neo4j ID**: 创建节点时会保存Neo4j ID到SQLite，用于后续更新/删除
-5. **Ollama依赖**: 智能问答功能需要Ollama服务正常运行
-6. **模型要求**: 首次使用需要下载deepseek-r1:7b模型（约4GB）
-
-## 技术栈
-
-- **Flask**: Web框架
-- **SQLAlchemy**: ORM框架，操作SQLite
-- **Py2neo**: Neo4j图数据库驱动
-- **JWT**: 用户认证
-- **Ollama**: 大模型服务框架
-- **SQLite**: 主数据存储（WAL模式）
+1. **数据库初始化**：首次运行自动创建 SQLite 表结构；WAL 模式已启用
+2. **同步是同步的**：节点操作会立即尝试同步 Neo4j，Neo4j 不可用会记录错误但不回滚 SQLite
+3. **两套问答互不影响**：本模块的问答依赖 Ollama 常驻；RAG 问答是独立服务，见 `RAG/README.md`
+4. **菜单接口是死代码**：`/user/menu`、`/user/permission` 从未被前端调用——前端由 mockjs 拦截并返回
+   硬编码菜单，加菜单项要改三处，见 [../frontend/README.md](../frontend/README.md)

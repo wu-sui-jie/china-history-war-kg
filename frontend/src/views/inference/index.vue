@@ -30,7 +30,7 @@
         >
           <div class="chat-item-content" @click="switchChat(index)">
             <div class="chat-title">{{ chat.title || '新对话' }}</div>
-            <div class="chat-time">{{ formatTime(chat.lastTime) }}</div>
+            <div class="chat-time">{{ formatChatTime(chat.lastTime) }}</div>
           </div>
           <div class="chat-actions">
             <lay-icon
@@ -173,7 +173,7 @@
                       @click="copyMessage(message.content)"
                     ></lay-icon>
                   </div>
-                  <div class="message-time">{{ formatTime(message.time) }}</div>
+                  <div class="message-time">{{ formatChatTime(message.time) }}</div>
 
                   <!-- 知识图谱引用信息 -->
                   <div v-if="message.role === 'assistant' && message.kgContext" class="kg-reference">
@@ -367,14 +367,13 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, onMounted, reactive, onBeforeUnmount } from 'vue';
-import Http from '../../api/http';
-import config from '../../config';
 import { useUserStore } from '../../store/user';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 // 导入知识图谱组件
 import KgGraph from './components/KgGraph.vue';
-import { fieldLabel, nodeDisplayName, normalizeType, typeLabel } from '../../utils/knowledge';
+import { fieldLabel, groupRelationAttributes, nodeDisplayName, normalizeType, typeLabel } from '../../utils/knowledge';
+import { formatChatTime } from '../../utils/date';
 
 // 用户store（用于获取token）
 const userStore = useUserStore();
@@ -433,7 +432,6 @@ const initialSidebarState = ref(true); // 添加变量存储初始侧边栏状�
 const isSidebarLocked = ref(false); // 添加锁定变量，防止意外改变侧边栏状态
 const showCopySuccess = ref(false);
 const showExportSuccess = ref(false);
-const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
 // 快捷提示
 const quickPrompts = [
@@ -464,68 +462,7 @@ const nodeSummaryChips = computed(() => {
   return chips;
 });
 
-const structuredRelationAttributes = computed(() => {
-  const rawValue = selectedKgNode.value?.relations;
-  if (!rawValue) return [];
-
-  let relationItems: any[] = [];
-  if (Array.isArray(rawValue)) {
-    relationItems = rawValue;
-  } else if (typeof rawValue === 'string') {
-    try {
-      const parsed = JSON.parse(rawValue);
-      relationItems = Array.isArray(parsed) ? parsed : [parsed];
-    } catch {
-      return [];
-    }
-  } else if (typeof rawValue === 'object') {
-    relationItems = [rawValue];
-  }
-
-  const grouped = new Map<string, { relation: string; targets: Set<string>; evidences: Set<string> }>();
-
-  relationItems.forEach((item) => {
-    if (!item || typeof item !== 'object') return;
-
-    const relation = String(item.type || item.relation || item.label || '未标注关系').trim();
-    const targets = [
-      item.to,
-      item.target,
-      item.object,
-      ...(Array.isArray(item.targets) ? item.targets : []),
-      ...(Array.isArray(item.objects) ? item.objects : []),
-    ]
-      .flat()
-      .map((value) => String(value || '').trim())
-      .filter(Boolean);
-
-    const evidences = [
-      item.evidence,
-      ...(Array.isArray(item.evidences) ? item.evidences : []),
-    ]
-      .flat()
-      .map((value) => String(value || '').trim())
-      .filter(Boolean);
-
-    if (!grouped.has(relation)) {
-      grouped.set(relation, {
-        relation,
-        targets: new Set<string>(),
-        evidences: new Set<string>(),
-      });
-    }
-
-    const current = grouped.get(relation)!;
-    targets.forEach((target) => current.targets.add(target));
-    evidences.forEach((evidence) => current.evidences.add(evidence));
-  });
-
-  return Array.from(grouped.values()).map((item) => ({
-    relation: item.relation,
-    targets: Array.from(item.targets),
-    evidences: Array.from(item.evidences),
-  }));
-});
+const structuredRelationAttributes = computed(() => groupRelationAttributes(selectedKgNode.value?.relations))
 
 const nodeDetailEntries = computed(() => {
   const node = selectedKgNode.value || {};
@@ -618,7 +555,6 @@ function copyMessage(content: string) {
           }, 2000);
         })
         .catch(err => {
-          console.error('复制失败:', err);
           // 回退方案：创建临时文本域元素
           fallbackCopy(content);
         });
@@ -627,7 +563,6 @@ function copyMessage(content: string) {
       fallbackCopy(content);
     }
   } catch (error) {
-    console.error('复制过程出错:', error);
     fallbackCopy(content);
   }
 }
@@ -660,7 +595,6 @@ function fallbackCopy(text: string) {
       showCopySuccess.value = false;
     }, 2000);
   } catch (err) {
-    console.error('回退复制失败:', err);
   }
 
   // 移除元素
@@ -718,7 +652,6 @@ function loadChatHistory() {
       isFirstLoad.value = false;
     }, 500);
   } catch (error) {
-    console.error('加载聊天历史失败:', error);
     isFirstLoad.value = false;
   }
 }
@@ -728,7 +661,6 @@ function saveChatHistory() {
   try {
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory.value));
   } catch (error) {
-    console.error('保存聊天历史失败:', error);
   }
 }
 
@@ -737,7 +669,7 @@ function createNewChat() {
   const now = Date.now();
   const newChat: Chat = {
     id: now,
-    title: `新对话 ${formatTime(now)}`,
+    title: `新对话 ${formatChatTime(now)}`,
     messages: [],
     lastTime: now
   };
@@ -766,19 +698,6 @@ function updateChatTitle(chatIndex: number, firstMessage: string) {
 }
 
 // 格式化时间
-function formatTime(timestamp: number): string {
-  const date = new Date(timestamp);
-  const now = new Date();
-
-  // 如果是今天的消息，只显示时间
-  if (date.toDateString() === now.toDateString()) {
-    return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-  }
-
-  // 否则显示日期和时间
-  return date.toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric' }) + ' ' +
-         date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-}
 
 // 滚动到底部
 function scrollToBottom() {
@@ -791,7 +710,6 @@ function scrollToBottom() {
 
 // 提交查询
 async function handleQuery() {
-  console.log('[DEBUG] handleQuery 被调用, currentQuery:', currentQuery.value, 'loading:', loading.value);
   if (!currentQuery.value.trim() || loading.value) {
     return;
   }
@@ -834,7 +752,6 @@ async function handleQuery() {
   try {
     // 使用SSE流式接收
     const streamUrl = '/api/ai/inference/stream';
-    console.log('[DEBUG] 发起SSE请求, URL:', streamUrl, '问题:', queryText);
     const response = await fetch(streamUrl, {
       method: 'POST',
       headers: {
@@ -843,7 +760,6 @@ async function handleQuery() {
       },
       body: JSON.stringify({ question: queryText })
     });
-    console.log('[DEBUG] SSE响应状态:', response.status, response.statusText);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -851,28 +767,22 @@ async function handleQuery() {
 
     const reader = response.body?.getReader();
     if (!reader) {
-      console.error('[DEBUG] 无法获取response.body reader');
       throw new Error('无法获取响应流');
     }
-    console.log('[DEBUG] 开始读取SSE流...');
 
     const decoder = new TextDecoder();
     let buffer = '';
     let chunkCount = 0;
 
     while (true) {
-      console.log('[DEBUG] 等待reader.read()...');
       const { done, value } = await reader.read();
       chunkCount++;
-      console.log(`[DEBUG] 收到chunk #${chunkCount}, done=${done}, size=${value?.length || 0}`);
 
       if (done) {
-        console.log('[DEBUG] 流结束 (done=true)');
         break;
       }
 
       const decoded = decoder.decode(value, { stream: true });
-      console.log('[DEBUG] 解码内容:', decoded.substring(0, 200));
       buffer += decoded;
       const lines = buffer.split('\n');
       buffer = lines.pop() || '';  // 保留不完整的行
@@ -884,7 +794,6 @@ async function handleQuery() {
 
             switch (data.status) {
               case 'start':
-                console.log('SSE请求开始:', data.request_id);
                 break;
 
               case 'extracting':
@@ -896,7 +805,6 @@ async function handleQuery() {
               case 'entities':
                 // 保存实体信息
                 aiMessage.entities = data.entities || [];
-                console.log('识别到实体:', data.entities);
                 break;
 
               case 'querying':
@@ -907,7 +815,6 @@ async function handleQuery() {
 
               case 'queried':
                 // 查询完成
-                console.log(`图谱查询完成: ${data.entity_count}个实体, ${data.relation_count}条关系, 耗时${data.query_time}秒`);
                 break;
 
               case 'generating':
@@ -931,7 +838,6 @@ async function handleQuery() {
                 aiMessage.kgContext = data.relations_text || '';
                 aiMessage.entities = data.entities || [];
                 aiMessage.fromKg = data.kg_data && (data.kg_data.nodes.length > 0 || data.kg_data.lines.length > 0);
-                console.log(`处理完成，总耗时: ${data.process_time}秒`);
                 break;
 
               case 'error':
@@ -941,7 +847,6 @@ async function handleQuery() {
                 break;
             }
           } catch (parseErr) {
-            console.error('解析SSE数据失败:', parseErr, line);
           }
         }
       }
@@ -967,8 +872,6 @@ async function handleQuery() {
     scrollToBottom();
 
   } catch (error) {
-    console.error('[DEBUG] SSE请求失败:', error);
-    console.error('[DEBUG] 错误类型:', typeof error, error?.message, error?.stack);
 
     // 更新AI消息为错误信息
     aiMessage.content = '推理请求发生错误，请稍后再试';
@@ -1021,18 +924,6 @@ onMounted(() => {
   // 设置初始侧边栏状态
   initialSidebarState.value = true;
   showSidebar.value = window.innerWidth >= 768 ? true : false;
-
-  // 阻止知识图谱相关元素的点击事件冒泡
-  const preventKgEvents = () => {
-    const kgElements = document.querySelectorAll('.kg-visualization, .kg-graph-wrapper, .kg-graph-container, .kg-graph-placeholder');
-    kgElements.forEach(el => {
-      el.addEventListener('click', (e) => e.stopPropagation());
-    });
-  };
-
-  // 初次加载和每次DOM更新后都尝试添加事件处理
-  nextTick(preventKgEvents);
-  setInterval(preventKgEvents, 1000); // 每秒检查一次并添加事件处理
 });
 
 // 组件卸载时移除窗口大小监听
@@ -1079,12 +970,12 @@ function exportToMarkdown() {
   try {
     // 构建Markdown内容
     let markdownContent = `# ${currentChat.value.title || '对话记录'}\n\n`;
-    markdownContent += `导出时间: ${formatTime(Date.now())}\n\n`;
+    markdownContent += `导出时间: ${formatChatTime(Date.now())}\n\n`;
 
     // 添加每条消息
     currentChat.value.messages.forEach((message, index) => {
       const role = message.role === 'user' ? '用户' : 'AI助手';
-      const time = formatTime(message.time);
+      const time = formatChatTime(message.time);
 
       markdownContent += `## ${role} (${time})\n\n`;
 
@@ -1117,7 +1008,6 @@ function exportToMarkdown() {
       }
     });
 
-    console.log("准备导出Markdown内容，长度:", markdownContent.length);
 
     // 创建Blob对象
     const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
@@ -1138,14 +1028,12 @@ function exportToMarkdown() {
     document.body.appendChild(link);
 
     // 点击并移除
-    console.log("触发下载，文件名:", fileName);
     link.click();
 
     // 延迟移除元素和URL，确保浏览器有足够时间处理下载
     setTimeout(() => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      console.log("下载链接已清理");
 
       // 显示成功消息
       showExportSuccess.value = true;
@@ -1154,7 +1042,6 @@ function exportToMarkdown() {
       }, 2000);
     }, 100);
   } catch (error) {
-    console.error("导出对话到Markdown失败:", error);
     alert(`导出失败: ${error.message || '未知错误'}`);
   }
 }
@@ -1199,11 +1086,9 @@ function getKgData(message: Message) {
           return parsed;
         }
       } catch (jsonError) {
-        console.log('kgContext不是有效的JSON格式，可能是格式化文本');
       }
     }
   } catch (e) {
-    console.error('解析知识图谱数据失败:', e);
   }
 
   // 返回空数据结构
@@ -1228,7 +1113,6 @@ function renderKgContextMarkdown(context: string): string {
     }
   } catch (e) {
     // 解析失败，作为普通文本处理
-    console.log('非JSON格式，按普通文本处理');
   }
 
   // 处理新的文本格式 - 使用更美观的渲染
@@ -1239,11 +1123,9 @@ function renderKgContextMarkdown(context: string): string {
 function renderFormattedKgContext(context: string): string {
   if (!context) return '';
   
-  console.log('渲染知识图谱上下文:', context.substring(0, 200));
   
   // 检查是否是旧格式的简单文本（不包含【】章节标记）
   if (!context.includes('【') || !context.includes('】')) {
-    console.log('使用旧格式渲染（纯文本）');
     // 使用 pre 标签保持格式，或者直接用 markdown 渲染
     return `<pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.6;">${context}</pre>`;
   }
@@ -1258,14 +1140,12 @@ function renderFormattedKgContext(context: string): string {
   const flushSection = () => {
     if (!currentSection) return;
     
-    console.log('处理区块:', currentSection, '内容行数:', sectionContent.length);
     
     if (currentSection === '涉及实体') {
       html += '<div class="kg-section kg-entities">';
       html += '<div class="kg-section-title">📚 涉及实体</div>';
       html += '<div class="kg-entity-list">';
       sectionContent.forEach((line, idx) => {
-        console.log('处理实体行:', idx, JSON.stringify(line));
         // 解析实体行: "⚔️ 实体名 (类型)" 
         // 使用简单的字符串处理代替正则
         const parenIdx = line.lastIndexOf('(');
@@ -1277,11 +1157,9 @@ function renderFormattedKgContext(context: string): string {
           if (firstSpaceIdx > 0) {
             const icon = beforeParen.substring(0, firstSpaceIdx);
             const name = beforeParen.substring(firstSpaceIdx + 1).trim();
-            console.log('匹配到实体:', icon, name, type);
             html += `<span class="kg-entity-tag" data-type="${type}">${icon} ${name}</span>`;
           }
         } else {
-          console.log('未匹配到实体:', line);
         }
       });
       html += '</div></div>';
@@ -1291,7 +1169,6 @@ function renderFormattedKgContext(context: string): string {
       html += `<div class="kg-section-title">${isInferred ? '🔍 推理关系' : '🔗 直接关系'}</div>`;
       html += '<div class="kg-relation-list">';
       sectionContent.forEach((line, idx) => {
-        console.log('处理关系行:', idx, JSON.stringify(line));
         // 解析关系行: "1. 源 →【关系】→ 目标"
         // 使用字符串分割代替正则，更健壮
         const arrow1Idx = line.indexOf('→【');
@@ -1308,7 +1185,6 @@ function renderFormattedKgContext(context: string): string {
             // 提取目标实体
             const target = line.substring(arrow2Idx + 2).trim();
             
-            console.log('匹配到关系:', num, source, relation, target);
             html += `
               <div class="kg-relation-item">
                 <span class="kg-relation-num">${num}</span>
@@ -1327,7 +1203,6 @@ function renderFormattedKgContext(context: string): string {
           // 省略说明
           html += `<div class="kg-relation-more">${line}</div>`;
         } else {
-          console.log('未匹配到关系:', line);
         }
       });
       html += '</div></div>';
@@ -1343,7 +1218,6 @@ function renderFormattedKgContext(context: string): string {
     if (sectionMatch) {
       flushSection();
       currentSection = sectionMatch[1];
-      console.log('发现章节:', currentSection);
     } else if (trimmedLine && !trimmedLine.startsWith('📚')) {
       sectionContent.push(trimmedLine);
     }
@@ -1352,26 +1226,13 @@ function renderFormattedKgContext(context: string): string {
   flushSection();
   html += '</div>';
   
-  console.log('生成的HTML长度:', html.length);
   
   // 如果生成的HTML只有外壳（没有实际内容），回退到原始文本
   if (html.length < 50 || !html.includes('kg-section')) {
-    console.log('解析结果为空，回退到原始文本');
     return `<pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.6;">${context}</pre>`;
   }
   
   return html;
-}
-
-// 获取实体类型图标
-function getEntityTypeIcon(type: string): string {
-  const iconMap: Record<string, string> = {
-    'Event': '⚔️',
-    'Person': '👤',
-    'Organization': '🏛️',
-    'Place': '📍'
-  };
-  return iconMap[type] || '•';
 }
 
 // 将JSON对象转换为Markdown表格
@@ -1481,8 +1342,6 @@ function renderJsonTableMarkdown(jsonData: any): string {
     }
 
     // 添加调试信息
-    console.log("节点映射表:", Object.fromEntries([...nodeMap.entries()]));
-    console.log("关系数据示例:", jsonData.lines[0]);
 
     jsonData.lines.forEach((line: any, index: number) => {
       // 源和目标节点ID
@@ -2505,205 +2364,6 @@ watch(() => currentChat.value.messages.length, () => {
 .export-button:hover {
   transform: scale(1.2);
   color: #00b5a0;
-}
-
-/* ========== 知识图谱参考信息美化样式 ========== */
-
-/* 整体容器 */
-.kg-context-formatted {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #333;
-  width: 100%;
-}
-
-/* 区块样式 */
-.kg-section {
-  margin-bottom: 20px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 16px;  /* 原：padding: 12px; 增加内边距 */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.kg-section:last-child {
-  margin-bottom: 0;
-}
-
-/* 区块标题 */
-.kg-section-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #009688;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #e0f2f1;
-}
-
-/* 实体列表 */
-.kg-entity-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));  /* 自适应网格布局 */
-  gap: 10px;
-  width: 100%;
-}
-
-/* 实体标签 */
-.kg-entity-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  transition: all 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.kg-entity-tag:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.kg-entity-tag[data-type="Event"] {
-  background: linear-gradient(135deg, #ffebee, #fce4ec);
-  color: #c62828;
-  border-color: #ffcdd2;
-}
-
-.kg-entity-tag[data-type="Person"] {
-  background: linear-gradient(135deg, #e3f2fd, #e8f5e9);
-  color: #1565c0;
-  border-color: #bbdefb;
-}
-
-.kg-entity-tag[data-type="Place"] {
-  background: linear-gradient(135deg, #fff3e0, #fff8e1);
-  color: #e65100;
-  border-color: #ffe0b2;
-}
-
-.kg-entity-tag[data-type="Organization"] {
-  background: linear-gradient(135deg, #f3e5f5, #ede7f6);
-  color: #6a1b9a;
-  border-color: #e1bee7;
-}
-
-/* 关系列表 */
-.kg-relation-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-/* 关系项 */
-.kg-relation-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  font-size: 13px;
-  flex-wrap: wrap;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* 关系序号 */
-.kg-relation-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 18px;
-  height: 18px;
-  background: #009688;
-  color: white;
-  border-radius: 50%;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* 源实体和目标实体 */
-.kg-relation-source,
-.kg-relation-target {
-  font-weight: 500;
-  color: #1565c0;
-  max-width: none;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* 关系类型 */
-.kg-relation-type {
-  padding: 2px 8px;
-  background: #009688;
-  color: white;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-/* 箭头 */
-.kg-relation-arrow {
-  color: #999;
-  font-size: 11px;
-}
-
-/* 关系说明 */
-.kg-relation-note {
-  font-size: 11px;
-  color: #666;
-  padding-left: 28px;
-  font-style: italic;
-}
-
-/* 更多关系提示 */
-.kg-relation-more {
-  font-size: 11px;
-  color: #999;
-  text-align: center;
-  padding: 4px;
-  background: #fafafa;
-  border-radius: 4px;
-}
-
-/* 直接关系区块 */
-.kg-relations.direct {
-  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-}
-
-.kg-relations.direct .kg-section-title {
-  color: #2e7d32;
-  border-bottom-color: #c8e6c9;
-}
-
-.kg-relations.direct .kg-relation-item {
-  background: #fff;
-}
-
-/* 推理关系区块 */
-.kg-relations.inferred {
-  background: linear-gradient(135deg, #fff8e1, #fff3e0);
-}
-
-.kg-relations.inferred .kg-section-title {
-  color: #f57c00;
-  border-bottom-color: #ffe0b2;
-}
-
-.kg-relations.inferred .kg-relation-item {
-  background: #fff;
-}
-
-.kg-relations.inferred .kg-relation-type {
-  background: #ff9800;
 }
 
 /* ========== 页面整体美化 ========== */

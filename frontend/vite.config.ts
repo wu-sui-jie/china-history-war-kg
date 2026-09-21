@@ -43,7 +43,7 @@ export default defineConfig({
             // 所以一条规则同时覆盖页面与接口。
             // 前置条件：RAG 前端必须以并入模式构建（npm run build:integration，
             // base=/rag/、VITE_API_BASE=/rag/api），否则它的请求会打到旧 Flask 的 /api 上。
-            // 详见 docs/RAG集成-Web入口合并.md。
+            // 详见 docs/集成与入口约定.md。
             '/rag': {
                 target: 'http://localhost:8000',
                 changeOrigin: true,
