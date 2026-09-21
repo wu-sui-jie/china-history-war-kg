@@ -5,7 +5,7 @@
 | 部分 | 内容 | 运行时 |
 | --- | --- | --- |
 | **旧知识库系统** | `backend/`（Flask + SQLite + Neo4j）与 `frontend/`（Vue3 + layui-vue 管理台）：图谱可视化、节点关系管理、数据运营、旧版智能问答 | Python 3.8 / Node ≥ 18 |
-| **RAG 问答系统** | `RAG/`（独立仓库、以 submodule 接入）：图谱 + 文本双通道检索增强问答，自带 Vue3 前端 | Python 3.11 |
+| **RAG 问答系统** | `RAG/`（代码在本仓库内，但作为独立服务单独部署）：图谱 + 文本双通道检索增强问答，自带 Vue3 前端 | Python 3.11 |
 | **知识抽取** | `entity-event-relation/`：从战争史文献抽取实体/事件/关系的离线流水线，附学术评估 | Python 3.8+ |
 
 > **先看文档总索引：[docs/README.md](docs/README.md)** —— 按"我想做什么"定位到具体文档。
@@ -76,7 +76,7 @@ china-war/
 │       ├── views/workspace/       # 数据运营（仪表盘/数据集/质检/修复）
 │       └── layouts/ router/ api/ store/ utils/
 ├── entity-event-relation/     # 知识抽取与评估（离线）→ entity-event-relation/README.md
-├── RAG/                       # RAG 问答系统（独立仓库 submodule）→ RAG/README.md
+├── RAG/                       # RAG 问答系统（独立服务，代码在本仓库内）→ RAG/README.md
 └── requirements.txt           # 旧项目的 Python 依赖（见下方说明）
 ```
 
@@ -113,7 +113,7 @@ Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接�
 | 环境 | 组成 | 运行时 | 端口 |
 | --- | --- | --- | --- |
 | 旧知识库系统 | Flask 后端（`backend/`）+ layui 管理台（`frontend/`） | Python 3.8、Node ≥ 18 | 5000 / 3001 |
-| RAG 问答系统（独立仓库 `RAG/`） | FastAPI 服务 + Vue3 前端（dist 由 RAG 服务同源托管） | Python 3.11 | 8000 |
+| RAG 问答系统（`RAG/`） | FastAPI 服务 + Vue3 前端（dist 由 RAG 服务同源托管） | Python 3.11 | 8000 |
 
 `frontend/vite.config.ts` 已配好代理：`/api` → 5000、`/rag` → 8000，所以浏览器只需访问
 **http://localhost:3001**；RAG 问答页入口为菜单「知识图谱 → RAG 智能问答」，或直接访问 `/#/knowledge/rag`。

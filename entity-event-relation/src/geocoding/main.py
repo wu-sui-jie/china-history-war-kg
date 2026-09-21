@@ -4,7 +4,7 @@
 协调整个地理编码流程
 
 使用方法:
-    cd f:\python\python_space\china-history-war-kg\entity-event-relation\src
+    cd <项目根>/entity-event-relation/src
 
     # 完整流程（推荐）
     python -m geocoding.main pipeline

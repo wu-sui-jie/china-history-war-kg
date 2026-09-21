@@ -36,6 +36,9 @@ on:
 jobs:
   release-gate:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: RAG
     env:
       RAG_REQUIRE_ACTIVE_VERSION: "true"
       # 生产档：域名白名单未配时必须显式确认公开 CORS（第五轮审核 R5-5）。
@@ -122,13 +125,13 @@ jobs:
             echo "::error::requirements-dev.lock 缺少 --hash=：发布链路不接受无哈希依赖"
             exit 1
           fi
-          cd frontend && npm ci
+          cd RAG/frontend && npm ci
 
       - name: 后端全量测试
         run: python -m pytest tests -q
 
       - name: 前端 verify（typecheck + unit + component + build + bundle）
-        working-directory: frontend
+        working-directory: RAG/frontend
         run: npm run verify
 
       - name: 启动服务（后续浏览器/冒烟/契约步骤共用）
@@ -151,7 +154,7 @@ jobs:
           fi
 
       - name: 浏览器验收（真实服务 + desktop/mobile）
-        working-directory: frontend
+        working-directory: RAG/frontend
         run: |
           npx playwright install --with-deps chromium
           RAG_BASE_URL=http://127.0.0.1:8125 npm run test:e2e
@@ -159,7 +162,7 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: frontend/playwright-report/
+          path: RAG/frontend/playwright-report/
           retention-days: 7
 
       - name: 服务冒烟（失败即阻断，不再 || true）
@@ -168,7 +171,7 @@ jobs:
             --report logs/smoke_release.json
 
       - name: 契约端到端（SSE / 缓存 / 400 / 同源托管）
-        working-directory: frontend
+        working-directory: RAG/frontend
         run: npm run test:contract -- --base http://127.0.0.1:8125
 
       - name: demo 接口必须可用（P2-1 验收）
@@ -213,9 +216,9 @@ jobs:
         with:
           name: release-artifacts
           path: |
-            release/
-            release.tar.gz
-            release.tar.gz.sha256
+            RAG/release/
+            RAG/release.tar.gz
+            RAG/release.tar.gz.sha256
           retention-days: 30
 
       - name: 停止服务并检查退出日志

@@ -47,7 +47,7 @@ geocoding/
 
 ```bash
 # 进入项目目录
-cd f:\python\python_space\china-history-war-kg\entity-event-relation\src
+cd <项目根>/entity-event-relation/src
 
 # 运行完整流程
 python -m geocoding.main pipeline --api-key YOUR_API_KEY

@@ -12,7 +12,7 @@ china-war/
 ├── backend/README.md             ← 旧后端（Flask，:5000）
 ├── frontend/README.md            ← 旧前端（Vue3 + layui-vue 管理台，:3001）
 ├── entity-event-relation/README.md ← 知识抽取与评估（离线跑，不参与 Web 运行）
-└── RAG/                          ← RAG 问答系统（独立仓库，以 submodule 接入）
+└── RAG/                          ← RAG 问答系统（代码在本仓库内，独立服务）
     ├── README.md                 ← 代码组织、开发约定、运行方式
     └── docs/README.md            ← 功能总览与文档地图（唯一事实源在 docs/current-status.md）
 ```

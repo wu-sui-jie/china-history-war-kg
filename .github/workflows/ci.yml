@@ -5,13 +5,16 @@ name: ci
 # Chromium；需要完整数据链路的发布门禁在 release.yml，由 workflow_dispatch / tag 触发。
 on:
   push:
-    branches: [main, ragv5-demo-deploy, round4-review-remediation, round6-review-remediation]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 jobs:
   backend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: RAG
     strategy:
       fail-fast: false
       matrix:
@@ -52,6 +55,9 @@ jobs:
     # 依赖矩阵只支持 3.11（chromadb 依赖树要求 ≥3.10），把"语法兼容"与
     # "依赖可安装"分开声明，避免出现一份 lock 谁都用不了的矩阵（第五轮审核 P2-6）。
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: RAG
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,14 +70,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: RAG/frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: RAG/frontend/package-lock.json
       - name: 安装依赖
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
@@ -92,14 +98,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: RAG/frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: RAG/frontend/package-lock.json
       - name: 安装依赖
         run: |
           if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
@@ -113,11 +119,14 @@ jobs:
         if: failure()
         with:
           name: playwright-report
-          path: frontend/playwright-report/
+          path: RAG/frontend/playwright-report/
           retention-days: 7
 
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: RAG
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
