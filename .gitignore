@@ -44,9 +44,6 @@ backend/.env
 # ZCode 会话内部文件（计划/记录），不属于项目内容
 .zcode/
 
-# RAG 子模块的独立 git 目录（合并为单仓库后保留的本地备份，可自行删除）
-RAG/.git-submodule-backup/
-
 # 工具缓存
 .ruff_cache/
 .mypy_cache/
