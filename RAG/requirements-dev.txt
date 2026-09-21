@@ -1,0 +1,13 @@
+# RAG 开发/测试/审计依赖（不含在最小运行镜像里）
+# 用法：pip install -r requirements-dev.txt
+
+-r requirements.txt
+
+# ---- 测试 ----
+pytest>=7.4
+
+# ---- 接口测试（FastAPI TestClient / ASGI 传输需要 httpx）----
+httpx>=0.27
+
+# ---- 审计与数据整理脚本（data/eval/**/review/audit 下的表格脚本需要）----
+pandas>=1.5

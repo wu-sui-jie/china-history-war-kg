@@ -1,0 +1,526 @@
+{
+  "version": "20260915_v1",
+  "generated_at": "2026-09-17T20:53:13",
+  "source_run": "run_20260917_203558",
+  "measurement_mode": "real_llm",
+  "filter": {
+    "reviewed": true,
+    "exclude_answer_correctness": [
+      "incorrect"
+    ],
+    "answerable": true,
+    "suites": [
+      "main"
+    ],
+    "measured": true,
+    "max_first_answer_ms": 9000,
+    "exclude_truncated": true
+  },
+  "counts": {
+    "bank_total": 39,
+    "candidates": 21,
+    "selected": 12,
+    "dropped": {
+      "评分为 incorrect": 3,
+      "非目标套件": 11,
+      "实测失败": 0,
+      "实测被截断": 0,
+      "首正文>9000ms": 4
+    }
+  },
+  "notes": "已实测（阈值 9000 ms）",
+  "examples": [
+    {
+      "id": "M05",
+      "question": "介绍一下涿鹿之战。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 4688,
+        "total_ms": 7148,
+        "answer_frames": 537,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 931,
+          "prompt_tokens": 1726,
+          "total_tokens": 2657,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 373,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 1536,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R04",
+      "question": "官渡之战的交战双方是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 2441,
+        "total_ms": 3210,
+        "answer_frames": 145,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 206,
+          "prompt_tokens": 1520,
+          "total_tokens": 1726,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 60,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 384,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B02",
+      "question": "赤壁之战产生了怎样的影响？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5179,
+        "total_ms": 6713,
+        "answer_frames": 279,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 734,
+          "prompt_tokens": 3033,
+          "total_tokens": 3767,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 453,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "E01",
+      "question": "鸣条之战与商朝的建立有什么关系？",
+      "category": "event_event",
+      "category_label": "事件关联",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3575,
+        "total_ms": 5464,
+        "answer_frames": 350,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 553,
+          "prompt_tokens": 1708,
+          "total_tokens": 2261,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 199,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "E02",
+      "question": "官渡之战和赤壁之战有什么相似之处？",
+      "category": "comparison",
+      "category_label": "对比型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 6235,
+        "total_ms": 8117,
+        "answer_frames": 336,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1066,
+          "prompt_tokens": 1988,
+          "total_tokens": 3054,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 729,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "T02",
+      "question": "赤壁之战发生在哪一年？",
+      "category": "timeline",
+      "category_label": "时间线型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3531,
+        "total_ms": 4279,
+        "answer_frames": 201,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 374,
+          "prompt_tokens": 2265,
+          "total_tokens": 2639,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 172,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 2048,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M12",
+      "question": "介绍一下白起。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5163,
+        "total_ms": 7959,
+        "answer_frames": 609,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1006,
+          "prompt_tokens": 1162,
+          "total_tokens": 2168,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 392,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 1024,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R03",
+      "question": "淝水之战的晋军主帅是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3936,
+        "total_ms": 4973,
+        "answer_frames": 205,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 469,
+          "prompt_tokens": 1908,
+          "total_tokens": 2377,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 261,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B03",
+      "question": "淝水之战为什么以东晋胜利而告终？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5252,
+        "total_ms": 8615,
+        "answer_frames": 731,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1214,
+          "prompt_tokens": 2990,
+          "total_tokens": 4204,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 474,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 2816,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M09",
+      "question": "介绍一下昆阳之战。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5840,
+        "total_ms": 9152,
+        "answer_frames": 858,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1350,
+          "prompt_tokens": 2507,
+          "total_tokens": 3857,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 487,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 512,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R02",
+      "question": "赤壁之战中孙刘联军的主帅是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 4157,
+        "total_ms": 5584,
+        "answer_frames": 194,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 560,
+          "prompt_tokens": 1841,
+          "total_tokens": 2401,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 365,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B01",
+      "question": "秦为什么会发动长平之战？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 6318,
+        "total_ms": 8052,
+        "answer_frames": 360,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1191,
+          "prompt_tokens": 2933,
+          "total_tokens": 4124,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 827,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    }
+  ]
+}

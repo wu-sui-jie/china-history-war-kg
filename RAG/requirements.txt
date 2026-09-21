@@ -1,0 +1,8 @@
+pydantic>=1.10
+python-dotenv>=0.21
+jieba>=0.42
+numpy>=1.24
+fastapi>=0.110
+uvicorn>=0.27
+openai>=1.30
+chromadb>=1.3
