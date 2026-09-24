@@ -194,9 +194,10 @@ export default {
       const role = userInfoStore.userInfo?.role
       return role === 'admin' || role === 'editor' ? role : 'viewer'
     })
-    const roleLabel = computed(() =>
-        ({admin: '管理员', editor: '编辑者', viewer: '只读'})[roleKey.value]
-    )
+    const roleLabel = computed(() => {
+      const labels: Record<string, string> = {admin: '管理员', editor: '编辑者', viewer: '只读'}
+      return labels[roleKey.value] || '只读'
+    })
 
     const goDashboard = () => {
       router.push('/workspace/dashboard')
