@@ -3,20 +3,20 @@
 导出所有Pydantic数据模型
 """
 
-from src.models.entities import (
+from war_extraction.models.entities import (
     PlaceEntity,
     OrganizationEntity,
     PersonEntity,
     EntityExtractionResult
 )
 
-from src.models.events import (
+from war_extraction.models.events import (
     EventRelation,
     Event,
     EventExtractionResult
 )
 
-from src.models.relations import (
+from war_extraction.models.relations import (
     EventPlaceRelation,
     EventOrganizationRelation,
     EventPersonRelation,

@@ -26,22 +26,20 @@ import traceback
 
 from db_handle import neo4j_db_handle
 from dynasty_data import DYNASTY_CORRECTIONS, VALID_DYNASTIES
-from eer_path import ensure_eer_on_path
 from logging_util import get_logger
 
-# EER 未正式打包（P2-4），导入 src.* 之前必须先注入路径
-ensure_eer_on_path()
-
+# EER（war_extraction）已是正式包：backend 以依赖方式引用它
+# （开发态 `pip install -e ../entity-event-relation`），不再往 sys.path 里塞目录（P2-4 收口）。
 from inference.rule_llm_integration import DYNASTY_SCOPE_MAP  # noqa: E402
-from src.models import (  # noqa: E402
+from war_extraction.models import (  # noqa: E402
     EntityExtractionResult,
     EventExtractionResult,
     RelationExtractionResult,
 )
-from src.extractors.entity_extractor import EntityExtractor  # noqa: E402
-from src.extractors.event_extractor import EventExtractor  # noqa: E402
-from src.extractors.relation_extractor import RelationExtractor  # noqa: E402
-from src.core.text_splitter import TextSplitter  # noqa: E402
+from war_extraction.extractors.entity_extractor import EntityExtractor  # noqa: E402
+from war_extraction.extractors.event_extractor import EventExtractor  # noqa: E402
+from war_extraction.extractors.relation_extractor import RelationExtractor  # noqa: E402
+from war_extraction.core.text_splitter import TextSplitter  # noqa: E402
 
 logger = get_logger(__name__)
 

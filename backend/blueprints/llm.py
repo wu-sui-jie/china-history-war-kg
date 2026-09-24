@@ -212,10 +212,10 @@ def extract_entities_events():
         start_time = time.time()
 
         try:
-            from src.extractors.entity_extractor import EntityExtractor
-            from src.extractors.event_extractor import EventExtractor
-            from src.extractors.relation_extractor import RelationExtractor
-            from src.utils import EntityClassifier, Normalizer
+            from war_extraction.extractors.entity_extractor import EntityExtractor
+            from war_extraction.extractors.event_extractor import EventExtractor
+            from war_extraction.extractors.relation_extractor import RelationExtractor
+            from war_extraction.utils import EntityClassifier, Normalizer
         except ImportError as import_err:
             logger.warning(f"导入提取器模块失败: {import_err}")
             return jsonify({

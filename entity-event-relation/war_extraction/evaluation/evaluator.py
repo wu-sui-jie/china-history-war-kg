@@ -8,13 +8,13 @@ import json
 from pathlib import Path
 from typing import Dict, List, Any
 from fuzzywuzzy import fuzz
-from src.utils.alignment import AlignmentTool
-from src.models import (
+from war_extraction.utils.alignment import AlignmentTool
+from war_extraction.models import (
     EntityExtractionResult,
     EventExtractionResult,
     RelationExtractionResult
 )
-from src.evaluation.metrics_calculator import MetricsCalculator, MetricsResult
+from war_extraction.evaluation.metrics_calculator import MetricsCalculator, MetricsResult
 
 
 class Evaluator:

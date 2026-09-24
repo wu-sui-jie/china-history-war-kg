@@ -168,14 +168,17 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check "ruff==0.16.8"
           python -m ruff check --select F821 --target-version py38 backend entity-event-relation
-      - name: 安装旧后端运行依赖（根 requirements.txt = backend + 离线抽取）
+      - name: 安装旧后端运行依赖（根 requirements.txt + 抽取链包）
         # 之前这一步是不装的：只有语法检查就没必要。现在要真跑用例，就得装
         # （app.py 导入链要吃 Flask/pydantic/openai/fuzzywuzzy 等）。
+        # 抽取链是正式包 war_extraction（P2-4），以可编辑方式装上——backend 不再往
+        # sys.path 里塞目录；少了这一步，导入 app 会直接 ModuleNotFoundError。
         # py2neo 虽然装了，但被测代码会用到它——conftest 在导入 app 之前把
         # py2neo.Graph 打桩，测试不会去连真 Neo4j。
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt pytest
+          python -m pip install -e entity-event-relation
       - name: 常驻测试（鉴权 / 菜单裁剪 / 提权链路 / 抽取失败口径）
         working-directory: backend
         run: python -m pytest tests -q

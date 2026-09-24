@@ -90,7 +90,7 @@ def extract_env(monkeypatch):
 
 
 def _empty_result(partial_errors=None):
-    from src.models import EntityExtractionResult, EventExtractionResult, RelationExtractionResult
+    from war_extraction.models import EntityExtractionResult, EventExtractionResult, RelationExtractionResult
 
     return (
         EntityExtractionResult(places=[], organizations=[], persons=[]),

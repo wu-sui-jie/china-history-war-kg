@@ -9,10 +9,10 @@ import json
 import re
 from pathlib import Path
 from tqdm import tqdm
-from src.core import DeepSeekClient, TextSplitter, CacheManager
-from src.extractors import EntityExtractor, EventExtractor, RelationExtractor
-from src.processors import ResultMerger, JsonToExcelConverter
-from src.models import (
+from war_extraction.core import DeepSeekClient, TextSplitter, CacheManager
+from war_extraction.extractors import EntityExtractor, EventExtractor, RelationExtractor
+from war_extraction.processors import ResultMerger, JsonToExcelConverter
+from war_extraction.models import (
     EntityExtractionResult,
     EventExtractionResult,
     RelationExtractionResult,
@@ -20,13 +20,13 @@ from src.models import (
     OrganizationEntity,
     PersonEntity,
 )
-from src.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
-from src.utils import EntityClassifier, Normalizer
+from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
+from war_extraction.utils import EntityClassifier, Normalizer
 
 
 def dict_to_entities(data: dict):
     """将字典转换回 EntityExtractionResult 对象"""
-    from src.models import EntityExtractionResult, PlaceEntity, OrganizationEntity, PersonEntity
+    from war_extraction.models import EntityExtractionResult, PlaceEntity, OrganizationEntity, PersonEntity
 
     places = [PlaceEntity(**p) for p in data.get("places", [])]
     orgs = [OrganizationEntity(**o) for o in data.get("organizations", [])]
@@ -37,7 +37,7 @@ def dict_to_entities(data: dict):
 
 def dict_to_events(data: dict):
     """将字典转换回 EventExtractionResult 对象"""
-    from src.models import EventExtractionResult, Event
+    from war_extraction.models import EventExtractionResult, Event
 
     events = [Event(**e) for e in data.get("events", [])]
 
@@ -46,7 +46,7 @@ def dict_to_events(data: dict):
 
 def dict_to_relations(data: dict):
     """将字典转换回 RelationExtractionResult 对象"""
-    from src.models import (
+    from war_extraction.models import (
         RelationExtractionResult,
         EventPlaceRelation,
         EventOrganizationRelation,

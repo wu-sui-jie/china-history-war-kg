@@ -6,8 +6,8 @@
 import json
 import argparse
 from pathlib import Path
-from src.evaluation import OptimalEvaluator
-from src.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp
+from war_extraction.evaluation import OptimalEvaluator
+from war_extraction.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp
 
 
 def main():

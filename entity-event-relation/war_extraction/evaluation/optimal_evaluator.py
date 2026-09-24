@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 from fuzzywuzzy import fuzz
 from typing import Dict, List, Set, Tuple
-from src.utils.normalizer import Normalizer
+from war_extraction.utils.normalizer import Normalizer
 
 
 class OptimalEvaluator:

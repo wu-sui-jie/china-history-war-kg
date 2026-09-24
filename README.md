@@ -167,7 +167,7 @@ Python 3.8 编写（Flask + py2neo 生态），装进同一个环境必有一边
 | 组件 | 要求 | 本机对应环境（`E:/anaconda`） |
 | --- | --- | --- |
 | Node.js | ≥ 18（旧前端与 RAG 前端构建） | —（走 Node/pnpm，不用 conda） |
-| 旧后端 | Python 3.8+；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；同级 `entity-event-relation/` 目录必须完整——后端通过 `sys.path` 引用其 `src.*`（`backend/app.py:56-59`） | **`place-name-KG`**（Python 3.8.20） |
+| 旧后端 | Python 3.8+；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；抽取链包 `war_extraction` 需装好——`pip install -e entity-event-relation`（P2-4 起为正式包，不再靠 `sys.path` 注入） | **`place-name-KG`**（Python 3.8.20） |
 | RAG 服务 | Python 3.11 + RAG 依赖（见 `RAG/requirements.txt`） | **`AI_Agent`**（Python 3.11.15） |
 | RAG 前端产物 | `RAG/frontend/dist` 必须是**并入模式**构建产物（`npm run build:integration`），否则 `/rag/` 页面白屏 | — |
 
@@ -199,11 +199,18 @@ E:/anaconda/envs/AI_Agent/python.exe scripts/run_server.py --port 8000 --version
 **3. 启动旧后端（:5000，用 `place-name-KG` 环境）**
 
 ```bash
+# 首次（或 entity-event-relation 有改动时）：装依赖 + 以可编辑方式装上抽取链包
+E:/anaconda/envs/place-name-KG/python.exe -m pip install -r requirements.txt
+E:/anaconda/envs/place-name-KG/python.exe -m pip install -e entity-event-relation
+
 cd backend
 E:/anaconda/envs/place-name-KG/python.exe app.py
 # Anaconda Prompt / CMD 下等价写法：
-#   conda activate place-name-KG && python app.py
+#   conda activate place-name-KG && pip install -r requirements.txt && pip install -e entity-event-relation && cd backend && python app.py
 ```
+
+> 抽取链 `war_extraction` 已是正式包（P2-4），**漏装第二步会在导入时报
+> `ModuleNotFoundError: No module named 'war_extraction'`**。
 
 首次启动会自动初始化 SQLite schema；Neo4j/Ollama 配置与数据导入见 [backend/README.md](backend/README.md)。
 

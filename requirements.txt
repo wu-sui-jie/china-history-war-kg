@@ -31,10 +31,12 @@ requests
 # ---- backend/.env 配置读取 ----
 python-dotenv
 
-# ---- entity-event-relation/src/models 被 backend 以 sys.path 注入后引用（只用到 pydantic）----
+# ---- war_extraction（entity-event-relation，P2-4 已打包）与 backend 共用的模型层 ----
 pydantic
 
-# ---- 离线抽取流水线（backend 的 /api/extract/entities-events 与 entity-event-relation/scripts）----
+# ---- 离线抽取流水线的三方依赖（backend 的 /api/extract/entities-events 与 entity-event-relation）----
 pandas
 Jinja2
 fuzzywuzzy
+openpyxl
+tqdm

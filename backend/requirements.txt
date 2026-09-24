@@ -23,6 +23,14 @@ py2neo>=2021.2.4,<2022
 ollama>=0.5,<1
 jieba>=0.42,<1
 
-# backend/app.py 通过 sys.path 引用同级 entity-event-relation 的 src.models（pydantic 模型），
-# 因此 pydantic 是 backend 的运行依赖。
+# backend 通过正式包 war_extraction（同级目录 entity-event-relation，P2-4 打包）引用抽取链，
+# 其中 pydantic 模型是 backend 也用到的部分，因此 pydantic 仍需装在这里。
+# 注意：war_extraction 本身要用 -e 安装，见下。
 pydantic>=2.0,<3
+
+# ---- 抽取链包 war_extraction（本仓库内的 entity-event-relation，不发布到 PyPI）----
+# 不在本文件里用 "-e ../entity-event-relation" 声明：路径依赖写进 requirements 会让
+# `pip install -r backend/requirements.txt` 在别的工作目录下失效。安装顺序是：
+#   1) pip install -r requirements.txt            （仓库根，含抽取链的三方依赖）
+#   2) pip install -e entity-event-relation       （开发态安装 war_extraction）
+# CI 里这两步都在 legacy-backend job 中执行，见 .github/workflows/ci.yml。

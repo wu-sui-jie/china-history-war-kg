@@ -16,7 +16,7 @@
 | 关系层 | 四类关系网络 | 事件-地点、事件-组织、事件-人物、事件-事件 |
 
 关系类型的标准名与别名表在 `config/relation_types.json`（如"发生地点"吸收"主战场/战场/战略要地"），
-别名归一在 `src/utils/normalizer.py`。
+别名归一在 `war_extraction/utils/normalizer.py`。
 
 ## 目录结构
 
@@ -24,7 +24,8 @@
 entity-event-relation/
 ├── main.py                    # 抽取主入口（命令行）
 ├── evaluate.py                # 评估主入口
-├── src/
+├── pyproject.toml             # 包定义（包名 war_extraction，P2-4 起为正式包）
+├── war_extraction/            # 原 src/（包名避开顶层 src，避免撞名）
 │   ├── config.py              # 分段参数（默认 1800 字符/段、200 重叠）与缓存上下文
 │   ├── core/
 │   │   ├── llm_client.py      # DeepSeek API 封装（密钥、重试、错误提示）
@@ -37,7 +38,7 @@ entity-event-relation/
 │   │   ├── result_merger.py   # 多段结果合并与去重
 │   │   └── json_to_excel.py   # JSON → Excel
 │   ├── evaluation/            # evaluator（基础）/ optimal_evaluator（最优模糊匹配）/ metrics_calculator
-│   ├── geocoding/             # 历史地名 → 现代坐标（高德 API + 人工审核），见 src/geocoding/README.md
+│   ├── geocoding/             # 历史地名 → 现代坐标（高德 API + 人工审核），见 war_extraction/geocoding/README.md
 │   └── utils/                 # normalizer（名称/关系归一）、entity_classifier、alignment（预测↔标注对齐）
 ├── config/                    # aliases.json / dynasty_ranges.json / eval_config.json / relation_types.json
 ├── data/                      # 输入原文 + data/annotations/ 人工标注（评估用）
@@ -64,7 +65,7 @@ python -c "import json;d=json.load(open('output/中国历代战争简史/9_final
 只保留当前批次 `output/中国历代战争简史/`。判断依据是事件数：被删批次为 861–932 条（少于当前的 1050），
 或跑在 8.8 KB 的 `中国历代战争简史_测试数据.txt` 上。
 
-`cache/` 同理：缓存键包含 `prompt_version`（`src/config.py` 的 `PROMPT_VERSION`），
+`cache/` 同理：缓存键包含 `prompt_version`（`war_extraction/config.py` 的 `PROMPT_VERSION`），
 换过提示词版本的条目**永远不会命中**，属纯占位。整理时按版本筛掉了 392 条旧条目（40 MB），
 保留当前版本的 196 条。删缓存只损失"重跑时省下的 API 费用"，不影响任何产出。
 
@@ -75,7 +76,7 @@ python -c "import json;d=json.load(open('output/中国历代战争简史/9_final
 （`10_quality_report.json` 等同于 `9_final_all.json` 的 `quality_report` 字段）。
 为消除这份重复，已删除这 9 个中间文件（约 20.5 MB），批次目录只保留 `9_final_all.json`。
 
-**影响与恢复**：`src/processors/json_to_excel.py` 的 `convert_all()` 读的是这 9 个分步文件，
+**影响与恢复**：`war_extraction/processors/json_to_excel.py` 的 `convert_all()` 读的是这 9 个分步文件，
 所以**从现有 JSON 重新生成 Excel 之前要先拆回来**（内容无损，一步即可）：
 
 ```python
@@ -102,9 +103,18 @@ dump('10_quality_report.json', d['quality_report'])
 
 ### 1. 安装依赖
 
+依赖声明在 `pyproject.toml`（P2-4 打包后本模块是正式包 `war_extraction`）。两种装法：
+
 ```bash
-pip install "openai>=1.0.0" "pydantic>=2.0.0" python-dotenv jinja2 tqdm fuzzywuzzy python-Levenshtein pandas openpyxl
+# A) 只跑本模块的抽取/评估（装依赖 + 把包本身装上）
+pip install -e entity-event-relation
+
+# B) 作为旧后端的依赖一起装（仓库根执行；backend 以 war_extraction 引用本模块）
+pip install -r requirements.txt && pip install -e entity-event-relation
 ```
+
+> `-e`（可编辑安装）改了本模块代码立即生效，不必重装。**不装会出现
+> `ModuleNotFoundError: No module named 'war_extraction'`**——旧后端启动即失败。
 
 ### 2. 配置 API 密钥
 
@@ -168,7 +178,7 @@ python evaluate.py
 
 ## 与旧后端的关系
 
-- 旧后端通过 `sys.path` 引用本目录的 `src.*`（`backend/app.py:56-59`），提供
+- 旧后端通过正式包 `war_extraction` 引用本目录（P2-4 打包后不再走 `sys.path`），提供
   `/api/extract/entities-events`（文本实体/事件识别页）；**因此本目录必须与 `backend/` 同级存在**。
 - 抽取产物经 `backend/import_json_to_sqlite.py --source <9_final_all.json>` 导入 SQLite，
   再经 `sync_sqlite_to_neo4j.py` 同步到 Neo4j。

@@ -5,16 +5,16 @@
 
 import json
 
-from src.core.llm_client import LLMAuthError, LLMAPIError
-from src.models import (
+from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
+from war_extraction.models import (
     PlaceEntity,
     OrganizationEntity,
     PersonEntity,
     EntityExtractionResult
 )
-from src.prompts import ENTITY_EXTRACTION_PROMPT
-from src.config import PROMPT_VERSIONS
-from src.utils import EntityClassifier
+from war_extraction.prompts import ENTITY_EXTRACTION_PROMPT
+from war_extraction.config import PROMPT_VERSIONS
+from war_extraction.utils import EntityClassifier
 
 
 class EntityExtractor:

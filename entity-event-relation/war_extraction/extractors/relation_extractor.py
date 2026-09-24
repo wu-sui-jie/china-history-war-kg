@@ -6,17 +6,17 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from src.config import PROMPT_VERSIONS
-from src.core.llm_client import LLMAuthError, LLMAPIError
-from src.models import (
+from war_extraction.config import PROMPT_VERSIONS
+from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
+from war_extraction.models import (
     EventEventRelation,
     EventOrganizationRelation,
     EventPersonRelation,
     EventPlaceRelation,
     RelationExtractionResult,
 )
-from src.prompts import RELATION_EXTRACTION_PROMPT
-from src.utils import Normalizer
+from war_extraction.prompts import RELATION_EXTRACTION_PROMPT
+from war_extraction.utils import Normalizer
 
 
 class RelationExtractor:

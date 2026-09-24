@@ -4,13 +4,13 @@
 新增：事件关系合并、source_text去重
 """
 
-from src.models import (
+from war_extraction.models import (
     EntityExtractionResult,
     EventExtractionResult,
     RelationExtractionResult,
     EventRelation
 )
-from src.utils.normalizer import Normalizer
+from war_extraction.utils.normalizer import Normalizer
 
 
 class ResultMerger:

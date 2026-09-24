@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import re
 from typing import List, Tuple
-from src.config import DEFAULT_CHUNK_SIZE, DEFAULT_OVERLAP
+from war_extraction.config import DEFAULT_CHUNK_SIZE, DEFAULT_OVERLAP
 
 
 class TextSplitter:

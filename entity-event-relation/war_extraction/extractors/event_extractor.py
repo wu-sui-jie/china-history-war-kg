@@ -7,11 +7,11 @@ import json
 import re
 from typing import List, Tuple
 
-from src.config import PROMPT_VERSIONS
-from src.core.llm_client import LLMAuthError, LLMAPIError
-from src.models import Event, EventExtractionResult, EventRelation
-from src.prompts import EVENT_IDENTIFICATION_PROMPT, EVENT_TYPE_PROMPT, FULL_EVENT_PROMPT
-from src.utils import Normalizer
+from war_extraction.config import PROMPT_VERSIONS
+from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
+from war_extraction.models import Event, EventExtractionResult, EventRelation
+from war_extraction.prompts import EVENT_IDENTIFICATION_PROMPT, EVENT_TYPE_PROMPT, FULL_EVENT_PROMPT
+from war_extraction.utils import Normalizer
 
 
 class EventExtractor:
