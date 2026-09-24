@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { menu, permission } from '../api/module/user'
+import { menu, permission, userInfo } from '../api/module/user'
 
 export interface MenuItem {
   id?: string
@@ -126,6 +126,18 @@ export const useUserStore = defineStore({
       const { data, code } = await permission()
       if (code == 200) {
         this.permissions = Array.isArray(data) ? data : []
+      }
+    },
+    /** 拉取当前账号信息（account/name/role）：界面显示角色徽标用。
+     *  未登录或接口失败时静默保持空对象——角色相关 UI 按"只读"兜底。 */
+    async loadUserInfo() {
+      try {
+        const { data, code } = await userInfo()
+        if (code == 200 && data) {
+          this.userInfo = data
+        }
+      } catch {
+        // token 失效等场景：拦截器已处理跳登录，这里不必再提示
       }
     },
     /** 清空登录态（token 与后端下发的菜单/权限一并清掉，避免换账号后残留） */

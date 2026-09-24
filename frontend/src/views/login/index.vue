@@ -162,6 +162,7 @@ export default defineComponent({
           .then(({data, code, msg}) => {
             if (code == 200) {
               userStore.token = data
+              userStore.loadUserInfo()
               userStore.loadMenus()
               userStore.loadPermissions()
               router.push('/')
@@ -188,6 +189,7 @@ export default defineComponent({
           .then(({data, code, msg}) => {
             if (code == 200) {
               userStore.token = data
+              userStore.loadUserInfo()
               userStore.loadMenus()
               userStore.loadPermissions()
               layer.msg(msg || '注册成功', {icon: 1})

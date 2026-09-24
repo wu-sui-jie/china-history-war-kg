@@ -65,6 +65,10 @@
           </div>
         </div>
         <div class="side-bottom-actions">
+          <div class="side-user-chip">
+            <span class="side-user-name" :title="displayName">{{ displayName || '未登录' }}</span>
+            <span :class="['side-user-role', `role-${roleKey}`]">{{ roleLabel }}</span>
+          </div>
           <lay-tooltip content="退出登录">
             <div class="side-brand-icon" @click="logOut">
               <img src="/icon/logout.svg" style="width: 16px;"/>
@@ -151,6 +155,9 @@ export default {
       if (document.body.clientWidth < 768) {
         appStore.collapse = true
       }
+      // 刷新页面后 token 从 localStorage 恢复、但 userInfo 不走持久化恢复，
+      // 这里兜底拉一次；登录/注册成功后也会主动拉。
+      userInfoStore.loadUserInfo()
       userInfoStore.loadMenus()
       userInfoStore.loadPermissions()
     })
@@ -178,6 +185,18 @@ export default {
       userInfoStore.clearSession()
       router.push('/login')
     }
+
+    // 当前账号与角色展示：admin 管理员 / editor 编辑者 / viewer 只读
+    const displayName = computed(() =>
+        userInfoStore.userInfo?.name || userInfoStore.userInfo?.account || ''
+    )
+    const roleKey = computed(() => {
+      const role = userInfoStore.userInfo?.role
+      return role === 'admin' || role === 'editor' ? role : 'viewer'
+    })
+    const roleLabel = computed(() =>
+        ({admin: '管理员', editor: '编辑者', viewer: '只读'})[roleKey.value]
+    )
 
     const goDashboard = () => {
       router.push('/workspace/dashboard')
@@ -218,6 +237,9 @@ export default {
       changeVisible,
       refresh,
       logOut,
+      displayName,
+      roleKey,
+      roleLabel,
       goDashboard,
       globalKeyword,
       showGlobalSearchBar,
@@ -334,8 +356,50 @@ export default {
 
 .side-bottom-actions {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   justify-content: center;
   padding: 8px 6px 4px;
+}
+
+/* 当前账号与角色徽标：让"谁在用、什么权限"在界面上可见 */
+.side-user-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.side-user-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #6b5b3e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.side-user-role {
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 18px;
+  color: #fff;
+}
+
+.side-user-role.role-admin {
+  background: #b45309;
+}
+
+.side-user-role.role-editor {
+  background: #0f766e;
+}
+
+.side-user-role.role-viewer {
+  background: #9ca3af;
 }
 
 .side-menu-wrapper::-webkit-scrollbar {

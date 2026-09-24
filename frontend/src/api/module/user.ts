@@ -10,6 +10,11 @@ export const permission = function() {
     return Http.get('/user/permission')
 }
 
+// 当前登录账号信息（account/name/role），供界面显示角色徽标
+export const userInfo = function() {
+    return Http.get('/api/userinfo')
+}
+
 export interface LoginPayload {
     account: string
     password: string
