@@ -23,6 +23,23 @@
 /** 会话存储的基础 key（与 stores/session.ts 的历史 key 保持一致）。 */
 export const SESSION_STORAGE_KEY = 'ragv5-session-v3'
 
+/** uid 的形状约束：只接受数字/字母/下划线/连字符，且有长度上限。
+ *
+ * uid 会被直接拼进 localStorage 的 key，因此不能什么字符串都收（第 6 轮审核低危项）：
+ * 桥曾经把对象当字符串处理，拼出 `ragv5-session-v3:u[object Object]` 这种桶；
+ * 超长 uid 也会把 key 长度和配额一起吃掉。主应用的账号 id 是数字，将来若换成
+ * 字符串/UUID 也落在 `[A-Za-z0-9_-]` 之内。
+ * 不合法一律按"没有账号"处理——退到独立访问语义，是这里最保守的一侧。
+ */
+const UID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/
+
+/** 归一化 uid：合法返回字符串；空值/对象/超长/含分隔符返回 null。 */
+export function normalizeUid(raw: unknown): string | null {
+  if (raw === null || raw === undefined) return null
+  const text = String(raw).trim()
+  return UID_PATTERN.test(text) ? text : null
+}
+
 let activeUid: string | null = null
 let activeRole = ''
 /** 最近一次已经通知过的 uid：桥的去重依据**不能**用 activeUid——换桶由 store 负责，
@@ -39,10 +56,9 @@ export function getActiveRole(): string {
   return activeRole
 }
 
-/** 设置当前账号 id（空串/null 视为未指定）。换桶时机由 store 决定，见文件头说明。 */
+/** 设置当前账号 id（空串/null/非法值视为未指定）。换桶时机由 store 决定，见文件头说明。 */
 export function setActiveUid(uid: string | number | null | undefined): void {
-  const next = uid === null || uid === undefined ? '' : String(uid).trim()
-  activeUid = next ? next : null
+  activeUid = normalizeUid(uid)
   // store 刚换到这个桶，同一个 uid 再来的消息本就无事可做，顺手同步去重位
   lastNotifiedUid = activeUid
 }
@@ -54,10 +70,10 @@ export function setActiveRole(role: string | null | undefined): void {
 
 /**
  * 按账号组装存储 key。
- * 没有账号时不加后缀——独立访问 :8000 的场景与改造前一致，老记录也留在默认 key 里。
+ * 没有账号（含 uid 非法）时不加后缀——独立访问 :8000 的场景与改造前一致，老记录也留在默认 key 里。
  */
 export function storageKeyFor(uid: string | number | null | undefined, base = SESSION_STORAGE_KEY): string {
-  const id = uid === null || uid === undefined ? '' : String(uid).trim()
+  const id = normalizeUid(uid)
   return id ? `${base}:u${id}` : base
 }
 
@@ -81,10 +97,10 @@ export function parseUserScopeMessage(
   if (event.origin !== expectedOrigin) return undefined
   const data = event.data as { type?: unknown; uid?: unknown; role?: unknown } | null | undefined
   if (!data || typeof data !== 'object' || data.type !== 'cw-user') return undefined
-  const uid = data.uid
   const role = typeof data.role === 'string' ? data.role.trim() : ''
-  if (uid === null || uid === undefined || uid === '') return { uid: null, role }
-  return { uid: String(uid).trim() || null, role }
+  // 形状/取值不合法（对象、超长、含分隔符）一律当"没有账号"：宁可退回独立访问语义，
+  // 也不能拼出一个谁都不是的桶
+  return { uid: normalizeUid(data.uid), role }
 }
 
 /**
@@ -103,9 +119,11 @@ export function installHostUserBridge(
     const scope = parseUserScopeMessage(event, expectedOrigin)
     if (scope === undefined) return
     if (scope.uid === lastNotifiedUid) return
-    lastNotifiedUid = scope.uid
-    // 不在这里 setActiveUid：store 必须先写回旧桶再换，见文件头
+    // 先回调、成功后才推进去重位：回调里若抛错（换桶要读存储，存储异常会炸），
+    // 去重位已经推进的话这个 uid 就再也不会被通知，store 永远停在上一个桶且没有自愈机会。
+    // 不在这里 setActiveUid：store 必须先写回旧桶再换，见文件头。
     onScopeChange(scope)
+    lastNotifiedUid = scope.uid
   }
   window.addEventListener('message', handler)
   return () => window.removeEventListener('message', handler)

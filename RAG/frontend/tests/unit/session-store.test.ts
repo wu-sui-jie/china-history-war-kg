@@ -9,6 +9,7 @@ import { afterEach, beforeAll, beforeEach, test } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
 
 import { useSessionStore } from '@/stores/session'
+import { setActiveUid } from '@/utils/userScope'
 import { frame, hangingResponse, installBrowserShims } from './shims'
 
 interface StreamHandle {
@@ -18,6 +19,8 @@ interface StreamHandle {
   aborts: () => number
   /** 最近一次 /api/query 的请求体（纠正 payload 断言用） */
   lastBody: () => any
+  /** 已发出的 /api/query 次数（"排队轮被作废"这类用例要断言"根本没发出去"） */
+  queries: () => number
 }
 
 let lastStream: StreamHandle | null = null
@@ -27,17 +30,20 @@ function installStream(): StreamHandle {
   const hanging = hangingResponse()
   let aborts = 0
   let lastBody: any = null
+  let queries = 0
   const handle: StreamHandle = {
     push: (payload) => hanging.push(frame(payload)),
     raw: (text) => hanging.push(text),
     close: () => hanging.close(),
     aborts: () => aborts,
     lastBody: () => lastBody,
+    queries: () => queries,
   }
   lastStream = handle
   globalThis.fetch = (async (url: any, init: any) => {
     if (typeof url === 'string' && url.includes('/api/')) {
       if (url.includes('/api/query')) {
+        queries += 1
         try { lastBody = JSON.parse(init.body) } catch { lastBody = null }
       }
       const signal: AbortSignal | undefined = init?.signal
@@ -62,6 +68,9 @@ beforeAll(() => {
 
 beforeEach(() => {
   installBrowserShims()
+  // 账号作用域是模块级状态（stores/session 会读它组装存储 key）：
+  // 不重置的话，前一条用例里的 applyUserScope 会带进下一条，读到别的桶上去。
+  setActiveUid(null)
   setActivePinia(createPinia())
 })
 
@@ -228,6 +237,24 @@ test('串行链保证：并发调用 sendQuestion 时前一条先收尾', async 
   const assistants = store.messages.filter((m) => m.role === 'assistant') as any[]
   assert.equal(assistants.length, 2)
   assert.equal(assistants[0].turnStatus, 'cancelled')
+})
+
+test('换账号作废排队中的轮次：不会带着 A 的问题在 B 的上下文里发出', async () => {
+  const store = useSessionStore()
+  const stream = installStream()
+
+  // 第一问占住串行链，第二问排在其后（此时两问都还没真正发出）
+  store.sendQuestion('甲账号提出的问题')
+  store.sendQuestion('甲账号提出的第二个问题')
+
+  // 还没等微任务跑，桥就把作用域换成了另一个账号
+  store.applyUserScope('8')
+  await settle()
+
+  assert.equal(stream.queries(), 0, '换桶后排队轮必须作废，不能再发请求')
+  const assistants = store.messages.filter((m) => m.role === 'assistant') as any[]
+  assert.equal(assistants.filter((m) => m.turnStatus === 'streaming').length, 0,
+               '不该留下转圈的幽灵轮')
 })
 
 test('流式正文节流写入 localStorage，刷新后恢复为 interrupted', async () => {

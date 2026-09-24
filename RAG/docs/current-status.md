@@ -2,7 +2,11 @@
 
 > 本文件是**当前**运行事实的唯一入口：版本、测试数、demo 状态、依赖锁定状态、发布状态。
 > 其他文档（README、部署手册、阶段总结、整改记录）只做引用，不再各自维护这些数字。
-> 最近更新：2026-09-20（借鉴旧问答系统：P0 事件卡叙事字段 + P1 会话级导出与会话管理；
+> 最近更新：2026-09-25（**问答记录按账号隔离**：主应用以 iframe 嵌入时通过 `cw-user`
+> postMessage 传账号 id，RAG 前端按 `ragv5-session-v3:u{uid}` 分桶存储；独立访问 :8000
+> 行为不变。契约与边界见 `frontend/src/utils/userScope.ts` 与旧知识库系统
+> `docs/集成与入口约定.md`）。
+> 更早：2026-09-20（借鉴旧问答系统：P0 事件卡叙事字段 + P1 会话级导出与会话管理；
 > P2 规则推理移植：离线固化 11,833 条推理边并接入 F03 检索、引用与提示词）。
 > 数据计数由 `scripts/check_docs.py --strict`
 > 与快照/索引清单机械核对，避免唯一事实源自身写错数字。
@@ -16,14 +20,15 @@
 | 数据集 | 9925 实体 / 17700 关系 / 9544 向量条 | 以 `data/snapshot/20260915_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
 | 运行环境 | Python 3.11（锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本 |
 | 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`（SSE）、`POST /api/query/json`（非流式，可选 `X-Bot-Key`）、`GET /` | 契约见 [data-contract.md](data-contract.md)；非流式响应见 `contracts/query_json.py` |
+| 会话存储与账号隔离 | 主应用嵌入时 `ragv5-session-v3:u{uid}`；独立访问 :8000 时仍是 `ragv5-session-v3` | 账号 id 由主应用的 iframe 通过 `cw-user` postMessage 下发（同源校验、uid 形状受限）。**uid 非空时只读账号桶**，不回落旧全局键——旧记录不属于任何账号，不能被先登录的人收编（第 6 轮审核 H2）；换桶顺序（先写回旧桶再换）见 `frontend/src/stores/session.ts` 的 `applyUserScope` |
 
 ## 二、测试与门禁（本地实测，2026-09-16）
 
 | 层 | 命令 | 结果 |
 | --- | --- | --- |
-| 后端 | `python -m pytest tests -q` | **345 passed**（2026-09-24 实测，Python 3.11）。历史口径（298 / 298+23 / 等价 runner 76）已废弃：那几次是在没有 pytest 的环境里分批跑的，不能与全量数字并列。以后只记本行这一条 |
-| 前端单元（Vitest） | `cd frontend && npm run test:unit` | **47 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出） |
-| 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **78 passed** |
+| 后端 | `python -m pytest tests -q` | **349 passed**（2026-09-25 第 6 轮审核实测，Python 3.11；本轮改动未触及 RAG 后端）。历史口径（345 / 298 / 298+23 / 等价 runner 76）已废弃：那几次是在没有 pytest 的环境里分批跑的，不能与全量数字并列。以后只记本行这一条 |
+| 前端单元（Vitest） | `cd frontend && npm run test:unit` | **67 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出、**按账号隔离与换桶顺序**）。原写 47 是 2026-09-20 的口径，加入隔离用例后未回写（第 6 轮审核 M6 已修正） |
+| 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **98 passed**（2026-09-25 实测） |
 | 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |
 | 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **14 passed / 4 skipped**（desktop + mobile；含 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言、多会话切换与刷新保持、导出 .md 下载）；桩后端 2026-09-20 实测 14 passed |
 | 首屏体积门禁 | `npm run check:bundle` | 通过（入口 gzip 25.1 kB、vendor 75.9 kB、首屏合计 101.0 kB，上限 190 kB） |
@@ -88,6 +93,10 @@ python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_li
 5. **tested commit 与 evidence commit**：证据绑定的是产出证据时的代码 commit；
    把证据文档提交本身会产生新 commit。发布记录里应同时写 `tested_commit`
    （跑测试时）与 `evidence_commit`（生成制品时），两者不要求相等，但都必须可追溯。
+6. **问答隔离不防冒充（方案 A 的边界）**：账号 id 是主应用通过 postMessage 给的，
+   RAG 只校验来源与形状，不做验签。同源之下懂控制台的账号可以改 uid 去读别人的会话——
+   本方案解决的是"串记录"。要防冒充需走方案 B（主应用传 JWT + RAG 服务端验签），
+   触发时机是公网部署（见旧知识库系统 `docs/方案分析-账户提权与问答隔离-20260925.md`）。
 
 ## 六、历史记录入口
 

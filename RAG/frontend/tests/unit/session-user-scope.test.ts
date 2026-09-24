@@ -97,3 +97,38 @@ test('退出到无账号：回到共享桶内容，账号桶保留', () => {
   assert.equal(store.sessionList.some((item) => item.title === '我的会话'), false)
   assert.ok((localStorage.getItem(`${SESSION_STORAGE_KEY}:u7`) || '').includes('我的会话'))
 })
+
+/** 升级前的全局记录（第 6 轮审核 H2）：它不属于任何账号，不能被"先到者"收编。 */
+const LEGACY_V2_KEY = 'ragv5-session-v2'
+
+function seedLegacySession(title: string) {
+  localStorage.setItem(LEGACY_V2_KEY, JSON.stringify({
+    schemaVersion: 2,
+    sessionId: 'legacy-single',
+    messages: [
+      { id: 'u1', role: 'user', question: title, filters: { dynasty: [], event_type: [] } },
+      { id: 'a1', role: 'assistant', question: title, answer: '旧回答',
+        turnStatus: 'completed', createdAt: Date.now() },
+    ],
+  }))
+}
+
+test('账号桶为空时不收编 legacy 全局记录（也不能把它删掉）', () => {
+  seedLegacySession('升级前的全局提问')
+  const store = useSessionStore()
+
+  store.applyUserScope('7')
+
+  assert.equal(store.sessionList.some((item) => item.title === '升级前的全局提问'), false,
+               '旧全局记录不属于任何账号，不该出现在账号 A 的界面里')
+  assert.doesNotMatch(localStorage.getItem(`${SESSION_STORAGE_KEY}:u7`) || '', /升级前的全局提问/,
+                      '更不该被写进账号桶')
+  assert.ok(localStorage.getItem(LEGACY_V2_KEY), 'legacy 键要原样留着，不能被谁读一下就没收')
+})
+
+test('独立访问（无 uid）时仍回落 legacy 全局记录：升级前的老用户照旧看得到', () => {
+  seedLegacySession('升级前的全局提问')
+  const store = useSessionStore()
+
+  assert.equal(store.sessionList.some((item) => item.title === '升级前的全局提问'), true)
+})

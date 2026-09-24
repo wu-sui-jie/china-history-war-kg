@@ -38,6 +38,20 @@ test('存储 key：有账号带后缀，没账号保持原 key（独立访问行
   assert.notEqual(storageKeyFor(3), storageKeyFor(30))
 })
 
+test('uid 形状受约束：对象/超长/含分隔符一律按"没有账号"处理', () => {
+  // 曾经踩过的坑：桥把对象当字符串，拼出 :u[object Object] 这种谁都不是的桶
+  assert.equal(storageKeyFor({} as any), SESSION_STORAGE_KEY)
+  assert.equal(storageKeyFor('[object Object]'), SESSION_STORAGE_KEY)
+  assert.equal(storageKeyFor('a'.repeat(65)), SESSION_STORAGE_KEY)
+  assert.equal(storageKeyFor('3:u4'), SESSION_STORAGE_KEY)
+  assert.equal(storageKeyFor('中文账号'), SESSION_STORAGE_KEY)
+  // 合法形状照常（数字、带下划线/连字符的字符串）
+  assert.equal(storageKeyFor('u_1-a'), `${SESSION_STORAGE_KEY}:uu_1-a`)
+  setActiveUid('[object Object]')
+  assert.equal(getActiveUid(), null, '非法 uid 不能进 setActiveUid')
+  assert.equal(activeStorageKey(), SESSION_STORAGE_KEY)
+})
+
 test('activeStorageKey 跟随 setActiveUid', () => {
   assert.equal(activeStorageKey(), SESSION_STORAGE_KEY)
   setActiveUid('42')
@@ -64,6 +78,15 @@ test('消息解析：只认 cw-user 且只认同源（结果带 role）', () => 
   )
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '' } }, ORIGIN),
+    { uid: null, role: '' },
+  )
+  // 非法 uid（对象/超长）：归成"没有账号"，绝不能拼出怪桶
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: { id: 3 } } }, ORIGIN),
+    { uid: null, role: '' },
+  )
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: 'x'.repeat(65) } }, ORIGIN),
     { uid: null, role: '' },
   )
   // 其它来源：忽略（返回 undefined 表示"这条消息与我们无关"）
@@ -100,6 +123,23 @@ test('身份桥：null 表示"退出到无账号"，回调照样送达', () => {
   window.dispatchEvent(message('5'))
   window.dispatchEvent(message(null))
   assert.deepEqual(seen, ['5', null])
+  off()
+})
+
+test('身份桥：去重位在回调之后才推进（回调失败后同一 uid 仍能重来）', () => {
+  // jsdom 会把事件监听器里抛出的异常报成 unhandled error（拿不到 assert.throws），
+  // 所以这里用"回调期间同一 uid 仍会被送达"来正面钉住推进顺序：如果去重位在回调**之前**
+  // 就推进了，下面这次重入会被当成重复消息直接丢掉，seen 只会有一个 '5'。
+  // 真实场景对应"回调抛错（换桶时读存储失败）→ 这个账号改不了桶且没有自愈机会"。
+  const seen: string[] = []
+  const off = installHostUserBridge((scope) => {
+    seen.push(String(scope.uid))
+    if (seen.length === 1) window.dispatchEvent(message('5'))
+  }, ORIGIN)
+
+  window.dispatchEvent(message('5'))
+
+  assert.deepEqual(seen, ['5', '5'])
   off()
 })
 

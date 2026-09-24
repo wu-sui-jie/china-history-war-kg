@@ -18,7 +18,7 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import { activeStorageKey, getActiveUid, setActiveRole, setActiveUid, type UserScopeMessage } from '@/utils/userScope'
+import { activeStorageKey, getActiveUid, normalizeUid, setActiveRole, setActiveUid, type UserScopeMessage } from '@/utils/userScope'
 import { fetchDicts, fetchHealth } from '@/api/http'
 import { streamQuery } from '@/api/sse'
 import {
@@ -406,11 +406,12 @@ function messagesOf(bodies: Map<string, ChatMessage[]>, id: string): ChatMessage
   return bodies.get(id) || []
 }
 
-/** 把身份消息归一成 uid（兼容三种入参：`{uid,role}` 对象、裸 uid 字符串、null）。 */
+/** 把身份消息归一成 uid（兼容三种入参：`{uid,role}` 对象、裸 uid 字符串、null）。
+ *  校验规则与 `utils/userScope` 的 storageKeyFor 同源（`normalizeUid`）：两处口径不一致
+ *  会让"内存状态来自哪个桶"（loadedScope）与"读写哪个 key"对不上。 */
 function normalizeScopeUid(scope: UserScopeMessage | string | null | undefined): string | null {
   const raw = scope !== null && typeof scope === 'object' ? scope.uid : scope
-  const text = raw === null || raw === undefined ? '' : String(raw).trim()
-  return text ? text : null
+  return normalizeUid(raw)
 }
 
 /** schema 迁移（第四轮复核 P2-11 + 2026-09-20 多会话 P1）：
@@ -418,9 +419,20 @@ function normalizeScopeUid(scope: UserScopeMessage | string | null | undefined):
  * - v2/v1（单会话）：迁移为"第一条会话"，消息逐条升级；
  * - 更新版本：不猜结构，原值隔离到 quarantined 并向用户提示；
  * - 结构非法：同样隔离原值后从空会话开始（不再静默丢弃）。
+ *
+ * **在账号桶里（uid 非空）不回落旧全局键**（第 6 轮审核 H2）：升级前那份全局记录不属于
+ * 任何账号，谁先登录都会被"收编"进他的桶——与主应用侧"老全局记录归档、不归属任何账号"
+ * （frontend/src/utils/userScopedStorage.ts）的策略直接矛盾；而且解析失败时 quarantine
+ * 会把全局共享的原值删掉，一个人打不开自己的会话就顺手伤了别人。
+ * 独立访问 :8000（无 uid）时仍按原语义回落，老用户升级后照旧能看到自己的记录。
  */
+function persistedKeys(): string[] {
+  const own = [activeStorageKey(STORAGE_KEY_BASE)]
+  return getActiveUid() ? own : [...own, ...LEGACY_STORAGE_KEYS]
+}
+
 function readPersisted(): PersistedSessions & { notice: PersistNotice | null } {
-  const keys = [activeStorageKey(STORAGE_KEY_BASE), ...LEGACY_STORAGE_KEYS]
+  const keys = persistedKeys()
   for (const key of keys) {
     let raw: string | null = null
     try {
@@ -725,6 +737,11 @@ export const useSessionStore = defineStore('session', () => {
     active.value = null
     selectedTurnId.value = null
     citationFocus.value = null
+
+    // 作废还在 runChain 里排队的轮次（第 6 轮审核 M5）：cancelStream 只中断"已经在跑"的那条，
+    // 排队中的 job 尚未发出请求，换桶后它会带着 A 提的问题、用 B 的筛选与会话 id 发出去。
+    // 递增序号让那些 job 在 beginTurn 的守卫里直接收敛为"已被新的提问取代"，不再发请求。
+    turnSeq += 1
 
     if (reloaded.notice) showToast(reloaded.notice.kind, reloaded.notice.text)
   }
