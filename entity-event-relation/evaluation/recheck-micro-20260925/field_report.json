@@ -1,0 +1,14 @@
+{
+  "total_events": 1050,
+  "field_fill_rates": {
+    "Allies": 0.10095238095238095,
+    "Commanders": 0.9933333333333333,
+    "KeyPersons": 0.37523809523809526,
+    "TroopSize": 0.9961904761904762,
+    "Duration": 0.9961904761904762,
+    "GeographicScope": 0.9961904761904762,
+    "Casualties": 0.9961904761904762,
+    "relations": 0.7866666666666666
+  },
+  "avg_fill_rate": 0.7801190476190476
+}
