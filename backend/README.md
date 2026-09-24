@@ -11,7 +11,14 @@ Flask 应用，为管理台（`frontend/`）提供图谱查询、节点 CRUD、�
 
 ```text
 backend/
-├── app.py                    # Flask 应用入口与全部路由（:5000）
+├── app.py                    # Flask 应用入口：应用装配、全局钩子、启停（路由已拆到 blueprints/）
+├── blueprints/               # 路由按业务分五组（P2-1 收官，URL 与拆分前逐字相同）
+│   ├── auth.py               #   登录注册 / 账号信息 / 用户管理 / 菜单与权限
+│   ├── node.py               #   节点增删改查与节点查询（写接口受 require_write_role 保护）
+│   ├── graph.py              #   图谱检索、四类关系图、节点子图、关系分析、全局搜索
+│   ├── workspace.py          #   仪表盘 / 数据集 / 质检 / 实体详情 / 时间轴 / 地图 / 修复工单
+│   └── llm.py                #   旧问答（同步与 SSE）与文本抽取——都消耗 LLM 配额
+├── roles.py                  # 角色常量（WRITE_ROLES / ROLE_RANKS / *_MENU_IDS）与鉴权装饰器
 ├── requirements.txt          # 本模块依赖声明（UTF-8，带版本下界）
 ├── db_utils.py               # DbUtil：SQLite 读写 + 同步 Neo4j
 ├── model_search.py           # neo4j_db：Neo4j 图查询与节点写操作
@@ -282,6 +289,10 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
 
 ## 注意事项
 
+0. **改接口先找对文件**：路由在 `blueprints/` 下按业务分组（五组见上表），
+   `app.py` 只留应用装配与全局钩子（鉴权 `before_request`、实体提取器单例绑定）。**蓝图不加
+   url_prefix**，URL 必须与拆分前逐字相同；改动的行为不变性由
+   `python tools/snapshot_responses.py` 的 67 请求前后对照兜底（见该脚本的文件头）。
 1. **数据库初始化**：首次运行自动创建 SQLite 表结构，并做一次结构迁移（`UserInfo.role` 列、
    `account` 唯一索引、关系表证据字段）；WAL 与 `synchronous=NORMAL` 由 SQLAlchemy 的
    connect 事件钩子在**每个新连接**上设置，不依赖启动时那一次 PRAGMA
