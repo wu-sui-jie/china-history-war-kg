@@ -336,6 +336,26 @@ PASS_URLS = {"/", "/api/login", "/api/sign_in"}
 # 可写数据的角色；注册接口一律建 viewer（只读）
 WRITE_ROLES = {"admin", "editor"}
 
+# 合法角色与其强度（admin ⊃ editor ⊃ viewer）。角色值一律按白名单校验后再落库，
+# 不接受任意字符串——UserInfo.role 会直接决定接口能不能写、菜单下发哪些。
+ROLE_RANKS = {"viewer": 0, "editor": 1, "admin": 2}
+
+# 仅管理员可见的顶层菜单 id（目前只有用户管理）。
+ADMIN_MENU_IDS = {"/admin/users"}
+
+# 需要 editor 及以上才可见的菜单 id。「文本实体识别」会调用大模型消耗配额，
+# 只读账号不该有入口——与路由 meta.requiresRole='editor'、接口的
+# require_write_role 是同一口径，三处要一起改（见 backend/README 的角色职责表）。
+EDITOR_MENU_IDS = {"/knowledge/text-extract"}
+
+
+def _menu_allowed(menu_id, role):
+    """分组内的菜单项是否对当前角色可见（按 ROLE_RANKS 分级比对）。"""
+    if menu_id in EDITOR_MENU_IDS and ROLE_RANKS.get(role, -1) < ROLE_RANKS["editor"]:
+        return False
+    return True
+
+
 # 允许「全图加载」的节点数上限：超过就退回限量加载。
 # 全量分支没有分页，节点数上万时单次请求的响应体与前端渲染开销都会失控。
 MAX_LOAD_ALL_NODES = 3000
@@ -345,11 +365,30 @@ def require_write_role(view):
     """写接口鉴权：只读角色（viewer）不允许改数据。"""
     @functools.wraps(view)
     def wrapper(*args, **kwargs):
+
         role = DbUtil.get_role(getattr(g, "user_id", None))
         if role not in WRITE_ROLES:
             return jsonify({
                 "code": 403,
                 "msg": "当前账号为只读权限，无法执行该操作"
+            }), 403
+        return view(*args, **kwargs)
+    return wrapper
+
+
+def require_admin(view):
+    """管理员接口鉴权（用户管理这类"改角色"的动作专用）。
+
+    刻意不复用 `require_write_role`：editor 若能改角色，权限体系会被 editor 自己打散
+    （把自己升成 admin）。角色分级留在服务端判断，不靠界面藏入口。
+    """
+    @functools.wraps(view)
+    def wrapper(*args, **kwargs):
+        role = DbUtil.get_role(getattr(g, "user_id", None))
+        if role != "admin":
+            return jsonify({
+                "code": 403,
+                "msg": "仅管理员可执行该操作"
             }), 403
         return view(*args, **kwargs)
     return wrapper
@@ -438,6 +477,53 @@ def sign_in():
             "msg": "注册成功"
         })
     return jsonify(result)
+
+
+# ================== 用户管理（仅管理员）==================
+# 角色体系（admin/editor/viewer）此前只能靠手写 SQL 提权，没有界面入口。
+# 这两个接口把提权变成管理员页面上的一次选择；防呆全部在服务端做——
+# 界面藏入口只是体验，判断留在接口里。
+
+@app.route('/api/admin/users', methods=['GET'])
+@require_admin
+def admin_list_users():
+    """用户列表：id / 账号 / 昵称 / 角色。"""
+    return jsonify({"code": 200, "data": DbUtil.list_users()})
+
+
+@app.route('/api/admin/users/<int:user_id>/role', methods=['POST'])
+@require_admin
+def admin_update_user_role(user_id):
+    """修改用户角色。请求体：{"role": "admin" | "editor" | "viewer"}
+
+    两条防呆：
+
+    ① 不允许改自己的角色。否则最后一个管理员可以把自己降级成 viewer，之后没人能
+       再提权（只能回到手写 SQL），系统等于失管；
+    ② 角色值必须落在白名单里。UserInfo.role 直接决定能不能写、下发哪些菜单，
+       不接受任意字符串。
+
+    生效时机：写接口的 403 是每次请求实时查库的，改完立刻生效；**菜单是登录时下发的**，
+    被改的人需要重新登录（或重新触发 loadMenus）才会看到菜单变化。
+    """
+    if user_id == getattr(g, "user_id", None):
+        return jsonify({"code": 403, "msg": "不能修改自己的角色，请让另一位管理员操作"}), 403
+
+    data = request.get_json(silent=True) or {}
+    role = str(data.get("role", "")).strip()
+    if role not in ROLE_RANKS:
+        return jsonify({
+            "code": 400,
+            "msg": "角色取值非法，只允许：%s" % "/".join(sorted(ROLE_RANKS, key=ROLE_RANKS.get)),
+        }), 400
+
+    updated = DbUtil.set_user_role(user_id, role)
+    if updated is None:
+        return jsonify({"code": 404, "msg": "用户不存在"}), 404
+
+    logger.info("管理员 %s 把账号 %s（id=%s）的角色改为 %s",
+                getattr(g, "user_id", None), updated.get("account"), user_id, role)
+    return jsonify({"code": 200, "msg": "角色已更新", "data": updated})
 
 
 # ================== 知识图谱接口 - 节点管理操作SQLite，查询仍可用Neo4j ==================
@@ -1305,6 +1391,7 @@ def global_search():
 
 
 @app.route('/api/extract/entities-events', methods=['POST'])
+@require_write_role
 def extract_entities_events():
     """
     文本实体与事件识别接口 - 完整版
@@ -1515,15 +1602,30 @@ def get_menu():
                     "title": "数据版本管理"
                 }
             ]
+        },
+        {
+            # 仅管理员：用户管理（改角色）。刻意放在顶层而不是塞进任何业务分组——
+            # 它是系统管理动作，和"看数据/改数据"不是一类。
+            "id": "/admin/users",
+            "icon": "layui-icon-user",
+            "title": "用户管理"
         }
     ]
 
-    # 角色裁剪：viewer（只读）不下发数据运营组。写权限的真正防线在
-    # require_write_role 的 403，这里不下发菜单是第二层——让只读使用者
-    # 界面上就看不到管理入口，而不是点了才被拒。
+    # 角色裁剪（三级）：viewer 看不到数据运营组，editor 看不到用户管理。
+    # 写权限的真正防线是 require_write_role / require_admin 的 403，这里不下发菜单是
+    # 第二层——让不该看到的人界面上就没有入口，而不是点了才被拒。
+    # 注意：编辑器级菜单（如文本实体识别，会消耗 LLM 配额）也在这里裁剪，
+    # 对应的路由 meta 与接口鉴权要一起改，三处口径见 backend/README 的角色职责表。
     role = DbUtil.get_role(getattr(g, "user_id", None))
-    if role == "viewer":
+    if role != "admin":
+        menu_data = [m for m in menu_data if m.get("id") not in ADMIN_MENU_IDS]
+    if role not in WRITE_ROLES:
         menu_data = [m for m in menu_data if m.get("id") != "/workspace/manage"]
+    for group in menu_data:
+        if isinstance(group.get("children"), list):
+            group["children"] = [child for child in group["children"]
+                                 if _menu_allowed(child.get("id"), role)]
 
     return jsonify({
         "code": 200,

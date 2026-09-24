@@ -89,6 +89,25 @@ class DbUtil:
         }
 
     @staticmethod
+    def list_users():
+        """用户列表（id/账号/昵称/角色），按 id 升序。仅管理员接口调用。"""
+        return [user.to_dict() for user in UserInfo.query.order_by(UserInfo.id.asc()).all()]
+
+    @staticmethod
+    def set_user_role(user_id, role):
+        """改角色并提交；用户不存在返回 None。
+
+        role 的角色白名单校验在路由层做（那里才有请求上下文与错误响应）；
+        这里只负责落库。
+        """
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
+        if user is None:
+            return None
+        user.role = role
+        db.session.commit()
+        return user.to_dict()
+
+    @staticmethod
     def _get_model_by_type(node_type: str):
         return {
             "Event": Event,

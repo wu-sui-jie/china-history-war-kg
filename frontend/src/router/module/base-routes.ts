@@ -42,7 +42,9 @@ export default [
       { path: '/knowledge/search', component: () => import('../../views/knowledge/GlobalSearch.vue'), meta: { title: '全局搜索', requireAuth: true } },
       { path: '/knowledge/inference', component: () => import('../../views/inference/index.vue'), meta: { title: '历史问答助手', requireAuth: true } },
       { path: '/knowledge/rag', component: () => import('../../views/knowledge/RagAssistant.vue'), meta: { title: 'RAG 智能问答', requireAuth: true } },
-      { path: '/knowledge/text-extract', component: () => import('../../views/knowledge/TextEntityExtract.vue'), meta: { title: '文本实体识别', requireAuth: true } },
+      // 文本实体识别会调大模型（消耗配额），只读账号不给入口：菜单裁剪、路由 meta、
+      // 后端 require_write_role 三处同口径。要放开只改这三处。
+      { path: '/knowledge/text-extract', component: () => import('../../views/knowledge/TextEntityExtract.vue'), meta: { title: '文本实体识别', requireAuth: true, requiresRole: 'editor' } },
     ],
   },
   {
@@ -55,6 +57,21 @@ export default [
       { path: '/workspace/dataset-versions', component: () => import('../../views/workspace/DatasetVersions.vue'), meta: { title: '数据版本管理', requireAuth: true, requiresRole: 'editor' } },
       { path: '/workspace/quality', component: () => import('../../views/workspace/QualityInspection.vue'), meta: { title: '图谱质检', requireAuth: true, requiresRole: 'editor' } },
       { path: '/workspace/repair', component: () => import('../../views/workspace/QualityInspection.vue'), meta: { title: '数据修复工作台', requireAuth: true, requiresRole: 'editor' } },
+    ],
+  },
+  {
+    path: '/admin',
+    component: BasicLayout,
+    meta: { title: '系统管理' },
+    children: [
+      {
+        path: '/admin/users',
+        component: () => import('../../views/admin/UserManagement.vue'),
+        // 仅管理员：改角色是系统管理动作，editor 若能进就等于能把权限体系打散
+        // （把自己升成 admin）。后端 /api/admin/* 另有 require_admin 兜底，
+        // 这里只是不给入口。
+        meta: { title: '用户管理', requireAuth: true, requiresRole: 'admin' },
+      },
     ],
   },
   {

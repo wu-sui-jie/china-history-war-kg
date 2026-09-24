@@ -26,6 +26,10 @@ const MAP_MENU: MenuItem = {
   title: '历史地图视图'
 }
 
+// 仅管理员下发的菜单（后端 get_menu 按角色裁剪）。
+// 注意它必须**取自后端下发的内容**（menuMap.get），不能像上面三个内置项那样写成常量：
+// 常量会无条件进导航栏，等于把后端对 editor/viewer 的裁剪撤销掉。
+
 // 不在侧边栏展示的菜单项：路由、页面与后端接口都保留，只是不进导航栏。
 // 「历史问答助手」的入口已由「RAG 智能问答」承接，暂从导航栏下线；
 // 需要恢复入口时，把对应 id 从这里删掉即可。
@@ -83,6 +87,8 @@ function mergeWorkspaceMenus(source: MenuItem[] = []) {
     MAP_MENU,
     knowledgeGroup,
     workspaceGroup,
+    // 只有 admin 的后端响应里才有这一项，取自 menuMap 而不是内置常量
+    menuMap.get('/admin/users'),
   ].filter(Boolean) as MenuItem[]
 
   const usedIds = new Set(orderedMenus.map((item) => item?.id))

@@ -95,11 +95,44 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 
 **写权限角色**：`UserInfo.role` 为 `admin` / `editor` 才能调 `/create_node`、`/update_node`、
 `/delete_node`、`/api/node/update_properties`；注册得到的 `viewer` 只读。存量账号（`role` 为空）
-在启动迁移里回填为 `admin`，不会因引入角色模型被锁成只读。提升某个账号：
+在启动迁移里回填为 `admin`，不会因引入角色模型被锁成只读。
+
+**角色职责与三处口径**（改权限前先看这张表）：
+
+| 角色 | 读接口 | 写接口 | 数据运营菜单 | 文本实体识别（消耗 LLM 配额） | 用户管理 |
+| --- | --- | --- | --- | --- | --- |
+| `viewer`（注册默认） | ✅ | ❌ 403 | ❌ | ❌ | ❌ |
+| `editor` | ✅ | ✅ | ✅ | ✅ | ❌ |
+| `admin` | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+分级语义是 `admin ⊃ editor ⊃ viewer`。同一个判断在三个地方各有一份，**改一处要一起改**：
+
+| 位置 | 形式 |
+| --- | --- |
+| `backend/app.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；`get_menu()` 按角色裁剪菜单（`ADMIN_MENU_IDS` / `EDITOR_MENU_IDS`） |
+| `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
+| `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
+
+**生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
+被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。
+
+**升级账号**（两个途径，任选）：
+
+1. 管理员在界面上操作：「用户管理」页把角色下拉改掉再保存（仅 `admin` 可见）。
+   防呆由服务端执行——不能改自己的角色（否则最后一个管理员可以把自己降级、系统失管），
+   角色值必须在白名单内；
+2. 兜底：直接改库（没有第二个管理员、或界面不可用时用）。
 
 ```sql
+-- 提权（改成 admin 或 editor）
 UPDATE UserInfo SET role = 'editor' WHERE account = 'someone';
+-- 查看全部账号与角色
+SELECT id, account, name, role FROM UserInfo ORDER BY id;
+-- 确认提权结果
+SELECT account, role FROM UserInfo WHERE account = 'someone';
 ```
+
+改完提醒对方**重新登录**：菜单在登录时下发，否则对方界面上看不到新入口（接口权限已生效）。
 
 ### 图谱查询（读 Neo4j）
 
@@ -143,6 +176,18 @@ UPDATE UserInfo SET role = 'editor' WHERE account = 'someone';
 | `/api/relation-analysis/query` | GET/POST | 关系分析 |
 | `/api/search/global` | GET | 全局搜索 |
 | `/api/extract/entities-events` | POST | 文本实体/事件识别（调用 `entity-event-relation`） |
+
+### 用户管理（仅 admin）
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/admin/users` | GET | 用户列表（id / 账号 / 昵称 / 角色，不含口令字段） |
+| `/api/admin/users/<id>/role` | POST | 改角色，body `{"role": "admin" \| "editor" \| "viewer"}` |
+
+两者都由 `@require_admin` 守：非 admin 一律 **403**。改角色还有两条防呆——不能改自己的角色
+（否则最后一个管理员能把自己降级、系统失管，见上文提权说明），角色值必须在白名单内
+（否则 400）。前端页面在「用户管理」（`frontend/src/views/admin/UserManagement.vue`），
+菜单只对 admin 下发。
 
 ### 智能问答（旧版）
 

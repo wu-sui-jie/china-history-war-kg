@@ -249,6 +249,26 @@ sudo chown -R chinawar:chinawar /opt/china-war     # 上传的文件属主会变
 sudo systemctl restart china-war-backend china-war-rag
 ```
 
+### 账号与角色（提权）
+
+注册接口一律建**只读**（`viewer`）。需要写数据或数据运营入口，把角色改成 `editor`；
+需要用户管理入口，改成 `admin`。两种方式：
+
+1. **界面上改（推荐）**：用 `admin` 账号登录 → 左侧「用户管理」→ 改角色 → 保存。
+   只有 `admin` 能看到这个入口，接口也由服务端判权限（`require_admin`）；
+2. **改库兜底**（没有第二个管理员、或界面不可用时）：
+
+```bash
+# 在服务器上（SQLite 库就在后端目录里）
+cd /opt/china-war/backend
+sqlite3 database "UPDATE UserInfo SET role = 'editor' WHERE account = 'someone';"
+sqlite3 database "SELECT id, account, name, role FROM UserInfo ORDER BY id;"    # 确认
+```
+
+**改完必须让本人重新登录**：写接口的权限是每次请求实时查库（立即生效），但**菜单是登录时
+下发的**——不重新登录，对方界面上不会出现新入口。角色职责与分级规则（admin ⊃ editor ⊃
+viewer）见 [backend/README.md 的「角色职责与三处口径」表](../backend/README.md)。
+
 ### 数据更新后必须做的两步
 
 RAG 读的是**离线制品**，不是实时读旧库。在管理台改了图谱数据后，RAG 不会自动感知：
