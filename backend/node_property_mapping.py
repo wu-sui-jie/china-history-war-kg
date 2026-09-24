@@ -9,6 +9,8 @@
 
 from __future__ import annotations
 
+from common_utils import repair_mojibake_props
+
 # ---- API 键 → SQLite 列名（查询接口的入参用 API 键，落库用列名）----
 # 未命中的键按 `key.lower()` 兜底（见 db_utils._normalize_payload）。
 API_TO_COLUMN = {
@@ -143,6 +145,9 @@ def neo4j_props(node_type: str, column_values: dict, include_name: bool = False,
     include_name：是否把名称字段一起写进去。create/update 路径的名称由单独参数写，
     同步脚本要随属性一起写。
     fixed：额外固定属性（如 Event 的展示标签 `type`）。
+
+    写图谱前统一做编码复原（FE-13）：本函数是同步/建图路径上唯一的属性出口，
+    乱码在这里修掉，前端就不必再维护"乱码 key → 正常 key"的兼容映射。
     """
     props = dict(fixed or {})
     if include_name:
@@ -151,4 +156,4 @@ def neo4j_props(node_type: str, column_values: dict, include_name: bool = False,
             props[name_key] = (column_values or {}).get("name")
     for column, neo4j_key in COLUMN_TO_NEO4J.get(node_type, {}).items():
         props[neo4j_key] = (column_values or {}).get(column)
-    return props
+    return repair_mojibake_props(props)

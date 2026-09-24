@@ -47,6 +47,53 @@ def safe_float(value):
         return None
 
 
+# ================== 编码守卫（FE-13）==================
+# 历史数据里出现过 "鎴樹簤浜嬩欢"（= 战争事件）这类值：UTF-8 字节被按 GBK 读出来。
+# 那批数据的来源是没写 encoding 的 open()/read_text()——在 Windows 上默认走 cp936。
+# 当时的处理是在前端 typeAliasMap 里加乱码 key 兼容，等于把问题藏在展示层：
+# 数据是坏的、只是看起来对，任何新入口（导入、同步、接口）都会再犯。
+#
+# 现在改为在源头修：导入与同步写库前统一过一遍 repair_mojibake，前端那份乱码映射删掉。
+# 判断依据是"能否 GBK 编码后再按 UTF-8 解码"——真实的中文文本在这步通常直接失败
+# （GBK 里没有对应的字节序列），所以不会误改正常数据。
+
+
+def repair_mojibake(value, source=""):
+    """把「UTF-8 字节被当 GBK 读」造成的乱码还原；不适用时原样返回。
+
+    只有往返成功且结果确实不同才替换，因此对正常文本是恒等操作。
+    source 只用于日志（例如 "places.geo_name"），便于定位是哪张表/哪个字段。
+    """
+    if not isinstance(value, str) or not value:
+        return value
+    try:
+        repaired = value.encode("gbk").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError, LookupError):
+        return value
+    if repaired == value or "\ufffd" in repaired:
+        return value
+    logger = _get_logger()
+    if logger is not None:
+        logger.warning("检测到编码乱码并已还原%s：%r -> %r",
+                       f"（{source}）" if source else "", value, repaired)
+    return repaired
+
+
+def repair_mojibake_props(props):
+    """对属性字典里的字符串值逐个复原（不改非字符串值，返回新字典）。"""
+    return {key: repair_mojibake(value, source=str(key)) if isinstance(value, str) else value
+            for key, value in (props or {}).items()}
+
+
+def _get_logger():
+    """延迟取 logger：common_utils 被大量模块导入，避免在这里引入日志模块的初始化顺序问题。"""
+    try:
+        from logging_util import get_logger
+        return get_logger(__name__)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def lru_get(cache, key):
     """按 LRU 语义取值：命中则把该键移到队尾再返回；未命中返回 None。
 

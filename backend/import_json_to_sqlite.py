@@ -15,7 +15,7 @@ from pathlib import Path
 from flask import Flask
 from sqlalchemy import text
 
-from common_utils import safe_identifier
+from common_utils import repair_mojibake, safe_identifier
 from relation_types import normalize_event_relation_type
 from models import db, Event, Place, Organization, Person
 from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
@@ -39,10 +39,15 @@ LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
 
 
 def _safe_text(value):
-    """把 JSON 里的任意标量转成去空白的字符串；None 得空串。"""
+    """把 JSON 里的任意标量转成去空白的字符串；None 得空串。
+
+    顺带做编码复原（FE-13）：历史上有一批值是把 UTF-8 字节按 GBK 读出来的乱码
+    （如"鎴樹簤浜嬩欢"），当时的补救是在前端映射表里认乱码 key。改成在源头修——
+    正常文本在这步是恒等操作，见 common_utils.repair_mojibake。
+    """
     if value is None:
         return ""
-    return str(value).strip()
+    return repair_mojibake(str(value).strip())
 
 
 def _safe_float(value):

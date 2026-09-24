@@ -69,29 +69,29 @@ export const problemLabelMap: Record<string, string> = {
   invalid_end_date: '结束时间格式异常',
 }
 
+// 类型别名：接口与历史数据里出现过的各种写法 → 四种标准类型。
+// 2026-09-25（FE-13）：原先还认五个 GBK 乱码 key（如 鎴樹簤浜嬩欢 = 战争事件）——
+// 那是把"数据源头按 GBK 读 UTF-8"的问题藏在了展示层。已核实当前 SQLite 与 Neo4j
+// 里没有乱码值，改由后端在导入/同步写库前统一复原（common_utils.repair_mojibake），
+// 这里不再兼容乱码。
 export const typeAliasMap: Record<string, string> = {
   Event: 'Event',
   event: 'Event',
   事件: 'Event',
   战争事件: 'Event',
-  鎴樹簤浜嬩欢: 'Event',
   Place: 'Place',
   place: 'Place',
   地点: 'Place',
   战争地点: 'Place',
-  鎴樹簤鍦扮偣: 'Place',
   Person: 'Person',
   person: 'Person',
   人物: 'Person',
   历史人物: 'Person',
-  鍘嗗彶浜虹墿: 'Person',
   Organization: 'Organization',
   organization: 'Organization',
   组织: 'Organization',
   势力组织: 'Organization',
   参战组织: 'Organization',
-  鍔垮姏缁勭粐: 'Organization',
-  鍙傛垬缁勭粐: 'Organization',
 }
 
 export const normalizeType = (type?: string) => typeAliasMap[String(type || '').trim()] || String(type || '').trim()
