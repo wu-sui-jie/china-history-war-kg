@@ -49,12 +49,16 @@ READ_REQUESTS = [
     ("repair_issues", "GET", "/api/repair/issues", None),
     # ---- 时间轴与地图 ----
     ("timeline_overview", "GET", "/api/timeline/overview", None),
+    ("timeline_overview_dynasty", "GET", "/api/timeline/overview?dynasty=秦", None),
+    ("timeline_overview_participant", "GET", "/api/timeline/overview?participant=秦", None),
     # 注：/api/timeline/events 当前不读 limit（只读 keyword/dynasty/participant/event_type/
     # only_issues），这个参数是空转的。特意留着：哪天路由真的接上 limit，这里会立刻报差异。
     ("timeline_events", "GET", "/api/timeline/events?limit=5", None),
     ("timeline_events_only_issues", "GET", "/api/timeline/events?only_issues=1", None),
+    ("timeline_events_participant", "GET", "/api/timeline/events?participant=秦", None),
     ("map_events", "GET", "/api/map/events", None),
     ("map_events_filtered", "GET", "/api/map/events?keyword=秦&dynasty=秦", None),
+    ("map_events_dynasty", "GET", "/api/map/events?dynasty=秦", None),
     # ---- 搜索与关系分析 ----
     ("search_global", "GET", "/api/search/global?keyword=秦", None),
     ("relation_analysis", "GET", "/api/relation-analysis/query?keyword=秦", None),

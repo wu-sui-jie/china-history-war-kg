@@ -377,18 +377,25 @@ def _required_fields_by_type(node_type):
         "Organization": ["name", "org_type"],
         "Person": ["name", "role"],
     }.get(node_type, ["name"])
-def _quality_flags_for_record(node_type, record):
+def _quality_flags_for_record(node_type, record, duplicate_count=None, relation_count=None):
+    """单条记录的质量标记。
+
+    两个计数字段默认各查一次库，逐条调用就是 N+1。总览类构建器请先用
+    `_bulk_event_quality_flags()` 预取，再把结果传进来（`None` 表示"没预取，自己查"）。
+    """
     missing_fields = []
     for field in _required_fields_by_type(node_type):
         if _safe_text(getattr(record, field, None)) == '':
             missing_fields.append(field)
 
-    duplicate_count = 0
-    model = _model_for_type(node_type)
-    if model and _safe_text(getattr(record, 'name', None)):
-        duplicate_count = model.query.filter(model.name == record.name).count()
+    if duplicate_count is None:
+        duplicate_count = 0
+        model = _model_for_type(node_type)
+        if model and _safe_text(getattr(record, 'name', None)):
+            duplicate_count = model.query.filter(model.name == record.name).count()
 
-    relation_count = len(_related_entities_for_node(node_type, record.id, limit=999))
+    if relation_count is None:
+        relation_count = len(_related_entities_for_node(node_type, record.id, limit=999))
     flags = {
         "missing_fields": missing_fields,
         "is_isolated": relation_count == 0,
@@ -546,7 +553,7 @@ def _event_participants(event_id):
         "organizations": organizations,
         "related_events": related_events,
     }
-def _event_brief(event):
+def _event_brief(event, quality_flags=None):
     return {
         "id": event.id,
         "name": event.name,
@@ -559,8 +566,196 @@ def _event_brief(event):
         "aggressor": event.aggressor,
         "defender": event.defender,
         "detail_route": f"/knowledge/entity-detail?id={event.id}&type=Event",
-        "quality_flags": _quality_flags_for_record("Event", event),
+        "quality_flags": quality_flags if quality_flags is not None else _quality_flags_for_record("Event", event),
     }
+
+
+# ================== 批量取数（总览类构建器专用）==================
+# 总览接口要遍历几百个地点、上千个事件，逐条查询就是 N+1：改动前实测
+# build_map_overview 无过滤时 6313 条 SQL / 2.68s、build_timeline_overview 5251 条 /
+# 2.16s，而 SQL 真正执行的部分只占 0.35s —— 开销在每条语句的 ORM 往返上，不在数据库。
+#
+# 下面这些函数把"逐条查"换成"一次查完、在 Python 里分组"，口径与原单条函数逐字段对齐
+# （含 limit 截断与关系两侧去重），因此输出不变；用 tools/profile_overviews.py 可复查
+# 语句数与耗时。
+
+_IN_CHUNK = 400  # SQLite 绑定变量有上限，in_() 分批，避免一次塞进上千个参数
+
+
+def _chunks(values, size=_IN_CHUNK):
+    values = list(values)
+    for index in range(0, len(values), size):
+        yield values[index:index + size]
+
+
+def _count_by_column(model, key_column, ids, extra_filter=None):
+    """{key: 行数}：对 model 按 key_column 分组计数，分批合并。"""
+    counts = {}
+    for chunk in _chunks(ids):
+        query = db.session.query(key_column, func.count(model.id)).filter(key_column.in_(chunk))
+        if extra_filter is not None:
+            query = query.filter(extra_filter)
+        for key, count in query.group_by(key_column).all():
+            counts[key] = counts.get(key, 0) + count
+    return counts
+
+
+def _bulk_duplicate_counts(model, names):
+    """{name: 同名条数}：一次 GROUP BY 取代逐条的 .count()。"""
+    return _count_by_column(model, model.name, {name for name in names if _safe_text(name)})
+
+
+def _bulk_event_relation_counts(event_ids):
+    """{event_id: 关系条数}，口径同 `_related_entities_for_node('Event', id, limit=999)`。
+
+    即：四张关系表各自先按 999 截断，求和后再整体截断一次 999。事件-事件表两侧都要算，
+    a == b 的自环行按原实现只算一次。
+    """
+    ids = sorted(set(event_ids))
+    counts = {event_id: 0 for event_id in ids}
+    if not ids:
+        return counts
+
+    place_counts = _count_by_column(EventPlaceRelation, EventPlaceRelation.event_id, ids)
+    person_counts = _count_by_column(EventPersonRelation, EventPersonRelation.event_id, ids)
+    org_counts = _count_by_column(EventOrganizationRel, EventOrganizationRel.event_id, ids)
+    a_counts = _count_by_column(EventEventRelation, EventEventRelation.event_a_id, ids)
+    b_counts = _count_by_column(EventEventRelation, EventEventRelation.event_b_id, ids)
+    self_counts = _count_by_column(
+        EventEventRelation, EventEventRelation.event_a_id, ids,
+        extra_filter=EventEventRelation.event_a_id == EventEventRelation.event_b_id,
+    )
+
+    for event_id in ids:
+        event_event_rows = (a_counts.get(event_id, 0) + b_counts.get(event_id, 0)
+                            - self_counts.get(event_id, 0))
+        total = (min(place_counts.get(event_id, 0), 999)
+                 + min(person_counts.get(event_id, 0), 999)
+                 + min(org_counts.get(event_id, 0), 999)
+                 + min(event_event_rows, 999))
+        counts[event_id] = min(total, 999)
+    return counts
+
+
+def _bulk_event_quality_flags(events):
+    """{event_id: quality_flags}：先把计数批量查好，再逐条套用同一套标记逻辑。"""
+    events = [event for event in events if event is not None]
+    if not events:
+        return {}
+    ids = [event.id for event in events]
+    duplicate_counts = _bulk_duplicate_counts(Event, [event.name for event in events])
+    relation_counts = _bulk_event_relation_counts(ids)
+    return {
+        event.id: _quality_flags_for_record(
+            "Event", event,
+            duplicate_count=duplicate_counts.get(event.name, 0),
+            relation_count=relation_counts.get(event.id, 0),
+        )
+        for event in events
+    }
+
+
+def _events_by_ids(event_ids):
+    """一次取回一批事件（排序保证跨批次的顺序稳定）。"""
+    events = []
+    for chunk in _chunks(sorted({event_id for event_id in event_ids if event_id is not None})):
+        events.extend(Event.query.filter(Event.id.in_(chunk)).all())
+    return events
+
+
+def _bulk_event_participants(event_ids):
+    """{event_id: {"persons": [], "organizations": [], "related_events": []}}，同 `_event_participants`。
+
+    三类参与方各一次查询（原先每个事件三次），每个事件仍按原顺序截断 12 / 12 / 10 条。
+    """
+    ids = sorted({event_id for event_id in event_ids if event_id is not None})
+    bundles = {
+        event_id: {"persons": [], "organizations": [], "related_events": []}
+        for event_id in ids
+    }
+    if not ids:
+        return bundles
+
+    for chunk in _chunks(ids):
+        for row in (EventPersonRelation.query
+                    .filter(EventPersonRelation.event_id.in_(chunk))
+                    .order_by(EventPersonRelation.id.asc()).all()):
+            persons = bundles[row.event_id]["persons"]
+            if len(persons) >= 12:
+                continue
+            persons.append({
+                "id": row.person_id,
+                "name": row.person_name,
+                "relation_type": row.relation_type,
+                "detail_route": f"/knowledge/entity-detail?type=Person&id={row.person_id}",
+            })
+
+        for row in (EventOrganizationRel.query
+                    .filter(EventOrganizationRel.event_id.in_(chunk))
+                    .order_by(EventOrganizationRel.id.asc()).all()):
+            organizations = bundles[row.event_id]["organizations"]
+            if len(organizations) >= 12:
+                continue
+            organizations.append({
+                "id": row.org_id,
+                "name": row.org_name,
+                "relation_type": row.relation_type,
+                "detail_route": f"/knowledge/entity-detail?type=Organization&id={row.org_id}",
+            })
+
+        event_event_rows = (EventEventRelation.query
+                            .filter((EventEventRelation.event_a_id.in_(chunk))
+                                    | (EventEventRelation.event_b_id.in_(chunk)))
+                            .order_by(EventEventRelation.id.asc()).all())
+        # 两趟填：先 a 侧（出边）再 b 侧（入边）。单事件查询的计划是 MULTI-INDEX OR
+        # （扫 idx_eea_event_a 再扫 idx_eea_event_b，各自 rowid 升序），顺序会影响 10 条
+        # 截断的结果，因此这里按同一次序复刻；只在 a 侧跳过自环（a == b），让它在 b 侧
+        # 落一次，与原实现"一行只出现一次"一致。
+        for row in event_event_rows:
+            if row.event_a_id == row.event_b_id:
+                continue
+            bundle = bundles.get(row.event_a_id)
+            if bundle is None or len(bundle["related_events"]) >= 10:
+                continue
+            bundle["related_events"].append({
+                "id": row.event_b_id,
+                "name": row.event_b_name,
+                "relation_type": row.relation_type,
+                "detail_route": f"/knowledge/entity-detail?type=Event&id={row.event_b_id}",
+            })
+        for row in event_event_rows:
+            bundle = bundles.get(row.event_b_id)
+            if bundle is None or len(bundle["related_events"]) >= 10:
+                continue
+            bundle["related_events"].append({
+                "id": row.event_a_id,
+                "name": row.event_a_name,
+                "relation_type": row.relation_type,
+                "detail_route": f"/knowledge/entity-detail?type=Event&id={row.event_a_id}",
+            })
+    return bundles
+
+
+def _event_place_relations_by_place(place_ids):
+    """{place_id: [关系行]}：按 place_id 分组的关系行，行序与原逐地点查询一致（rowid 升序）。"""
+    grouped = {}
+    for chunk in _chunks(place_ids):
+        for row in (EventPlaceRelation.query
+                    .filter(EventPlaceRelation.place_id.in_(chunk))
+                    .order_by(EventPlaceRelation.id.asc()).all()):
+            grouped.setdefault(row.place_id, []).append(row)
+    return grouped
+
+
+def _event_place_relations_by_event(event_ids):
+    """{event_id: [关系行]}：按 event_id 分组的关系行，行序与原逐事件查询一致（rowid 升序）。"""
+    grouped = {}
+    for chunk in _chunks(event_ids):
+        for row in (EventPlaceRelation.query
+                    .filter(EventPlaceRelation.event_id.in_(chunk))
+                    .order_by(EventPlaceRelation.id.asc()).all()):
+            grouped.setdefault(row.event_id, []).append(row)
+    return grouped
 def _timeline_events_by_participant(name):
     if not _safe_text(name):
         return []
@@ -576,11 +771,13 @@ def _timeline_events_by_participant(name):
         for row in EventOrganizationRel.query.filter(EventOrganizationRel.org_id == org.id).all():
             event_ids.add(row.event_id)
 
-    rows = []
-    for event_id in event_ids:
-        event = Event.query.get(event_id)
-        if event:
-            rows.append(_event_brief(event))
+    # 一次取回事件与质量标记：原先是逐个 Event.get + 每条 brief 各查一次
+    events_by_id = {event.id: event for event in _events_by_ids(event_ids)}
+    # event_ids 是集合，按它的迭代顺序取事件，排序稳定性与原实现一致
+    ordered_events = [events_by_id[event_id] for event_id in event_ids if event_id in events_by_id]
+    flags_by_event = _bulk_event_quality_flags(ordered_events)
+
+    rows = [_event_brief(event, flags_by_event.get(event.id)) for event in ordered_events]
     rows.sort(key=lambda item: (item["parsed_year"] is None, item["parsed_year"] if item["parsed_year"] is not None else 999999, item["name"]))
     return rows[:80]
 def build_map_overview(keyword='', dynasty=''):
@@ -600,6 +797,12 @@ def build_map_overview(keyword='', dynasty=''):
 
     places = place_query.limit(300).all()
     allowed_place_ids = {place.id for place in places}
+    # 批量预取本页地点要用的关系行、事件、参与方与质量标记（原先全是逐条查询）
+    relations_by_place = _event_place_relations_by_place([place.id for place in places])
+    related_event_ids = {row.event_id for rows in relations_by_place.values() for row in rows}
+    events_by_id = {event.id: event for event in _events_by_ids(related_event_ids)}
+    participants_by_event = _bulk_event_participants(related_event_ids)
+    flags_by_event = _bulk_event_quality_flags(events_by_id.values())
     points = []
     dynasty_counter = Counter()
     all_event_ids = set()
@@ -610,7 +813,7 @@ def build_map_overview(keyword='', dynasty=''):
     for place in places:
         coord_result = _resolve_place_coordinates(place)
         coords = coord_result["coords"] if coord_result else None
-        related_rows = EventPlaceRelation.query.filter(EventPlaceRelation.place_id == place.id).all()
+        related_rows = relations_by_place.get(place.id, [])
         event_ids = []
         route_segments = []
         related_events = []
@@ -620,15 +823,16 @@ def build_map_overview(keyword='', dynasty=''):
             "related_events": {},
         }
         for row in related_rows:
-            event = Event.query.get(row.event_id)
+            event = events_by_id.get(row.event_id)
             if not event:
                 continue
             if dynasty and _normalize_dynasty_name(event.dynasty) != _normalize_dynasty_name(dynasty):
                 continue
             all_event_ids.add(event.id)
             event_ids.append(event.id)
-            participant_bundle = _event_participants(event.id)
-            event_brief = _event_brief(event)
+            participant_bundle = participants_by_event.get(
+                event.id, {"persons": [], "organizations": [], "related_events": []})
+            event_brief = _event_brief(event, flags_by_event.get(event.id))
             event_brief["entities"] = participant_bundle
             related_events.append(event_brief)
             dynasty_counter[_normalize_dynasty_name(event.dynasty) or "未标注"] += 1
@@ -785,12 +989,25 @@ def build_map_overview(keyword='', dynasty=''):
         if filter_values:
             event_query = event_query.filter(Event.dynasty.in_(filter_values))
 
-    for event in event_query.limit(500).all():
-        route_rows = EventPlaceRelation.query.filter(EventPlaceRelation.event_id == event.id).all()
-        for row in route_rows:
+    # 批量预取路由段要用的关系行与地点（原先每个事件一条关系查询、每条关系一次 Place.get）
+    route_events = event_query.limit(500).all()
+    route_relations_by_event = _event_place_relations_by_event([event.id for event in route_events])
+    route_place_ids = {
+        row.place_id
+        for rows in route_relations_by_event.values()
+        for row in rows
+        if not allowed_place_ids or row.place_id in allowed_place_ids
+    }
+    route_places_by_id = {}
+    for chunk in _chunks(sorted(place_id for place_id in route_place_ids if place_id is not None)):
+        for place in Place.query.filter(Place.id.in_(chunk)).all():
+            route_places_by_id[place.id] = place
+
+    for event in route_events:
+        for row in route_relations_by_event.get(event.id, []):
             if allowed_place_ids and row.place_id not in allowed_place_ids:
                 continue
-            place = Place.query.get(row.place_id)
+            place = route_places_by_id.get(row.place_id)
             if not place:
                 continue
             coord_result = _resolve_place_coordinates(place)
@@ -1119,11 +1336,17 @@ def build_timeline_overview(keyword='', dynasty='', participant=''):
 
     rows = []
     dynasty_options = set()
+    kept_events = []
     for event in events.all():
         if participant and event.id not in participant_event_ids:
             continue
+        kept_events.append(event)
+
+    # 质量标记一次批量算好再逐条套用（原先每条 brief 都要查重复名与关系数）
+    flags_by_event = _bulk_event_quality_flags(kept_events)
+    for event in kept_events:
         parsed_year = _parse_year_value(event.start_date) or _parse_year_value(event.end_date)
-        item = _event_brief(event)
+        item = _event_brief(event, flags_by_event.get(event.id))
         item["parsed_year"] = parsed_year
         rows.append(item)
         if _safe_text(event.dynasty):
