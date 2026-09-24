@@ -211,6 +211,23 @@ def _normalize_event_name(event_name, source_text=""):
 # ================== 文本抽取链 ==================
 
 
+class ExtractionUnavailable(RuntimeError):
+    """抽取链整体不可用（所有阶段、所有分段都没成功过一次）。
+
+    单段/单阶段失败继续跑，是为了"局部失败不整体作废"；但如果每一段都失败还照旧返回，
+    接口就会给出 HTTP 200 + code 200 + "识别完成" + 全空结果——Ollama 宕机时看起来像
+    "这段文本里没有实体"，这是最坏的一种错（假成功）。所以全失败时抛本异常，
+    由接口按 5xx 处理，把真实原因说出去。
+    """
+
+    def __init__(self, reasons):
+        self.reasons = list(reasons)
+        summary = "；".join(self.reasons[:3]) or "抽取服务不可用"
+        if len(self.reasons) > 3:
+            summary += "（另有 %d 条同类错误）" % (len(self.reasons) - 3)
+        super().__init__(summary)
+
+
 def extract_all_optimized(llm, text: str):
     """
     使用entity-event-relation模块的原始抽取器和模板
@@ -218,6 +235,11 @@ def extract_all_optimized(llm, text: str):
     - EventExtractor: 事件抽取（EVENT_IDENTIFICATION_PROMPT + FULL_EVENT_PROMPT）
     - RelationExtractor: 关系抽取（RELATION_EXTRACTION_PROMPT）
     支持长文本分段处理，自动合并去重
+
+    返回 `(entities, event_result, relations, diagnostics)`：
+    `diagnostics["partial_errors"]` 是"失败了但没让整次抽取作废"的阶段/分段错误说明，
+    接口把它带进响应体，界面据此提示"结果可能不完整"。
+    全部阶段都失败时抛 `ExtractionUnavailable`，不返回空结果。
     """
 
     # 文本分段处理（减小分段，减少LLM调用次数）
@@ -231,6 +253,16 @@ def extract_all_optimized(llm, text: str):
     entity_extractor = EntityExtractor(llm)
     event_extractor = EventExtractor(llm)
     relation_extractor = RelationExtractor(llm)
+
+    # 阶段成败计数与失败原因：用来区分"这段没有实体"（成功、结果为空）与
+    # "模型根本没答上来"（失败）。只看结果是否为空是分不出来的。
+    stage_ok = {"entity": 0, "event": 0, "relation": 0}
+    partial_errors = []
+
+    def fail(stage, exc, chunk_start, chunk_end):
+        message = "[%s-%s] %s阶段失败: %s" % (chunk_start, chunk_end, stage, exc)
+        logger.warning("[提取] %s", message)
+        partial_errors.append(message)
 
     # 累积结果容器
     all_places = []
@@ -256,9 +288,10 @@ def extract_all_optimized(llm, text: str):
         # ========== 第1阶段：实体抽取 ==========
         try:
             chunk_entities = entity_extractor.extract(chunk_text)
+            stage_ok["entity"] += 1
             logger.info(f"[提取] 实体抽取完成: {len(chunk_entities.places)}地点, {len(chunk_entities.organizations)}组织, {len(chunk_entities.persons)}人物")
         except Exception as e:
-            logger.warning(f"[提取] 实体抽取失败: {e}")
+            fail("实体抽取", e, chunk_start, chunk_end)
             chunk_entities = EntityExtractionResult()
 
         # 收集实体（去重）
@@ -314,9 +347,10 @@ def extract_all_optimized(llm, text: str):
         # ========== 第2阶段：事件抽取 ==========
         try:
             chunk_event_result = event_extractor.extract(chunk_text, chunk_entities)
+            stage_ok["event"] += 1
             logger.info(f"[提取] 事件抽取完成: {len(chunk_event_result.events)}事件")
         except Exception as e:
-            logger.warning(f"[提取] 事件抽取失败: {e}")
+            fail("事件抽取", e, chunk_start, chunk_end)
             chunk_event_result = EventExtractionResult()
 
         # 收集事件（去重，类型安全处理）
@@ -363,12 +397,13 @@ def extract_all_optimized(llm, text: str):
                 org_list="、".join(chunk_org_names),
                 person_list="、".join(chunk_person_names),
             )
+            stage_ok["relation"] += 1
             logger.info(f"[提取] 关系抽取完成: {len(chunk_relations.event_place_relations)}事件-地点, "
                   f"{len(chunk_relations.event_person_relations)}事件-人物, "
                   f"{len(chunk_relations.event_organization_relations)}事件-组织, "
                   f"{len(chunk_relations.event_event_relations)}事件-事件")
         except Exception as e:
-            logger.warning(f"[提取] 关系抽取失败: {e}")
+            fail("关系抽取", e, chunk_start, chunk_end)
             chunk_relations = RelationExtractionResult()
 
         # 收集关系（类型安全处理）
@@ -425,7 +460,16 @@ def extract_all_optimized(llm, text: str):
         event_event_relations=all_event_event_rels
     )
 
-    return entities, event_result, relations
+    # 一个阶段都没成功过 = 模型/服务这一侧整体不可用（不是"这段文本没内容"）。
+    # 此时返回空结果会被接口包装成 code 200 "识别完成"，直接掩盖故障。
+    if not any(stage_ok.values()):
+        raise ExtractionUnavailable(partial_errors or ["所有分段都未识别到任何内容"])
+
+    diagnostics = {
+        "stage_ok": dict(stage_ok),
+        "partial_errors": partial_errors,
+    }
+    return entities, event_result, relations, diagnostics
 
 
 # ================== 抽取结果序列化 ==================

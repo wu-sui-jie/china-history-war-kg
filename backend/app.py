@@ -33,6 +33,7 @@ import local_settings
 import llm_pipeline
 # 报表构建器与领域常量已拆到独立模块（P2-1 第一步）
 from db_handle import neo4j_db_handle
+from common_utils import brief_error
 from report_builders import (
     build_dashboard_overview,
     build_dataset_overview,
@@ -294,13 +295,15 @@ with app.app_context():
 
 
 
-@app.before_request
 def initialize_entity_extractor():
     """把进程内单例（实体提取器 / 规则推理引擎）挂到 flask.g。
 
     单例的构建与加锁都搬到了 llm_pipeline.get_shared_extractors()；这里只做请求级绑定：
     flask.g 按请求隔离，多线程下不会串号。两个单例都可能为 None（初始化失败），
     此时路由自己会按请求临时建一份。
+
+    注册点见下方 before() 之后的 `app.before_request(initialize_entity_extractor)`：
+    它必须晚于鉴权钩子，否则未登录请求也会触发单例构建。
     """
     extractor, rule_llm = llm_pipeline.get_shared_extractors()
     if extractor is not None:
@@ -421,6 +424,12 @@ def before():
     return None
 
 
+# 初始化钩子刻意在此处注册（而不是用装饰器写在函数定义处）：Flask 按**注册顺序**执行
+# before_request，前一个返回了响应就短路后面的。走到这里说明鉴权已通过——未登录/凭证失效
+# 的请求不会再触发实体提取器与规则引擎的构建（进程内单例，首次构建最贵）。
+app.before_request(initialize_entity_extractor)
+
+
 # ================== 用户相关接口 ==================
 
 @app.route('/api/login', methods=['POST'])
@@ -517,12 +526,16 @@ def admin_update_user_role(user_id):
             "msg": "角色取值非法，只允许：%s" % "/".join(sorted(ROLE_RANKS, key=ROLE_RANKS.get)),
         }), 400
 
+    previous_role = (DbUtil.find_user(user_id) or {}).get("role") or ""
     updated = DbUtil.set_user_role(user_id, role)
     if updated is None:
         return jsonify({"code": 404, "msg": "用户不存在"}), 404
 
-    logger.info("管理员 %s 把账号 %s（id=%s）的角色改为 %s",
-                getattr(g, "user_id", None), updated.get("account"), user_id, role)
+    # 记住旧角色：提权/降权的审计价值主要在"从什么变成了什么"，
+    # 只记新角色时，事后翻日志分不清是"新提权"还是"重复提交同一值"。
+    logger.info("管理员 %s 把账号 %s（id=%s）的角色从 %s 改为 %s",
+                getattr(g, "user_id", None), updated.get("account"), user_id,
+                previous_role or "-", role)
     return jsonify({"code": 200, "msg": "角色已更新", "data": updated})
 
 
@@ -1064,6 +1077,7 @@ def get_node_context_graph():
 # ================== 智能问答接口====================
 
 @app.route('/api/ai/inference', methods=['POST', 'GET'])
+@require_write_role
 def ai_inference():
     """智能问答推理接口
 
@@ -1160,6 +1174,7 @@ def ai_inference():
 
 
 @app.route('/api/ai/inference/stream', methods=['POST'])
+@require_write_role
 def ai_inference_stream():
     """智能问答推理接口 - SSE流式输出版本
 
@@ -1408,16 +1423,18 @@ def extract_entities_events():
             - process_time: 处理耗时
     """
     try:
-        data = request.get_json()
+        # silent=True：畸形 JSON 也让 get_json 返回 None，走下面的 400 分支给 JSON 响应。
+        # 不加 silent 时 Flask 直接抛 400，客户端拿到的是 HTML 错误页而不是 {code,msg}。
+        data = request.get_json(silent=True)
         if not data:
-            return jsonify({"code": 400, "msg": "请求参数不能为空", "data": {}})
+            return jsonify({"code": 400, "msg": "请求参数不能为空", "data": {}}), 400
 
         text = data.get('text', '').strip()
         if not text:
-            return jsonify({"code": 400, "msg": "文本内容不能为空", "data": {}})
+            return jsonify({"code": 400, "msg": "文本内容不能为空", "data": {}}), 400
 
         if len(text) > 1000:
-            return jsonify({"code": 400, "msg": "文本内容过长，请限制在1000字符以内", "data": {}})
+            return jsonify({"code": 400, "msg": "文本内容过长，请限制在1000字符以内", "data": {}}), 400
 
         start_time = time.time()
 
@@ -1430,9 +1447,9 @@ def extract_entities_events():
             logger.warning(f"导入提取器模块失败: {import_err}")
             return jsonify({
                 "code": 500,
-                "msg": f"提取器模块导入失败: {str(import_err)}",
+                "msg": f"提取器模块导入失败: {brief_error(import_err)}",
                 "data": {}
-            })
+            }), 500
 
         # 初始化LLM客户端
         try:
@@ -1442,14 +1459,15 @@ def extract_entities_events():
             logger.warning(f"LLM客户端初始化失败: {llm_err}")
             return jsonify({
                 "code": 500,
-                "msg": f"LLM客户端初始化失败: {str(llm_err)}",
+                "msg": f"LLM客户端初始化失败: {brief_error(llm_err)}",
                 "data": {}
-            })
+            }), 500
 
         # 使用优化的单次抽取方案
         logger.info(f"[提取] 开始单次综合抽取，文本长度: {len(text)}")
 
-        entities, event_result, relations = llm_pipeline.extract_all_optimized(llm, text)
+        # 第 4 个返回值是本次抽取的诊断信息（阶段成败、部分失败原因），见 llm_pipeline
+        entities, event_result, relations, diagnostics = llm_pipeline.extract_all_optimized(llm, text)
 
         logger.info(f"[提取] 抽取完成: {len(entities.places)}地点, {len(entities.organizations)}组织, {len(entities.persons)}人物, {len(event_result.events)}事件")
         logger.info(f"[提取] 关系: {len(relations.event_place_relations)}事件-地点, {len(relations.event_person_relations)}事件-人物, {len(relations.event_organization_relations)}事件-组织, {len(relations.event_event_relations)}事件-事件")
@@ -1458,12 +1476,28 @@ def extract_entities_events():
             entities, event_result, relations, time.time() - start_time
         )
 
+        # 部分阶段/分段失败：结果照常返回（局部成功仍然有用），但要如实带上失败说明——
+        # 否则用户会把"少了一半关系"当成完整结果，把模型故障当成"文本里没写"。
+        partial_errors = diagnostics.get("partial_errors") or []
+        if partial_errors:
+            response_data["partial_errors"] = partial_errors
+            logger.warning("[提取] 本次有 %s 处阶段失败，结果可能不完整", len(partial_errors))
+
         return jsonify({
             "code": 200,
             "msg": "识别完成",
             "data": response_data
         })
 
+    except llm_pipeline.ExtractionUnavailable as unavailable:
+        # 所有阶段都没成功（典型是 Ollama 没起）：这里必须是 5xx——包成 200 的"识别完成"
+        # 等于把故障说成"这段文本没有实体"（第 6 轮审核 M1）。
+        logger.warning(f"文本实体识别整体失败: {unavailable}")
+        return jsonify({
+            "code": 500,
+            "msg": f"识别服务当前不可用: {brief_error(unavailable, 300)}",
+            "data": {}
+        }), 500
     except Exception as e:
         error_type = type(e).__name__
         error_msg = str(e)
@@ -1471,9 +1505,9 @@ def extract_entities_events():
         traceback.print_exc()
         return jsonify({
             "code": 500,
-            "msg": f"识别失败: {error_msg}",
+            "msg": f"识别失败（{error_type}）: {brief_error(e)}",
             "data": {}
-        })
+        }), 500
 
 
 @app.route('/api/dataset/versions', methods=['GET'])

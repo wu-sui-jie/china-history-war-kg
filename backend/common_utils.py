@@ -47,6 +47,21 @@ def safe_float(value):
         return None
 
 
+def brief_error(error, limit=200):
+    """把异常整理成"可以回给客户端"的一句话。
+
+    原样回显异常字符串会把内部细节（多行栈信息、绝对路径、连接串）送出去；
+    但完全不给原因，又让"模型没起"这类本来可处理的故障变得无从判断。
+    折中：只取第一行并截断，完整内容仍由调用方写日志（第 6 轮审核低危项）。
+    """
+    text = "" if error is None else str(error)
+    stripped = text.strip()
+    first_line = stripped.splitlines()[0].strip() if stripped else ""
+    if len(first_line) > limit:
+        first_line = first_line[:limit] + "…"
+    return first_line
+
+
 # ================== 编码守卫（FE-13）==================
 # 历史数据里出现过 "鎴樹簤浜嬩欢"（= 战争事件）这类值：UTF-8 字节被按 GBK 读出来。
 # 那批数据的来源是没写 encoding 的 open()/read_text()——在 Windows 上默认走 cp936。

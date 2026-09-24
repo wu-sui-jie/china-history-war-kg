@@ -85,8 +85,10 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 | --- | --- | --- |
 | `/api/login` | POST | 登录，返回 JWT token（含 `exp`，有效期默认 7 天，`JWT_TTL_SECONDS` 可调） |
 | `/api/sign_in` | POST | 注册（创建的角色是 `viewer`，**只读**） |
-| `/api/userinfo` | GET/POST | 当前 token 对应的用户信息 |
-| `/user/menu` / `/user/permission` | GET | 菜单与权限（前端只在 mock 关闭时调用，见 [../frontend/README.md](../frontend/README.md)） |
+| `/api/userinfo` | GET/POST | 当前 token 对应的用户信息（`id`/`account`/`name`/`role`；前端用它取账号 id 做问答记录隔离） |
+| `/api/admin/users` | GET | 用户列表（仅 `admin`；响应不含口令字段） |
+| `/api/admin/users/<id>/role` | POST | 改角色（仅 `admin`；不能改自己、角色值过白名单、用户不存在给 404） |
+| `/user/menu` / `/user/permission` | GET | 菜单与权限（菜单按角色裁剪，见下「角色职责与三处口径」） |
 
 除 `/`、`/api/login`、`/api/sign_in`、`/static*` 外，所有接口经全局 `before_request` 校验 token：
 
@@ -94,16 +96,25 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 - token 有效但角色无写权限：**HTTP 403**（只作用于写接口，见下）。
 
 **写权限角色**：`UserInfo.role` 为 `admin` / `editor` 才能调 `/create_node`、`/update_node`、
-`/delete_node`、`/api/node/update_properties`；注册得到的 `viewer` 只读。存量账号（`role` 为空）
-在启动迁移里回填为 `admin`，不会因引入角色模型被锁成只读。
+`/delete_node`、`/api/node/update_properties`、`/api/extract/entities-events`、`/api/ai/inference`、
+`/api/ai/inference/stream`；注册得到的 `viewer` 只读。存量账号（`role` 为空）在启动迁移里回填，
+**兜底值取最小权限 `viewer`**（空值只让人少看几个页面，不会让人多写几个接口）。
 
 **角色职责与三处口径**（改权限前先看这张表）：
 
-| 角色 | 读接口 | 写接口 | 数据运营菜单 | 文本实体识别（消耗 LLM 配额） | 用户管理 |
+| 角色 | 读接口 | 写接口 | 数据运营菜单 | 文本实体识别 / 旧问答助手（消耗 LLM 配额） | 用户管理 |
 | --- | --- | --- | --- | --- | --- |
 | `viewer`（注册默认） | ✅ | ❌ 403 | ❌ | ❌ | ❌ |
 | `editor` | ✅ | ✅ | ✅ | ✅ | ❌ |
 | `admin` | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+两点容易混淆，写清楚：
+
+- **消耗 LLM 配额的接口限 `editor` 及以上**：`/api/extract/entities-events`（文本实体识别）与
+  `/api/ai/inference[/stream]`（旧「历史问答助手」）。后者入口已从导航栏下线、由 RAG 问答承接，
+  但接口与页面都还在，所以按同一口径限制；
+- **RAG 问答对全部角色开放**：`/knowledge/rag` 是独立服务，任何登录账号都能用它的问答。
+  因此「问答要不要限角色」的答案是：**走 RAG 不限；走旧接口限 editor**。
 
 分级语义是 `admin ⊃ editor ⊃ viewer`。同一个判断在三个地方各有一份，**改一处要一起改**：
 
@@ -112,6 +123,7 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 | `backend/app.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；`get_menu()` 按角色裁剪菜单（`ADMIN_MENU_IDS` / `EDITOR_MENU_IDS`） |
 | `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
 | `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
+| `backend/tests/` | 常驻用例：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4） |
 
 **生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
 被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。
@@ -277,6 +289,6 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
    `sync_status=failed` 与原因；`/api/quality/report` 的两侧计数对账（`sync_reconciliation`）
    与工作台 summary 的 `sync_mismatch` 用来发现累积的缺口
 3. **两套问答互不影响**：本模块的问答依赖 Ollama 常驻；RAG 问答是独立服务，见 `RAG/README.md`
-4. **菜单接口**：`/user/menu`、`/user/permission` 由前端在后端可用时调用；开发态默认被 mockjs
-   拦截。菜单项要改三处（后端接口、`frontend/src/store/user.ts` 白名单、路由表），
+4. **菜单接口**：`/user/menu`、`/user/permission` 由前端直连本接口（mockjs 已在 2026-09 移除，
+   生产包不含它）。菜单项要改三处（后端接口、`frontend/src/store/user.ts` 白名单、路由表），
    见 [../frontend/README.md](../frontend/README.md)

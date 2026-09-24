@@ -32,8 +32,9 @@ class UserInfo(db.Model):
     用户信息表模型
 
     role 是权限角色：admin / editor 可写，viewer 只读。
-    注册接口一律建 viewer；存量账号（role 为空）按 admin 处理，
-    避免升级后把原有账号锁成只读。
+    注册接口一律建 viewer；角色值由管理员的用户管理页下发，落库前过白名单。
+    role 为空的历史行按 **viewer** 处理（与 DbUtil.get_role 同口径）——默认取最小权限，
+    空值只让人少看几个页面，不会让人多写几个接口。
     """
     __tablename__ = 'UserInfo'
 
@@ -48,7 +49,9 @@ class UserInfo(db.Model):
             'id': self.id,
             'account': self.account,
             'name': self.name,
-            'role': self.role or 'admin'
+            # 必须与 DbUtil.get_role 的兜底一致：否则用户管理页会把一个空角色账号
+            # 显示成"管理员"，而接口实际按 viewer 放行——界面与权限对不上。
+            'role': self.role or 'viewer'
         }
 
 

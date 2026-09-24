@@ -37,7 +37,14 @@ class DbUtil:
 
         return None
 
-    def find_user(self, user_id):
+    @staticmethod
+    def find_user(user_id):
+        """按 id 取用户信息字典；不存在返回 None。
+
+        与 get_role / list_users / set_user_role 一样是静态方法：它不使用实例状态
+        （原先写成实例方法，`DbUtil.find_user(id)` 会报 "missing 1 required positional
+        argument"，只能绕成 `DbUtil().find_user(id)`）。
+        """
         user = db.session.get(UserInfo, user_id) if user_id is not None else None
         return user.to_dict() if user else None
 
@@ -45,8 +52,10 @@ class DbUtil:
     def get_role(user_id):
         """取用户角色。
 
-        查不到返回空串（按未授权处理）；存量账号 role 为空时按 admin 处理，
-        避免引入角色模型后把原有账号锁成只读。
+        查不到返回空串（按未授权处理）；存量账号 role 为空时按 **viewer** 处理。
+        原先回退到 admin（当时的理由是"避免引入角色模型后把原有账号锁成只读"），但角色
+        迁移已给存量账号回填过取值，这个兜底只剩风险：任何一次写库遗漏（NULL/空串）都会
+        变成静默提权。默认值取最小权限，空值最多让人少看几个页面，不会让人多写几个接口。
         没有应用上下文时同样返回空串——fail-closed，宁可拒绝也不放行。
         """
         if user_id is None:
@@ -57,7 +66,7 @@ class DbUtil:
             return ""
         if user is None:
             return ""
-        return user.role or "admin"
+        return user.role or "viewer"
 
     def add_user(self, data):
         data = data or {}
