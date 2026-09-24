@@ -339,6 +339,63 @@ def test_examples_failure_window_never_exceeds_success_window():
     assert cache.failure_retry_seconds == 60
 
 
+def test_examples_failure_window_applies_with_stale_questions():
+    """**留有旧题目时刷新失败，也要按失败窗口重试**（修复审核报告第三节，方案 A）。
+
+    窗口若按"当前有没有题目"取档，这种情形会仍等满一小时——旧按钮还能用，
+    但接口恢复了按钮区最多晚 1 小时才更新。
+    """
+    calls = {"n": 0}
+
+    class Flaky:
+        def demo_examples(self):
+            calls["n"] += 1
+            return [{"question": "题一"}] if calls["n"] == 1 else []
+
+    now = [1000.0]
+    cache = DemoExamplesCache(Flaky(), count=3, refresh_seconds=3600,
+                              failure_retry_seconds=300, clock=lambda: now[0])
+    assert cache.questions() == ["题一"]
+
+    now[0] += 3600                      # 刷新窗口到期，这次失败（旧题目留着）
+    assert cache.questions() == ["题一"]
+    assert calls["n"] == 2
+
+    now[0] += 10                        # 失败窗口内：不再打接口
+    assert cache.questions() == ["题一"]
+    assert calls["n"] == 2
+
+    now[0] += 300                       # 过了失败窗口：再试
+    assert cache.questions() == ["题一"]
+    assert calls["n"] == 3
+
+
+def test_examples_success_puts_window_back_to_refresh_interval():
+    """成功一次后窗口回到刷新间隔，不会被上一次失败拖成"每 5 分钟打一次"。"""
+
+    class Recovering:
+        def __init__(self):
+            self.n = 0
+
+        def demo_examples(self):
+            self.n += 1
+            return [] if self.n == 1 else [{"question": "题一"}]
+
+    client = Recovering()
+    now = [1000.0]
+    cache = DemoExamplesCache(client, count=3, refresh_seconds=3600,
+                              failure_retry_seconds=300, clock=lambda: now[0])
+
+    assert cache.questions() == []          # 第一次失败：进负缓存
+    now[0] += 300
+    assert cache.questions() == ["题一"]     # 到点重试成功
+    assert client.n == 2
+
+    now[0] += 300                           # 300s < 3600s：不再打接口
+    assert cache.questions() == ["题一"]
+    assert client.n == 2
+
+
 # ---- RAG 客户端错误映射 ----
 
 

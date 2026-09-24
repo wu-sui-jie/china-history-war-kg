@@ -202,7 +202,11 @@ class DemoExamplesCache:
         self.enabled = enabled
         self.clock = clock
         self._questions: list[str] = []
-        self._fetched_at = 0.0
+        # None = 从未取过（不能写 0.0：那要靠"真实时钟远大于刷新窗口"才成立，
+        # 注入假时钟就变成"启动后先假装缓存是新鲜的"）
+        self._fetched_at: float | None = None
+        # 上一次刷新是否失败：窗口按它取档，而不是按"当前有没有题目"
+        self._last_fetch_failed = False
         self._lock = threading.Lock()
 
     def refresh(self, force: bool = False) -> list[str]:
@@ -212,25 +216,33 @@ class DemoExamplesCache:
         （`fresh and self._questions`），于是接口失败或返回空列表时守卫永远不成立，
         每次组卡都同步重打一次 `GET /api/demo/examples`——端点不可用时最坏吃满
         connect 5s + read 25s 的客户端超时，直接叠加在用户等待时间上。
-        现在成功与失败两条路径都记刷新时刻，只是窗口不同：成功后按
-        `refresh_seconds`（默认 1h）刷，失败后按 `failure_retry_seconds`（默认 5min）再试。
+        现在成功与失败两条路径都记刷新时刻，窗口按**上一次刷新是否失败**取档：
+        成功后按 `refresh_seconds`（默认 1h）刷，失败后按 `failure_retry_seconds`
+        （默认 5min）再试。
+
+        窗口按"上次是否失败"而不是"当前有没有题目"取档，是因为后者会让
+        "留有旧题目、本次刷新失败"的情形仍等满一小时——接口恢复了按钮区却迟迟不更新
+        （审核报告第三节方案 A）。失败时旧题目照旧展示（`_questions` 不动），
+        只是下次刷新提前到 5 分钟后。
         """
         if not self.enabled or self.count == 0:
             return []
         with self._lock:
-            window = (self.refresh_seconds if self._questions
-                      else self.failure_retry_seconds)
-            if not force and self.clock() - self._fetched_at < window:
+            window = (self.failure_retry_seconds if self._last_fetch_failed
+                      else self.refresh_seconds)
+            if (not force and self._fetched_at is not None
+                    and self.clock() - self._fetched_at < window):
                 return list(self._questions)
             examples = self.client.demo_examples()
             if examples:
                 questions = [str(e.get("question") or "") for e in examples]
                 self._questions = [q for q in questions if q][: self.count]
-                self._fetched_at = self.clock()
                 log.info("示例题已刷新（%d 条）", len(self._questions))
+                self._last_fetch_failed = False
             else:
                 # 失败不清空：接口抖一下不该让按钮区消失（空结果同样进负缓存窗口）
-                self._fetched_at = self.clock()
+                self._last_fetch_failed = True
+            self._fetched_at = self.clock()
             return list(self._questions)
 
     def questions(self) -> list[str]:
