@@ -42,8 +42,17 @@ entity-event-relation/data/中国历代战争简史_测试数据.txt
 backend/data/raw/
 # 2) 由原书派生的数据制品（抽取结果、数据库、评测产物）
 entity-event-relation/output/
+# 评估的逐次运行产物（A-1）：默认写到 evaluation/run_<时间戳>/，只供本机核对。
+# 入库的只有 evaluation/latest 与 evaluation/recheck-* 这两份被加注的历史基线。
+entity-event-relation/evaluation/run_*/
+# 地理编码的阶段产物（EER-13）：带时间戳的导出 / 编码 / 审核中间文件，不是交付产物
+entity-event-relation/war_extraction/geocoding/unmapped_places_*.json
+entity-event-relation/war_extraction/geocoding/geocoded_results_*.json
+entity-event-relation/war_extraction/geocoding/approved_coordinates_*.json
 # 地理编码的逐条进度文件（EER-12）：跑批时不断追加的运行态文件，不是交付产物
 entity-event-relation/war_extraction/geocoding/geocoding_progress.jsonl
+# 同上，A-2 改成"一批一个文件"后的命名
+entity-event-relation/war_extraction/geocoding/geocoding_progress_*.jsonl
 backend/database
 backend/database.bak-*
 # 3) 本机敏感配置（Neo4j 口令、JWT 密钥等）

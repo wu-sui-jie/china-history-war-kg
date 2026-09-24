@@ -36,10 +36,9 @@ from war_extraction.models import (  # noqa: E402
     EventExtractionResult,
     RelationExtractionResult,
 )
-from war_extraction.extractors.entity_extractor import EntityExtractor  # noqa: E402
-from war_extraction.extractors.event_extractor import EventExtractor  # noqa: E402
-from war_extraction.extractors.relation_extractor import RelationExtractor  # noqa: E402
-from war_extraction.core.text_splitter import TextSplitter  # noqa: E402
+# 抽取编排（分段循环 + 三阶段调用 + 失败诊断）现在只有一份，在 war_extraction 里；
+# 第 11 轮 C-1 起 backend 不再自己维护一套（原先两份平行实现已经漂过一次，见 EER-7）。
+from war_extraction.core.extraction_runner import run_extraction  # noqa: E402
 
 logger = get_logger(__name__)
 
@@ -234,35 +233,18 @@ def extract_all_optimized(llm, text: str):
     - RelationExtractor: 关系抽取（RELATION_EXTRACTION_PROMPT）
     支持长文本分段处理，自动合并去重
 
+    第 11 轮 C-1：分段循环与三阶段调用搬进 `war_extraction.core.extraction_runner`，
+    与离线链路（entity-event-relation/main.py）共用同一份编排。本函数保留的只是
+    **backend 自己的后处理**——逐字段 `_to_str` / 归一化、跨段按名字去重收集、
+    以及"所有阶段都没成功就抛 ExtractionUnavailable"这一接口层口径。
+
     返回 `(entities, event_result, relations, diagnostics)`：
     `diagnostics["partial_errors"]` 是"失败了但没让整次抽取作废"的阶段/分段错误说明，
     接口把它带进响应体，界面据此提示"结果可能不完整"。
     全部阶段都失败时抛 `ExtractionUnavailable`，不返回空结果。
     """
 
-    # 文本分段处理（减小分段，减少LLM调用次数）
-    try:
-        splitter = TextSplitter(chunk_size=1200, overlap=150)
-        chunks = splitter.split(text)
-    except Exception:
-        chunks = [(0, len(text), text)]
-
-    # 初始化抽取器
-    entity_extractor = EntityExtractor(llm)
-    event_extractor = EventExtractor(llm)
-    relation_extractor = RelationExtractor(llm)
-
-    # 阶段成败计数与失败原因：用来区分"这段没有实体"（成功、结果为空）与
-    # "模型根本没答上来"（失败）。只看结果是否为空是分不出来的。
-    stage_ok = {"entity": 0, "event": 0, "relation": 0}
-    partial_errors = []
-
-    def fail(stage, exc, chunk_start, chunk_end):
-        message = "[%s-%s] %s阶段失败: %s" % (chunk_start, chunk_end, stage, exc)
-        logger.warning("[提取] %s", message)
-        partial_errors.append(message)
-
-    # 累积结果容器
+    # 跨段累积容器与去重集合（backend 的"去重收集"语义：按名字，段间也去重）
     all_places = []
     all_orgs = []
     all_persons = []
@@ -277,26 +259,10 @@ def extract_all_optimized(llm, text: str):
     seen_persons = set()
     seen_events = set()
 
-    for chunk_start, chunk_end, chunk_text in chunks:
-        if not chunk_text.strip():
-            continue
-
-        logger.info(f"[提取] 处理文本段: {chunk_start}-{chunk_end} ({len(chunk_text)}字)")
-
-        # ========== 第1阶段：实体抽取 ==========
-        try:
-            chunk_entities = entity_extractor.extract(chunk_text)
-            stage_ok["entity"] += 1
-            logger.info(f"[提取] 实体抽取完成: {len(chunk_entities.places)}地点, {len(chunk_entities.organizations)}组织, {len(chunk_entities.persons)}人物")
-        except Exception as e:
-            fail("实体抽取", e, chunk_start, chunk_end)
-            chunk_entities = EntityExtractionResult()
-
-        # 收集实体（去重）
-        chunk_place_names = []
+    def on_entities_ready(_chunk_text, chunk_entities, _chunk_events):
+        """实体归一 + 跨段去重收集（返回值不变：后续阶段的名称列表由共享编排按同一批对象重建）。"""
         for p in chunk_entities.places:
-            name = _to_str(p.geo_name) or ""
-            name = name.strip()
+            name = (_to_str(p.geo_name) or "").strip()
             if name and name not in seen_places:
                 seen_places.add(name)
                 # 类型安全处理 + 朝代校验
@@ -309,13 +275,9 @@ def extract_all_optimized(llm, text: str):
                 p.Specific_location = _to_str(p.Specific_location)
                 p.source_text = _to_str(p.source_text)
                 all_places.append(p)
-            if name:
-                chunk_place_names.append(name)
 
-        chunk_org_names = []
         for o in chunk_entities.organizations:
-            name = _to_str(o.OrgName) or ""
-            name = name.strip()
+            name = (_to_str(o.OrgName) or "").strip()
             if name and name not in seen_orgs:
                 seen_orgs.add(name)
                 o.OrgName = name
@@ -323,13 +285,9 @@ def extract_all_optimized(llm, text: str):
                 o.DynastyName = _normalize_dynasty(_to_str(o.DynastyName))
                 o.source_text = _to_str(o.source_text)
                 all_orgs.append(o)
-            if name:
-                chunk_org_names.append(name)
 
-        chunk_person_names = []
         for p in chunk_entities.persons:
-            name = _to_str(p.PersonName) or ""
-            name = name.strip()
+            name = (_to_str(p.PersonName) or "").strip()
             if name and name not in seen_persons:
                 seen_persons.add(name)
                 p.PersonName = name
@@ -339,39 +297,18 @@ def extract_all_optimized(llm, text: str):
                 p.Note = _to_str(p.Note)
                 p.source_text = _to_str(p.source_text)
                 all_persons.append(p)
-            if name:
-                chunk_person_names.append(name)
+        return chunk_entities
 
-        # ========== 第2阶段：事件抽取 ==========
-        try:
-            # 修 2026-09-25（EER-7）：此前这里传的是 `chunk_entities` 对象，而
-            # EventExtractor.extract 的第 2 个形参是 `place_list: str`——对象会被
-            # 直接渲染进提示词，模型看到的是
-            #   `地点：places=[PlaceEntity(geo_name='牧野', modern_name=None, ...)]`
-            # 这种 Python repr（实测见 backend/tests/test_extract_prompt.py）。
-            # 现在与离线链路（entity-event-relation/main.py）用同一口径：传字符串列表。
-            chunk_event_result = event_extractor.extract(
-                chunk_text,
-                place_list="、".join(chunk_place_names),
-                org_list="、".join(chunk_org_names),
-                person_list="、".join(chunk_person_names),
-            )
-            stage_ok["event"] += 1
-            logger.info(f"[提取] 事件抽取完成: {len(chunk_event_result.events)}事件")
-        except Exception as e:
-            fail("事件抽取", e, chunk_start, chunk_end)
-            chunk_event_result = EventExtractionResult()
-
-        # 收集事件（去重，类型安全处理）
-        chunk_event_names = []
-        for ev in chunk_event_result.events:
-            event_name = _to_str(ev.EventName) or ""
-            event_name = event_name.strip()
+    def on_events_ready(_chunk_text, chunk_events):
+        """事件归一 + 跨段去重收集；返回"本段新事件"——为空时共享编排会跳过关系阶段。"""
+        fresh = []
+        for ev in chunk_events:
+            event_name = (_to_str(ev.EventName) or "").strip()
             if not event_name or event_name in seen_events:
                 continue
             seen_events.add(event_name)
-            # 类型安全处理所有字段 + 朝代校验 + 事件名称校验
-            ev.EventName = _normalize_event_name(event_name, _to_str(ev.source_text) or chunk_text)
+            ev.EventName = event_name
+            # 类型安全处理所有字段 + 朝代校验
             ev.EventType = _to_str(ev.EventType)
             ev.StartDate = _to_str(ev.StartDate)
             ev.EndDate = _to_str(ev.EndDate)
@@ -390,32 +327,14 @@ def extract_all_optimized(llm, text: str):
             ev.Impact = _to_str(ev.Impact)
             ev.source = _to_str(ev.source)
             ev.source_text = _to_str(ev.source_text)
+            # 事件名规范化放在这里（原文取自 source_text，取不到才用本段原文）
+            ev.EventName = _normalize_event_name(ev.EventName, ev.source_text or _chunk_text)
             all_events.append(ev)
-            chunk_event_names.append(event_name)
+            fresh.append(ev)
+        return fresh
 
-        if not chunk_event_names:
-            logger.info(f"[提取] 该段未识别到事件，跳过关系抽取")
-            continue
-
-        # ========== 第3阶段：关系抽取 ==========
-        try:
-            chunk_relations = relation_extractor.extract(
-                chunk_text,
-                chunk_event_result.events,
-                place_list="、".join(chunk_place_names),
-                org_list="、".join(chunk_org_names),
-                person_list="、".join(chunk_person_names),
-            )
-            stage_ok["relation"] += 1
-            logger.info(f"[提取] 关系抽取完成: {len(chunk_relations.event_place_relations)}事件-地点, "
-                  f"{len(chunk_relations.event_person_relations)}事件-人物, "
-                  f"{len(chunk_relations.event_organization_relations)}事件-组织, "
-                  f"{len(chunk_relations.event_event_relations)}事件-事件")
-        except Exception as e:
-            fail("关系抽取", e, chunk_start, chunk_end)
-            chunk_relations = RelationExtractionResult()
-
-        # 收集关系（类型安全处理）
+    def on_chunk_done(_chunk_text, chunk_entities, chunk_events, chunk_relations):
+        """收集关系（类型安全处理 + 默认关系名），并返回三段结果供编排落盘。"""
         for r in chunk_relations.event_place_relations:
             ename = _to_str(r.EventName) or ""
             pname = _to_str(r.modern_name) or ""
@@ -455,6 +374,18 @@ def extract_all_optimized(llm, text: str):
                 r.relation = _to_str(r.relation) or "关联"
                 r.evidence = _to_str(r.evidence) or ""
                 all_event_event_rels.append(r)
+        return chunk_entities, chunk_events, chunk_relations
+
+    run = run_extraction(
+        llm, text,
+        # backend 的分段比离线链路细（提示词短、单段塞得下的实体少）
+        chunk_size=1200, overlap=150,
+        on_entities_ready=on_entities_ready,
+        on_events_ready=on_events_ready,
+        on_chunk_done=on_chunk_done,
+    )
+    stage_ok = run.stage_ok
+    partial_errors = list(run.partial_errors)
 
     entities = EntityExtractionResult(
         places=all_places,
@@ -475,7 +406,7 @@ def extract_all_optimized(llm, text: str):
         raise ExtractionUnavailable(partial_errors or ["所有分段都未识别到任何内容"])
 
     diagnostics = {
-        "stage_ok": dict(stage_ok),
+        "stage_ok": stage_ok,
         "partial_errors": partial_errors,
     }
     return entities, event_result, relations, diagnostics

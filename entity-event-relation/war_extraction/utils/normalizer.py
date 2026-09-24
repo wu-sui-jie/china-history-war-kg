@@ -8,6 +8,14 @@ import re
 from pathlib import Path
 from typing import Dict
 
+#: 以本文件位置锚定项目根（entity-event-relation/）——与 llm_client / cache_manager 一致。
+#: Changed 2026-09-25（第 11 轮 C-2）：config_dir 原先是相对当前工作目录的 "config"，
+#: 换个工作目录启动就"静默加载不到别名表与关系映射"，而这件事完全没有提示。
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+#: 默认配置目录（项目根下的 config/）
+DEFAULT_CONFIG_DIR = _PROJECT_ROOT / "config"
+
 
 class Normalizer:
     """
@@ -45,6 +53,12 @@ class Normalizer:
         "三苗部落（修蛇部落）": "三苗",
         "三苗族（以修蛇为图腾的部落）": "三苗",
         "蚩尤、九黎族": "九黎",
+        # Changed 2026-09-25（第 11 轮 C-5）：原书里"孙膑"写作"孙滨"6 处、写作"孙膑"9 处
+        # （人工标注只用"孙膑"），两者 fuzz.ratio 只有 50，低于实体匹配阈值 70，配不上——
+        # 所以按别名归一（与"寒淀→寒浞"同一机制），让它在抽取阶段就收敛成标注用字。
+        # 注意：这不是"低质量人名"，先前挂在 EntityClassifier.LOW_QUALITY_PERSON_NAMES 里
+        # 是把它整条丢掉（连预测都不产生），方向反了。
+        "孙滨": "孙膑",
     }
 
     CANONICAL_EVENT_RELATION_TYPES = {
@@ -77,14 +91,18 @@ class Normalizer:
         "统帅", "将领", "谋士", "使者", "君主", "参与者", "俘虏", "阵亡", "投降", "叛变", "可汗",
     }
 
-    def __init__(self, config_dir: str = "config"):
-        self.config_dir = Path(config_dir)
+    def __init__(self, config_dir: str = None):
+        self.config_dir = Path(config_dir) if config_dir else DEFAULT_CONFIG_DIR
         self.aliases = self._load_json("aliases.json")
         self.relation_map = self._build_relation_map(self._load_json("relation_types.json"))
 
     def _load_json(self, filename: str) -> Dict:
         path = self.config_dir / filename
         if not path.exists():
+            # Changed 2026-09-25（第 11 轮 C-2）：原先静默返回 {}——"别名表根本没加载"
+            # 会让归一化悄悄失效（实体/关系匹配不到一起），而日志里一点痕迹都没有。
+            print(f"  [配置缺失] {path} 不存在：{filename} 相关的别名/映射本次按空表处理，"
+                  f"抽取与评估结果都会受影响")
             return {}
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)

@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from typing import Optional
 
+from war_extraction.utils.normalizer import Normalizer
+
 
 class EntityClassifier:
     """
@@ -33,7 +35,15 @@ class EntityClassifier:
         "下旨", "南征", "东征", "西征", "北伐", "战争", "之战", "作战",
         "三个宗族集团", "夷族", "诸侯国", "方国", "四周方国", "夷",
     }
-    LOW_QUALITY_PERSON_NAMES = {"秦始皇", "吴起", "孙滨"}
+    #: 一律丢弃的人名。**这份名单需要口径确认**（第 11 轮 C-5 第 3 条留下的决策项）：
+    #: 实测这两条都在人工标注里各出现 1 次（data/annotations/sample_entities.json），
+    #: 而预测 persons 里是 0 次——也就是说这个过滤器让这两条**永远不可能被匹配**，
+    #: 直接贡献 2 个 FN。当初把它们当"低质量人名"的意图（疑似"朝代开创者常被误抽成
+    #: 参战方"这类数据集特定过滤）无法从代码看出，故本轮**不改行为**，只把证据写在这里，
+    #: 等口径确认后再决定是删掉还是改成可配置项。
+    #: 另注："孙滨"原先也在这份名单里，那是错的——它是"孙膑"的原书错字变体，
+    #: 已改为别名归一（见 Normalizer.ENTITY_ALIASES），不该整条丢弃。
+    LOW_QUALITY_PERSON_NAMES = {"秦始皇", "吴起"}
 
     KIND_MAPPING = {
         "place": "place",
@@ -92,16 +102,13 @@ class EntityClassifier:
 
     @classmethod
     def normalize_person_name(cls, value: Optional[str]) -> str:
+        # Changed 2026-09-25（第 11 轮 C-5）：原先这里硬编码三条人名别名
+        # （神农氏/商纣王/夏桀），与 Normalizer.ENTITY_ALIASES 是同内容的第二份——
+        # 现在只保留 normalizer 那一份，别名表在本模块里不再重复。
         if not value:
             return ""
         stripped = str(value).strip()
-        if stripped == "神农氏":
-            return "神农"
-        if stripped == "商纣王":
-            return "纣王"
-        if stripped == "夏桀":
-            return "桀"
-        return stripped
+        return Normalizer.ENTITY_ALIASES.get(stripped, stripped)
 
     @classmethod
     def normalize_org_name(cls, value: Optional[str]) -> str:

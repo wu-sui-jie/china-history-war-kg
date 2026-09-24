@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import requests
 import json
+import glob
 import time
 import os
 from typing import Dict, List, Optional, Tuple
@@ -19,13 +20,63 @@ from .historical_places_mapping import HISTORICAL_MAPPING
 #: 与显式传 None（关闭进度落盘）区分开。
 _DEFAULT_PROGRESS = object()
 
-#: 逐条进度文件名（放模块目录下，不入库——见 .gitignore）
-PROGRESS_FILENAME = 'geocoding_progress.jsonl'
+#: 逐条进度文件名模板（放模块目录下，不入库——见 .gitignore）。
+#: Changed 2026-09-25（第 11 轮 A-2）：文件名带 run_id，**一次跑批一个文件**。
+#: 原先所有批次共用一个 geocoding_progress.jsonl、靠记录里的 run_id 区分，只增不减，
+#: 跑多了会一直长；现在中断后一眼就能看出是哪一批，用完也可整文件丢弃。
+PROGRESS_FILENAME_TEMPLATE = 'geocoding_progress_{run_id}.jsonl'
 
 
-def default_progress_path() -> str:
-    """默认的逐条进度文件路径。"""
-    return os.path.join(os.path.dirname(__file__), PROGRESS_FILENAME)
+#: 本进程已经发出去过的 run_id。见 new_run_id：同一毫秒内连开两批时靠它去重。
+_HANDED_OUT_RUN_IDS = set()
+
+
+def new_run_id(now: datetime = None) -> str:
+    """
+    批次标识：本地时间精确到毫秒；同一毫秒内重复调用则补一个序号。
+
+    文件名要靠它保证"一批一个文件"，所以**必须唯一**：只到秒的话同一秒内的两批会撞名，
+    又退回成多批共用一个文件；只到毫秒的话测试与脚本里连开两批仍可能撞在同一毫秒。
+    """
+    now = now or datetime.now()
+    base = f"{now.strftime('%Y%m%d_%H%M%S')}_{now.microsecond // 1000:03d}"
+    candidate = base
+    seq = 1
+    while candidate in _HANDED_OUT_RUN_IDS:
+        seq += 1
+        candidate = f"{base}_{seq:02d}"
+    _HANDED_OUT_RUN_IDS.add(candidate)
+    return candidate
+
+
+def default_progress_path(run_id: str = None) -> str:
+    """默认的逐条进度文件路径：模块目录下的 ``geocoding_progress_<run_id>.jsonl``。"""
+    return os.path.join(os.path.dirname(__file__),
+                        PROGRESS_FILENAME_TEMPLATE.format(run_id=run_id or new_run_id()))
+
+
+def prune_progress_files(keep: int = 20, progress_dir: str = None) -> List[str]:
+    """
+    进度文件清理口径（A-2）：按修改时间从新到旧保留 ``keep`` 份，更旧的删掉。
+
+    **不自动调用**——删文件有副作用，留成显式动作：
+        python -c "from war_extraction.geocoding.geocode_amap import prune_progress_files; print(prune_progress_files())"
+
+    Returns:
+        被删除的文件路径列表
+    """
+    directory = progress_dir or os.path.dirname(__file__)
+    pattern = os.path.join(directory, PROGRESS_FILENAME_TEMPLATE.format(run_id='*'))
+    files = sorted(glob.glob(pattern), key=os.path.getmtime, reverse=True)
+    removed = []
+    for path in files[max(0, int(keep)):]:
+        try:
+            os.remove(path)
+            removed.append(path)
+        except OSError as e:
+            # 被别的进程占着（Windows 上常见）就跳过，下次再清
+            print(f"  ! 进度文件删除失败（{path}）: {e}")
+    return removed
 
 
 def load_env_file(env_file: str = None):
@@ -110,6 +161,9 @@ class AmapGeocoder:
         # Added 2026-09-25（EER-12）
         self.retry_count = 0
         self.quota_exhausted = False
+        #: Added 2026-09-25（第 11 轮 A-3）：本批是否被**日配额**提前截断（而不是单条失败）。
+        #: 调用方据此判断拿到的 results 是"全部地点"还是"一部分"。
+        self.batch_aborted_by_quota = False
         self.last_failure_reason = ''
         self.last_failure_code = ''
         self.max_retries = max(1, int(max_retries))
@@ -315,8 +369,9 @@ class AmapGeocoder:
             places: 地点列表
             delay: 请求间隔（秒），默认 0.05 秒
             progress_path: 逐条进度文件（JSONL）。默认写到本模块目录下的
-                geocoding_progress.jsonl；显式传 None 可关闭
-            run_id: 本次运行的标识，写进每条进度记录，便于多次运行共用同一文件时区分
+                geocoding_progress_<run_id>.jsonl；显式传 None 可关闭
+            run_id: 本次运行的标识。默认按本地时间到毫秒生成，同时用于**进度文件名**；
+                显式传入时若 progress_path 用的是默认值，文件也会带上这个 run_id
 
         Returns:
             编码结果列表（已完成的部分；被配额中断时是截断的）
@@ -324,10 +379,11 @@ class AmapGeocoder:
         results = []
         total = len(places)
 
-        if progress_path is _DEFAULT_PROGRESS:
-            progress_path = default_progress_path()
+        # 先定 run_id，再据此推导默认进度文件名（A-2：一次跑批一个文件）
         if run_id is None:
-            run_id = datetime.now().strftime('%Y%m%d_%H%M%S')
+            run_id = new_run_id()
+        if progress_path is _DEFAULT_PROGRESS:
+            progress_path = default_progress_path(run_id)
 
         print(f"\n开始批量编码: {total} 个地点")
         if progress_path:
@@ -361,6 +417,7 @@ class AmapGeocoder:
             # 日配额耗尽：当天不会再成功，继续跑只是把剩余地点全部刷成失败
             if self.last_failure_code in self.DAILY_QUOTA_INFOCODES:
                 aborted_by_quota = True
+                self.batch_aborted_by_quota = True
                 print(f"\n! 高德日配额已耗尽（infocode={self.last_failure_code}），提前结束本批"
                       f"（剩余 {total - done} 个未请求）")
                 break
@@ -408,6 +465,26 @@ class AmapGeocoder:
         return output_file
 
 
+def warn_if_quota_truncated(geocoder: 'AmapGeocoder') -> bool:
+    """
+    本批被日配额截断时打醒目提示，返回是否被截断。
+
+    Added 2026-09-25（第 11 轮 A-3）：抽取层刻意保留"日配额耗尽即停整批"的行为
+    （当天不会再成功，继续跑只是把剩余地点全刷成失败），但**调用方**看到的是一份
+    部分结果——审核与导入照常进行的话，人会以为"这批跑完了"。所以把提示做成显式动作，
+    由调用方决定要不要继续往下走。
+    """
+    if not geocoder.batch_aborted_by_quota:
+        return False
+    print("!" * 70)
+    print("! 本批被高德日配额截断：接下来审核 / 导入的是**部分结果**")
+    print(f"! 配额错误码: {geocoder.last_failure_code}；已成功 {geocoder.success_count} 条，"
+          f"剩余地点今日拿不到坐标")
+    print("! 补齐办法：明天重跑（已成功的坐标可从编码结果文件复用，不必重复花钱）")
+    print("!" * 70)
+    return True
+
+
 def load_and_geocode(input_file: str, api_key: str = None) -> List[Dict]:
     """
     加载待编码地点并进行编码
@@ -430,6 +507,9 @@ def load_and_geocode(input_file: str, api_key: str = None) -> List[Dict]:
 
     # 批量编码
     results = geocoder.batch_geocode(places)
+
+    # A-3：截断时在结果保存前先说清楚（本步只编码，不停下来）
+    warn_if_quota_truncated(geocoder)
 
     # 保存结果
     if results:

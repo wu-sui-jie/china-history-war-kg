@@ -1,0 +1,141 @@
+{
+  "_note": "第 11 轮 B 类：/api/extract/entities-events 抽取链的录制回放夹具。llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。重新录制：python tools/record_extract_replay.py",
+  "recorded_with_model": "deepseek-r1:7b",
+  "input_text": "公元前1046年，周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+  "llm_responses": [
+    {
+      "stage": "entity",
+      "prompt_chars": 5341,
+      "response": "{\n  \"places\": [\n    {\n      \"geo_name\": \"牧野\",\n      \"modern_name\": \"null\",\n      \"DynastyName\": \"周朝\",\n      \"Province\": \"null\",\n      \"City\": \"null\",\n      \"District_County\": \"null\",\n      \"Specific_location\": null,\n      \"source_text\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野\"\n    }\n  ],\n  \"organizations\": [\n    {\n      \"OrgName\": \"周军\",\n      \"OrgType\": \"军队\",\n      \"DynastyName\": \"周朝\",\n      \"source_text\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野\"\n    }\n  ],\n  \"persons\": [\n    {\n      \"PersonName\": \"周武王\",\n      \"DynastyName\": \"周朝\",\n      \"OrgName\": null,\n      \"Role\": \"君主\",\n      \"Note\": \"参与牧野之战，为一方的统帅\",\n      \"source_text\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野\"\n    }\n  ]\n}"
+    },
+    {
+      "stage": "event_identify",
+      "prompt_chars": 1168,
+      "response": "{\n  \"events\": [\n    {\n      \"id\": \"E1\",\n      \"name\": \"牧野之战\",\n      \"time\": \"公元前1046年\",\n      \"location\": \"牧野\",\n      \"parties\": \"周武王的诸侯军队、商纣王的军队\",\n      \"evidence\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。\"\n    }\n  ]\n}"
+    },
+    {
+      "stage": "event_type",
+      "prompt_chars": 4493,
+      "response": "{\n  \"events\": [\n    {\n      \"EventName\": \"牧野之战\",\n      \"EventType\": \"战争\",\n      \"StartDate\": \"公元前1046年\",\n      \"EndDate\": \"公元前1046年\",\n      \"DynastyName\": \"西周\",\n      \"Place\": \"牧野\",\n      \"Aggressor\": \"周军\",\n      \"Defender\": \"商军\",\n      \"Allies\": null,\n      \"Result\": \"周军获胜，商军灭亡\",\n      \"Commanders\": \"周武王\",\n      \"KeyPersons\": null,\n      \"Action\": \"交战\",\n      \"TroopSize\": \"数万\",\n      \"Duration\": \"不详\",\n      \"GeographicScope\": \"牧野地区\",\n      \"Casualties\": \"不详\",\n      \"source\": \"《史记》\",\n      \"Impact\": \"周武王统一中原的重要战役\",\n      \"Remark\": \"\",\n      \"relations\": [],\n      \"source_text\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。\"\n    }\n  ]\n}"
+    },
+    {
+      "stage": "relation",
+      "prompt_chars": 3501,
+      "response": "{\n  \"event_place_relations\": [\n    {\n      \"EventName\": \"周武王灭商牧野之战\",\n      \"relation\": \"主战场\",\n      \"modern_name\": \"牧野\",\n      \"evidence\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。\"\n    }\n  ],\n  \"event_organization_relations\": [\n    {\n      \"EventName\": \"周武王灭商牧野之战\",\n      \"relation\": \"发起方\",\n      \"OrgName\": \"周军\",\n      \"evidence\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。\"\n    }\n  ],\n  \"event_person_relations\": [\n    {\n      \"EventName\": \"周武王灭商牧野之战\",\n      \"relation\": \"统帅\",\n      \"PersonName\": \"周武王\",\n      \"evidence\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。\"\n    }\n  ],\n  \"event_event_relations\": [\n    {\n      \"EventName_A\": \"周武王灭商牧野之战\",\n      \"relation\": \"主战场\",\n      \"EventName_B\": \"牧野\",\n      \"evidence\": \"周武王率诸侯之师东进，与商纣王的军队战于牧野。\"\n    }\n  ]\n}"
+    }
+  ],
+  "expected_payload": {
+    "entities": {
+      "places": [
+        {
+          "geo_name": "牧野",
+          "modern_name": "null",
+          "DynastyName": "西周",
+          "Province": "null",
+          "City": "null",
+          "District_County": "null",
+          "Specific_location": null,
+          "source_text": "周武王率诸侯之师东进，与商纣王的军队战于牧野"
+        }
+      ],
+      "organizations": [
+        {
+          "OrgName": "周军",
+          "OrgType": "军队",
+          "DynastyName": "西周",
+          "source_text": "周武王率诸侯之师东进，与商纣王的军队战于牧野"
+        }
+      ],
+      "persons": [
+        {
+          "PersonName": "周武王",
+          "DynastyName": "西周",
+          "OrgName": null,
+          "Role": "君主",
+          "Note": "参与牧野之战，为一方的统帅",
+          "source_text": "周武王率诸侯之师东进，与商纣王的军队战于牧野"
+        }
+      ]
+    },
+    "events": [
+      {
+        "EventName": "周武王灭商牧野之战",
+        "EventType": "战争",
+        "StartDate": "公元前1046年",
+        "EndDate": "公元前1046年",
+        "DynastyName": "西周",
+        "Place": "牧野",
+        "Aggressor": "周军",
+        "Defender": "商军",
+        "Allies": null,
+        "Result": "周军获胜，商军灭亡",
+        "Commanders": "周武王",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "数万",
+        "Duration": "不详",
+        "GeographicScope": "牧野地区",
+        "Casualties": "不详",
+        "source": "《史记》",
+        "Impact": "周武王统一中原的重要战役",
+        "Remark": "",
+        "relations": [],
+        "source_text": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。"
+      }
+    ],
+    "relations": {
+      "event_place": [
+        {
+          "relation_type": "event_place",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "EventName": "周武王灭商牧野之战",
+          "PlaceName": null,
+          "modern_name": "牧野",
+          "relation": "主战场"
+        }
+      ],
+      "event_person": [
+        {
+          "relation_type": "event_person",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "EventName": "周武王灭商牧野之战",
+          "PersonName": "周武王",
+          "relation": "统帅"
+        },
+        {
+          "relation_type": "event_person",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "EventName": "周武王灭商牧野之战",
+          "PersonName": "周武王",
+          "relation": "君主"
+        }
+      ],
+      "event_organization": [
+        {
+          "relation_type": "event_organization",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "EventName": "周武王灭商牧野之战",
+          "OrgName": "周军",
+          "relation": "发起方"
+        }
+      ],
+      "event_event": [
+        {
+          "relation_type": "event_event",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。",
+          "EventName_A": "周武王灭商牧野之战",
+          "EventName_B": "牧野",
+          "relation": "主战场"
+        }
+      ]
+    },
+    "summary": {
+      "place_count": 1,
+      "organization_count": 1,
+      "person_count": 1,
+      "event_count": 1,
+      "relation_count": 5
+    },
+    "process_time": 0.0
+  }
+}

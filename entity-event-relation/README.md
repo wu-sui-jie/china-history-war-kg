@@ -26,30 +26,34 @@ entity-event-relation/
 ├── evaluate.py                # 评估主入口
 ├── pyproject.toml             # 包定义（包名 war_extraction，P2-4 起为正式包）
 ├── war_extraction/            # 原 src/（包名避开顶层 src，避免撞名）
-│   ├── config.py              # 分段参数（默认 1800 字符/段、200 重叠）与缓存上下文
+│   ├── config.py              # 分段参数、提示词版本（源码哈希派生）与缓存上下文
 │   ├── core/
 │   │   ├── llm_client.py      # DeepSeek API 封装（密钥、重试、错误提示）
 │   │   ├── text_splitter.py   # 长文本分段（优先句子边界）
-│   │   └── cache_manager.py   # 基于文本 MD5 的调用缓存
+│   │   ├── extraction_runner.py # **抽取编排唯一实现**（分段 + 三阶段 + 失败诊断），backend 也走它
+│   │   └── cache_manager.py   # 基于文本 MD5 的调用缓存（原子写 + 孤儿 GC + 可选 TTL）
 │   ├── prompts/               # 三轮递进提示词（实体 / 事件 / 关系）
 │   ├── extractors/            # entity_extractor / event_extractor / relation_extractor
 │   ├── models/                # 抽取结果的 pydantic 模型（entities / events / relations）
 │   ├── processors/
 │   │   ├── result_merger.py   # 多段结果合并与去重
 │   │   └── json_to_excel.py   # JSON → Excel
-│   ├── evaluation/            # evaluator（基础）/ optimal_evaluator（最优模糊匹配）/ metrics_calculator
+│   ├── evaluation/            # optimal_evaluator（唯一在用的评估器），评估口径见其 docstring
 │   ├── geocoding/             # 历史地名 → 现代坐标（高德 API + 人工审核），见 war_extraction/geocoding/README.md
-│   └── utils/                 # normalizer（名称/关系归一）、entity_classifier、alignment（预测↔标注对齐）
+│   └── utils/                 # normalizer（名称/关系归一，别名表唯一来源）、entity_classifier、alignment（零引用，待删）
 ├── config/                    # aliases.json / dynasty_ranges.json / eval_config.json / relation_types.json
-├── data/                      # 输入原文 + data/annotations/ 人工标注（评估用）
+├── data/                      # 输入原文 + data/annotations/ 人工标注（**字段口径见其 README**）
 ├── output/                    # 抽取结果（按运行批次分目录，自动生成）
 │   └── 中国历代战争简史/       # 当前采用的那一批（见下方「批次取舍」）
 │       ├── 9_final_all.json    # 聚合结果（实体+事件+关系+质量报告，唯一权威产物）
 │       ├── published/          # 发布子集（过滤+清洗后的版本，事件与 final_all 不同）
 │       └── excel/              # 便于查看的表格（含 全部数据.xlsx，为其余 8 张的合集）
-├── cache/                     # API 调用缓存
-├── evaluation/latest/         # 评估结果：results.json / error_analysis.json / field_report.json
-└── tests/                     # 常驻用例（评估可复现 / 地名噪声正则 / 缓存原子写），见「快速开始 6」
+├── cache/                     # API 调用缓存（同时是产物的可复现路径，别随手清）
+├── evaluation/latest/         # **历史基线**（加注说明过、值不可复现，别当回归基线）
+│   └── recheck-*/             # 同上；逐次运行写到 evaluation/run_<时间戳>/（不入库）
+├── tools/
+│   └── threshold_sensitivity.py # 四阈值敏感性扫描（EER-9）
+└── tests/                     # 常驻用例（见「快速开始 6」），已全部进 CI
 ```
 
 ## 批次取舍（`output/` 与 `cache/` 的清理口径）
@@ -132,7 +136,9 @@ API_BASE_URL=https://api.deepseek.com/v1
 ### 3. 准备数据
 
 待抽取文本放 `data/`（如 `data/中国历代战争简史.txt`）。如需评估，在 `data/annotations/` 下准备
-对应的实体、事件、关系 JSON 标注。
+对应的实体、事件、关系 JSON 标注——**字段口径、关系名取值表与已知局限见
+[`data/annotations/README.md`](data/annotations/README.md)**（评估的分子分母全由它决定，
+改标注等于改口径）。
 
 ### 4. 运行抽取
 
@@ -154,8 +160,13 @@ python main.py data/中国历代战争简史.txt
 ```bash
 python evaluate.py
 #   --pred  PATH     预测结果 JSON，默认 output/中国历代战争简史/9_final_all.json
-#   --output DIR     评估输出目录，默认 evaluation/latest
+#   --output DIR     评估输出目录，默认 evaluation/run_<时间戳>
 ```
+
+每次运行写到**自己的** `evaluation/run_YYYYmmdd_HHMMSS/`（不入库）。`evaluation/latest/` 与
+`evaluation/recheck-micro-20260925/` 是**跟踪入库的历史基线**：它们的 `metadata.snapshot_note`
+写明了"生成于第 9 轮定序化之前、值不可复现、不要当回归基线"。要覆盖它们必须显式写
+`--output evaluation/latest`，届时脚本会先打出覆盖警告。
 
 要人工核对一次**完整评估**的跨进程一致性（CI 里没有 `output/` 制品，跑不了这一步）：
 
@@ -172,16 +183,23 @@ cd entity-event-relation
 python -m pytest tests -q
 ```
 
-三条常驻用例，都已进 CI（`.github/workflows/ci.yml` 的 `legacy-backend` job）：
+常驻用例（7 个文件，都已进 CI 的 `legacy-backend` job = `.github/workflows/ci.yml`）：
 
 | 用例 | 钉住的回归 |
 | --- | --- |
 | `tests/test_evaluator_deterministic.py` | EER-15：同一输入两次评估必须逐字段相同（开 4 个不同 `PYTHONHASHSEED` 的子进程比对完整 `evaluate_relations` 返回） |
 | `tests/test_normalizer_noise.py` | EER-4：「等 N 方国 / 等 N 国 / 等 N 部落」这类噪声地名必须被判为噪声 |
-| `tests/test_cache_manager.py` | EER-11：缓存索引原子写（写一半崩溃后旧索引仍完整）、悬挂与损坏条目被摘除 |
+| `tests/test_cache_manager.py` | EER-11 原子写：写一半崩溃后旧索引仍完整、悬挂与损坏条目被摘除 |
+| `tests/test_paths_and_cache_gc.py` | C-2 路径锚定（默认缓存/配置目录不随工作目录变）、配置缺失不再静默、孤儿条目 GC 与 TTL |
+| `tests/test_orchestration_single_entry.py` | C-1：任何一侧都不许自建阶段循环（AST 断言）、共享编排的钩子位置/失败策略/缓存命中 |
+| `tests/test_relation_types.py` | C-6：五个规范事件-事件关系类型必须精确相等（修前「因果关系 vs 顺承关系」算匹配） |
+| `tests/test_prompt_version.py` | C-4：提示词版本由源码哈希派生，改一个字符就换版本、缓存键随之失效 |
+| `tests/test_geocode_amap.py`、`tests/test_geocoding_pipeline.py`、`tests/test_geocoding_db_path.py` | EER-12 重试/配额/逐条落盘、A-2/A-3 一批一进度文件与配额截断提示、EER-7 路径口径 |
+| `tests/test_shared_helpers.py` | EER-6：公共 JSON/多值/年份/仲裁实现，含两条**刻意保留**的差异 |
 
-三条用例都是先确认「修前失败」才入库的。`tests/fixtures/relation_slice_repro.json` 是 EER-15 的
-最小复现夹具（从 `9_final_all.json` delta-debugging 缩到 2 条关系），文件头的 `_note` 记了来源与缩减方法。
+每条用例都是先确认「修前失败」才入库的（清单见 `docs/修复实施记录-第11轮-20260925.md` 的验证表）。
+`tests/fixtures/relation_slice_repro.json` 是 EER-15 的最小复现夹具（从 `9_final_all.json`
+delta-debugging 缩到 2 条关系），文件头的 `_note` 记了来源与缩减方法。
 
 ## 评估设计
 
@@ -197,11 +215,14 @@ python -m pytest tests -q
 3. **实体评估（事件中心过滤）**：只保留与匹配事件要素或标注实体模糊匹配（阈值 70%）的预测实体，
    再按严格名称匹配算 P/R/F1——宁可少评价，也不要因事件没对齐就判实体错。
 4. **事件评估**：基于映射表算 TP/FP/FN。
-5. **关系评估**：只评估与匹配事件相关的关系；先做关系类型归一（阈值 40%），
-   再做尾实体模糊匹配（阈值 70%），最后按三元组 (head, relation, tail) 算 P/R/F1。
+5. **关系评估**：只评估与匹配事件相关的关系；先做关系类型归一，再做尾实体模糊匹配，
+   最后按三元组 (head, relation, tail) 算 P/R/F1。关系类型的判定分两种（第 11 轮 C-6 修正）：
+   两侧都落在五个规范事件-事件关系类型里时**要求精确相等**（修前它们两两 `fuzz.ratio` 都是 50、
+   都过阈值 40，于是类型判错也拿满分）；其余自由文本关系名仍走模糊比对（阈值 40%）。
 6. **综合结果**：输出实体 F1、事件 F1、关系 F1 与三者的**宏观平均 F1**。
 
-阈值都在 `config/eval_config.json` 里，改阈值不需要动代码。
+阈值都在 `config/eval_config.json` 里，改阈值不需要动代码；"换阈值指标会动多少"用
+`python tools/threshold_sensitivity.py` 扫（一次一因子，默认约 8 分钟，输出 markdown 表）。
 
 **可复现性（EER-15）**：模糊匹配的贪心过程必须与集合迭代顺序无关。`filter_relations` 与
 `build_gold_triples` 返回的是**集合**，而 Python 的字符串哈希每进程随机化——直接迭代的话，

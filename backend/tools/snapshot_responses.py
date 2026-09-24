@@ -19,6 +19,11 @@
   跑在真实库上，绝不能因为对照脚本改坏数据。
 - 会调用大模型/外部服务的接口（`/api/ai/inference*`、`/api/extract/entities-events`）
   不在清单里：它们的结果本身不确定，放进来只会制造噪音。
+  **这个缺口由别的层兜住**（第 11 轮 B 类）：抽取端点的提示词内容有
+  `tests/test_extract_prompt.py`（桩 LLM），序列化与后处理有
+  `tests/test_extract_replay.py`（真实运行录制回放，夹具
+  `tests/fixtures/extract_replay.json`，重录脚本 `tools/record_extract_replay.py`）。
+  两者都是确定性的、可在 CI 跑；"抽取质量"只能靠真跑 + 人工看，进不了 CI。
 - 不做事先归一化，逐字段精确对比。差异按 JSON 路径列出，由人判断是不是预期变化。
   唯一例外是 `--ignore` 指定的键（如耗时字段），默认忽略 `process_time` 这类运行时值。
 - 路径里可写 `{version_id}` / `{node_id}` 占位符，采集时由 `probe_dynamic()` 现取

@@ -48,6 +48,10 @@
     interactive    - 交互式审核（逐个确认，默认）
     batch          - 批量审核（基于置信度自动审核）
     auto-approve   - 跳过审核（全部通过）
+
+日配额截断:
+    高德返回日配额类错误码（10003/10044）时会提前结束本批。此时 pipeline 默认在编码后
+    停下、不进入审核 / 导入（拿到的只是部分结果）；确需继续请加 --allow-partial。
 """
 
 import os
@@ -56,12 +60,13 @@ import argparse
 from typing import Optional
 
 from .export_unmapped_places import export_unmapped_places, get_statistics
-from .geocode_amap import AmapGeocoder, load_and_geocode, load_env_file
+from .geocode_amap import AmapGeocoder, load_and_geocode, load_env_file, warn_if_quota_truncated
 from .review_geocoding import GeocodingReviewer, review_results
 from .import_coordinates import import_coordinates, CoordinateImporter
 
 
-def run_full_pipeline(api_key: str = None, db_path: str = None, mode: str = 'interactive'):
+def run_full_pipeline(api_key: str = None, db_path: str = None, mode: str = 'interactive',
+                      allow_partial: bool = False):
     """
     运行完整的地理编码流程
 
@@ -69,6 +74,8 @@ def run_full_pipeline(api_key: str = None, db_path: str = None, mode: str = 'int
         api_key: 高德 API Key，如果为 None 则从 .env 文件读取
         db_path: 数据库路径
         mode: 审核模式 'interactive'、'batch' 或 'auto-approve'
+        allow_partial: 本批被日配额截断时是否仍继续审核 / 导入。
+            默认 False——截断后直接停下，免得"跑完了"的错觉带着一份部分结果入库。
     """
     # 加载 .env 文件
     load_env_file()
@@ -104,6 +111,13 @@ def run_full_pipeline(api_key: str = None, db_path: str = None, mode: str = 'int
 
     # 批量编码
     results = geocoder.batch_geocode(places)
+
+    # 日配额截断（A-3）：接下来审核 / 导入的只是部分结果，默认在此停下
+    if warn_if_quota_truncated(geocoder) and not allow_partial:
+        print("\n已停止：本次只编码了部分地点，不进入审核 / 导入。")
+        print("补齐后重跑本命令即可（已成功的坐标在编码结果文件里，可从那里复用）。")
+        print("确实要拿部分结果继续，请加 --allow-partial。")
+        return
 
     if not results:
         print("\n编码失败，无结果")
@@ -271,6 +285,7 @@ def print_usage():
     --api-key  - 高德 API Key（可选，默认从 .env 文件读取）
     --db-path  - 数据库路径（可选，默认为 backend/database）
     --mode     - 审核模式: interactive、batch 或 auto-approve
+    --allow-partial - 日配额截断了本批时，仍用部分结果继续审核 / 导入（默认停下）
 """
     print(usage)
 
@@ -301,6 +316,8 @@ def main():
     pipeline_parser.add_argument('--db-path', help='数据库路径（默认: backend/database）')
     pipeline_parser.add_argument('--mode', choices=['interactive', 'batch', 'auto-approve'],
                                  default='interactive', help='审核模式（默认: interactive）')
+    pipeline_parser.add_argument('--allow-partial', action='store_true',
+                                 help='日配额截断了本批时，仍用部分结果继续审核 / 导入')
 
     # 导出命令
     export_parser = subparsers.add_parser('export', help='导出待编码地点到JSON文件')
@@ -329,7 +346,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'pipeline':
-        run_full_pipeline(args.api_key, args.db_path, args.mode)
+        run_full_pipeline(args.api_key, args.db_path, args.mode, args.allow_partial)
     elif args.command == 'stats':
         run_stats_only(args.db_path)
     elif args.command == 'export':

@@ -7,15 +7,65 @@ import json
 import argparse
 from pathlib import Path
 from war_extraction.evaluation import OptimalEvaluator
-from war_extraction.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp
+from war_extraction.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp, current_time_tag
+
+#: 以本文件位置锚定项目根，默认路径不再随当前工作目录变（第 11 轮 C-2）。
+#: 原先 --pred / --config / 标注目录都是相对路径：从仓库根跑 `python entity-event-relation/evaluate.py`
+#: 会去找 `<仓库根>/output/...`（不存在），从模块目录跑才对——两个结果不该不一样。
+_PROJECT_ROOT = Path(__file__).resolve().parent
+
+DEFAULT_PRED = _PROJECT_ROOT / "output" / "中国历代战争简史" / "9_final_all.json"
+DEFAULT_EVAL_CONFIG = _PROJECT_ROOT / "config" / "eval_config.json"
+DEFAULT_ANNOTATION_DIR = _PROJECT_ROOT / "data" / "annotations"
+
+
+def default_output_dir() -> Path:
+    """
+    本次评估的默认输出目录：``evaluation/run_<时间戳>``（项目根下）。
+
+    Changed 2026-09-25（第 11 轮 A-1）：默认不再是 ``evaluation/latest``。那个目录是
+    **跟踪入库的历史基线**（``metadata.snapshot_note`` 说明了它的来历与局限），
+    且第 9 轮定序化（EER-15）之前的值不可复现——被一次随手运行覆盖掉的话，
+    ``git diff`` 只显示"数值变了"，看不出注释与口径说明一起没了。
+    要覆盖历史基线现在必须显式写 ``--output evaluation/latest``。
+    """
+    return _PROJECT_ROOT / "evaluation" / f"run_{current_time_tag()}"
+
+
+def warn_if_overwriting_baseline(output_dir: Path):
+    """
+    目标目录里已有带 ``snapshot_note`` 的结果时，覆盖前说清楚。
+
+    这是 A-1 的第 2 道保险：默认目录已经避开历史基线，但 ``--output`` 仍可显式指过去
+    （也包含 ``evaluation/recheck-*`` 这类带注释的快照）。
+    """
+    results_file = output_dir / "results.json"
+    if not results_file.exists():
+        return
+    try:
+        previous = json.loads(results_file.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return
+    note = (previous.get("metadata") or {}).get("snapshot_note")
+    if not note:
+        return
+    print("!" * 70)
+    print(f"! 警告：{results_file} 是被加注的历史快照，本次运行将覆盖它")
+    print(f"! 原注释：{note}")
+    print("!" * 70)
 
 
 def main():
     parser = argparse.ArgumentParser(description="评估历史战争文本抽取结果")
-    parser.add_argument("--pred", default="output/中国历代战争简史/9_final_all.json", help="预测结果 JSON 路径")
-    parser.add_argument("--config", default="config/eval_config.json", help="评估配置 JSON 路径")
-    parser.add_argument("--output", default="evaluation/latest", help="评估输出目录")
+    parser.add_argument("--pred", default=str(DEFAULT_PRED), help="预测结果 JSON 路径")
+    parser.add_argument("--config", default=str(DEFAULT_EVAL_CONFIG), help="评估配置 JSON 路径")
+    parser.add_argument("--output", default=None,
+                        help="评估输出目录，默认 evaluation/run_<时间戳>"
+                             "（历史基线 evaluation/latest 需显式指定）")
     args = parser.parse_args()
+
+    output_dir = Path(args.output) if args.output else default_output_dir()
+    warn_if_overwriting_baseline(output_dir)
 
     config_path = Path(args.config)
     if config_path.exists():
@@ -32,7 +82,7 @@ def main():
     # Changed 2026-04-20 16:33:36 +08:00: Load thresholds from config so
     # prompt/evaluation experiments are reproducible.
     evaluator = OptimalEvaluator(
-        annotation_dir=Path("data/annotations"),
+        annotation_dir=DEFAULT_ANNOTATION_DIR,
         relation_threshold=eval_config.get("relation_threshold", 40),
         event_sim_threshold=eval_config.get("event_sim_threshold", 0.35),
         entity_fuzzy_threshold=eval_config.get("entity_fuzzy_threshold", 70),
@@ -48,7 +98,6 @@ def main():
         "pred_path": str(pred_path)
     }
 
-    output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)

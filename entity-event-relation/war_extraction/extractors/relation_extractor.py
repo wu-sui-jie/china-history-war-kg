@@ -27,7 +27,10 @@ class RelationExtractor:
     def __init__(self, llm_client):
         self.llm = llm_client
         self.prompt_template = RELATION_EXTRACTION_PROMPT
-        self.error_dir = Path("logs") / "relation_errors"
+        # Changed 2026-09-25（第 11 轮 C-2）：按 __file__ 锚定到项目根的 logs/。
+        # 原先 Path("logs") 相对当前工作目录——换个目录启动就在那儿新建一个 logs/，
+        # 错误样本散落各处（同一个 EER-11 路径口径问题）。
+        self.error_dir = Path(__file__).resolve().parents[2] / "logs" / "relation_errors"
         self.error_dir.mkdir(parents=True, exist_ok=True)
         self.normalizer = Normalizer()
 

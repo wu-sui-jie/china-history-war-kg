@@ -93,9 +93,21 @@ python -m geocoding.main geocode unmapped_places_YYYYMMDD_HHMMSS.json --api-key 
 | 其中日配额类（10003 / 10044） | 还会**提前结束整批**（当天不会再成功），剩余地点不请求 |
 | 其它 API 错误（key 无效、地址查不到等） | 不重试（确定性失败，重试永远不会成功） |
 
-跑批过程中**每处理完一条就追加**一行到 `geocoding_progress.jsonl`（模块目录下，已 gitignore），
-所以批次中途被杀最多丢当前这一条，不会把整批结果一起丢掉；每行带 `run_id` / `status` / `reason`，
-便于事后判断哪些地点还没处理。想关掉就传 `batch_geocode(..., progress_path=None)`。
+被日配额截断时，`pipeline` **默认在编码后停下**，不进入审核 / 导入（A-3）——否则"跑完了"的
+错觉会带着一份部分结果入库。控制台会打出醒目提示；确实要拿部分结果继续，加 `--allow-partial`。
+
+跑批过程中**每处理完一条就追加**一行到 `geocoding_progress_<run_id>.jsonl`（模块目录下，已
+gitignore），所以批次中途被杀最多丢当前这一条，不会把整批结果一起丢掉；每行带 `run_id` /
+`status` / `reason`，便于事后判断哪些地点还没处理。想关掉就传
+`batch_geocode(..., progress_path=None)`。
+
+**一个批次一个进度文件（A-2）**：文件名的 `<run_id>` 是批次开始时的时间戳（精确到毫秒），
+所以不再有"所有批次挤在同一个只增不减的文件里"的问题——中断后一眼能看出是哪一批，
+用完直接删该文件即可。积累多了按下面的清理口径保留最近 20 份：
+
+```bash
+python -c "from war_extraction.geocoding.geocode_amap import prune_progress_files; print(prune_progress_files(keep=20))"
+```
 
 #### 步骤3：人工审核
 

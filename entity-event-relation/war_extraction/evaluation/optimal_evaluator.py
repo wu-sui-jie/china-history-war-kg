@@ -53,6 +53,12 @@ class OptimalEvaluator:
         }
 
         # 构建反向映射字典
+        #
+        # 注意（第 11 轮 C-6 核对）：下一行会用 `Normalizer.relation_map`（来自
+        # `config/relation_types.json`）**覆盖**上面这张硬编码表。被覆盖到的条目形同虚设——
+        # 例如上面把"因果关系"列为"顺承关系"的变体，而 config 把"因果关系"归给"因果关系"，
+        # 最终以后者为准。**改上面这张表可能完全看不到效果**；真想改关系归一，
+        # 要先看 config/relation_types.json 覆盖了哪些键（`test_relation_types.py` 里有断言钉着）。
         self.normalize_map = {}
         for std, variants in self.relation_map.items():
             for v in variants:
@@ -144,6 +150,32 @@ class OptimalEvaluator:
         """关系类型归一化"""
         rel_type = rel_type.strip()
         return self.normalize_map.get(rel_type, self.normalizer.normalize_relation(rel_type))
+
+    def relation_types_match(self, pred_relation: str, gold_relation: str) -> bool:
+        """
+        关系类型是否算匹配。
+
+        **第 11 轮 C-6 的核心修正。** 原实现只做模糊比对（`fuzz.ratio > relation_threshold`），
+        而五个规范的事件-事件关系类型**两两之间的 fuzz.ratio 都是 50**——都带"关系"二字、
+        4 个字里中 2 个（2*2/8=50），全部越过阈值 40。实测：标注 `(E1, 顺承关系, E2)` 对上
+        预测 `(E1, 因果关系, E2)` 与 `(E1, 并列关系, E2)` 都判 tp=1，**事件-事件关系类型判错
+        照样满分**，关系指标对这一类错误完全不敏感。
+
+        现在的口径：
+          - 两侧都在五个规范事件-事件关系类型里 → **要求精确相等**（`因果关系` ≠ `顺承关系`）；
+          - 其余情况（自由文本关系名，如"主战场""统帅"）仍走模糊比对——写法不唯一，
+            模糊比对本来就是对的。
+
+        注意这是**口径变更**：历史关系指标会下降（原先白送的分没了），
+        见 docs/修复实施记录-第11轮-20260925.md 的前后对照。
+        """
+        if pred_relation == gold_relation:
+            return True
+        both_canonical = (pred_relation in self.normalizer.CANONICAL_EVENT_RELATION_TYPES
+                          and gold_relation in self.normalizer.CANONICAL_EVENT_RELATION_TYPES)
+        if both_canonical:
+            return False
+        return fuzz.ratio(pred_relation, gold_relation) / 100.0 >= self.relation_threshold / 100
 
     def normalize_entity(self, entity: str) -> str:
         """实体别名归一化"""
@@ -512,10 +544,12 @@ class OptimalEvaluator:
                 if head_sim < self.event_sim_threshold:
                     continue
 
-                # 关系模糊匹配
-                rel_score = fuzz.ratio(rel_pred, rel_gold) / 100.0
-                if rel_score < self.relation_threshold / 100:
+                # 关系类型匹配：规范事件-事件关系类型要求精确相等，其余走模糊（见
+                # relation_types_match 的说明——这里原先是纯模糊，五个规范类型两两都过阈值）
+                if not self.relation_types_match(rel_pred, rel_gold):
                     continue
+                # rel_score 只用于下面的排序（精确相等时为 1.0，自由文本关系名按相似度）
+                rel_score = fuzz.ratio(rel_pred, rel_gold) / 100.0
 
                 # 判断是否为事件-事件关系
                 is_event_event = tail_gold in reverse_mapping

@@ -10,6 +10,12 @@ import re
 from pathlib import Path
 from tqdm import tqdm
 from war_extraction.core import DeepSeekClient, TextSplitter, CacheManager
+from war_extraction.core.extraction_runner import (
+    entities_from_dict as dict_to_entities,
+    events_from_dict as dict_to_events,
+    relations_from_dict as dict_to_relations,
+    run_extraction,
+)
 from war_extraction.extractors import EntityExtractor, EventExtractor, RelationExtractor
 from war_extraction.processors import ResultMerger, JsonToExcelConverter
 from war_extraction.models import (
@@ -30,48 +36,9 @@ from war_extraction.utils.value_parsing import (
     split_multi_value,
 )
 
-
-def dict_to_entities(data: dict):
-    """将字典转换回 EntityExtractionResult 对象"""
-    from war_extraction.models import EntityExtractionResult, PlaceEntity, OrganizationEntity, PersonEntity
-
-    places = [PlaceEntity(**p) for p in data.get("places", [])]
-    orgs = [OrganizationEntity(**o) for o in data.get("organizations", [])]
-    persons = [PersonEntity(**p) for p in data.get("persons", [])]
-
-    return EntityExtractionResult(places=places, organizations=orgs, persons=persons)
-
-
-def dict_to_events(data: dict):
-    """将字典转换回 EventExtractionResult 对象"""
-    from war_extraction.models import EventExtractionResult, Event
-
-    events = [Event(**e) for e in data.get("events", [])]
-
-    return EventExtractionResult(events=events)
-
-
-def dict_to_relations(data: dict):
-    """将字典转换回 RelationExtractionResult 对象"""
-    from war_extraction.models import (
-        RelationExtractionResult,
-        EventPlaceRelation,
-        EventOrganizationRelation,
-        EventPersonRelation,
-        EventEventRelation
-    )
-
-    place_rels = [EventPlaceRelation(**r) for r in data.get("event_place_relations", [])]
-    org_rels = [EventOrganizationRelation(**r) for r in data.get("event_organization_relations", [])]
-    person_rels = [EventPersonRelation(**r) for r in data.get("event_person_relations", [])]
-    event_rels = [EventEventRelation(**r) for r in data.get("event_event_relations", [])]
-
-    return RelationExtractionResult(
-        event_place_relations=place_rels,
-        event_organization_relations=org_rels,
-        event_person_relations=person_rels,
-        event_event_relations=event_rels
-    )
+# 注：dict_to_entities / dict_to_events / dict_to_relations 现在只有一处实现，
+# 在 war_extraction.core.extraction_runner 里（第 11 轮 C-1：两份编排合成单一入口）。
+# 这里保留同名别名，既有的调用点与用例不必改。
 
 
 def _split_multi_value(value: str):
@@ -189,10 +156,12 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
     deduplicate near-duplicate final events before export.
     """
     normalizer = Normalizer()
-    event_name_overrides = {
-        "寒淀攻灭斟灌氏和斟寻氏": "寒浞攻灭斟灌氏和斟寻氏",
-        "寒足攻灭斟灌氏和斟寻氏": "寒浞攻灭斟灌氏和斟寻氏",
-    }
+    # Changed 2026-09-25（第 11 轮 C-5）：原先这里另存一份"寒淀/寒足 → 寒浞"的纠正表，
+    # 与 war_extraction/utils/normalizer.py 的 EVENT_NAME_ALIASES 是同一件事两处维护
+    # （EER-8 的同类问题）。现在只保留 normalizer 那一份，本函数直接引用它——
+    # 注意 standardize_event_name 已经套过别名表，这里再套一次只是让它对"已标准化的名字"
+    # 也成立（保持原有行为不变）。
+    event_name_overrides = normalizer.EVENT_NAME_ALIASES
     def first_effective_place(value):
         for place_name in _split_multi_value(value):
             if not normalizer.is_noisy_place_name(place_name):
@@ -718,113 +687,59 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
                       read_cache: bool = True, write_cache: bool = True):
     """
     处理长文本：分段抽取→合并结果
-    注意：长文本的缓存处理较复杂，这里采用分段缓存策略
+
+    第 11 轮 C-1：分段循环与三阶段调用搬进 `war_extraction.core.extraction_runner`，
+    与 backend 的 `llm_pipeline.extract_all_optimized` 共用同一份编排。本函数只剩
+    "本链路自己的后处理"——每段的实体回填/清洗与 finalize_outputs 用钩子挂进去，
+    段间合并仍走 ResultMerger。
     """
-    chunks = splitter.split(text)
-    print(f"文本过长，已切分为 {len(chunks)} 个片段")
+    cache = CacheManager() if (read_cache or write_cache) else None
+    cache_meta = cache_context(llm.model, "long_text_chunk",
+                               splitter.chunk_size, splitter.overlap)
 
-    entity_results = []
-    event_results = []
-    relation_results = []
+    def _entities_ready(_chunk_text, entities, events):
+        # 事件字段回填实体清单，再清洗冲突：关系阶段要用的实体名列表随之变长
+        return cleanup_entity_conflicts(enrich_entities_from_events(entities, events))
 
-    # 为每个片段单独使用缓存
-    cache = CacheManager()
-    cache_meta = cache_context(
-        llm.model,
-        "long_text_chunk",
-        splitter.chunk_size,
-        splitter.overlap
+    progress = {"bar": None}
+
+    def _chunk_start(index, total, start, end):
+        if progress["bar"] is None:
+            progress["bar"] = tqdm(total=total, desc="处理文本片段")
+        print(f"\n--- 处理片段 {index}/{total} (位置: {start}-{end}) ---")
+
+    def _chunk_finish(chunk):
+        progress["bar"].update(1)
+        print(f"  实体: {len(chunk.entities.places)}地点, "
+              f"{len(chunk.entities.organizations)}组织, {len(chunk.entities.persons)}人物")
+        print(f"  事件: {len(chunk.events.events)}个")
+
+    run = run_extraction(
+        llm, text, splitter=splitter,
+        cache=cache, cache_context_meta=cache_meta,
+        read_cache=read_cache, write_cache=write_cache,
+        on_entities_ready=_entities_ready,
+        on_chunk_done=lambda _t, e, ev, r: finalize_outputs(e, ev, r),
+        on_chunk_start=_chunk_start,
+        on_chunk_finish=_chunk_finish,
     )
-    # Changed 2026-04-20 16:33:36 +08:00: Reuse extractors per long-text run
-    # to avoid repeated initialization and keep one consistent prompt version.
-    entity_extractor = EntityExtractor(llm)
-    event_extractor = EventExtractor(llm)
-    relation_extractor = RelationExtractor(llm)
+    if progress["bar"] is not None:
+        progress["bar"].close()
 
-    for i, (start_idx, end_idx, chunk) in enumerate(tqdm(chunks, desc="处理文本片段")):
-        print(f"\n--- 处理片段 {i + 1}/{len(chunks)} (位置: {start_idx}-{end_idx}) ---")
-
-        # 初始化变量，确保即使失败也有默认值
-        entities = None
-        events = None
-        relations = None
-
-        # 检查片段缓存
-        cached = cache.get(chunk, cache_meta) if read_cache else None
-        if cached:
-            entities = dict_to_entities(cached["entities"])
-            events = dict_to_events(cached["events"])
-            relations = dict_to_relations(cached["relations"])
-            entities, events, relations = finalize_outputs(entities, events, relations)
-        else:
-            # 无缓存，调用API
-            chunk_processed_ok = False
-            try:
-                entities = entity_extractor.extract(chunk)
-
-                # 准备实体列表字符串，传递给事件抽取
-                place_list = "、".join([p.geo_name for p in entities.places])
-                org_list = "、".join([o.OrgName for o in entities.organizations])
-                person_list = "、".join([p.PersonName for p in entities.persons])
-
-                events = event_extractor.extract(chunk, place_list, org_list, person_list)
-
-                # Changed 2026-04-21 12:48:22 +08:00: Feed event fields back
-                # into entity inventory so missed people/orgs/places are recovered.
-                entities = enrich_entities_from_events(entities, events)
-                entities = cleanup_entity_conflicts(entities)
-                place_list = "、".join([p.geo_name for p in entities.places])
-                org_list = "、".join([o.OrgName for o in entities.organizations])
-                person_list = "、".join([p.PersonName for p in entities.persons])
-
-                relations = relation_extractor.extract(chunk, events.events, place_list, org_list, person_list)
-                entities, events, relations = finalize_outputs(entities, events, relations)
-                chunk_processed_ok = True
-
-            except Exception as e:
-                print(f"  片段 {i + 1} 处理失败: {e}")
-                # 使用空结果；不写缓存，避免把 API 失败/空结果缓存成“永久识别不到数据”
-                entities = EntityExtractionResult()
-                events = EventExtractionResult()
-                relations = RelationExtractionResult()
-
-            # 只有片段真正处理成功才写缓存，失败片段下次运行会自动重试
-            if write_cache and chunk_processed_ok:
-                try:
-                    # 使用 model_dump 确保完整字段
-                    cache.set(chunk, {
-                        "entities": entities.model_dump(),
-                        "events": events.model_dump(),
-                        "relations": relations.model_dump()
-                    }, cache_meta)
-                except Exception as e:
-                    print(f"  缓存保存失败: {e}")
-
-        # 确保变量已定义（双重保险）
-        if entities is None:
-            entities = EntityExtractionResult()
-        if events is None:
-            events = EventExtractionResult()
-        if relations is None:
-            relations = RelationExtractionResult()
-
-        entity_results.append(entities)
-        event_results.append(events)
-        relation_results.append(relations)
-
-        print(f"  实体: {len(entities.places)}地点, {len(entities.organizations)}组织, {len(entities.persons)}人物")
-        print(f"  事件: {len(events.events)}个")
+    if run.partial_errors:
+        print(f"\n注意：本次有 {len(run.partial_errors)} 处阶段失败，相关分段的结果可能不完整")
 
     # 合并结果
     print("\n合并各片段结果...")
     merger = ResultMerger()
 
-    final_entities = merger.merge_entities(entity_results)
-    final_events = merger.merge_events(event_results)
-    final_relations = merger.merge_relations(relation_results)
+    final_entities = merger.merge_entities(run.entities)
+    final_events = merger.merge_events(run.events)
+    final_relations = merger.merge_relations(run.relations)
     final_entities, final_events, final_relations = finalize_outputs(final_entities, final_events, final_relations)
 
     return final_entities, final_events, final_relations
+
 
 
 def process_single_file(file_path: Path, llm, enable_split: bool = True,
@@ -847,61 +762,45 @@ def process_single_file(file_path: Path, llm, enable_split: bool = True,
 
     # 短文本直接整体缓存，长文本使用分段缓存
     if not enable_split or len(text) <= 2000:
-        # 短文本：整体缓存
-        if read_cache:
-            cache = CacheManager()
-            cached = cache.get(text, cache_context(llm.model, "single_file"))
-            if cached:
-                print("\n" + "=" * 60)
-                print("缓存命中！直接返回结果，无需API调用")
-                print("=" * 60)
-                return finalize_outputs(
-                    dict_to_entities(cached["entities"]),
-                    dict_to_events(cached["events"]),
-                    dict_to_relations(cached["relations"])
-                )
-
-        # 无缓存，正常处理
-        # 第1轮：实体抽取
-        entity_extractor = EntityExtractor(llm)
-        entities = entity_extractor.extract(text)
-
-        # 准备实体列表字符串
-        place_list = "、".join([p.geo_name for p in entities.places])
-        org_list = "、".join([o.OrgName for o in entities.organizations])
-        person_list = "、".join([p.PersonName for p in entities.persons])
-
-        # 第2轮：事件抽取（传入实体列表）
-        event_extractor = EventExtractor(llm)
-        event_result = event_extractor.extract(text, place_list, org_list, person_list)
-
-        # Changed 2026-04-21 12:48:22 +08:00: Backfill entity inventory from
-        # extracted event fields before relation extraction and final output.
-        entities = enrich_entities_from_events(entities, event_result)
-        entities = cleanup_entity_conflicts(entities)
-        place_list = "、".join([p.geo_name for p in entities.places])
-        org_list = "、".join([o.OrgName for o in entities.organizations])
-        person_list = "、".join([p.PersonName for p in entities.persons])
-
-        # 第3轮：关系抽取（传入实体列表和事件列表）
-        relation_extractor = RelationExtractor(llm)
-        relations = relation_extractor.extract(text, event_result.events, place_list, org_list, person_list)
-        entities, event_result, relations = finalize_outputs(entities, event_result, relations)
-
-        # 保存缓存（使用 model_dump 确保完整字段）
-        if write_cache:
-            cache = CacheManager()
-            cache.set(text, {
-                "entities": entities.model_dump(),
-                "events": event_result.model_dump(),
-                "relations": relations.model_dump()
-            }, cache_context(llm.model, "single_file"))
-
-        return entities, event_result, relations
+        # 短文本：整篇一段、整体缓存。第 11 轮 C-1：三阶段调用交给共享编排，
+        # 这里只提供本链路的钩子（实体回填/清洗 + finalize_outputs）。
+        return _process_one_shot(text, llm, "single_file", read_cache, write_cache)
 
     else:
         # 长文本：使用分段缓存（在 process_long_text 内部处理）
         return process_long_text(text, llm, TextSplitter(), read_cache, write_cache)
+
+
+def _process_one_shot(text: str, llm, cache_stage: str,
+                      read_cache: bool = True, write_cache: bool = True):
+    """
+    整篇一次跑完（不分段）：短文本路径用，缓存按整篇文本一个条目。
+
+    与 `process_long_text` 共用同一份编排（`run_extraction`），差别只在
+    "一段 vs 多段"与"缓存上下文用 single_file 还是 long_text_chunk"。
+
+    "不分段"是这一支的原口径，所以这里把切分器撑到整篇长度（`chunk_size=max(len, 默认)`）：
+    1800~2000 字的短文本不会被切成两段。
+    """
+    cache = CacheManager() if (read_cache or write_cache) else None
+    cache_meta = cache_context(llm.model, cache_stage)
+
+    run = run_extraction(
+        llm, text,
+        splitter=TextSplitter(chunk_size=max(len(text), 1), overlap=0),
+        cache=cache, cache_context_meta=cache_meta,
+        read_cache=read_cache, write_cache=write_cache,
+        on_entities_ready=lambda _t, entities, events: cleanup_entity_conflicts(
+            enrich_entities_from_events(entities, events)),
+        on_chunk_done=lambda _t, e, ev, r: finalize_outputs(e, ev, r),
+    )
+
+    chunk = run.chunks[0]
+    if chunk.from_cache:
+        print("\n" + "=" * 60)
+        print("缓存命中！直接返回结果，无需API调用")
+        print("=" * 60)
+    return chunk.entities, chunk.events, chunk.relations
 
 
 def build_quality_report(entities, events, relations) -> dict:
@@ -991,7 +890,8 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
     使产物可自证由哪个模型/端点产出（修正 2026-09-25：原先缺失，换模型重跑后
     产物无法区分来源）。
     """
-    output_dir = output_base or Path("output")
+    # 第 11 轮 C-2：默认输出目录按 __file__ 锚定到模块根，不再随当前工作目录变
+    output_dir = output_base or (Path(__file__).resolve().parent / "output")
     output_dir.mkdir(exist_ok=True)
 
     result_dir = output_dir / name
@@ -1104,7 +1004,8 @@ def main():
     parser.add_argument("--no-split", action="store_true", help="禁用长文本分段")
     parser.add_argument("--no-cache", action="store_true", help="完全禁用缓存：不读取也不保存")
     parser.add_argument("--refresh-cache", action="store_true", help="跳过读取缓存，但保存本次新结果")
-    parser.add_argument("--output", default="output", help="输出目录，默认 output")
+    parser.add_argument("--output", default=str(Path(__file__).resolve().parent / "output"),
+                        help="输出目录，默认 <模块根>/output")
     args = parser.parse_args()
 
     llm = DeepSeekClient()
