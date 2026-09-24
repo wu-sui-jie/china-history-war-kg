@@ -195,7 +195,7 @@ export default {
       return role === 'admin' || role === 'editor' ? role : 'viewer'
     })
     const roleLabel = computed(() => {
-      const labels: Record<string, string> = {admin: '管理员', editor: '编辑者', viewer: '只读'}
+      const labels: Record<string, string> = {admin: '管理员', editor: '编辑者', viewer: '普通用户'}
       return labels[roleKey.value] || '只读'
     })
 
