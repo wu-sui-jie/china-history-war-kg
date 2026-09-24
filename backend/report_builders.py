@@ -1526,11 +1526,17 @@ def build_sync_reconciliation():
     双写没有自动补偿机制：SQLite 提交成功而 Neo4j 失败时，只在单次响应里
     返回 sync_status=failed，缺口无人发现会静默累积。这里把两侧计数差异
     暴露到质检接口，让不一致可见。
+
+    口径：SQLite 侧按 **distinct(name)** 计数。关系表允许同名行（不同朝代的
+    同名地名/事件），而 Neo4j 图谱按 (标签, 名称) 唯一、同名行合并为单节点
+    （重名行的 neo4j_id 留空属正常状态，不需要同步）。用行数对比会把这类
+    重名全部误报成 mismatch——2026-09-25 端到端回归实测：Place 行数差 2433
+    全部来自 2433 个重名行，distinct 口径下两侧分毫不差。
     """
     counts = []
     consistent = True
     for label, model in [("Event", Event), ("Place", Place), ("Organization", Organization), ("Person", Person)]:
-        sqlite_count = db.session.query(func.count(model.id)).scalar() or 0
+        sqlite_count = db.session.query(func.count(func.distinct(model.name))).scalar() or 0
         neo4j_count = None
         error = None
         try:
