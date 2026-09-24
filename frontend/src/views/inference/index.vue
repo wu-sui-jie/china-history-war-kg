@@ -268,7 +268,7 @@
     </div>
 
     <!-- 消息提示 -->
-    <lay-layer v-model="showNodeDetailDrawer" :title="'节点关联信息'" shade="true" :area="['520px', '88vh']">
+    <lay-layer v-model="showNodeDetailDrawer" :title="'节点关联信息'" :shade="true" :area="['520px', '88vh']">
       <div v-if="selectedKgNode" class="kg-node-detail">
         <div class="kg-node-detail-header">
           <div>

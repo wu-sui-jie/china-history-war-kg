@@ -7,7 +7,9 @@
     "build": "vite build",
     "build:check": "vue-tsc --noEmit && vite build",
     "build:prod": "vite build --mode production",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "vitest run",
+    "test:component": "vitest run tests/component"
   },
   "dependencies": {
     "@layui/layui-vue": "2.21.1",
@@ -28,10 +30,13 @@
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^4.2.0",
     "@vue/compiler-sfc": "^3.3.4",
+    "@vue/test-utils": "^2.5.0",
+    "jsdom": "^29.1.1",
     "less": "^4.1.2",
     "mockjs": "^1.1.0",
     "typescript": "^5.9.3",
     "vite": "^4.3.5",
+    "vitest": "^2.1.9",
     "vue-tsc": "^2.2.12"
   }
 }

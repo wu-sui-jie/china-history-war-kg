@@ -204,6 +204,10 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: 类型检查 + 构建
         run: pnpm run build:check
+      - name: 组件测试（四个 CRUD 页的加载/提交 + 关键页面挂载）
+        # 旧前端原先零测试（2026-09-25 S3-4）：这四个页面是 R1-1 的请求链路与 FE-4
+        # 的抽函数对象，钉住底线后再动它们。
+        run: pnpm run test:component
       - name: 生产包不得包含 mockjs（FE-1 回归）
         run: |
           if grep -rl "MockXMLHttpRequest\|mockjs" dist/assets/ 2>/dev/null; then

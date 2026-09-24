@@ -42,7 +42,7 @@
     </lay-col>
   </lay-row>
 
-  <lay-layer v-model="visible" :title="formData.id ? '编辑战争地点' : '新增战争地点'" shade="true" :area="['600px', 'auto']">
+  <lay-layer v-model="visible" :title="formData.id ? '编辑战争地点' : '新增战争地点'" :shade="true" :area="['600px', 'auto']">
     <lay-form ref="formRef" :model="formData" :rules="formRules" style="width: 560px; padding: 20px">
       <div class="form-section">
         <div class="section-title"><lay-icon type="layui-icon-form" />基本信息</div>

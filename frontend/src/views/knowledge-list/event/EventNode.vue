@@ -62,7 +62,7 @@
     </lay-col>
   </lay-row>
 
-  <lay-layer v-model="visible" :title="formData.id ? '编辑战争事件' : '新增战争事件'" shade="true" :area="['760px', '86vh']">
+  <lay-layer v-model="visible" :title="formData.id ? '编辑战争事件' : '新增战争事件'" :shade="true" :area="['760px', '86vh']">
     <div class="layer-scroll-body">
       <lay-form ref="formRef" :model="formData" :rules="formRules" class="event-form">
       <div class="form-section">
