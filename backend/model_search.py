@@ -537,45 +537,49 @@ class neo4j_db():
                     nodes.append(node_data)
                     node_ids.add(node_id)
                 
-                # 2. 获取所有关系 - 确保使用路径查询而非直接关系查询
-                path_query = """
-                MATCH path = (n)-[r*1..1]-(m)
-                RETURN relationships(path) as rels
+                # 2. 获取所有关系
+                # 用 `MATCH (n)-[r]-(m) RETURN r` 而不是 `MATCH path = (n)-[r*1..1]-(m)
+                # RETURN relationships(path)`：后者要为每条路径构造 Path 对象，实测在本库
+                # （7470 节点 / 3.5 万行）要 **202 秒**，而前者返回同样的关系集合、耗时在秒级。
+                # 两者语义等价：变长 1..1 就是单跳。
+                rel_query = """
+                MATCH (n)-[r]-(m)
+                RETURN r
                 """
-                path_result = self.graph.run(path_query).data()
-                
+                rel_result = self.graph.run(rel_query).data()
+
                 # 添加所有关系
                 processed_relations = set()  # 用于去重
                 # 处理关系数据
-                for record in path_result:
-                    for rel in record['rels']:
-                        # 构造关系唯一标识
-                        rel_id = f"{rel.start_node.identity}-{rel.end_node.identity}-{type(rel).__name__}"
+                for record in rel_result:
+                    rel = record['r']
+                    # 构造关系唯一标识
+                    rel_id = f"{rel.start_node.identity}-{rel.end_node.identity}-{type(rel).__name__}"
+                    
+                    # 避免重复添加相同关系
+                    if rel_id in processed_relations:
+                        continue
                         
-                        # 避免重复添加相同关系
-                        if rel_id in processed_relations:
-                            continue
-                            
-                        processed_relations.add(rel_id)
+                    processed_relations.add(rel_id)
+                    
+                    rel_type = type(rel).__name__
+                    
+                    # 构建关系数据
+                    line_data = {
+                        'from': rel.start_node.identity,
+                        'to': rel.end_node.identity,
+                        'text': rel_type
+                    }
+                    
+                    # 添加关系属性
+                    for key, value in rel.items():
+                        line_data[key] = value
                         
-                        rel_type = type(rel).__name__
-                        
-                        # 构建关系数据
-                        line_data = {
-                            'from': rel.start_node.identity,
-                            'to': rel.end_node.identity,
-                            'text': rel_type
-                        }
-                        
-                        # 添加关系属性
-                        for key, value in rel.items():
-                            line_data[key] = value
-                            
-                        # 特别处理关系类型属性
-                        if 'relation_type' in rel:
-                            line_data['relation_category'] = rel['relation_type']
-                        
-                        lines.append(line_data)
+                    # 特别处理关系类型属性
+                    if 'relation_type' in rel:
+                        line_data['relation_category'] = rel['relation_type']
+                    
+                    lines.append(line_data)
             else:
                 node_query = """
                 MATCH (n)
@@ -610,7 +614,9 @@ class neo4j_db():
                 
                 # 获取这些节点之间的关系
                 if node_ids:
-                    # 限制关系数量
+                    # 保持参数化：实测（2026-09-24，7470 节点库）内联字面量 369 ms vs 参数化 473 ms，
+                    # 都在亚秒级——Neo4j 5.x 对 `id(n) IN $ids` 仍能走 id seek，不存在"参数化退化成
+                    # 全表扫描"的问题，没必要为一个 28% 的差距放弃统一的安全写法。
                     relation_query = """
                     MATCH (n)-[r]-(m)
                     WHERE id(n) IN $node_ids AND id(m) IN $node_ids
