@@ -23,7 +23,7 @@ import os
 import re
 from collections import Counter
 
-from sqlalchemy import func, text
+from sqlalchemy import func, or_, text
 
 from common_utils import safe_identifier, safe_text as _safe_text
 from db_handle import neo4j_db_handle
@@ -216,54 +216,69 @@ def _missing_field_rows(model, type_name, required_fields, limit=20):
         if len(rows) >= limit:
             break
     return rows
+def _exists(relation_model, condition):
+    """关系表里是否存在满足条件的行（供 NOT EXISTS 下推用）。"""
+    return db.session.query(relation_model).filter(condition).exists()
+
+
+def _isolated_filter(model):
+    """「在该模型对应的关系表里没有任何引用」的 SQL 条件。
+
+    Event 出现在事件-事件的两侧，以及事件-地点/人物/组织的 event_id 上；
+    Place / Person / Organization 各自对应一张关系表。
+    """
+    if model is Event:
+        return ~or_(
+            _exists(EventEventRelation, EventEventRelation.event_a_id == Event.id),
+            _exists(EventEventRelation, EventEventRelation.event_b_id == Event.id),
+            _exists(EventPlaceRelation, EventPlaceRelation.event_id == Event.id),
+            _exists(EventPersonRelation, EventPersonRelation.event_id == Event.id),
+            _exists(EventOrganizationRel, EventOrganizationRel.event_id == Event.id),
+        )
+    if model is Place:
+        return ~_exists(EventPlaceRelation, EventPlaceRelation.place_id == Place.id)
+    if model is Person:
+        return ~_exists(EventPersonRelation, EventPersonRelation.person_id == Person.id)
+    if model is Organization:
+        return ~_exists(EventOrganizationRel, EventOrganizationRel.org_id == Organization.id)
+    raise ValueError(f"不支持的节点类型: {model}")
+
+
 def _isolated_node_rows(limit=20):
-    """找出未参与任何结构化关系的孤立节点。"""
-    related_event_ids = {
-        row[0] for row in EventEventRelation.query.with_entities(EventEventRelation.event_a_id).all() if row[0] is not None
-    } | {
-        row[0] for row in EventEventRelation.query.with_entities(EventEventRelation.event_b_id).all() if row[0] is not None
-    } | {
-        row[0] for row in EventPlaceRelation.query.with_entities(EventPlaceRelation.event_id).all() if row[0] is not None
-    } | {
-        row[0] for row in EventPersonRelation.query.with_entities(EventPersonRelation.event_id).all() if row[0] is not None
-    } | {
-        row[0] for row in EventOrganizationRel.query.with_entities(EventOrganizationRel.event_id).all() if row[0] is not None
-    }
+    """找出未参与任何结构化关系的孤立节点。
 
-    related_place_ids = {row[0] for row in EventPlaceRelation.query.with_entities(EventPlaceRelation.place_id).all() if row[0] is not None}
-    related_person_ids = {row[0] for row in EventPersonRelation.query.with_entities(EventPersonRelation.person_id).all() if row[0] is not None}
-    related_org_ids = {row[0] for row in EventOrganizationRel.query.with_entities(EventOrganizationRel.org_id).all() if row[0] is not None}
-
+    P2-5：原实现把 8 张关系表的全部外键列与四类节点全量拉进 Python 再做集合差
+    （本库约 1.7 万关系行 + 9925 个节点对象，每次质检请求都要重来一遍），
+    这里下推到数据库侧用 NOT EXISTS 判断，LIMIT 也提前生效。
+    顺序显式按 id 升序，保证返回稳定（原实现依赖 rowid 顺序）。
+    """
     isolated_rows = []
-
-    for event in Event.query.all():
-        if event.id not in related_event_ids:
-            isolated_rows.append({"id": event.id, "name": event.name, "type": "Event"})
-        if len(isolated_rows) >= limit:
-            return isolated_rows
-
-    for place in Place.query.all():
-        if place.id not in related_place_ids:
-            isolated_rows.append({"id": place.id, "name": place.name, "type": "Place"})
-        if len(isolated_rows) >= limit:
-            return isolated_rows
-
-    for person in Person.query.all():
-        if person.id not in related_person_ids:
-            isolated_rows.append({"id": person.id, "name": person.name, "type": "Person"})
-        if len(isolated_rows) >= limit:
-            return isolated_rows
-
-    for org in Organization.query.all():
-        if org.id not in related_org_ids:
-            isolated_rows.append({"id": org.id, "name": org.name, "type": "Organization"})
-        if len(isolated_rows) >= limit:
-            return isolated_rows
-
+    for model, type_name in ((Event, "Event"), (Place, "Place"),
+                             (Person, "Person"), (Organization, "Organization")):
+        remaining = limit - len(isolated_rows)
+        if remaining <= 0:
+            break
+        rows = (
+            model.query
+            .filter(_isolated_filter(model))
+            .order_by(model.id.asc())
+            .limit(remaining)
+            .all()
+        )
+        isolated_rows.extend(
+            {"id": node.id, "name": node.name, "type": type_name} for node in rows
+        )
     return isolated_rows
+
+
 def _count_all_isolated_nodes():
-    """统计全部孤立节点数量。"""
-    return len(_isolated_node_rows(limit=99999))
+    """统计全部孤立节点数量（SQL 侧 COUNT，不再拉全量节点做差集）。"""
+    return sum(
+        model.query.filter(_isolated_filter(model)).count()
+        for model in (Event, Place, Person, Organization)
+    )
+
+
 def _event_timeline_issues(limit=20):
     """识别时间字段缺失或顺序异常的事件。"""
     rows = []
@@ -293,11 +308,28 @@ def _event_timeline_issues(limit=20):
             break
     return rows
 def _place_related_event_count(place_id):
+    """单个地点的关联事件数。**批量场景不要用它**（N+1），改用 `_place_event_counts()`。"""
     return EventPlaceRelation.query.filter(EventPlaceRelation.place_id == place_id).count()
+
+
+def _place_event_counts():
+    """一次查出所有地点的关联事件数：{place_id: 行数}。
+
+    原先 `_coordinate_issue_rows` 在 5316 个地点的循环里逐个 COUNT（P2-5 的 N+1 热点），
+    这里换成一次 GROUP BY。用 count(id) 而不是 count(distinct event_id)，与原实现
+    的行数口径保持一致。
+    """
+    return dict(
+        db.session.query(EventPlaceRelation.place_id, func.count(EventPlaceRelation.id))
+        .group_by(EventPlaceRelation.place_id)
+        .all()
+    )
 def _coordinate_issue_rows(issue_type, limit=20):
     rows = []
+    # 一次预取所有地点的计数，避免在循环里逐个查询
+    place_event_counts = _place_event_counts()
     for place in Place.query.order_by(Place.id.asc()).all():
-        related_event_count = _place_related_event_count(place.id)
+        related_event_count = place_event_counts.get(place.id, 0)
         if related_event_count == 0:
             continue
 
