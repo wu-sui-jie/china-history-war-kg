@@ -102,11 +102,6 @@ const menus = [
                 title: '图谱质检'
             },
             {
-                id: '/workspace/repair',
-                icon: 'layui-icon-edit',
-                title: '数据修复工作台'
-            },
-            {
                 id: '/workspace/dataset-versions',
                 icon: 'layui-icon-date',
                 title: '数据版本管理'

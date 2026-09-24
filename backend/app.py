@@ -1510,11 +1510,6 @@ def get_menu():
                     "title": "图谱质检"
                 },
                 {
-                    "id": "/workspace/repair",
-                    "icon": "layui-icon-vercode",
-                    "title": "数据修复工作台"
-                },
-                {
                     "id": "/workspace/dataset-versions",
                     "icon": "layui-icon-list",
                     "title": "数据版本管理"
@@ -1522,6 +1517,13 @@ def get_menu():
             ]
         }
     ]
+
+    # 角色裁剪：viewer（只读）不下发数据运营组。写权限的真正防线在
+    # require_write_role 的 403，这里不下发菜单是第二层——让只读使用者
+    # 界面上就看不到管理入口，而不是点了才被拒。
+    role = DbUtil.get_role(getattr(g, "user_id", None))
+    if role == "viewer":
+        menu_data = [m for m in menu_data if m.get("id") != "/workspace/manage"]
 
     return jsonify({
         "code": 200,
