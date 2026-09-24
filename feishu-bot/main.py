@@ -29,6 +29,7 @@ from bot.render.subgraph import SubgraphRenderer               # noqa: E402
 from bot.session import SessionStore                          # noqa: E402
 from bot.skills.help import HelpSkill                          # noqa: E402
 from bot.skills.knowledge_qa import KnowledgeQaSkill           # noqa: E402
+from bot.skills.new_session import NewSessionSkill             # noqa: E402
 from bot.skills.report_error import ReportErrorSkill          # noqa: E402
 from config import Config, ConfigError, load_config           # noqa: E402
 
@@ -108,10 +109,11 @@ def build_application(config: Config) -> Application:
         enabled=config.demo_examples_enabled,
     )
 
-    # 注册顺序即分流顺序：/help 命令 → knowledge_qa（兜底，恒真）
+    # 注册顺序即分流顺序：命令技能（/help、/new）→ knowledge_qa（兜底，恒真）
     # report_error 不在文本分流里（仅由卡片按钮触发，开发文档 5.3）
     skills = [
         HelpSkill(),
+        NewSessionSkill(session=session),
         KnowledgeQaSkill(rag=rag, session=session, renderer=renderer, examples=examples,
                          config=config),
         ReportErrorSkill(session=session, feishu=feishu, config=config),

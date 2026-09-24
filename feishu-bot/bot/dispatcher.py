@@ -22,8 +22,9 @@ import time
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-from bot.cards.builder import (NOT_TEXT_MESSAGE, attach_feedback_button,
-                               build_degraded_card, build_notice_card)
+from bot.cards.builder import (NOT_TEXT_MESSAGE, SEND_FAILED_TEXT, attach_feedback_button,
+                               build_degraded_card, build_notice_card,
+                               build_placeholder_card)
 from bot.db import Database, now_ts
 from bot.session import SessionStore, session_key
 from bot.skills.base import Reply, SkillContext, SkillRegistry
@@ -402,14 +403,15 @@ class Dispatcher:
         log.info("处理提问：event_id=%s session=%s question=%r",
                  event.event_id, event.session_key, question[:60])
         ctx = self._build_context(event, question)
-        if ctx is None:
-            return
-        reply = self._run_skill(ctx)
+        skill = self._resolve_skill(ctx)
+        # 两段式回复（批次③-1）：慢技能先回占位卡，跑完再 PATCH 成最终卡
+        placeholder_id = self._send_placeholder(event, skill)
+        reply = self._run_skill(ctx, skill)
         user_id, msg_key = self._record_turn(ctx, reply)
         if msg_key is not None:
             # 卡片在发送前才补"反馈有误"按钮：value 要带 messages.id，而 id 先落库才有
             attach_feedback_button(reply.card, msg_key)
-        sent_id = self._send_reply(event, reply)
+        sent_id = self._deliver(event, reply, placeholder_id)
         if msg_key is not None:
             if sent_id:
                 self.session.set_bot_message_id(msg_key, sent_id)
@@ -506,7 +508,9 @@ class Dispatcher:
         一条用户从未见过的回答——查询缓存因此永远命中不了，本该毫秒返回的问题
         退化成十几秒的真生成。与"成对写入"是同一条原则的两面：只写能入历史的轮次，
         不保留没有送达的回答。
-        答案全文打进 ERROR 日志，供运营侧手工补偿（用户那边只会看到沉默）。
+        答案全文打进 ERROR 日志，供运营侧手工补偿。
+        两段式回复下同样适用：占位卡送达但最终卡没 PATCH 上去时，用户看到的是
+        "发送失败"提示（`_patch_placeholder_failed`），回答本身并未送达。
         """
         removed = self.session.delete_messages([user_id, assistant_id])
         self.stats["send_failed"] += 1
@@ -516,9 +520,20 @@ class Dispatcher:
                   removed, ctx.session_key, ctx.question,
                   (turn.content if turn is not None else ""))
 
-    def _run_skill(self, ctx: SkillContext) -> Reply:
-        """按注册顺序解析并执行技能（顺序规则见 skills/base.py::SkillRegistry）。"""
-        skill = self.registry.resolve(ctx)
+    def _resolve_skill(self, ctx: SkillContext) -> Any | None:
+        """按注册顺序解析技能（顺序规则见 skills/base.py::SkillRegistry）。
+
+        分流本身抛异常也要有个结果：占位卡此时可能已经发出去了，必须继续走到
+        "给用户一张降级卡"这一步，而不是让它留在"正在检索…"。
+        """
+        try:
+            return self.registry.resolve(ctx)
+        except Exception as e:  # noqa: BLE001
+            log.exception("技能分流异常：%s", e)
+            return None
+
+    def _run_skill(self, ctx: SkillContext, skill: Any | None) -> Reply:
+        """执行已解析的技能。"""
         if skill is None:
             log.error("没有技能命中且无兜底技能，返回降级卡片")
             return Reply(kind="card", card=build_degraded_card(reason="internal"))
@@ -528,6 +543,60 @@ class Dispatcher:
         except Exception as e:  # noqa: BLE001
             log.exception("技能 %s 执行异常：%s", skill.name, e)
             return Reply(kind="card", card=build_degraded_card(reason="internal"))
+
+    def _send_placeholder(self, event: MessageEvent, skill: Any | None) -> str | None:
+        """两段式回复第一步：慢技能动手之前先回一张"正在检索…"占位卡（批次③-1）。
+
+        为什么要占位：知识问答同步等 RAG，介绍类长回答实测 12–25s，不给任何反馈用户
+        只能干等、还会怀疑机器人没反应。占位卡发出去后最终卡由 PATCH 整卡替换（`_deliver`），
+        消息 id 不变、不新增消息。
+
+        只有技能自己声明了 `wants_placeholder` 才发（当前只有 knowledge_qa）：
+        `/help`、`/new` 这类命令与提示卡片本来就秒回，不需要两段式。
+        占位卡发失败不算致命（传输层抖动是常见现象）：退回单段式，跑完后按普通 reply 发送。
+        """
+        if skill is None or not getattr(skill, "wants_placeholder", False):
+            return None
+        try:
+            return self.feishu.reply_card(event.message_id, build_placeholder_card())
+        except Exception as e:  # noqa: BLE001
+            log.error("占位卡发送失败（退回单段式）：message_id=%s err=%s",
+                      event.message_id, e)
+            return None
+
+    def _deliver(self, event: MessageEvent, reply: Reply,
+                 placeholder_id: str | None) -> str | None:
+        """把最终回复送到用户眼前；返回送达消息的 id，失败返回 None。
+
+        有占位卡就 PATCH 它（整卡替换、消息 id 不变）；PATCH 失败时占位卡已经躺在用户
+        眼前了，**不能让它一直转圈**——再尽力 PATCH 一次"发送失败"提示卡，本轮历史照旧
+        撤回（回答确实没送达，与"成对写入"口径一致）。
+        """
+        if not placeholder_id:
+            return self._send_reply(event, reply)
+        # kind=text 是兜底路径（当前没有技能这么返回）：占位卡已送达，PATCH 成同等内容的
+        # 卡片比再补发一条消息干净，用户不会看到两张卡
+        card = reply.card or build_notice_card(reply.text or "")
+        try:
+            if self.feishu.patch_card(placeholder_id, card):
+                return placeholder_id
+            log.error("最终卡片更新失败（飞书返回业务错误）：message_id=%s", placeholder_id)
+        except Exception as e:  # noqa: BLE001 - 重试后仍失败，见 feishu_client
+            log.error("最终卡片更新失败（传输层）：message_id=%s err=%s", placeholder_id, e)
+        self._patch_placeholder_failed(placeholder_id)
+        return None
+
+    def _patch_placeholder_failed(self, placeholder_id: str) -> None:
+        """占位卡收尾：PATCH 成"发送失败"提示（尽力而为，失败只记日志）。"""
+        try:
+            if self.feishu.patch_card(placeholder_id, build_notice_card(SEND_FAILED_TEXT)):
+                log.warning("占位卡已更新为发送失败提示：message_id=%s", placeholder_id)
+            else:
+                log.error("失败提示也没能 PATCH 上去（用户会停留在占位卡上）：message_id=%s",
+                          placeholder_id)
+        except Exception as e:  # noqa: BLE001
+            log.error("失败提示没能更新（用户会停留在占位卡上）：message_id=%s err=%s",
+                      placeholder_id, e)
 
     def _send_reply(self, event: MessageEvent, reply: Reply) -> str | None:
         """发送回复并返回机器人消息 id；**发送失败返回 None**。

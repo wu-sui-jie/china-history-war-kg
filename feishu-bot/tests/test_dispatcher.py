@@ -445,6 +445,62 @@ def test_unknown_card_action_is_logged_not_crashing(config, session, db):
     assert dispatcher.stats["handled"] == 0
 
 
+# ---- 两段式回复（批次③-1）----
+
+
+class SlowSkill:
+    """声明了 wants_placeholder 的技能：dispatcher 应在执行它之前先发占位卡。"""
+
+    name = "slow"
+    wants_placeholder = True
+
+    def match(self, ctx):
+        return True
+
+    def run(self, ctx):
+        from bot.skills.base import Reply
+
+        return Reply(kind="card", card=build_notice_card("答案"))
+
+
+def test_placeholder_then_patch_for_slow_skill(config, session, db):
+    feishu = FakeFeishu()
+    dispatcher = make_dispatcher(config, session, db, skills=[SlowSkill()], feishu=feishu)
+    dispatcher.handle_message(parse_message_event(make_message_event()))
+
+    assert "正在检索" in feishu.replies[0][1]["body"]["elements"][0]["content"]
+    assert len(feishu.replies) == 1                  # 只有占位卡这一条消息
+    assert feishu.patched, "最终卡必须用 PATCH 送达"
+    message_id, card = feishu.patched[-1]
+    assert message_id == "bot-1"                     # 与占位卡是同一条消息
+    assert card["body"]["elements"][0]["content"] == "答案"
+
+
+def test_fast_skill_has_no_placeholder(config, session, db):
+    """没声明 wants_placeholder 的技能（如 EchoSkill）直接单段式发送。"""
+    feishu = FakeFeishu()
+    dispatcher = make_dispatcher(config, session, db, feishu=feishu)
+    dispatcher.handle_message(parse_message_event(make_message_event(text="你好")))
+    assert not feishu.patched
+    assert "已收到：你好" in feishu.replies[0][1]["body"]["elements"][0]["content"]
+
+
+def test_patch_failure_replaces_placeholder_with_notice(config, session, db):
+    """PATCH 失败时占位卡换成失败提示（不能让用户一直看着"正在检索…"）。"""
+
+    class NoPatchFeishu(FakeFeishu):
+        def patch_card(self, message_id, card):
+            self.patched.append((message_id, card))
+            return False
+
+    feishu = NoPatchFeishu()
+    dispatcher = make_dispatcher(config, session, db, skills=[SlowSkill()], feishu=feishu)
+    dispatcher.handle_message(parse_message_event(make_message_event()))
+
+    assert len(feishu.patched) == 2                  # 最终卡 + 失败提示各一次
+    assert "没能发送成功" in feishu.patched[-1][1]["body"]["elements"][0]["content"]
+
+
 def test_synthetic_event_from_card_has_no_group_semantics(config, session, db):
     dispatcher = make_dispatcher(config, session, db)
     action = parse_card_action(make_card_event(value={"action": "ask", "question": "追问一下"}))

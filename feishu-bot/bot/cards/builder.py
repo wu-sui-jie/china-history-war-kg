@@ -26,6 +26,13 @@ DEGRADED_TEXTS = {
 # 413 属于机器人侧历史组装问题，绝不能这样提示（开发文档 5.3 / 风险 8）。
 TOO_LONG_TEXT = "问题过长或不支持，请精简后重试。"
 NOT_TEXT_MESSAGE = "暂只支持文字提问，请把问题打成文字发我。"
+# 两段式回复（批次③-1）：知识问答要同步等 RAG（长回答实测 12–25s），
+# 先回这张占位卡让用户确认"收到了、在查"，跑完再用整卡 PATCH 替换。
+PLACEHOLDER_TEXT = ("正在检索史料，请稍候……\n\n"
+                    "长回答通常需要 5–25 秒，这条卡片稍后会被完整回答替换。")
+# 占位卡已送到用户眼前、但最终卡没能 PATCH 上去时的收尾文案：
+# 不能让用户一直看着"正在检索…"（此时本轮回答按未送达处理，见 dispatcher）
+SEND_FAILED_TEXT = "抱歉，这条回答没能发送成功，请再问一次。"
 
 # ---- 文本化输出的条数上限（按字段裁剪的落地，超出加"……等 N 项"）----
 MAX_ENTITY_CARDS = 10
@@ -365,6 +372,17 @@ def build_notice_card(text: str, *, title: str = CARD_TITLE) -> dict:
         "header": {"title": {"tag": "plain_text", "content": title}, "template": "grey"},
         "body": {"elements": [_md(text)]},
     }
+
+
+def build_placeholder_card(text: str = PLACEHOLDER_TEXT) -> dict:
+    """两段式回复的占位卡（批次③-1），走与提示卡相同的灰色模板。
+
+    为什么用灰色而不是答案卡的蓝色：它**不是答案**，不该看起来像答案——
+    用户扫一眼就知道"还在查"，而不是"机器人回了句废话"。
+    这张卡随后会被 `patch_card` 整卡替换（`config.update_multi=True` 正是 PATCH 的前提），
+    消息 id 不变，因此不打扰会话流、也不新增一条消息。
+    """
+    return build_notice_card(text)
 
 
 def build_feedback_ticket_card(*, feedback_id: int, open_id: str, question: str,

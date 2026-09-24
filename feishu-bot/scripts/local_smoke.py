@@ -7,8 +7,10 @@
 能验什么：
 - RAG 通不通、非流式接口返回什么、回答质量如何；
 - 卡片结构对不对（正文/引用折叠/实体卡/时间线/地点/子图/按钮）；
+- 两段式回复有没有生效（先出占位卡、再被最终卡整卡替换）；
 - 多轮追问有没有把历史带上（对话里能看出指代是否被理解）；
 - 纠错反馈有没有落库、工单卡片长什么样；
+- `/new` 重置会话后上下文是否真的清空；
 - RAG 挂掉时的降级卡片（用 `--dead-rag` 把 RAG 地址指到一个空端口）。
 
 不能验什么（仍需要真实飞书租户）：长连接能否收到事件、卡片回调能否触发、
@@ -46,6 +48,7 @@ from bot.render.subgraph import SubgraphRenderer                  # noqa: E402
 from bot.session import SessionStore                              # noqa: E402
 from bot.skills.help import HelpSkill                             # noqa: E402
 from bot.skills.knowledge_qa import KnowledgeQaSkill              # noqa: E402
+from bot.skills.new_session import NewSessionSkill                # noqa: E402
 from bot.skills.report_error import ReportErrorSkill              # noqa: E402
 from card_helpers import buttons, elements, feedback_msg_key      # noqa: E402
 from config import Config, load_config                            # noqa: E402
@@ -62,6 +65,7 @@ class RecordingFeishu:
         self.replies: list[dict] = []
         self.sent: list[tuple[str, dict]] = []
         self.images: list[str] = []
+        self.patched: list[tuple[str, dict]] = []      # 两段式回复的第二步（整卡替换）
 
     def reply_card(self, message_id, card):
         self.replies.append(card)
@@ -80,6 +84,7 @@ class RecordingFeishu:
         return f"sent-{len(self.sent)}"
 
     def patch_card(self, message_id, card):
+        self.patched.append((message_id, card))
         return True
 
     def upload_image(self, path):
@@ -88,6 +93,12 @@ class RecordingFeishu:
         data = _P(path).read_bytes()
         self.images.append(f"{_P(path).name} ({len(data)} 字节, {data[1:4].decode()})")
         return f"img_key_{len(self.images)}"
+
+    def delivered(self) -> dict | None:
+        """用户当前看到的那张卡：最后一次 PATCH 的结果优先，否则最后一次 reply。"""
+        if self.patched:
+            return self.patched[-1][1]
+        return self.replies[-1] if self.replies else None
 
 
 def _summarize(card: dict) -> str:
@@ -218,6 +229,7 @@ def main(argv: list[str] | None = None) -> int:
         else None
     skills = [
         HelpSkill(),
+        NewSessionSkill(session=session),
         KnowledgeQaSkill(rag=rag, session=session, renderer=renderer,
                          examples=DemoExamplesCache(rag, count=3), config=config),
         ReportErrorSkill(session=session, feishu=feishu, config=config),
@@ -261,13 +273,22 @@ def main(argv: list[str] | None = None) -> int:
         print(f"    已存：{path}")
 
         # 2) 首次提问（fresh 会话）
+        #    两段式回复（批次③-1）：先 reply 占位卡，跑完用 PATCH 整卡替换
         feishu.replies.clear()
+        feishu.patched.clear()
         started = time.monotonic()
         dispatcher.handle_message(_message_event(args.question, "smoke-q1"))
         elapsed = int((time.monotonic() - started) * 1000)
-        card = feishu.replies[-1]
+        placeholder = feishu.replies[0] if feishu.replies else None
+        card = feishu.delivered() or {}
         print(f"\n[2] 提问「{args.question}」（{elapsed}ms）")
-        print(f"    {_summarize(card)}")
+        if placeholder is not None and feishu.patched:
+            print(f"    占位卡（第一段）：{_summarize(placeholder)}")
+            path = _save(out_dir, "2_answer_placeholder", placeholder)
+            print(f"    已存：{path}")
+            print(f"    最终卡（PATCH 替换同一消息）：{_summarize(card)}")
+        else:
+            print(f"    单段式（没有占位卡）：{_summarize(card)}")
         print(f"    正文：{_body_head(card, 120)}")
         if feishu.images:
             print(f"    子图：{'、'.join(feishu.images)}")
@@ -283,8 +304,9 @@ def main(argv: list[str] | None = None) -> int:
         # 3) 追问（验历史透传）
         if args.followup:
             feishu.replies.clear()
+            feishu.patched.clear()
             dispatcher.handle_message(_message_event(args.followup, "smoke-q2"))
-            card = feishu.replies[-1]
+            card = feishu.delivered() or {}
             print(f"\n[3] 追问「{args.followup}」")
             print(f"    {_summarize(card)}")
             print(f"    正文：{_body_head(card, 120)}")
@@ -326,14 +348,30 @@ def main(argv: list[str] | None = None) -> int:
                 else:
                     print("    feedback 表里没有记录（异常，应有一条 open 记录）")
 
-        # 5) 去重（同一 event_id 投递两次：入队 1 次、丢弃 1 次）
+        # 5) /new 重置会话（批次③-2）：上下文与历史一起清空，feedback 仍保留
+        feishu.replies.clear()
+        feishu.patched.clear()
+        before_history = len(session.history_for_rag("ou_smoke:oc_smoke"))
+        before_feedback = session.db.query_one("SELECT COUNT(*) FROM feedback")[0]
+        dispatcher.handle_message(_message_event("/new", "smoke-new"))
+        card = feishu.delivered() or {}
+        after_history = len(session.history_for_rag("ou_smoke:oc_smoke"))
+        after_feedback = session.db.query_one("SELECT COUNT(*) FROM feedback")[0]
+        print(f"\n[5] /new 重置会话：{_summarize(card)}")
+        print(f"    会话历史：{before_history} 条 → {after_history} 条（期望 0）")
+        print(f"    feedback 表：{before_feedback} → {after_feedback} 行"
+              f"（重置会话不该动纠错记录；降级轮次没有按钮时两边都是 0）")
+        if after_history or after_feedback != before_feedback:
+            exit_code = 1
+
+        # 6) 去重（同一 event_id 投递两次：入队 1 次、丢弃 1 次）
         #    走 on_message（SDK 回调的真实入口），因此喂**原始**事件对象
         before = dict(dispatcher.stats)
         dispatcher.on_message(_raw_message_event("重复投递测试", "smoke-dup"))
         dispatcher.on_message(_raw_message_event("重复投递测试", "smoke-dup"))
         enqueued = dispatcher.stats["enqueued"] - before["enqueued"]
         duplicate = dispatcher.stats["duplicate"] - before["duplicate"]
-        print(f"\n[5] 去重：同一 event_id 投递两次 → 入队 {enqueued} 次、丢弃 {duplicate} 次"
+        print(f"\n[6] 去重：同一 event_id 投递两次 → 入队 {enqueued} 次、丢弃 {duplicate} 次"
               f"（期望 1 / 1）")
 
         print(f"\n完成。卡片 JSON 在 {out_dir}，"

@@ -19,6 +19,7 @@ from bot.dispatcher import Dispatcher
 from bot.rag_client import DemoExamplesCache, RagClient
 from bot.skills.help import HelpSkill
 from bot.skills.knowledge_qa import KnowledgeQaSkill
+from bot.skills.new_session import NewSessionSkill
 from bot.skills.report_error import ReportErrorSkill
 
 from card_helpers import button_values, feedback_msg_key
@@ -28,21 +29,45 @@ OPERATORS_CHAT = "oc_operators"
 
 
 class RecordingFeishu:
-    """接住所有发送动作（等价于 mock 掉 SDK 的发送函数）。"""
+    """接住所有发送动作（等价于 mock 掉 SDK 的发送函数）。
 
-    def __init__(self, fail_send: bool = False):
+    两段式回复（批次③-1）也要在替身上成立：PATCH **替换** replies 里那一条（飞书侧
+    就是整卡替换同一条消息），于是 `last_card` 恒等于"用户当前看到的那张卡"。
+    """
+
+    def __init__(self, fail_send: bool = False, fail_replies: int = 0,
+                 fail_patch: int = 0):
         self.replies: list[dict] = []
+        self.sent_cards: list[dict] = []    # 每次 reply 发出的原样卡片（PATCH 不改它）
         self.sent: list[tuple[str, dict]] = []
         self.uploads: list[str] = []
-        self.fail_send = fail_send
+        self.patched: list[tuple[str, dict]] = []
+        self.fail_send = fail_send          # 所有 reply 都失败（模拟持续不可达）
+        self.fail_replies = fail_replies    # 前 N 次 reply 失败（模拟一次抖动）
+        self.fail_patch = fail_patch        # 前 N 次 PATCH 失败
 
     def reply_card(self, message_id, card):
-        self.replies.append({"message_id": message_id, "card": card})
-        return None if self.fail_send else f"bot-msg-{len(self.replies)}"
+        self.sent_cards.append(card)
+        self.replies.append({"user_message_id": message_id,
+                             "bot_message_id": f"bot-msg-{len(self.replies)}",
+                             "card": card})
+        if self.fail_send:
+            return None
+        if self.fail_replies > 0:
+            self.fail_replies -= 1
+            return None
+        return self.replies[-1]["bot_message_id"]
 
     def reply_text(self, message_id, text):
-        self.replies.append({"message_id": message_id, "text": text})
-        return None if self.fail_send else f"bot-msg-{len(self.replies)}"
+        self.replies.append({"user_message_id": message_id,
+                             "bot_message_id": f"bot-msg-{len(self.replies)}",
+                             "text": text})
+        if self.fail_send:
+            return None
+        if self.fail_replies > 0:
+            self.fail_replies -= 1
+            return None
+        return self.replies[-1]["bot_message_id"]
 
     def send_card(self, chat_id, card):
         self.sent.append((chat_id, card))
@@ -53,6 +78,17 @@ class RecordingFeishu:
         return f"sent-{len(self.sent)}"
 
     def patch_card(self, message_id, card):
+        self.patched.append((message_id, card))
+        if self.fail_patch > 0:
+            self.fail_patch -= 1
+            return False
+        for reply in self.replies:                      # 同一消息：替换而不是追加
+            if reply.get("bot_message_id") == message_id:
+                reply.pop("text", None)
+                reply["card"] = card
+                return True
+        self.replies.append({"user_message_id": None, "bot_message_id": message_id,
+                             "card": card})             # 占位卡不在列表里时的兜底
         return True
 
     def upload_image(self, path):
@@ -117,6 +153,7 @@ def stack(config, session, db):
         config.feishu_operators_chat_id = operators_chat
         skills = [
             HelpSkill(),
+            NewSessionSkill(session=session),
             KnowledgeQaSkill(rag=rag, session=session, renderer=renderer,
                              examples=examples, config=config),
             ReportErrorSkill(session=session, feishu=feishu, config=config),
@@ -328,6 +365,133 @@ def test_feedback_on_missing_message_is_ignored(stack, session):
     wait_idle(app.dispatcher)
     assert session.get_feedback(999) is None
     assert not app.feishu.sent
+
+
+# ---- 批次③-1：两段式回复（占位卡 → PATCH 最终卡）----
+
+
+def test_two_phase_placeholder_is_replaced_by_answer(stack, session):
+    app = stack()
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-2p"))
+    wait_idle(app.dispatcher)
+
+    # 第一段：占位卡先落地，用户不再干等（sent_cards 是发送时的原样卡片）
+    placeholder = app.feishu.sent_cards[0]
+    assert "正在检索" in placeholder["body"]["elements"][0]["content"]
+    # 第二段：最终卡用 PATCH 送达**同一条**消息（不新增消息）
+    assert app.feishu.patched, "最终卡应通过 PATCH 送达"
+    message_id, final_card = app.feishu.patched[-1]
+    assert message_id == app.feishu.replies[0]["bot_message_id"]
+    assert len(app.feishu.replies) == 1, "两段式不该产生第二条消息"
+    assert "**长平之战**" in final_card["body"]["elements"][0]["content"]
+
+    # 落库的 bot_message_id 指向这条消息（PATCH 前后是同一个 id）
+    row = session.db.query_one("SELECT bot_message_id FROM messages WHERE role='assistant'")
+    assert row["bot_message_id"] == message_id
+    # 反馈按钮补在最终卡上（msg_key 指向刚落的行）
+    assert feedback_msg_key(final_card) == str(
+        session.db.query_one("SELECT id FROM messages WHERE role='assistant'")["id"])
+
+
+def test_two_phase_needs_both_steps(stack):
+    """占位卡与最终卡是两个可分别检查的产物（冒烟脚本就靠这条口径落盘）。"""
+    app = stack()
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-2p2"))
+    wait_idle(app.dispatcher)
+    assert len(app.feishu.replies) == 1 and len(app.feishu.patched) == 1
+
+
+def test_two_phase_falls_back_when_placeholder_fails(stack, session):
+    """占位卡没发出去（一次抖动）→ 退回单段式：答案照常作为新消息发出。"""
+    app = stack()
+    app.feishu.fail_replies = 1
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-2p3"))
+    wait_idle(app.dispatcher)
+
+    assert not app.feishu.patched, "占位卡没发成功就不该有 PATCH"
+    assert "**长平之战**" in app.feishu.last_card["body"]["elements"][0]["content"]
+    assert session.history_for_rag("ou-1:oc-1"), "单段式成功，历史照常保留"
+
+
+def test_patch_failure_shows_failure_notice_and_rolls_back(stack, session):
+    """最终卡 PATCH 失败时：占位卡换成失败提示，且两行历史撤回。
+
+    占位卡已经躺在用户眼前了，不能让它一直转圈；而回答确实没送达，
+    按"不保留未送达的回答"撤回（与单段式的口径一致）。
+    """
+    app = stack()
+    app.feishu.fail_patch = 1          # 最终卡 PATCH 失败，随后的失败提示 PATCH 成功
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-2p4"))
+    wait_idle(app.dispatcher)
+
+    assert "没能发送成功" in app.feishu.last_card["body"]["elements"][0]["content"]
+    assert session.history_for_rag("ou-1:oc-1") == []
+    assert session.db.query_one("SELECT COUNT(*) FROM messages")[0] == 0
+    assert app.dispatcher.stats["send_failed"] == 1
+
+
+def test_help_does_not_go_two_phase(stack):
+    """/help 是秒回的命令卡片，不发占位卡（技能没声明 wants_placeholder）。"""
+    app = stack()
+    app.dispatcher.on_message(message_event("/help", event_id="ev-help2"))
+    wait_idle(app.dispatcher)
+    assert len(app.feishu.replies) == 1
+    assert not app.feishu.patched
+    assert "我能做什么" in app.feishu.sent_cards[0]["body"]["elements"][0]["content"]
+
+
+# ---- 批次③-2：/new 重置会话 ----
+
+
+def test_new_command_resets_history(stack, session):
+    app = stack()
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-n1"))
+    wait_idle(app.dispatcher)
+    assert session.history_for_rag("ou-1:oc-1"), "前置条件：已有上下文"
+
+    app.dispatcher.on_message(message_event("/new", event_id="ev-n2"))
+    wait_idle(app.dispatcher)
+    assert "已清空" in app.feishu.last_card["body"]["elements"][0]["content"]
+    assert session.history_for_rag("ou-1:oc-1") == []
+    assert session.db.query_one("SELECT COUNT(*) FROM sessions")[0] == 0
+
+    # 重置后的追问不再带上文
+    app.dispatcher.on_message(message_event("他后来怎么样了", event_id="ev-n3"))
+    wait_idle(app.dispatcher)
+    assert app.fake.requests[-1]["body"]["history"] == []
+
+
+def test_new_command_keeps_feedback_rows(stack, session):
+    """纠错记录是治理队列，不随用户重置会话消失（开发文档 5.7）。"""
+    app = stack()
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-n4"))
+    wait_idle(app.dispatcher)
+    app.dispatcher.on_card_action(card_action_event(
+        {"action": "report_error", "msg_key": feedback_msg_key(app.feishu.last_card)},
+        event_id="cev-n4"))
+    wait_idle(app.dispatcher)
+    assert session.get_feedback(1) is not None
+
+    app.dispatcher.on_message(message_event("/new", event_id="ev-n5"))
+    wait_idle(app.dispatcher)
+    assert session.db.query_one("SELECT COUNT(*) FROM messages")[0] == 0
+    assert session.get_feedback(1) is not None, "feedback 必须保留"
+
+
+def test_feedback_on_reset_row_is_ignored_silently(stack, session):
+    """重置后旧卡片上的反馈按钮指向已删行：走"消息不存在"静默分支，不给用户报错。"""
+    app = stack()
+    app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-n6"))
+    wait_idle(app.dispatcher)
+    stale_key = feedback_msg_key(app.feishu.last_card)
+    app.dispatcher.on_message(message_event("/new", event_id="ev-n7"))
+    wait_idle(app.dispatcher)
+
+    app.dispatcher.on_card_action(card_action_event(
+        {"action": "report_error", "msg_key": stale_key}, event_id="cev-n7"))
+    wait_idle(app.dispatcher)
+    assert not app.feishu.sent, "已删行不该再建工单"
+    assert session.get_feedback(1) is None
 
 
 # ---- 其它链路 ----

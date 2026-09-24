@@ -16,6 +16,7 @@ from bot.rag_client import DemoExamplesCache, RagClient, RagError
 from bot.skills.base import SkillContext
 from bot.skills.help import HelpSkill
 from bot.skills.knowledge_qa import KnowledgeQaSkill
+from bot.skills.new_session import NewSessionSkill
 from bot.skills.report_error import ReportErrorSkill
 
 from card_helpers import button_values
@@ -103,6 +104,37 @@ def test_help_recognises_variants():
         assert skill.match(make_ctx(text)) is True
     for text in ("help", "请帮忙", "/helpx", "/帮帮忙"):
         assert skill.match(make_ctx(text)) is False
+
+
+def test_help_card_lists_the_reset_command():
+    """说明书必须列出 /new——用户唯一的自助重置入口（批次③-2）。"""
+    text = HelpSkill().run(make_ctx("/help")).card["body"]["elements"][0]["content"]
+    assert "/new" in text
+
+
+# ---- 批次③-2：/new 重置会话 ----
+
+
+def test_new_session_recognises_variants(session):
+    skill = NewSessionSkill(session=session)
+    for text in ("/new", "/NEW", "/new 顺便清一下", "/重置", "/重置 会话"):
+        assert skill.match(make_ctx(text)) is True
+    for text in ("new", "新会话", "/newton", "/清零"):
+        assert skill.match(make_ctx(text)) is False
+
+
+def test_new_session_clears_context(session):
+    session.touch("ou_1:oc_1", "ou_1", "oc_1")
+    session.record_user("ou_1:oc_1", None, "旧问题")
+    session.record_assistant("ou_1:oc_1", bot_message_id="b", content="旧回答",
+                             finish_reason="normal")
+
+    reply = NewSessionSkill(session=session).run(make_ctx("/new"))
+
+    assert reply.kind == "card" and "已清空" in reply.card["body"]["elements"][0]["content"]
+    assert session.history_for_rag("ou_1:oc_1") == []
+    # 命令轮自己不落历史（没有 assistant_turn，由 dispatcher 的成对写入规则保证）
+    assert reply.assistant_turn is None
 
 
 # ---- 正常回答 ----

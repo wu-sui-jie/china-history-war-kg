@@ -273,7 +273,8 @@ def _walk_elements(card: dict) -> list[dict]:
 
 def _all_cards() -> dict[str, dict]:
     from bot.cards.builder import (build_degraded_card, build_feedback_ticket_card,
-                                   build_notice_card, build_too_long_card)
+                                   build_notice_card, build_placeholder_card,
+                                   build_too_long_card)
 
     return {
         "answer": build_answer_card(answer_md="# 标题", citations=[{"index": 1, "title": "t",
@@ -291,6 +292,7 @@ def _all_cards() -> dict[str, dict]:
         "degraded": build_degraded_card("timeout"),
         "too_long": build_too_long_card(),
         "notice": build_notice_card("提示"),
+        "placeholder": build_placeholder_card(),
         "ticket": build_feedback_ticket_card(feedback_id=1, open_id="ou", question="q",
                                              answer_md="a", citations=[{"title": "t"}]),
     }
@@ -424,3 +426,14 @@ def test_notice_card_is_minimal():
     card = build_notice_card("暂只支持文字提问")
     assert _markdown_text(card) == "暂只支持文字提问"
     assert card["header"]["template"] == "grey"
+
+
+def test_placeholder_card_is_grey_and_replaceable():
+    """占位卡（批次③-1）：灰色（不是答案）、有 update_multi（PATCH 的前提）。"""
+    from bot.cards.builder import PLACEHOLDER_TEXT, build_placeholder_card
+
+    card = build_placeholder_card()
+    assert "正在检索" in _markdown_text(card)
+    assert card["header"]["template"] == "grey", "占位卡不该看起来像答案"
+    assert card["config"]["update_multi"] is True, "整卡替换要求 update_multi"
+    assert [_markdown_text(build_placeholder_card())] == [PLACEHOLDER_TEXT]

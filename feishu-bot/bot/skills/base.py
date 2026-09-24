@@ -10,7 +10,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
+from typing import TYPE_CHECKING, Any, Protocol, Sequence, runtime_checkable
 
 from bot.session import AssistantTurn
 
@@ -43,9 +43,31 @@ class SkillContext:
     history: list[dict] = field(default_factory=list)   # 组装好的 RAG history
 
 
+def command_word(text: str) -> str:
+    """取文本的第一个词（小写），命令式技能的统一匹配口径。
+
+    为什么按"第一个词"而不是 `startswith`：`/help 长平之战` 与 `/帮助 长平之战`
+    必须同规则，而 `startswith` 得为每个别名各写一条前缀判断（早先就是这么写的，
+    结果 `/帮助 带参数` 不命中）；这样也天然排除了 `/helpx` 这类"以命令开头的新词"。
+    """
+    cleaned = (text or "").strip().lower()
+    return cleaned.split(maxsplit=1)[0] if cleaned else ""
+
+
+def matches_command(text: str, commands: Sequence[str]) -> bool:
+    """文本的第一个词是否命中命令词表（命令式技能的 `match` 用这一句）。"""
+    word = command_word(text)
+    return bool(word) and word in commands
+
+
 @runtime_checkable
 class Skill(Protocol):
-    """技能协议：`name` 标识 + `match` 判定 + `run` 执行。"""
+    """技能协议：`name` 标识 + `match` 判定 + `run` 执行。
+
+    可选属性 `wants_placeholder = True`：本技能可能长时间阻塞（如同步等 RAG），
+    dispatcher 会在执行它**之前**先回一张占位卡，跑完后用 PATCH 整卡替换（两段式
+    回复，批次③-1）。不声明表示秒回，走普通单段式发送——命令技能、提示卡片都不需要。
+    """
 
     name: str
 

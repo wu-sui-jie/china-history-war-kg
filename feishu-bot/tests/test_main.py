@@ -20,12 +20,18 @@ def test_build_application_wires_everything(config):
     try:
         assert app.session.db is app.db
         names = [skill.name for skill in app.dispatcher.skills]
-        # 注册顺序即分流顺序：/help 命令 → knowledge_qa（兜底）→ report_error（仅按钮）
-        assert names == ["help", "knowledge_qa", "report_error"]
-        assert app.dispatcher.skills[1].match(
+        # 注册顺序即分流顺序：命令技能（/help、/new）→ knowledge_qa（兜底）→ report_error（仅按钮）
+        assert names == ["help", "new_session", "knowledge_qa", "report_error"]
+        knowledge_qa = app.dispatcher.skills[2]
+        assert knowledge_qa.match(
             SkillContext(event=None, question="任意问题", session_key="k")) is True
+        # 命令技能按"第一个词"命中，且都不走两段式（只有 knowledge_qa 声明占位卡）
         assert app.dispatcher.skills[0].match(
             SkillContext(event=None, question="/help", session_key="k")) is True
+        assert app.dispatcher.skills[1].match(
+            SkillContext(event=None, question="/new", session_key="k")) is True
+        assert [getattr(s, "wants_placeholder", False) for s in app.dispatcher.skills] == [
+            False, False, True, False]
         # 数据库已建表
         tables = {row[0] for row in app.db.query_all(
             "SELECT name FROM sqlite_master WHERE type='table'")}
@@ -39,7 +45,7 @@ def test_renderer_none_when_disabled(config):
     app = build_application(config)
     try:
         assert app.renderer is None
-        assert app.dispatcher.skills[1].renderer is None
+        assert app.dispatcher.skills[2].renderer is None      # knowledge_qa 持有渲染器
     finally:
         app.close()
 

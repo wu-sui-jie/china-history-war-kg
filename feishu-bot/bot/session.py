@@ -274,6 +274,22 @@ class SessionStore:
         return dict(row) if row else None
 
     # ---- 清理 ----
+    def reset(self, key: str) -> dict[str, int]:
+        """清空一个会话的上下文（`/new` 命令，批次③-2）。返回各表删除行数。
+
+        删 `messages` 与 `sessions` 两张表里该 session_key 的行；**`feedback` 表不动**
+        ——纠错记录是治理队列，不该因为用户重置会话而消失（开发文档 5.7）。
+
+        删掉的 `messages.id` 是已发出卡片上反馈按钮的 `msg_key`，用户在新会话里再点旧卡片时
+        由 `report_error` 走"消息不存在"的静默分支（开发文档 5.5.3）。
+        """
+        with self.db.transaction() as conn:
+            messages = conn.execute(
+                "DELETE FROM messages WHERE session_key = ?", (key,)).rowcount
+            sessions = conn.execute(
+                "DELETE FROM sessions WHERE session_key = ?", (key,)).rowcount
+        return {"messages": int(messages or 0), "sessions": int(sessions or 0)}
+
     def cleanup(self, *, events_ttl_hours: float = 24.0, dry_run: bool = False) -> dict[str, int]:
         """物理删除过期数据（硬口径，开发文档 5.2 TTL 尾段）。
 

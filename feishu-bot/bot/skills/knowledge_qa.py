@@ -25,6 +25,9 @@ class KnowledgeQaSkill:
     name = "knowledge_qa"
     # 卡片按钮 value.action=ask（示例问题/追问按钮）也归本技能处理
     card_action = "ask"
+    # 两段式回复（批次③-1）：本技能同步等 RAG，长回答实测 12–25s，
+    # 声明它之后 dispatcher 会先回一张"正在检索…"占位卡，跑完再 PATCH 成最终卡
+    wants_placeholder = True
 
     def __init__(self, *, rag, session, renderer=None, examples=None, config=None):
         self.rag = rag

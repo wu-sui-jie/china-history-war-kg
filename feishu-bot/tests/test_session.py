@@ -286,6 +286,28 @@ def test_delete_messages_removes_only_given_rows(session, db):
     assert session.delete_messages([None, 0]) == 0      # 无 id 时不发 SQL
 
 
+def test_reset_clears_messages_and_session_but_keeps_feedback(session, db):
+    """`/new` 的口径（批次③-2）：上下文清空，纠错记录保留。"""
+    session.touch("k", "ou_a", "oc_1")
+    _pair(session, "k", "旧问题", "旧回答")
+    _pair(session, "k2", "别人的问题", "别人的回答")
+    session.record_feedback(open_id="ou_a", key="k", message_id="om_1",
+                            question="旧问题", answer_md="旧回答")
+
+    counts = session.reset("k")
+
+    assert counts == {"messages": 2, "sessions": 1}
+    assert session.history_for_rag("k") == []
+    assert db.query_one("SELECT COUNT(*) FROM sessions WHERE session_key = ?", ("k",))[0] == 0
+    # 别的会话不受影响；反馈是治理队列，不随重置消失
+    assert [t["content"] for t in session.history_for_rag("k2")] == ["别人的问题", "别人的回答"]
+    assert db.query_one("SELECT COUNT(*) FROM feedback")[0] == 1
+
+
+def test_reset_on_unknown_session_is_a_noop(session):
+    assert session.reset("nobody:nowhere") == {"messages": 0, "sessions": 0}
+
+
 def test_cleanup_removes_expired_rows(session, db):
     session.touch("k", "ou_a", "oc_1")
     _pair(session, "k", "旧问题", "旧回答")
