@@ -200,6 +200,8 @@ class OptimalEvaluator:
                 if sim >= self.event_sim_threshold:
                     scores.append((sim, pred_name, gold_name, pred_idx, gold_idx))
 
+        # 元组逐元素可比（相似度→预测名→标注名→下标）且下标唯一，故排序是全序、
+        # 结果与进程哈希种子无关；不要改成只按相似度排序（并列时就会依赖输入顺序）。
         scores.sort(reverse=True)
         mapping = {}
         used_pred = set()
@@ -352,9 +354,11 @@ class OptimalEvaluator:
 
                 # Changed 2026-04-20 16:33:36 +08:00: Require length guard
                 # for containment matches to avoid "汉" matching "汉武帝".
+                # Changed 2026-09-25: 遍历前定序。unmatched_gold 是集合，字符串哈希每进程
+                # 随机化；相似度并列时"谁先被取走"会随进程变化，错误样例随之漂移。
                 best_gold = None
                 best_score = -1
-                for gold_name in unmatched_gold:
+                for gold_name in sorted(unmatched_gold):
                     if valid_match(name, gold_name):
                         score = fuzz.ratio(name, gold_name)
                         if score > best_score:
@@ -429,9 +433,10 @@ class OptimalEvaluator:
                 'fn': total_fn
             },
             'error_samples': {
-                'unmatched_places': [p.get('geo_name') for p in unmatched_places[:20]],
-                'unmatched_persons': [p.get('PersonName') for p in unmatched_persons[:20]],
-                'unmatched_organizations': [o.get('OrgName') for o in unmatched_orgs[:20]]
+                # 定序后再截前 20：错误分析报告要能逐条比对，不能随取样顺序变化
+                'unmatched_places': sorted(p.get('geo_name') for p in unmatched_places)[:20],
+                'unmatched_persons': sorted(p.get('PersonName') for p in unmatched_persons)[:20],
+                'unmatched_organizations': sorted(o.get('OrgName') for o in unmatched_orgs)[:20]
             }
         }
 
@@ -475,6 +480,79 @@ class OptimalEvaluator:
             }
         }
 
+    def match_relation_triples(self, pred_triples, gold_triples, event_mapping: Dict) -> Dict:
+        """
+        关系三元组一对一贪心匹配。
+
+        输入是两个**集合**（filter_relations / build_gold_triples 的返回值），而 Python 的
+        字符串哈希每进程随机化，集合迭代顺序随 PYTHONHASHSEED 变化。因此这里先把两侧都按
+        内容排序再遍历——否则同一份 pred + gold 换个进程就会得到不同的 tp/fp/fn（实测全量
+        数据上 tp 在 739~743 之间漂移、F1 在 0.7438~0.7479 之间漂移，见第 9 轮修复记录）。
+        排序后匹配结果是两个集合的纯函数，与进程哈希种子无关。
+        """
+        reverse_mapping = {v: k for k, v in event_mapping.items()}
+        gold_list = sorted(gold_triples)
+        matched_gold = [False] * len(gold_list)
+        tp = 0
+        unmatched_pred_triples = []
+
+        for pred in sorted(pred_triples):
+            head_pred, rel_pred, tail_pred = pred
+            tail_pred_norm = self.normalize_entity(tail_pred)
+            best_match_idx = -1
+            best_score = 0.0
+
+            for i, gold in enumerate(gold_list):
+                if matched_gold[i]:
+                    continue
+                head_gold, rel_gold, tail_gold = gold
+
+                # 头事件模糊匹配（使用降低后的阈值）
+                head_sim = self.calculate_similarity(head_pred, head_gold)
+                if head_sim < self.event_sim_threshold:
+                    continue
+
+                # 关系模糊匹配
+                rel_score = fuzz.ratio(rel_pred, rel_gold) / 100.0
+                if rel_score < self.relation_threshold / 100:
+                    continue
+
+                # 判断是否为事件-事件关系
+                is_event_event = tail_gold in reverse_mapping
+
+                if is_event_event:
+                    tail_score = self.calculate_similarity(tail_pred, tail_gold)
+                    if tail_score < self.event_event_sim_threshold:
+                        continue
+                else:
+                    tail_gold_norm = self.normalize_entity(tail_gold)
+                    if tail_pred_norm == tail_gold_norm or tail_pred_norm in tail_gold_norm or tail_gold_norm in tail_pred_norm:
+                        tail_score = 1.0
+                    else:
+                        tail_score = fuzz.ratio(tail_pred_norm, tail_gold_norm) / 100.0
+                    if tail_score < self.relation_threshold / 100:
+                        continue
+
+                # 并列时取 gold_list 中靠前者；gold_list 已定序，所以并列结果也可复现
+                combined = (head_sim + rel_score + tail_score) / 3
+                if combined > best_score:
+                    best_score = combined
+                    best_match_idx = i
+
+            if best_match_idx != -1:
+                tp += 1
+                matched_gold[best_match_idx] = True
+            else:
+                unmatched_pred_triples.append(pred)
+
+        return {
+            'tp': tp,
+            'matched_gold': matched_gold,
+            'gold_list': gold_list,
+            # pred 已按定序遍历，故错误样例的成员与顺序都是确定的
+            'unmatched_predictions': unmatched_pred_triples,
+        }
+
     def evaluate_relations(self, pred_relations: Dict, event_mapping: Dict) -> Dict:
         """
         评估关系抽取（第五次优化版）：头事件模糊匹配阈值同步降低
@@ -495,64 +573,12 @@ class OptimalEvaluator:
         print(f"  过滤后预测: {len(pred_triples)}个（仅与已映射事件相关）")
         print(f"  标注总数(事件相关): {gold_total}个")
 
-        thresh = self.relation_threshold
-        gold_list = list(gold_triples)
-        matched_gold = [False] * len(gold_list)
-        tp = 0
-        fp = 0
-        unmatched_pred_triples = []
-
-        reverse_mapping = {v: k for k, v in event_mapping.items()}
-
-        for pred in pred_triples:
-            head_pred, rel_pred, tail_pred = pred
-            tail_pred_norm = self.normalize_entity(tail_pred)
-            best_match_idx = -1
-            best_score = 0.0
-
-            for i, gold in enumerate(gold_list):
-                if matched_gold[i]:
-                    continue
-                head_gold, rel_gold, tail_gold = gold
-
-                # 头事件模糊匹配（使用降低后的阈值）
-                head_sim = self.calculate_similarity(head_pred, head_gold)
-                if head_sim < self.event_sim_threshold:
-                    continue
-
-                # 关系模糊匹配
-                rel_score = fuzz.ratio(rel_pred, rel_gold) / 100.0
-                if rel_score < thresh / 100:
-                    continue
-
-                # 判断是否为事件-事件关系
-                is_event_event = tail_gold in reverse_mapping
-
-                if is_event_event:
-                    tail_score = self.calculate_similarity(tail_pred, tail_gold)
-                    if tail_score < self.event_event_sim_threshold:
-                        continue
-                else:
-                    tail_gold_norm = self.normalize_entity(tail_gold)
-                    if tail_pred_norm == tail_gold_norm or tail_pred_norm in tail_gold_norm or tail_gold_norm in tail_pred_norm:
-                        tail_score = 1.0
-                    else:
-                        tail_score = fuzz.ratio(tail_pred_norm, tail_gold_norm) / 100.0
-                    if tail_score < thresh / 100:
-                        continue
-
-                combined = (head_sim + rel_score + tail_score) / 3
-                if combined > best_score:
-                    best_score = combined
-                    best_match_idx = i
-
-            if best_match_idx != -1:
-                tp += 1
-                matched_gold[best_match_idx] = True
-            else:
-                fp += 1
-                unmatched_pred_triples.append(pred)
-
+        match = self.match_relation_triples(pred_triples, gold_triples, event_mapping)
+        tp = match['tp']
+        gold_list = match['gold_list']
+        matched_gold = match['matched_gold']
+        unmatched_pred_triples = match['unmatched_predictions']
+        fp = len(unmatched_pred_triples)
         fn = matched_gold.count(False)
 
         p = tp / (tp + fp) if (tp + fp) > 0 else 0

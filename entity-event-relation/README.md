@@ -48,7 +48,8 @@ entity-event-relation/
 │       ├── published/          # 发布子集（过滤+清洗后的版本，事件与 final_all 不同）
 │       └── excel/              # 便于查看的表格（含 全部数据.xlsx，为其余 8 张的合集）
 ├── cache/                     # API 调用缓存
-└── evaluation/latest/         # 评估结果：results.json / error_analysis.json / field_report.json
+├── evaluation/latest/         # 评估结果：results.json / error_analysis.json / field_report.json
+└── tests/                     # 常驻用例（评估可复现 / 地名噪声正则 / 缓存原子写），见「快速开始 6」
 ```
 
 ## 批次取舍（`output/` 与 `cache/` 的清理口径）
@@ -156,6 +157,32 @@ python evaluate.py
 #   --output DIR     评估输出目录，默认 evaluation/latest
 ```
 
+要人工核对一次**完整评估**的跨进程一致性（CI 里没有 `output/` 制品，跑不了这一步）：
+
+```bash
+cd entity-event-relation
+for s in 0 1 2; do PYTHONHASHSEED=$s python evaluate.py --output ../.eval-check-$s; done
+# 然后递归对比三份 results.json：除 metadata.evaluated_at 外应逐字段相同
+```
+
+### 6. 运行测试
+
+```bash
+cd entity-event-relation
+python -m pytest tests -q
+```
+
+三条常驻用例，都已进 CI（`.github/workflows/ci.yml` 的 `legacy-backend` job）：
+
+| 用例 | 钉住的回归 |
+| --- | --- |
+| `tests/test_evaluator_deterministic.py` | EER-15：同一输入两次评估必须逐字段相同（开 4 个不同 `PYTHONHASHSEED` 的子进程比对完整 `evaluate_relations` 返回） |
+| `tests/test_normalizer_noise.py` | EER-4：「等 N 方国 / 等 N 国 / 等 N 部落」这类噪声地名必须被判为噪声 |
+| `tests/test_cache_manager.py` | EER-11：缓存索引原子写（写一半崩溃后旧索引仍完整）、悬挂与损坏条目被摘除 |
+
+三条用例都是先确认「修前失败」才入库的。`tests/fixtures/relation_slice_repro.json` 是 EER-15 的
+最小复现夹具（从 `9_final_all.json` delta-debugging 缩到 2 条关系），文件头的 `_note` 记了来源与缩减方法。
+
 ## 评估设计
 
 在信息抽取领域用三个标准指标衡量质量：**P**（精确率，预测对了多少）、
@@ -175,6 +202,20 @@ python evaluate.py
 6. **综合结果**：输出实体 F1、事件 F1、关系 F1 与三者的**宏观平均 F1**。
 
 阈值都在 `config/eval_config.json` 里，改阈值不需要动代码。
+
+**可复现性（EER-15）**：模糊匹配的贪心过程必须与集合迭代顺序无关。`filter_relations` 与
+`build_gold_triples` 返回的是**集合**，而 Python 的字符串哈希每进程随机化——直接迭代的话，
+同一份 pred / gold / config 换个进程就会得到不同的 tp/fp/fn。实测（第 9 轮，全量数据）：
+
+| PYTHONHASHSEED | filtered_pred | tp | fp | fn | 关系 F1 |
+| --- | --- | --- | --- | --- | --- |
+| 0 | 888 | 739 | 149 | 360 | 0.7438 |
+| 1 | 888 | 743 | 145 | 356 | 0.7479 |
+| 2 | 888 | 741 | 147 | 358 | 0.7458 |
+
+因此匹配前先把两个集合按内容定序（`match_relation_triples`），错误样例也定序后再截前 20 条。
+**不要**改成只按相似度排序（并列时又会依赖输入顺序），也**不要**用固定 `PYTHONHASHSEED` 掩盖——
+那只是把症状藏起来。改动这块请跑 `python -m pytest tests -q`（见下节）。
 
 ## 与旧后端的关系
 

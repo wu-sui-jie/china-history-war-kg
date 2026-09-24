@@ -266,8 +266,8 @@ class Normalizer:
             r".+之间$",
             r".+[至到].+$",
             r".*[（(].*[)）].*",
-            r".*等\\d+方国$",
-            r".*等\\d+国$",
-            r".*等\\d+部落$",
+            r".*等\d+方国$",
+            r".*等\d+国$",
+            r".*等\d+部落$",
         ]
         return any(re.search(pattern, compact) for pattern in noise_patterns)
