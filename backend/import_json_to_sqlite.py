@@ -16,6 +16,7 @@ from flask import Flask
 from sqlalchemy import text
 
 from common_utils import safe_identifier
+from relation_types import normalize_event_relation_type
 from models import db, Event, Place, Organization, Person
 from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
 
@@ -36,6 +37,22 @@ DEFAULT_FINAL_JSON = (
 CURRENT_DATASET_META = APP_PATH / "data" / "current_dataset.json"
 LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
 
+
+def _safe_text(value):
+    """把 JSON 里的任意标量转成去空白的字符串；None 得空串。"""
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _safe_float(value):
+    """宽松转 float：空值或转不动一律 None（坐标字段经常是空串或"不详"）。"""
+    try:
+        if value is None or str(value).strip() == "":
+            return None
+        return float(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def clear_migration_tables():
