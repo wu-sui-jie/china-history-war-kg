@@ -251,7 +251,11 @@ def _load_layers(rt: Runtime, settings: Settings, version: str, snap_dir,
     rt.embedding_client = build_embedding_client(settings)
     rt.text = load_searcher(index_dir, version, top_k=settings.query_top_k_text,
                             collection_name=settings.chroma_collection,
-                            embed_fn=rt.embedding_client)
+                            embed_fn=rt.embedding_client,
+                            query_max_words=settings.text_query_max_words,
+                            query_and_words=settings.text_query_and_words,
+                            query_or_words=settings.text_query_or_words,
+                            and_min_hits=settings.text_query_and_min_hits)
 
     # F05
     from server.fusion import load_fusion

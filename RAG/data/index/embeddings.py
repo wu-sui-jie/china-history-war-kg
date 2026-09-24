@@ -68,7 +68,14 @@ class EmbeddingClient:
     def embed(self, texts: List[str]) -> list:
         if self._client is None:
             raise RuntimeError("向量客户端不可用（未配置 base_url/模型/密钥）")
-        batch = list(texts)[:MAX_BATCH_PER_REQUEST]
+        batch = list(texts)
+        if len(batch) > MAX_BATCH_PER_REQUEST:
+            # 静默截断会让上游以为整批都向量化了（多余文本无声丢弃、行数对不上），
+            # 因此直接失败：分批是调用方的职责（vector_pipeline 按 EMBEDDING_BATCH_SIZE 切）。
+            raise ValueError(
+                f"单次向量化请求最多 {MAX_BATCH_PER_REQUEST} 条，收到 {len(batch)} 条；"
+                "请在上游按 EMBEDDING_BATCH_SIZE 分批"
+            )
         kwargs = {"model": self.model, "input": batch, "encoding_format": "float"}
         if self.dim:
             kwargs["dimensions"] = self.dim

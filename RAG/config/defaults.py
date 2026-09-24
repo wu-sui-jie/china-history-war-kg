@@ -51,6 +51,15 @@ TEXT_HYBRID_STRATEGY = "rrf"           # weighted / rrf / fallback
 # 2026-09-13 对照评测定档（main 套件 28 题）：rrf 文本召回 97.0% > weighted 95.2% > fallback 94.6%；
 # 回答覆盖 rrf/weighted 并列 85.1%，fallback 仅 71.7%（= 关键词基线，等于没做融合）
 TEXT_HYBRID_KEYWORD_WEIGHT = 0.5       # weighted 档位下关键词通道权重（向量权重 = 1 - 该值）
+# 关键词检索的用词上限（原先硬编码在 server/text/searcher.py）：
+#   MAX_WORDS   —— 查询词总数上限（FTS 的 MATCH 词越多，AND 命中越少）
+#   AND_WORDS   —— AND 用词数上限
+#   OR_WORDS    —— OR 用词数上限
+#   AND_MIN_HITS—— and_or 模式下 AND 命中少于该条数时并入 OR 结果（长改写问题 AND 常只命中个别片段）
+TEXT_QUERY_MAX_WORDS = 8
+TEXT_QUERY_AND_WORDS = 5
+TEXT_QUERY_OR_WORDS = 6
+TEXT_QUERY_AND_MIN_HITS = 3
 # 向量/hybrid 模式下"无共享词"拒答规则的分数阈值（低于它才允许拒答，避免误拒语义命中）
 VECTOR_REFUSAL_MIN_SCORE = 0.25
 
@@ -77,9 +86,12 @@ FALLBACK_LLM_BASE_URL = ""
 FALLBACK_LLM_API_KEY = ""
 FALLBACK_LLM_MODEL = ""
 
+
 # ---- 数据版本（2026-09-15 审核 P0-7）----
 # 活跃数据版本必须显式固定，否则进程重启时目录里出现更大版本号就会静默切换，
 # 灰度/回滚都不可控。留空 = 开发态取"最新一致版本"；生产请在 .env 配 RAG_ACTIVE_VERSION。
+# 注意：这不是 get_settings 的输入（那边读 RAG_ACTIVE_VERSION 环境变量），
+# 而是版本解析链路与测试直接引用的默认值。
 ACTIVE_VERSION = ""
 
 # ---- 进程外/内资源边界（2026-09-15 审核 P0-2）----
@@ -148,6 +160,8 @@ SHUTDOWN_MARGIN_SECONDS = 15
 # 同步调用无法中断，超时未结束的会被记录为警告并由各自的 HTTP 超时兜底。
 SHUTDOWN_DRAIN_SECONDS = 10
 
+
 # ---- 版本号 ----
 # 示例 "20260903_v1"。export/build 未显式给版本时取当天日期生成 v1。
+# 注意：同上，不由 get_settings 读取，供版本号生成侧直接引用。
 VERSION_DATE_FORMAT = "%Y%m%d"

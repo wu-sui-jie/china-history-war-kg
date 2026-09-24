@@ -24,10 +24,27 @@ _CHUNK_META = {
 
 def load_searcher(index_dir: Path, source_version: str, top_k: int = 30,
                   collection_name: str = "chunks_v1",
-                  embed_fn=None) -> TextSearcher:
-    """构造检索器。embed_fn 用于查询侧向量化；为 None 时向量不可用（自动降级关键词）。"""
+                  embed_fn=None,
+                  query_max_words: Optional[int] = None,
+                  query_and_words: Optional[int] = None,
+                  query_or_words: Optional[int] = None,
+                  and_min_hits: Optional[int] = None) -> TextSearcher:
+    """构造检索器。embed_fn 用于查询侧向量化；为 None 时向量不可用（自动降级关键词）。
+
+    query_* / and_min_hits 由调用方从 Settings（TEXT_QUERY_*）注入；
+    不传时沿用 TextSearcher 里的默认值（原先硬编码的那组）。
+    """
+    kwargs = {}
+    if query_max_words is not None:
+        kwargs["query_max_words"] = query_max_words
+    if query_and_words is not None:
+        kwargs["query_and_words"] = query_and_words
+    if query_or_words is not None:
+        kwargs["query_or_words"] = query_or_words
+    if and_min_hits is not None:
+        kwargs["and_min_hits"] = and_min_hits
     return TextSearcher(index_dir=index_dir, source_version=source_version, top_k=top_k,
-                        collection_name=collection_name, embed_fn=embed_fn)
+                        collection_name=collection_name, embed_fn=embed_fn, **kwargs)
 
 
 def search(

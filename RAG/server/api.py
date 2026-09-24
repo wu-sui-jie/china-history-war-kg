@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import re
 import secrets
 import threading
@@ -30,6 +31,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 
 from config.settings import Settings, get_settings
 from contracts.query_json import QueryJsonResult
+from lib.logging_util import setup_rag_logging
 from contracts.request import QueryRequest, RequestValidationError
 from contracts.sse import ErrorCode, FinishReason
 from server.runtime import Runtime, build_runtime
@@ -58,11 +60,12 @@ async def lifespan(app: FastAPI):
         max_keys=settings.rate_limit_max_keys,
     )
     if runtime is not None:
-        print(f"[api] runtime 就绪：数据版本 {runtime.version} | 索引 {runtime.index_dir.name} "
-              f"| 向量 {'可用' if runtime.text.vector_available else '不可用'}"
-              f" | LLM {'已配置' if runtime.generate.llm.available else '未配置'}")
+        logger.info("runtime 就绪：数据版本 %s | 索引 %s | 向量 %s | LLM %s",
+                    runtime.version, runtime.index_dir.name,
+                    "可用" if runtime.text.vector_available else "不可用",
+                    "已配置" if runtime.generate.llm.available else "未配置")
     else:
-        print(f"[api] runtime 加载失败：{load_error}")
+        logger.error("runtime 加载失败：%s", load_error)
     try:
         yield
     finally:
@@ -81,6 +84,11 @@ app = FastAPI(title="中国历代战争史 RAG 问答", version="ragv5", lifespa
 
 _settings_boot = get_settings()
 
+# 统一日志（RAG-5）：给 rag.* 命名空间挂 handler（控制台 + logs/server.log 滚动）。
+# 放在模块级而不是 lifespan 里——加载期的日志（下面的 CORS 提示、静态托管判断）才不至于丢掉。
+setup_rag_logging(_settings_boot.log_dir)
+logger = logging.getLogger("rag.api")
+
 # CORS 启动门禁（第五轮审核 R5-5）：默认 * 只适用于本地开发。
 # 显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下若仍是 *，任意站点都能从浏览器调用
 # 公开问答接口——没有登录，限流也只按来源 IP 计，等于把配额与模型成本开放出去。
@@ -90,7 +98,7 @@ if _cors_problem:
     raise RuntimeError(f"CORS 配置被拒绝：{_cors_problem}")
 _cors_warning = _settings_boot.cors_warning()
 if _cors_warning:
-    print(f"[api] 注意：{_cors_warning}")
+    logger.warning("注意：%s", _cors_warning)
 
 app.add_middleware(
     CORSMiddleware,
@@ -426,6 +434,8 @@ def health():
         "config_fingerprint": meta.get("config_fingerprint", ""),
         "artifact_manifest_sha256": meta.get("artifact_manifest_sha256", ""),
         "version_selection": meta.get("version_selection", ""),
+        # 同源托管产物的构建模式（integration / standalone / disabled，见 RAG-9）
+        "frontend_mode": _frontend_mode,
         "cache": rt.generate.cache.stats() if rt else empty_cache_stats(),
         "rate_limit": _rate_limiter().stats(),
         "sync_pool": sync_pool_stats(),
@@ -851,6 +861,30 @@ async def _stream_with_heartbeat(rt, q: QueryRequest, settings: Settings):
 # ---- 同源托管（RAGv5 D8）：把前端构建产物一并发出，浏览器只访问一个地址 ----
 # 必须在所有 /api 路由注册之后挂载：mount("/") 会兜住未匹配路径，先注册的 /api/* 优先生效。
 _dist_dir = Path(str(_settings_boot.frontend_dist or ""))
+def _detect_frontend_mode(dist_dir: Path) -> tuple[str, str]:
+    """判断同源托管产物的构建模式，返回 (mode, 依据说明)。
+
+    `dist/` 只有一份，`build`（base=/）与 `build:integration`（base=/rag/）互相覆盖，
+    误用哪种都会让页面白屏且控制台只有 404。构建时写 `dist/build-mode.txt` 作为显式标记；
+    旧产物没有标记时回退看 index.html 的资源前缀。
+    """
+    marker = dist_dir / "build-mode.txt"
+    try:
+        if marker.is_file():
+            mode = (marker.read_text(encoding="utf-8").splitlines() or [""])[0].strip()
+            if mode in ("integration", "standalone"):
+                return mode, f"build-mode.txt={mode}"
+    except OSError:
+        pass
+    try:
+        html = (dist_dir / "index.html").read_text(encoding="utf-8", errors="ignore")
+    except OSError as exc:
+        return "unknown", f"读不到 index.html: {exc}"
+    if "/rag/assets/" in html:
+        return "integration", "index.html 引用 /rag/assets/"
+    return "standalone", "index.html 引用 /assets/（无 build-mode.txt 标记）"
+
+
 if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
     from fastapi.staticfiles import StaticFiles
 
@@ -871,7 +905,15 @@ if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
             return response
 
     app.mount("/", _SecurityHeadersStaticFiles(directory=str(_dist_dir), html=True), name="frontend")
-    print(f"[api] 同源托管已启用：{_dist_dir}（浏览器直接访问 / 即可，无需另起前端服务）")
+    _frontend_mode, _frontend_mode_why = _detect_frontend_mode(_dist_dir)
+    logger.info("同源托管已启用：%s（构建模式 %s，依据：%s）",
+                _dist_dir, _frontend_mode, _frontend_mode_why)
+    if _frontend_mode == "integration":
+        logger.info("产物是并入模式（base=/rag/）：只能经 /rag/ 前缀访问；直接开服务根路径会白屏")
+    else:
+        logger.warning("产物是独立模式（base=/）：经反代 /rag/ 访问会白屏——"
+                       "并入入口请用 `npm run build:integration` 重新构建")
 else:
-    print(f"[api] 未启用同源托管：未发现前端产物 {_dist_dir}"
-          f"（需先 `cd frontend && npm run build`，或用 Vite 开发服务器联调）")
+    _frontend_mode = "disabled"
+    logger.warning("未启用同源托管：未发现前端产物 %s（需先 `cd frontend && npm run build`，"
+                   "或用 Vite 开发服务器联调）", _dist_dir)

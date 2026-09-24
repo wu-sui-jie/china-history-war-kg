@@ -34,8 +34,11 @@ def _bool_env(key: str, default: bool) -> bool:
 def _first_env(*keys: str, default: str = "") -> str:
     """按优先级返回第一个非空环境变量（密钥别名链用）。
 
-    为什么需要别名链：Windows 连字符变量名（如 RAG-command）在 Linux 上不合法，
-    部署到 Linux 时无法 export；且系统环境变量需重启进程才会被继承。见开发说明 §四.11。
+    为什么需要别名链：同一把密钥在不同机器上可能落在不同的变量名里（中转服务发的是
+    `RAG-command` 这类连字符名，而连字符在 Linux 的 shell 里无法 export）。见开发说明 §四.11。
+
+    别名顺序约定：**下划线名在前、历史连字符名在后**——Linux 上只能用前者，
+    Windows 上两者都可能存在，前者优先可保证跨平台行为一致。
     """
     for key in keys:
         val = os.environ.get(key)
@@ -96,6 +99,11 @@ class Settings:
     # hybrid 融合策略与权重（§四.2）：weighted / rrf / fallback
     text_hybrid_strategy: str = "rrf"
     text_hybrid_keyword_weight: float = 0.5
+    # 关键词检索用词上限（原先硬编码在 server/text/searcher.py，见 RAG-10）
+    text_query_max_words: int = 8
+    text_query_and_words: int = 5
+    text_query_or_words: int = 6
+    text_query_and_min_hits: int = 3
     # 向量/hybrid 下"无共享词"拒答的分数阈值
     vector_refusal_min_score: float = 0.25
     # 演示 / 限流 / 缓存
@@ -230,6 +238,15 @@ class Settings:
             problems.append(
                 f"VECTOR_REFUSAL_MIN_SCORE 必须在 0~1，当前 {self.vector_refusal_min_score!r}"
             )
+        # 关键词检索用词上限：必须为正（0/负数会让 FTS 查询为空或行为不可预期）
+        for name, value in (
+            ("TEXT_QUERY_MAX_WORDS", self.text_query_max_words),
+            ("TEXT_QUERY_AND_WORDS", self.text_query_and_words),
+            ("TEXT_QUERY_OR_WORDS", self.text_query_or_words),
+            ("TEXT_QUERY_AND_MIN_HITS", self.text_query_and_min_hits),
+        ):
+            if not isinstance(value, int) or value <= 0:
+                problems.append(f"{name} 必须为正整数，当前 {value!r}")
 
         for name, value in (
             ("RATE_LIMIT_PER_MINUTE", self.rate_limit_per_minute),
@@ -413,6 +430,8 @@ def get_settings() -> Settings:
         #   → RAG-command（中转，项目期优先）→ RAG-deepseek-v4（官方，项目结束后启用）
         # 切回官方 = 从系统环境变量删掉 RAG-command，零代码切换
         llm_api_key=_first_env("LLM_API_KEY", "DEEPSEEK_API_KEY",
+                               "RAG_COMMAND", "RAG_DEEPSEEK_V4",
+                               # 历史别名（连字符名，Linux 下无法 export；仅为兼容存量机器保留）
                                "RAG-command", "RAG-deepseek-v4",
                                default=defaults.LLM_API_KEY),
         llm_model=os.environ.get("LLM_MODEL", defaults.LLM_MODEL),
@@ -435,7 +454,9 @@ def get_settings() -> Settings:
         ),
         # 备用模型默认可用官方密钥（FALLBACK_LLM_BASE_URL 配好即生效，未配则不降级）
         fallback_llm_api_key=_first_env(
-            "FALLBACK_LLM_API_KEY", "RAG-deepseek-v4",
+            "FALLBACK_LLM_API_KEY", "RAG_DEEPSEEK_V4",
+            # 历史别名（同上）
+            "RAG-deepseek-v4",
             default=defaults.FALLBACK_LLM_API_KEY,
         ),
         fallback_llm_model=os.environ.get(
@@ -456,6 +477,14 @@ def get_settings() -> Settings:
             "TEXT_HYBRID_STRATEGY", defaults.TEXT_HYBRID_STRATEGY) or "rrf").strip().lower(),
         text_hybrid_keyword_weight=float(os.environ.get(
             "TEXT_HYBRID_KEYWORD_WEIGHT", defaults.TEXT_HYBRID_KEYWORD_WEIGHT)),
+        text_query_max_words=int(os.environ.get(
+            "TEXT_QUERY_MAX_WORDS", defaults.TEXT_QUERY_MAX_WORDS)),
+        text_query_and_words=int(os.environ.get(
+            "TEXT_QUERY_AND_WORDS", defaults.TEXT_QUERY_AND_WORDS)),
+        text_query_or_words=int(os.environ.get(
+            "TEXT_QUERY_OR_WORDS", defaults.TEXT_QUERY_OR_WORDS)),
+        text_query_and_min_hits=int(os.environ.get(
+            "TEXT_QUERY_AND_MIN_HITS", defaults.TEXT_QUERY_AND_MIN_HITS)),
         vector_refusal_min_score=float(os.environ.get(
             "VECTOR_REFUSAL_MIN_SCORE", defaults.VECTOR_REFUSAL_MIN_SCORE)),
         rate_limit_per_minute=int(

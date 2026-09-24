@@ -69,7 +69,7 @@ cd frontend && npm install && npm run build && cd ..
 | `FALLBACK_LLM_BASE_URL` / `FALLBACK_LLM_MODEL` | `https://api.deepseek.com/v1` / `deepseek-flash` | 中转不可用时自动降级到官方 |
 | `TEXT_MODE` | `hybrid` | keyword / vector / hybrid（**部署级开关，切换需重启**） |
 | `TEXT_HYBRID_STRATEGY` | `rrf` | weighted / rrf / fallback（评测定档 rrf 召回最高） |
-| `QUERY_FUSION_LIMIT` | `10` | 送模证据条数；18（v4 口径）时 prompt 约 4,300 token → 断更易截断、首字更慢 |
+| `QUERY_FUSION_LIMIT` | `10`（**部署建议值**；代码默认 `18`，即 v4 口径、prompt 约 4,300 token） | 送模证据条数；调小可降低截断风险与首字延迟 |
 | `EMBEDDING_BASE_URL` / `EMBEDDING_MODEL` / `EMBEDDING_DIM` | 百炼 + `text-embedding-v4` / `1024` | 查询侧向量化用 |
 | `RATE_LIMIT_PER_MINUTE` / `CACHE_TTL_SECONDS` | `30` / `3600` | 演示负载足够；缓存是**进**程内的，重启即空 |
 | `RAG_ACTIVE_VERSION` | `20260915_v1` | 生产必须显式固定；启动脚本 `--version` 会代填并把来源标为 `cli_explicit` |

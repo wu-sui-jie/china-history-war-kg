@@ -21,7 +21,7 @@
 
 | 层 | 命令 | 结果 |
 | --- | --- | --- |
-| 后端 | `python -m pytest tests -q` | **298 passed**（2026-09-16 基线）；2026-09-20 新增 23 条（`test_panel_event_card_fields.py` 4 + `test_inference_rules.py` 11 + `test_graph_inferred_edges.py` 8）。本机无 pytest 环境，用等价 runner 实跑 10 个相关文件：**76 passed / 10 skipped**（skip 均为 runner 不支持的 fixture，非失败） |
+| 后端 | `python -m pytest tests -q` | **345 passed**（2026-09-24 实测，Python 3.11）。历史口径（298 / 298+23 / 等价 runner 76）已废弃：那几次是在没有 pytest 的环境里分批跑的，不能与全量数字并列。以后只记本行这一条 |
 | 前端单元（Vitest） | `cd frontend && npm run test:unit` | **47 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出） |
 | 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **78 passed** |
 | 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |

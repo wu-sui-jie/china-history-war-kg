@@ -20,8 +20,13 @@ from data.index import fts as fts_mod
 from server.text.scoring import fuse_hybrid
 
 # and_or 模式下：AND 命中少于该数量时并入 OR 结果（长改写问题 AND 常只命中个别片段，
-# 旧实现"仅在 AND 为空时才兜底"会丢掉 OR 里更相关的片段；见 RAGv5 §2.5-2）
-_AND_MIN_HITS = 3
+# 旧实现"仅在 AND 为空时才兜底"会丢掉 OR 里更相关的片段；见 RAGv5 §2.5-2）。
+# 这些上限原先硬编码在这里，现由 Settings（TEXT_QUERY_*）配置，下面的默认值仅在
+# 直接构造 TextSearcher（测试）时生效。
+DEFAULT_QUERY_MAX_WORDS = 8
+DEFAULT_QUERY_AND_WORDS = 5
+DEFAULT_QUERY_OR_WORDS = 6
+DEFAULT_QUERY_AND_MIN_HITS = 3
 
 
 def _norm_minmax(raw_scores: list[float]) -> list[float]:
@@ -39,7 +44,11 @@ class TextSearcher:
 
     def __init__(self, index_dir: Path, source_version: str,
                  top_k: int = 30, collection_name: str = "chunks_v1",
-                 embed_fn=None):
+                 embed_fn=None,
+                 query_max_words: int = DEFAULT_QUERY_MAX_WORDS,
+                 query_and_words: int = DEFAULT_QUERY_AND_WORDS,
+                 query_or_words: int = DEFAULT_QUERY_OR_WORDS,
+                 and_min_hits: int = DEFAULT_QUERY_AND_MIN_HITS):
         self.index_dir = Path(index_dir)
         self.source_version = source_version
         self.top_k = top_k
@@ -47,6 +56,11 @@ class TextSearcher:
         self.collection_name = collection_name
         self.embed_fn = embed_fn
         self.collection = None
+        # 用词上限（构造方从 Settings 注入；非法值兜回默认，避免 FTS 构造出空查询）
+        self.query_max_words = max(1, int(query_max_words or DEFAULT_QUERY_MAX_WORDS))
+        self.query_and_words = max(1, int(query_and_words or DEFAULT_QUERY_AND_WORDS))
+        self.query_or_words = max(1, int(query_or_words or DEFAULT_QUERY_OR_WORDS))
+        self.and_min_hits = max(1, int(and_min_hits or DEFAULT_QUERY_AND_MIN_HITS))
         # 启动探测向量后端（失败仅影响 mode，不影响关键词检索）
         self.vector_available = False
         self._load_vector_backend()
@@ -208,7 +222,7 @@ class TextSearcher:
         重排节点、可经 top_k 影响证据集合）。详见 docs/features/02-entity-linking.md。
         """
         limit = limit or self.top_k
-        words = fts_mod.tokenize(query)[:8]
+        words = fts_mod.tokenize(query)[:self.query_max_words]
         if not words:
             return []
         if keyword_mode == "and":
@@ -219,7 +233,7 @@ class TextSearcher:
             hits = self._query_fts(words, mode="and", limit=limit)
             # AND 优先；命中不足时**并入** OR 结果（而不是只在 AND 为空时才兜底）：
             # 长改写问题的 AND 往往只命中 1–2 个片段，旧口径会把 OR 里更相关的片段整批丢掉。
-            if len(hits) < min(limit, _AND_MIN_HITS):
+            if len(hits) < min(limit, self.and_min_hits):
                 seen = {cid for cid, _ in hits}
                 for cid, s in self._query_fts(words, mode="or", limit=limit):
                     if cid not in seen:
@@ -260,12 +274,12 @@ class TextSearcher:
         只对长度 ≥2 的实词做 OR，控制噪音。
         """
         if mode == "and":
-            q = " AND ".join(f'"{w}"' for w in words[:5])
+            q = " AND ".join(f'"{w}"' for w in words[:self.query_and_words])
         else:
             real = [w for w in words if len(w) >= 2]
             if not real:
                 return []
-            q = " OR ".join(f'"{w}"' for w in real[:6])
+            q = " OR ".join(f'"{w}"' for w in real[:self.query_or_words])
         con = sqlite3.connect(str(self.fts_path))
         con.row_factory = sqlite3.Row
         try:

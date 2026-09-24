@@ -1,7 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'
+import { writeFileSync } from 'node:fs'
 
 import vue from '@vitejs/plugin-vue'
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 
 /** 基路径与接口前缀参数化（2026-09-20 并入旧知识库系统 Web 入口）。
  *
@@ -10,15 +11,37 @@ import { defineConfig, loadEnv } from 'vite'
  * 并入模式由 `.env.integration` 覆盖：`npm run build:integration`
  * → base `/rag/`、接口前缀 `/rag/api`，配合旧系统的子路径反代使用。
  */
+
+/** 把构建模式写进 dist，供 RAG 服务启动时核对（RAG-9）。
+ *
+ * `dist/` 只有一份，`build`（base=/）与 `build:integration`（base=/rag/）互相覆盖；
+ * 并入反代下若误用独立产物，页面会白屏且控制台只有 404、不看 Network 面板发现不了。
+ * 服务端读这个文件（缺失时回退看 index.html 的资源前缀）并在日志与 /api/health 里报出模式。
+ */
+function buildModeMarker(mode: string): Plugin {
+  return {
+    name: 'china-war:build-mode-marker',
+    closeBundle() {
+      writeFileSync(
+        fileURLToPath(new URL('./dist/build-mode.txt', import.meta.url)),
+        `${mode}\n`,
+        'utf-8',
+      )
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
   const basePath = env.VITE_BASE_PATH || '/'
   // 去尾斜杠：代理键与重写规则都不该出现 `//`
   const apiBase = (env.VITE_API_BASE || '/api').replace(/\/+$/, '')
+  // `--mode integration` 即并入模式（npm run build:integration），其余一律按独立模式记
+  const buildMode = mode === 'integration' ? 'integration' : 'standalone'
 
   return {
     base: basePath,
-    plugins: [vue()],
+    plugins: [vue(), buildModeMarker(buildMode)],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -68,8 +68,14 @@ def test_pass_meta_dynasty_and_chunk_type_still_strict():
 
 # ---- 3. AND 兜底的口径常量化 ----
 
-def test_and_min_hits_constant_documented():
-    """兜底阈值是个有意设定的常量（改它要连着评测一起改）。"""
-    from server.text.searcher import _AND_MIN_HITS
+def test_and_min_hits_default_available_and_configurable():
+    """兜底阈值有明确默认值，并已提为配置项（TEXT_QUERY_AND_MIN_HITS，改它要连着评测一起改）。"""
+    from config import defaults
+    from config.settings import get_settings
+    from server.text.searcher import DEFAULT_QUERY_AND_MIN_HITS
 
-    assert isinstance(_AND_MIN_HITS, int) and 1 <= _AND_MIN_HITS <= 10
+    assert isinstance(DEFAULT_QUERY_AND_MIN_HITS, int) and 1 <= DEFAULT_QUERY_AND_MIN_HITS <= 10
+    # defaults 与 searcher 的兜底常量必须一致，否则"配置默认值"与"直接构造检索器"行为不同
+    assert defaults.TEXT_QUERY_AND_MIN_HITS == DEFAULT_QUERY_AND_MIN_HITS
+    # 配置对象上确实有这个字段
+    assert isinstance(get_settings().text_query_and_min_hits, int)

@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import functools
 import json
+import logging
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -30,6 +31,9 @@ from contracts.sse import (
     StatusStage,
 )
 from contracts.question import QuestionType
+
+# 日志 handler 由 server.api 在启动时统一配置（rag.* 命名空间，见 lib/logging_util）
+logger = logging.getLogger("rag.sse")
 from server.runtime import Runtime
 
 # query 级错误（不可恢复，直接 error+done）
@@ -353,8 +357,9 @@ async def run_in_thread(fn, *args, **kwargs):
     FTS5/Chroma 的同步查询以及图谱遍历。它们都在 async 编排里被直接调用，
     一个慢请求会卡住同一 worker 上的所有连接（含 /api/health）。
 
-    不用 `asyncio.to_thread`：它是 3.9+ 的 API，本项目要求兼容 3.8 运行环境。
-    也不用 `loop.run_in_executor(None, ...)`：默认线程池队列无上限，无法做容量隔离。
+    不用 `asyncio.to_thread`：它跑在 asyncio 的默认线程池上，队列无上限、无法做容量隔离；
+    本函数的价值就在「有界池 + 取消记账」，与 Python 版本无关（运行环境见 README，为 3.11）。
+    也不用 `loop.run_in_executor(None, ...)`：同样是默认池，没有上限。
     """
     if kwargs:
         fn = functools.partial(fn, *args, **kwargs)
@@ -712,9 +717,9 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
             SSEEventType.DONE, sid,
             data={"finish_reason": FinishReason.FAILED.value, "model_used": ""}))
     except Exception as e:  # noqa: BLE001
-        # 内部错误：error 事件 + done（同时打印 traceback 到服务日志便于排查）
-        import traceback
-        traceback.print_exc()
+        # 内部错误：error 事件 + done。走 logger.exception 而不是 print_exc：
+        # 前者带时间戳/级别并落 logs/server.log，后者只写 stderr、服务化部署后捞不到。
+        logger.exception("问答编排内部错误（sid=%s）", sid)
         yield sse_format(_event(SSEEventType.ERROR, sid,
                                 data={"error_code": ErrorCode.INTERNAL.value,
                                       "message": f"内部错误: {e}"}))
