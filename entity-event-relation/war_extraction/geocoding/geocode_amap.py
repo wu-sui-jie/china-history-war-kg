@@ -15,6 +15,18 @@ from datetime import datetime
 
 from .historical_places_mapping import HISTORICAL_MAPPING
 
+#: batch_geocode 的 progress_path 默认值哨兵：表示"用模块目录下的默认进度文件"，
+#: 与显式传 None（关闭进度落盘）区分开。
+_DEFAULT_PROGRESS = object()
+
+#: 逐条进度文件名（放模块目录下，不入库——见 .gitignore）
+PROGRESS_FILENAME = 'geocoding_progress.jsonl'
+
+
+def default_progress_path() -> str:
+    """默认的逐条进度文件路径。"""
+    return os.path.join(os.path.dirname(__file__), PROGRESS_FILENAME)
+
 
 def load_env_file(env_file: str = None):
     """
@@ -53,13 +65,27 @@ def load_env_file(env_file: str = None):
 class AmapGeocoder:
     """高德地图地理编码器"""
 
-    def __init__(self, api_key: str = None, env_file: str = None):
+    #: 配额 / 频率受限的错误码。**这些不重试**——高德已经明确说"你超了"，
+    #: 退避重试只会白烧额度、把日志刷满。
+    #:   10003 访问已超出日访问量   10044 个人日访问量超限（日配额，当天不会再恢复）
+    #:   10004 单位时间内访问过于频繁  10021 并发/QPS 超限（限频，稍后可恢复）
+    QUOTA_INFOCODES = {'10003', '10004', '10021', '10044'}
+    #: 日配额类：当天不会再成功，遇到就终止整批（继续跑只是把剩余地点全部刷失败）
+    DAILY_QUOTA_INFOCODES = {'10003', '10044'}
+    #: 值得退避重试的瞬时 HTTP 状态（网关抖动、限流）
+    TRANSIENT_HTTP_STATUS = {429, 500, 502, 503, 504}
+
+    def __init__(self, api_key: str = None, env_file: str = None,
+                 max_retries: int = 3, backoff_base: float = 1.0, sleep_func=None):
         """
         初始化编码器
 
         Args:
             api_key: 高德 API Key，如果为 None 则从 .env 文件或环境变量读取
             env_file: .env 文件路径
+            max_retries: 单条地点最多请求几次（含首次）。只对**瞬时**故障生效
+            backoff_base: 退避基数（秒），第 n 次重试前等待 backoff_base * 2^(n-1)
+            sleep_func: 等待函数，默认 time.sleep；测试注入用它避免真等
         """
         # 先加载 .env 文件
         load_env_file(env_file)
@@ -81,6 +107,14 @@ class AmapGeocoder:
         self.request_count = 0
         self.success_count = 0
         self.fail_count = 0
+        # Added 2026-09-25（EER-12）
+        self.retry_count = 0
+        self.quota_exhausted = False
+        self.last_failure_reason = ''
+        self.last_failure_code = ''
+        self.max_retries = max(1, int(max_retries))
+        self.backoff_base = max(0.0, float(backoff_base))
+        self.sleep_func = sleep_func or time.sleep
 
     def get_search_name(self, place: Dict) -> Tuple[str, str]:
         """
@@ -134,19 +168,72 @@ class AmapGeocoder:
 
         return ''.join(address_parts)
 
+    def _request_once(self, params: Dict):
+        """
+        发一次请求，返回 (判定, 载荷)。
+
+        判定取值（EER-12 的核心：把"值得重试"与"重试也没用"分开）：
+          - ``'ok'``：拿到结果，载荷是 ``geocodes[0]`` 字典；
+          - ``'transient'``：网络异常 / 5xx / 429 / 响应不是 JSON——退避重试可能成功，载荷是原因；
+          - ``'quota'``：高德返回配额或频率受限的错误码——重试只会白烧额度，载荷是 infocode；
+          - ``'deterministic'``：其它 API 错误（key 无效、地址查不到等）——重试永远不会成功。
+        """
+        self.request_count += 1
+        try:
+            response = self.session.get(self.base_url, params=params, timeout=10)
+        except requests.RequestException as e:
+            return 'transient', f"{type(e).__name__}: {e}"
+
+        if response.status_code in self.TRANSIENT_HTTP_STATUS:
+            return 'transient', f"HTTP {response.status_code}"
+        if response.status_code != 200:
+            return 'deterministic', f"HTTP {response.status_code}"
+
+        try:
+            data = response.json()
+        except ValueError as e:
+            # 200 但body 不是 JSON：多半是中间代理返回了错误页，值得再试一次
+            return 'transient', f"响应不是合法 JSON: {e}"
+
+        if data.get('status') == '1' and data.get('geocodes'):
+            return 'ok', data['geocodes'][0]
+
+        info_code = str(data.get('infocode', 'unknown'))
+        if info_code in self.QUOTA_INFOCODES:
+            return 'quota', info_code
+        return 'deterministic', info_code
+
+    def _build_result(self, place: Dict, search_name: str, name_source: str, geocode: Dict) -> Dict:
+        """把高德返回的 geocode 条目整理成落盘用的结果字典（字段名对外保持不变）。"""
+        location = geocode['location'].split(',')
+        return {
+            'place_id': place['id'],
+            'original_name': place['name'],
+            'longitude': float(location[0]),
+            'latitude': float(location[1]),
+            'search_name': search_name,
+            'name_source': name_source,
+            'formatted_address': geocode.get('formatted_address', ''),
+            'confidence': geocode.get('level', ''),
+            'source': 'amap'
+        }
+
     def geocode_single(self, place: Dict) -> Optional[Dict]:
         """
-        单个地点地理编码
+        单个地点地理编码（含瞬时故障的指数退避重试）
 
         Args:
             place: 地点信息字典，需包含 id, name, modern_name 等字段
 
         Returns:
-            编码结果字典，失败返回 None
+            编码结果字典，失败返回 None。失败原因可从 ``self.last_failure_reason`` 取
         """
+        self.last_failure_reason = ''
+        self.last_failure_code = ''
         # 获取搜索地名
         search_name, name_source = self.get_search_name(place)
         if not search_name:
+            self.last_failure_reason = '无法确定搜索地名'
             print(f"  ✗ {place.get('name', '未知')}: 无法确定搜索地名")
             return None
 
@@ -164,57 +251,91 @@ class AmapGeocoder:
         if place.get('city'):
             params['city'] = place['city']
 
-        try:
-            response = self.session.get(self.base_url, params=params, timeout=10)
-            data = response.json()
+        for attempt in range(1, self.max_retries + 1):
+            outcome, payload = self._request_once(params)
 
-            self.request_count += 1
-
-            if data['status'] == '1' and data.get('geocodes'):
-                geocode = data['geocodes'][0]
-                location = geocode['location'].split(',')
-
-                result = {
-                    'place_id': place['id'],
-                    'original_name': place['name'],
-                    'longitude': float(location[0]),
-                    'latitude': float(location[1]),
-                    'search_name': search_name,
-                    'name_source': name_source,
-                    'formatted_address': geocode.get('formatted_address', ''),
-                    'confidence': geocode.get('level', ''),
-                    'source': 'amap'
-                }
-
+            if outcome == 'ok':
                 self.success_count += 1
-                return result
-            else:
+                return self._build_result(place, search_name, name_source, payload)
+            if outcome == 'quota':
+                self.quota_exhausted = True
                 self.fail_count += 1
-                info_code = data.get('infocode', 'unknown')
-                print(f"  ✗ {place['name']}: API返回错误 ({info_code})")
+                self.last_failure_code = str(payload)
+                self.last_failure_reason = f"配额/频率受限 (infocode={payload})"
+                print(f"  ✗ {place['name']}: 高德配额/频率受限 (infocode={payload})，不重试")
+                return None
+            if outcome == 'deterministic':
+                self.fail_count += 1
+                self.last_failure_code = str(payload)
+                self.last_failure_reason = f"API 错误 (infocode={payload})"
+                print(f"  ✗ {place['name']}: API返回错误 ({payload})")
                 return None
 
-        except Exception as e:
+            # outcome == 'transient'：只有这一支才值得退避重试
+            if attempt < self.max_retries:
+                wait = self.backoff_base * (2 ** (attempt - 1))
+                self.retry_count += 1
+                print(f"  ! {place['name']}: {payload}，{wait:.1f}s 后重试（第 {attempt}/{self.max_retries} 次）")
+                self.sleep_func(wait)
+                continue
+
             self.fail_count += 1
-            print(f"  ✗ {place['name']}: {str(e)}")
+            self.last_failure_reason = f"重试 {self.max_retries} 次仍失败 ({payload})"
+            print(f"  ✗ {place['name']}: 重试 {self.max_retries} 次仍失败（{payload}）")
             return None
 
-    def batch_geocode(self, places: List[Dict], delay: float = 0.05) -> List[Dict]:
+        return None
+
+    def _append_progress(self, progress_path: str, record: Dict):
+        """
+        追加一条进度记录（JSONL，一行一条）并 fsync。
+
+        Added 2026-09-25（EER-12）：原来只在批次末尾 save_results 一次性落盘，
+        批次跑到一半被杀（Ctrl-C、断网、配额耗尽）就把**整批**已花掉额度的结果丢了。
+        现在逐条落盘，中途失败最多丢当前这一条。用追加 + fsync：写入本身足够原子
+        （一条记录远小于一个块，且崩了最多留一行残行，解析时跳过即可）。
+        """
+        if not progress_path:
+            return
+        try:
+            with open(progress_path, 'a', encoding='utf-8') as f:
+                f.write(json.dumps(record, ensure_ascii=False) + '\n')
+                f.flush()
+                os.fsync(f.fileno())
+        except OSError as e:
+            # 进度文件写不进去不该让整批编码失败，提示后继续
+            print(f"  ! 进度文件写入失败（{progress_path}）: {e}")
+
+    def batch_geocode(self, places: List[Dict], delay: float = 0.05,
+                      progress_path: str = _DEFAULT_PROGRESS, run_id: str = None) -> List[Dict]:
         """
         批量地理编码
 
         Args:
             places: 地点列表
             delay: 请求间隔（秒），默认 0.05 秒
+            progress_path: 逐条进度文件（JSONL）。默认写到本模块目录下的
+                geocoding_progress.jsonl；显式传 None 可关闭
+            run_id: 本次运行的标识，写进每条进度记录，便于多次运行共用同一文件时区分
 
         Returns:
-            编码结果列表
+            编码结果列表（已完成的部分；被配额中断时是截断的）
         """
         results = []
         total = len(places)
 
+        if progress_path is _DEFAULT_PROGRESS:
+            progress_path = default_progress_path()
+        if run_id is None:
+            run_id = datetime.now().strftime('%Y%m%d_%H%M%S')
+
         print(f"\n开始批量编码: {total} 个地点")
+        if progress_path:
+            print(f"逐条进度: {progress_path}")
         print("=" * 60)
+
+        done = 0
+        aborted_by_quota = False
 
         for i, place in enumerate(places, 1):
             print(f"[{i}/{total}] {place['name']}", end="")
@@ -227,17 +348,39 @@ class AmapGeocoder:
             else:
                 print(" -> 失败")
 
+            done = i
+            record = {'run_id': run_id, 'index': i, 'name': place.get('name')}
+            if result:
+                record.update(result)
+                record['status'] = 'ok'
+            else:
+                record['status'] = 'failed'
+                record['reason'] = self.last_failure_reason or '未知'
+            self._append_progress(progress_path, record)
+
+            # 日配额耗尽：当天不会再成功，继续跑只是把剩余地点全部刷成失败
+            if self.last_failure_code in self.DAILY_QUOTA_INFOCODES:
+                aborted_by_quota = True
+                print(f"\n! 高德日配额已耗尽（infocode={self.last_failure_code}），提前结束本批"
+                      f"（剩余 {total - done} 个未请求）")
+                break
+
             # 控制请求频率
             if delay > 0 and i < total:
-                time.sleep(delay)
+                self.sleep_func(delay)
 
         # 打印统计
         print("\n" + "=" * 60)
         print(f"编码完成:")
-        print(f"  总请求数: {self.request_count}")
+        print(f"  总请求数: {self.request_count}（含重试 {self.retry_count} 次）")
         print(f"  成功: {self.success_count}")
         print(f"  失败: {self.fail_count}")
         print(f"  成功率: {(self.success_count / total * 100):.1f}%")
+        if done < total:
+            print(f"  未处理: {total - done} 个"
+                  + ("（日配额耗尽提前结束）" if aborted_by_quota else ""))
+        if progress_path:
+            print(f"  逐条进度已落盘: {progress_path}")
 
         return results
 

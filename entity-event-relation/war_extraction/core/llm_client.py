@@ -11,6 +11,8 @@ from pathlib import Path
 from openai import OpenAI, AuthenticationError, APIConnectionError, RateLimitError
 from dotenv import load_dotenv
 
+from war_extraction.utils.json_payload import extract_largest_json_text
+
 # 以本文件位置锚定项目根目录，避免在任意工作目录下运行时找不到 config/.env
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 load_dotenv(dotenv_path=_PROJECT_ROOT / "config" / ".env")
@@ -139,20 +141,12 @@ class DeepSeekClient:
         """尝试从文本中提取JSON"""
         # Changed 2026-04-20 16:33:36 +08:00: Prefer decoder scanning over
         # greedy regex so nested/multiple JSON blocks are handled safely.
-        decoder = json.JSONDecoder()
-        candidates = []
-        for idx in range(len(content)):
-            if content[idx] not in "{[":
-                continue
-            try:
-                obj, end = decoder.raw_decode(content[idx:])
-                candidates.append((obj, end))
-            except json.JSONDecodeError:
-                continue
-
-        if candidates:
-            obj = max(candidates, key=lambda item: len(json.dumps(item[0], ensure_ascii=False)))[0]
-            return json.dumps(obj, ensure_ascii=False)
+        # EER-6：扫描逻辑改用 utils.json_payload（与三个抽取器共用一份实现），
+        # 但**保留本处"取最大候选、返回 JSON 文本"的取舍**——那个策略是刻意的
+        # （同一段回复里可能既有示例块又有真结果），别顺手改成"取第一个"。
+        largest = extract_largest_json_text(content)
+        if largest is not None:
+            return largest
 
         patterns = [r'\{[\s\S]*\}', r'\[[\s\S]*\]']
         for pattern in patterns:

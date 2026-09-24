@@ -3,7 +3,6 @@ Relation extractor.
 """
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from war_extraction.config import PROMPT_VERSIONS
@@ -17,6 +16,9 @@ from war_extraction.models import (
 )
 from war_extraction.prompts import RELATION_EXTRACTION_PROMPT
 from war_extraction.utils import Normalizer
+from war_extraction.utils.json_payload import extract_json_payload
+from war_extraction.utils.relation_rules import arbitrate_event_event_relation
+from war_extraction.utils.value_parsing import PLACEHOLDERS_FULL, split_multi_value
 
 
 class RelationExtractor:
@@ -41,24 +43,6 @@ class RelationExtractor:
             if existing:
                 f.write("\n" + "=" * 80 + "\n")
             f.write(snippet)
-
-    def _extract_json_payload(self, response: str):
-        """Changed 2026-04-21 13:46:29 +08:00: Parse dict or list JSON payloads from relation output."""
-        try:
-            return json.loads(response)
-        except json.JSONDecodeError:
-            pass
-
-        decoder = json.JSONDecoder()
-        for start, char in enumerate(response):
-            if char not in "[{":
-                continue
-            try:
-                data, _ = decoder.raw_decode(response[start:])
-                return data
-            except json.JSONDecodeError:
-                continue
-        return None
 
     def _ensure_complete_place_rel(self, rel: dict) -> dict:
         return {
@@ -93,16 +77,9 @@ class RelationExtractor:
         }
 
     def _split_multi_value(self, value: str) -> list:
-        if not value:
-            return []
-        normalized = str(value)
-        for sep in ["、", "，", ",", "；", ";", "及", "与", "和", "/", " vs ", " VS ", "vs."]:
-            normalized = normalized.replace(sep, "|")
-        parts = [part.strip() for part in normalized.split("|")]
-        return [
-            part for part in parts
-            if part and part not in {"不详", "未知", "null", "None", "无"}
-        ]
+        # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来这里与 main.py 各一份，
+        # 且**排除集不一致**：main.py 那份只排除"不详/null"）。这里保持抽取器原有的宽口径。
+        return split_multi_value(value, placeholders=PLACEHOLDERS_FULL)
 
     def _allowed_name_set(self, value: str) -> set:
         return {
@@ -340,23 +317,8 @@ class RelationExtractor:
         return derived
 
     def _arbitrate_event_event_relation(self, rel: EventEventRelation) -> EventEventRelation:
-        evidence = rel.evidence or ""
-        relation = self.normalizer.normalize_relation(rel.relation)
-        sequential_keywords = ["之后", "以后", "随后", "其后", "后来", "次年", "继而", "接着", "然后", "遂"]
-        strong_causal_keywords = ["因此", "于是", "导致", "引发", "致使", "使得", "造成", "因而", "从而", "迫使"]
-        parallel_keywords = ["同时", "并", "并且", "同年", "相继", "并发"]
-
-        has_sequential_keyword = any(token in evidence for token in sequential_keywords)
-        has_strong_causal_keyword = any(token in evidence for token in strong_causal_keywords)
-        has_parallel_keyword = any(token in evidence for token in parallel_keywords)
-
-        if relation == "因果关系" and not has_strong_causal_keyword:
-            relation = "顺承关系" if has_sequential_keyword or evidence else "并列关系"
-        elif relation == "顺承关系" and has_parallel_keyword and not has_sequential_keyword:
-            relation = "并列关系"
-
-        rel.relation = relation
-        return rel
+        # EER-6：改调公共实现（原来与 main.py 的 _arbitrate_event_event_relation 是两份逐字相同的逻辑）
+        return arbitrate_event_event_relation(self.normalizer, rel)
 
     def _normalize_event_event_relations(self, relations: list[EventEventRelation]) -> list[EventEventRelation]:
         """Changed 2026-04-21 16:46:12 +08:00: Canonicalize event-event labels, resolve direction conflicts, and drop self-loops/duplicates."""
@@ -435,7 +397,7 @@ class RelationExtractor:
 
         try:
             response = self.llm.call(prompt, temperature=0.1, json_mode=True)
-            data = self._extract_json_payload(response)
+            data = extract_json_payload(response)
             if not isinstance(data, dict):
                 print("关系抽取 JSON 解析失败：未找到可用 JSON")
                 print(f"原始响应前 500 字符: {response[:500]}...")

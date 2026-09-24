@@ -10,6 +10,8 @@ import sqlite3
 import json
 import os
 from typing import List, Dict
+
+from .db_path import resolve_db_path
 from datetime import datetime
 
 
@@ -24,10 +26,8 @@ class CoordinateImporter:
             db_path: 数据库路径
         """
         if db_path is None:
-            db_path = os.path.join(
-                os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
-                'backend', 'database'
-            )
+            # EER-7：路径解析收到 db_path 模块（显式参数 → EER_DB_PATH → 默认 backend/database）
+            db_path = resolve_db_path()
 
         self.db_path = db_path
 

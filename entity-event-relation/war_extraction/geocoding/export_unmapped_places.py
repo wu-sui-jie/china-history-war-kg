@@ -10,6 +10,8 @@ import sqlite3
 import json
 import os
 from typing import List, Dict
+
+from .db_path import resolve_db_path
 from datetime import datetime
 
 
@@ -26,10 +28,7 @@ def export_unmapped_places(db_path: str = None, output_dir: str = None) -> str:
     """
     # 默认数据库路径
     if db_path is None:
-        db_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
-            'backend', 'database'
-        )
+        db_path = resolve_db_path()
 
     # 默认输出目录
     if output_dir is None:
@@ -95,10 +94,7 @@ def get_unmapped_places_from_db(db_path: str = None) -> List[Dict]:
         地点列表
     """
     if db_path is None:
-        db_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
-            'backend', 'database'
-        )
+        db_path = resolve_db_path()
 
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
@@ -130,10 +126,7 @@ def get_statistics(db_path: str = None) -> Dict:
         统计信息字典
     """
     if db_path is None:
-        db_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
-            'backend', 'database'
-        )
+        db_path = resolve_db_path()
 
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()

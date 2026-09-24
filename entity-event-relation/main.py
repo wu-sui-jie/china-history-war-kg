@@ -22,6 +22,13 @@ from war_extraction.models import (
 )
 from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
 from war_extraction.utils import EntityClassifier, Normalizer
+from war_extraction.utils.relation_rules import arbitrate_event_event_relation
+from war_extraction.utils.value_parsing import (
+    PLACEHOLDERS_MINIMAL,
+    ensure_event_date_order,
+    parse_year_for_order,
+    split_multi_value,
+)
 
 
 def dict_to_entities(data: dict):
@@ -68,13 +75,11 @@ def dict_to_relations(data: dict):
 
 
 def _split_multi_value(value: str):
-    if not value:
-        return []
-    normalized = str(value)
-    for sep in ["、", "，", ",", "；", ";", "及", "与", "和", "/", " vs ", " VS ", "vs."]:
-        normalized = normalized.replace(sep, "|")
-    parts = [part.strip() for part in normalized.split("|")]
-    return [part for part in parts if part and part != "不详" and part != "null"]
+    # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来 main.py 与
+    # relation_extractor 各一份，且**排除集不一致**：这里只排除"不详/null"，
+    # 抽取器那份还排除"未知/无/None"）。本轮是纯重构，故显式传本文件的窄口径，
+    # 行为保持不变；两边要不要统一需要单独决策（会改变抽取产物）。
+    return split_multi_value(value, placeholders=PLACEHOLDERS_MINIMAL)
 
 
 def _looks_like_person_name(value: str) -> bool:
@@ -107,28 +112,12 @@ def _is_summary_only_event(event_obj) -> bool:
 
 
 def _parse_year_for_order(value: str):
-    value = (value or "").strip()
-    if not value or value in {"不详", "未知", "进行中"}:
-        return None
-    match = re.search(r"(公元前|前)\s*(\d{1,4})\s*年?", value)
-    if match:
-        return -int(match.group(2))
-    match = re.search(r"(?<!前)(\d{1,4})\s*年", value)
-    if match:
-        return int(match.group(1))
-    return None
+    # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来这里与 event_extractor 各一份）
+    return parse_year_for_order(value)
 
 
-def ensure_event_date_order(event_obj):
-    """Ensure StartDate is not later than EndDate when both years are parseable."""
-    start_year = _parse_year_for_order(getattr(event_obj, "StartDate", None))
-    end_year = _parse_year_for_order(getattr(event_obj, "EndDate", None))
-    if start_year is None or end_year is None or start_year <= end_year:
-        return event_obj
-    event_obj.StartDate, event_obj.EndDate = event_obj.EndDate, event_obj.StartDate
-    remark = "已自动校正开始时间晚于结束时间的问题"
-    event_obj.Remark = "\n".join([part for part in [getattr(event_obj, "Remark", None), remark] if part])
-    return event_obj
+# ensure_event_date_order 由 war_extraction.utils.value_parsing 直接提供（EER-6 合并了两份拷贝），
+# 本文件不再包一层——包一层会与 import 进来的同名函数互相遮蔽。
 
 
 def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtractionResult:
@@ -592,23 +581,9 @@ def split_publishable_outputs(entities, events, relations):
 
 
 def _arbitrate_event_event_relation(normalizer: Normalizer, rel):
-    evidence = getattr(rel, "evidence", None) or ""
-    relation = normalizer.normalize_relation(getattr(rel, "relation", None))
-    sequential_keywords = ["之后", "以后", "随后", "其后", "后来", "次年", "继而", "接着", "然后", "遂"]
-    strong_causal_keywords = ["因此", "于是", "导致", "引发", "致使", "使得", "造成", "因而", "从而", "迫使"]
-    parallel_keywords = ["同时", "并", "并且", "同年", "相继", "并发"]
-
-    has_sequential_keyword = any(token in evidence for token in sequential_keywords)
-    has_strong_causal_keyword = any(token in evidence for token in strong_causal_keywords)
-    has_parallel_keyword = any(token in evidence for token in parallel_keywords)
-
-    if relation == "因果关系" and not has_strong_causal_keyword:
-        relation = "顺承关系" if has_sequential_keyword or evidence else "并列关系"
-    elif relation == "顺承关系" and has_parallel_keyword and not has_sequential_keyword:
-        relation = "并列关系"
-
-    rel.relation = relation
-    return rel
+    # EER-6：实现搬到 war_extraction/utils/relation_rules.py（原来这里与
+    # relation_extractor._arbitrate_event_event_relation 是两份逐字相同的逻辑）
+    return arbitrate_event_event_relation(normalizer, rel)
 
 
 def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_names=None) -> RelationExtractionResult:

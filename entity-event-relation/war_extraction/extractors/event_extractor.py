@@ -3,8 +3,6 @@ Event extractor.
 """
 from __future__ import annotations
 
-import json
-import re
 from typing import List, Tuple
 
 from war_extraction.config import PROMPT_VERSIONS
@@ -12,6 +10,8 @@ from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
 from war_extraction.models import Event, EventExtractionResult, EventRelation
 from war_extraction.prompts import EVENT_IDENTIFICATION_PROMPT, EVENT_TYPE_PROMPT, FULL_EVENT_PROMPT
 from war_extraction.utils import Normalizer
+from war_extraction.utils.json_payload import extract_json_payload
+from war_extraction.utils.value_parsing import ensure_event_date_order
 
 
 class EventExtractor:
@@ -26,23 +26,6 @@ class EventExtractor:
         # smaller batches so one oversized prompt does not zero out a chunk.
         self.full_event_batch_size = 3
         self.normalizer = Normalizer()
-
-    def _extract_json_payload(self, response: str):
-        try:
-            return json.loads(response)
-        except json.JSONDecodeError:
-            pass
-
-        decoder = json.JSONDecoder()
-        for start, char in enumerate(response):
-            if char not in "[{":
-                continue
-            try:
-                data, _ = decoder.raw_decode(response[start:])
-                return data
-            except json.JSONDecodeError:
-                continue
-        return None
 
     def _flatten_list(self, value) -> list:
         if value is None:
@@ -92,29 +75,10 @@ class EventExtractor:
                 return value
         return default
 
-    def _parse_year_for_order(self, value: str):
-        value = (value or "").strip()
-        if not value or value in {"不详", "未知", "进行中"}:
-            return None
-        match = re.search(r"(公元前|前)\s*(\d{1,4})\s*年?", value)
-        if match:
-            return -int(match.group(2))
-        match = re.search(r"(?<!前)(\d{1,4})\s*年", value)
-        if match:
-            return int(match.group(1))
-        return None
-
     def _ensure_chronological_dates(self, event: Event) -> Event:
         """Keep extracted event dates in historical order when both years are parseable."""
-        start_year = self._parse_year_for_order(event.StartDate)
-        end_year = self._parse_year_for_order(event.EndDate)
-        if start_year is None or end_year is None:
-            return event
-        if start_year > end_year:
-            event.StartDate, event.EndDate = event.EndDate, event.StartDate
-            remark = "已自动校正开始时间晚于结束时间的问题"
-            event.Remark = "\n".join([part for part in [event.Remark, remark] if part])
-        return event
+        # EER-6：改调公共实现（原来与 main.py 的 ensure_event_date_order 是两份逐字相同的逻辑）
+        return ensure_event_date_order(event)
 
     def _build_minimal_event(self, event_tuple: Tuple[str, str, str, str, str, str]) -> Event:
         _, event_name, time_text, location, parties, evidence = event_tuple
@@ -293,7 +257,7 @@ class EventExtractor:
         return self._parse_identification_legacy(response)
 
     def _parse_identification_json(self, response: str):
-        data = self._extract_json_payload(response)
+        data = extract_json_payload(response)
         if data is None:
             return None
         events = []
@@ -391,7 +355,7 @@ class EventExtractor:
                 for _, event_name, *_ in event_list
                 if event_name
             }
-            data = self._extract_json_payload(response)
+            data = extract_json_payload(response)
             if data is None:
                 print("事件抽取 JSON 解析失败: 未找到可用 JSON")
                 print(f"原始响应前 500 字符: {response[:500]}...")

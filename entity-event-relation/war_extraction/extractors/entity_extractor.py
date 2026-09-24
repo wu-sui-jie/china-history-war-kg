@@ -3,8 +3,6 @@
 使用分离的模型和提示词模板
 """
 
-import json
-
 from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
 from war_extraction.models import (
     PlaceEntity,
@@ -15,6 +13,7 @@ from war_extraction.models import (
 from war_extraction.prompts import ENTITY_EXTRACTION_PROMPT
 from war_extraction.config import PROMPT_VERSIONS
 from war_extraction.utils import EntityClassifier
+from war_extraction.utils.json_payload import extract_json_payload
 
 
 class EntityExtractor:
@@ -23,24 +22,6 @@ class EntityExtractor:
     def __init__(self, llm_client):
         self.llm = llm_client
         self.prompt_template = ENTITY_EXTRACTION_PROMPT
-
-    def _extract_json_payload(self, response: str):
-        """Changed 2026-04-21 12:48:22 +08:00: Parse dict or list JSON payloads from LLM output."""
-        try:
-            return json.loads(response)
-        except json.JSONDecodeError:
-            pass
-
-        decoder = json.JSONDecoder()
-        for start, char in enumerate(response):
-            if char not in "[{":
-                continue
-            try:
-                data, _ = decoder.raw_decode(response[start:])
-                return data
-            except json.JSONDecodeError:
-                continue
-        return None
 
     def _flatten_entities(self, value) -> list:
         """Changed 2026-04-20 23:06:12 +08:00: Flatten nested entity lists from LLM output."""
@@ -231,7 +212,8 @@ class EntityExtractor:
 
             # Changed 2026-04-21 12:48:22 +08:00: Use decoder scanning so
             # list/root-wrapper JSON payloads can be recovered from model output.
-            data = self._extract_json_payload(response)
+            # EER-6：改用 utils.json_payload 的公共实现（原三个抽取器各有一份逐字相同的拷贝）。
+            data = extract_json_payload(response)
             if data is None:
                 print("实体抽取 JSON 解析失败: 未找到可用 JSON")
                 print(f"原始响应前500字符: {response[:500]}...")

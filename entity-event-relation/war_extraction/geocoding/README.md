@@ -72,6 +72,10 @@ python -m geocoding.main export --db-path ../backend/database
 
 输出文件：`unmapped_places_YYYYMMDD_HHMMSS.json`
 
+主库路径的解析顺序（EER-7，收在 `war_extraction/geocoding/db_path.py`）：显式 `--db-path` /
+`db_path` 参数 → 环境变量 `EER_DB_PATH` → 默认 `<仓库根>/backend/database`。想指向别的库
+（比如备份库或另一台机器上的路径）设环境变量即可，不必改代码。
+
 #### 步骤2：调用高德API编码
 
 ```bash
@@ -79,6 +83,19 @@ python -m geocoding.main geocode unmapped_places_YYYYMMDD_HHMMSS.json --api-key 
 ```
 
 输出文件：`geocoded_results_YYYYMMDD_HHMMSS.json`
+
+**失败与中断的处理（EER-12）**：
+
+| 情况 | 行为 |
+| --- | --- |
+| 网络超时 / 连接被重置 / 5xx / 429 / 响应不是 JSON | **退避重试**（默认 3 次，等待 1s、2s；`AmapGeocoder(max_retries=…, backoff_base=…)` 可调） |
+| 配额或频率受限（infocode 10003 / 10044 / 10004 / 10021） | **不重试**——高德已经说"你超了"，退避重试只会白烧额度，会打印单独的提示 |
+| 其中日配额类（10003 / 10044） | 还会**提前结束整批**（当天不会再成功），剩余地点不请求 |
+| 其它 API 错误（key 无效、地址查不到等） | 不重试（确定性失败，重试永远不会成功） |
+
+跑批过程中**每处理完一条就追加**一行到 `geocoding_progress.jsonl`（模块目录下，已 gitignore），
+所以批次中途被杀最多丢当前这一条，不会把整批结果一起丢掉；每行带 `run_id` / `status` / `reason`，
+便于事后判断哪些地点还没处理。想关掉就传 `batch_geocode(..., progress_path=None)`。
 
 #### 步骤3：人工审核
 

@@ -218,9 +218,10 @@ SELECT account, role FROM UserInfo WHERE account = 'someone';
 ## 运行方式
 
 ```bash
-# 用 place-name-KG 环境（Python 3.8.20，依赖已装齐）
+# 用 place-name-KG 环境（Python 3.8.20，依赖已装齐；本机解释器路径见根 README 的「本机环境备注」）
+conda activate place-name-KG
 cd backend
-E:/anaconda/envs/place-name-KG/python.exe app.py
+python app.py
 # 服务地址: http://localhost:5000
 ```
 

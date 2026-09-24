@@ -42,6 +42,8 @@ entity-event-relation/data/中国历代战争简史_测试数据.txt
 backend/data/raw/
 # 2) 由原书派生的数据制品（抽取结果、数据库、评测产物）
 entity-event-relation/output/
+# 地理编码的逐条进度文件（EER-12）：跑批时不断追加的运行态文件，不是交付产物
+entity-event-relation/war_extraction/geocoding/geocoding_progress.jsonl
 backend/database
 backend/database.bak-*
 # 3) 本机敏感配置（Neo4j 口令、JWT 密钥等）

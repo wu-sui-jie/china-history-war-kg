@@ -344,7 +344,18 @@ def extract_all_optimized(llm, text: str):
 
         # ========== 第2阶段：事件抽取 ==========
         try:
-            chunk_event_result = event_extractor.extract(chunk_text, chunk_entities)
+            # 修 2026-09-25（EER-7）：此前这里传的是 `chunk_entities` 对象，而
+            # EventExtractor.extract 的第 2 个形参是 `place_list: str`——对象会被
+            # 直接渲染进提示词，模型看到的是
+            #   `地点：places=[PlaceEntity(geo_name='牧野', modern_name=None, ...)]`
+            # 这种 Python repr（实测见 backend/tests/test_extract_prompt.py）。
+            # 现在与离线链路（entity-event-relation/main.py）用同一口径：传字符串列表。
+            chunk_event_result = event_extractor.extract(
+                chunk_text,
+                place_list="、".join(chunk_place_names),
+                org_list="、".join(chunk_org_names),
+                person_list="、".join(chunk_person_names),
+            )
             stage_ok["event"] += 1
             logger.info(f"[提取] 事件抽取完成: {len(chunk_event_result.events)}事件")
         except Exception as e:

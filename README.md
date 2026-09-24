@@ -165,7 +165,7 @@ Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接�
 **两个模块必须用不同的 Python 环境**：RAG 的 chromadb 要求 Python ≥ 3.10，而旧后端整套按
 Python 3.8 编写（Flask + py2neo 生态），装进同一个环境必有一边跑不起来。
 
-| 组件 | 要求 | 本机对应环境（`E:/anaconda`） |
+| 组件 | 要求 | conda 环境名（本机路径见文末「本机环境备注」） |
 | --- | --- | --- |
 | Node.js | ≥ 18（旧前端与 RAG 前端构建） | —（走 Node/pnpm，不用 conda） |
 | 旧后端 | Python 3.8+；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；抽取链包 `war_extraction` 需装好——`pip install -e entity-event-relation`（P2-4 起为正式包，不再靠 `sys.path` 注入） | **`place-name-KG`**（Python 3.8.20） |
@@ -190,24 +190,26 @@ npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=
 
 ```bash
 cd RAG
-E:/anaconda/envs/AI_Agent/python.exe scripts/run_server.py --port 8000 --version 20260915_v1
-# Anaconda Prompt / CMD 下等价写法：
-#   conda activate AI_Agent && python scripts/run_server.py --port 8000 --version 20260915_v1
+conda activate AI_Agent
+python scripts/run_server.py --port 8000 --version 20260915_v1
 ```
+
+> 不想激活环境（或 shell 里没跑过 `conda init`）也可以直接调解释器，路径见文末
+> [「本机环境备注」](#本机环境备注)；下文各启动命令同理。
 
 `--version` 固定数据版本（省略则自动取最新一致版本；生产档下必须显式指定）。
 
 **3. 启动旧后端（:5000，用 `place-name-KG` 环境）**
 
 ```bash
+conda activate place-name-KG
+
 # 首次（或 entity-event-relation 有改动时）：装依赖 + 以可编辑方式装上抽取链包
-E:/anaconda/envs/place-name-KG/python.exe -m pip install -r requirements.txt
-E:/anaconda/envs/place-name-KG/python.exe -m pip install -e entity-event-relation
+python -m pip install -r requirements.txt
+python -m pip install -e entity-event-relation
 
 cd backend
-E:/anaconda/envs/place-name-KG/python.exe app.py
-# Anaconda Prompt / CMD 下等价写法：
-#   conda activate place-name-KG && pip install -r requirements.txt && pip install -e entity-event-relation && cd backend && python app.py
+python app.py
 ```
 
 > 抽取链 `war_extraction` 已是正式包（P2-4），**漏装第二步会在导入时报
