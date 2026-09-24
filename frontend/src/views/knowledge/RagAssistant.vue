@@ -84,8 +84,25 @@ const onFrameLoad = async () => {
   postUserScope()
 }
 
-// 账号变化（换号登录）时重建 iframe 并重发：RAG 前端按新 uid 重新读它自己的存储
-watch(() => userStore.userInfo?.id, () => {
+/** 上一次已生效的账号 id（未登录为 null），与 `uidResolved` 一起区分"首次解析出账号"和"换了账号"。 */
+let knownUid: string | null = userStore.userInfo?.id ? String(userStore.userInfo.id) : null
+let uidResolved = knownUid !== null
+
+// 账号变化时重建 iframe 并重发：RAG 前端按新 uid 重新读它自己的存储。
+// 但"首次解析出账号"（进入页面时 userInfo 还是空的，ensureUserInfo 之后才有）不算换号：
+// 那时候 iframe 要么正在加载、要么刚 load 完（onFrameLoad 会把身份补上），
+// 原先无条件重建会让首次进入白加载一遍——同一份会话数据读两次。
+watch(() => userStore.userInfo?.id, (raw) => {
+  const uid = raw === undefined || raw === null ? null : String(raw)
+  if (uid === knownUid) return
+  const isFirstResolve = !uidResolved
+  knownUid = uid
+  uidResolved = true
+  if (isFirstResolve && uid !== null) {
+    // 补发一次身份：iframe 已经 load 完的话，这条消息就是它换桶的依据
+    postUserScope()
+    return
+  }
   reloadFrame()
 })
 

@@ -57,12 +57,16 @@ router.beforeEach(async (to: RouteLocationNormalized, _from: RouteLocationNormal
       return
     }
 
-    // 角色拦截。userInfo 不随 token 持久化，刷新后可能还没加载——先拉取再判。
+    // 角色拦截。userInfo 会持久化（store/user.ts 的 persist.paths 含 userInfo），
+    // 但**拿不到角色**这件事在刷新后仍会发生：本地缓存被清过、或换号登录的瞬间
+    // userInfo 是空的——所以这里仍要按需拉一次，不能假设它一定在。
     if (to.meta.requiresRole && !userStore.userInfo?.role) {
       await userStore.loadUserInfo()
     }
     if (!roleSatisfies(userStore.userInfo?.role, to.meta.requiresRole)) {
-      layer.msg(to.meta.requiresRole === 'admin' ? '该页面仅管理员可访问' : '当前账号为普通用户，无法访问数据运营页面',
+      // 提示按"角色不足"统一措辞，不写死页面归属：原先非 admin 一律说"数据运营页面"，
+      // 而文本实体识别（requiresRole='editor'）并不属于数据运营组。
+      layer.msg(to.meta.requiresRole === 'admin' ? '该页面仅管理员可访问' : '当前账号权限不足，无法访问该页面',
                 { icon: 2 })
       next({ path: '/workspace/dashboard' })
       return

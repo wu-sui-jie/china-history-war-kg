@@ -72,11 +72,13 @@ function mergeWorkspaceMenus(source: MenuItem[] = []) {
   const workspaceGroup = menuMap.get('/workspace/manage')
   if (workspaceGroup?.children) {
     const childMap = new Map((workspaceGroup.children || []).map((item) => [item?.id, item]))
+    // /workspace/repair 曾列在这里，但后端 get_menu() 从不下发它（路由与页面还在，
+    // 只是没有菜单入口）：白名单里的死项会让人误以为该入口存在。要恢复入口就两边一起加，
+    // 只加这里的话 childMap.get 取不到，会被 .filter(Boolean) 静默丢掉。
     workspaceGroup.children = [
       childMap.get('/workspace/dataset'),
       childMap.get('/knowledge-list'),
       childMap.get('/workspace/quality'),
-      childMap.get('/workspace/repair'),
       childMap.get('/workspace/dataset-versions'),
     ].filter(Boolean) as MenuItem[]
   }

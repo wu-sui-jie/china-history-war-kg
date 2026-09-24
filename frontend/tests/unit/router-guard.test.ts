@@ -85,12 +85,17 @@ describe('路由守卫：角色分级', () => {
     expect(await visit('', '/admin/users')).toBe('/workspace/dashboard')
   })
 
-  test('被拦下时给出对应文案：管理员页与数据运营页提示不同', async () => {
+  test('被拦下时给出对应文案：管理员页单独措辞，其余按权限不足', async () => {
     await visit('viewer', '/admin/users')
     expect(layerSpies().msg).toHaveBeenCalledWith('该页面仅管理员可访问', { icon: 2 })
 
     vi.clearAllMocks()
     await visit('viewer', '/knowledge-list/event')
-    expect(layerSpies().msg).toHaveBeenCalledWith('当前账号为普通用户，无法访问数据运营页面', { icon: 2 })
+    expect(layerSpies().msg).toHaveBeenCalledWith('当前账号权限不足，无法访问该页面', { icon: 2 })
+
+    // 文本实体识别（editor 级）不属于数据运营组，文案不能再自称"数据运营页面"
+    vi.clearAllMocks()
+    await visit('viewer', '/knowledge/text-extract')
+    expect(layerSpies().msg).toHaveBeenCalledWith('当前账号权限不足，无法访问该页面', { icon: 2 })
   })
 })

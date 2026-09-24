@@ -9,6 +9,7 @@
     "build:prod": "vite build --mode production",
     "serve": "vite preview",
     "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
     "test:component": "vitest run tests/component"
   },
   "dependencies": {

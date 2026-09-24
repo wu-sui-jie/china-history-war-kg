@@ -435,6 +435,7 @@ import { useRouter } from 'vue-router';
 import { extractEntitiesEvents } from '../../api/module/node'
 import KgGraph from '../inference/components/KgGraph.vue';
 import { formatChatTime } from '../../utils/date';
+import { apiErrorMessage } from '../../utils/apiError';
 import { readScoped, writeScoped } from '../../utils/userScopedStorage';
 import { useUserStore } from '../../store/user';
 
@@ -443,6 +444,16 @@ const userStore = useUserStore();
 
 // 识别记录的存储 key：按账号隔离（问题二方案 A；老全局记录由 readScoped 归档）
 const EXTRACT_HISTORY_KEY = 'extractHistory';
+
+// 本页面所属的账号 id：挂载时钉住，不跟随 userInfo 变化（同 inference/index.vue）。
+// 登出/token 过期先清 userInfo 再跳登录页，若落盘时才读 userInfo.id，key 会退回全局的
+// 'extractHistory'，把本账号的记录写进公共桶。
+const scopedUid = ref<string | number | undefined>(userStore.userInfo?.id);
+
+/** 已登录但账号 id 未知时不碰公共桶（读会显示别人的记录，写会污染别人的桶）。 */
+function isScopedAccessBlocked() {
+  return !scopedUid.value && !!userStore.token;
+}
 
 // 状态变量
 const inputText = ref('');
@@ -634,6 +645,12 @@ async function startExtract() {
 
     if (response && response.code === 200) {
       result.value = response.data;
+      // 部分分段/阶段失败时后端会带上 partial_errors：结果能用但不完整，必须说出来，
+      // 否则用户会把"少了一半的关系"当成识别结果。
+      const partialErrors = response.data?.partial_errors;
+      if (Array.isArray(partialErrors) && partialErrors.length) {
+        layer.msg(`识别完成，但有 ${partialErrors.length} 处失败（结果可能不完整）：${partialErrors[0]}`, { icon: 0 });
+      }
       // 识别成功后保存到历史记录
       saveToHistory();
     } else {
@@ -641,7 +658,9 @@ async function startExtract() {
     }
   } catch (error: any) {
     console.error('识别请求失败:', error);
-    layer.msg('识别请求失败: ' + (error instanceof Error ? error.message : String(error)), { icon: 2 });
+    // 后端把失败原因放在响应体（HTTP 5xx）里，axios 的 error.message 只有状态码，
+    // 直接显示等于把"模型不可用"这类可处理的信息丢掉。
+    layer.msg(apiErrorMessage(error, '识别请求失败，请稍后重试'), { icon: 2 });
   } finally {
     loading.value = false;
   }
@@ -661,7 +680,8 @@ function useExample(example: any) {
 // 从localStorage加载历史记录（按账号隔离）
 function loadHistoryFromStorage() {
   try {
-    const stored = readScoped<any[]>(EXTRACT_HISTORY_KEY, userStore.userInfo?.id, []);
+    if (isScopedAccessBlocked()) return;
+    const stored = readScoped<any[]>(EXTRACT_HISTORY_KEY, scopedUid.value, []);
     if (Array.isArray(stored)) {
       historyList.value = stored;
     }
@@ -672,8 +692,9 @@ function loadHistoryFromStorage() {
 
 // 保存历史记录到localStorage（按账号隔离）
 function saveHistoryToStorage() {
+  if (isScopedAccessBlocked()) return;
   try {
-    writeScoped(EXTRACT_HISTORY_KEY, userStore.userInfo?.id, historyList.value);
+    writeScoped(EXTRACT_HISTORY_KEY, scopedUid.value, historyList.value);
   } catch (error) {
     console.error('保存历史记录失败:', error);
   }
@@ -897,6 +918,8 @@ function exportToJSON() {
 onMounted(async () => {
   // 先确保拿到账号 id 再读历史（否则退回共享 key，见 store.ensureUserInfo）
   await userStore.ensureUserInfo();
+  // 钉住本次挂载所属的账号：此后 userInfo 被 clearSession() 清空也不影响落盘去向
+  scopedUid.value = userStore.userInfo?.id;
   loadHistoryFromStorage();
 });
 </script>

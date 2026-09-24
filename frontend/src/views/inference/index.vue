@@ -383,6 +383,13 @@ const userStore = useUserStore();
 // 问答记录的存储 key 前缀：按账号隔离（见 utils/userScopedStorage）
 const CHAT_HISTORY_KEY = 'chatHistory';
 
+// 本页面所属的账号 id：挂载时钉住，之后**不跟随 userInfo 变化**。
+// 登出（BasicLayout.logOut）与 token 过期（api/http.ts 的 handleUnauthorized）都是先
+// clearSession() 清空 userInfo、再跳登录页，随后本组件卸载并 flush 历史——若此刻才去读
+// userInfo.id，拿到的是 undefined，key 会退回全局 'chatHistory'，把这个账号的整份记录
+// 复制进公共桶，之后任何账号都能读到。钉住 uid 后，"落到自己的桶"与清凭据的先后顺序无关。
+const scopedUid = ref<string | number | undefined>(userStore.userInfo?.id);
+
 // 进行中的问答流控制器（见 handleQuery / onBeforeUnmount）
 let streamController: AbortController | null = null;
 
@@ -625,11 +632,21 @@ watch(() => currentChat.value.messages.length, () => {
 // 从localStorage加载聊天记录
 // 存储 key 按账号隔离（问题二方案 A）：同一浏览器上换账号不再看到同一个人的提问记录。
 // 老版本存在全局 key 'chatHistory' 下，首次按账号读取时由 readScoped 归档，不归属任何账号。
+//
+// 「已登录但拿不到账号 id」（token 在、userinfo 接口失败或还没返回）时不碰公共桶：
+// 那份数据不知道属于谁，读它会显示别人的记录，写它会污染别人的桶。只有未登录
+// （独立访问该页面）才沿用全局 key——那是改造前的语义。
+function isScopedAccessBlocked() {
+  return !scopedUid.value && !!userStore.token;
+}
+
 function loadChatHistory() {
   try {
-    const stored = readScoped<Chat[]>(CHAT_HISTORY_KEY, userStore.userInfo?.id, []);
-    if (Array.isArray(stored) && stored.length) {
-      chatHistory.value = stored;
+    if (!isScopedAccessBlocked()) {
+      const stored = readScoped<Chat[]>(CHAT_HISTORY_KEY, scopedUid.value, []);
+      if (Array.isArray(stored) && stored.length) {
+        chatHistory.value = stored;
+      }
     }
     // 设置一个短暂的加载延迟，以显示加载状态
     setTimeout(() => {
@@ -663,15 +680,16 @@ function trimChatHistory() {
 
 // 保存聊天记录到localStorage（按账号分 key，见 loadChatHistory 的说明）
 function saveChatHistory() {
+  if (isScopedAccessBlocked()) return;
   try {
     trimChatHistory();
-    writeScoped(CHAT_HISTORY_KEY, userStore.userInfo?.id, chatHistory.value);
+    writeScoped(CHAT_HISTORY_KEY, scopedUid.value, chatHistory.value);
   } catch (error) {
     // 配额仍不够：丢掉一半会话再试一次；还失败就只告警，不阻塞对话
     try {
       trimChatHistory();
       chatHistory.value = chatHistory.value.slice(0, Math.max(1, Math.floor(MAX_CHATS / 2)));
-      writeScoped(CHAT_HISTORY_KEY, userStore.userInfo?.id, chatHistory.value);
+      writeScoped(CHAT_HISTORY_KEY, scopedUid.value, chatHistory.value);
       console.warn('聊天记录超出 localStorage 配额，已丢弃较旧的会话');
     } catch (retryError) {
       console.warn('聊天记录写入 localStorage 失败，本次不保存历史:', retryError);
@@ -957,6 +975,8 @@ function handleResize() {
 onMounted(async () => {
   // 先确保拿到账号 id 再读历史：否则会退回共享 key，隔离失效（见 store.ensureUserInfo）
   await userStore.ensureUserInfo();
+  // 钉住本次挂载所属的账号：此后 userInfo 被 clearSession() 清空也不影响落盘去向
+  scopedUid.value = userStore.userInfo?.id;
   loadChatHistory();
   scrollToBottom();
   window.addEventListener('resize', handleResize);

@@ -98,7 +98,11 @@ describe('UserManagement 用户管理页', () => {
 
   test('保存失败：提示服务端文案并回滚显示', async () => {
     wrapper = await mountPage()
-    update.mockResolvedValue({ code: 403, msg: '不能修改自己的角色，请让另一位管理员操作' })
+    // 真实链路：后端返回 HTTP 403 + body {code,msg}，axios 走 reject，
+    // 服务端文案在 error.response.data.msg（见 utils/apiError）。
+    update.mockRejectedValue({
+      response: { status: 403, data: { code: 403, msg: '不能修改自己的角色，请让另一位管理员操作' } },
+    })
     wrapper.vm.rows[1].role = 'admin' as any
 
     await wrapper.vm.save(wrapper.vm.rows[1])
@@ -108,10 +112,33 @@ describe('UserManagement 用户管理页', () => {
     expect(list).toHaveBeenCalledTimes(2)
   })
 
+  test('保存失败但服务端没给文案时回落到兜底提示（不显示 axios 状态码）', async () => {
+    wrapper = await mountPage()
+    update.mockRejectedValue(new Error('Request failed with status code 500'))
+    wrapper.vm.rows[1].role = 'editor' as any
+
+    await wrapper.vm.save(wrapper.vm.rows[1])
+    await flushPromises()
+
+    const msg = String(layerSpies().msg.mock.calls.at(-1)![0])
+    expect(msg).toBe('保存失败，请稍后重试')
+    expect(msg).not.toContain('status code')
+    expect(list).toHaveBeenCalledTimes(2)
+  })
+
   test('列表接口失败时提示且不留脏数据', async () => {
     list.mockResolvedValue({ code: 500, msg: '数据库炸了' })
     wrapper = await mountPage()
     expect(layerSpies().msg).toHaveBeenCalledWith('数据库炸了', { icon: 2 })
+    expect(wrapper.vm.rows).toHaveLength(0)
+  })
+
+  test('列表接口被拒（HTTP 403）时提示后端文案', async () => {
+    list.mockRejectedValue({
+      response: { status: 403, data: { code: 403, msg: '仅管理员可执行该操作' } },
+    })
+    wrapper = await mountPage()
+    expect(layerSpies().msg).toHaveBeenCalledWith('仅管理员可执行该操作', { icon: 2 })
     expect(wrapper.vm.rows).toHaveLength(0)
   })
 })

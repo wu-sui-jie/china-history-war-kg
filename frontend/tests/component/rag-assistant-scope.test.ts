@@ -60,9 +60,8 @@ describe('RagAssistant 身份传递', () => {
     const store = useUserStore()
     store.userInfo = {}
     wrapper = mount(RagAssistant, { global: { plugins: [Layui] } })
-    await flushPromises()   // 等 ensureUserInfo 拉到账号（此刻 iframe 会因 key 变化重建）
+    await flushPromises()   // 等 ensureUserInfo 拉到账号（首次解析出账号不再重建 iframe，见下一条用例）
 
-    // 账号变化会重建 iframe，所以间谍要挂在重建之后的那一个元素上
     const postMessage = await stubFrameWindow(wrapper)
     expect(store.userInfo.id).toBe(7)
 
@@ -70,6 +69,18 @@ describe('RagAssistant 身份传递', () => {
     await flushPromises()
 
     expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7', role: 'viewer' }, '/')
+  })
+
+  test('首次解析出账号不重建 iframe（否则进页面会白加载两遍）', async () => {
+    const store = useUserStore()
+    store.userInfo = {}
+    wrapper = mount(RagAssistant, { global: { plugins: [Layui] } })
+    const before = wrapper.vm.frameKey
+
+    await flushPromises()   // ensureUserInfo 拉到 id=7：这是"首次解析出账号"，不是换号
+
+    expect(store.userInfo.id).toBe(7)
+    expect(wrapper.vm.frameKey).toBe(before)
   })
 
   test('账号切换时重建 iframe（RAG 按新 uid 重读它自己的存储）', async () => {
@@ -87,15 +98,16 @@ describe('RagAssistant 身份传递', () => {
   test('未拿到账号时不发消息（宁可保持独立访问行为，也不发空身份）', async () => {
     const store = useUserStore()
     store.userInfo = {}
-    // userInfo 接口返回空：ensureUserInfo 之后仍没有 id
+    // userInfo 接口始终返回空：无论拉几次（onMounted 与 iframe load 各一次）都拿不到 id
     const api = await import('@/api/module/user')
-    ;(api.userInfo as any).mockResolvedValueOnce({ code: 200, data: null })
+    ;(api.userInfo as any).mockResolvedValue({ code: 200, data: null })
 
     wrapper = mount(RagAssistant, { global: { plugins: [Layui] } })
     const postMessage = await stubFrameWindow(wrapper)
     await wrapper.find('iframe').trigger('load')
     await flushPromises()
 
+    expect(store.userInfo.id).toBeUndefined()
     expect(postMessage).not.toHaveBeenCalled()
   })
 })

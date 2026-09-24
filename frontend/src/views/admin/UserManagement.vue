@@ -50,6 +50,7 @@ import { computed, onMounted, ref } from 'vue'
 import { layer } from '@layui/layui-vue'
 
 import { listUsers, updateUserRole, type AdminUser } from '../../api/module/admin'
+import { apiErrorMessage } from '../../utils/apiError'
 import { useUserStore } from '../../store/user'
 
 const userStore = useUserStore()
@@ -80,8 +81,8 @@ async function loadData() {
     } else {
       layer.msg(res.msg || '加载用户列表失败', { icon: 2 })
     }
-  } catch {
-    layer.msg('加载用户列表失败，请稍后重试', { icon: 2 })
+  } catch (error) {
+    layer.msg(apiErrorMessage(error, '加载用户列表失败，请稍后重试'), { icon: 2 })
   } finally {
     loading.value = false
   }
@@ -100,7 +101,9 @@ async function save(row: AdminUser) {
       await loadData()  // 失败即回滚显示：以服务端为准
     }
   } catch (error: any) {
-    layer.msg(error?.message || '保存失败，请稍后重试', { icon: 2 })
+    // 403 的文案来自后端（"不能修改自己的角色…" / "仅管理员可执行该操作"），
+    // 它藏在 error.response.data.msg 里，不是 error.message
+    layer.msg(apiErrorMessage(error, '保存失败，请稍后重试'), { icon: 2 })
     await loadData()
   } finally {
     savingId.value = null

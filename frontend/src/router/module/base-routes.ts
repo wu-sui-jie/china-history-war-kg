@@ -40,7 +40,10 @@ export default [
       { path: '/knowledge/timeline', component: () => import('../../views/knowledge/TimelineView.vue'), meta: { title: '战争时间轴', requireAuth: true } },
       { path: '/knowledge/relation-analysis', component: () => import('../../views/knowledge/RelationAnalysis.vue'), meta: { title: '关系分析', requireAuth: true } },
       { path: '/knowledge/search', component: () => import('../../views/knowledge/GlobalSearch.vue'), meta: { title: '全局搜索', requireAuth: true } },
-      { path: '/knowledge/inference', component: () => import('../../views/inference/index.vue'), meta: { title: '历史问答助手', requireAuth: true } },
+      // 历史问答助手同样会调大模型（消耗同一份配额），与文本实体识别一个口径：
+      // 路由 meta + 后端 require_write_role 一起限 editor。它的菜单入口已在
+      // store/user.ts 的 HIDDEN_MENU_IDS 里下线（由 RAG 智能问答承接），因此不需要动菜单裁剪。
+      { path: '/knowledge/inference', component: () => import('../../views/inference/index.vue'), meta: { title: '历史问答助手', requireAuth: true, requiresRole: 'editor' } },
       { path: '/knowledge/rag', component: () => import('../../views/knowledge/RagAssistant.vue'), meta: { title: 'RAG 智能问答', requireAuth: true } },
       // 文本实体识别会调大模型（消耗配额），只读账号不给入口：菜单裁剪、路由 meta、
       // 后端 require_write_role 三处同口径。要放开只改这三处。
