@@ -18,7 +18,7 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import { activeStorageKey, getActiveUid, setActiveUid } from '@/utils/userScope'
+import { activeStorageKey, getActiveUid, setActiveRole, setActiveUid, type UserScopeMessage } from '@/utils/userScope'
 import { fetchDicts, fetchHealth } from '@/api/http'
 import { streamQuery } from '@/api/sse'
 import {
@@ -406,6 +406,13 @@ function messagesOf(bodies: Map<string, ChatMessage[]>, id: string): ChatMessage
   return bodies.get(id) || []
 }
 
+/** 把身份消息归一成 uid（兼容三种入参：`{uid,role}` 对象、裸 uid 字符串、null）。 */
+function normalizeScopeUid(scope: UserScopeMessage | string | null | undefined): string | null {
+  const raw = scope !== null && typeof scope === 'object' ? scope.uid : scope
+  const text = raw === null || raw === undefined ? '' : String(raw).trim()
+  return text ? text : null
+}
+
 /** schema 迁移（第四轮复核 P2-11 + 2026-09-20 多会话 P1）：
  * - 当前版本（v3 多会话）：正常解析；
  * - v2/v1（单会话）：迁移为"第一条会话"，消息逐条升级；
@@ -474,6 +481,8 @@ function quarantine(sourceKey: string, raw: string, reason: string): void {
 }
 
 export const useSessionStore = defineStore('session', () => {
+  /** 当前内存状态来自哪个桶（换桶的唯一依据，见 applyUserScope 的说明）。 */
+  let loadedScope: string | null = getActiveUid()
   const persisted = readPersisted()
   // 会话索引（标题/时间）与活动会话：活动会话的消息体就是下面的 messages
   const sessions = ref<SessionMeta[]>(persisted.sessions)
@@ -684,16 +693,27 @@ export const useSessionStore = defineStore('session', () => {
   /**
    * 切换账号作用域（主应用 iframe 嵌入时通过 postMessage 告知，见 utils/userScope）。
    *
-   * 顺序是关键：**先把当前内存状态写回"当前" key，再换 uid、再读新 key**。
-   * 反过来的话，上一个账号的会话会被写进新账号的存储里（串数据）。
+   * **本函数是换桶的唯一入口，顺序在这里保证**：
+   *   ① 先把当前内存状态写回**旧**桶（此刻 activeUid 还是旧值，persist() 才对得上）；
+   *   ② 再 setActiveUid 换桶；
+   *   ③ 最后读新桶，替换内存状态。
+   * 顺序反了会把上一个账号的会话写进新账号的桶里（串数据）。
+   *
+   * 用 `loadedScope`（而不是 getActiveUid()）判断"是否同一个桶"：桥只回调、不改 activeUid，
+   * 但即使将来有人改了桥的实现，这里的判断也仍然对齐"当前内存状态来自哪个桶"这个事实。
    *
    * 没收到过消息时（独立访问 :8000）不会调用本函数，存储 key 不带后缀，行为与改造前一致。
    */
-  function applyUserScope(uid: string | null): void {
-    if (uid === getActiveUid()) return
-    persist()
-    setActiveUid(uid)
-    const reloaded = readPersisted()
+  function applyUserScope(scope: UserScopeMessage | string | null): void {
+    const nextUid = normalizeScopeUid(scope)
+    if (nextUid === loadedScope) return
+
+    persist()                    // ① 写回旧桶（activeUid 尚未变）
+    setActiveUid(nextUid)        // ② 换桶
+    loadedScope = nextUid
+    setActiveRole(typeof scope === 'object' && scope !== null ? scope.role : '')
+
+    const reloaded = readPersisted()   // ③ 读新桶
     sessions.value = reloaded.sessions
     activeSessionId.value = reloaded.activeSessionId
     messages.value = reloaded.messages

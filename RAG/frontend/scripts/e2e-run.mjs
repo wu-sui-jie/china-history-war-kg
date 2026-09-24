@@ -29,11 +29,11 @@ const STUB_MARKER = process.env.E2E_STUB_MARKER || 'e2e-fixture'
 const cliJs = path.resolve('node_modules', '@playwright', 'test', 'cli.js')
 
 function startServer() {
-  return spawn(
-    process.execPath,
-    ['scripts/e2e-server.mjs', '--port', port, '--marker', STUB_MARKER],
-    { stdio: ['ignore', 'inherit', 'inherit'] },
-  )
+  const args = ['scripts/e2e-server.mjs', '--port', port, '--marker', STUB_MARKER]
+  // 默认托管 dist/。注意：并入模式（build:integration，base=/rag/）的产物托管在 / 下会 404，
+  // 想验证"独立访问形态"请先 `vite build --outDir dist-plain` 再用 E2E_DIST=dist-plain 跑。
+  if (process.env.E2E_DIST) args.push('--dist', process.env.E2E_DIST)
+  return spawn(process.execPath, args, { stdio: ['ignore', 'inherit', 'inherit'] })
 }
 
 async function waitForHealth(server, timeoutMs = 30000) {

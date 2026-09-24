@@ -253,9 +253,33 @@ async function handleQuery(req, res) {
   res.end()
 }
 
+/** 账号隔离用例的父页容器（见 scope-harness.html 路由）。 */
+const SCOPE_HARNESS_HTML = `<!doctype html>
+<html><head><meta charset="utf-8"><title>scope harness</title></head>
+<body style="margin:0">
+<iframe id="rag" src="/" style="width:100vw;height:100vh;border:0"></iframe>
+<script>
+  window.postScope = (uid, role) => {
+    const f = document.getElementById('rag');
+    f.contentWindow.postMessage({ type: 'cw-user', uid: uid === null || uid === undefined ? null : String(uid), role: role || '' }, '/');
+  };
+  window.ready = new Promise((resolve) => {
+    document.getElementById('rag').addEventListener('load', () => resolve(true), { once: true });
+  });
+</script>
+</body></html>`
+
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://127.0.0.1:${port}`)
   try {
+    // 账号隔离用例（tests/e2e/user-scope-isolation.spec.ts）需要一张"父页"来扮演主应用：
+    // 它把 RAG 页面放进 iframe，再从父页 postMessage 身份消息——与 RagAssistant.vue 的做法一致。
+    // 直接跑真实主应用需要账号口令，桩页面能把这条链路单独验出来。
+    if (req.method === 'GET' && url.pathname === '/scope-harness.html') {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+      res.end(SCOPE_HARNESS_HTML)
+      return
+    }
     if (req.method === 'GET' && url.pathname === '/api/health') return sendJson(res, health)
     if (req.method === 'GET' && url.pathname === '/api/dicts') return sendJson(res, dicts)
     if (req.method === 'GET' && url.pathname === '/api/demo/examples') return sendJson(res, demo)

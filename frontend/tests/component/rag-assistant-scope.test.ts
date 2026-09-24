@@ -52,7 +52,8 @@ describe('RagAssistant 身份传递', () => {
 
     expect(postMessage).toHaveBeenCalledTimes(1)
     // targetOrigin 用 '/'：只发给同源文档。改成 '*' 会让消息投给任意嵌入方
-    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7' }, '/')
+    // role 一起带上（RAG 侧只存不用；老版本主应用不发时 RAG 按空串处理）
+    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7', role: 'viewer' }, '/')
   })
 
   test('账号未知时先拉取再发（不能把空 uid 发出去）', async () => {
@@ -68,7 +69,7 @@ describe('RagAssistant 身份传递', () => {
     await wrapper.find('iframe').trigger('load')
     await flushPromises()
 
-    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7' }, '/')
+    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7', role: 'viewer' }, '/')
   })
 
   test('账号切换时重建 iframe（RAG 按新 uid 重读它自己的存储）', async () => {

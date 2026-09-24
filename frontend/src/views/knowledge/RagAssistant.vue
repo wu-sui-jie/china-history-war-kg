@@ -71,7 +71,11 @@ const postUserScope = () => {
   const frame = frameRef.value
   const uid = userStore.userInfo?.id
   if (!frame?.contentWindow || uid === undefined || uid === null) return
-  frame.contentWindow.postMessage({ type: 'cw-user', uid: String(uid) }, '/')
+  // role 一起带上：RAG 侧现在只存不用（未来按角色收敛界面时要用），老版本主应用不发也能跑
+  frame.contentWindow.postMessage(
+    { type: 'cw-user', uid: String(uid), role: String(userStore.userInfo?.role || '') },
+    '/',
+  )
 }
 
 /** iframe 每次 load 后重发：RAG 可能比本页晚拿到账号，或自身刚被重建。 */

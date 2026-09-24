@@ -48,10 +48,24 @@ test('activeStorageKey 跟随 setActiveUid', () => {
   assert.equal(activeStorageKey(), SESSION_STORAGE_KEY)
 })
 
-test('消息解析：只认 cw-user 且只认同源', () => {
-  assert.equal(parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: 3 } }, ORIGIN), '3')
-  assert.equal(parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: null } }, ORIGIN), null)
-  assert.equal(parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '' } }, ORIGIN), null)
+test('消息解析：只认 cw-user 且只认同源（结果带 role）', () => {
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: 3, role: 'admin' } }, ORIGIN),
+    { uid: '3', role: 'admin' },
+  )
+  // 老版本主应用不发 role：按空串处理，仍然有效
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '7' } }, ORIGIN),
+    { uid: '7', role: '' },
+  )
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: null } }, ORIGIN),
+    { uid: null, role: '' },
+  )
+  assert.deepEqual(
+    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '' } }, ORIGIN),
+    { uid: null, role: '' },
+  )
   // 其它来源：忽略（返回 undefined 表示"这条消息与我们无关"）
   assert.equal(parseUserScopeMessage({ origin: 'http://evil.example', data: { type: 'cw-user', uid: 9 } }, ORIGIN), undefined)
   // 形状不对：忽略，且不能把 uid 当有效身份
@@ -60,32 +74,40 @@ test('消息解析：只认 cw-user 且只认同源', () => {
   assert.equal(parseUserScopeMessage({ origin: ORIGIN, data: 'cw-user' }, ORIGIN), undefined)
 })
 
-test('身份桥：同源消息触发回调，换 uid 才再触发', () => {
+test('身份桥：同源消息触发回调，换 uid 才再触发；桥自己不改 activeUid', () => {
   const seen: (string | null)[] = []
-  const off = installHostUserBridge((uid) => seen.push(uid), ORIGIN)
+  const off = installHostUserBridge((scope) => seen.push(scope.uid), ORIGIN)
 
   window.dispatchEvent(message('5'))
   window.dispatchEvent(message('5'))  // 同一个账号不重复通知
   window.dispatchEvent(message('6'))
   assert.deepEqual(seen, ['5', '6'])
-  assert.equal(getActiveUid(), '6')
+  // 换桶是 store 的事：桥只回调，避免"先改 uid 再写回"导致串数据（见文件头与装配级用例）
+  assert.equal(getActiveUid(), null)
 
   // 异源消息被忽略
   window.dispatchEvent(message('99', 'http://evil.example'))
   assert.deepEqual(seen, ['5', '6'])
-  assert.equal(getActiveUid(), '6')
 
   off()
   window.dispatchEvent(message('7'))
   assert.deepEqual(seen, ['5', '6'])
 })
 
-test('身份桥：null 表示"退出到无账号"，可退回基础 key', () => {
+test('身份桥：null 表示"退出到无账号"，回调照样送达', () => {
   const seen: (string | null)[] = []
-  const off = installHostUserBridge((uid) => seen.push(uid), ORIGIN)
+  const off = installHostUserBridge((scope) => seen.push(scope.uid), ORIGIN)
   window.dispatchEvent(message('5'))
   window.dispatchEvent(message(null))
   assert.deepEqual(seen, ['5', null])
-  assert.equal(activeStorageKey(), SESSION_STORAGE_KEY)
+  off()
+})
+
+test('身份桥：role 原样转交（老版本主应用不发则为空串）', () => {
+  const roles: string[] = []
+  const off = installHostUserBridge((scope) => roles.push(scope.role), ORIGIN)
+  window.dispatchEvent(new MessageEvent('message', { data: { type: 'cw-user', uid: '5', role: 'editor' }, origin: ORIGIN }))
+  window.dispatchEvent(new MessageEvent('message', { data: { type: 'cw-user', uid: '6' }, origin: ORIGIN }))
+  assert.deepEqual(roles, ['editor', ''])
   off()
 })
