@@ -67,7 +67,6 @@ frontend/src/
 ├── config/index.ts        # baseURL（同源相对路径 `/`）、ragBase（/rag/）、timeout
 ├── layouts/               # BasicLayout + global/ 下的头部、菜单、标签页、设置
 ├── library/               # 通用工具（treeUtil 等）
-├── mockjs/                # Mock 数据（**仅开发态启用**，见下）
 ├── router/                # index.ts（守卫）+ module/base-routes.ts（全部路由）
 ├── store/                 # Pinia：app（标签页主题）、user（token/菜单/权限）
 ├── styles/                # 全局样式
@@ -82,18 +81,15 @@ frontend/src/
 
 ### 1. 加菜单项要改三处
 
-`src/main.ts` 只在**开发态**动态引入 `./mockjs`（`import.meta.env.DEV && VITE_ENABLE_MOCK !== 'false'`）：
+菜单的**唯一事实源是后端 `backend/app.py` 的 `get_menu()`**（按角色裁剪：viewer 不下发数据运营组）。
+2026-09-25 移除了 mockjs——它此前在开发态拦下 `/user/menu` 返回硬编码菜单、不感知角色，
+曾导致"开发态菜单与生产不一致、加菜单要改三处"。
 
-- **开发态**：mockjs 在 XHR 层拦下 `/user/menu`、`/user/permission`，菜单渲染 `src/mockjs/user.ts` 的硬编码数据；
-- **生产构建**：mockjs 不进包，菜单与权限来自 `backend/app.py` 的 `get_menu()` / `get_permission()`。
+新增或调整菜单项，下面三处都要满足，否则菜单会缺项或点进去 404：
 
-两种来源都要满足下面三条，否则菜单会缺项或点进去 404：
-
-1. 菜单数据：开发态改 `src/mockjs/user.ts`；生产态改 `backend/app.py` 的 `get_menu()`；
+1. 菜单数据：`backend/app.py` 的 `get_menu()`；
 2. `src/store/user.ts` 的 `mergeWorkspaceMenus` —— id 白名单，不在清单里的项会被 `.filter(Boolean)` **静默丢弃**；
 3. `src/router/module/base-routes.ts` —— 路由，否则点进去是 404。
-
-想在开发时直接连后端调菜单接口，设 `VITE_ENABLE_MOCK=false`（或临时注释掉 `main.ts` 里的导入）。
 
 ### 2. `axios` 封装只有一处
 

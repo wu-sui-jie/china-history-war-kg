@@ -7,13 +7,9 @@ import Layui from '@layui/layui-vue'
 import '@layui/layui-vue/lib/index.css'
 
 async function bootstrap() {
-  // mockjs 只在开发环境启用：它在 XHR 层拦截 /user/menu、/user/permission 等请求，
-  // 无条件 import 会被打进生产包，让后端同名接口永远不生效。
-  // 需要在开发时直接连后端（例如调试菜单接口）时设 VITE_ENABLE_MOCK=false。
-  if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCK !== 'false') {
-    await import('./mockjs')
-  }
-
+  // 2026-09-25 移除 mockjs：它拦截 /user/menu、/user/permission 返回硬编码菜单，
+  // 不感知角色（viewer 也拿到全量管理菜单）——菜单的唯一事实源统一为后端
+  // get_menu()（按角色裁剪）。开发时照常连后端即可。
   const app = createApp(App)
 
   app.use(Store);
