@@ -1007,10 +1007,14 @@ def build_quality_report(entities, events, relations) -> dict:
 
 
 def save_results(name: str, entities, events, relations, input_file: Path = None,
-                 text_length: int = None, output_base: Path = None):
+                 text_length: int = None, output_base: Path = None, llm_meta: dict = None):
     """
     保存抽取结果到 output/ 目录
     输出9个JSON文件和对应的Excel文件
+
+    llm_meta: 由调用方传入 {"model": ..., "api_base": ...}，随 metadata 落盘，
+    使产物可自证由哪个模型/端点产出（修正 2026-09-25：原先缺失，换模型重跑后
+    产物无法区分来源）。
     """
     output_dir = output_base or Path("output")
     output_dir.mkdir(exist_ok=True)
@@ -1069,6 +1073,7 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
             "prompt_version": PROMPT_VERSION,
             "input_file": str(input_file) if input_file else name,
             "text_length": text_length,
+            **(llm_meta or {}),
         },
         "entities": entities.model_dump(),
         "events": events.model_dump(),
@@ -1094,6 +1099,7 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
             "input_file": str(input_file) if input_file else name,
             "text_length": text_length,
             "publish_stage": "published",
+            **(llm_meta or {}),
         },
         "entities": stage_entities.model_dump(),
         "events": stage_events.model_dump(),
@@ -1143,7 +1149,8 @@ def main():
                 path, llm, enable_split, read_cache, write_cache
             )
             text_length = len(path.read_text(encoding="utf-8"))
-            save_results(path.stem, entities, events, relations, path, text_length, Path(args.output))
+            save_results(path.stem, entities, events, relations, path, text_length, Path(args.output),
+                         llm_meta={"model": llm.model, "api_base": llm.base_url})
         else:
             print(f"错误: 文件不存在: {path}")
             raise SystemExit(1)

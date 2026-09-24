@@ -41,6 +41,7 @@ class DeepSeekClient:
 
         self.client = OpenAI(api_key=api_key, base_url=base_url, timeout=60.0, max_retries=2)
         self.model = model
+        self.base_url = base_url  # 随产物 metadata 记录，换端点重跑后产物可自证来源
 
     def call(self, prompt: str, temperature: float = 0.1, max_retries: int = 3, json_mode: bool = False) -> str:
         """

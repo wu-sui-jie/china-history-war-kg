@@ -212,7 +212,8 @@ class OptimalEvaluator:
             used_pred.add(pred_idx)
             used_gold.add(gold_idx)
 
-        print(f"  匹配成功: {len(mapping)} (匹配率: {len(mapping) / len(gold_list):.1%})")
+        match_rate = len(mapping) / len(gold_list) if gold_list else 0.0
+        print(f"  匹配成功: {len(mapping)} (匹配率: {match_rate:.1%})")
         print(f"  未匹配预测: {len(pred_list) - len(mapping)}")
         print(f"  未匹配标注: {len(gold_list) - len(mapping)}")
         return mapping
@@ -390,16 +391,16 @@ class OptimalEvaluator:
         total_pred = pred_cnt1 + pred_cnt2 + pred_cnt3
         total_gold = gold_cnt1 + gold_cnt2 + gold_cnt3
 
-        if total_pred > 0:
-            avg_p = (p1 * pred_cnt1 + p2 * pred_cnt2 + p3 * pred_cnt3) / total_pred
-            avg_r = (r1 * pred_cnt1 + r2 * pred_cnt2 + r3 * pred_cnt3) / total_pred
-        else:
-            avg_p = avg_r = 0
-        avg_f1 = 2 * avg_p * avg_r / (avg_p + avg_r) if (avg_p + avg_r) > 0 else 0
-
+        # 修正 2026-09-25：recall 此前按**预测数**加权（Σr·pred/Σpred），既非 micro
+        # 也非 macro，数值无标准含义。改为标准 micro 口径（P=TP/(TP+FP)、R=TP/(TP+FN)）；
+        # 原按预测数加权的 avg_p 数学上恒等于 micro-P，行为不变，avg_r 是真正的修正点。
         total_tp = tp1 + tp2 + tp3
         total_fp = fp1 + fp2 + fp3
         total_fn = fn1 + fn2 + fn3
+
+        avg_p = total_tp / (total_tp + total_fp) if (total_tp + total_fp) > 0 else 0
+        avg_r = total_tp / (total_tp + total_fn) if (total_tp + total_fn) > 0 else 0
+        avg_f1 = 2 * avg_p * avg_r / (avg_p + avg_r) if (avg_p + avg_r) > 0 else 0
 
         print(f"\n【实体评估】")
         print(f"  原始预测: 地点{pred_cnt1} + 人物{pred_cnt2} + 组织{pred_cnt3} = {total_pred}个")

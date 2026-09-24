@@ -262,5 +262,8 @@ class EntityExtractor:
         except (LLMAuthError, LLMAPIError):
             raise
         except Exception as e:
+            # 修正 2026-09-25：原先在此吞掉异常并返回空结果，调用方会把「调用失败」
+            # 当成「本段确实无实体」写入缓存，失败片段被永久污染（只能 --refresh-cache
+            # 手工救）。改为向上抛出，由编排层判定失败、不落缓存、下次自动重试。
             print(f"实体抽取失败: {e}")
-            return EntityExtractionResult()
+            raise

@@ -447,8 +447,10 @@ class EventExtractor:
         except (LLMAuthError, LLMAPIError):
             raise
         except Exception as e:
+            # 修正 2026-09-25：识别失败原先吞成空列表、片段照常缓存，失败内容被
+            # 永久标记为「无事件」。改为上抛，由编排层判失败、不落缓存。
             print(f"事件识别失败: {e}")
-            identified_events = []
+            raise
 
         if not identified_events:
             print("警告：未识别到战争事件")
@@ -464,8 +466,10 @@ class EventExtractor:
             except (LLMAuthError, LLMAPIError):
                 raise
             except Exception as e:
+                # 修正 2026-09-25：批次失败原先吞掉、其余批次照常缓存，失败批次的事件
+                # 永久丢失。改为上抛，让整个片段判失败、下次重跑。
                 print(f"完整事件抽取失败: {e}")
-                batch_events = []
+                raise
 
             if batch_events:
                 completed_batch_events = self._fill_missing_batch_events(event_batch, batch_events)
