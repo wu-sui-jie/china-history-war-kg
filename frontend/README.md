@@ -20,14 +20,19 @@ pnpm install      # 首次（或 npm install）
 pnpm dev          # 或 npm run dev
 ```
 
-访问 **http://localhost:3001**。端口在 `vite.config.ts` 中固定为 3001（不是 Vite 默认的 5173），
-并已把 `/api`、`/rag` 两条代理配好——所以浏览器只需要这一个地址。
+访问 **http://localhost:3001**。端口在 `vite.config.ts` 中固定为 3001（不是 Vite 默认的 5173；
+`strictPort: true`，被占用时直接报错而不是静默换端口），并已把 `/api`、`/rag` 两条代理配好——
+所以浏览器只需要这一个地址。接口 baseURL 是同源相对路径 `/`，与 SSE 走同一条通道。
 
 ```bash
-pnpm build        # 生产构建，产物到 dist/
+pnpm build          # 生产构建，产物到 dist/
+pnpm build:check    # 类型检查（vue-tsc --noEmit）+ 生产构建，提 PR 前建议跑
 ```
 
 > 若用镜像源更快的场景：`npm config set registry https://mirrors.huaweicloud.com/repository/npm/`。
+>
+> 类型检查基于 TypeScript 5.x（Vue 3.5 的 `.d.ts` 需要 5.x 才认识）；`tsconfig.json` 开了
+> `skipLibCheck`（跳过第三方声明）与 `allowJs`（四个无 `lang="ts"` 的维护页需要）。
 
 ## 页面与路由
 
@@ -59,10 +64,10 @@ frontend/src/
 ├── api/
 │   ├── http.ts            # 唯一的 axios 封装：注入 token、统一解包 response.data
 │   └── module/            # 按业务分组的接口函数（commone / user / workspace）
-├── config/index.ts        # baseURL（按当前 host 推导 :5000）、ragBase（/rag/）、timeout
+├── config/index.ts        # baseURL（同源相对路径 `/`）、ragBase（/rag/）、timeout
 ├── layouts/               # BasicLayout + global/ 下的头部、菜单、标签页、设置
 ├── library/               # 通用工具（treeUtil 等）
-├── mockjs/                # Mock 数据（**菜单与权限实际来源**，见下）
+├── mockjs/                # Mock 数据（**仅开发态启用**，见下）
 ├── router/                # index.ts（守卫）+ module/base-routes.ts（全部路由）
 ├── store/                 # Pinia：app（标签页主题）、user（token/菜单/权限）
 ├── styles/                # 全局样式
@@ -77,21 +82,25 @@ frontend/src/
 
 ### 1. 加菜单项要改三处
 
-`src/main.ts` 无条件 `import './mockjs'`，mockjs 在 XHR 层拦下了 `/user/menu`、`/user/permission`，
-所以**侧边栏菜单实际渲染的是 `src/mockjs/user.ts` 里的硬编码数据**，不是 `backend/app.py` 的
-`get_menu()`（那份接口至今未被这个前端调用过）。只改后端的菜单项不会出现在界面上。
+`src/main.ts` 只在**开发态**动态引入 `./mockjs`（`import.meta.env.DEV && VITE_ENABLE_MOCK !== 'false'`）：
 
-1. `src/mockjs/user.ts` —— 菜单数据（实际生效的源）；
+- **开发态**：mockjs 在 XHR 层拦下 `/user/menu`、`/user/permission`，菜单渲染 `src/mockjs/user.ts` 的硬编码数据；
+- **生产构建**：mockjs 不进包，菜单与权限来自 `backend/app.py` 的 `get_menu()` / `get_permission()`。
+
+两种来源都要满足下面三条，否则菜单会缺项或点进去 404：
+
+1. 菜单数据：开发态改 `src/mockjs/user.ts`；生产态改 `backend/app.py` 的 `get_menu()`；
 2. `src/store/user.ts` 的 `mergeWorkspaceMenus` —— id 白名单，不在清单里的项会被 `.filter(Boolean)` **静默丢弃**；
 3. `src/router/module/base-routes.ts` —— 路由，否则点进去是 404。
 
-（若哪天真去掉了 mockjs，`backend/app.py` 的 `get_menu()` 才成为菜单源，届时同样要满足第 2、3 条。）
+想在开发时直接连后端调菜单接口，设 `VITE_ENABLE_MOCK=false`（或临时注释掉 `main.ts` 里的导入）。
 
 ### 2. `axios` 封装只有一处
 
-全部请求走 `src/api/http.ts`（`Http`）：请求拦截注入 token、无 token 时跳登录页，
-响应拦截统一返回 `response.data`。**判断接口成败要看响应体里的 `code` 字段**——
-旧后端在未鉴权时返回 `{"code": 403, ...}` 但 **HTTP 状态码是 200**，只看 HTTP 层会误判。
+全部请求走 `src/api/http.ts`（`Http`）：请求拦截注入 token，响应拦截统一返回 `response.data`，
+并在 **HTTP 401**（或响应体 `code === 401`）时清空登录态并跳登录页。
+
+后端鉴权状态码：未登录/Token 过期或伪造 → `401`；Token 有效但无写权限（`viewer` 角色调写接口）→ `403`。
 
 ## 开发规范
 

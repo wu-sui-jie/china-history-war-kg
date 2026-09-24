@@ -103,8 +103,8 @@
               :class="message.role === 'user' ? 'user-message' : 'ai-message'"
             >
               <div class="message-avatar">
-                <lay-avatar v-if="message.role === 'user'" size="40px">用户</lay-avatar>
-                <lay-avatar v-else size="40px" bg-color="#009688">AI</lay-avatar>
+                <lay-avatar v-if="message.role === 'user'">用户</lay-avatar>
+                <lay-avatar v-else bg-color="#009688">AI</lay-avatar>
               </div>
               <div class="message-content">
                 <!-- 用户消息 -->
@@ -178,7 +178,7 @@
                   <!-- 知识图谱引用信息 -->
                   <div v-if="message.role === 'assistant' && message.kgContext" class="kg-reference">
                     <lay-button
-                      type="text"
+                      type="normal"
                       size="sm"
                       @click="toggleKgInfo(msgIndex)"
                     >
@@ -200,7 +200,7 @@
           </template>
           <div v-if="loading" class="ai-message">
             <div class="message-avatar">
-              <lay-avatar size="40px" bg-color="#009688">AI</lay-avatar>
+              <lay-avatar bg-color="#009688">AI</lay-avatar>
             </div>
             <div class="message-content thinking-bubble">
               <div class="message-text thinking-animation">思考中<span class="dot-animation"></span></div>
@@ -212,7 +212,7 @@
         <div v-if="currentChat.messages.length > 0 &&
                     currentChat.messages[currentChat.messages.length-1].role === 'assistant' &&
                     currentChat.messages[currentChat.messages.length-1].entities &&
-                    currentChat.messages[currentChat.messages.length-1].entities.length > 0 &&
+                    (currentChat.messages[currentChat.messages.length-1].entities?.length ?? 0) > 0 &&
                     showEntityCard"
              class="entity-card">
           <div class="entity-card-header">
@@ -243,7 +243,7 @@
           <lay-textarea
             v-model="currentQuery"
             placeholder="请输入您的问题，系统将结合知识图谱内容进行回答..."
-            :autosize="{minRows: 1, maxRows: 2}"
+            :autosize="{minRow: 1, maxRow: 2}"
             @keydown.enter="handleEnterKey"
             class="compact-textarea"
             ref="textareaRef"
@@ -370,6 +370,7 @@ import { ref, computed, watch, nextTick, onMounted, reactive, onBeforeUnmount } 
 import { useUserStore } from '../../store/user';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
+import DOMPurify from 'dompurify';
 // 导入知识图谱组件
 import KgGraph from './components/KgGraph.vue';
 import { fieldLabel, groupRelationAttributes, nodeDisplayName, normalizeType, typeLabel } from '../../utils/knowledge';
@@ -378,28 +379,50 @@ import { formatChatTime } from '../../utils/date';
 // 用户store（用于获取token）
 const userStore = useUserStore();
 
+// 代码高亮的 HTML 转义（不引用 md 实例，避免初始化器自引用）
+function escapeHtml(text: string): string {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function highlightCode(str: string, lang: string): string {
+  if (lang && hljs.getLanguage(lang)) {
+    try {
+      return '<pre class="hljs"><code>' +
+             hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+             '</code></pre>';
+    } catch (__) {}
+  }
+
+  return '<pre class="hljs"><code>' + escapeHtml(str) + '</code></pre>';
+}
+
+// 进行中的问答流控制器（见 handleQuery / onBeforeUnmount）
+let streamController: AbortController | null = null;
+
 // 创建Markdown渲染器实例
+// html: false —— 不直通 raw HTML。模型输出与图谱数据都属于不可信内容，
+// 它们拼出的 HTML 若直通 v-html 就是存储型 XSS 的入口。
 const md = new MarkdownIt({
-  html: true,
+  html: false,
   linkify: true,
   typographer: true,
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre class="hljs"><code>' +
-               hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-               '</code></pre>';
-      } catch (__) {}
-    }
-
-    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
-  }
+  highlight: highlightCode,
 });
 
-// Markdown渲染函数
+// 所有进入 v-html 的 HTML 统一在这里净化（DOMPurify 兜底，去掉脚本与事件属性）
+function sanitizeHtml(html: string): string {
+  if (!html) return '';
+  return DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+}
+
+// Markdown 文本 -> 可安全交给 v-html 的 HTML
 function renderMarkdown(text: string): string {
   if (!text) return '';
-  return md.render(text);
+  return sanitizeHtml(md.render(text));
 }
 
 interface Message {
@@ -522,10 +545,7 @@ function toggleKgVisualization(index: number, event: Event) {
           }
 
           // 不改变侧边栏状态，仅调整图表大小
-          if (document.dispatchEvent) {
-            const resizeEvent = new Event('resize');
-            window.dispatchEvent(resizeEvent);
-          }
+          window.dispatchEvent(new Event('resize'));
         }
       }, 100);
     });
@@ -656,16 +676,48 @@ function loadChatHistory() {
   }
 }
 
+// 聊天历史容量上限：localStorage 一般只有 ~5MB，而流式回答很长，
+// 不设上限会在若干轮对话后直接写不进去（QuotaExceededError 原先被空 catch 吞掉）。
+const MAX_CHATS = 20;
+const MAX_MESSAGES_PER_CHAT = 200;
+
+// 收缩聊天历史到上限内：单会话保留最近的消息，会话数按最近使用保留
+function trimChatHistory() {
+  const chats = chatHistory.value;
+  if (!Array.isArray(chats)) return;
+  for (const chat of chats) {
+    if (Array.isArray(chat.messages) && chat.messages.length > MAX_MESSAGES_PER_CHAT) {
+      chat.messages = chat.messages.slice(-MAX_MESSAGES_PER_CHAT);
+    }
+  }
+  if (chats.length > MAX_CHATS) {
+    chatHistory.value = [...chats]
+      .sort((a, b) => (b.lastTime || 0) - (a.lastTime || 0))
+      .slice(0, MAX_CHATS);
+  }
+}
+
 // 保存聊天记录到localStorage
 function saveChatHistory() {
   try {
+    trimChatHistory();
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory.value));
   } catch (error) {
+    // 配额仍不够：丢掉一半会话再试一次；还失败就只告警，不阻塞对话
+    try {
+      trimChatHistory();
+      chatHistory.value = chatHistory.value.slice(0, Math.max(1, Math.floor(MAX_CHATS / 2)));
+      localStorage.setItem('chatHistory', JSON.stringify(chatHistory.value));
+      console.warn('聊天记录超出 localStorage 配额，已丢弃较旧的会话');
+    } catch (retryError) {
+      console.warn('聊天记录写入 localStorage 失败，本次不保存历史:', retryError);
+    }
   }
 }
 
 // 创建新聊天
 function createNewChat() {
+  streamController?.abort();
   const now = Date.now();
   const newChat: Chat = {
     id: now,
@@ -685,6 +737,7 @@ function createNewChat() {
 
 // 切换聊天
 function switchChat(index: number) {
+  streamController?.abort();
   currentChatIndex.value = index;
 }
 
@@ -752,13 +805,18 @@ async function handleQuery() {
   try {
     // 使用SSE流式接收
     const streamUrl = '/api/ai/inference/stream';
+    // 每次提问前中断上一次未结束的流：否则切换会话/离开页面后，
+    // 旧流仍会继续往已经没人看的 aiMessage 上写内容
+    streamController?.abort();
+    streamController = new AbortController();
     const response = await fetch(streamUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Token': userStore.token || ''
       },
-      body: JSON.stringify({ question: queryText })
+      body: JSON.stringify({ question: queryText }),
+      signal: streamController.signal
     });
 
     if (!response.ok) {
@@ -873,6 +931,13 @@ async function handleQuery() {
 
   } catch (error) {
 
+    // 主动中断（切换会话、发起新提问、离开页面）不是故障：
+    // 保留已生成的内容，也不要覆盖成错误提示
+    if ((error as any)?.name === 'AbortError') {
+      loading.value = false;
+      return;
+    }
+
     // 更新AI消息为错误信息
     aiMessage.content = '推理请求发生错误，请稍后再试';
     aiMessage.fromKg = false;
@@ -883,9 +948,18 @@ async function handleQuery() {
   }
 }
 
-// 监听消息变化，自动保存聊天历史
+// 监听消息变化，自动保存聊天历史。
+// 流式回答是逐字追加的，直接写会把整份历史 JSON.stringify 跑上千次，因此合并到 500ms 一次。
+let saveHistoryTimer: number | undefined;
+function scheduleSaveChatHistory() {
+  if (saveHistoryTimer) window.clearTimeout(saveHistoryTimer);
+  saveHistoryTimer = window.setTimeout(() => {
+    saveHistoryTimer = undefined;
+    saveChatHistory();
+  }, 500);
+}
 watch(() => chatHistory.value, () => {
-  saveChatHistory();
+  scheduleSaveChatHistory();
 }, { deep: true });
 
 // 监听消息变化，自动滚动到底部
@@ -928,6 +1002,13 @@ onMounted(() => {
 
 // 组件卸载时移除窗口大小监听
 onBeforeUnmount(() => {
+  // 中断进行中的问答流，并把防抖中的历史立即落盘
+  streamController?.abort();
+  if (saveHistoryTimer) {
+    window.clearTimeout(saveHistoryTimer);
+    saveHistoryTimer = undefined;
+  }
+  saveChatHistory();
   window.removeEventListener('resize', handleResize);
 });
 
@@ -1042,7 +1123,7 @@ function exportToMarkdown() {
       }, 2000);
     }, 100);
   } catch (error) {
-    alert(`导出失败: ${error.message || '未知错误'}`);
+    alert(`导出失败: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
@@ -1096,7 +1177,12 @@ function getKgData(message: Message) {
 }
 
 // 渲染知识图谱上下文为Markdown
+// 图谱数据来自接口，属不可信内容：统一在出口做 HTML 净化
 function renderKgContextMarkdown(context: string): string {
+  return sanitizeHtml(buildKgContextHtml(context));
+}
+
+function buildKgContextHtml(context: string): string {
   if (!context) return '';
 
   // 尝试解析为JSON并转换为表格
@@ -1239,7 +1325,7 @@ function renderFormattedKgContext(context: string): string {
 function jsonObjectToMarkdownTable(json: any): string {
   // 处理非对象或空对象
   if (!json || typeof json !== 'object' || Array.isArray(json) && json.length === 0) {
-    return md.render('*无有效数据*');
+    return renderMarkdown('*无有效数据*');
   }
 
   // 处理数组
@@ -1259,7 +1345,7 @@ function jsonObjectToMarkdownTable(json: any): string {
       json.forEach((item, index) => {
         tableContent += `${index+1}. ${String(item)}\n`;
       });
-      return md.render(tableContent);
+      return renderMarkdown(tableContent);
     }
 
     // 构建表头
@@ -1282,7 +1368,7 @@ function jsonObjectToMarkdownTable(json: any): string {
       table += '\n';
     });
 
-    return md.render(table);
+    return renderMarkdown(table);
   }
 
   // 处理普通对象
@@ -1302,7 +1388,7 @@ function jsonObjectToMarkdownTable(json: any): string {
     }
   });
 
-  return md.render(table);
+  return renderMarkdown(table);
 }
 
 // 渲染知识图谱数据为Markdown表格
@@ -1425,15 +1511,16 @@ function renderJsonTableMarkdown(jsonData: any): string {
     result += '## 实体关系\n\n没有关系数据\n\n';
   }
 
-  return md.render(result);
+  return renderMarkdown(result);
 }
 
 // 思考过程渲染函数
 function renderThinkingContent(thinkingText: string): string {
   if (!thinkingText) return '';
 
-  // 格式化MD内容
-  let formattedText = thinkingText;
+  // 先转义原始文本再套格式化标签：思考过程同样是模型输出，
+  // 其中出现 <script> / onerror 之类内容时不能当 HTML 执行。
+  let formattedText = md.utils.escapeHtml(thinkingText);
 
   // 处理标题格式（例如：1. **问题理解**:）
   formattedText = formattedText.replace(/(\d+\.\s*\*\*[^*]+\*\*:)/g, '<h4>$1</h4>');
@@ -1458,7 +1545,7 @@ function renderThinkingContent(thinkingText: string): string {
   // 为代码块添加样式
   formattedText = formattedText.replace(/```([\s\S]*?)```/g, '<pre class="thinking-code"><code>$1</code></pre>');
 
-  return formattedText;
+  return sanitizeHtml(formattedText);
 }
 
 // 处理回车键事件
@@ -1482,7 +1569,7 @@ function hideEntityCard() {
 watch(() => currentChat.value.messages.length, () => {
   if (currentChat.value.messages.length > 0 &&
       currentChat.value.messages[currentChat.value.messages.length-1].role === 'assistant' &&
-      currentChat.value.messages[currentChat.value.messages.length-1].entities?.length > 0) {
+      (currentChat.value.messages[currentChat.value.messages.length-1].entities?.length ?? 0) > 0) {
     showEntityCard.value = true;
   }
 });
@@ -2508,8 +2595,12 @@ watch(() => currentChat.value.messages.length, () => {
   padding: 16px 20px;
 }
 
-/* 头像美化 */
+/* 头像美化（尺寸用 CSS 控制：组件的 size 只接受 xs/sm/md/lg 预设值） */
 .message-avatar .layui-avatar {
+  width: 40px;
+  height: 40px;
+  line-height: 36px;
+  font-size: 14px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 0 3px rgba(255, 255, 255, 0.8), 0 0 0 5px rgba(0, 150, 136, 0.3);
   border: 2px solid white;
   transition: all 0.3s ease;

@@ -367,7 +367,7 @@ const formatQualityFlags = (flags: any) => {
   return parts.length ? parts.join('\n') : '暂无质检标记'
 }
 
-const formatPlainValue = (value: any) => {
+const formatPlainValue = (value: any): string => {
   if (value === null || value === undefined || value === '') return '-'
   if (Array.isArray(value)) return value.map(formatPlainValue).join('、')
   if (typeof value === 'object') return Object.values(value).map(formatPlainValue).join('、')

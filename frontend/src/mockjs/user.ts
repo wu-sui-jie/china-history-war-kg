@@ -6,10 +6,13 @@ let user: User = {
     'username': 'admin',
 }
 
-// 注意：src/main.ts 无条件 `import './mockjs'`，而 mockjs 在 XHR 层拦下了
-// `/user/login`、`/user/menu`、`/user/permission`，所以**侧边栏菜单实际渲染的是这份数据**，
-// 不是 backend/app.py 的 `get_menu()`（那份至今未被这个前端调用过）。
+// 注意：这份 mock 只在开发态启用（见 src/main.ts 的 import.meta.env.DEV 守卫），
+// mockjs 在 XHR 层拦下 `/user/menu`、`/user/permission`，**开发时侧边栏渲染的是这份数据**。
 // 新增菜单项要改这里；另需同步 store/user.ts 的 id 白名单，否则会被过滤掉。
+// 生产构建不打包 mockjs，菜单与权限来自 backend/app.py 的 get_menu()。
+//
+// 这里不做鉴权判定：token 放在请求头（见 api/http.ts），mock 的 req 只带 url/type/body，
+// 取不到请求头。要验证真实登录态请用 VITE_ENABLE_MOCK=false 连后端。
 const menus = [
     {
         id: '/workspace/dashboard',
@@ -99,56 +102,37 @@ const menus = [
 const graph = {}
 
 const getInfo = (req: any, res: any) => {
-    let item = JSON.parse(req.body);
-    let token = item ? item.token : null;
     let result: Result = {
         code: 200,
         msg: "操作成功",
         data: user,
         success: true
     }
-    if (item || token) {
-        result.code = 99998;
-        result.msg = "请重新登录";
-        result.success = false;
-    }
     return result;
 }
 
 const getPermission = (req: any, res: any) => {
-    let item = JSON.parse(req.body);
-    let token = item ? item.token : null;
     let result: Result = {
         code: 200,
         msg: "操作成功",
         data: ['sys:user:add', 'sys:user:edit', 'sys:user:delete', 'sys:user:import', 'sys:user:export'],
         success: true
     }
-    if (item || token) {
-        result.code = 99998;
-        result.msg = "请重新登录";
-        result.success = false;
-    }
     return result;
 }
 
 const getMenu = (req: any, res: any) => {
-    let item = JSON.parse(req.body);
-    let token = item ? item.token : null;
     let result: Result = {
         code: 200,
         msg: "操作成功",
         data: menus,
         success: true
     }
-    if (item || token) {
-        result.code = 99998;
-        result.msg = "请重新登录";
-        result.success = false;
-    }
     return result;
 }
 
+// 开发态专用的假登录（账号 admin / 123456）。注意前端登录实际调的是
+// `/api/login`（真后端），本函数只在这个 mock 被单独使用时才生效。
 const getLogin = (req: any, res: any) => {
     let item = JSON.parse(req.body);
     let account = item.account;

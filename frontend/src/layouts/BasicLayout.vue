@@ -174,8 +174,8 @@ export default {
 
     const logOut = () => {
       const userInfoStore = useUserStore()
-      userInfoStore.token = ''
-      userInfoStore.userInfo = {}
+      // 一次性清空 token/用户信息/菜单/权限，避免换账号后残留上一账号的菜单
+      userInfoStore.clearSession()
       router.push('/login')
     }
 

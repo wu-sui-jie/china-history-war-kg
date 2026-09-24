@@ -24,7 +24,7 @@
         <lay-input v-model="filters.event_type" placeholder="事件类型" />
       </div>
       <div class="filter-actions">
-        <lay-checkbox v-model="onlyIssues">只看时间异常</lay-checkbox>
+        <lay-checkbox v-model="onlyIssues" value="onlyIssues">只看时间异常</lay-checkbox>
         <lay-button type="primary" @click="loadData">筛选</lay-button>
         <lay-button @click="resetFilters">重置</lay-button>
       </div>
@@ -179,7 +179,8 @@ const resetFilters = () => {
 }
 
 const openDetail = (id: number) => {
-  router.push(`/knowledge/entity/Event/${id}`)
+  // 实体详情是 query 传参的单一路由（/knowledge/entity-detail），没有 /knowledge/entity/:type/:id
+  router.push(`/knowledge/entity-detail?type=Event&id=${id}&back=${encodeURIComponent('/knowledge/timeline')}`)
 }
 
 onMounted(() => {

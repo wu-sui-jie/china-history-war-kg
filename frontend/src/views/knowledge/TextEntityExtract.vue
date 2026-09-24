@@ -458,7 +458,7 @@ const historyList = ref<HistoryItem[]>([]);
 const currentHistoryIndex = ref(-1);
 
 // 展开状态
-const expandedSections = reactive({
+const expandedSections = reactive<Record<string, boolean>>({
   events: true,
   entities: true,
   relations: true,

@@ -20,12 +20,18 @@
     </div>
 
     <div class="frame-card">
+      <!-- sandbox：限制弹窗、顶层导航、下载等越权动作。
+           注意这**不是安全隔离**：RAG 页面与主应用同源，`allow-scripts` + `allow-same-origin`
+           组合下 iframe 内脚本可以直接访问父页面（也能移除自身 sandbox 属性，浏览器规范明示）。
+           真正的隔离要靠把 RAG 部署到独立域名，或至少在反代层给 /rag/ 加认证。 -->
       <iframe
         :key="frameKey"
         ref="frameRef"
         class="rag-frame"
         :src="ragBase"
         title="RAG 智能问答"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"
+        referrerpolicy="no-referrer"
       ></iframe>
     </div>
   </div>

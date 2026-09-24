@@ -28,9 +28,9 @@ const emit = defineEmits<{
   (e: 'node-click', node: Record<string, any>): void
 }>();
 
-const graphContainer = ref(null);
-let chart = null;
-let resizeObserver = null;
+const graphContainer = ref<HTMLDivElement | null>(null);
+let chart: echarts.ECharts | null = null;
+let resizeObserver: ResizeObserver | null = null;
 
 function getNodeDisplayName(node: any) {
   if (!node) return '';
@@ -39,10 +39,11 @@ function getNodeDisplayName(node: any) {
 
 // 初始化图表
 function initChart() {
-  if (!graphContainer.value) return;
+  const container = graphContainer.value;
+  if (!container) return;
 
   // 创建ECharts实例
-  chart = echarts.init(graphContainer.value);
+  chart = echarts.init(container);
 
   // 监听窗口大小变化，调整图表大小
   window.addEventListener('resize', handleResize);
@@ -51,14 +52,14 @@ function initChart() {
   setupResizeObserver();
 
   // 监听点击事件，阻止冒泡
-  graphContainer.value.addEventListener('click', (event) => {
+  container.addEventListener('click', (event) => {
     event.stopPropagation();
   });
 
   // 阻止其他可能冒泡的事件
   const stopEvents = ['mousedown', 'touchstart', 'mousemove', 'mouseup', 'touchmove', 'touchend'];
   stopEvents.forEach(eventName => {
-    graphContainer.value.addEventListener(eventName, (event) => {
+    container.addEventListener(eventName, (event) => {
       event.stopPropagation();
     });
   });
@@ -66,7 +67,7 @@ function initChart() {
   // 渲染图表
   renderGraph();
 
-  chart.on('click', (params) => {
+  chart.on('click', (params: any) => {
     if (params.dataType !== 'node') return;
     const rawNode = props.data?.nodes?.find((item: any) => String(item.id) === String(params.data?.id));
     if (rawNode) {
@@ -79,11 +80,12 @@ function initChart() {
 function setupResizeObserver() {
   if (typeof ResizeObserver !== 'undefined' && graphContainer.value) {
     resizeObserver = new ResizeObserver(() => {
-      if (chart) {
+      const instance = chart;
+      if (instance) {
         // 使用requestAnimationFrame确保resize在重绘前执行
         requestAnimationFrame(() => {
           try {
-            chart.resize({
+            instance.resize({
               animation: {
                 duration: 0 // 禁用动画以避免与其他UI元素的过渡冲突
               }
@@ -100,11 +102,12 @@ function setupResizeObserver() {
 
 // 处理窗口大小变化
 function handleResize() {
-  if (chart) {
+  const instance = chart;
+  if (instance) {
     // 使用requestAnimationFrame确保resize在重绘前执行
     requestAnimationFrame(() => {
       try {
-        chart.resize({
+        instance.resize({
           animation: {
             duration: 0 // 禁用动画以避免与其他UI元素的过渡冲突
           }
@@ -120,7 +123,7 @@ function handleResize() {
 function renderGraph() {
   if (!chart) return;
 
-  const { nodes, lines } = props.data;
+  const { nodes, lines } = (props.data || {}) as { nodes: any[]; lines: any[] };
 
   // ================== 类型标准化映射 ==================
   const typeNormalizeMap: Record<string, string> = {
@@ -136,7 +139,7 @@ function renderGraph() {
   
 
   // 定义节点类型颜色配置
-  const typeColors = {
+  const typeColors: Record<string, { color: string; size: number; borderColor: string; gradient: string[] }> = {
     '战争事件': {
     color: '#8B1E23',
     size: 90,
@@ -286,7 +289,7 @@ function renderGraph() {
 
   // 准备数据
   // 处理节点数据，根据类型分组，并进行类型标准化（英文转中文）
-  const allNodes = nodes.map(node => {
+  const allNodes = nodes.map((node: any) => {
     // 类型标准化：将英文类型转换为中文
     const originalType = node.type || node.category || '其他';
     const nodeType = typeNormalizeMap[originalType] || originalType;
@@ -336,11 +339,11 @@ function renderGraph() {
   });
 
   // 节点ID映射表
-  const nodeMap = new Map(allNodes.map(node => [node.id, node]));
+  const nodeMap = new Map(allNodes.map((node: any) => [node.id, node]));
 
   // 获取所有类别（使用标准化后的中文类型）
-  const categories = Array.from(new Set(allNodes.map(node => node.category)))
-    .map(type => ({
+  const categories: { name: string; itemStyle: { color: string } }[] = Array.from(new Set(allNodes.map((node: any) => node.category)))
+    .map((type: string) => ({
       name: type,
       itemStyle: {
         color: typeColors[type]?.color || '#A9A9A9'
@@ -348,23 +351,23 @@ function renderGraph() {
     }));
 
   // 处理连线数据
-  const graphLinks = lines.filter(line => {
+  const graphLinks = lines.filter((line: any) => {
     return nodeMap.has(String(line.from)) &&
            nodeMap.has(String(line.to)) &&
            !line.inferred;
-  }).map(line => {
+  }).map((line: any) => {
     let lineColor = '#999'; // 默认颜色
     let curveness = 0.05; // 默认弧度
 
     // 检查是否存在相同起点和终点的多条连接线
     const parallelLinks = lines.filter(
-      l => (l.from === line.from && l.to === line.to) || (l.from === line.to && l.to === line.from)
+      (l: any) => (l.from === line.from && l.to === line.to) || (l.from === line.to && l.to === line.from)
     );
 
     if (parallelLinks.length > 1) {
       // 计算当前连接线在平行连接线中的位置
       const linkIndex = parallelLinks.findIndex(
-        l => l.from === line.from && l.to === line.to && l.text === line.text
+        (l: any) => l.from === line.from && l.to === line.to && l.text === line.text
       );
 
       // 增加基础曲率以减少线条交叉
@@ -448,17 +451,19 @@ function renderGraph() {
   });
 
   // 图表配置
-  const option = {
+  // 注：graph series 的 force 配置含 initLayout/layoutBy 等扩展字段，
+  // 官方 EChartsOption 类型覆盖不到，这里刻意用宽松类型。
+  const option: any = {
     backgroundColor: '#f8f9fa',
     animation: true,
     animationDuration: 1000,
     animationEasing: 'elasticOut',
-    animationDelay: function (idx) {
+    animationDelay: function (idx: number) {
       return idx * 50;
     },
     animationDurationUpdate: 1000,
     animationEasingUpdate: 'quinticInOut',
-    animationDelayUpdate: function (idx) {
+    animationDelayUpdate: function (idx: number) {
       return idx * 100;
     },
     tooltip: {
@@ -469,9 +474,9 @@ function renderGraph() {
       textStyle: {
         color: '#333'
       },
-      formatter: (params) => {
+      formatter: (params: any) => {
         if (params.dataType === 'node') {
-          const node = nodes.find(n => String(n.id) === params.data.id);
+          const node = nodes.find((n: any) => String(n.id) === params.data.id);
           if (!node) return params.name;
 
           let tooltipHtml = `<div style="font-weight:bold">${getNodeDisplayName(node)}</div>
@@ -490,12 +495,12 @@ function renderGraph() {
         animation: true,
         animationDuration: 1000,
         animationEasing: 'elasticOut',
-        animationDelay: function (idx) {
+        animationDelay: function (idx: number) {
           return idx * 50;
         },
         animationDurationUpdate: 1000,
         animationEasingUpdate: 'quinticInOut',
-        animationDelayUpdate: function (idx) {
+        animationDelayUpdate: function (idx: number) {
           return idx * 100;
         },
         categories: categories,
@@ -544,7 +549,7 @@ function renderGraph() {
         edgeSymbolSize: [0, 12],
         edgeLabel: {
           show: true,
-          formatter: function(params) {
+          formatter: function(params: any) {
             return params.data.value;
           },
           fontSize: 7,

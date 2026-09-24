@@ -20,7 +20,9 @@ export default defineConfig({
     server: {
         host: '0.0.0.0',
         port: 3001,
-        strictPort: false,
+        // 端口固定为 3001：被占用时直接报错退出，而不是静默换端口
+        // （hmr.clientPort 与文档都按 3001 写死，漂移会让代理假设失效）
+        strictPort: true,
         cors: true,
         hmr: {
             clientPort: 3001
@@ -37,6 +39,14 @@ export default defineConfig({
                         }
                     });
                 }
+            },
+            // 旧接口不带 /api 前缀（历史上直接挂在 Flask 根路径上，生产由 nginx 的 `location /` 兜底）。
+            // 接口 baseURL 改成同源相对路径后，开发态必须显式转发这几条，
+            // 否则请求会落到 Vite 自己身上、被 SPA fallback 返回 index.html，axios 解析 JSON 直接报错。
+            // 新增这类旧路径接口时记得同步这里（或按 FE-6 统一改成 /api 前缀）。
+            '^/(create_node|update_node|delete_node|search_name_kg|user/(menu|permission))$': {
+                target: 'http://localhost:5000',
+                changeOrigin: true,
             },
             // RAG 智能问答（并入模式）：/rag/* 整体转发给 RAG 服务（FastAPI :8000）。
             // 去掉前缀后正好对上 RAG 自己的路径约定——页面在 /*、接口在 /api/*，

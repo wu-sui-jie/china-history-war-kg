@@ -142,3 +142,65 @@ jobs:
         run: python scripts/check_secrets.py
       - name: 空白与冲突标记检查
         run: git diff --check
+
+  legacy-backend:
+    # 旧后端与离线抽取：原先零 CI（约一半代码无自动化验证）。
+    # 这里只做语法级检查，不装依赖——两个模块的依赖树（py2neo / ollama / pandas）
+    # 在 CI 里装全套收益不大，语法错误与坏文件才是最常见的低级事故。
+    #
+    # 刻意钉在 22.04：Python 3.8 已 EOL，ubuntu-24.04 镜像上 actions/setup-python 不再提供它
+    # （用 ubuntu-latest 会直接报 "Version 3.8 was not found" 而失败）。
+    name: 旧后端与知识抽取（语法）
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.8"
+      - name: 语法编译（backend + entity-event-relation，目标解释器为 3.8）
+        run: python -m compileall -q backend entity-event-relation
+      - name: 旧后端不得出现明文密钥
+        run: |
+          # 与 RAG 的 check_secrets.py 同口径：只看明显的密钥形态，放过占位符
+          if grep -rInE "(sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{12,})" \
+              --include='*.py' --include='*.json' --include='*.md' backend entity-event-relation; then
+            echo "::error::检测到疑似明文密钥"
+            exit 1
+          fi
+          echo "未发现明文密钥"
+      - name: 关键文件存在性（防止误删）
+        run: |
+          for f in backend/app.py backend/local_settings.py backend/.env.example \
+                   backend/requirements.txt backend/rules/rule_base.json; do
+            test -f "$f" || { echo "::error::缺少 $f"; exit 1; }
+          done
+
+  legacy-frontend:
+    # 旧前端（管理台）：原先零 CI。类型检查在 2026-09 修复过（vue 3.5 需要 TS 5.x，
+    # tsconfig 补 skipLibCheck/allowJs），现在可以进 CI 了。
+    name: 旧前端（类型检查 + 构建）
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.14.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: 安装依赖
+        run: pnpm install --frozen-lockfile
+      - name: 类型检查 + 构建
+        run: pnpm run build:check
+      - name: 生产包不得包含 mockjs（FE-1 回归）
+        run: |
+          if grep -rl "MockXMLHttpRequest\|mockjs" dist/assets/ 2>/dev/null; then
+            echo "::error::生产产物里出现 mockjs：检查 src/main.ts 的 DEV 守卫"
+            exit 1
+          fi
+          echo "产物干净"

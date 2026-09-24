@@ -1,23 +1,14 @@
-﻿/**
+/**
  * 全局配置文件
  */
 
-// 动态获取后端API地址
-const getBaseUrl = () => {
-  // 获取当前窗口的主机名（IP地址或域名）
-  const hostname = window.location.hostname;
-  
-  // 后端API服务的端口
-  const apiPort = '5000';
-  
-  // 如果是localhost或127.0.0.1，使用相同的主机名
-  // 否则使用当前访问的主机名（适用于局域网访问）
-  return `http://${hostname}:${apiPort}`;
-};
-
 export default {
-  // API基础URL
-  baseURL: getBaseUrl(),
+  // API 基础地址：同源相对路径。
+  // 开发环境由 vite 代理 /api → 127.0.0.1:5000、/rag → 127.0.0.1:8000；
+  // 生产由 nginx 按路径分流（见 docs/集成与入口约定.md）。
+  // 不再拼 `http://hostname:5000`：那样 axios 直连后端端口、绕过 vite 代理，
+  // HTTPS 部署时还会因混合内容被浏览器拦截。
+  baseURL: '/',
 
   // RAG 智能问答页的挂载路径（并入模式）。
   // 用同源相对路径：开发由 vite 代理 /rag → 8000，生产由 nginx 按路径分流，
@@ -25,5 +16,6 @@ export default {
   ragBase: '/rag/',
 
   // API请求超时时间（毫秒）
-  timeout: 1000 * 60 * 10,
-}; 
+  // 注意：问答的 SSE 流式请求走原生 fetch（见 views/inference/index.vue），不受此值影响。
+  timeout: 1000 * 60 * 5,
+};

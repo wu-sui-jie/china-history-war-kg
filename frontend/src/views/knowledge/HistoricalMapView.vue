@@ -357,7 +357,7 @@ const displayedRouteLines = computed(() => {
 })
 const displayedRoutePointNames = computed(() => {
   const names = displayedRouteLines.value.flatMap((item: any) => [item.from_name, item.to_name])
-  return new Set(names.map((item) => String(item || '').trim()).filter(Boolean))
+  return new Set(names.map((item: any) => String(item || '').trim()).filter(Boolean))
 })
 const displayedPoints = computed(() => {
   if (displayedRouteLines.value.length) {

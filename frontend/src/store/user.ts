@@ -1,25 +1,32 @@
 import { defineStore } from 'pinia'
 import { menu, permission } from '../api/module/user'
 
-const DASHBOARD_MENU = {
+export interface MenuItem {
+  id?: string
+  icon?: string
+  title?: string
+  children?: MenuItem[]
+}
+
+const DASHBOARD_MENU: MenuItem = {
   id: '/workspace/dashboard',
   icon: 'layui-icon-home',
   title: '首页仪表盘'
 }
 
-const TIMELINE_MENU = {
+const TIMELINE_MENU: MenuItem = {
   id: '/knowledge/timeline',
   icon: 'layui-icon-date',
   title: '历史时间轴'
 }
 
-const MAP_MENU = {
+const MAP_MENU: MenuItem = {
   id: '/knowledge/map',
   icon: 'layui-icon-location',
   title: '历史地图视图'
 }
 
-const WORKSPACE_GROUP = {
+const WORKSPACE_GROUP: MenuItem = {
   id: '/workspace/manage',
   icon: 'layui-icon-console',
   title: '数据运营',
@@ -37,15 +44,26 @@ const WORKSPACE_GROUP = {
   ]
 }
 
+// 不在侧边栏展示的菜单项：路由、页面与后端接口都保留，只是不进导航栏。
+// 「历史问答助手」的入口已由「RAG 智能问答」承接，暂从导航栏下线；
+// 需要恢复入口时，把对应 id 从这里删掉即可。
+const HIDDEN_MENU_IDS = new Set<string>(['/knowledge/inference'])
+
+function hideMenus(items: MenuItem[]): MenuItem[] {
+  return items
+    .filter((item) => item?.id && !HIDDEN_MENU_IDS.has(item.id))
+    .map((item) => (item.children ? { ...item, children: hideMenus(item.children) } : item))
+}
+
 // 注意：下面两份 id 清单是 backend/app.py `get_menu()` 的白名单，
 // 后端加了菜单项但没同步加进来，会因为 `.filter(Boolean)` 被静默丢弃（页面上就是不出现）。
-function mergeWorkspaceMenus(source: any[] = []) {
-  const menus = Array.isArray(source) ? [...source] : []
+function mergeWorkspaceMenus(source: MenuItem[] = []) {
+  const menus: MenuItem[] = Array.isArray(source) ? [...source] : []
   const menuMap = new Map(menus.map((item) => [item?.id, item]))
 
   const knowledgeGroup = menuMap.get('/knowledge')
   if (knowledgeGroup?.children) {
-    const childMap = new Map((knowledgeGroup.children || []).map((item: any) => [item?.id, item]))
+    const childMap = new Map((knowledgeGroup.children || []).map((item) => [item?.id, item]))
     knowledgeGroup.children = [
       childMap.get('/knowledge/graph'),
       childMap.get('/knowledge/graph/event'),
@@ -58,19 +76,19 @@ function mergeWorkspaceMenus(source: any[] = []) {
       childMap.get('/knowledge/relation-analysis'),
       childMap.get('/knowledge/search'),
       childMap.get('/knowledge/entity-detail'),
-    ].filter(Boolean)
+    ].filter(Boolean) as MenuItem[]
   }
 
   const workspaceGroup = menuMap.get('/workspace/manage') || WORKSPACE_GROUP
   if (workspaceGroup?.children) {
-    const childMap = new Map((workspaceGroup.children || []).map((item: any) => [item?.id, item]))
+    const childMap = new Map((workspaceGroup.children || []).map((item) => [item?.id, item]))
     workspaceGroup.children = [
       childMap.get('/workspace/dataset'),
       childMap.get('/knowledge-list'),
       childMap.get('/workspace/quality'),
       childMap.get('/workspace/repair'),
       childMap.get('/workspace/dataset-versions'),
-    ].filter(Boolean)
+    ].filter(Boolean) as MenuItem[]
   }
 
   const orderedMenus = [
@@ -79,12 +97,12 @@ function mergeWorkspaceMenus(source: any[] = []) {
     MAP_MENU,
     knowledgeGroup,
     workspaceGroup,
-  ].filter(Boolean)
+  ].filter(Boolean) as MenuItem[]
 
-  const usedIds = new Set(orderedMenus.map((item: any) => item?.id))
+  const usedIds = new Set(orderedMenus.map((item) => item?.id))
   const remainingMenus = menus.filter((item) => item?.id && !usedIds.has(item.id))
 
-  return [...orderedMenus, ...remainingMenus]
+  return hideMenus([...orderedMenus, ...remainingMenus])
 }
 
 export const useUserStore = defineStore({
@@ -92,9 +110,9 @@ export const useUserStore = defineStore({
   state: () => {
     return {
       token: '',
-      userInfo: {},
-      permissions: [],
-      menus: [],
+      userInfo: {} as Record<string, any>,
+      permissions: [] as string[],
+      menus: [] as MenuItem[],
     }
   },
   actions: {
@@ -107,12 +125,27 @@ export const useUserStore = defineStore({
     async loadPermissions() {
       const { data, code } = await permission()
       if (code == 200) {
-        this.permissions = data
+        this.permissions = Array.isArray(data) ? data : []
       }
+    },
+    /** 清空登录态（token 与后端下发的菜单/权限一并清掉，避免换账号后残留） */
+    clearSession() {
+      this.token = ''
+      this.userInfo = {}
+      this.permissions = []
+      this.menus = []
     }
   },
   persist: {
     storage: localStorage,
     paths: ['token', 'userInfo', 'permissions', 'menus'],
+    // 本地缓存里可能存着改动前下发的菜单，恢复时先过一遍隐藏清单，
+    // 否则等 loadMenus() 返回前会短暂闪出已下线的入口。
+    afterRestore: (ctx) => {
+      const store = ctx.store as unknown as { menus?: MenuItem[] }
+      if (Array.isArray(store.menus)) {
+        store.menus = hideMenus(store.menus)
+      }
+    },
   }
 })
