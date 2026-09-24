@@ -73,6 +73,11 @@ const menus = [
                 id: '/knowledge/text-extract',
                 icon: 'layui-icon-read',
                 title: '文本实体识别'
+            },
+            {
+                id: '/knowledge/relation-analysis',
+                icon: 'layui-icon-tabs',
+                title: '关系分析'
             }
         ]
     },
@@ -95,6 +100,16 @@ const menus = [
                 id: '/workspace/quality',
                 icon: 'layui-icon-vercode',
                 title: '图谱质检'
+            },
+            {
+                id: '/workspace/repair',
+                icon: 'layui-icon-edit',
+                title: '数据修复工作台'
+            },
+            {
+                id: '/workspace/dataset-versions',
+                icon: 'layui-icon-date',
+                title: '数据版本管理'
             },
         ]
     }

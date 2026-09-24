@@ -35,6 +35,12 @@
         <span>坐标低置信</span>
         <strong>{{ workbench.summary?.coordinate_low_confidence || 0 }}</strong>
       </div>
+      <div class="summary-card" :class="{ 'summary-card--alert': workbench.summary?.sync_mismatch > 0 }">
+        <span>同步不一致</span>
+        <!-- 双写对账：SQLite（distinct 名称）与 Neo4j 的节点计数不一致的类型数。
+             0 表示图谱副本与主存储对齐；非 0 时按质检报告里的 sync_reconciliation 明细处理。 -->
+        <strong>{{ workbench.summary?.sync_mismatch ?? 0 }}</strong>
+      </div>
     </div>
 
     <div class="main-grid">
@@ -469,6 +475,16 @@ onBeforeUnmount(() => {
 .summary-card strong {
   color: #111827;
   font-size: 30px;
+}
+
+/* 双写对账不一致时的高亮：0 时与其他卡片无异，非 0 用警示色提示去处理 */
+.summary-card--alert {
+  border: 1px solid #e0a24a;
+  background: #fdf3e3;
+}
+
+.summary-card--alert strong {
+  color: #b45309;
 }
 
 .main-grid {

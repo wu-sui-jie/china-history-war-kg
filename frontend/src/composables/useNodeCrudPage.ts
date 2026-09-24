@@ -152,9 +152,11 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
             layer.msg(res.msg || '操作失败', { icon: 2 })
           }
         })
-        .catch(() => {
+        .catch((error: any) => {
           isSubmitting.value = false
-          layer.msg('网络错误，请重试', { icon: 2 })
+          // HTTP 非 2xx（如 viewer 被 403 拒绝）走 axios 异常分支，后端的
+          // msg 在 error.response.data 里——直接弹它，别笼统说"网络错误"
+          layer.msg(error?.response?.data?.msg || '网络错误，请重试', { icon: 2 })
         })
     })
   }
@@ -191,6 +193,10 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
           } else {
             layer.msg(res.msg || '删除失败', { icon: 2 })
           }
+        }).catch((error: any) => {
+          // 修正 2026-09-25：原先没有 catch，viewer 被 403 拒绝时确认框关了
+          // 却毫无反馈（"删除没反应"）。与提交路径一致，弹后端的失败原因。
+          layer.msg(error?.response?.data?.msg || '网络错误，请重试', { icon: 2 })
         })
       },
       btn2(index: number) {
