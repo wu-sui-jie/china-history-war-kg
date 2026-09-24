@@ -38,6 +38,7 @@ python main.py
 
 ```bash
 python scripts/cleanup_db.py --dry-run        # 看会清理多少过期会话/事件记录
+python scripts/cleanup_db.py --purge-orphans  # 额外清掉"没有配对回答的孤儿提问行"（升级后跑一次）
 python scripts/consistency_check.py --limit 3 # SSE 与非流式接口的一致性回归（RAG 发布后跑）
 pytest -q                                     # 单元 + 集成测试（不依赖飞书与真实 RAG）
 ```
@@ -129,13 +130,15 @@ RAG 探活与非流式接口是否存在 → `/help` → 主问题（是否出�
 | `ModuleNotFoundError: No module named 'lark_oapi'` | **解释器不是装依赖的那个**：Windows 上用 `py main.py` 会走 `py` 启动器自己的默认解释器（本机实测指向 `E:\python\python_dataspace\python.exe`），**不进入** conda 环境（哪怕提示符显示 `(AI_Agent)`）。改用 `python main.py`，或直接用绝对路径 `E:\anaconda\envs\AI_Agent\python.exe main.py`。核对命令：`python -c "import sys, lark_oapi; print(sys.executable)"` |
 | 日志 `回复消息失败：code=99991672 … scopes is required: [im:message:send, im:message, im:message:send_as_bot]` | 应用缺**发消息**权限。去「权限管理 → 应用身份权限（tenant_access_token）」勾选 **`im:message:send_as_bot`（以应用的身份发消息）**，建议同时勾 `im:message`（获取与发送单聊、群组消息）；两条都是**免审权限**，开通后**重新发布一版**生效。**用户身份权限（user_access_token）那列不用开**——机器人全程用应用身份 |
 | `WARNING 子图渲染失败（exit=0）` 且错误信息为空 | 旧版本的中文路径编码问题（已修）：Node 输出的 UTF-8 被按本地编码解读 → JSON 解析失败。用当前代码重启机器人即可；仍失败时日志会带上 stdout/stderr 片段 |
-| `Ctrl-C` 后日志说"正在停止"但进程不退 | 旧版本把主线程停在 SDK 的 asyncio 循环里（该循环无公开 stop()）。当前版本长连接跑在后台守护线程，Ctrl-C 即时退出；应急可**连按两次 Ctrl-C** 强制退出 |
+| `Ctrl-C` 后日志说"正在停止"但进程不退 | ① 若日志**反复**只打印"收到信号，正在停止"且间隔很短，说明你按的是**修复前启动的旧进程**——改完代码必须重启进程才会生效，用 `taskkill /F /PID <机器人PID>` 结束它（**不要**用 `taskkill /F /IM python.exe`，那会连 RAG 与旧后端一起杀掉；机器人 PID 的特征是"内存约 90MB + 出站 443 连接"）。② 新代码下第一下 Ctrl-C 约 1 秒内退出，连按两次可强制退出 |
 | 每次提问都是"服务暂不可用" | RAG 没起、`RAG_BASE_URL` 写错、或跑的是**改动前的旧 RAG 实例**（启动日志的 ERROR 会点名） |
-| 每次提问都是"超时" | RAG 刚重启（冷启动要加载词典/向量库、首次调用 embedding），或模型确实慢；`RAG_QUERY_TIMEOUT` 是 25s 的有意预算 |
+| 每次提问都是"超时" | ① **回答本身很长**：介绍类问题（"介绍一下某某之战"）实测 12–25s 且 `truncated=True`，25s 预算是紧的；② **RAG 冷启动**：刚重启时要加载词典/向量库、首次调用 embedding，第一问可能超过预算；③ **历史里有垃圾行**：更早版本写下的命令行/超时轮留下的提问行会污染上下文，也让缓存键永远命中不了——跑一次 `python scripts/cleanup_db.py --purge-orphans`（当前代码已不再产生，且查询侧会丢弃）；④ 想等更久就**两边一起调大**——RAG 侧 `QUERY_JSON_TIMEOUT_SECONDS=45` + 机器人侧 `RAG_QUERY_TIMEOUT=40` 与 `RAG_JSON_BUDGET=45`；⑤ 想更快可在 RAG 侧调小 `LLM_MAX_TOKENS`（IM 场景短答更好读）。注意**同一问题在同一会话里再问一次不会命中缓存**（历史参与缓存键），所以每次都是真生成 |
 | 收不到任何消息 | 事件订阅没选长连接 / 没订阅 `im.message.receive_v1` / 应用未发布（配置要发布后才生效）/ 单聊没先给机器人发消息 |
 | 单聊正常、群里 @ 没反应 | 缺群聊权限：事件页那列「所需权限」是**可折叠**的，只开了第一条"读取用户发给机器人的单聊消息"就收不到群消息。需要开通 **「获取群组中用户@机器人消息」**（`im:message.group_at_msg:readonly`），开通后**重新发布一版**才生效。注意别误开"获取群组中所有消息（敏感权限）"——那要管理员审批，而且我们不读未 @ 的消息 |
 | 版本表单里「事件订阅变更 / 权限变更」显示"暂无" | 那两个区块是给审核人看的差异说明，自建应用仅自己可见时是**免审**发布，不靠它们把关；关键是「事件与回调」页里事件确实在列表里、权限显示「已开通」。表单内容是**打开页面时生成的一次性快照**，改完配置要退出重进才会刷新 |
 | 同一条提问回复了两条 | 去重没生效：看 `processed_events` 表与 `duplicate` 日志（正常应有一条 `duplicate` 记录） |
+| **服务"看起来活着"却收不到任何消息**（凭证写错时的"假活"） | `auto_reconnect=True` 下，App ID/Secret 写错**不会**让进程退出：SDK 内部无限重试、长连接线程一直不退出，日志里也不一定有刺眼的错误。两个判定动作：① 启动日志里**没有** `机器人 open_id：ou_xxx` 这一行（它只有凭证正确、能换到 tenant_access_token 时才打）；② 开放平台「事件与回调」页的长连接状态**不显示"已连接"**。确认是凭证问题就去「日志检索」页看 SDK 报的错误码，改好 `.env` 后重启进程 |
+| 日志里有 `回复发送失败：已撤回本轮历史 N 行`（ERROR，带答案全文） | 这是**设计内**行为：feishu HTTP 调用传输层重试 2 次仍失败（如对 `open.feishu.cn` 的 TLS 抖动），回答没送达，于是把刚落库的两行撤回（用户没见过的回答不留在历史里），并打印答案供人工补偿。若频繁出现：给机器人进程设 `NO_PROXY=open.feishu.cn` 或关掉系统代理（Clash 等） |
 | 卡片显示成裸文本或 `**` 乱飞 | Markdown 收敛器漏了语法：把该回答存下来加进 `tests/data/eval_answers.json` 的样例并跑 `pytest tests/test_md_sanitizer.py` |
 
 ## 目录
@@ -154,8 +157,8 @@ feishu-bot/
 │   ├── cards/             # md_sanitizer（白名单收敛器）+ builder（卡片 2.0）
 │   └── render/subgraph.py # P2：子图 → PNG → image_key（失败自动降级）
 ├── render/                # Node SSR 出图（echarts + resvg + d3-force）
-├── scripts/               # consistency_check.py / cleanup_db.py
-└── tests/                 # 单测 + 假 RAG 集成测试
+├── scripts/               # local_smoke.py（本地端到端冒烟）/ cleanup_db.py / consistency_check.py
+└── tests/                 # 单测 + 假 RAG 集成测试（card_helpers.py 是卡片取值的唯一实现）
 ```
 
 ## 文档
@@ -163,7 +166,8 @@ feishu-bot/
 | 文档 | 内容 | 状态 |
 | --- | --- | --- |
 | [docs/需求与方案.md](docs/需求与方案.md) | 目标 G1–G6、两层架构、分期 P0–P2、改造点清单、关键技术决策、代码事实表、待决项与风险 | 需求已确认（v2.1）；P0–P2 已实现 |
-| [docs/开发文档.md](docs/开发文档.md) | 技术选型、目录结构、进程模型、模块设计、RAG 非流式接口契约、SQLite 表结构、配置项、任务拆解与验收、测试与部署 | v1.2（2026-09-21）：实现已落地，含实现期补充说明 |
+| [docs/开发文档.md](docs/开发文档.md) | 技术选型、目录结构、进程模型、模块设计、RAG 非流式接口契约、SQLite 表结构、配置项、任务拆解与验收、测试与部署 | v1.2（2026-09-21）：实现已落地，含实现期补充说明（第十三节第 16–17 条为 2026-09-24 审查后的修复） |
+| [docs/审查报告-20260924.md](docs/审查报告-20260924.md) | 代码与文档的第三方审查：4 个待修代码问题、7 项低优先级、6 处文档口径漂移、优化与拓展路线 | 过程性记录；四条代码问题已修复（见开发文档第十三节第 16–17 条） |
 
 实现与设计文档的差异都在开发文档的「实现说明」小节里逐条记录（技能扩展字段、
 卡片按钮的落库顺序、纠错回执取舍等）。

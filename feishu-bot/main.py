@@ -52,7 +52,12 @@ class Application:
 
     def close(self) -> None:
         try:
-            self.dispatcher.stop()
+            # 停机等待放宽到 RAG 预算：worker 可能正阻塞在途查询（最长
+            # RAG_QUERY_TIMEOUT + 连接超时），默认 5s 等不到它，而紧接着的
+            # rag/db close 会让在途任务抛异常（进程即将退出、无实害，但日志有
+            # 吓人堆栈）。等太久时连按两次 Ctrl-C 走 os._exit(0) 逃生。
+            self.dispatcher.stop(
+                timeout=self.config.rag_query_timeout + self.config.rag_connect_timeout + 5.0)
         finally:
             self.rag.close()
             self.db.close()
@@ -83,6 +88,7 @@ def build_application(config: Config) -> Application:
         history_max_bytes=config.history_max_bytes,
         history_max_items=config.history_max_items,
         history_content_max_chars=config.history_content_max_chars,
+        history_assistant_max_chars=config.history_assistant_max_chars,
     )
     rag = RagClient(config.rag_base_url, bot_api_key=config.rag_bot_api_key,
                     query_timeout=config.rag_query_timeout,
@@ -98,6 +104,7 @@ def build_application(config: Config) -> Application:
     examples = DemoExamplesCache(
         rag, count=config.demo_examples_count,
         refresh_seconds=config.demo_examples_refresh_seconds,
+        failure_retry_seconds=config.demo_examples_failure_retry_seconds,
         enabled=config.demo_examples_enabled,
     )
 

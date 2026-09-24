@@ -13,7 +13,18 @@ from __future__ import annotations
 import json
 import logging
 import threading
+import time
+import uuid
 from pathlib import Path
+
+try:
+    # requests 是 lark-oapi 的硬依赖（SDK 传输层用的就是它）；单独 try 只是为了让
+    # 缺依赖时的报错仍然指向 lark-oapi。退化分支故意让 `except TransportError`
+    # 什么都抓不到（不重试），这比"把所有异常都当传输错误重试"安全。
+    from requests.exceptions import RequestException as TransportError
+except ImportError:  # pragma: no cover - 只在依赖异常的环境触发
+    class TransportError(Exception):
+        """占位：拿不到 requests 时不做任何重试。"""
 
 try:
     from lark_oapi import Client as LarkClient
@@ -46,6 +57,15 @@ log = logging.getLogger(__name__)
 MSG_TYPE_CARD = "interactive"
 MSG_TYPE_TEXT = "text"
 
+# 传输层重试：一次瞬时抖动不能让用户收到沉默（2026-09-24 线上实测——RAG 正常返回
+# 5.9s，组卡后对 open.feishu.cn 的 TLS 连接被对端掐断（SSLEOFError），异常一路抛到
+# worker 的兜底 catch，用户什么也没收到）。根因是 requests 的 HTTPAdapter 默认
+# max_retries=0、SDK 也没配重试，所以这一层只能自己兜。
+# 只重试**传输层**异常（连接/SSL/超时）；业务错误码（resp.success() == False）
+# 重试也不会变好，不在此列。
+RETRY_ATTEMPTS = 3                  # 首次 + 2 次重试
+RETRY_BACKOFF_SECONDS = (0.5, 1.0)
+
 
 class FeishuClient:
     """飞书 HTTP 客户端 + ws 长连接客户端。"""
@@ -55,16 +75,45 @@ class FeishuClient:
         self.app_id = app_id
         # app_secret 必须留住：HTTP 客户端与 ws 客户端都要用它各自建连接/换 token
         self.app_secret = app_secret
+        self.log_level = (log_level or "INFO").upper()
         builder = (LarkClient.builder()
                    .app_id(app_id)
                    .app_secret(app_secret)
-                   .log_level(getattr(LogLevel, log_level.upper(), LogLevel.INFO)))
+                   .log_level(getattr(LogLevel, self.log_level, LogLevel.INFO)))
         if domain:
             builder = builder.domain(domain)
         self._http = builder.build()
         self._ws = None
         self._bot_open_id: str | None = None
         self._lock = threading.Lock()
+
+    # ---- 传输层重试 ----
+    def _call_with_retry(self, what: str, call, *, prepare=None):
+        """把 SDK 出站调用包一层传输层重试（重试 2 次，退避 0.5s/1s）。
+
+        - `call` 是**可重复调用**的闭包：每次尝试都重新组装请求对象。这是必须的，
+          SDK 首次发送会把 `request.body` 换成 `MultipartEncoder`（图片上传），
+          复用同一个请求对象重试读到的是空流；
+        - `prepare` 每次尝试前调用（图片上传用来把文件指针复位到 0）；
+        - 重试仍失败则**抛给调用方**：dispatcher 据此撤回本轮历史而不是让用户沉默，
+          提示类消息则由调用方记日志。
+        """
+        for attempt in range(1, RETRY_ATTEMPTS + 1):
+            if prepare is not None:
+                prepare()
+            try:
+                return call()
+            except TransportError as e:
+                if attempt >= RETRY_ATTEMPTS:
+                    log.error("飞书 %s 传输层失败（已重试 %d 次）：%s",
+                              what, attempt - 1, e)
+                    raise
+                delay = RETRY_BACKOFF_SECONDS[
+                    min(attempt - 1, len(RETRY_BACKOFF_SECONDS) - 1)]
+                log.warning("飞书 %s 传输层异常（第 %d 次尝试，%.1fs 后重试）：%s",
+                            what, attempt, delay, e)
+                time.sleep(delay)
+        raise AssertionError("unreachable")   # pragma: no cover
 
     # ---- 发送 ----
     def reply_card(self, message_id: str, card: dict) -> str | None:
@@ -75,13 +124,22 @@ class FeishuClient:
         return self._reply(message_id, MSG_TYPE_TEXT, {"text": text})
 
     def _reply(self, message_id: str, msg_type: str, payload: dict) -> str | None:
-        body = (ReplyMessageRequestBody.builder()
-                .msg_type(msg_type)
-                # content 是 JSON **字符串**，不是对象
-                .content(json.dumps(payload, ensure_ascii=False))
-                .build())
-        req = ReplyMessageRequest.builder().message_id(message_id).request_body(body).build()
-        resp = self._http.im.v1.message.reply(req)
+        # uuid 必须在重试之间**保持不变**：飞书按它做服务端幂等去重，
+        # 否则"请求实际到达但响应丢失"的重试会发出第二条消息。
+        msg_uuid = str(uuid.uuid4())
+
+        def _send():
+            body = (ReplyMessageRequestBody.builder()
+                    .msg_type(msg_type)
+                    # content 是 JSON **字符串**，不是对象
+                    .content(json.dumps(payload, ensure_ascii=False))
+                    .uuid(msg_uuid)
+                    .build())
+            req = (ReplyMessageRequest.builder().message_id(message_id)
+                   .request_body(body).build())
+            return self._http.im.v1.message.reply(req)
+
+        resp = self._call_with_retry("回复消息", _send)
         if not resp.success():
             log.error("回复消息失败：code=%s msg=%s message_id=%s", resp.code, resp.msg,
                       message_id)
@@ -90,34 +148,31 @@ class FeishuClient:
 
     def send_card(self, chat_id: str, card: dict) -> str | None:
         """主动发卡片到会话（工单投递等不使用 reply 的场景）。"""
-        body = (CreateMessageRequestBody.builder()
-                .receive_id(chat_id)
-                .msg_type(MSG_TYPE_CARD)
-                .content(json.dumps(card, ensure_ascii=False))
-                .build())
-        req = (CreateMessageRequest.builder()
-               .receive_id_type("chat_id")
-               .request_body(body)
-               .build())
-        resp = self._http.im.v1.message.create(req)
-        if not resp.success():
-            log.error("发送卡片失败：code=%s msg=%s chat_id=%s", resp.code, resp.msg, chat_id)
-            return None
-        return getattr(getattr(resp, "data", None), "message_id", None)
+        return self._create(chat_id, MSG_TYPE_CARD, card, what="发送卡片")
 
     def send_text(self, chat_id: str, text: str) -> str | None:
-        body = (CreateMessageRequestBody.builder()
-                .receive_id(chat_id)
-                .msg_type(MSG_TYPE_TEXT)
-                .content(json.dumps({"text": text}, ensure_ascii=False))
-                .build())
-        req = (CreateMessageRequest.builder()
-               .receive_id_type("chat_id")
-               .request_body(body)
-               .build())
-        resp = self._http.im.v1.message.create(req)
+        return self._create(chat_id, MSG_TYPE_TEXT, {"text": text}, what="发送文本")
+
+    def _create(self, chat_id: str, msg_type: str, payload: dict, *,
+                what: str) -> str | None:
+        msg_uuid = str(uuid.uuid4())          # 同 _reply：服务端幂等键，重试间不变
+
+        def _send():
+            body = (CreateMessageRequestBody.builder()
+                    .receive_id(chat_id)
+                    .msg_type(msg_type)
+                    .content(json.dumps(payload, ensure_ascii=False))
+                    .uuid(msg_uuid)
+                    .build())
+            req = (CreateMessageRequest.builder()
+                   .receive_id_type("chat_id")
+                   .request_body(body)
+                   .build())
+            return self._http.im.v1.message.create(req)
+
+        resp = self._call_with_retry(what, _send)
         if not resp.success():
-            log.error("发送文本失败：code=%s msg=%s chat_id=%s", resp.code, resp.msg, chat_id)
+            log.error("%s失败：code=%s msg=%s chat_id=%s", what, resp.code, resp.msg, chat_id)
             return None
         return getattr(getattr(resp, "data", None), "message_id", None)
 
@@ -126,12 +181,17 @@ class FeishuClient:
 
         注意：这是**整卡替换**，不保留原卡片未重建的部分（panel 等），
         所以调用方必须先把完整卡片重建出来。
+        PATCH 天然幂等（同样的 content 再发一次结果相同），不需要 uuid。
         """
-        body = (PatchMessageRequestBody.builder()
-                .content(json.dumps(card, ensure_ascii=False))
-                .build())
-        req = PatchMessageRequest.builder().message_id(message_id).request_body(body).build()
-        resp = self._http.im.v1.message.patch(req)
+        def _send():
+            body = (PatchMessageRequestBody.builder()
+                    .content(json.dumps(card, ensure_ascii=False))
+                    .build())
+            req = (PatchMessageRequest.builder().message_id(message_id)
+                   .request_body(body).build())
+            return self._http.im.v1.message.patch(req)
+
+        resp = self._call_with_retry("更新卡片", _send)
         if not resp.success():
             log.warning("卡片更新失败：code=%s msg=%s message_id=%s", resp.code, resp.msg,
                         message_id)
@@ -147,16 +207,24 @@ class FeishuClient:
         """
         path = Path(path)
         try:
-            with open(path, "rb") as handle:
+            handle = open(path, "rb")
+        except OSError as e:
+            log.warning("图片读取失败：%s（%s）", path, e)
+            return None
+        try:
+            def _send():
+                # 每次尝试都重建请求体：SDK 首次发送会把 body 换成 MultipartEncoder
                 body = (CreateImageRequestBody.builder()
                         .image_type("message")
                         .image(handle)
                         .build())
                 req = CreateImageRequest.builder().request_body(body).build()
-                resp = self._http.im.v1.image.create(req)
-        except OSError as e:
-            log.warning("图片读取失败：%s（%s）", path, e)
-            return None
+                return self._http.im.v1.image.create(req)
+
+            resp = self._call_with_retry("上传图片", _send,
+                                         prepare=lambda: handle.seek(0))
+        finally:
+            handle.close()
         if not resp.success():
             log.error("图片上传失败：code=%s msg=%s path=%s", resp.code, resp.msg, path)
             return None
@@ -193,7 +261,13 @@ class FeishuClient:
 
     # ---- 长连接 ----
     def build_ws_client(self, on_message, on_card_action):
-        """组装 ws 客户端。`start()` 会阻塞（SDK 自持事件循环）。"""
+        """组装 ws 客户端。`start()` 会阻塞（SDK 自持事件循环）。
+
+        `auto_reconnect=True` 是**有意固定**的：长连接断线要能自愈。代价是凭证写错时
+        SDK 内部无限重试、线程不退出，服务"看起来活着"却永远收不到消息——排查办法见
+        README「排查速查」里那条"假活"。日志级别跟随 `BOT_LOG_LEVEL`（排查长连接
+        问题时可以降到 DEBUG）。
+        """
         from lark_oapi.ws.client import Client as WsClient
 
         dispatcher = (EventDispatcherHandler.builder("", "")
@@ -201,7 +275,7 @@ class FeishuClient:
                       .register_p2_card_action_trigger(on_card_action)
                       .build())
         self._ws = WsClient(self.app_id, self.app_secret,
-                            log_level=getattr(LogLevel, "INFO", LogLevel.INFO),
+                            log_level=getattr(LogLevel, self.log_level, LogLevel.INFO),
                             event_handler=dispatcher,
                             auto_reconnect=True)
         return self._ws

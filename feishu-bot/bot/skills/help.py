@@ -25,6 +25,10 @@ HELP_TEXT = """**我能做什么**
 **回答里有疑问**
 点回答卡片上的「反馈有误」，运营侧会收到这条纠错。"""
 
+# 命令别名（全小写比对）。带不带参数都命中：只比**第一个词**——
+# `/help 长平之战` 与 `/帮助 长平之战` 必须同规则，不能一个认全等、一个认前缀。
+HELP_COMMANDS = ("/help", "/帮助", "/?")
+
 
 class HelpSkill:
     """命令式技能：`/help`。"""
@@ -40,4 +44,7 @@ class HelpSkill:
 
 def _is_help_command(question: str) -> bool:
     text = (question or "").strip().lower()
-    return text in ("/help", "/帮助", "/?") or text.startswith("/help ")
+    if not text:
+        return False
+    # 第一个词是命令词即命中（"帮我看看"这类不以斜杠开头的自然语言不会误命中）
+    return text.split(maxsplit=1)[0] in HELP_COMMANDS

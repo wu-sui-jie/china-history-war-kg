@@ -6,11 +6,17 @@
 删除对象：
 - `messages` / `sessions`：超出 SESSION_TTL_HOURS；
 - `processed_events`：超出 PROCESSED_EVENTS_TTL_HOURS（飞书重投窗口只有分钟级，
-  留着一天足够；这条表增长最快，因为它每个事件一行）。
+  留着一天足够；这条表增长最快，因为它每个事件一行）；
+- `--purge-orphans`（可选）：没有配对回答的"孤儿提问行"。这类行只可能来自
+  异常路径（处理中途进程被打断）或更早版本"提问先落库"的写法。**升级到
+  "成对写入"的版本后建议清一次**——历史参与 RAG 回答缓存的键，残留的 `/help`
+  与超时轮留下的提问行会让每次提问都变成缓存未命中（真机踩过：本该毫秒返回的
+  问题变成 12–16s 的真生成，顶穿 25s 预算）。
 
 用法：
     python feishu-bot/scripts/cleanup_db.py --dry-run     # 先看会删多少
     python feishu-bot/scripts/cleanup_db.py               # 真删
+    python feishu-bot/scripts/cleanup_db.py --purge-orphans
 """
 
 from __future__ import annotations
@@ -27,6 +33,29 @@ from bot.session import SessionStore            # noqa: E402
 from config import DEFAULT_DB_PATH, ConfigError, load_config   # noqa: E402
 
 
+def purge_orphans(db: Database, *, dry_run: bool) -> int:
+    """删掉没有配对回答的提问行，返回条数。
+
+    口径：一条 user 行的下一条消息若是 user（或后面没有消息了），它就没有回答
+    ——按"成对写入"的规则，这种情况不该存在。用 id 相邻判断，不依赖时间戳。
+    `role` 一次 SELECT 全带上，避免逐行回查（之前的写法是每行一次查询的 N+1）。
+    """
+    rows = db.query_all("SELECT id, session_key, role FROM messages "
+                        "ORDER BY session_key, id")
+    orphans: list[int] = []
+    for i, row in enumerate(rows):
+        if row["role"] != "user":
+            continue
+        # 同一会话内的下一条消息
+        nxt = rows[i + 1] if i + 1 < len(rows) else None
+        if nxt is None or nxt["session_key"] != row["session_key"] or nxt["role"] == "user":
+            orphans.append(row["id"])
+    if not dry_run and orphans:
+        placeholders = ", ".join("?" for _ in orphans)
+        db.execute(f"DELETE FROM messages WHERE id IN ({placeholders})", orphans)
+    return len(orphans)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="清理机器人的过期会话/事件记录")
     parser.add_argument("--db", default="", help="SQLite 路径（默认取配置或 data/bot.db）")
@@ -34,6 +63,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="会话与消息的保留时长（默认取 SESSION_TTL_HOURS）")
     parser.add_argument("--events-hours", type=float, default=None,
                         help="事件去重记录的保留时长（默认取 PROCESSED_EVENTS_TTL_HOURS）")
+    parser.add_argument("--purge-orphans", action="store_true",
+                        help="额外删除没有配对回答的提问行（升级后建议跑一次）")
     parser.add_argument("--dry-run", action="store_true", help="只统计不删除")
     args = parser.parse_args(argv)
 
@@ -65,6 +96,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         store = SessionStore(db, ttl_hours=ttl_hours)
         counts = store.cleanup(events_ttl_hours=events_hours, dry_run=args.dry_run)
+        orphan_count = purge_orphans(db, dry_run=args.dry_run) if args.purge_orphans else 0
     finally:
         db.close()
 
@@ -73,6 +105,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"[i] 口径：会话/消息 {ttl_hours:g}h 之前、事件去重 {events_hours:g}h 之前")
     for name, count in counts.items():
         print(f"    {action} {name}: {count} 行")
+    if args.purge_orphans:
+        print(f"    {action} 孤儿提问: {orphan_count} 行")
     if args.dry_run:
         print("[i] 这是预演（--dry-run），未做任何删除")
     return 0

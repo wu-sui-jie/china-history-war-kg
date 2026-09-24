@@ -90,10 +90,20 @@ class Config:
     rag_base_url: str = "http://127.0.0.1:8000"
     # 与 RAG 侧 RAG_BOT_API_KEY 同值；留空 = 不加 X-Bot-Key 头（内网默认）
     rag_bot_api_key: str = ""
-    # 机器人等待 RAG 的读超时。必须小于 RAG 侧 QUERY_JSON_TIMEOUT_SECONDS（30），
-    # 留出错误可见余量：本端先超时能拿到明确的 timeout，而不是等服务端先截断
+    # 机器人等待 RAG 的读超时。必须小于 RAG 侧 QUERY_JSON_TIMEOUT_SECONDS
+    # （默认 30，即下面的 rag_json_budget），留出错误可见余量：本端先超时能拿到
+    # 明确的 timeout，而不是等服务端先截断。
+    #
+    # 这两个值要**一起调**：介绍类长回答（"介绍一下某某之战"）实测 16–25s
+    # （truncated=True 的那类），25s 预算在慢一点的时候会被顶穿，表现为降级卡片。
+    # 想等更久就把两边同时放大，例如 RAG 侧 QUERY_JSON_TIMEOUT_SECONDS=45
+    # 配本侧 RAG_QUERY_TIMEOUT=40 + RAG_JSON_BUDGET=45。
     rag_query_timeout: float = 25.0
     rag_connect_timeout: float = 5.0
+    # 机器人**认为的** RAG 侧非流式预算（对应 RAG 的 QUERY_JSON_TIMEOUT_SECONDS）。
+    # 本端读不到 RAG 的配置，只能由运维保证两边一致；它的唯一用途是把
+    # "机器人超时必须小于服务端预算"这条口径写成可校验的检查，而不是写死 30。
+    rag_json_budget: float = 30.0
 
     # ---- 纠错反馈投递（P2）----
     feishu_operators_chat_id: str = ""
@@ -107,12 +117,18 @@ class Config:
     history_max_bytes: int = DEFAULT_HISTORY_MAX_BYTES
     history_max_items: int = DEFAULT_HISTORY_MAX_ITEMS
     history_content_max_chars: int = DEFAULT_HISTORY_CONTENT_MAX_CHARS
+    # 回答进入历史时的额外上限（0 = 不额外截断）。RAG 的指代消解只读历史里的提问，
+    # 所以截回答不影响追问；而不截的话长回答会滚进后续每一轮请求，直接拖慢生成。
+    history_assistant_max_chars: int = 800
 
     # ---- 卡片与交互（P1/P2）----
     # 示例问题按钮（P1-3）：从 RAG /api/demo/examples 取题，失败则按钮区不渲染
     demo_examples_enabled: bool = True
     demo_examples_count: int = 3
     demo_examples_refresh_seconds: float = 3600.0
+    # 取题失败后的重试间隔（负缓存窗口）。必须为正：没有窗口就意味着每张卡片
+    # 都同步重打一次 HTTP（接口挂掉时最坏吃满客户端超时，叠加在用户等待时间上）。
+    demo_examples_failure_retry_seconds: float = 300.0
     # 子图服务端出图（P2-1）：需要部署机装好 Node ≥ 18 与 render/node_modules
     subgraph_render_enabled: bool = True
     subgraph_render_timeout: float = 10.0
@@ -149,17 +165,25 @@ class Config:
             problems.append(f"RAG_CONNECT_TIMEOUT 必须为正数，当前 {self.rag_connect_timeout!r}")
         # 层层截断口径（开发文档 5.4）：机器人超时必须**小于**非流式接口的预算，
         # 否则两端同时到点，机器人只能看到连接被掐断，拿不到 RAG 给出的 timeout 说明。
-        if self.rag_query_timeout >= 30:
+        if self.rag_query_timeout >= self.rag_json_budget:
             problems.append(
-                f"RAG_QUERY_TIMEOUT={self.rag_query_timeout} 必须小于 RAG 侧 "
-                f"QUERY_JSON_TIMEOUT_SECONDS（默认 30）：机器人先超时才能拿到明确的超时原因"
+                f"RAG_QUERY_TIMEOUT={self.rag_query_timeout} 必须小于 RAG 侧非流式预算 "
+                f"RAG_JSON_BUDGET={self.rag_json_budget}（应等于 RAG 的 "
+                f"QUERY_JSON_TIMEOUT_SECONDS，默认 30）：机器人先超时才能拿到明确的超时原因。"
+                f"想等更久请两边一起调大，例如 RAG_JSON_BUDGET=45 + RAG_QUERY_TIMEOUT=40"
             )
+        if self.rag_json_budget <= 0:
+            problems.append(f"RAG_JSON_BUDGET 必须为正数，当前 {self.rag_json_budget!r}")
         if self.session_ttl_hours <= 0:
             problems.append(f"SESSION_TTL_HOURS 必须为正数，当前 {self.session_ttl_hours!r}")
         if self.history_max_bytes <= 0:
             problems.append(f"HISTORY_MAX_BYTES 必须为正数，当前 {self.history_max_bytes!r}")
         if self.history_max_items <= 0:
             problems.append(f"HISTORY_MAX_ITEMS 必须为正数，当前 {self.history_max_items!r}")
+        if self.history_assistant_max_chars < 0:
+            problems.append(
+                f"HISTORY_ASSISTANT_MAX_CHARS 不能为负（0 表示不额外截断），"
+                f"当前 {self.history_assistant_max_chars!r}")
         if self.subgraph_render_timeout <= 0:
             problems.append(
                 f"SUBGRAPH_RENDER_TIMEOUT 必须为正数，当前 {self.subgraph_render_timeout!r}"
@@ -168,6 +192,11 @@ class Config:
             problems.append(
                 f"CARD_DEDUPE_WINDOW_SECONDS 不能为负，"
                 f"当前 {self.card_dedupe_window_seconds!r}"
+            )
+        if self.demo_examples_failure_retry_seconds <= 0:
+            problems.append(
+                f"DEMO_EXAMPLES_FAILURE_RETRY_SECONDS 必须为正数（失败后的重试窗口），"
+                f"当前 {self.demo_examples_failure_retry_seconds!r}"
             )
         if self.log_level.upper() not in ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"):
             problems.append(f"BOT_LOG_LEVEL 取值非法：{self.log_level!r}")
@@ -193,6 +222,7 @@ def load_config(env: dict | None = None, *, skip_dotenv: bool = False) -> Config
         rag_bot_api_key=_env("RAG_BOT_API_KEY", source=source),
         rag_query_timeout=_float_env("RAG_QUERY_TIMEOUT", 25.0, problems, source),
         rag_connect_timeout=_float_env("RAG_CONNECT_TIMEOUT", 5.0, problems, source),
+        rag_json_budget=_float_env("RAG_JSON_BUDGET", 30.0, problems, source),
         feishu_operators_chat_id=_env("FEISHU_OPERATORS_CHAT_ID", source=source),
         db_path=Path(_env("BOT_DB_PATH", source=source) or DEFAULT_DB_PATH).expanduser(),
         session_ttl_hours=_float_env("SESSION_TTL_HOURS", 24.0, problems, source),
@@ -202,10 +232,14 @@ def load_config(env: dict | None = None, *, skip_dotenv: bool = False) -> Config
                                    problems, source),
         history_content_max_chars=_int_env(
             "HISTORY_CONTENT_MAX_CHARS", DEFAULT_HISTORY_CONTENT_MAX_CHARS, problems, source),
+        history_assistant_max_chars=_int_env("HISTORY_ASSISTANT_MAX_CHARS", 800,
+                                             problems, source),
         demo_examples_enabled=_bool_env("DEMO_EXAMPLES_ENABLED", True, source),
         demo_examples_count=_int_env("DEMO_EXAMPLES_COUNT", 3, problems, source),
         demo_examples_refresh_seconds=_float_env(
             "DEMO_EXAMPLES_REFRESH_SECONDS", 3600.0, problems, source),
+        demo_examples_failure_retry_seconds=_float_env(
+            "DEMO_EXAMPLES_FAILURE_RETRY_SECONDS", 300.0, problems, source),
         subgraph_render_enabled=_bool_env("SUBGRAPH_RENDER_ENABLED", True, source),
         subgraph_render_timeout=_float_env("SUBGRAPH_RENDER_TIMEOUT", 10.0, problems, source),
         log_level=_env("BOT_LOG_LEVEL", "INFO", source).upper() or "INFO",

@@ -15,7 +15,7 @@ import json
 import logging
 import time
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Iterable
 
 from bot.db import Database, now_ts
 
@@ -57,12 +57,22 @@ class SessionStore:
                  history_max_bytes: int = 40 * 1024,
                  history_max_items: int = 40,
                  history_content_max_chars: int = 4000,
+                 history_assistant_max_chars: int = 800,
                  clock=time.time):
         self.db = db
         self.ttl_seconds = max(0.0, float(ttl_hours) * 3600.0)
         self.history_max_bytes = max(1, int(history_max_bytes))
         self.history_max_items = max(1, int(history_max_items))
         self.history_content_max_chars = max(1, int(history_content_max_chars))
+        # 回答进入历史时的额外上限（0 = 不额外截断）。比提问严得多，因为：
+        # 1) RAG 的指代消解只读历史里的**提问**（server/query/understand.py 的
+        #    `_resolve_coref` 重新对 user 轮跑词典匹配），不读回答正文——所以截回答
+        #    不影响"他后来怎么样了"这类追问；
+        # 2) 长回答会一路滚进后续每一轮请求：实测一个 4 轮会话历史达 11.8KB，
+        #    按 400 字截（当时的实测取值）只剩 3.7KB，直接决定生成耗时（真机踩过 30s 超时）；
+        # 3) 模型还会模仿历史里的回答长度——留着上千米的长答，它下一轮也写那么长。
+        # 注：默认值是 800 字，400 只是上面那次实测的取值（见 .env.example）。
+        self.history_assistant_max_chars = max(0, int(history_assistant_max_chars))
         self.clock = clock
 
     # ---- 会话 ----
@@ -107,6 +117,20 @@ class SessionStore:
         self.db.execute("UPDATE messages SET bot_message_id = ? WHERE id = ?",
                         (bot_message_id, msg_id))
 
+    def delete_messages(self, msg_ids: Iterable[int | None]) -> int:
+        """物理删除指定消息行，返回删除条数（发送失败时撤回本轮历史用）。
+
+        与 `cleanup` 的 TTL 删除是两件事：这是"刚写就撤"。回答没送达意味着用户
+        从未见过它，留在历史里既污染下一轮上下文，也让 RAG 的回答缓存键永远命中不了
+        （见 `dispatcher._discard_unsent_turn`）。两行是一起写的，所以一起撤。
+        """
+        ids = [int(i) for i in msg_ids if i]
+        if not ids:
+            return 0
+        placeholders = ", ".join("?" for _ in ids)
+        cur = self.db.execute(f"DELETE FROM messages WHERE id IN ({placeholders})", ids)
+        return int(cur.rowcount or 0)
+
     def question_before_assistant(self, session_key_value: str, assistant_id: int) -> str:
         """取同一会话中"紧邻在这条回答之前的那次提问"。
 
@@ -146,8 +170,8 @@ class SessionStore:
         picked: list[dict] = []
         used = 0
         for row in rows:                      # 已按 id 倒序 = 从最近往前
-            content = self._clip(str(row["content"]))
-            turn = {"role": str(row["role"]), "content": content}
+            turn = {"role": str(row["role"]),
+                    "content": self._clip(str(row["content"]), role=str(row["role"]))}
             cost = self._turn_bytes(turn)
             if used + cost > self.history_max_bytes:
                 # 字节预算优先于条数：装不下就停，不为了凑条数把请求撑到 413
@@ -156,15 +180,45 @@ class SessionStore:
             picked.append(turn)
 
         picked.reverse()
-        # 丢弃头部的孤立 assistant 轮（历史以提问开头才对模型有意义）
-        while picked and picked[0]["role"] == "assistant":
-            picked.pop(0)
+        picked = self._drop_orphans(picked)
         self._assert_within_budget(picked)
         return picked
 
-    def _clip(self, content: str) -> str:
-        """单条截断：保留开头，末尾加"……（已截断）"（次级保护，开发文档 5.2）。"""
+    @staticmethod
+    def _drop_orphans(turns: list[dict]) -> list[dict]:
+        """把历史收敛成"提问 → 回答"的成对结构，去掉三类孤儿行。
+
+        孤儿只可能来自异常路径（处理中途进程被打断）或更早版本"提问先落库"的写法：
+        - 提问之前的孤立回答（没有对应提问）；
+        - 连续出现的多条提问（只保留最后一条）；
+        - 尾部没有回答的提问。
+
+        为什么必须清：对模型是无意义的上下文；**更实际的是历史参与 RAG 回答缓存的键**
+        ——真机踩过：库里残留的 `/help` 与"超时轮留下的提问行"把每次提问都变成
+        12–16s 的真生成（本该命中缓存），直接把 25s 预算顶穿。
+        """
+        out: list[dict] = []
+        for turn in turns:
+            if turn["role"] == "user":
+                if out and out[-1]["role"] == "user":
+                    out[-1] = turn
+                else:
+                    out.append(turn)
+            elif out:                      # 回答：只有存在对应提问时才保留
+                out.append(turn)
+        while out and out[-1]["role"] == "user":
+            out.pop()
+        return out
+
+    def _clip(self, content: str, *, role: str = "") -> str:
+        """单条截断：保留开头，末尾加"……（已截断）"（次级保护，开发文档 5.2）。
+
+        回答轮用更严的 `history_assistant_max_chars`（默认 800，0 = 不额外截断），
+        理由见构造函数里的注释：指代消解不读回答正文，而长回答会滚进后续每一轮请求。
+        """
         limit = self.history_content_max_chars
+        if role == "assistant" and self.history_assistant_max_chars:
+            limit = min(limit, self.history_assistant_max_chars)
         if len(content) <= limit:
             return content
         keep = max(0, limit - len(TRUNCATE_SUFFIX))
@@ -221,7 +275,11 @@ class SessionStore:
 
     # ---- 清理 ----
     def cleanup(self, *, events_ttl_hours: float = 24.0, dry_run: bool = False) -> dict[str, int]:
-        """物理删除过期数据（硬口径，开发文档 5.2 TTL 尾段）。"""
+        """物理删除过期数据（硬口径，开发文档 5.2 TTL 尾段）。
+
+        **`feedback` 表不在清理范围内**：它是治理队列（`status=open` → 运营处理后 done），
+        没有 TTL，也不该被 TTL 删掉；需要腾空间时由人工导出归档（开发文档 5.7）。
+        """
         cutoff = now_ts() - int(self.ttl_seconds)
         events_cutoff = now_ts() - int(max(0.0, float(events_ttl_hours)) * 3600.0)
 

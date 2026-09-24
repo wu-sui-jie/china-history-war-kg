@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import logging
 import sys
 from pathlib import Path
 
@@ -18,6 +19,22 @@ if str(BOT_ROOT) not in sys.path:
 from bot.db import Database            # noqa: E402
 from bot.session import SessionStore   # noqa: E402
 from config import Config              # noqa: E402
+
+
+class _DropSdkCronNoise(logging.Filter):
+    """丢掉 lark-oapi 的 ExpiringCache 留下的那一条 asyncio 错误日志。
+
+    SDK 在导入时起了一个清理协程，自己从不 await 也不取消；解释器退出时 asyncio
+    会为这个孤儿任务打 ERROR「Task was destroyed but it is pending!」。同一件事
+    pytest 也会报一次 RuntimeWarning（已在 `pytest.ini` 里过滤）。两者都是 SDK 副作用，
+    与本项目代码无关——这里按消息内容精确丢这一条，其它 asyncio 日志照常输出。
+    """
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "ExpiringCache._start_clear_cron" not in record.getMessage()
+
+
+logging.getLogger("asyncio").addFilter(_DropSdkCronNoise())
 
 
 @pytest.fixture

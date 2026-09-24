@@ -26,7 +26,9 @@ class Reply:
     card: dict | None = None
     text: str | None = None
     # 在开发文档 5.3 的 Reply 之上扩展一个可选字段：本轮回答若要写入会话历史，
-    # 由技能填这里，dispatcher 在**发送成功之后**落库（bot_message_id 只有发送后才拿得到）。
+    # 由技能填这里，dispatcher 负责落库。实际顺序是
+    # "落库拿 id → 补反馈按钮 → 发送 → 回填 bot_message_id"——按钮的 value 要带
+    # messages.id，所以必须先落库再发送（开发文档第十三节第 3 条）。
     # 不填（如降级卡片）表示这轮不进入历史。
     assistant_turn: AssistantTurn | None = None
 

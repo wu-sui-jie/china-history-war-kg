@@ -68,11 +68,24 @@ def test_non_numeric_values_reported(key, value):
 
 
 def test_timeout_must_be_less_than_rag_budget():
-    """机器人超时必须小于 RAG 非流式接口的 30s 预算（层层截断口径，开发文档 5.4）。"""
+    """机器人超时必须小于 RAG 非流式接口的预算（层层截断口径，开发文档 5.4）。"""
     with pytest.raises(ConfigError) as err:
         load_config(env={"FEISHU_APP_ID": "cli_x", "FEISHU_APP_SECRET": "s",
                          "RAG_QUERY_TIMEOUT": "30"}, skip_dotenv=True)
     assert "QUERY_JSON_TIMEOUT_SECONDS" in str(err.value)
+
+
+def test_both_budgets_can_be_raised_together():
+    """想等更久时，两边一起调大必须能通过校验（曾把 30 写死在代码里，改不动）。"""
+    config = load_config(env={"FEISHU_APP_ID": "cli_x", "FEISHU_APP_SECRET": "s",
+                              "RAG_QUERY_TIMEOUT": "40", "RAG_JSON_BUDGET": "45"},
+                         skip_dotenv=True)
+    assert config.rag_query_timeout == 40.0
+    assert config.rag_json_budget == 45.0
+    # 只放大机器人侧、不放大 RAG 侧仍然要被拦下（那会让两端同时到点）
+    with pytest.raises(ConfigError):
+        load_config(env={"FEISHU_APP_ID": "cli_x", "FEISHU_APP_SECRET": "s",
+                         "RAG_QUERY_TIMEOUT": "40"}, skip_dotenv=True)
 
 
 @pytest.mark.parametrize("key,value", [
@@ -82,6 +95,7 @@ def test_timeout_must_be_less_than_rag_budget():
     ("HISTORY_MAX_ITEMS", "0"),
     ("SUBGRAPH_RENDER_TIMEOUT", "-2"),
     ("CARD_DEDUPE_WINDOW_SECONDS", "-1"),
+    ("DEMO_EXAMPLES_FAILURE_RETRY_SECONDS", "0"),   # 0 窗口 = 每张卡片都打一次接口
 ])
 def test_out_of_range_values_reported(key, value):
     with pytest.raises(ConfigError) as err:
@@ -112,6 +126,7 @@ def test_defaults_match_documented_contract():
     assert config.history_max_items == 40
     assert config.history_content_max_chars == 4000
     assert config.demo_examples_count == 3
+    assert config.demo_examples_failure_retry_seconds == 300.0
     assert config.processed_events_ttl_hours == 24.0
 
 

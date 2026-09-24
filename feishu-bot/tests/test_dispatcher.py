@@ -15,6 +15,7 @@ from types import SimpleNamespace
 import pytest
 
 from bot.cards.builder import build_notice_card
+from card_helpers import button_values
 from bot.dispatcher import (Dispatcher, mentioned_bot, parse_card_action,
                             parse_message_event, strip_mentions)
 
@@ -117,6 +118,21 @@ def test_strip_mentions_removes_key_and_collapses_spaces():
     assert strip_mentions("@_user_1", [{"key": "@_user_1"}]) == ""
 
 
+def test_strip_mentions_keeps_other_people_mentions():
+    """只剥机器人自己的 mention（开发文档 5.1）：@别人也是问题语义的一部分。"""
+    mentions = [{"key": "@_user_1", "name": "战争史问答", "open_id": "ou_bot"},
+                {"key": "@_user_2", "name": "张三", "open_id": "ou_zhang"}]
+    text = "@_user_1 介绍一下 @_user_2 提到的赤壁之战"
+
+    assert strip_mentions(text, mentions, "ou_bot") == "介绍一下 @_user_2 提到的赤壁之战"
+
+    # 拿不到 bot open_id 时退化为"只剥开头那个 mention key"——宁可少剥，不要多剥
+    assert strip_mentions(text, mentions, None) == "介绍一下 @_user_2 提到的赤壁之战"
+    # 机器人 mention 不在开头、又没有 open_id 可比对时不动文本（少剥的安全侧）
+    assert strip_mentions("介绍一下 @_user_1 提到的赤壁之战", mentions,
+                          None) == "介绍一下 @_user_1 提到的赤壁之战"
+
+
 # ---- 去重 ----
 
 
@@ -174,6 +190,25 @@ def make_dispatcher(config, session, db, skills=None, feishu=None, clock=None) -
         kwargs["clock"] = clock
     return Dispatcher(db=db, session=session, skills=skills or [EchoSkill()],
                       feishu=feishu or FakeFeishu(), config=config, **kwargs)
+
+
+def _answer_skill():
+    """带 assistant_turn 的最小技能（落库路径的用例都用它）。"""
+    from bot.cards.builder import build_turn
+    from bot.skills.base import Reply
+
+    class AnswerSkill:
+        name = "answer"
+
+        def match(self, ctx):
+            return True
+
+        def run(self, ctx):
+            return Reply(kind="card", card=build_notice_card("回答"),
+                         assistant_turn=build_turn(answer_md="**答**", finish_reason="normal",
+                                                   citations=[{"index": 1, "title": "t"}]))
+
+    return AnswerSkill()
 
 
 def test_duplicate_message_event_is_dropped(config, session, db):
@@ -265,7 +300,13 @@ def test_card_action_returns_immediate_toast(config, session, db):
 # ---- worker 与分流 ----
 
 
-def test_handle_message_records_history_and_replies(config, session, db, feishu=None):
+def test_handle_message_replies_but_does_not_record_without_answer(config, session, db):
+    """没有回答的轮次（这里是 EchoSkill，不含 assistant_turn）不写入会话历史。
+
+    规则见 dispatcher._record_turn：命令轮与降级轮都不落库——它们进 RAG 上下文没有价值，
+    而且历史参与回答缓存的键，多一条无意义的历史会让同一问题从缓存命中变成真生成
+    （真机踩过：同一个"介绍一下长平之战"因多了一条 /help 历史，从 34ms 变成 16–25s）。
+    """
     feishu = FakeFeishu()
     dispatcher = make_dispatcher(config, session, db, feishu=feishu)
     dispatcher.handle_message(parse_message_event(make_message_event(text="介绍一下长平之战")))
@@ -273,8 +314,43 @@ def test_handle_message_records_history_and_replies(config, session, db, feishu=
     assert feishu.replies
     assert feishu.replies[0][0] == "om_1"
     assert "已收到：介绍一下长平之战" in feishu.replies[0][1]["body"]["elements"][0]["content"]
-    # 用户消息已落库（下一轮历史能看到它）
-    assert [t["content"] for t in session.history_for_rag("ou_1:oc_1")] == ["介绍一下长平之战"]
+    assert session.history_for_rag("ou_1:oc_1") == []
+
+
+def test_handle_message_records_answer_round_in_order(config, session, db):
+    """有回答的轮次：user 行先写、assistant 行后写（反馈工单靠这个顺序取问题）。"""
+    feishu = FakeFeishu()
+    dispatcher = make_dispatcher(config, session, db, skills=[_answer_skill()], feishu=feishu)
+    dispatcher.handle_message(parse_message_event(make_message_event(text="介绍一下长平之战")))
+
+    rows = db.query_all("SELECT id, role, content, bot_message_id FROM messages ORDER BY id")
+    assert [r["role"] for r in rows] == ["user", "assistant"]
+    assert rows[0]["content"] == "介绍一下长平之战"
+    assert rows[1]["bot_message_id"] == "bot-1"          # 发送成功后回填
+    assert session.question_before_assistant("ou_1:oc_1", rows[1]["id"]) == "介绍一下长平之战"
+    # 卡片上带了指向 assistant 行的反馈按钮
+    values = button_values(feishu.replies[0][1])
+    assert {"action": "report_error", "msg_key": str(rows[1]["id"])} in values
+
+
+def test_send_failure_rolls_back_the_whole_turn(config, session, db):
+    """发送失败（重试后仍未成功）要把刚落库的两行一起撤回（审查报告 3.1-4）。
+
+    用户什么都没收到，这轮却留在历史里会污染下一轮上下文，也让 RAG 回答缓存的键
+    永远命中不了（线上实测：本该毫秒返回的问题退化成十几秒真生成）。
+    """
+    class BrokenFeishu(FakeFeishu):
+        def reply_card(self, message_id, card):
+            raise ConnectionError("SSLEOFError(8, 'UNEXPECTED_EOF_WHILE_READING')")
+
+    feishu = BrokenFeishu()
+    dispatcher = make_dispatcher(config, session, db, skills=[_answer_skill()], feishu=feishu)
+    dispatcher.handle_message(parse_message_event(make_message_event(text="介绍一下长平之战")))
+
+    assert db.query_all("SELECT id FROM messages") == []
+    assert session.history_for_rag("ou_1:oc_1") == []
+    assert dispatcher.stats["send_failed"] == 1
+    assert dispatcher.stats["failed"] == 0       # 不算"任务失败"，链路本身是通的
 
 
 def test_group_message_without_mention_is_ignored(config, session, db):
@@ -294,6 +370,19 @@ def test_group_message_with_mention_strips_prefix(config, session, db):
         chat_type="group", text="@_user_1 长平之战是谁打的",
         mentions=[{"key": "@_user_1", "name": "战争史问答", "open_id": "ou_bot"}])))
     assert "已收到：长平之战是谁打的" in feishu.replies[0][1]["body"]["elements"][0]["content"]
+
+
+def test_group_message_keeps_mention_of_other_people(config, session, db):
+    """群里 @ 别人是问题的一部分，不能连它一起剥掉（审查报告 3.2-2）。"""
+    feishu = FakeFeishu()
+    dispatcher = make_dispatcher(config, session, db, feishu=feishu)
+    dispatcher.command_bot_open_id = "ou_bot"
+    dispatcher.handle_message(parse_message_event(make_message_event(
+        chat_type="group", text="@_user_1 介绍一下 @_user_2 提到的赤壁之战",
+        mentions=[{"key": "@_user_1", "name": "战争史问答", "open_id": "ou_bot"},
+                  {"key": "@_user_2", "name": "张三", "open_id": "ou_zhang"}])))
+    body = feishu.replies[0][1]["body"]["elements"][0]["content"]
+    assert "介绍一下 @_user_2 提到的赤壁之战" in body
 
 
 def test_group_message_mention_only_replies_nothing(config, session, db):

@@ -21,6 +21,7 @@ from bot.skills.help import HelpSkill
 from bot.skills.knowledge_qa import KnowledgeQaSkill
 from bot.skills.report_error import ReportErrorSkill
 
+from card_helpers import button_values, feedback_msg_key
 from fake_rag import Case, FakeRag
 
 OPERATORS_CHAT = "oc_operators"
@@ -254,10 +255,7 @@ def test_example_buttons_click_runs_new_question(stack):
     app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-1"))
     wait_idle(app.dispatcher)
 
-    actions = [e for e in app.feishu.last_card["body"]["elements"]
-               if e.get("tag") == "action"]
-    button_values = [b["value"] for a in actions for b in a["actions"]]
-    ask = [v for v in button_values if v.get("action") == "ask"]
+    ask = [v for v in button_values(app.feishu.last_card) if v.get("action") == "ask"]
     assert ask, "卡片底部应有示例问题按钮"
 
     before = len(app.feishu.replies)
@@ -369,19 +367,23 @@ def test_worker_thread_end_to_end(stack):
     assert app.dispatcher.stats["duplicate"] == 0
 
 
-def test_send_failure_does_not_crash_worker(stack, session):
-    """发送失败（飞书抖动）不能让 worker 挂掉。
+def test_send_failure_rolls_back_turn_and_keeps_worker_alive(stack, session):
+    """发送失败（飞书抖动）不能让 worker 挂掉，也不能把没送达的回答留在历史里。
 
-    回答照常落库（bot_message_id 为空）：本轮问答本身是成立的，
-    留在历史里比丢掉更有利于后续追问；发送失败由客户端层记日志。
+    回答本身是成立的，但**用户从未见过它**——留在历史里会污染下一轮上下文，
+    还会让 RAG 回答缓存的键永远命中不了（本该毫秒返回的问题退化成十几秒真生成）。
+    所以两行一起撤回，日志里留 ERROR 带答案全文供手工补偿。
     """
     app = stack()
     app.feishu.fail_send = True
     app.dispatcher.on_message(message_event("介绍一下长平之战", event_id="ev-fail"))
     wait_idle(app.dispatcher)
-    history = session.history_for_rag("ou-1:oc-1")
-    assert [t["role"] for t in history] == ["user", "assistant"]
+
+    assert session.history_for_rag("ou-1:oc-1") == []
+    assert session.db.query_one("SELECT COUNT(*) FROM messages")[0] == 0
+    assert app.dispatcher.stats["send_failed"] == 1
     assert app.dispatcher.stats["failed"] == 0
+    assert app.dispatcher.stats["handled"] == 1     # worker 活着，链路走完了
 
 
 def test_subgraph_image_used_when_renderer_available(stack):
@@ -417,12 +419,5 @@ def test_subgraph_text_fallback_when_renderer_fails(stack):
 
 
 # ---- 工具 ----
-
-
-def feedback_msg_key(card: dict) -> str | None:
-    for element in card["body"]["elements"]:
-        for button in element.get("actions", []) if element.get("tag") == "action" else []:
-            value = button.get("value") or {}
-            if value.get("action") == "report_error":
-                return str(value.get("msg_key"))
-    return None
+# 卡片取值统一走 tests/card_helpers.py（按 2.0 结构：按钮是 elements 直接成员、
+# 回传参数在 behaviors 里），避免每个文件各写一份解析而一起失效。

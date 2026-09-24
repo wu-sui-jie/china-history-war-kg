@@ -43,12 +43,16 @@ def _fold(title: str, elements: list[dict], *, expanded: bool = False) -> dict:
     """折叠面板（2.0 的 collapsible_panel）。
 
     默认收起：正文才是主体，引用/实体卡属于"想看再点"的证据层。
+
+    `border` 必须是对象且**只**接受 `color` 与 `corner_radius`（官方文档）；
+    早先按开发文档的骨架写成 `{"type": "default"}` 会被飞书拒收整张卡片：
+    实测报 `unknown property, property: type, path: ... -> border`（code 200621）。
     """
     return {
         "tag": "collapsible_panel",
         "expanded": expanded,
         "header": {"title": {"tag": "plain_text", "content": title}},
-        "border": {"type": "default"},
+        "border": {"color": "grey", "corner_radius": "5px"},
         "vertical_spacing": "8px",
         "elements": elements,
     }
@@ -58,13 +62,26 @@ def _md(content: str) -> dict:
     return {"tag": "markdown", "content": content}
 
 
-def _action_row(buttons: list[dict]) -> dict:
-    return {"tag": "action", "actions": buttons}
-
-
 def _button(text: str, value: dict, *, button_type: str = "default") -> dict:
-    return {"tag": "button", "text": {"tag": "plain_text", "content": text},
-            "type": button_type, "value": value}
+    """2.0 按钮。
+
+    回传参数必须写在 `behaviors` 里（`{"type": "callback", "value": {...}}`）——
+    顶层 `value` 只在 1.0 的字段表里，2.0 的 button 字段表没有它（实测按 1.0 写法会
+    被飞书拒收整张卡片）。回调事件里仍从 `event.action.value` 取，与写法无关。
+    另外 `text.content` 上限 100 字符。
+    """
+    return {"tag": "button", "text": {"tag": "plain_text", "content": text[:100]},
+            "type": button_type,
+            "behaviors": [{"type": "callback", "value": value}]}
+
+
+def _button_value(button: dict) -> dict:
+    """取按钮的回传参数（供 attach_feedback_button 判断按钮是否已存在）。"""
+    for behavior in button.get("behaviors") or []:
+        if isinstance(behavior, dict) and behavior.get("type") == "callback":
+            value = behavior.get("value")
+            return value if isinstance(value, dict) else {}
+    return {}
 
 
 def _clean(value: Any) -> str:
@@ -266,23 +283,25 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
         elements.append(_fold("相关地点", [_md(places_text)]))
 
     # 示例问题按钮（P1-3）
+    # 2.0 已删除交互模块（"tag": "action"），按钮**直接放进 elements**（官方迁移说明）。
+    # 代价是每个按钮独占一行（body.direction 默认纵向）；要横排得用 column_set，
+    # 但那多一层容器、字段更多，验收期先取"文档明确支持、字段最少"的形态。
     demo = [q for q in (examples or []) if _clean(q)][:3]
     if demo:
         elements.append(_md("**试试问这些**"))
-        elements.append(_action_row([
-            _button(q if len(q) <= 20 else q[:19] + "…",
-                    {"action": "ask", "question": q}) for q in demo
-        ]))
+        elements.extend(
+            _button(q if len(q) <= 20 else q[:19] + "…", {"action": "ask", "question": q})
+            for q in demo
+        )
 
     # 纠错反馈按钮（P2-2）
     if msg_key:
-        elements.append(_action_row([
-            _button("反馈有误", {"action": "report_error", "msg_key": str(msg_key)})
-        ]))
+        elements.append(
+            _button("反馈有误", {"action": "report_error", "msg_key": str(msg_key)}))
 
     return {
         "schema": "2.0",
-        "config": {"wide_screen_mode": True, "update_multi": True},
+        "config": {"update_multi": True, "width_mode": "fill"},
         "header": {"title": {"tag": "plain_text", "content": title}, "template": template},
         "body": {"elements": elements},
     }
@@ -291,27 +310,24 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
 def attach_feedback_button(card: dict, msg_key: int | str | None) -> dict:
     """给已组好的卡片补上"反馈有误"按钮（P2-2）。
 
-    为什么是"补"而不是一次组好：按钮的 value 要带 `messages.id`，而这个 id 只有
+    为什么是"补"而不是一次组好：按钮的回传参数要带 `messages.id`，而这个 id 只有
     先落库才有；而卡片必须在发送前组好。因此流程是"落库拿 id → 补按钮 → 发送 →
     回填 bot_message_id"。原地修改并返回同一张卡片（调用方通常直接发它）。
+
+    按钮在 2.0 里是 elements 的**直接成员**（没有 action 容器），所以这里按
+    "顶层 button + behaviors 里的 action 值"判断是否已存在。
     """
-    if msg_key is None:
+    if msg_key is None or not isinstance(card, dict):
         return card
     elements = card.get("body", {}).get("elements")
     if not isinstance(elements, list):
         return card
     for element in elements:
-        if element.get("tag") != "action":
+        if element.get("tag") != "button":
             continue
-        buttons = element.get("actions") or []
-        if any((b.get("value") or {}).get("action") == "report_error" for b in buttons):
-            return card
-        buttons.append(_button("反馈有误", {"action": "report_error",
-                                           "msg_key": str(msg_key)}))
-        element["actions"] = buttons
-        return card
-    elements.append(_action_row([
-        _button("反馈有误", {"action": "report_error", "msg_key": str(msg_key)})]))
+        if _button_value(element).get("action") == "report_error":
+            return card          # 已经有反馈按钮，不重复加
+    elements.append(_button("反馈有误", {"action": "report_error", "msg_key": str(msg_key)}))
     return card
 
 
@@ -325,7 +341,7 @@ def build_degraded_card(reason: str = "internal") -> dict:
     text = DEGRADED_TEXTS.get(reason, DEGRADED_TEXTS["internal"])
     return {
         "schema": "2.0",
-        "config": {"wide_screen_mode": True, "update_multi": True},
+        "config": {"update_multi": True, "width_mode": "fill"},
         "header": {"title": {"tag": "plain_text", "content": CARD_TITLE}, "template": "orange"},
         "body": {"elements": [_md(text)]},
     }
@@ -335,7 +351,7 @@ def build_too_long_card() -> dict:
     """问题过长/不支持（唯一允许提示用户"精简后重试"的场景）。"""
     return {
         "schema": "2.0",
-        "config": {"wide_screen_mode": True, "update_multi": True},
+        "config": {"update_multi": True, "width_mode": "fill"},
         "header": {"title": {"tag": "plain_text", "content": CARD_TITLE}, "template": "orange"},
         "body": {"elements": [_md(TOO_LONG_TEXT)]},
     }
@@ -345,7 +361,7 @@ def build_notice_card(text: str, *, title: str = CARD_TITLE) -> dict:
     """纯提示卡片（非文本消息、空问题、启动公告等）。"""
     return {
         "schema": "2.0",
-        "config": {"wide_screen_mode": True, "update_multi": True},
+        "config": {"update_multi": True, "width_mode": "fill"},
         "header": {"title": {"tag": "plain_text", "content": title}, "template": "grey"},
         "body": {"elements": [_md(text)]},
     }
@@ -379,7 +395,7 @@ def build_feedback_ticket_card(*, feedback_id: int, open_id: str, question: str,
 
     return {
         "schema": "2.0",
-        "config": {"wide_screen_mode": True},
+        "config": {"update_multi": True, "width_mode": "fill"},
         "header": {"title": {"tag": "plain_text", "content": f"纠错反馈 #{feedback_id}"},
                    "template": "red"},
         "body": {"elements": [_md("\n".join(lines))]},

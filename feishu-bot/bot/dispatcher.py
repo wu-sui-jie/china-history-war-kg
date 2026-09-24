@@ -179,16 +179,36 @@ def parse_card_action(data: Any) -> CardAction | None:
     )
 
 
-def strip_mentions(text: str, mentions: list[dict]) -> str:
-    """剥离文本中的 @机器人 片段（mention key 形如 `@_user_1`）。
+def _bot_mention_keys(text: str, mentions: list[dict],
+                      bot_open_id: str | None) -> list[str]:
+    """挑出属于**本机器人**的 mention key。
 
-    只在群聊里调用：单聊没有 @ 语义，文本原样作为问题（开发文档 5.1）。
+    拿不到 bot open_id 时退化为"只认出现在文本开头的那个 key"——与
+    `mentioned_bot` 的兜底口径一致，且宁可少剥（问题里多一个 `@_user_1` 残留）
+    也不要多剥（把问题内容吃掉）。
     """
-    out = text
+    if bot_open_id:
+        return [m.get("key") or "" for m in mentions
+                if (m.get("open_id") or "") == bot_open_id and (m.get("key") or "")]
+    head = (text or "").lstrip()
     for mention in mentions:
         key = mention.get("key") or ""
-        if key:
-            out = out.replace(key, " ")
+        if key and head.startswith(key):
+            return [key]
+    return []
+
+
+def strip_mentions(text: str, mentions: list[dict],
+                   bot_open_id: str | None = None) -> str:
+    """剥离文本中的 @机器人 片段（mention key 形如 `@_user_1`）。
+
+    **只剥本机器人自己的 mention**（开发文档 5.1）：群里 @ 别人也是问题语义的一部分，
+    "介绍一下 @张三 提到的赤壁之战"里 @张三 必须留在问题里。
+    只在群聊里调用：单聊没有 @ 语义，文本原样作为问题。
+    """
+    out = text
+    for key in _bot_mention_keys(text, mentions, bot_open_id):
+        out = out.replace(key, " ")
     return " ".join(out.split())
 
 
@@ -229,7 +249,7 @@ class Dispatcher:
         self._card_seen: dict[str, float] = {}
         # 观测计数（日志与测试断言共用）
         self.stats = {"received": 0, "duplicate": 0, "enqueued": 0, "handled": 0,
-                      "failed": 0}
+                      "failed": 0, "send_failed": 0}
 
     # ---- 生命周期 ----
     def start(self) -> None:
@@ -241,11 +261,18 @@ class Dispatcher:
         self._worker.start()
         log.info("worker 线程已启动（单 worker：所有会话串行处理）")
 
-    def stop(self) -> None:
+    def stop(self, timeout: float = 5.0) -> None:
+        """停止 worker；`timeout` 为等待在途任务收尾的秒数。
+
+        默认 5s 只够等短任务；在途的 RAG 查询最长要 `RAG_QUERY_TIMEOUT`，
+        所以 `main.py` 的停机路径传的是 RAG 预算——否则 `app.close()` 会先把
+        httpx/SQLite 关掉，在途任务抛异常（进程即将退出、无实害，但日志有吓人堆栈）。
+        第二下 Ctrl-C 的 `os._exit(0)` 仍是"等太久"时的逃生口。
+        """
         self._stop.set()
         self.queue.put(None)          # 唤醒 worker 让它退出
         if self._worker is not None:
-            self._worker.join(timeout=5.0)
+            self._worker.join(timeout=timeout)
             self._worker = None
 
     # ---- 去重（开发文档 5.1 / 风险 4）----
@@ -355,7 +382,8 @@ class Dispatcher:
             if not mentioned_bot(event, self.command_bot_open_id):
                 log.info("群聊消息未 @ 机器人，忽略：chat_id=%s", event.chat_id)
                 return
-            question = strip_mentions(event.text, event.mentions)
+            question = strip_mentions(event.text, event.mentions,
+                                      self.command_bot_open_id)
         else:
             question = event.text.strip()
 
@@ -377,13 +405,17 @@ class Dispatcher:
         if ctx is None:
             return
         reply = self._run_skill(ctx)
-        msg_key = self._record_assistant(event, reply)
+        user_id, msg_key = self._record_turn(ctx, reply)
         if msg_key is not None:
             # 卡片在发送前才补"反馈有误"按钮：value 要带 messages.id，而 id 先落库才有
             attach_feedback_button(reply.card, msg_key)
         sent_id = self._send_reply(event, reply)
-        if msg_key is not None and sent_id:
-            self.session.set_bot_message_id(msg_key, sent_id)
+        if msg_key is not None:
+            if sent_id:
+                self.session.set_bot_message_id(msg_key, sent_id)
+            else:
+                # 发送失败：回答没送达，刚落库的两行必须撤回（见 _discard_unsent_turn）
+                self._discard_unsent_turn(ctx, reply, user_id, msg_key)
         self.stats["handled"] += 1
 
     def handle_card_action(self, action: CardAction) -> None:
@@ -422,13 +454,67 @@ class Dispatcher:
             message_type="text",
         )
 
-    def _build_context(self, event: MessageEvent, question: str) -> SkillContext | None:
-        """会话落库 + 历史组装。历史必须在记录本轮提问**之前**取，否则当前问题会重复进入上下文。"""
+    def _build_context(self, event: MessageEvent, question: str) -> SkillContext:
+        """会话 touch + 历史组装。
+
+        **不在这里记录本轮提问**：用户行与本轮回答一起写，见 `_record_turn` 的说明。
+        历史必须在记录之前取，否则当前问题会重复进入自己的上下文。
+        """
         self.session.touch(event.session_key, event.open_id, event.chat_id)
         history = self.session.history_for_rag(event.session_key)
-        self.session.record_user(event.session_key, event.message_id, question)
         return SkillContext(event=event, question=question, session_key=event.session_key,
                             history=history)
+
+    def _record_turn(self, ctx: SkillContext,
+                     reply: Reply) -> tuple[int | None, int | None]:
+        """写本轮问答（user 行 + assistant 行），返回 `(user 行 id, assistant 行 id)`。
+
+        三条规则叠在一起决定了这个函数的位置与顺序：
+
+        1. **两行一起写、且只有"能进历史"的轮次才写**。反过来（提问先落库、回答失败也留着）
+           会让 `/help` 这类命令进入 RAG 上下文——**更糟的是历史参与回答缓存的键**：
+           实测同一个"介绍一下长平之战"因为多了一条 `/help` 历史，从 34ms 的缓存命中
+           变成 16–25s 的真生成，直接顶穿机器人 25s 预算（真机踩过）。
+           降级/失败轮次同理：没有回答的孤立提问对模型没有价值。
+        2. **用户的提问行必须先于 assistant 行写入**：反馈工单按"紧邻在此之前的那次提问"
+           取问题（`question_before_assistant` 用自增 id 定序），顺序反了工单会带错问题。
+        3. 返回 `(None, None)` 表示"这轮不落库"，调用方据此既不补反馈按钮、也不回填消息 id。
+
+        第二个 id 是卡片按钮的 msg_key；第一个 id 只在**发送失败撤回本轮**时用得到
+        （`_discard_unsent_turn`）：两行是一起写的，撤回也必须一起撤。
+        """
+        turn = reply.assistant_turn
+        if turn is None:
+            return None, None
+        if not turn.is_history_eligible:
+            log.info("终态 %s 不写入历史（按开发文档 5.2）", turn.finish_reason)
+            return None, None
+        user_id = self.session.record_user(ctx.session_key, ctx.event.message_id,
+                                          ctx.question)
+        assistant_id = self.session.record_assistant(
+            ctx.session_key, bot_message_id=None, content=turn.content,
+            finish_reason=turn.finish_reason, citations=turn.citations,
+        )
+        return user_id, assistant_id
+
+    def _discard_unsent_turn(self, ctx: SkillContext, reply: Reply,
+                             user_id: int | None, assistant_id: int | None) -> None:
+        """发送失败：撤回刚落库的 user + assistant 两行。
+
+        为什么必须撤（2026-09-24 线上实测：飞书侧 TLS 抖动导致回答未送达）：
+        这轮问答已经进了历史，而下一轮的上下文与 **RAG 回答缓存的键**都会带着
+        一条用户从未见过的回答——查询缓存因此永远命中不了，本该毫秒返回的问题
+        退化成十几秒的真生成。与"成对写入"是同一条原则的两面：只写能入历史的轮次，
+        不保留没有送达的回答。
+        答案全文打进 ERROR 日志，供运营侧手工补偿（用户那边只会看到沉默）。
+        """
+        removed = self.session.delete_messages([user_id, assistant_id])
+        self.stats["send_failed"] += 1
+        turn = reply.assistant_turn
+        log.error("回复发送失败：已撤回本轮历史 %d 行（session=%s question=%r）。"
+                  "回答全文如下，供手工补偿：%s",
+                  removed, ctx.session_key, ctx.question,
+                  (turn.content if turn is not None else ""))
 
     def _run_skill(self, ctx: SkillContext) -> Reply:
         """按注册顺序解析并执行技能（顺序规则见 skills/base.py::SkillRegistry）。"""
@@ -444,33 +530,30 @@ class Dispatcher:
             return Reply(kind="card", card=build_degraded_card(reason="internal"))
 
     def _send_reply(self, event: MessageEvent, reply: Reply) -> str | None:
-        """发送回复并返回机器人消息 id（可能为 None，落库时容错）。"""
-        if reply.kind == "text" and reply.text:
-            return self.feishu.reply_text(event.message_id, reply.text)
-        card = reply.card or build_degraded_card(reason="internal")
-        return self.feishu.reply_card(event.message_id, card)
+        """发送回复并返回机器人消息 id；**发送失败返回 None**。
+
+        传输层异常（TLS 抖动等）不能让 worker_loop 的兜底 catch 收走：feishu_client
+        已经重试过（见该模块的传输层重试），走到这里就是"这次真没发出去"——按发送失败
+        返回 None，调用方才有机会把这轮历史撤干净（否则用户什么也没收到，历史里却留着
+        一条他从未见过的回答）。
+        """
+        try:
+            if reply.kind == "text" and reply.text:
+                return self.feishu.reply_text(event.message_id, reply.text)
+            card = reply.card or build_degraded_card(reason="internal")
+            return self.feishu.reply_card(event.message_id, card)
+        except Exception as e:  # noqa: BLE001 - 发送失败是必经路径（网络抖动）
+            log.error("回复发送失败（传输层，重试后仍未成功）：message_id=%s err=%s",
+                      event.message_id, e)
+            return None
 
     def _reply_card(self, event: MessageEvent, card: dict) -> str | None:
         """直接回一张卡片（非文本消息提示、空问题提示等，不经过技能）。"""
-        return self.feishu.reply_card(event.message_id, card)
-
-    def _record_assistant(self, event: MessageEvent, reply: Reply) -> int | None:
-        """写 assistant 轮并返回行 id（= 卡片按钮的 msg_key）。
-
-        只有技能明确给出 assistant_turn 且终态可入历史时才写；不写就意味着这轮
-        既进不了下一轮历史、也没有纠错按钮——两者是同一件事的两面（都没有可指的对象）。
-        `bot_message_id` 在发送成功后由调用方回填。
-        """
-        turn = reply.assistant_turn
-        if turn is None:
+        try:
+            return self.feishu.reply_card(event.message_id, card)
+        except Exception as e:  # noqa: BLE001 - 提示类卡片没有历史要撤，失败只记日志
+            log.error("提示卡片发送失败：message_id=%s err=%s", event.message_id, e)
             return None
-        if not turn.is_history_eligible:
-            log.info("终态 %s 不写入历史（按开发文档 5.2）", turn.finish_reason)
-            return None
-        return self.session.record_assistant(
-            event.session_key, bot_message_id=None, content=turn.content,
-            finish_reason=turn.finish_reason, citations=turn.citations,
-        )
 
     def reply_card_to_chat(self, chat_id: str, card: dict) -> str | None:
         """主动发卡片（示例问题/工单等不依附原消息的场景）。"""

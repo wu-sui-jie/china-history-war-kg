@@ -192,40 +192,167 @@ def test_empty_subgraph_produces_no_section():
 # ---- 5) 按钮（P1-3 / P2-2）----
 
 
+def _buttons(card: dict) -> list[dict]:
+    return [e for e in _elements(card) if e.get("tag") == "button"]
+
+
+def _btn_value(button: dict) -> dict:
+    """取按钮回传参数：2.0 里在 behaviors[type=callback].value（不是顶层 value）。"""
+    for behavior in button.get("behaviors") or []:
+        if behavior.get("type") == "callback":
+            return behavior.get("value") or {}
+    return {}
+
+
 def test_example_buttons_carry_ask_action():
     card = build_answer_card(answer_md="x", examples=["介绍一下长平之战", "白起是谁"])
-    actions = [e for e in _elements(card) if e.get("tag") == "action"]
-    values = [b["value"] for a in actions for b in a["actions"]]
+    values = [_btn_value(b) for b in _buttons(card)]
     assert {"action": "ask", "question": "介绍一下长平之战"} in values
     assert len(values) == 2
 
 
 def test_example_buttons_limited_to_three():
     card = build_answer_card(answer_md="x", examples=[f"问题{i}" for i in range(6)])
-    values = [b["value"] for e in _elements(card) if e.get("tag") == "action"
-              for b in e["actions"]]
-    assert len(values) == 3
+    assert len(_buttons(card)) == 3
 
 
 def test_feedback_button_carries_msg_key():
     card = build_answer_card(answer_md="x", msg_key=17)
-    values = [b["value"] for e in _elements(card) if e.get("tag") == "action"
-              for b in e["actions"]]
-    assert {"action": "report_error", "msg_key": "17"} in values
+    assert {"action": "report_error", "msg_key": "17"} in [_btn_value(b) for b in _buttons(card)]
 
 
 def test_no_msg_key_no_feedback_button():
     card = build_answer_card(answer_md="x")
-    values = [b for e in _elements(card) if e.get("tag") == "action" for b in e["actions"]]
-    assert not values
+    assert _buttons(card) == []
 
 
 def test_buttons_use_plain_text_labels():
     card = build_answer_card(answer_md="x", msg_key=1, examples=["问"])
-    for element in _elements(card):
-        for button in element.get("actions", []) if element.get("tag") == "action" else []:
-            assert button["text"]["tag"] == "plain_text"
-            assert button["text"]["content"]
+    for button in _buttons(card):
+        assert button["text"]["tag"] == "plain_text"
+        assert button["text"]["content"]
+
+
+def test_button_label_capped_at_100_chars():
+    """2.0 里 button.text.content 上限 100 字符（超了会被拒收）。"""
+    card = build_answer_card(answer_md="x", examples=["甲" * 200])
+    assert all(len(b["text"]["content"]) <= 100 for b in _buttons(card))
+
+
+def test_attach_feedback_button_is_idempotent():
+    from bot.cards.builder import attach_feedback_button
+
+    card = build_answer_card(answer_md="x", msg_key=5)
+    before = len(_buttons(card))
+    attach_feedback_button(card, 5)          # 已经有一个反馈按钮
+    assert len(_buttons(card)) == before
+
+
+# ---- 5b) 卡片 2.0 合规守卫 ----
+#
+# 这一组是**真机教训**固化的：首版卡片混用了 1.0 写法，被飞书整卡拒收
+# （code 200621 `unknown property, property: type, path: ... -> border`）。
+# 飞书没有离线校验接口，所以把已知的 2.0 规则写成本地断言——再犯就是在测试里挂掉，
+# 而不是等用户点开卡片才发现。
+
+_ALLOWED_CONFIG_KEYS = {"update_multi", "width_mode", "streaming_mode", "enable_forward",
+                        "enable_forward_interaction", "style", "summary", "locales"}
+_ALLOWED_BORDER_KEYS = {"color", "corner_radius"}
+_ALLOWED_TAGS = {"markdown", "hr", "img", "button", "collapsible_panel"}
+
+
+def _walk_elements(card: dict) -> list[dict]:
+    out: list[dict] = []
+    stack = list(_elements(card))
+    while stack:
+        element = stack.pop()
+        out.append(element)
+        stack.extend(element.get("elements") or [])       # 折叠面板内的子元素
+    return out
+
+
+def _all_cards() -> dict[str, dict]:
+    from bot.cards.builder import (build_degraded_card, build_feedback_ticket_card,
+                                   build_notice_card, build_too_long_card)
+
+    return {
+        "answer": build_answer_card(answer_md="# 标题", citations=[{"index": 1, "title": "t",
+                                                                   "kind": "k"}],
+                                   conflicts=[{"subject": "s"}],
+                                   panel={"entity_cards": [{"name": "n", "type": "事件"}],
+                                          "timeline": {"groups": [{"label": "d", "items": [
+                                              {"name": "e", "start_date": "前1年"}]}]},
+                                          "map_points": [{"name": "p"}],
+                                          "subgraph": {"nodes": [{"id": "a", "name": "n",
+                                                                  "type": "事件"}],
+                                                       "edges": []}},
+                                   truncated=True, msg_key=3, examples=["问一句"],
+                                   subgraph_img_key="img_x"),
+        "degraded": build_degraded_card("timeout"),
+        "too_long": build_too_long_card(),
+        "notice": build_notice_card("提示"),
+        "ticket": build_feedback_ticket_card(feedback_id=1, open_id="ou", question="q",
+                                             answer_md="a", citations=[{"title": "t"}]),
+    }
+
+
+def test_no_legacy_1_0_action_container():
+    """2.0 已删除交互模块（tag=action）：按钮必须是 elements 的直接成员。"""
+    for name, card in _all_cards().items():
+        tags = [e.get("tag") for e in _walk_elements(card)]
+        assert "action" not in tags, f"{name}: 仍在使用 1.0 的 action 容器"
+
+
+def test_config_only_uses_2_0_keys():
+    """config 里不能出现 1.0 字段（wide_screen_mode 等）。"""
+    for name, card in _all_cards().items():
+        unknown = set(card.get("config") or {}) - _ALLOWED_CONFIG_KEYS
+        assert not unknown, f"{name}: config 含 2.0 不支持的字段 {sorted(unknown)}"
+        assert card["config"].get("update_multi") is True
+
+
+def test_buttons_use_behaviors_not_top_level_value():
+    for name, card in _all_cards().items():
+        for button in [e for e in _walk_elements(card) if e.get("tag") == "button"]:
+            assert "value" not in button, f"{name}: 按钮用了 1.0 的顶层 value"
+            behaviors = button.get("behaviors") or []
+            assert behaviors and behaviors[0]["type"] == "callback", f"{name}: 缺 behaviors"
+            assert isinstance(behaviors[0].get("value"), dict)
+
+
+def test_collapsible_panel_border_only_color_and_radius():
+    for name, card in _all_cards().items():
+        for panel in [e for e in _walk_elements(card) if e.get("tag") == "collapsible_panel"]:
+            unknown = set(panel.get("border") or {}) - _ALLOWED_BORDER_KEYS
+            assert not unknown, f"{name}: border 含非法字段 {sorted(unknown)}"
+            assert panel["header"]["title"]["tag"] == "plain_text"
+
+
+def test_image_element_shape():
+    """img 的 alt 是必填，且只支持 plain_text。"""
+    card = _all_cards()["answer"]
+    images = [e for e in _walk_elements(card) if e.get("tag") == "img"]
+    assert images
+    for image in images:
+        assert image["img_key"]
+        assert image["alt"]["tag"] == "plain_text"
+
+
+def test_only_known_component_tags():
+    """只使用已核实的 2.0 组件 tag（新增组件时同步 _ALLOWED_TAGS）。"""
+    for name, card in _all_cards().items():
+        unknown = {e.get("tag") for e in _walk_elements(card)} - _ALLOWED_TAGS
+        assert not unknown, f"{name}: 出现未核实的组件 tag {sorted(unknown)}"
+
+
+def test_elements_within_platform_limits():
+    """一张卡片最多 200 个元素；markdown 内容非空。"""
+    for name, card in _all_cards().items():
+        elements = _walk_elements(card)
+        assert len(elements) <= 200, f"{name}: 元素数超限"
+        for element in elements:
+            if element.get("tag") == "markdown":
+                assert element.get("content") is not None
 
 
 # ---- 6) truncated 提示 ----

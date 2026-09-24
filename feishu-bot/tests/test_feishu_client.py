@@ -15,8 +15,11 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+import requests
+
 from bot.cards.builder import build_answer_card
-from bot.feishu_client import MSG_TYPE_CARD, MSG_TYPE_TEXT, FeishuClient
+from bot.feishu_client import (MSG_TYPE_CARD, MSG_TYPE_TEXT, RETRY_ATTEMPTS, FeishuClient)
 
 
 class RecordingMessageApi:
@@ -162,3 +165,138 @@ def test_build_ws_client_registers_both_handlers(monkeypatch):
 def test_close_is_safe_without_connection(monkeypatch):
     client, _, _ = make_client(monkeypatch)
     client.close()          # 不应抛异常（SDK 客户端没有公开的 close）
+
+
+# ---- 传输层重试与幂等（审查报告 3.1-4）----
+# 线上实测：一次瞬时 TLS 抖动（SSLEOFError）就让用户收到沉默，因为 requests 默认
+# max_retries=0、SDK 也没配重试。这一层重试与 uuid 幂等键必须一直有效。
+
+
+@pytest.fixture(autouse=True)
+def no_backoff_sleep(monkeypatch):
+    """不让退避真的睡：测试要锁的是"重试了几次、请求长什么样"。"""
+    monkeypatch.setattr("bot.feishu_client.time.sleep", lambda _seconds: None)
+
+
+class FlakyMessageApi:
+    """前 `failures` 次抛传输层异常，之后成功；每次尝试都留下请求对象。"""
+
+    def __init__(self, failures: int = 0):
+        self.failures = failures
+        self.attempts = 0
+        self.requests: list[object] = []
+
+    def _record(self, request):
+        self.requests.append(request)
+        self.attempts += 1
+        if self.attempts <= self.failures:
+            raise requests.exceptions.ConnectionError(
+                "SSLEOFError(8, 'UNEXPECTED_EOF_WHILE_READING')")
+        return SimpleNamespace(success=lambda: True, code=0, msg="",
+                               data=SimpleNamespace(message_id=f"om_{self.attempts}"))
+
+    def reply(self, request):
+        return self._record(request)
+
+    def create(self, request):
+        return self._record(request)
+
+    def patch(self, request):
+        return self._record(request)
+
+
+def make_flaky_client(monkeypatch, *, failures: int, image_api=None):
+    client = FeishuClient(app_id="cli_test", app_secret="secret_test", log_level="WARNING")
+    messages = FlakyMessageApi(failures)
+    images = image_api or RecordingImageApi()
+    monkeypatch.setattr(client, "_http", SimpleNamespace(
+        im=SimpleNamespace(v1=SimpleNamespace(message=messages, image=images))))
+    return client, messages, images
+
+
+def test_reply_retries_transport_errors_and_keeps_uuid(monkeypatch):
+    client, messages, _ = make_flaky_client(monkeypatch, failures=2)
+
+    message_id = client.reply_card("om_user", build_answer_card(answer_md="正文"))
+
+    assert message_id == "om_3"
+    assert messages.attempts == RETRY_ATTEMPTS == 3
+    # uuid 是飞书的服务端幂等键：三次尝试必须**用同一个**，否则
+    # "请求到达了但响应丢了"时的重试会发出第二条消息
+    uuids = {request.request_body.uuid for request in messages.requests}
+    assert len(uuids) == 1
+    assert uuids.pop()
+
+
+def test_send_card_retries_and_carries_uuid(monkeypatch):
+    client, messages, _ = make_flaky_client(monkeypatch, failures=1)
+
+    assert client.send_card("oc_x", build_answer_card(answer_md="工单")) == "om_2"
+    assert messages.attempts == 2
+    request = messages.requests[-1]
+    assert request.receive_id_type == "chat_id"
+    assert request.request_body.uuid
+
+
+def test_patch_card_retries_transport_errors(monkeypatch):
+    client, messages, _ = make_flaky_client(monkeypatch, failures=1)
+    assert client.patch_card("om_bot", build_answer_card(answer_md="更新")) is True
+    assert messages.attempts == 2
+
+
+def test_transport_failure_after_retries_is_raised(monkeypatch):
+    """重试仍失败必须**抛给调用方**：dispatcher 据此撤回本轮历史。
+
+    早先的写法是任异常抛到 worker 的兜底 catch——用户收到沉默，这轮问答却留在
+    历史里（回答从未送达，却参与下一轮上下文与回答缓存的键）。
+    """
+    client, messages, _ = make_flaky_client(monkeypatch, failures=99)
+
+    with pytest.raises(requests.exceptions.ConnectionError):
+        client.reply_card("om_user", build_answer_card(answer_md="正文"))
+    assert messages.attempts == RETRY_ATTEMPTS
+
+
+def test_business_error_is_not_retried(monkeypatch):
+    """业务错误码（success=False）重试也不会变好，不浪费三次往返。"""
+    client, messages, _ = make_client(monkeypatch)
+    messages.fail = True
+    assert client.reply_card("om_x", build_answer_card(answer_md="x")) is None
+    assert len(messages.calls) == 1
+
+
+class FlakyImageApi:
+    """第一次尝试就把文件读完（模拟真实传输），再抛传输层异常。"""
+
+    def __init__(self, failures: int = 1):
+        self.failures = failures
+        self.read_positions: list[int] = []
+
+    def create(self, request):
+        image = request.request_body.image
+        self.read_positions.append(image.tell())     # 每次尝试开始时的读位置
+        image.read()
+        if len(self.read_positions) <= self.failures:
+            raise requests.exceptions.ConnectionError("TLS EOF")
+        return SimpleNamespace(success=lambda: True, code=0, msg="",
+                               data=SimpleNamespace(image_key="img_v3_test"))
+
+
+def test_upload_image_rewinds_file_between_attempts(monkeypatch, tmp_path: Path):
+    """重试要重建请求体并把文件指针复位——否则第二次读到的是 EOF（发出空图）。"""
+    images = FlakyImageApi(failures=1)
+    client, _, _ = make_flaky_client(monkeypatch, failures=0, image_api=images)
+    png = tmp_path / "x.png"
+    png.write_bytes(b"\x89PNG\r\n\x1a\nfake")
+
+    assert client.upload_image(png) == "img_v3_test"
+    assert images.read_positions == [0, 0]
+
+
+def test_ws_client_log_level_follows_config(monkeypatch):
+    """长连接日志级别跟随 BOT_LOG_LEVEL（排查长连接问题时才降得到 DEBUG）。"""
+    from lark_oapi import LogLevel
+
+    client = FeishuClient(app_id="cli_test", app_secret="secret_test", log_level="DEBUG")
+    ws = client.build_ws_client(on_message=lambda data: None, on_card_action=lambda data: None)
+    assert ws._log_level == LogLevel.DEBUG

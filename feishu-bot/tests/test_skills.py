@@ -18,6 +18,7 @@ from bot.skills.help import HelpSkill
 from bot.skills.knowledge_qa import KnowledgeQaSkill
 from bot.skills.report_error import ReportErrorSkill
 
+from card_helpers import button_values
 from fake_rag import Case, FakeRag
 
 
@@ -98,9 +99,9 @@ def test_report_error_never_matches_text(config, session):
 
 def test_help_recognises_variants():
     skill = HelpSkill()
-    for text in ("/help", "/HELP", "/help 我该问什么", "/帮助"):
+    for text in ("/help", "/HELP", "/help 我该问什么", "/帮助", "/帮助 长平之战", "/?"):
         assert skill.match(make_ctx(text)) is True
-    for text in ("help", "请帮忙", "/helpx"):
+    for text in ("help", "请帮忙", "/helpx", "/帮帮忙"):
         assert skill.match(make_ctx(text)) is False
 
 
@@ -266,8 +267,7 @@ def test_examples_cache_used_for_buttons(config, session):
         cache = DemoExamplesCache(rag, count=3, refresh_seconds=3600)
         skill = KnowledgeQaSkill(rag=rag, session=session, examples=cache, config=config)
         reply = skill.run(make_ctx())
-        values = [b["value"] for e in reply.card["body"]["elements"]
-                  if e.get("tag") == "action" for b in e["actions"]]
+        values = button_values(reply.card)
         assert {"action": "ask", "question": "题一"} in values
     finally:
         fake.stop()
@@ -302,6 +302,41 @@ def test_examples_cache_keeps_last_known_on_failure():
     assert cache.questions() == ["题一"]
     now[0] += 20
     assert cache.questions() == ["题一"], "接口抖动不该让按钮区消失"
+
+
+def test_examples_failure_is_negatively_cached():
+    """取题失败也要命中缓存窗口（审查报告 3.1-3）。
+
+    原先的守卫要求"缓存非空"，接口失败时永远不成立——每张卡片都同步重打一次
+    `GET /api/demo/examples`，端点不可用时最坏吃满客户端超时，直接叠加在用户等待上。
+    """
+    calls = {"n": 0}
+
+    class Down:
+        def demo_examples(self):
+            calls["n"] += 1
+            return []
+
+    now = [1000.0]
+    cache = DemoExamplesCache(Down(), count=3, refresh_seconds=3600,
+                              failure_retry_seconds=300, clock=lambda: now[0])
+    assert cache.questions() == []
+    assert calls["n"] == 1
+
+    now[0] += 10                            # 窗口内：不再打接口（这就是负缓存）
+    assert cache.questions() == []
+    assert calls["n"] == 1
+
+    now[0] += 300                          # 过了失败重试窗口：再试一次
+    assert cache.questions() == []
+    assert calls["n"] == 2
+
+
+def test_examples_failure_window_never_exceeds_success_window():
+    """失败重试窗口比成功刷新窗口更急，但不会被配成比它更长。"""
+    cache = DemoExamplesCache(type("X", (), {"demo_examples": lambda self: []})(),
+                              refresh_seconds=60, failure_retry_seconds=99999)
+    assert cache.failure_retry_seconds == 60
 
 
 # ---- RAG 客户端错误映射 ----

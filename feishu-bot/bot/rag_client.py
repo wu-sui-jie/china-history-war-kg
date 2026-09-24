@@ -191,10 +191,14 @@ class DemoExamplesCache:
     """
 
     def __init__(self, client: RagClient, *, count: int = 3, refresh_seconds: float = 3600.0,
-                 enabled: bool = True, clock=time.time):
+                 failure_retry_seconds: float = 300.0, enabled: bool = True, clock=time.time):
         self.client = client
         self.count = max(0, int(count))
         self.refresh_seconds = max(1.0, float(refresh_seconds))
+        # 失败后的重试窗口：比成功时短（接口恢复了不该等一小时），但必须**有**窗口，
+        # 否则每次组卡都会同步重打一次 HTTP（见 refresh 的负缓存说明）
+        self.failure_retry_seconds = min(max(1.0, float(failure_retry_seconds)),
+                                        self.refresh_seconds)
         self.enabled = enabled
         self.clock = clock
         self._questions: list[str] = []
@@ -202,12 +206,21 @@ class DemoExamplesCache:
         self._lock = threading.Lock()
 
     def refresh(self, force: bool = False) -> list[str]:
-        """取（并按需刷新）示例题。失败时保留上一次结果，不清空。"""
+        """取（并按需刷新）示例题。失败时保留上一次结果，不清空。
+
+        **负缓存**：守卫只看"刷新窗口是否过期"，不看"有没有题目"。早先要求缓存非空
+        （`fresh and self._questions`），于是接口失败或返回空列表时守卫永远不成立，
+        每次组卡都同步重打一次 `GET /api/demo/examples`——端点不可用时最坏吃满
+        connect 5s + read 25s 的客户端超时，直接叠加在用户等待时间上。
+        现在成功与失败两条路径都记刷新时刻，只是窗口不同：成功后按
+        `refresh_seconds`（默认 1h）刷，失败后按 `failure_retry_seconds`（默认 5min）再试。
+        """
         if not self.enabled or self.count == 0:
             return []
         with self._lock:
-            fresh = self.clock() - self._fetched_at < self.refresh_seconds
-            if fresh and not force and self._questions:
+            window = (self.refresh_seconds if self._questions
+                      else self.failure_retry_seconds)
+            if not force and self.clock() - self._fetched_at < window:
                 return list(self._questions)
             examples = self.client.demo_examples()
             if examples:
@@ -216,7 +229,7 @@ class DemoExamplesCache:
                 self._fetched_at = self.clock()
                 log.info("示例题已刷新（%d 条）", len(self._questions))
             else:
-                # 失败不清空：接口抖一下不该让按钮区消失
+                # 失败不清空：接口抖一下不该让按钮区消失（空结果同样进负缓存窗口）
                 self._fetched_at = self.clock()
             return list(self._questions)
 

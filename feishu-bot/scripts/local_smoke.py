@@ -34,6 +34,10 @@ from types import SimpleNamespace
 
 BOT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BOT_ROOT))
+# 卡片取值复用测试侧的唯一实现（tests/card_helpers.py，按卡片 2.0 结构取值）：
+# 本脚本曾按 1.0 形态找 `tag == "action"` 容器与顶层 `value`，2.0 迁移后没同步，
+# 结果是"按钮摘要永远为空、纠错反馈环节静默跳过"——两处解析必须共用一份实现。
+sys.path.insert(0, str(BOT_ROOT / "tests"))
 
 from bot.db import Database                                       # noqa: E402
 from bot.dispatcher import Dispatcher, parse_card_action, parse_message_event  # noqa: E402
@@ -43,6 +47,7 @@ from bot.session import SessionStore                              # noqa: E402
 from bot.skills.help import HelpSkill                             # noqa: E402
 from bot.skills.knowledge_qa import KnowledgeQaSkill              # noqa: E402
 from bot.skills.report_error import ReportErrorSkill              # noqa: E402
+from card_helpers import buttons, elements, feedback_msg_key      # noqa: E402
 from config import Config, load_config                            # noqa: E402
 
 DEFAULT_QUESTION = "介绍一下涿鹿之战。"
@@ -87,18 +92,17 @@ class RecordingFeishu:
 
 def _summarize(card: dict) -> str:
     """一行摘要：元素构成 / 折叠区 / 按钮——肉眼核对卡片结构用。"""
-    elements = card.get("body", {}).get("elements", [])
-    tags = [e.get("tag") for e in elements]
-    folds = [e["header"]["title"]["content"] for e in elements
+    items = elements(card)
+    tags = [e.get("tag") for e in items]
+    folds = [e["header"]["title"]["content"] for e in items
              if e.get("tag") == "collapsible_panel"]
-    buttons = [b["text"]["content"] for e in elements
-               if e.get("tag") == "action" for b in e.get("actions", [])]
+    labels = [b["text"]["content"] for b in buttons(card)]
     size = len(json.dumps(card, ensure_ascii=False))
     parts = [f"{size} 字符", f"元素={tags}"]
     if folds:
         parts.append(f"折叠区={folds}")
-    if buttons:
-        parts.append(f"按钮={buttons}")
+    if labels:
+        parts.append(f"按钮={labels}")
     return " | ".join(parts)
 
 
@@ -142,17 +146,6 @@ def _card_action(value: dict, event_id: str):
             operator=SimpleNamespace(open_id="ou_smoke"),
             context=SimpleNamespace(open_message_id="om_feedback",
                                     open_chat_id="oc_smoke"))))
-
-
-def _feedback_msg_key(card: dict) -> str | None:
-    for element in card.get("body", {}).get("elements", []):
-        if element.get("tag") != "action":
-            continue
-        for button in element.get("actions", []):
-            value = button.get("value") or {}
-            if value.get("action") == "report_error":
-                return str(value.get("msg_key"))
-    return None
 
 
 def build_config(args) -> Config:
@@ -305,10 +298,16 @@ def main(argv: list[str] | None = None) -> int:
 
         # 4) 纠错反馈（真实按钮回调路径）
         if not args.skip_feedback:
-            msg_key = _feedback_msg_key(answer_card)
+            msg_key = feedback_msg_key(answer_card)
             print(f"\n[4] 纠错反馈（按钮 msg_key={msg_key}）")
             if not msg_key:
-                print("    没有反馈按钮（回答卡片才会有）——上面是降级卡片时会这样")
+                # 降级卡片本来就不带按钮（没有可纠错的回答）；非降级卡片没有按钮
+                # 就是缺陷——这一条曾经因为按 1.0 解析而静默跳过，现在必须报出来
+                degraded = answer_card.get("header", {}).get("template") == "orange"
+                print("    没有反馈按钮" + ("（降级卡片不带按钮，符合预期）" if degraded
+                                           else "——**异常**：非降级回答卡片应带「反馈有误」按钮"))
+                if not degraded and not args.dead_rag:
+                    exit_code = 1
             else:
                 feishu.sent.clear()
                 dispatcher.handle_card_action(_card_action(

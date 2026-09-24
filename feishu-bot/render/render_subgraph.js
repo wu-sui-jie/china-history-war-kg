@@ -3,7 +3,8 @@
  *
  * 用法：node render_subgraph.js <输入 JSON 路径>
  *   输入：{"nodes": [{id,type,name,dynasty}], "edges": [{source,target,relation}],
- *          "out": "<输出 PNG 路径>", "width": 1200, "height": 900}
+ *          "out": "<输出 PNG 路径>", "width": 1000, "height": 700}
+ *   （尺寸由 Python 侧下发：bot/render/subgraph.py 的 DEFAULT_WIDTH / DEFAULT_HEIGHT）
  *   输出（stdout 一行 JSON）：{"ok": true, "bytes": <PNG 字节数>} 或 {"ok": false, "error": "..."}
  *
  * **stdout 只回 ok/bytes，不回文件路径**：路径可能含中文（Windows 用户目录），
