@@ -2,6 +2,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from models import Event, Organization, Person, Place, UserInfo, db
+from node_property_mapping import API_TO_COLUMN, neo4j_props
 
 from logging_util import get_logger
 
@@ -137,56 +138,8 @@ class DbUtil:
 
     @staticmethod
     def _field_mapping_by_type(node_type: str):
-        return {
-            "Event": {
-                "EventName": "name",
-                "EventType": "event_type",
-                "StartDate": "start_date",
-                "EndDate": "end_date",
-                "DynastyName": "dynasty",
-                "Place": "place",
-                "Aggressor": "aggressor",
-                "Defender": "defender",
-                "KeyPersons": "person",
-                "Action": "action",
-                "Result": "result",
-                "TroopSize": "scale",
-                "Impact": "impact",
-                "source_text": "source",
-                "Remark": "remark",
-                "relations": "relations",
-            },
-            "Place": {
-                "geo_name": "name",
-                "DynastyName": "dynasty",
-                "Province": "province",
-                "City": "city",
-                "District_County": "district",
-                "Specific_location": "specific_location",
-                "Specific_Location": "specific_location",
-                "modern_name": "modern_name",
-                "ModernName": "modern_name",
-                "longitude": "longitude",
-                "latitude": "latitude",
-                "coord_source": "coord_source",
-                "coord_confidence": "coord_confidence",
-                "coord_note": "coord_note",
-            },
-            "Organization": {
-                "OrgName": "name",
-                "OrgType": "org_type",
-                "DynastyName": "dynasty",
-                "Description": "description",
-                "Remark": "remark",
-            },
-            "Person": {
-                "PersonName": "name",
-                "DynastyName": "dynasty",
-                "OrgName": "org",
-                "Role": "role",
-                "Remark": "remark",
-            },
-        }.get(node_type, {})
+        """API 键 → SQLite 列名（映射表在 node_property_mapping，三处重复已收敛）。"""
+        return API_TO_COLUMN.get(node_type, {})
 
     @staticmethod
     def _normalize_payload(node_type: str, data: dict):
@@ -199,56 +152,8 @@ class DbUtil:
 
     @staticmethod
     def _neo4j_props(node_type: str, data: dict):
-        if node_type == "Event":
-            return {
-                "EventType": data.get("event_type"),
-                "StartDate": data.get("start_date"),
-                "EndDate": data.get("end_date"),
-                "DynastyName": data.get("dynasty"),
-                "Place": data.get("place"),
-                "Aggressor": data.get("aggressor"),
-                "Defender": data.get("defender"),
-                "KeyPersons": data.get("person"),
-                "Action": data.get("action"),
-                "Result": data.get("result"),
-                "TroopSize": data.get("scale"),
-                "Impact": data.get("impact"),
-                "source_text": data.get("source"),
-                "relations": data.get("relations"),
-                "Remark": data.get("remark"),
-            }
-        if node_type == "Place":
-            return {
-                "geo_name": data.get("name"),
-                "modern_name": data.get("modern_name"),
-                "DynastyName": data.get("dynasty"),
-                "Province": data.get("province"),
-                "City": data.get("city"),
-                "District_County": data.get("district"),
-                "Specific_location": data.get("specific_location"),
-                "longitude": data.get("longitude"),
-                "latitude": data.get("latitude"),
-                "coord_source": data.get("coord_source"),
-                "coord_confidence": data.get("coord_confidence"),
-                "coord_note": data.get("coord_note"),
-            }
-        if node_type == "Organization":
-            return {
-                "OrgName": data.get("name"),
-                "OrgType": data.get("org_type"),
-                "DynastyName": data.get("dynasty"),
-                "Description": data.get("description"),
-                "Remark": data.get("remark"),
-            }
-        if node_type == "Person":
-            return {
-                "PersonName": data.get("name"),
-                "DynastyName": data.get("dynasty"),
-                "OrgName": data.get("org"),
-                "Role": data.get("role"),
-                "Remark": data.get("remark"),
-            }
-        return {}
+        """SQLite 列名 → Neo4j 属性名（映射表在 node_property_mapping）。"""
+        return neo4j_props(node_type, data)
 
     @staticmethod
     def create_node(node_type: str, name: str, properties: dict = None):

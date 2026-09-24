@@ -8,6 +8,7 @@ import os
 
 import local_settings
 from common_utils import safe_identifier
+from node_property_mapping import SYNC_FIXED_PROPS, neo4j_props, orm_row
 from relation_types import normalize_event_relation_type
 from flask import Flask
 from py2neo import Graph
@@ -128,68 +129,26 @@ class SqliteToNeo4jSync:
 
     def sync_events(self):
         def props(e):
-            return {
-                "type": "战争事件",
-                "EventName": e.name,
-                "EventType": e.event_type,
-                "StartDate": e.start_date,
-                "EndDate": e.end_date,
-                "DynastyName": e.dynasty,
-                "Place": e.place,
-                "Aggressor": e.aggressor,
-                "Defender": e.defender,
-                "KeyPersons": e.person,
-                "Action": e.action,
-                "Result": e.result,
-                "TroopSize": e.scale,
-                "Impact": e.impact,
-                "source_text": e.source,
-                "relations": e.relations,
-                "Remark": e.remark,
-            }
+            return neo4j_props("Event", orm_row(e, "Event"),
+                               include_name=True, fixed=SYNC_FIXED_PROPS.get("Event"))
 
         self.sync_entities(Event, "Event", props)
 
     def sync_places(self):
         def props(p):
-            return {
-                "geo_name": p.name,
-                "modern_name": p.modern_name,
-                "DynastyName": p.dynasty,
-                "Province": p.province,
-                "City": p.city,
-                "District_County": p.district,
-                "Specific_location": p.specific_location,
-                "longitude": p.longitude,
-                "latitude": p.latitude,
-                "coord_source": p.coord_source,
-                "coord_confidence": p.coord_confidence,
-                "coord_note": p.coord_note,
-            }
+            return neo4j_props("Place", orm_row(p, "Place"), include_name=True)
 
         self.sync_entities(Place, "Place", props)
 
     def sync_organizations(self):
         def props(o):
-            return {
-                "OrgName": o.name,
-                "OrgType": o.org_type,
-                "DynastyName": o.dynasty,
-                "Description": o.description,
-                "Remark": o.remark,
-            }
+            return neo4j_props("Organization", orm_row(o, "Organization"), include_name=True)
 
         self.sync_entities(Organization, "Organization", props)
 
     def sync_persons(self):
         def props(p):
-            return {
-                "PersonName": p.name,
-                "DynastyName": p.dynasty,
-                "OrgName": p.org,
-                "Role": p.role,
-                "Remark": p.remark,
-            }
+            return neo4j_props("Person", orm_row(p, "Person"), include_name=True)
 
         self.sync_entities(Person, "Person", props)
 

@@ -47,6 +47,21 @@ backend/
 
 Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类型即业务关系名。
 
+### 序列化键的大小写风格（改前端前先看这张表）
+
+四张表的 `to_dict()` 用了三套命名风格，是历史遗留（前端已有代码按类型特判）。**统一风格会同时改动
+接口契约与前端**，所以短期只在这里记录映射，长期统一时按本表逐项替换：
+
+| 模型 | 键风格 | 名称字段（SQLite 列 → 序列化键） | 其他字段示例 |
+| --- | --- | --- | --- |
+| `Event` | 大驼峰（对齐抽取文档字段名） | `name` → `EventName` | `EventType` `StartDate` `EndDate` `DynastyName` `Place` `Aggressor` `Defender` `KeyPersons` `Action` `Result` `TroopSize` `Impact` `Remark`，加小写的 `source_text` |
+| `Place` | 小写下划线（含两处历史别名） | `name` → `geo_name` | `modern_name`，同时兼容 `ModernName`；`DynastyName` `Province` `City` `District_County` `Specific_location`（别名 `Specific_Location`）`longitude` `latitude` `coord_source` `coord_confidence` `coord_note` |
+| `Organization` | 大驼峰 | `name` → `OrgName` | `OrgType` `DynastyName` `Description` `Remark` |
+| `Person` | 大驼峰 | `name` → `PersonName` | `DynastyName` `OrgName`（注意：这里是所属势力，对应 SQLite 列 `org`）`Role` `Remark` |
+
+所有模型都另有 `id` / `neo4j_id` / `created_at` 三个公共键（由 `_base_with_meta` 附加）。
+前端取名称用 `utils/knowledge.ts` 的 `nodeDisplayName()`，它已按 `EventName → PersonName → OrgName → geo_name → name` 顺序兜底。
+
 ## 数据流
 
 ```text

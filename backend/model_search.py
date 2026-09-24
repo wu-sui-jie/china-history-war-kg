@@ -488,6 +488,11 @@ class neo4j_db():
             traceback.print_exc()
             return {"nodes": [], "lines": []}
 
+    def count_nodes(self):
+        """节点总数。用于判断能否承受全图加载（见 app.py 的 MAX_LOAD_ALL_NODES）。"""
+        result = self.graph.run("MATCH (n) RETURN count(n) AS c").data()
+        return int(result[0]["c"]) if result else 0
+
     def get_default_graph(self, limit=50, load_all=False):
         """
         获取默认图谱数据（用于可视化初始化）

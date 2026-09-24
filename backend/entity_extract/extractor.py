@@ -16,6 +16,7 @@ import time
 from collections import OrderedDict
 
 from common_utils import lru_get as _cache_get
+from dynasty_data import EXTRACTOR_DYNASTIES as DYNASTIES
 from common_utils import lru_set as _cache_set
 
 from logging_util import get_logger
@@ -42,13 +43,6 @@ class Extractor:
     PLACE_KEYWORDS = ['城', '关', '州', '郡', '县', '府', '道', '路', '山', '河', '江', '湖', '海']
 
     # 常见朝代名称
-    DYNASTIES = [
-        '夏', '商', '西周', '东周', '春秋', '战国', '秦', '秦朝', '汉', '汉朝', '西汉', '东汉',
-        '三国', '魏', '蜀', '吴', '晋', '西晋', '东晋', '南北朝', '隋', '隋朝', '唐', '唐朝',
-        '五代十国', '宋', '宋朝', '北宋', '南宋', '辽', '辽朝', '金', '金朝', '元', '元朝',
-        '明', '明朝', '清', '清朝', '民国'
-    ]
-
     def __init__(self, model_name="deepseek-r1:7b", known_entities=None):
         """初始化提取器
 

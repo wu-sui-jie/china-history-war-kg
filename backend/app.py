@@ -13,6 +13,7 @@ Flask应用主入口
 import json
 import os
 import sqlite3
+import threading
 import time
 import uuid
 import atexit
@@ -32,6 +33,12 @@ from sqlalchemy import func, text
 # ================== 自定义模块 ==================
 import local_settings
 from db_utils import DbUtil
+from dynasty_data import (
+    DYNASTY_ALIAS_MAP,
+    DYNASTY_CORRECTIONS,
+    DYNASTY_DISPLAY_ORDER,
+    VALID_DYNASTIES,
+)
 from jwt_util import TokenError, decode, encode
 from common_utils import safe_identifier, safe_text as _safe_text
 from model_search import neo4j_db
@@ -65,6 +72,9 @@ CORS(app, resources={r"/*": {"origins": _cors_origins}})
 neo4j_db_handle = neo4j_db()
 shared_entity_extractor = None
 shared_rule_llm_integration = None
+# 单例初始化锁（见 initialize_entity_extractor）：无锁的 check-then-set 在
+# Flask 的多线程下会重复建实例，后建的覆盖先建的、先建的那份仍在被别的线程使用。
+_singleton_init_lock = threading.Lock()
 # 请求身份统一存放在 flask.g.user_id（按请求隔离）；
 # 历史上用模块级全局变量承载，多线程下会串号，已废弃。
 
@@ -257,54 +267,48 @@ with app.app_context():
     except Exception as e:
         logger.warning(f"⚠️ SQLite schema 检查失败: {e}")
 
-DYNASTY_DISPLAY_ORDER = [
-    "夏",
-    "商",
-    "西周",
-    "东周",
-    "春秋",
-    "战国",
-    "秦朝",
-    "汉朝",
-    "西汉",
-    "东汉",
-    "三国",
-    "魏国",
-    "蜀国",
-    "吴国",
-    "晋朝",
-    "西晋",
-    "东晋",
-    "南北朝",
-    "隋朝",
-    "唐朝",
-    "五代十国",
-    "宋朝",
-    "北宋",
-    "南宋",
-    "辽朝",
-    "金朝",
-    "元朝",
-    "明朝",
-    "清朝",
-    "民国",
-]
+class OllamaAdapter:
+    """使用本地Ollama模型的适配器"""
+    def __init__(self, model_name="deepseek-r1:7b"):
+        import ollama
+        self.model = model_name
+        self.ollama = ollama
 
-DYNASTY_ALIAS_MAP = {
-    "夏朝": "夏",
-    "商朝": "商",
-    "周朝": "东周",
-    "秦": "秦朝",
-    "汉": "汉朝",
-    "隋": "隋朝",
-    "唐": "唐朝",
-    "宋": "宋朝",
-    "辽": "辽朝",
-    "金": "金朝",
-    "元": "元朝",
-    "明": "明朝",
-    "清": "清朝",
-}
+    def call(self, prompt: str, temperature: float = 0.1, max_retries: int = 3, json_mode: bool = False) -> str:
+        """调用Ollama模型"""
+        import json
+        for attempt in range(max_retries):
+            try:
+                response = self.ollama.chat(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    options={"temperature": temperature},
+                    stream=False,
+                    keep_alive="10m"
+                )
+                content = response['message']['content']
+
+                # 清理可能的Markdown代码块
+                if "```json" in content:
+                    start = content.find("```json") + 7
+                    end = content.find("```", start)
+                    if end > start:
+                        content = content[start:end].strip()
+                elif "```" in content:
+                    start = content.find("```") + 3
+                    end = content.find("```", start)
+                    if end > start:
+                        content = content[start:end].strip()
+
+                return content
+            except Exception as e:
+                logger.warning(f"Ollama调用失败，重试 {attempt + 1}/{max_retries}: {e}")
+                if attempt < max_retries - 1:
+                    import time
+                    time.sleep(1)
+                else:
+                    raise
+
 
 TYPE_LABELS = {
     "Event": "战争事件",
@@ -1695,33 +1699,40 @@ def build_quality_report():
 
 @app.before_request
 def initialize_entity_extractor():
-    """初始化实体提取器和规则推理模块"""
+    """初始化实体提取器和规则推理模块（进程内单例）。
+
+    原先是无锁的 check-then-set：Flask 是多线程的，两个并发请求可能同时看到 None
+    并各建一份实例（后建的覆盖先建的，前一份的线程仍在用它）。这里用锁 + 双重检查。
+    """
     global shared_entity_extractor, shared_rule_llm_integration
 
-    if shared_entity_extractor is None:
-        try:
-            from entity_extract.extractor import Extractor
-            shared_entity_extractor = Extractor()
-            # 加载已知实体到提取器，用于规则匹配快速提取
-            try:
-                shared_entity_extractor.load_known_entities(neo4j_db_handle)
-                logger.info(f"实体提取器已初始化，并加载了已知实体")
-            except Exception as load_err:
-                logger.warning(f"加载已知实体失败，将使用纯模型提取: {load_err}")
-        except Exception as e:
-            logger.warning(f"初始化实体提取器失败: {str(e)}")
+    if shared_entity_extractor is None or shared_rule_llm_integration is None:
+        with _singleton_init_lock:
+            # 拿到锁后重新判断：可能已被另一个线程初始化好
+            if shared_entity_extractor is None:
+                try:
+                    from entity_extract.extractor import Extractor
+                    shared_entity_extractor = Extractor()
+                    # 加载已知实体到提取器，用于规则匹配快速提取
+                    try:
+                        shared_entity_extractor.load_known_entities(neo4j_db_handle)
+                        logger.info("实体提取器已初始化，并加载了已知实体")
+                    except Exception as load_err:
+                        logger.warning("加载已知实体失败，将使用纯模型提取: %s", load_err)
+                except Exception as e:
+                    logger.warning("初始化实体提取器失败: %s", e)
 
-    if shared_rule_llm_integration is None:
-        try:
-            from inference.rule_llm_integration import RuleLLMIntegration
-            shared_rule_llm_integration = RuleLLMIntegration(
-                rule_file_path='rules/rule_base.json',
-                model_name='deepseek-r1:7b',
-                max_depth=30
-            )
-            logger.info("规则推理模块已初始化")
-        except Exception as e:
-            logger.warning(f"初始化规则推理模块失败: {str(e)}")
+            if shared_rule_llm_integration is None:
+                try:
+                    from inference.rule_llm_integration import RuleLLMIntegration
+                    shared_rule_llm_integration = RuleLLMIntegration(
+                        rule_file_path='rules/rule_base.json',
+                        model_name='deepseek-r1:7b',
+                        max_depth=30
+                    )
+                    logger.info("规则推理模块已初始化")
+                except Exception as e:
+                    logger.warning("初始化规则推理模块失败: %s", e)
 
     if shared_entity_extractor is not None:
         g.entity_extractor = shared_entity_extractor
@@ -1794,7 +1805,6 @@ def init_user_dict():
 
     except Exception as e:
         logger.warning(f"创建历史地名词典文件失败: {str(e)}")
-        import traceback
         traceback.print_exc()
 
 
@@ -1824,6 +1834,10 @@ PASS_URLS = {"/", "/api/login", "/api/sign_in"}
 
 # 可写数据的角色；注册接口一律建 viewer（只读）
 WRITE_ROLES = {"admin", "editor"}
+
+# 允许「全图加载」的节点数上限：超过就退回限量加载。
+# 全量分支没有分页，节点数上万时单次请求的响应体与前端渲染开销都会失控。
+MAX_LOAD_ALL_NODES = 3000
 
 
 def require_write_role(view):
@@ -1937,10 +1951,20 @@ def search_name():
     entity = data.get('name', '')
     node_type = data.get('node_type', '')
     rel_type = data.get('rel_type', '')
-    load_all = data.get('load_all', True)
+    # 是否全图加载：默认关。全量分支会 `MATCH (n) RETURN n` 拉全部节点与关系且没有上限，
+    # 大图上单次请求就能吃掉大量内存与带宽（BE-8）。显式要求时也要先看规模。
+    load_all = bool(data.get('load_all', False))
 
     try:
         if not entity and not node_type and not rel_type:
+            if load_all:
+                node_total = neo4j_db_handle.count_nodes()
+                if node_total > MAX_LOAD_ALL_NODES:
+                    logger.warning(
+                        "拒绝全图加载：节点数 %s 超过上限 %s，改为限量加载（如需全图请用图形库前端的聚焦/分页）",
+                        node_total, MAX_LOAD_ALL_NODES,
+                    )
+                    load_all = False
             json_data = neo4j_db_handle.get_default_graph(limit=50, load_all=load_all)
             logger.info(f"使用默认图谱加载方式, {'加载全部' if load_all else '加载部分'}")
         else:
@@ -1963,11 +1987,15 @@ def search_name():
         return jsonify({
             "code": 200,
             "msg": "success",
-            "data": json_data
+            "data": json_data,
+            # 本次实际用的加载方式（full / limited / focused）：前端据此提示"被降级了"，
+            # 否则用户只会看到一张不完整的图、不知道原因
+            "graph_mode": ("full" if (load_all and not entity and not node_type and not rel_type)
+                           else "focused" if (entity or node_type or rel_type)
+                           else "limited"),
         })
     except Exception as e:
         logger.warning(f"搜索地名知识图谱异常: {str(e)}")
-        import traceback
         traceback.print_exc()
         return jsonify({
             "code": 500,
@@ -2561,7 +2589,6 @@ def ai_inference():
             error_msg = str(process_err)
 
             logger.info(f"[{request_id}] 处理问题时出错: {error_type} - {error_msg}")
-            import traceback
             traceback.print_exc()
 
             user_message = "抱歉，处理您的问题时遇到了技术问题。"
@@ -2590,7 +2617,6 @@ def ai_inference():
         error_type = type(e).__name__
         error_msg = str(e)
         logger.info(f"处理推理请求时出错: {error_type} - {error_msg}")
-        import traceback
         traceback.print_exc()
 
         return jsonify({
@@ -2912,7 +2938,6 @@ def ai_inference_stream():
                 error_type = type(e).__name__
                 error_msg = str(e)
                 logger.info(f"[{request_id}] SSE处理出错: {error_type} - {error_msg}")
-                import traceback
                 traceback.print_exc()
                 yield f"data: {json.dumps({'status': 'error', 'message': f'处理出错: {error_msg}'})}\n\n"
 
@@ -2925,7 +2950,6 @@ def ai_inference_stream():
         error_type = type(e).__name__
         error_msg = str(e)
         logger.warning(f"SSE请求处理错误: {error_type} - {error_msg}")
-        import traceback
         traceback.print_exc()
         return jsonify({'success': False, 'error': f'请求处理错误: {error_msg}'}), 500
 
@@ -3099,22 +3123,7 @@ def _to_str(value):
 
 
 # 合法朝代列表（来自entity-event-relation提示词模板）
-VALID_DYNASTIES = [
-    "夏", "商", "西周", "春秋", "战国", "秦", "西汉", "东汉",
-    "三国", "魏", "蜀", "吴", "西晋", "东晋", "南北朝",
-    "隋", "唐", "五代十国", "北宋", "南宋", "辽", "西夏", "金", "元", "明", "清",
-    "上古", "原始社会", "父系氏族社会",
-]
-
 # 常见错误朝代名 → 正确朝代名 映射
-_DYNASTY_CORRECTIONS = {
-    "商汤": "商", "商朝": "商", "夏朝": "夏", "周朝": "西周",
-    "秦朝": "秦", "汉朝": "西汉", "隋朝": "隋", "唐朝": "唐",
-    "宋朝": "北宋", "辽朝": "辽", "金朝": "金", "元朝": "元",
-    "明朝": "明", "清朝": "清",
-}
-
-
 def _normalize_dynasty(name):
     """校验并纠正朝代名称，将LLM输出的错误朝代名（如人名"商汤"）纠正为正确朝代"""
     if not name:
@@ -3128,8 +3137,8 @@ def _normalize_dynasty(name):
         return name
 
     # 2. 查找已知错误映射
-    if name in _DYNASTY_CORRECTIONS:
-        return _DYNASTY_CORRECTIONS[name]
+    if name in DYNASTY_CORRECTIONS:
+        return DYNASTY_CORRECTIONS[name]
 
     # 3. 模糊匹配：如果名称包含某个合法朝代，提取该朝代
     #    例如 "商汤" 包含 "商"，"汉武帝" 包含 "汉"（但汉需要特殊处理）
@@ -3477,49 +3486,6 @@ def extract_entities_events():
                 "data": {}
             })
 
-        # 创建Ollama适配器，替代DeepSeekClient
-        class OllamaAdapter:
-            """使用本地Ollama模型的适配器"""
-            def __init__(self, model_name="deepseek-r1:7b"):
-                import ollama
-                self.model = model_name
-                self.ollama = ollama
-
-            def call(self, prompt: str, temperature: float = 0.1, max_retries: int = 3, json_mode: bool = False) -> str:
-                """调用Ollama模型"""
-                import json
-                for attempt in range(max_retries):
-                    try:
-                        response = self.ollama.chat(
-                            model=self.model,
-                            messages=[{"role": "user", "content": prompt}],
-                            options={"temperature": temperature},
-                            stream=False,
-                            keep_alive="10m"
-                        )
-                        content = response['message']['content']
-
-                        # 清理可能的Markdown代码块
-                        if "```json" in content:
-                            start = content.find("```json") + 7
-                            end = content.find("```", start)
-                            if end > start:
-                                content = content[start:end].strip()
-                        elif "```" in content:
-                            start = content.find("```") + 3
-                            end = content.find("```", start)
-                            if end > start:
-                                content = content[start:end].strip()
-
-                        return content
-                    except Exception as e:
-                        logger.warning(f"Ollama调用失败，重试 {attempt + 1}/{max_retries}: {e}")
-                        if attempt < max_retries - 1:
-                            import time
-                            time.sleep(1)
-                        else:
-                            raise
-
         # 初始化LLM客户端
         try:
             llm = OllamaAdapter("deepseek-r1:7b")
@@ -3669,7 +3635,6 @@ def extract_entities_events():
         error_type = type(e).__name__
         error_msg = str(e)
         logger.warning(f"文本实体识别失败: {error_type} - {error_msg}")
-        import traceback
         traceback.print_exc()
         return jsonify({
             "code": 500,

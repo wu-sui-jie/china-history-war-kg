@@ -15,6 +15,7 @@
     5. 返回回答和知识图谱可视化数据
 """
 import json
+import threading
 import time
 import ollama
 import hashlib
@@ -22,6 +23,7 @@ from typing import List, Dict, Any, Optional
 from collections import OrderedDict
 
 from common_utils import lru_get as _lru_get
+from dynasty_data import DYNASTY_SCOPE_MAP
 from common_utils import lru_set as _lru_set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -30,47 +32,41 @@ from logging_util import get_logger
 logger = get_logger(__name__)
 
 
+class _ThreadLocalNeo4j:
+    """把 neo4j_db 实例包装成「每线程一个 Graph」的代理（BE-6）。
+
+    py2neo 的 Graph 不是线程安全的（并发 run 会共用同一连接与事务状态），
+    而本模块用 ThreadPoolExecutor 并发查询图谱。ThreadPoolExecutor 的线程是复用的，
+    所以每个线程建一个连接就够了，实际连接数上限 = 线程池大小（4）。
+    其余属性透传给原实例，调用方无需感知。
+    """
+
+    def __init__(self, base):
+        self._base = base
+        self._local = threading.local()
+
+    @property
+    def graph(self):
+        graph = getattr(self._local, "graph", None)
+        if graph is None:
+            try:
+                from model_search import neo4j_db as _neo4j_db_cls
+                graph = _neo4j_db_cls().graph
+            except Exception as exc:  # noqa: BLE001
+                # 建独立连接失败就退回共享实例：退化为原行为，不影响功能
+                logger.warning("为查询线程创建独立 Neo4j 连接失败，回退共享连接: %s", exc)
+                graph = self._base.graph
+            self._local.graph = graph
+        return graph
+
+    def __getattr__(self, item):
+        return getattr(self._base, item)
+
+
 
 def _stable_hash(data: Any) -> str:
     text = json.dumps(data, ensure_ascii=False, sort_keys=True, default=str)
     return hashlib.md5(text.encode("utf-8")).hexdigest()
-
-
-DYNASTY_SCOPE_MAP = {
-    "夏": ["夏"],
-    "夏朝": ["夏"],
-    "商": ["商"],
-    "商朝": ["商"],
-    "周": ["西周", "东周"],
-    "周朝": ["西周", "东周"],
-    "西周": ["西周"],
-    "东周": ["东周"],
-    "秦": ["秦朝", "秦"],
-    "秦朝": ["秦朝", "秦"],
-    "汉": ["汉朝", "西汉", "东汉"],
-    "汉朝": ["汉朝", "西汉", "东汉"],
-    "西汉": ["西汉"],
-    "东汉": ["东汉"],
-    "三国": ["三国", "魏国", "蜀国", "吴国"],
-    "晋": ["晋朝", "西晋", "东晋"],
-    "晋朝": ["晋朝", "西晋", "东晋"],
-    "西晋": ["西晋"],
-    "东晋": ["东晋"],
-    "隋": ["隋朝", "隋"],
-    "隋朝": ["隋朝", "隋"],
-    "唐": ["唐朝", "唐"],
-    "唐朝": ["唐朝", "唐"],
-    "宋": ["宋朝", "北宋", "南宋"],
-    "宋朝": ["宋朝", "北宋", "南宋"],
-    "北宋": ["北宋"],
-    "南宋": ["南宋"],
-    "元": ["元朝", "元"],
-    "元朝": ["元朝", "元"],
-    "明": ["明朝", "明"],
-    "明朝": ["明朝", "明"],
-    "清": ["清朝", "清"],
-    "清朝": ["清朝", "清"],
-}
 
 
 class RuleLLMIntegration:
@@ -1243,7 +1239,10 @@ class RuleLLMIntegration:
                 logger.info(f"开始并行查询 {len(query_entities_list)} 个实体信息...")
                 query_start = time.time()
 
-                def query_single_entity(entity):
+                # 线程池里并发查询：每线程用各自的连接
+                worker_db = _ThreadLocalNeo4j(neo4j_db)
+
+                def query_single_entity(entity, db=worker_db):
                     """查询单个实体信息"""
                     try:
                         # 先进行精确查询
@@ -1253,7 +1252,7 @@ class RuleLLMIntegration:
                         RETURN n
                         LIMIT 1
                         """
-                        results = neo4j_db.graph.run(query, entity=entity).data()
+                        results = db.graph.run(query, entity=entity).data()
 
                         if results:
                             node = results[0]['n']
@@ -1271,7 +1270,7 @@ class RuleLLMIntegration:
                         RETURN n
                         LIMIT 5
                         """
-                        fuzzy_results = neo4j_db.graph.run(fuzzy_query, entity=entity).data()
+                        fuzzy_results = db.graph.run(fuzzy_query, entity=entity).data()
 
                         if fuzzy_results:
                             return [{
@@ -1319,10 +1318,10 @@ class RuleLLMIntegration:
             logger.info(f"开始并行查询 {len(all_entity_info)} 个实体的关系...")
             relation_start = time.time()
 
-            def query_entity_relations(info):
+            def query_entity_relations(info, db=worker_db):
                 """查询单个实体的关系"""
                 try:
-                    return self.get_entity_relationships(info['id'], neo4j_db)
+                    return self.get_entity_relationships(info['id'], db)
                 except Exception as e:
                     logger.warning(f"查询实体 '{info['name']}' 关系失败: {e}")
                     return []
@@ -1370,11 +1369,11 @@ class RuleLLMIntegration:
                         processed_entity_pairs.add(entity_pair)
                         entity_pairs.append((entity1_id, entity2_id))
 
-                def search_path_for_pair(pair):
+                def search_path_for_pair(pair, db=worker_db):
                     """搜索一对实体之间的路径"""
                     entity1_id, entity2_id = pair
                     try:
-                        return self.search_paths_between_entities(entity1_id, entity2_id, neo4j_db)
+                        return self.search_paths_between_entities(entity1_id, entity2_id, db)
                     except Exception as e:
                         logger.warning(f"搜索路径 {entity1_id} -> {entity2_id} 失败: {e}")
                         return []
