@@ -432,7 +432,7 @@
 import { ref, computed, reactive, onMounted } from 'vue';
 import { layer } from '@layui/layui-vue'
 import { useRouter } from 'vue-router';
-import Http from '../../api/http';
+import { extractEntitiesEvents } from '../../api/module/node'
 import KgGraph from '../inference/components/KgGraph.vue';
 import { formatChatTime } from '../../utils/date';
 
@@ -624,9 +624,7 @@ async function startExtract() {
   result.value = null;
 
   try {
-    const response = await Http.post('/api/extract/entities-events', {
-      text: inputText.value
-    });
+    const response = await extractEntitiesEvents({ text: inputText.value });
 
     if (response && response.code === 200) {
       result.value = response.data;

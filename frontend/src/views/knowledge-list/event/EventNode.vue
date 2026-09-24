@@ -179,206 +179,51 @@
   </lay-layer>
 </template>
 
-<script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import Http from "@/api/http";
-import { layer } from "@layui/layui-vue";
+<script setup lang="ts">
+import { nodeColumns, useNodeCrudPage } from '@/composables/useNodeCrudPage'
 
-const router = useRouter();
-const searchName = ref("");
-const page = ref({ total: 0, limit: 10, current: 1 });
-const dataSource = ref([]);
-const visible = ref(false);
-const formRef = ref(null);
-const isSubmitting = ref(false);
+// 列表拉取、分页查询、增删改提交与详情跳转都在组合式函数里（四个管理页共用一份），
+// 本页只声明：节点类型、字段集合与列配置。
+const {
+  searchName, page, dataSource, visible, formRef, isSubmitting, formData, formRules,
+  add, submit, close, viewDetail, openEntityDetail, deleteNode,
+  change, toSearch, toReset,
+} = useNodeCrudPage({
+  nodeType: 'Event',
+  displayType: 'Event',
+  nameField: 'EventName',
+  nameLabel: '事件名称',
+  // 字段顺序与原实现一致：提交 payload 与编辑回填都按它走
+  emptyForm: () => ({
+    id: null,
+    type: 'Event',
+    EventName: "",
+    DynastyName: "",
+    EventType: "",
+    StartDate: "",
+    EndDate: "",
+    Place: "",
+    Aggressor: "",
+    Defender: "",
+    KeyPersons: "",
+    Action: "",
+    Result: "",
+    TroopSize: "",
+    Impact: "",
+    source_text: "",
+    Remark: "",
+  }),
+})
 
-const columns = ref([
-  { title: "序号", width: 80, align: "center", customSlot: "index", key: "index" },
-  { title: "战争事件名称", key: "EventName", minWidth: 220 },
-  { title: "类型", width: 120, customSlot: "type", key: "type", align: "center" },
-  { title: "所属朝代", key: "DynastyName", width: 120, align: "center" },
-  { title: "发生地点", key: "Place", width: 180 },
-  { title: "开始时间", key: "StartDate", width: 120 },
-  { title: "操作", width: 200, customSlot: "operator", key: "operator", align: "center" },
-]);
-
-const emptyForm = () => ({
-  id: null,
-  type: "Event",
-  EventName: "",
-  DynastyName: "",
-  EventType: "",
-  StartDate: "",
-  EndDate: "",
-  Place: "",
-  Aggressor: "",
-  Defender: "",
-  KeyPersons: "",
-  Action: "",
-  Result: "",
-  TroopSize: "",
-  Impact: "",
-  source_text: "",
-  Remark: "",
-});
-
-const formData = ref(emptyForm());
-
-const formRules = {
-  EventName: {
-    required: true,
-    message: "请输入事件名称",
-    min: 1,
-    max: 100,
-  },
-};
-
-function add() {
-  resetForm();
-  visible.value = true;
-}
-
-function resetForm() {
-  formData.value = emptyForm();
-  formRef.value?.clearValidate();
-}
-
-function submit() {
-  formRef.value.validate((isValidate) => {
-    if (!isValidate) {
-      layer.msg("请填写必填项", { icon: 2 });
-      return;
-    }
-
-    isSubmitting.value = true;
-    const submitData = {
-      type: "Event",
-      EventName: formData.value.EventName,
-      DynastyName: formData.value.DynastyName || null,
-      EventType: formData.value.EventType || null,
-      StartDate: formData.value.StartDate || null,
-      EndDate: formData.value.EndDate || null,
-      Place: formData.value.Place || null,
-      Aggressor: formData.value.Aggressor || null,
-      Defender: formData.value.Defender || null,
-      KeyPersons: formData.value.KeyPersons || null,
-      Action: formData.value.Action || null,
-      Result: formData.value.Result || null,
-      TroopSize: formData.value.TroopSize || null,
-      Impact: formData.value.Impact || null,
-      source_text: formData.value.source_text || null,
-      Remark: formData.value.Remark || null,
-    };
-
-    if (formData.value.id) submitData.id = formData.value.id;
-    const url = formData.value.id ? "/update_node" : "/create_node";
-
-    Http.post(url, submitData)
-      .then((res) => {
-        isSubmitting.value = false;
-        if (res.code === 200) {
-          layer.msg(formData.value.id ? "修改成功" : "创建成功", { icon: 1 });
-          close();
-          query();
-        } else {
-          layer.msg(res.msg || "操作失败", { icon: 2 });
-        }
-      })
-      .catch(() => {
-        isSubmitting.value = false;
-        layer.msg("网络错误，请重试", { icon: 2 });
-      });
-  });
-}
-
-function close() {
-  visible.value = false;
-  resetForm();
-}
-
-function viewDetail(row) {
-  formData.value = {
-    id: row.id,
-    type: "Event",
-    EventName: row.EventName || "",
-    DynastyName: row.DynastyName || "",
-    EventType: row.EventType || "",
-    StartDate: row.StartDate || "",
-    EndDate: row.EndDate || "",
-    Place: row.Place || "",
-    Aggressor: row.Aggressor || "",
-    Defender: row.Defender || "",
-    KeyPersons: row.KeyPersons || "",
-    Action: row.Action || "",
-    Result: row.Result || "",
-    TroopSize: row.TroopSize || "",
-    Impact: row.Impact || "",
-    source_text: row.source_text || "",
-    Remark: row.Remark || "",
-  };
-  visible.value = true;
-}
-
-function openEntityDetail(row) {
-  router.push(`/knowledge/entity-detail?type=Event&id=${row.id}&back=${encodeURIComponent('/knowledge-list/event')}`);
-}
-
-function deleteNode(row) {
-  layer.confirm(`确定要删除 "${row.EventName}" 吗？`, {
-    icon: 3,
-    title: "确认删除",
-    yes(index) {
-      layer.close(index);
-      Http.post("/delete_node", { type: "Event", id: row.id }).then((res) => {
-        if (res.code === 200) {
-          layer.msg("删除成功", { icon: 1 });
-          query();
-        } else {
-          layer.msg(res.msg || "删除失败", { icon: 2 });
-        }
-      });
-    },
-    btn2(index) {
-      layer.close(index);
-    },
-  });
-}
-
-function change({ current, limit }) {
-  page.value.current = current;
-  page.value.limit = limit;
-  query();
-}
-
-function toSearch() {
-  page.value.current = 1;
-  query();
-}
-
-function toReset() {
-  searchName.value = "";
-  page.value.current = 1;
-  query();
-}
-
-function query() {
-  Http.post("/api/find_node_page", {
-    pageNum: page.value.current,
-    pageSize: page.value.limit,
-    name: searchName.value,
-    node_type: "Event",
-  }).then((res) => {
-    if (res.code === 200) {
-      dataSource.value = (res.data.records || []).map((item) => ({ ...item, type: "Event" }));
-      page.value.total = res.data.total || 0;
-    } else {
-      layer.msg(res.msg || "查询失败", { icon: 2 });
-    }
-  });
-}
-
-onMounted(() => query());
+const columns = nodeColumns(
+  { title: '战争事件名称', key: 'EventName', minWidth: 220 },
+  [
+    { title: '所属朝代', key: 'DynastyName', width: 120, align: 'center' },
+    { title: '发生地点', key: 'Place', width: 180 },
+    { title: '开始时间', key: 'StartDate', width: 120 },
+  ],
+  200,
+)
 </script>
 
 <style scoped>

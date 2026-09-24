@@ -93,173 +93,41 @@
   </lay-layer>
 </template>
 
-<script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import Http from "@/api/http";
-import { layer } from "@layui/layui-vue";
+<script setup lang="ts">
+import { nodeColumns, useNodeCrudPage } from '@/composables/useNodeCrudPage'
 
-const router = useRouter();
-const searchName = ref("");
-const page = ref({ total: 0, limit: 10, current: 1 });
-const dataSource = ref([]);
-const visible = ref(false);
-const formRef = ref(null);
-const isSubmitting = ref(false);
+// 列表拉取、分页查询、增删改提交与详情跳转都在组合式函数里（四个管理页共用一份），
+// 本页只声明：节点类型、字段集合与列配置。
+const {
+  searchName, page, dataSource, visible, formRef, isSubmitting, formData, formRules,
+  add, submit, close, viewDetail, openEntityDetail, deleteNode,
+  change, toSearch, toReset,
+} = useNodeCrudPage({
+  nodeType: 'Person',
+  displayType: '历史人物',
+  nameField: 'PersonName',
+  nameLabel: '人物名称',
+  // 字段顺序与原实现一致：提交 payload 与编辑回填都按它走
+  emptyForm: () => ({
+    id: null,
+    type: 'Person',
+    PersonName: "",
+    DynastyName: "",
+    OrgName: "",
+    Role: "",
+    Remark: "",
+  }),
+})
 
-const columns = ref([
-  { title: "序号", width: 80, align: "center", customSlot: "index", key: "index" },
-  { title: "历史人物名称", key: "PersonName", minWidth: 200 },
-  { title: "类型", width: 120, customSlot: "type", key: "type", align: "center" },
-  { title: "所属朝代", key: "DynastyName", width: 120, align: "center" },
-  { title: "所属组织", key: "OrgName", width: 150 },
-  { title: "担任角色", key: "Role", width: 120 },
-  { title: "操作", width: 260, customSlot: "operator", key: "operator", align: "center" },
-]);
-
-const emptyForm = () => ({
-  id: null,
-  type: "Person",
-  PersonName: "",
-  DynastyName: "",
-  OrgName: "",
-  Role: "",
-  Remark: "",
-});
-
-const formData = ref(emptyForm());
-
-const formRules = {
-  PersonName: {
-    required: true,
-    message: "请输入人物名称",
-    min: 1,
-    max: 100,
-  },
-};
-
-function add() {
-  resetForm();
-  visible.value = true;
-}
-
-function resetForm() {
-  formData.value = emptyForm();
-  formRef.value?.clearValidate();
-}
-
-function submit() {
-  formRef.value.validate((isValidate) => {
-    if (!isValidate) {
-      layer.msg("请填写必填项", { icon: 2 });
-      return;
-    }
-    isSubmitting.value = true;
-    const submitData = {
-      type: "Person",
-      PersonName: formData.value.PersonName,
-      DynastyName: formData.value.DynastyName || null,
-      OrgName: formData.value.OrgName || null,
-      Role: formData.value.Role || null,
-      Remark: formData.value.Remark || null,
-    };
-    if (formData.value.id) submitData.id = formData.value.id;
-    const url = formData.value.id ? "/update_node" : "/create_node";
-    Http.post(url, submitData)
-      .then((res) => {
-        isSubmitting.value = false;
-        if (res.code === 200) {
-          layer.msg(formData.value.id ? "修改成功" : "创建成功", { icon: 1 });
-          close();
-          query();
-        } else {
-          layer.msg(res.msg || "操作失败", { icon: 2 });
-        }
-      })
-      .catch(() => {
-        isSubmitting.value = false;
-        layer.msg("网络错误，请重试", { icon: 2 });
-      });
-  });
-}
-
-function close() {
-  visible.value = false;
-  resetForm();
-}
-
-function viewDetail(row) {
-  formData.value = {
-    id: row.id,
-    type: "Person",
-    PersonName: row.PersonName || "",
-    DynastyName: row.DynastyName || "",
-    OrgName: row.OrgName || "",
-    Role: row.Role || "",
-    Remark: row.Remark || "",
-  };
-  visible.value = true;
-}
-
-function openEntityDetail(row) {
-  router.push(`/knowledge/entity-detail?type=Person&id=${row.id}&back=${encodeURIComponent('/knowledge-list/person')}`);
-}
-
-function deleteNode(row) {
-  layer.confirm(`确定要删除“${row.PersonName}”吗？`, {
-    icon: 3,
-    title: "确认删除",
-    yes(index) {
-      layer.close(index);
-      Http.post("/delete_node", { type: "Person", id: row.id }).then((res) => {
-        if (res.code === 200) {
-          layer.msg("删除成功", { icon: 1 });
-          query();
-        } else {
-          layer.msg(res.msg || "删除失败", { icon: 2 });
-        }
-      });
-    },
-    btn2(index) {
-      layer.close(index);
-    },
-  });
-}
-
-function change({ current, limit }) {
-  page.value.current = current;
-  page.value.limit = limit;
-  query();
-}
-
-function toSearch() {
-  page.value.current = 1;
-  query();
-}
-
-function toReset() {
-  searchName.value = "";
-  page.value.current = 1;
-  query();
-}
-
-function query() {
-  Http.post("/api/find_node_page", {
-    pageNum: page.value.current,
-    pageSize: page.value.limit,
-    name: searchName.value,
-    node_type: "Person",
-  }).then((res) => {
-    if (res.code === 200) {
-      dataSource.value = (res.data.records || []).map((item) => ({ ...item, type: "历史人物" }));
-      page.value.total = res.data.total || 0;
-    } else {
-      layer.msg(res.msg || "查询失败", { icon: 2 });
-    }
-  });
-}
-
-onMounted(() => query());
+const columns = nodeColumns(
+  { title: '历史人物名称', key: 'PersonName', minWidth: 200 },
+  [
+    { title: '所属朝代', key: 'DynastyName', width: 120, align: 'center' },
+    { title: '所属组织', key: 'OrgName', width: 150 },
+    { title: '担任角色', key: 'Role', width: 120 },
+  ],
+  260,
+)
 </script>
 
 <style scoped>

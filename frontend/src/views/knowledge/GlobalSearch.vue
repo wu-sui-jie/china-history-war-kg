@@ -30,7 +30,7 @@
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
-import Http from '../../api/http'
+import { globalSearch } from '../../api/module/graph'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,7 +43,7 @@ const search = async () => {
     layer.msg('请输入关键词', { icon: 2 })
     return
   }
-  const res = await Http.get('/api/search/global', { keyword: keyword.value.trim() })
+  const res = await globalSearch(keyword.value.trim())
   searched.value = true
   results.value = res.code === 200 ? res.data || [] : []
 }

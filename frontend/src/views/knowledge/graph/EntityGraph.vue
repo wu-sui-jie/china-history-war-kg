@@ -61,11 +61,12 @@
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import EChartsGraph from './EChartsGraph.vue'
-import Http from '@/api/http'
+import { getEventGraph, type EventGraphEndpoint } from '@/api/module/graph'
+import { getNodeRelations } from '@/api/module/node'
 import { mergeNodeRelations } from '@/utils/graph'
 
 /** 四个子页的全部差异集中在这里，模板与逻辑共享。 */
-const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTypes: string[]; endpoint: string }> = {
+const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTypes: string[]; endpoint: EventGraphEndpoint }> = {
   event: {
     label: '战争名称',
     placeholder: '请输入战争名称，如：淝水之战',
@@ -121,7 +122,7 @@ function toReset() {
 async function loadNodeRelations(nodeId: string) {
   expanding.value = true
   try {
-    const response = await Http.get(`/api/node/relations?id=${nodeId}`)
+    const response = await getNodeRelations(nodeId)
     if (response.code === 200) {
       // 合并去重的实现收敛在 utils/graph.ts（原先与 OverviewGraph 各一份）
       datasource.value = mergeNodeRelations(datasource.value, response.data || {})
@@ -138,11 +139,10 @@ async function getGraph() {
   loading.value = true
   expanding.value = false
   try {
-    const params = new URLSearchParams({
+    const response = await getEventGraph(config.value.endpoint, {
       name: searchQuery.value.name?.trim() || '',
-      rel_type: searchQuery.value.rel_type || ''
+      rel_type: searchQuery.value.rel_type || '',
     })
-    const response = await Http.get(`${config.value.endpoint}?${params.toString()}`)
     if (response.code === 200) {
       datasource.value = response.data
     } else {

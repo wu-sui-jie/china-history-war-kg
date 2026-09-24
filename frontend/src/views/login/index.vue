@@ -78,7 +78,7 @@ import {defineComponent, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useUserStore} from '../../store/user'
 import {layer} from "@layui/layui-vue"
-import Http from "@/api/http"
+import { login, signIn } from "@/api/module/user"
 
 const MIN_PASSWORD_LENGTH = 6
 const MAX_PASSWORD_LENGTH = 20
@@ -158,7 +158,7 @@ export default defineComponent({
       loginForm.account = payload.account
       loginForm.password = payload.password
       loging.value = true;
-      Http.post("/api/login", payload)
+      login(payload)
           .then(({data, code, msg}) => {
             if (code == 200) {
               userStore.token = data
@@ -184,7 +184,7 @@ export default defineComponent({
       loginForm.name = payload.name
       loginForm.password = payload.password
       loging.value = true;
-      Http.post("/api/sign_in", payload)
+      signIn(payload)
           .then(({data, code, msg}) => {
             if (code == 200) {
               userStore.token = data

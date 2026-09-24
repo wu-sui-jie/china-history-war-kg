@@ -20,7 +20,8 @@ import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import EChartsGraph from './EChartsGraph.vue'
-import Http from '@/api/http'
+import { getGraphNodeContext, searchNameKg } from '@/api/module/graph'
+import { getNodeRelations } from '@/api/module/node'
 import { mergeNodeRelations } from '@/utils/graph'
 
 const loading = ref(false)
@@ -42,7 +43,7 @@ function syncPageSummary() {
 async function loadNodeRelations(nodeId: string) {
   loading.value = true
   try {
-    const response = await Http.get(`/api/node/relations?id=${nodeId}`)
+    const response = await getNodeRelations(nodeId)
     if (response.code === 200) {
       // 合并去重的实现收敛在 utils/graph.ts（原先与 EntityGraph 各一份）
       datasource.value = mergeNodeRelations(datasource.value, response.data || {})
@@ -71,8 +72,8 @@ async function getGraph(allowFocus = true) {
   try {
     const focus = allowFocus ? getGraphFocus() : null
     const response = focus
-      ? await Http.get('/api/graph/node_context', focus)
-      : await Http.post('/search_name_kg', { load_all: wantFullGraph.value })
+      ? await getGraphNodeContext(focus)
+      : await searchNameKg({ load_all: wantFullGraph.value })
     datasource.value = response.code === 200 ? response.data || { nodes: [], lines: [] } : { nodes: [], lines: [] }
     // 后端因规模超限把全图请求降级为限量加载时明确告知，避免用户以为"图就这么多"
     if (!focus && wantFullGraph.value && response?.graph_mode === 'limited') {

@@ -40,7 +40,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
-import Http from '../../api/http'
+import { relationAnalysis } from '../../api/module/graph'
 import EChartsGraph from './graph/EChartsGraph.vue'
 
 const router = useRouter()
@@ -60,7 +60,7 @@ const loadData = async () => {
   }
   loading.value = true
   try {
-    const res = await Http.get('/api/relation-analysis/query', query)
+    const res = await relationAnalysis(query)
     graph.value = res.code === 200 ? res.data : { nodes: [], lines: [] }
   } finally {
     loading.value = false

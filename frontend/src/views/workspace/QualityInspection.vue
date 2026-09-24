@@ -125,7 +125,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
-import Http from '../../api/http'
+import { updateNodeProperties } from '../../api/module/node'
 import { getEntityDetail, getQualityWorkbench } from '../../api/module/workspace'
 import { fieldLabel, fieldValueLabel, toEditableFields, typeLabel } from '../../utils/knowledge'
 
@@ -283,7 +283,7 @@ const saveChanges = async () => {
   const wasCoordinateIssue = ['coordinate_missing', 'coordinate_low_confidence'].includes(selectedIssue.value?.issue_type)
   saving.value = true
   try {
-    const res = await Http.post('/api/node/update_properties', {
+    const res = await updateNodeProperties({
       id: selectedNodeId.value,
       type: selectedNodeType.value,
       properties: editableProperties(),
