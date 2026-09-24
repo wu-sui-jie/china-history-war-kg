@@ -65,6 +65,9 @@ class ErrorCode(str, Enum):
     TIMEOUT = "timeout"
     SERVER_BUSY = "server_busy"
     INTERNAL = "internal"
+    # 非流式接口的可选共享密钥校验失败（RAG_BOT_API_KEY / X-Bot-Key，开发文档 6.4）。
+    # 只用于 /api/query/json，不影响其他接口。
+    UNAUTHORIZED = "unauthorized"
 
 
 @dataclass

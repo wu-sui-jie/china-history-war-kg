@@ -17,7 +17,12 @@ Neo4j图数据库操作类
 from py2neo import Graph
 
 import local_settings
+from common_utils import safe_identifier
 from relation_types import relationship_type_aliases
+
+from logging_util import get_logger
+
+logger = get_logger(__name__)
 
 
 class neo4j_db():
@@ -32,16 +37,17 @@ class neo4j_db():
             self.graph = Graph(uri, user=user, password=password)
                 # 测试连接
             test_result = self.graph.run("RETURN 1 as test").data()
-            print(f"✅ Neo4j连接成功: {uri}")
+            logger.info(f"✅ Neo4j连接成功: {uri}")
         except Exception as e:
-            print(f"❌ Neo4j连接失败: {e}")
+            logger.error(f"❌ Neo4j连接失败: {e}")
             raise
 
     # 创建节点
     def create_node(self, label, name):
         """创建节点 - 使用 Cypher CREATE 确保立即提交"""
         try:
-            # 使用参数化查询防止注入，并强制返回 ID
+            # 标签无法参数化，先做格式校验；name 走参数
+            label = safe_identifier(label)
             cypher = f"""
             CREATE (n:`{label}` {{name: $name}})
             RETURN id(n) as node_id, labels(n) as labels, n.name as name
@@ -51,7 +57,7 @@ class neo4j_db():
             if result and len(result) > 0:
                 node_id = result[0]['node_id']
                 labels = result[0]['labels']
-                print(f"✅ Neo4j节点创建成功: ID={node_id}, Labels={labels}, Name={name}")
+                logger.info(f"✅ Neo4j节点创建成功: ID={node_id}, Labels={labels}, Name={name}")
 
                 # 返回一个包含 identity 属性的简单对象
                 class SimpleNode:
@@ -60,11 +66,11 @@ class neo4j_db():
 
                 return SimpleNode(node_id)
             else:
-                print(f"❌ Neo4j节点创建失败: Cypher执行无返回结果")
+                logger.error(f"❌ Neo4j节点创建失败: Cypher执行无返回结果")
                 return None
 
         except Exception as e:
-            print(f"❌ Neo4j节点创建异常: {e}")
+            logger.error(f"❌ Neo4j节点创建异常: {e}")
             import traceback
             traceback.print_exc()
             raise
@@ -73,6 +79,7 @@ class neo4j_db():
     def update_node(self, label, node_id, new_name):
         """使用 Cypher 更新节点名称"""
         try:
+            label = safe_identifier(label)
             cypher = f"""
             MATCH (n:`{label}`)
             WHERE id(n) = $node_id
@@ -82,14 +89,14 @@ class neo4j_db():
             result = self.graph.run(cypher, node_id=node_id, new_name=new_name).data()
 
             if result:
-                print(f"✅ Neo4j节点更新成功: ID={node_id}, NewName={new_name}")
+                logger.info(f"✅ Neo4j节点更新成功: ID={node_id}, NewName={new_name}")
                 return True
             else:
-                print(f"⚠️ Neo4j节点更新失败: 未找到节点 {node_id}")
+                logger.warning(f"⚠️ Neo4j节点更新失败: 未找到节点 {node_id}")
                 return False
 
         except Exception as e:
-            print(f"❌ Neo4j节点更新异常: {e}")
+            logger.error(f"❌ Neo4j节点更新异常: {e}")
             raise
 
     # 获取节点详细信息
@@ -102,14 +109,14 @@ class neo4j_db():
         """
 
         # 构造Cypher查询语句，根据ID匹配节点
-        sql = f'''
+        sql = '''
         MATCH (n)
-        WHERE id(n) = {node_id}
+        WHERE id(n) = $node_id
         RETURN n, labels(n) AS labels
         '''
 
         # 执行查询语句，返回结果列表
-        result = self.graph.run(sql).data()
+        result = self.graph.run(sql, node_id=node_id).data()
 
         # 若查询结果不为空
         if result:
@@ -142,7 +149,7 @@ class neo4j_db():
             props = {k: v for k, v in properties.items() if k not in ['id', 'type']}
 
             if not props:
-                print(f"⚠️ 无有效属性需要更新")
+                logger.warning(f"⚠️ 无有效属性需要更新")
                 return True
 
             # 构建 SET 子句和 REMOVE 子句
@@ -173,14 +180,14 @@ class neo4j_db():
             result = self.graph.run(cypher, **params).data()
 
             if result:
-                print(f"✅ Neo4j属性更新成功: ID={node_id}, Props={list(props.keys())}")
+                logger.info(f"✅ Neo4j属性更新成功: ID={node_id}, Props={list(props.keys())}")
                 return True
             else:
-                print(f"⚠️ Neo4j属性更新失败: 未找到节点 {node_id}")
+                logger.warning(f"⚠️ Neo4j属性更新失败: 未找到节点 {node_id}")
                 return False
 
         except Exception as e:
-            print(f"❌ Neo4j属性更新异常: {e}")
+            logger.error(f"❌ Neo4j属性更新异常: {e}")
             import traceback
             traceback.print_exc()
             return False
@@ -189,17 +196,18 @@ class neo4j_db():
     def delete_node(self, label, node_id):
         """使用 Cypher 删除节点"""
         try:
+            label = safe_identifier(label)
             cypher = f"""
             MATCH (n:`{label}`)
             WHERE id(n) = $node_id
             DETACH DELETE n
             """
             result = self.graph.run(cypher, node_id=node_id)
-            print(f"✅ Neo4j节点删除成功: ID={node_id}")
+            logger.info(f"✅ Neo4j节点删除成功: ID={node_id}")
             return True
 
         except Exception as e:
-            print(f"❌ Neo4j节点删除异常: {e}")
+            logger.error(f"❌ Neo4j节点删除异常: {e}")
             raise
 
     def get_node_types(self):
@@ -239,7 +247,7 @@ class neo4j_db():
         MATCH ()-[r]-()
         RETURN DISTINCT type(r) as type
         """
-        print("执行cypher查询1")
+        logger.info("执行cypher查询1")
         results = self.graph.run(query)
         rel_types = []
         for record in results:
@@ -256,7 +264,7 @@ class neo4j_db():
         ORDER BY type
         """
         results = self.graph.run(query)
-        print("执行cypher查询")
+        logger.info("执行cypher查询")
         rel_types = []
         for record in results:
             if record['type']:
@@ -270,24 +278,24 @@ class neo4j_db():
         :param node_id: 节点ID
         :return: 与节点直接相关的节点和关系
         """
-        sql = f"""
+        sql = """
         MATCH (n)-[r]-(m)
-        WHERE id(n) = {node_id}
+        WHERE id(n) = $node_id
         RETURN n, r, m
         """
-        result = self.graph.run(sql).data()
+        result = self.graph.run(sql, node_id=node_id).data()
         
         nodes = []
         lines = []
         node_ids = set()
         
         # 加入中心节点
-        center_node_sql = f"""
+        center_node_sql = """
         MATCH (n)
-        WHERE id(n) = {node_id}
+        WHERE id(n) = $node_id
         RETURN n
         """
-        center_result = self.graph.run(center_node_sql).data()
+        center_result = self.graph.run(center_node_sql, node_id=node_id).data()
         if center_result:
             center_node = center_result[0]['n']
             node_data = {
@@ -339,6 +347,7 @@ class neo4j_db():
         :param node_type: 节点类型
         :return: 节点列表
         """
+        node_type = safe_identifier(node_type, kind="节点类型")
         sql = f"""
         MATCH (n:{node_type})
         RETURN n
@@ -441,17 +450,15 @@ class neo4j_db():
             return {"nodes": [], "lines": []}
 
         try:
-            search_text = search_text.replace("'", "\\'")
-
             # 不限制标签类型，按名称模糊查询所有节点
-            cypher_query = f"""
+            cypher_query = """
             MATCH (n)
-            WHERE toLower(n.name) CONTAINS toLower('{search_text}') 
+            WHERE toLower(n.name) CONTAINS toLower($search_text)
             RETURN n, labels(n) as labs, id(n) as nid
-            LIMIT {limit}
+            LIMIT $limit
             """
 
-            result = self.graph.run(cypher_query).data()
+            result = self.graph.run(cypher_query, search_text=search_text, limit=int(limit)).data()
 
             nodes = []
             for record in result:
@@ -472,11 +479,11 @@ class neo4j_db():
 
                 nodes.append(node_data)
 
-            print(f"搜索 '{search_text}' 找到 {len(nodes)} 个匹配节点")
+            logger.info(f"搜索 '{search_text}' 找到 {len(nodes)} 个匹配节点")
             return {"nodes": nodes, "lines": []}
 
         except Exception as e:
-            print(f"节点名称搜索异常: {str(e)}")
+            logger.warning(f"节点名称搜索异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
@@ -565,13 +572,13 @@ class neo4j_db():
                         
                         lines.append(line_data)
             else:
-                node_query = f"""
+                node_query = """
                 MATCH (n)
                 RETURN n
-                LIMIT {limit}
+                LIMIT $limit
                 """
                 
-                node_result = self.graph.run(node_query).data()
+                node_result = self.graph.run(node_query, limit=int(limit)).data()
                 
                 if not node_result:
                     return {"nodes": [], "lines": []}
@@ -599,14 +606,15 @@ class neo4j_db():
                 # 获取这些节点之间的关系
                 if node_ids:
                     # 限制关系数量
-                    node_id_list = ", ".join(map(str, node_ids))
-                    relation_query = f"""
+                    relation_query = """
                     MATCH (n)-[r]-(m)
-                    WHERE id(n) IN [{node_id_list}] AND id(m) IN [{node_id_list}]
+                    WHERE id(n) IN $node_ids AND id(m) IN $node_ids
                     RETURN r
-                    LIMIT {limit*2}
+                    LIMIT $limit
                     """
-                    relation_result = self.graph.run(relation_query).data()
+                    relation_result = self.graph.run(
+                        relation_query, node_ids=list(node_ids), limit=int(limit) * 2
+                    ).data()
                     
                     # 处理关系数据
                     for record in relation_result:
@@ -630,11 +638,11 @@ class neo4j_db():
                         
                         lines.append(line_data)
             
-            print(f"图谱加载: {len(nodes)}个节点, {len(lines)}个关系, {'加载全部' if load_all else '加载部分'}")
+            logger.info(f"图谱加载: {len(nodes)}个节点, {len(lines)}个关系, {'加载全部' if load_all else '加载部分'}")
             return {"nodes": nodes, "lines": lines}
             
         except Exception as e:
-            print(f"获取默认图谱数据异常: {str(e)}")
+            logger.warning(f"获取默认图谱数据异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
@@ -652,29 +660,28 @@ class neo4j_db():
         try:
             # ---------- 参数校验 ----------
             if not name or not node_type:
-                print("名称或节点类型为空，返回空结果")
+                logger.info("名称或节点类型为空，返回空结果")
                 return {"nodes": [], "lines": []}
 
-            # ---------- 防止注入 ----------
-            name = name.replace("'", "\\'")
+            node_type = safe_identifier(node_type, kind="节点类型")
 
             # ---------- 构造 Cypher ----------
             cypher = f"""
             MATCH (center)
-            WHERE toLower(center.name) CONTAINS toLower('{name}')
+            WHERE toLower(center.name) CONTAINS toLower($name)
 
             MATCH (center)-[r]-(m:{node_type})
 
             RETURN center, r, m
-            LIMIT {limit}
+            LIMIT $limit
             """
 
             # ---------- 执行查询 ----------
-            result = self.graph.run(cypher).data()
+            result = self.graph.run(cypher, name=name, limit=int(limit)).data()
 
             # ---------- 无结果直接返回 ----------
             if not result:
-                print(f"未找到匹配结果：{name} + {node_type}")
+                logger.info(f"未找到匹配结果：{name} + {node_type}")
                 return {"nodes": [], "lines": []}
 
             nodes = []
@@ -734,7 +741,7 @@ class neo4j_db():
 
                 lines.append(line_data)
 
-            print(f"名称+类型组合查询成功：{name} + {node_type}，节点数 {len(nodes)}")
+            logger.info(f"名称+类型组合查询成功：{name} + {node_type}，节点数 {len(nodes)}")
 
             return {
                 "nodes": nodes,
@@ -744,7 +751,7 @@ class neo4j_db():
         # ---------- 异常 ----------
         except Exception as e:
 
-            print("search_by_name_and_type 出错：", str(e))
+            logger.info("search_by_name_and_type 出错：", str(e))
 
             import traceback
             traceback.print_exc()
@@ -764,13 +771,13 @@ class neo4j_db():
         try:
             # ---------- 参数清洗 ----------
             if not name or not rel_type:
-                print("名称或关系类型为空，返回空结果")
+                logger.info("名称或关系类型为空，返回空结果")
                 return {"nodes": [], "lines": []}
 
             rel_types = relationship_type_aliases(rel_type)
 
             # ---------- 构造 Cypher ----------
-            cypher = f"""
+            cypher = """
             MATCH (center)
             WHERE toLower(center.name) CONTAINS toLower($name)
 
@@ -778,15 +785,17 @@ class neo4j_db():
             WHERE type(r) IN $rel_types
 
             RETURN center, r, m
-            LIMIT {limit}
+            LIMIT $limit
             """
 
             # ---------- 执行查询 ----------
-            result = self.graph.run(cypher, name=name, rel_types=rel_types).data()
+            result = self.graph.run(
+                cypher, name=name, rel_types=rel_types, limit=int(limit)
+            ).data()
 
             # ---------- 没有关系直接返回 ----------
             if not result:
-                print(f"未找到关系：{name} + {rel_type}")
+                logger.info(f"未找到关系：{name} + {rel_type}")
                 return {"nodes": [], "lines": []}
 
             nodes = []
@@ -844,7 +853,7 @@ class neo4j_db():
 
                 lines.append(line_data)
 
-            print(f"名称+关系查询成功：{name} + {rel_type}，节点数 {len(nodes)}")
+            logger.info(f"名称+关系查询成功：{name} + {rel_type}，节点数 {len(nodes)}")
 
             return {
                 "nodes": nodes,
@@ -854,7 +863,7 @@ class neo4j_db():
         # ---------- 异常兜底 ----------
         except Exception as e:
 
-            print("search_by_name_and_relation 出错：", str(e))
+            logger.info("search_by_name_and_relation 出错：", str(e))
 
             import traceback
             traceback.print_exc()
@@ -945,7 +954,7 @@ class neo4j_db():
             return {"nodes": nodes, "lines": lines}
 
         except Exception as e:
-            print(f"获取事件-事件关系异常: {str(e)}")
+            logger.warning(f"获取事件-事件关系异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
@@ -953,13 +962,18 @@ class neo4j_db():
     def get_event_organization_relations(self, name_filter='', rel_type=''):
         try:
             where_conditions = []
+            params = {}
             if name_filter:
-                name_filter = name_filter.replace("'", "\\'")
                 where_conditions.append(
-                    f"(toLower(e.name) CONTAINS toLower('{name_filter}') OR toLower(o.name) CONTAINS toLower('{name_filter}'))")
+                    "(toLower(e.name) CONTAINS toLower($name_filter) OR toLower(o.name) CONTAINS toLower($name_filter))")
+                params["name_filter"] = name_filter
 
-            rel_match = f"-[r:{rel_type}]-" if rel_type else "-[r]-"
+            rel_match = "-[r]-"
+            if rel_type:
+                where_conditions.append("type(r) IN $rel_types")
+                params["rel_types"] = relationship_type_aliases(rel_type)
             where_clause = "WHERE " + " AND ".join(where_conditions) if where_conditions else ""
+            isolated_name_filter = "AND toLower(o.name) CONTAINS toLower($name_filter)" if name_filter else ""
 
             cypher = f"""
             MATCH (e:Event){rel_match}(o:Organization)
@@ -971,12 +985,12 @@ class neo4j_db():
 
             MATCH (o:Organization)
             WHERE NOT (o)-[]-(:Event)
-            {f"AND toLower(o.name) CONTAINS toLower('{name_filter}')" if name_filter else ""}
+            {isolated_name_filter}
             RETURN null as e, o, null as r
             LIMIT 50
             """
 
-            result = self.graph.run(cypher).data()
+            result = self.graph.run(cypher, **params).data()
 
             nodes = []
             lines = []
@@ -1025,7 +1039,7 @@ class neo4j_db():
             return {"nodes": nodes, "lines": lines}
 
         except Exception as e:
-            print(f"获取事件-组织关系异常: {str(e)}")
+            logger.warning(f"获取事件-组织关系异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
@@ -1033,13 +1047,18 @@ class neo4j_db():
     def get_event_person_relations(self, name_filter='', rel_type=''):
         try:
             where_conditions = []
+            params = {}
             if name_filter:
-                name_filter = name_filter.replace("'", "\\'")
                 where_conditions.append(
-                    f"(toLower(e.name) CONTAINS toLower('{name_filter}') OR toLower(p.name) CONTAINS toLower('{name_filter}'))")
+                    "(toLower(e.name) CONTAINS toLower($name_filter) OR toLower(p.name) CONTAINS toLower($name_filter))")
+                params["name_filter"] = name_filter
 
-            rel_match = f"-[r:{rel_type}]-" if rel_type else "-[r]-"
+            rel_match = "-[r]-"
+            if rel_type:
+                where_conditions.append("type(r) IN $rel_types")
+                params["rel_types"] = relationship_type_aliases(rel_type)
             where_clause = "WHERE " + " AND ".join(where_conditions) if where_conditions else ""
+            isolated_name_filter = "AND toLower(p.name) CONTAINS toLower($name_filter)" if name_filter else ""
 
             cypher = f"""
             MATCH (e:Event){rel_match}(p:Person)
@@ -1051,12 +1070,12 @@ class neo4j_db():
 
             MATCH (p:Person)
             WHERE NOT (p)-[]-(:Event)
-            {f"AND toLower(p.name) CONTAINS toLower('{name_filter}')" if name_filter else ""}
+            {isolated_name_filter}
             RETURN null as e, p, null as r
             LIMIT 50
             """
 
-            result = self.graph.run(cypher).data()
+            result = self.graph.run(cypher, **params).data()
 
             nodes = []
             lines = []
@@ -1105,7 +1124,7 @@ class neo4j_db():
             return {"nodes": nodes, "lines": lines}
 
         except Exception as e:
-            print(f"获取事件-人物关系异常: {str(e)}")
+            logger.warning(f"获取事件-人物关系异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
@@ -1196,11 +1215,11 @@ class neo4j_db():
                         line_data[k] = v
                     lines.append(line_data)
 
-            print(f"地点图谱: {len(nodes)} 个节点, {len(lines)} 条关系")
+            logger.info(f"地点图谱: {len(nodes)} 个节点, {len(lines)} 条关系")
             return {"nodes": nodes, "lines": lines}
 
         except Exception as e:
-            print(f"获取事件-地点关系异常: {str(e)}")
+            logger.warning(f"获取事件-地点关系异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}

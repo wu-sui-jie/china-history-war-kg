@@ -1,0 +1,28 @@
+# 旧后端（Flask，:5000）依赖声明。
+#
+# 安装：pip install -r backend/requirements.txt
+# 运行环境：Python 3.8+（本机开发用 conda 环境见根 README 的「本机环境备注」）
+#
+# 与根 requirements.txt 的关系：
+#   根文件是「旧后端 + 离线知识抽取」合并的便捷入口；本文件只列 backend 自身运行所需，
+#   二者由 backend 的 import 清单驱动，新增依赖请同步两处。
+#
+# 说明：
+#   - 版本下界按实际验证过的版本给出，未锁定精确版本；
+#   - py2neo 已停止维护（2021.2.4 为最后一版），仅用于 Neo4j 可视化读写，见 backend/README.md；
+#   - 本清单按代码里的 import 核对过：历史根文件里出现过的 openai / requests / python-dotenv
+#     在 backend 中并无 import，故不在此列出。
+
+Flask>=2.3,<3
+Flask-Cors>=5.0,<6
+Flask-SQLAlchemy>=3.0,<4
+SQLAlchemy>=2.0,<3
+Werkzeug>=3.0,<4
+PyJWT>=2.4,<3
+py2neo>=2021.2.4,<2022
+ollama>=0.5,<1
+jieba>=0.42,<1
+
+# backend/app.py 通过 sys.path 引用同级 entity-event-relation 的 src.models（pydantic 模型），
+# 因此 pydantic 是 backend 的运行依赖。
+pydantic>=2.0,<3

@@ -7,6 +7,7 @@ import argparse
 import os
 
 import local_settings
+from common_utils import safe_identifier
 from relation_types import normalize_event_relation_type
 from flask import Flask
 from py2neo import Graph
@@ -60,19 +61,24 @@ class SqliteToNeo4jSync:
 
     def _create_node(self, label, name, properties=None):
         try:
+            label = safe_identifier(label, kind="节点标签")
             props = properties or {}
             props["name"] = name
+            # ON CREATE / ON MATCH 互斥执行：用临时标记区分本次是新建还是命中存量，
+            # 读完立即 REMOVE。（原先用 n.created 判断，存量节点同样带 created，
+            # 于是全部被算成新建、nodes_updated 恒为 0。）
             cypher = f"""
-            MERGE (n:{label} {{name: $name}})
-            ON CREATE SET n.created = timestamp(), n += $props
-            ON MATCH SET n.updated = timestamp(), n += $props
-            RETURN id(n) as node_id, n.created as created_time
+            MERGE (n:`{label}` {{name: $name}})
+            ON CREATE SET n._sync_new = true, n.created = timestamp(), n += $props
+            ON MATCH SET n._sync_new = false, n.updated = timestamp(), n += $props
+            WITH n, n._sync_new AS is_new
+            REMOVE n._sync_new
+            RETURN id(n) as node_id, is_new
             """
             result = graph.run(cypher, name=name, props=props).data()
             if result:
                 node_id = result[0]["node_id"]
-                is_new = result[0].get("created_time") is not None
-                return node_id, "created" if is_new else "updated"
+                return node_id, "created" if result[0].get("is_new") else "updated"
             return None, "failed"
         except Exception as exc:
             print(f"创建节点失败：标签={label}，名称={name}，错误={exc}")
@@ -189,35 +195,31 @@ class SqliteToNeo4jSync:
 
     def _create_relationship(self, start_id, end_id, rel_type, props=None):
         try:
-            check = graph.run(
-                """
-                MATCH (a)-[r]->(b)
-                WHERE id(a)=$start_id AND id(b)=$end_id AND type(r)=$type
-                RETURN count(r) as cnt
-                """,
-                start_id=start_id,
-                end_id=end_id,
-                type=rel_type,
-            ).data()
-            if check and check[0]["cnt"] > 0:
-                return "exists"
-
-            relation_props = props or {}
+            rel_type = safe_identifier(rel_type, kind="关系类型")
+            relation_props = dict(props or {})
             relation_props["relation_type"] = rel_type
             relation_props = {k: v for k, v in relation_props.items() if v is not None}
-            set_clause = ", ".join([f"r.{k}=${k}" for k in relation_props.keys()]) if relation_props else ""
+            # 用 MERGE 代替「先查后建」：重跑不会产生重复边，属性作为 map 参数传入
+            # （不再把属性名拼进 Cypher）。临时标记的用法同 _create_node。
             cypher = f"""
             MATCH (a), (b)
             WHERE id(a)=$start_id AND id(b)=$end_id
-            CREATE (a)-[r:`{rel_type}`]->(b)
-            {f"SET {set_clause}" if set_clause else ""}
-            RETURN r
+            MERGE (a)-[r:`{rel_type}`]->(b)
+            ON CREATE SET r._sync_new = true
+            ON MATCH SET r._sync_new = false
+            SET r += $props
+            WITH r, r._sync_new AS is_new
+            REMOVE r._sync_new
+            RETURN id(r) as rid, is_new
             """
-            params = {"start_id": start_id, "end_id": end_id}
-            params.update(relation_props)
-            graph.run(cypher, **params)
-            return "created"
-        except Exception:
+            result = graph.run(
+                cypher, start_id=start_id, end_id=end_id, props=relation_props
+            ).data()
+            if not result:
+                return "failed"
+            return "created" if result[0].get("is_new") else "exists"
+        except Exception as exc:
+            print(f"创建关系失败：{start_id}-[{rel_type}]->{end_id}，错误={exc}")
             return "failed"
 
     def _sync_relations_general(self, relation_model, from_model, to_model, from_id_attr, to_id_attr, rel_type_attr, extra_props_func=None):
@@ -267,6 +269,81 @@ class SqliteToNeo4jSync:
             "失败关系数": self.stats["relations_failed"],
         }
 
+    # ---- 孤儿节点清理（反向以 SQLite 为准）----
+    def collect_orphans(self):
+        """找出 Neo4j 侧在 SQLite 里已无对应记录的节点。
+
+        用途：delete_node 先删 SQLite 再删 Neo4j，Neo4j 侧失败会留下孤儿节点，
+        而增量同步以 SQLite 为源、永远清不掉它（质检接口的对账能看见 diff，但不负责清除）。
+        判定同时看 neo4j_id 与 (标签, 名称)：任一命中都不算孤儿——宁可漏报也不误删。
+        """
+        with app.app_context():
+            sqlite_ids = set()
+            sqlite_names = set()
+            for model in [Event, Place, Organization, Person]:
+                for node in model.query.all():
+                    neo4j_id = getattr(node, "neo4j_id", None)
+                    if neo4j_id is not None:
+                        try:
+                            sqlite_ids.add(int(neo4j_id))
+                        except (TypeError, ValueError):
+                            pass
+                    name = (node.name or "").strip()
+                    if name:
+                        sqlite_names.add((model.__name__, name))
+
+        rows = graph.run(
+            """
+            MATCH (n)
+            RETURN id(n) AS nid, labels(n) AS labels, n.name AS name
+            """
+        ).data()
+
+        orphans = []
+        for row in rows:
+            nid = row["nid"]
+            labels = row.get("labels") or []
+            label = labels[0] if labels else ""
+            name = (row.get("name") or "").strip()
+            if nid in sqlite_ids:
+                continue
+            if label and name and (label, name) in sqlite_names:
+                continue
+            orphans.append({"neo4j_id": nid, "label": label, "name": name})
+        return orphans
+
+    def prune_orphans(self, execute=False):
+        """删除（或演练删除）孤儿节点。
+
+        默认只打印清单：删除是不可逆的，先让人看清要删什么再决定。
+        """
+        orphans = self.collect_orphans()
+        if not orphans:
+            print("未发现孤儿节点：Neo4j 与 SQLite 的节点集合一致")
+            return {"found": 0, "deleted": 0}
+
+        print(f"发现 {len(orphans)} 个孤儿节点（Neo4j 有、SQLite 已无对应记录）：")
+        for item in orphans[:50]:
+            label = item["label"] or "无标签"
+            name = item["name"] or "(无名称)"
+            print(f"  - [{label}] {name} (neo4j id={item['neo4j_id']})")
+        if len(orphans) > 50:
+            print(f"  …… 其余 {len(orphans) - 50} 个省略")
+
+        if not execute:
+            print("\n这是演练（dry-run），未删除任何节点。确认清单无误后加 --yes 执行删除。")
+            return {"found": len(orphans), "deleted": 0}
+
+        deleted = 0
+        for item in orphans:
+            try:
+                graph.run("MATCH (n) WHERE id(n) = $nid DETACH DELETE n", nid=item["neo4j_id"])
+                deleted += 1
+            except Exception as exc:  # noqa: BLE001
+                print(f"  删除失败：neo4j id={item['neo4j_id']}，错误={exc}")
+        print(f"已删除 {deleted}/{len(orphans)} 个孤儿节点")
+        return {"found": len(orphans), "deleted": deleted}
+
     def run(self):
         if self.mode == "full":
             self.clear_neo4j()
@@ -276,10 +353,27 @@ class SqliteToNeo4jSync:
         self.sync_persons()
         self.sync_relations()
         print(self._build_output_stats())
+        print("提示：如需清理 Neo4j 侧已被删除节点留下的孤儿，跑 "
+              "`python sync_sqlite_to_neo4j.py --prune-orphans`（先演练，确认后加 --yes）。")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="将 SQLite 数据同步到 Neo4j")
     parser.add_argument("--mode", choices=["full", "increment"], default="increment", help="同步模式：full 为全量，increment 为增量")
+    parser.add_argument(
+        "--prune-orphans",
+        action="store_true",
+        help="清理 Neo4j 中 SQLite 已删除的孤儿节点（默认只打印清单演练，加 --yes 才真正删除）",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="配合 --prune-orphans：确认执行删除",
+    )
     args = parser.parse_args()
-    SqliteToNeo4jSync(mode=args.mode).run()
+
+    syncer = SqliteToNeo4jSync(mode=args.mode)
+    if args.prune_orphans:
+        syncer.prune_orphans(execute=args.yes)
+    else:
+        syncer.run()

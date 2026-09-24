@@ -117,6 +117,17 @@ EXPOSE_THINKING = False
 # SSE 连接保活与整体上限：心跳让反代/浏览器知道连接还活着；deadline 防止挂死连接占资源。
 SSE_HEARTBEAT_SECONDS = 15
 SSE_MAX_DURATION_SECONDS = 300
+# 非流式问答（POST /api/query/json）的聚合超时预算，单位秒。
+# 这是**独立于 SSE 的**预算：SSE 的心跳/总时长只约束流式通道，非流式是同步等待。
+# 与调用方（飞书机器人 RAG_QUERY_TIMEOUT=25s）构成有意的层层截断：
+# 机器人 25s < 本预算 30s < LLM 单次超时 60s × 最多 3 次尝试。
+# 即模型真的跑满预算时，调用方注定拿到超时（504），而不是慢慢等出长回答
+# ——"对话体验优先"的取舍，见 feishu-bot/docs/开发文档.md 5.4 / 十二-3。
+QUERY_JSON_TIMEOUT_SECONDS = 30
+# 非流式接口的可选共享密钥（内网场景默认关闭）。
+# 设置后 /api/query/json 要求请求头 X-Bot-Key 与之相等，否则 401；
+# 留空 = 不校验。只作用于该接口，不影响 /api/query 等既有接口。
+BOT_API_KEY = ""
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
 # 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。

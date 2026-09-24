@@ -1,0 +1,43 @@
+# 飞书知识问答机器人（长连接，无需公网回调）
+#
+# 安装：
+#   sudo cp deploy/systemd/china-war-bot.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now china-war-bot
+# 日志：journalctl -u china-war-bot -f
+#
+# 前置条件：
+#   1) RAG 服务已运行（机器人调用 http://127.0.0.1:8000/api/query/json）
+#   2) feishu-bot/.env 已填 FEISHU_APP_ID / FEISHU_APP_SECRET
+#   3) 子图出图需要 Node ≥ 18 与 feishu-bot/render/node_modules（见 deploy/README.md 第五节）
+
+[Unit]
+Description=干戈纪略 · 飞书知识问答机器人
+Documentation=file:///opt/china-war/deploy/README.md
+After=network-online.target china-war-rag.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=chinawar
+Group=chinawar
+WorkingDirectory=/opt/china-war/feishu-bot
+
+Environment=PYTHONUNBUFFERED=1
+
+# 飞书凭证与 RAG 地址在 feishu-bot/.env（应用自读），权限建议 600 chinawar:chinawar
+
+ExecStart=/opt/miniconda3/envs/china-war-rag/bin/python main.py
+
+Restart=always
+RestartSec=10s
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=china-war-bot
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

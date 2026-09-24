@@ -1,6 +1,6 @@
 # 项目文档导航
 
-本项目由**三套可独立运行的部分**组成，文档分散在各部分的 README 与 docs/ 下。
+本项目由**四套可独立运行的部分**组成，文档分散在各部分的 README 与 docs/ 下。
 本文档是唯一的文档总索引：**先在这里定位，再进对应目录细读**。
 
 ```text
@@ -8,25 +8,36 @@ china-war/
 ├── README.md                     ← 项目总入口：架构、环境、启动、API
 ├── docs/                         ← 本目录：跨模块的集成与导航文档
 │   ├── README.md                 （本文件）
-│   └── 集成与入口约定.md          （路径/端口、并入模式构建、nginx、安全边界、排障）
+│   ├── 集成与入口约定.md          （路径/端口、并入模式构建、nginx、安全边界、排障）
+│   ├── 项目审查与修复清单.md      （审查发现的问题清单 + 逐条状态）
+│   └── 修复实施记录-20260924.md   （本轮修复改了什么、怎么验证、哪些没做）
+├── deploy/README.md              ← 部署到服务器（nginx 配置、systemd 单元、初始化与自检脚本）
 ├── backend/README.md             ← 旧后端（Flask，:5000）
 ├── frontend/README.md            ← 旧前端（Vue3 + layui-vue 管理台，:3001）
 ├── entity-event-relation/README.md ← 知识抽取与评估（离线跑，不参与 Web 运行）
-└── RAG/                          ← RAG 问答系统（代码在本仓库内，独立服务）
-    ├── README.md                 ← 代码组织、开发约定、运行方式
-    └── docs/README.md            ← 功能总览与文档地图（唯一事实源在 docs/current-status.md）
+├── RAG/                          ← RAG 问答系统（代码在本仓库内，独立服务）
+│   ├── README.md                 ← 代码组织、开发约定、运行方式
+│   └── docs/README.md            ← 功能总览与文档地图（唯一事实源在 docs/current-status.md）
+└── feishu-bot/                   ← 飞书知识问答机器人（项目级 IM 入口，可选）
+    ├── README.md                 ← 快速开始、目录、维护命令
+    └── docs/                     ← 需求与方案（v2.1）+ 开发文档（v1.2）
 ```
 
 ## 按目的找文档
 
 | 我想…… | 看这里 |
 | --- | --- |
-| 把整套系统跑起来 | 根 [README.md](../README.md) 的「环境配置」「运行项目」 |
+| 把整套系统跑起来（本机开发） | 根 [README.md](../README.md) 的「环境配置」「运行项目」 |
+| **部署到服务器，让别人访问（你本地不用开机）** | **[deploy/README.md](../deploy/README.md)** |
 | 搞清一个域名下怎么分流、为什么有并入模式构建 | [集成与入口约定.md](集成与入口约定.md) |
+| 查项目审查发现的问题与修复进度 | [项目审查与修复清单.md](项目审查与修复清单.md) |
+| 查本轮修复具体改了什么、怎么验证、哪些没做 | [修复实施记录-20260924.md](修复实施记录-20260924.md) |
+| **执行下一轮修复（复核发现与遗留收口）** | [修复工作单-第2轮-20260924复核.md](修复工作单-第2轮-20260924复核.md) |
 | 改旧后端的接口/数据模型 | [backend/README.md](../backend/README.md) |
 | 改旧前端的页面/菜单 | [frontend/README.md](../frontend/README.md) |
 | 改 RAG 的功能/契约/检索链 | [RAG/docs/README.md](../RAG/docs/README.md) |
 | 查 RAG 当前版本、测试数、数据计数 | [RAG/docs/current-status.md](../RAG/docs/current-status.md)（唯一事实源） |
+| 把 RAG 接进飞书（问答 / 纠错反馈） | [feishu-bot/README.md](../feishu-bot/README.md) → [开发文档](../feishu-bot/docs/开发文档.md) |
 | 理解规则引擎与旧问答的推理设计 | [backend/规则引擎与LLM问答设计.md](../backend/规则引擎与LLM问答设计.md) |
 | 重跑知识抽取或评估 | [entity-event-relation/README.md](../entity-event-relation/README.md) |
 | 追 RAG 阶段交付与历轮审核整改 | [RAG/docs/CHANGELOG.md](../RAG/docs/CHANGELOG.md) |
@@ -40,8 +51,11 @@ china-war/
 | RAG 问答（FastAPI，含前端 dist 同源托管） | 8000 | `AI_Agent`（Python 3.11） | `RAG/scripts/run_server.py` |
 | 旧后端（Flask） | 5000 | `place-name-KG`（Python 3.8） | `backend/app.py` |
 | 旧前端（Vite 开发服务器） | 3001 | —（Node ≥ 18） | `frontend` 下的 `pnpm dev` |
+| 飞书机器人（可选，长连接无端口） | — | `AI_Agent`（Python 3.11，与 RAG 共环境） | `feishu-bot/main.py` |
 
 浏览器只访问 **http://localhost:3001** 一个入口：`/api` 由 vite 代理到 5000，`/rag` 代理到 8000。
+飞书机器人是**独立进程**（不占端口、不在浏览器链路上），通过 `RAG_BASE_URL` 直连 RAG 的
+`POST /api/query/json`；不启动它，其他一切照旧。
 详细依赖与自检命令见根 README 的「运行项目」。
 
 ## 文档维护约定

@@ -25,6 +25,10 @@ from common_utils import lru_get as _lru_get
 from common_utils import lru_set as _lru_set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from logging_util import get_logger
+
+logger = get_logger(__name__)
+
 
 
 def _stable_hash(data: Any) -> str:
@@ -97,17 +101,17 @@ class RuleLLMIntegration:
         # 规则分类缓存，用于快速查找
         self._build_rule_indices()
         
-        print(f"规则与大模型推理引擎已初始化, 使用模型: {model_name}, 规则数量: {len(self.rules)}")
+        logger.info(f"规则与大模型推理引擎已初始化, 使用模型: {model_name}, 规则数量: {len(self.rules)}")
     
     def _load_rules(self, rule_file_path: str) -> List[Dict]:
         """加载规则库"""
         try:
             with open(rule_file_path, 'r', encoding='utf-8') as f:
                 rules = json.load(f)
-            print(f"成功加载规则库，共 {len(rules)} 条规则")
+            logger.info(f"成功加载规则库，共 {len(rules)} 条规则")
             return rules
         except Exception as e:
-            print(f"加载规则库失败: {str(e)}")
+            logger.warning(f"加载规则库失败: {str(e)}")
             return []
     
     def _build_rule_indices(self):
@@ -130,7 +134,7 @@ class RuleLLMIntegration:
                     self.relation_rules[relation] = []
                 self.relation_rules[relation].append(rule)
         
-        print(f"规则索引构建完成:  "
+        logger.info(f"规则索引构建完成:  "
               f"{len(self.relation_rules)} 种具体关系, {len(self.composite_rules)} 条复合规则")
     
     def _find_applicable_rules(self,
@@ -169,22 +173,22 @@ class RuleLLMIntegration:
         """
         try:
             # 获取出向关系
-            query_outgoing = f"""
+            query_outgoing = """
             MATCH (n)-[r]->(m)
-            WHERE ID(n) = {entity_id}
+            WHERE ID(n) = $entity_id
             RETURN n, r, m, 'outgoing' as direction
             """
             
             # 获取入向关系
-            query_incoming = f"""
+            query_incoming = """
             MATCH (n)<-[r]-(m)
-            WHERE ID(n) = {entity_id}
+            WHERE ID(n) = $entity_id
             RETURN n, r, m, 'incoming' as direction
             """
             
             # 合并结果
-            results_outgoing = neo4j_db.graph.run(query_outgoing).data()
-            results_incoming = neo4j_db.graph.run(query_incoming).data()
+            results_outgoing = neo4j_db.graph.run(query_outgoing, entity_id=int(entity_id)).data()
+            results_incoming = neo4j_db.graph.run(query_incoming, entity_id=int(entity_id)).data()
             
             relationships = []
             processed_relations = set()  # 用于去重
@@ -223,10 +227,10 @@ class RuleLLMIntegration:
                 }
                 relationships.append(rel_info)
             
-            print(f"获取到实体ID({entity_id})的 {len(relationships)} 个关系")
+            logger.info(f"获取到实体ID({entity_id})的 {len(relationships)} 个关系")
             return relationships
         except Exception as e:
-            print(f"获取实体关系时出错: {str(e)}")
+            logger.info(f"获取实体关系时出错: {str(e)}")
             return []
     
     def search_paths_between_entities(self, entity1_id: int, entity2_id: int, 
@@ -249,27 +253,34 @@ class RuleLLMIntegration:
         try:
             # 添加检查：如果起始和结束节点相同，则跳过路径搜索
             if entity1_id == entity2_id:
-                print(f"跳过相同节点的路径搜索: {entity1_id} -> {entity1_id}")
+                logger.info(f"跳过相同节点的路径搜索: {entity1_id} -> {entity1_id}")
                 return []
                 
+            # 变长路径的范围必须内联，先确保是正整数（避免任何非数字内容进入 Cypher）
+            depth = max(1, min(int(max_depth), 64))
+
             # 查询从entity1到entity2的有向路径
             query_forward = f"""
-            MATCH path = shortestPath((n)-[*1..{max_depth}]->(m))
-            WHERE ID(n) = {entity1_id} AND ID(m) = {entity2_id}
+            MATCH path = shortestPath((n)-[*1..{depth}]->(m))
+            WHERE ID(n) = $start_id AND ID(m) = $end_id
             RETURN path
             """
             
             # 查询从entity2到entity1的有向路径
             query_backward = f"""
-            MATCH path = shortestPath((n)-[*1..{max_depth}]->(m))
-            WHERE ID(n) = {entity2_id} AND ID(m) = {entity1_id}
+            MATCH path = shortestPath((n)-[*1..{depth}]->(m))
+            WHERE ID(n) = $start_id AND ID(m) = $end_id
             RETURN path
             """
             
             # 合并结果
             results = []
-            forward_results = neo4j_db.graph.run(query_forward).data()
-            backward_results = neo4j_db.graph.run(query_backward).data()
+            forward_results = neo4j_db.graph.run(
+                query_forward, start_id=int(entity1_id), end_id=int(entity2_id)
+            ).data()
+            backward_results = neo4j_db.graph.run(
+                query_backward, start_id=int(entity2_id), end_id=int(entity1_id)
+            ).data()
             
             # 如果有正向路径，优先使用正向路径
             if forward_results:
@@ -328,11 +339,11 @@ class RuleLLMIntegration:
                     'end_entity': path_data[-1]['name'] if path_data else None
                 })
             
-            print(f"找到 {len(paths)} 条从 {entity1_id} 到 {entity2_id} 的路径")
+            logger.info(f"找到 {len(paths)} 条从 {entity1_id} 到 {entity2_id} 的路径")
             return paths
             
         except Exception as e:
-            print(f"搜索路径时出错: {str(e)}")
+            logger.info(f"搜索路径时出错: {str(e)}")
             return []
     
     def apply_inference_rules(self, relationships: List[Dict]) -> List[Dict]:
@@ -395,16 +406,16 @@ class RuleLLMIntegration:
                 inferred_rel['inferred'] = True
                 
                 # 记录处理日志
-                print(f"推理关系: {inferred_rel['source']['name']} --[{inferred_relation}]--> {inferred_rel['target']['name']}")
-                print(f"  基于原始关系: {rel['source']['name']} --[{relation}]--> {rel['target']['name']}")
-                print(f"  规则定义的关系: {rule_relation}")
+                logger.info(f"推理关系: {inferred_rel['source']['name']} --[{inferred_relation}]--> {inferred_rel['target']['name']}")
+                logger.info(f"  基于原始关系: {rel['source']['name']} --[{relation}]--> {rel['target']['name']}")
+                logger.info(f"  规则定义的关系: {rule_relation}")
                 
                 inferred_relationships.append(inferred_rel)
         
         # 第二步：应用复合规则
         self._apply_composite_rules(relationships, inferred_relationships)
         
-        print(f"根据规则推理出 {len(inferred_relationships)} 个新关系")
+        logger.info(f"根据规则推理出 {len(inferred_relationships)} 个新关系")
         return inferred_relationships
     
     def _apply_composite_rules(self, relationships: List[Dict], inferred_relationships: List[Dict]):
@@ -413,10 +424,10 @@ class RuleLLMIntegration:
         composite_rules = [rule for rule in self.rules if rule.get('condition', {}).get('composite', False)]
         
         if not composite_rules:
-            print("没有找到复合规则，跳过复合规则处理")
+            logger.info("没有找到复合规则，跳过复合规则处理")
             return
         
-        print(f"开始处理 {len(composite_rules)} 个复合规则")
+        logger.info(f"开始处理 {len(composite_rules)} 个复合规则")
         
         # 构建关系索引，便于快速查找
         # 关系索引结构: {source_id: {target_id: [relation1, relation2, ...]}}
@@ -449,10 +460,10 @@ class RuleLLMIntegration:
             
             # 目前仅实现2步路径的规则
             if path_length != 2:
-                print(f"暂不支持长度为 {path_length} 的路径规则: {rule['name']}")
+                logger.info(f"暂不支持长度为 {path_length} 的路径规则: {rule['name']}")
                 continue
             
-            print(f"处理复合规则: {rule['name']}, 关系类型: {relation_type}, 路径长度: {path_length}")
+            logger.info(f"处理复合规则: {rule['name']}, 关系类型: {relation_type}, 路径长度: {path_length}")
             
             # 对于2步路径的规则，寻找形如 A--[rel]-->B--[rel]-->C 的路径
             # 即查找满足的A→B和B→C关系
@@ -533,14 +544,14 @@ class RuleLLMIntegration:
                 # 标记为推理关系
                 new_rel['inferred'] = True
                 
-                print(f"复合规则推理: {new_rel['source']['name']} --[{inferred_relation}]--> {new_rel['target']['name']}")
-                print(f"  基于路径: {path['start']['name']} --[{relation_type}]--> {path['middle']['name']} --[{relation_type}]--> {path['end']['name']}")
-                print(f"  规则: {rule.get('name', '')}")
+                logger.info(f"复合规则推理: {new_rel['source']['name']} --[{inferred_relation}]--> {new_rel['target']['name']}")
+                logger.info(f"  基于路径: {path['start']['name']} --[{relation_type}]--> {path['middle']['name']} --[{relation_type}]--> {path['end']['name']}")
+                logger.info(f"  规则: {rule.get('name', '')}")
                 
                 # 添加到推理关系集合
                 inferred_relationships.append(new_rel)
             
-            print(f"复合规则 {rule['name']} 推理出 {len(found_paths)} 个新关系")
+            logger.info(f"复合规则 {rule['name']} 推理出 {len(found_paths)} 个新关系")
 
     def _build_inference_prompt(self,
                                question: str,
@@ -819,13 +830,13 @@ class RuleLLMIntegration:
         )
         cached_answer = _lru_get(self._answer_cache, answer_cache_key)
         if cached_answer is not None:
-            print(f"命中问答生成缓存: {question_type} / {question}")
+            logger.info(f"命中问答生成缓存: {question_type} / {question}")
             return cached_answer
         
         try:
             # 记录模型调用开始时间
             start_time = time.time()
-            print(f"调用 {self.model_name} 模型生成回答...")
+            logger.info(f"调用 {self.model_name} 模型生成回答...")
             
             # 增强的system提示词，强调对用户问题的准确理解
             if question_type in {"dynasty_event_list", "participant_event_list"}:
@@ -867,11 +878,11 @@ class RuleLLMIntegration:
             process_time = time.time() - start_time
             answer = response['message']['content']
             _lru_set(self._answer_cache, answer_cache_key, answer)
-            print(f"模型响应成功，耗时: {process_time:.2f}秒")
+            logger.info(f"模型响应成功，耗时: {process_time:.2f}秒")
             return answer
             
         except Exception as e:
-            print(f"模型调用失败: {str(e)}")
+            logger.warning(f"模型调用失败: {str(e)}")
             return f"抱歉，在处理您的问题时遇到了技术问题。错误信息: {str(e)}"
     
     def _filter_relevant_entities(self, entities: List[str], question: str, neo4j_db) -> List[str]:
@@ -887,7 +898,7 @@ class RuleLLMIntegration:
         if not entities:
             return []
         
-        print(f"过滤前实体列表: {entities}")
+        logger.info(f"过滤前实体列表: {entities}")
         
         # 去除问题中的常见停用词和标点
         import re
@@ -909,7 +920,7 @@ class RuleLLMIntegration:
                 if any(name == entity or entity in name for name in existing_names):
                     existing_entities.add(entity)
         except Exception as e:
-            print(f"批量查询实体时出错: {e}")
+            logger.info(f"批量查询实体时出错: {e}")
 
         for entity in entities:
             score = 0
@@ -930,7 +941,7 @@ class RuleLLMIntegration:
         
         # 按分数降序排序
         scored_entities.sort(key=lambda x: x[1], reverse=True)
-        print(f"实体评分结果: {scored_entities}")
+        logger.info(f"实体评分结果: {scored_entities}")
         
         # 只保留分数最高的前4个实体（避免过多无关实体）
         max_entities = 4
@@ -940,7 +951,7 @@ class RuleLLMIntegration:
         if not filtered_entities and scored_entities:
             filtered_entities = [scored_entities[0][0]]
         
-        print(f"过滤后实体列表: {filtered_entities}")
+        logger.info(f"过滤后实体列表: {filtered_entities}")
         return filtered_entities
 
     def _extract_query_entities(self, question: str, extracted_entities: List[str]) -> List[str]:
@@ -1001,7 +1012,7 @@ class RuleLLMIntegration:
         cache_key = ("dynasty_events", tuple(dynasty_values), limit)
         cached = _lru_get(self._retrieval_cache, cache_key)
         if cached is not None:
-            print(f"命中朝代事件检索缓存: {dynasty_values}")
+            logger.info(f"命中朝代事件检索缓存: {dynasty_values}")
             return cached
 
         query = """
@@ -1014,7 +1025,7 @@ class RuleLLMIntegration:
         try:
             rows = neo4j_db.graph.run(query, dynasties=dynasty_values, limit=limit).data()
         except Exception as e:
-            print(f"按朝代查询事件失败: {e}")
+            logger.warning(f"按朝代查询事件失败: {e}")
             return []
 
         event_infos = []
@@ -1042,7 +1053,7 @@ class RuleLLMIntegration:
         cache_key = ("event_detail", tuple(event_names), limit)
         cached = _lru_get(self._retrieval_cache, cache_key)
         if cached is not None:
-            print(f"命中事件详情检索缓存: {event_names}")
+            logger.info(f"命中事件详情检索缓存: {event_names}")
             return cached
 
         query = """
@@ -1054,7 +1065,7 @@ class RuleLLMIntegration:
         try:
             rows = neo4j_db.graph.run(query, names=event_names, limit=limit).data()
         except Exception as e:
-            print(f"查询事件详情失败: {e}")
+            logger.warning(f"查询事件详情失败: {e}")
             return []
 
         event_infos = []
@@ -1082,7 +1093,7 @@ class RuleLLMIntegration:
         cache_key = ("participant_events", tuple(participant_names), limit)
         cached = _lru_get(self._retrieval_cache, cache_key)
         if cached is not None:
-            print(f"命中参与事件检索缓存: {participant_names}")
+            logger.info(f"命中参与事件检索缓存: {participant_names}")
             return cached
 
         query = """
@@ -1095,7 +1106,7 @@ class RuleLLMIntegration:
         try:
             rows = neo4j_db.graph.run(query, names=participant_names, limit=limit).data()
         except Exception as e:
-            print(f"查询参与事件失败: {e}")
+            logger.warning(f"查询参与事件失败: {e}")
             return []
 
         event_infos = []
@@ -1146,9 +1157,9 @@ class RuleLLMIntegration:
             processed_question = question.strip()
             # 检查问题是否过短或可能无效
             if len(processed_question) < 3:
-                print(f"警告: 问题过短或可能无效: '{processed_question}'")
+                logger.info(f"警告: 问题过短或可能无效: '{processed_question}'")
             
-            print(f"开始处理用户问题: '{processed_question}'")
+            logger.info(f"开始处理用户问题: '{processed_question}'")
             
             # 1. 从问题中提取实体
             dynasty_scope = self._detect_dynasty_event_scope(processed_question)
@@ -1166,7 +1177,7 @@ class RuleLLMIntegration:
             # 1.5 过滤实体，只保留最相关的。朝代范围题已由规则明确实体，避免再走一次模型抽取。
             if dynasty_scope:
                 entities = query_entities.copy()
-                print(f"命中朝代事件范围查询，跳过实体抽取模型: {query_entities}")
+                logger.info(f"命中朝代事件范围查询，跳过实体抽取模型: {query_entities}")
             else:
                 entities = self._filter_relevant_entities(extracted_entities, processed_question, neo4j_db)
             
@@ -1177,7 +1188,7 @@ class RuleLLMIntegration:
                 has_keyword = any(keyword in processed_question for keyword in all_keywords)
                 
                 if has_keyword:
-                    print(f"未识别到明确实体，但问题中包含战争图谱相关关键词，尝试进行模糊匹配")
+                    logger.info(f"未识别到明确实体，但问题中包含战争图谱相关关键词，尝试进行模糊匹配")
                     # 提取问题中的所有可能实体词 (简单处理，实际应使用NLP工具)
                     potential_entities = []
                     for keyword in all_keywords:
@@ -1185,7 +1196,7 @@ class RuleLLMIntegration:
                             potential_entities.append(keyword)
                     
                     if potential_entities:
-                        print(f"从问题中提取潜在地名关键词: {potential_entities}")
+                        logger.info(f"从问题中提取潜在地名关键词: {potential_entities}")
                         entities = potential_entities
             
             if not entities:
@@ -1196,8 +1207,8 @@ class RuleLLMIntegration:
                     'process_time': time.time() - start_time
                 }
             
-            print(f"从问题中识别到的实体: {entities}")
-            print(f"用户原句明确实体: {query_entities}")
+            logger.info(f"从问题中识别到的实体: {entities}")
+            logger.info(f"用户原句明确实体: {query_entities}")
             
             # 记录查询涉及的所有节点和关系
             all_entity_info = []
@@ -1229,20 +1240,20 @@ class RuleLLMIntegration:
             # 并行查询实体信息
             query_entities_list = [] if (dynasty_scope or event_detail_query or participant_event_query) else entities
             if query_entities_list:
-                print(f"开始并行查询 {len(query_entities_list)} 个实体信息...")
+                logger.info(f"开始并行查询 {len(query_entities_list)} 个实体信息...")
                 query_start = time.time()
 
                 def query_single_entity(entity):
                     """查询单个实体信息"""
                     try:
                         # 先进行精确查询
-                        query = f"""
+                        query = """
                         MATCH (n)
-                        WHERE n.name = '{entity}'
+                        WHERE n.name = $entity
                         RETURN n
                         LIMIT 1
                         """
-                        results = neo4j_db.graph.run(query).data()
+                        results = neo4j_db.graph.run(query, entity=entity).data()
 
                         if results:
                             node = results[0]['n']
@@ -1254,13 +1265,13 @@ class RuleLLMIntegration:
                             }]
 
                         # 尝试模糊查询
-                        fuzzy_query = f"""
+                        fuzzy_query = """
                         MATCH (n)
-                        WHERE n.name CONTAINS '{entity}' OR '{entity}' CONTAINS n.name
+                        WHERE n.name CONTAINS $entity OR $entity CONTAINS n.name
                         RETURN n
                         LIMIT 5
                         """
-                        fuzzy_results = neo4j_db.graph.run(fuzzy_query).data()
+                        fuzzy_results = neo4j_db.graph.run(fuzzy_query, entity=entity).data()
 
                         if fuzzy_results:
                             return [{
@@ -1272,7 +1283,7 @@ class RuleLLMIntegration:
 
                         return []
                     except Exception as e:
-                        print(f"查询实体 '{entity}' 失败: {e}")
+                        logger.warning(f"查询实体 '{entity}' 失败: {e}")
                         return []
 
                 # 使用线程池并行查询
@@ -1290,10 +1301,10 @@ class RuleLLMIntegration:
                                 all_entity_info.append(info)
                                 entity_info_map[info['id']] = info
                         except Exception as e:
-                            print(f"处理实体 '{entity}' 结果失败: {e}")
+                            logger.warning(f"处理实体 '{entity}' 结果失败: {e}")
 
                 query_time = time.time() - query_start
-                print(f"实体信息查询完成，耗时: {query_time:.2f}秒，找到 {len(all_entity_info)} 个实体")
+                logger.info(f"实体信息查询完成，耗时: {query_time:.2f}秒，找到 {len(all_entity_info)} 个实体")
             
             # 如果没有找到任何实体信息，给出更友好的回复
             if not all_entity_info:
@@ -1305,7 +1316,7 @@ class RuleLLMIntegration:
                 }
             
             # 3. 并行获取实体关系
-            print(f"开始并行查询 {len(all_entity_info)} 个实体的关系...")
+            logger.info(f"开始并行查询 {len(all_entity_info)} 个实体的关系...")
             relation_start = time.time()
 
             def query_entity_relations(info):
@@ -1313,7 +1324,7 @@ class RuleLLMIntegration:
                 try:
                     return self.get_entity_relationships(info['id'], neo4j_db)
                 except Exception as e:
-                    print(f"查询实体 '{info['name']}' 关系失败: {e}")
+                    logger.warning(f"查询实体 '{info['name']}' 关系失败: {e}")
                     return []
 
             with ThreadPoolExecutor(max_workers=min(4, len(all_entity_info))) as executor:
@@ -1328,14 +1339,14 @@ class RuleLLMIntegration:
                         relationships = future.result()
                         all_relationships.extend(relationships)
                     except Exception as e:
-                        print(f"处理实体 '{info['name']}' 关系结果失败: {e}")
+                        logger.warning(f"处理实体 '{info['name']}' 关系结果失败: {e}")
 
             relation_time = time.time() - relation_start
-            print(f"实体关系查询完成，耗时: {relation_time:.2f}秒，找到 {len(all_relationships)} 条关系")
+            logger.info(f"实体关系查询完成，耗时: {relation_time:.2f}秒，找到 {len(all_relationships)} 条关系")
             
             # 4. 并行搜索实体之间的路径
             if len(all_entity_info) >= 2 and not (dynasty_scope or event_detail_query or participant_event_query):
-                print(f"开始并行搜索实体间路径...")
+                logger.info(f"开始并行搜索实体间路径...")
                 path_start = time.time()
 
                 # 构建实体对列表
@@ -1365,7 +1376,7 @@ class RuleLLMIntegration:
                     try:
                         return self.search_paths_between_entities(entity1_id, entity2_id, neo4j_db)
                     except Exception as e:
-                        print(f"搜索路径 {entity1_id} -> {entity2_id} 失败: {e}")
+                        logger.warning(f"搜索路径 {entity1_id} -> {entity2_id} 失败: {e}")
                         return []
 
                 # 使用线程池并行搜索路径
@@ -1382,10 +1393,10 @@ class RuleLLMIntegration:
                                 paths = future.result()
                                 all_paths.extend(paths)
                             except Exception as e:
-                                print(f"处理路径 {pair} 结果失败: {e}")
+                                logger.warning(f"处理路径 {pair} 结果失败: {e}")
 
                 path_time = time.time() - path_start
-                print(f"路径搜索完成，耗时: {path_time:.2f}秒，找到 {len(all_paths)} 条路径")
+                logger.info(f"路径搜索完成，耗时: {path_time:.2f}秒，找到 {len(all_paths)} 条路径")
             
             # 5. 应用推理规则
             inferred_relationships = self.apply_inference_rules(all_relationships)
@@ -1426,7 +1437,7 @@ class RuleLLMIntegration:
             context = self._format_relations_for_context(original_relationships, inferred_relationships)
             
             process_time = time.time() - start_time
-            print(f"问题处理完成，总耗时: {process_time:.2f}秒")
+            logger.info(f"问题处理完成，总耗时: {process_time:.2f}秒")
             
             return {
                 'answer': answer,
@@ -1438,7 +1449,7 @@ class RuleLLMIntegration:
             }
             
         except Exception as e:
-            print(f"处理问题时出错: {str(e)}")
+            logger.info(f"处理问题时出错: {str(e)}")
             import traceback
             traceback.print_exc()
             

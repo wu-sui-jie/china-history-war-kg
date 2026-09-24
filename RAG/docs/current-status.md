@@ -15,7 +15,7 @@
 | 默认启动命令 | `python scripts/run_server.py --port 8000 --version <版本>` | `--version` 写入 `RAG_ACTIVE_VERSION` 并声明来源为 `cli_explicit`（第五轮 P0-4） |
 | 数据集 | 9925 实体 / 17700 关系 / 9544 向量条 | 以 `data/snapshot/20260915_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
 | 运行环境 | Python 3.11（锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本 |
-| 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`、`GET /` | 契约见 [data-contract.md](data-contract.md) |
+| 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`（SSE）、`POST /api/query/json`（非流式，可选 `X-Bot-Key`）、`GET /` | 契约见 [data-contract.md](data-contract.md)；非流式响应见 `contracts/query_json.py` |
 
 ## 二、测试与门禁（本地实测，2026-09-16）
 

@@ -141,6 +141,14 @@ class Settings:
     expose_thinking: bool = False
     sse_heartbeat_seconds: float = 15.0
     sse_max_duration_seconds: float = 300.0
+    # 非流式问答（POST /api/query/json）的聚合超时预算与可选共享密钥。
+    # 预算独立于 SSE：SSE 的心跳/总时长只约束流式通道（开发文档 6.4）。
+    query_json_timeout_seconds: float = 30.0
+    bot_api_key: str = ""
+    # 上面这项是不是**被显式配置**过（环境变量/.env 里出现了 RAG_BOT_API_KEY 键）。
+    # 用于区分"没配（=不校验，正常）"与"配了个空白值（=漏配，必须报错）"，
+    # 与 require_active_version_explicit 同一思路。
+    bot_api_key_explicit: bool = False
     cors_allow_origins: List[str] = field(default_factory=lambda: ["*"])
     # 显式确认"就是要公开 API"（第五轮审核 R5-5）：生产 + wildcard CORS 时
     # 必须为真，否则 server.api 启动即失败，避免漏配把公开接口暴露给任意站点。
@@ -264,6 +272,19 @@ class Settings:
         if self.sse_max_duration_seconds <= 0:
             problems.append(
                 f"SSE_MAX_DURATION_SECONDS 必须为正数，当前 {self.sse_max_duration_seconds!r}"
+            )
+        if self.query_json_timeout_seconds <= 0:
+            problems.append(
+                f"QUERY_JSON_TIMEOUT_SECONDS 必须为正数，"
+                f"当前 {self.query_json_timeout_seconds!r}"
+            )
+        if self.bot_api_key_explicit and not self.bot_api_key:
+            # 显式写空（RAG_BOT_API_KEY=）在"空即关闭"的读法下会静默关闭鉴权，
+            # 与 CORS_ALLOW_ORIGINS 的坑同源（第五轮整改复核 B8）：漏配必须报错，
+            # 而不是静默变成"看起来配了密钥其实谁都能调"。
+            problems.append(
+                "RAG_BOT_API_KEY 被设置为空白：这会静默关闭 /api/query/json 的共享密钥校验。"
+                "请填入实际密钥，或删除该配置项（不设置即为不校验）"
             )
         if self.chunk_max_chars <= 0 or self.chunk_overlap_chars < 0:
             problems.append(
@@ -494,6 +515,11 @@ def get_settings() -> Settings:
             "SSE_HEARTBEAT_SECONDS", defaults.SSE_HEARTBEAT_SECONDS)),
         sse_max_duration_seconds=float(os.environ.get(
             "SSE_MAX_DURATION_SECONDS", defaults.SSE_MAX_DURATION_SECONDS)),
+        query_json_timeout_seconds=float(os.environ.get(
+            "QUERY_JSON_TIMEOUT_SECONDS", defaults.QUERY_JSON_TIMEOUT_SECONDS)),
+        # 密钥两侧空白一律去掉：带空白的密钥在 HTTP 头里传不过去，等于配了也校验失败
+        bot_api_key=(os.environ.get("RAG_BOT_API_KEY", defaults.BOT_API_KEY) or "").strip(),
+        bot_api_key_explicit=os.environ.get("RAG_BOT_API_KEY") is not None,
         # 不再 `or ["*"]`：显式空值必须报错，不能静默变成通配符（第五轮整改复核 B8）
         cors_allow_origins=_csv_env("CORS_ALLOW_ORIGINS", defaults.CORS_ALLOW_ORIGINS),
         allow_public_cors=_bool_env("ALLOW_PUBLIC_CORS", defaults.ALLOW_PUBLIC_CORS),

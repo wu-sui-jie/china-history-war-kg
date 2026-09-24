@@ -12,9 +12,11 @@ Flask应用主入口
 
 import json
 import os
+import sqlite3
 import time
 import uuid
 import atexit
+import functools
 import re
 import sys
 from collections import Counter
@@ -22,13 +24,16 @@ from collections import Counter
 # ================== Flask核心模块 ==================
 from flask import Flask, request, jsonify, g, Response
 from flask_cors import CORS
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
 from sqlalchemy.pool import NullPool
 from sqlalchemy import func, text
 
 # ================== 自定义模块 ==================
+import local_settings
 from db_utils import DbUtil
-from jwt_util import decode, encode
-from common_utils import safe_text as _safe_text
+from jwt_util import TokenError, decode, encode
+from common_utils import safe_identifier, safe_text as _safe_text
 from model_search import neo4j_db
 from inference.rule_llm_integration import DYNASTY_SCOPE_MAP
 from models import (
@@ -44,11 +49,24 @@ from models import (
 
 # ================== 创建Flask应用 ==================
 app = Flask(__name__)
-CORS(app)
+
+# CORS：只放行本机开发用的前端来源。
+# 生产是 nginx 同源反代，浏览器根本不发跨域请求，因此不需要对任意站点开放——
+# 原先的 CORS(app) 允许任何来源带 Token 调写接口。局域网联调时用
+# CORS_ALLOW_ORIGINS 显式追加来源（逗号分隔，或 '*' 表示不限制）。
+_cors_origins = [
+    origin.strip()
+    for origin in local_settings.get(
+        "CORS_ALLOW_ORIGINS", "http://localhost:3001,http://127.0.0.1:3001"
+    ).split(",")
+    if origin.strip()
+]
+CORS(app, resources={r"/*": {"origins": _cors_origins}})
 neo4j_db_handle = neo4j_db()
 shared_entity_extractor = None
 shared_rule_llm_integration = None
-user_id = None
+# 请求身份统一存放在 flask.g.user_id（按请求隔离）；
+# 历史上用模块级全局变量承载，多线程下会串号，已废弃。
 
 # ================== 数据库配置 ==================
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -68,6 +86,10 @@ from src.extractors.entity_extractor import EntityExtractor
 from src.extractors.event_extractor import EventExtractor
 from src.extractors.relation_extractor import RelationExtractor
 from src.core.text_splitter import TextSplitter
+
+from logging_util import get_logger
+
+logger = get_logger(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{APP_PATH}/database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -144,7 +166,7 @@ def backfill_event_place_relation_evidence():
         with open(rel_path, "r", encoding="utf-8") as handle:
             rows = json.load(handle)
     except Exception as exc:
-        print(f"读取事件-地点关系证据失败: {exc}")
+        logger.warning(f"读取事件-地点关系证据失败: {exc}")
         return
 
     evidence_index = {}
@@ -176,23 +198,64 @@ def backfill_event_place_relation_evidence():
 
     if updated:
         db.session.commit()
-        print(f"已回填事件-地点关系证据 {updated} 条")
+        logger.info(f"已回填事件-地点关系证据 {updated} 条")
 
 
-# 启用 WAL 模式
+def ensure_user_table_schema():
+    """为旧库补 UserInfo.role 列、回填存量角色并补 account 唯一索引。"""
+    from models import db
+
+    rows = db.session.execute(text("PRAGMA table_info(UserInfo)")).fetchall()
+    if not rows:
+        # 表尚未创建（create_all 还没跑到）时无需处理
+        return
+    existing_columns = {row[1] for row in rows}
+    if "role" not in existing_columns:
+        db.session.execute(text("ALTER TABLE UserInfo ADD COLUMN role VARCHAR(32)"))
+    # 角色模型引入前建的账号都是本机管理员手工创建的，统一回填为 admin，
+    # 避免升级后原有账号立刻变成只读。新注册账号一律 viewer。
+    db.session.execute(text("UPDATE UserInfo SET role = 'admin' WHERE role IS NULL OR role = ''"))
+    try:
+        # 唯一约束的最终防线（并发注册）；原表没有该约束，用唯一索引补上
+        db.session.execute(
+            text("CREATE UNIQUE INDEX IF NOT EXISTS idx_userinfo_account ON UserInfo(account)")
+        )
+    except Exception as exc:
+        # 已存在重复账号时索引建不上：保留告警，人工清理后重启即可自动重建
+        logger.warning(f"⚠️ UserInfo.account 唯一索引创建失败（可能存在重复账号）: {exc}")
+    db.session.commit()
+
+
+# ================== SQLite PRAGMA（每连接生效） ==================
+# PRAGMA 是 per-connection 的：只在启动时执行一次，NullPool 下新连接全部回到
+# 默认值（journal_mode=delete / synchronous=FULL），README 宣称的 WAL 并发并不存在。
+# 用 connect 事件钩子保证每个新连接都设置。
+@event.listens_for(Engine, "connect")
+def _set_sqlite_pragmas(dbapi_connection, connection_record):
+    if not isinstance(dbapi_connection, sqlite3.Connection):
+        return
+    cursor = dbapi_connection.cursor()
+    try:
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.execute("PRAGMA synchronous=NORMAL")
+        cursor.execute("PRAGMA busy_timeout=30000")
+    finally:
+        cursor.close()
+
+
+# 启动时的结构迁移与数据回填（PRAGMA 已由上面的 connect 钩子负责）
 with app.app_context():
     from models import db
 
     try:
-        db.session.execute(text("PRAGMA journal_mode=WAL;"))
-        db.session.execute(text("PRAGMA synchronous=NORMAL;"))
         ensure_event_place_relation_metadata_columns()
         ensure_place_coordinate_metadata_columns()
         backfill_event_place_relation_evidence()
+        ensure_user_table_schema()
         db.session.commit()
-        print("✅ SQLite WAL 模式已启用")
+        logger.info("✅ SQLite schema 检查完成（WAL 模式由连接钩子设置）")
     except Exception as e:
-        print(f"⚠️ 设置 WAL 模式失败: {e}")
+        logger.warning(f"⚠️ SQLite schema 检查失败: {e}")
 
 DYNASTY_DISPLAY_ORDER = [
     "夏",
@@ -374,7 +437,7 @@ def load_current_dataset_meta():
         with open(meta_path, 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as exc:
-        print(f"读取当前数据集元信息失败: {exc}")
+        logger.warning(f"读取当前数据集元信息失败: {exc}")
         return {}
 
 
@@ -1335,8 +1398,15 @@ def build_quality_workbench():
     severity_order = {"high": 0, "medium": 1, "low": 2}
     issue_queue.sort(key=lambda item: (severity_order.get(item["severity"], 9), item["title"]))
 
+    summary = dict(report.get("summary", {}))
+    reconciliation = report.get("sync_reconciliation") or {}
+    # 把「SQLite 与 Neo4j 计数不一致的类型数」提到 summary，前端一眼可见
+    summary["sync_mismatch"] = sum(
+        1 for item in reconciliation.get("counts", []) if item.get("status") == "mismatch"
+    )
+
     return {
-        "summary": report.get("summary", {}),
+        "summary": summary,
         "issue_queue": issue_queue,
         "report": report,
     }
@@ -1550,6 +1620,48 @@ def build_dataset_overview():
     }
 
 
+def build_sync_reconciliation():
+    """对比 SQLite（主存储）与 Neo4j（可视化副本）两侧的节点计数。
+
+    双写没有自动补偿机制：SQLite 提交成功而 Neo4j 失败时，只在单次响应里
+    返回 sync_status=failed，缺口无人发现会静默累积。这里把两侧计数差异
+    暴露到质检接口，让不一致可见。
+    """
+    counts = []
+    consistent = True
+    for label, model in [("Event", Event), ("Place", Place), ("Organization", Organization), ("Person", Person)]:
+        sqlite_count = db.session.query(func.count(model.id)).scalar() or 0
+        neo4j_count = None
+        error = None
+        try:
+            result = neo4j_db_handle.graph.run(
+                f"MATCH (n:`{safe_identifier(label, kind='节点标签')}`) RETURN count(n) AS c"
+            ).data()
+            neo4j_count = result[0]["c"] if result else 0
+        except Exception as exc:
+            error = str(exc)
+
+        diff = None if neo4j_count is None else sqlite_count - neo4j_count
+        # None（Neo4j 不可达，判不了）与非零差异一样不能算"已对齐"，
+        # 否则对账在最需要报信的失败时刻反而显示一致。
+        if diff != 0:
+            consistent = False
+        counts.append({
+            "type": label,
+            "sqlite": sqlite_count,
+            "neo4j": neo4j_count,
+            "diff": diff,
+            "status": "ok" if diff == 0 else ("unknown" if error else "mismatch"),
+            "error": error,
+        })
+
+    return {
+        "consistent": consistent,
+        "counts": counts,
+        "note": "diff = SQLite - Neo4j。不一致时用 python sync_sqlite_to_neo4j.py（必要时 --mode full）重建副本。",
+    }
+
+
 def build_quality_report():
     """构建图谱质检数据。"""
     return {
@@ -1577,6 +1689,8 @@ def build_quality_report():
         "timeline_issues": _event_timeline_issues(),
         "coordinate_missing": _coordinate_issue_rows("missing", limit=99999),
         "coordinate_low_confidence": _coordinate_issue_rows("low_confidence", limit=99999),
+        # 双侧计数对账：把 SQLite 与 Neo4j 的差异显式暴露出来
+        "sync_reconciliation": build_sync_reconciliation(),
     }
 
 @app.before_request
@@ -1591,11 +1705,11 @@ def initialize_entity_extractor():
             # 加载已知实体到提取器，用于规则匹配快速提取
             try:
                 shared_entity_extractor.load_known_entities(neo4j_db_handle)
-                print(f"实体提取器已初始化，并加载了已知实体")
+                logger.info(f"实体提取器已初始化，并加载了已知实体")
             except Exception as load_err:
-                print(f"加载已知实体失败，将使用纯模型提取: {load_err}")
+                logger.warning(f"加载已知实体失败，将使用纯模型提取: {load_err}")
         except Exception as e:
-            print(f"初始化实体提取器失败: {str(e)}")
+            logger.warning(f"初始化实体提取器失败: {str(e)}")
 
     if shared_rule_llm_integration is None:
         try:
@@ -1605,9 +1719,9 @@ def initialize_entity_extractor():
                 model_name='deepseek-r1:7b',
                 max_depth=30
             )
-            print("规则推理模块已初始化")
+            logger.info("规则推理模块已初始化")
         except Exception as e:
-            print(f"初始化规则推理模块失败: {str(e)}")
+            logger.warning(f"初始化规则推理模块失败: {str(e)}")
 
     if shared_entity_extractor is not None:
         g.entity_extractor = shared_entity_extractor
@@ -1622,13 +1736,13 @@ def init_user_dict():
 
     try:
         if not os.path.exists(data_json_path):
-            print(f"警告：data.json文件不存在: {data_json_path}")
+            logger.info(f"警告：data.json文件不存在: {data_json_path}")
             return
 
         with open(data_json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        print(f"从data.json中提取实体，共有{len(data)}条记录")
+        logger.info(f"从data.json中提取实体，共有{len(data)}条记录")
 
         entities = set()
         entity_types = set()
@@ -1675,11 +1789,11 @@ def init_user_dict():
         with open(dict_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(dict_content))
 
-        print(f"已成功生成历史地名词典文件: {dict_path}")
-        print(f"词典包含 {len(entities)} 个实体名称, {len(entity_types)} 个实体类型, {len(relation_types)} 个关系类型")
+        logger.info(f"已成功生成历史地名词典文件: {dict_path}")
+        logger.info(f"词典包含 {len(entities)} 个实体名称, {len(entity_types)} 个实体类型, {len(relation_types)} 个关系类型")
 
     except Exception as e:
-        print(f"创建历史地名词典文件失败: {str(e)}")
+        logger.warning(f"创建历史地名词典文件失败: {str(e)}")
         import traceback
         traceback.print_exc()
 
@@ -1694,38 +1808,63 @@ try:
     dict_path = os.path.join(APP_PATH, 'historical_places.txt')
     if os.path.exists(dict_path):
         jieba.load_userdict(dict_path)
-        print(f"成功加载历史地名词典: {dict_path}")
+        logger.info(f"成功加载历史地名词典: {dict_path}")
     else:
-        print(f"警告：历史地名词典不存在: {dict_path}")
+        logger.info(f"警告：历史地名词典不存在: {dict_path}")
 except ImportError:
-    print("未找到jieba分词库，跳过用户词典加载")
+    logger.info("未找到jieba分词库，跳过用户词典加载")
 except Exception as e:
-    print(f"加载用户词典失败: {str(e)}")
+    logger.warning(f"加载用户词典失败: {str(e)}")
 
 
 # ================== 权限拦截器 ==================
+
+# 放行路径：登录、注册与静态资源
+PASS_URLS = {"/", "/api/login", "/api/sign_in"}
+
+# 可写数据的角色；注册接口一律建 viewer（只读）
+WRITE_ROLES = {"admin", "editor"}
+
+
+def require_write_role(view):
+    """写接口鉴权：只读角色（viewer）不允许改数据。"""
+    @functools.wraps(view)
+    def wrapper(*args, **kwargs):
+        role = DbUtil.get_role(getattr(g, "user_id", None))
+        if role not in WRITE_ROLES:
+            return jsonify({
+                "code": 403,
+                "msg": "当前账号为只读权限，无法执行该操作"
+            }), 403
+        return view(*args, **kwargs)
+    return wrapper
+
 
 @app.before_request
 def before():
     """全局请求拦截器（权限校验）"""
     url = request.path
-    print('url:' + url)
 
-    pass_url = ["/", "/api/login", "/api/sign_in"]
+    if url.startswith("/static") or url in PASS_URLS:
+        return None
 
-    if url.startswith("/static") or url in pass_url:
-        pass
-    else:
-        token = request.headers.get('Token')
+    token = request.headers.get('Token')
 
-        if not token:
-            return jsonify({
-                "code": 403,
-                "msg": "您还未登录，请先登录"
-            })
-        else:
-            global user_id
-            user_id = decode(token)['user_id']
+    if not token:
+        return jsonify({
+            "code": 401,
+            "msg": "您还未登录，请先登录"
+        }), 401
+
+    try:
+        payload = decode(token)
+    except TokenError as exc:
+        # 过期 / 伪造 token 按未认证处理（原先直接抛异常返回 500）
+        return jsonify({"code": 401, "msg": str(exc)}), 401
+
+    # 请求身份放 flask.g，按请求隔离；模块级全局变量在多线程下会串号
+    g.user_id = payload.get('user_id')
+    return None
 
 
 # ================== 用户相关接口 ==================
@@ -1743,7 +1882,6 @@ def login():
         - data: JWT Token(成功时返回)
         - msg: 错误信息(失败时返回)
     """
-    global user_id
     params = request.get_json()
     handler = DbUtil()
     # 验证用户账号密码
@@ -1765,8 +1903,7 @@ def login():
 @app.route('/api/userinfo', methods=['GET', 'POST'])
 def userinfo():
     handler = DbUtil()
-    global user_id
-    result = handler.find_user(user_id)
+    result = handler.find_user(getattr(g, "user_id", None))
     return jsonify({
         "code": 200,
         "data": result
@@ -1775,13 +1912,11 @@ def userinfo():
 
 @app.route('/api/sign_in', methods=['POST'])
 def sign_in():
-    global user_id
     data = request.get_json()
     handler = DbUtil()
     result = handler.add_user(data)
     if result.get("code") == 200:
-        user_id = result["data"]["user_id"]
-        token = encode(user_id)
+        token = encode(result["data"]["user_id"])
         return jsonify({
             "code": 200,
             "data": token,
@@ -1807,23 +1942,23 @@ def search_name():
     try:
         if not entity and not node_type and not rel_type:
             json_data = neo4j_db_handle.get_default_graph(limit=50, load_all=load_all)
-            print(f"使用默认图谱加载方式, {'加载全部' if load_all else '加载部分'}")
+            logger.info(f"使用默认图谱加载方式, {'加载全部' if load_all else '加载部分'}")
         else:
             if entity and node_type and not rel_type:
                 json_data = neo4j_db_handle.search_by_name_and_type(entity, node_type)
-                print("名称+类型组合查询")
+                logger.info("名称+类型组合查询")
             elif entity and rel_type:
                 json_data = neo4j_db_handle.search_by_name_and_relation(entity, rel_type)
-                print(f"组合查询：名称+关系 {entity} + {rel_type}")
+                logger.info(f"组合查询：名称+关系 {entity} + {rel_type}")
             elif entity:
                 json_data = neo4j_db_handle.search_nodes_by_name(entity)
-                print(f"按实体名称'{entity}'搜索")
+                logger.info(f"按实体名称'{entity}'搜索")
             elif node_type:
                 json_data = neo4j_db_handle.get_nodes_by_type(node_type)
-                print(f"按节点类型'{node_type}'筛选")
+                logger.info(f"按节点类型'{node_type}'筛选")
             elif rel_type:
                 json_data = neo4j_db_handle.get_nodes_by_relationship(rel_type)
-                print(f"按关系类型'{rel_type}'筛选")
+                logger.info(f"按关系类型'{rel_type}'筛选")
 
         return jsonify({
             "code": 200,
@@ -1831,7 +1966,7 @@ def search_name():
             "data": json_data
         })
     except Exception as e:
-        print(f"搜索地名知识图谱异常: {str(e)}")
+        logger.warning(f"搜索地名知识图谱异常: {str(e)}")
         import traceback
         traceback.print_exc()
         return jsonify({
@@ -1861,7 +1996,7 @@ def find_list():
             "data": result
         })
     except Exception as e:
-        print(f"查询节点列表失败: {e}")
+        logger.warning(f"查询节点列表失败: {e}")
         return jsonify({
             "code": 500,
             "msg": str(e),
@@ -1870,6 +2005,7 @@ def find_list():
 
 
 @app.route('/create_node', methods=['POST'])
+@require_write_role
 def create_node():
     """创建节点接口
     
@@ -1905,6 +2041,7 @@ def create_node():
 
 
 @app.route('/update_node', methods=['POST'])
+@require_write_role
 def update_node():
     """
     更新节点 - 更新SQLite，异步同步到Neo4j
@@ -1931,6 +2068,7 @@ def update_node():
 
 
 @app.route('/delete_node', methods=['POST'])
+@require_write_role
 def delete_node():
     """
     删除节点 - 删除SQLite，异步同步到Neo4j
@@ -2001,6 +2139,7 @@ def get_node_detail():
 
 
 @app.route('/api/node/update_properties', methods=['POST'])
+@require_write_role
 def update_node_properties():
     """
     更新节点属性 - 更新SQLite，异步同步到Neo4j
@@ -2349,10 +2488,10 @@ def ai_inference():
             }), 400
 
         request_id = str(uuid.uuid4())[:8]
-        print(f"[{request_id}] 收到大模型推理请求: '{user_question}'")
+        logger.info(f"[{request_id}] 收到大模型推理请求: '{user_question}'")
 
         if not hasattr(g, 'rule_llm_integration'):
-            print(f"[{request_id}] 初始化规则推理模块")
+            logger.info(f"[{request_id}] 初始化规则推理模块")
             try:
                 from inference.rule_llm_integration import RuleLLMIntegration
                 g.rule_llm_integration = RuleLLMIntegration(
@@ -2361,7 +2500,7 @@ def ai_inference():
                     max_depth=3
                 )
             except Exception as init_err:
-                print(f"[{request_id}] 初始化规则推理模块失败: {str(init_err)}")
+                logger.warning(f"[{request_id}] 初始化规则推理模块失败: {str(init_err)}")
                 return jsonify({
                     'success': False,
                     'error': '系统初始化失败，请稍后再试',
@@ -2370,12 +2509,12 @@ def ai_inference():
                 }), 500
 
         if not hasattr(g, 'entity_extractor'):
-            print(f"[{request_id}] 初始化实体提取器")
+            logger.info(f"[{request_id}] 初始化实体提取器")
             try:
                 from entity_extract.extractor import Extractor
                 g.entity_extractor = Extractor()
             except Exception as init_err:
-                print(f"[{request_id}] 初始化实体提取器失败: {str(init_err)}")
+                logger.warning(f"[{request_id}] 初始化实体提取器失败: {str(init_err)}")
                 return jsonify({
                     'success': False,
                     'error': '实体提取器初始化失败，请稍后再试',
@@ -2383,7 +2522,7 @@ def ai_inference():
                     'kg_data': {'nodes': [], 'lines': []}
                 }), 500
 
-        print(f"[{request_id}] 开始处理问题...")
+        logger.info(f"[{request_id}] 开始处理问题...")
         start_time = time.time()
 
         try:
@@ -2396,12 +2535,12 @@ def ai_inference():
             process_time = result.get('process_time', 0)
             entities = result.get('query_entities') or result.get('entities', [])
 
-            print(f"[{request_id}] 问题处理完成，耗时: {process_time:.2f}秒, 识别到 {len(entities)} 个实体")
+            logger.info(f"[{request_id}] 问题处理完成，耗时: {process_time:.2f}秒, 识别到 {len(entities)} 个实体")
 
             kg_data = result.get('kg_data', {'nodes': [], 'lines': []})
             node_count = len(kg_data.get('nodes', []))
             line_count = len(kg_data.get('lines', []))
-            print(f"[{request_id}] 生成的知识图谱数据: {node_count} 个节点, {line_count} 条关系")
+            logger.info(f"[{request_id}] 生成的知识图谱数据: {node_count} 个节点, {line_count} 条关系")
 
             relations_text = result.get('context', '未找到相关关系数据')
 
@@ -2421,7 +2560,7 @@ def ai_inference():
             error_type = type(process_err).__name__
             error_msg = str(process_err)
 
-            print(f"[{request_id}] 处理问题时出错: {error_type} - {error_msg}")
+            logger.info(f"[{request_id}] 处理问题时出错: {error_type} - {error_msg}")
             import traceback
             traceback.print_exc()
 
@@ -2450,7 +2589,7 @@ def ai_inference():
     except Exception as e:
         error_type = type(e).__name__
         error_msg = str(e)
-        print(f"处理推理请求时出错: {error_type} - {error_msg}")
+        logger.info(f"处理推理请求时出错: {error_type} - {error_msg}")
         import traceback
         traceback.print_exc()
 
@@ -2485,7 +2624,7 @@ def ai_inference_stream():
             return jsonify({'success': False, 'error': '问题不能为空'}), 400
 
         request_id = str(uuid.uuid4())[:8]
-        print(f"[{request_id}] 收到SSE推理请求: '{user_question}'")
+        logger.info(f"[{request_id}] 收到SSE推理请求: '{user_question}'")
 
         # 获取推理引擎和实体提取器
         if not hasattr(g, 'rule_llm_integration') or not hasattr(g, 'entity_extractor'):
@@ -2499,7 +2638,7 @@ def ai_inference_stream():
                 )
                 g.entity_extractor = Extractor()
             except Exception as init_err:
-                print(f"[{request_id}] 初始化失败: {str(init_err)}")
+                logger.warning(f"[{request_id}] 初始化失败: {str(init_err)}")
                 return jsonify({'success': False, 'error': '系统初始化失败'}), 500
 
         # 在生成器外部捕获Flask上下文对象，避免在生成器内访问g
@@ -2537,7 +2676,7 @@ def ai_inference_stream():
                     entities = rule_engine._filter_relevant_entities(extracted_entities, user_question, neo4j_db_handle)
 
                 extract_time = time.time() - start_time
-                print(f"[{request_id}] 实体提取完成，耗时: {extract_time:.2f}秒，实体: {entities}")
+                logger.info(f"[{request_id}] 实体提取完成，耗时: {extract_time:.2f}秒，实体: {entities}")
 
                 # 发送实体信息
                 yield f"data: {json.dumps({'status': 'entities', 'entities': entities, 'query_entities': query_entities, 'extract_time': round(extract_time, 2)})}\n\n"
@@ -2557,7 +2696,7 @@ def ai_inference_stream():
 
                 if dynasty_scope:
                     all_entity_info = rule_engine._get_dynasty_event_infos(neo4j_db_handle, dynasty_scope["dynasties"])
-                    print(f"[{request_id}] 朝代查询: {dynasty_scope['dynasties']}, 找到 {len(all_entity_info)} 条事件")
+                    logger.info(f"[{request_id}] 朝代查询: {dynasty_scope['dynasties']}, 找到 {len(all_entity_info)} 条事件")
                     for info in all_entity_info:
                         entity_info_map[info['id']] = info
                 elif event_detail_query:
@@ -2572,13 +2711,13 @@ def ai_inference_stream():
                         entity_info_map[info['id']] = info
                 else:
                     for entity in entities:
-                        query = f"""
+                        query = """
                         MATCH (n)
-                        WHERE n.name = '{entity}'
+                        WHERE n.name = $entity
                         RETURN n
                         LIMIT 1
                         """
-                        results = neo4j_db_handle.graph.run(query).data()
+                        results = neo4j_db_handle.graph.run(query, entity=entity).data()
 
                         if results:
                             node = results[0]['n']
@@ -2613,17 +2752,17 @@ def ai_inference_stream():
                                     all_entity_info.append(info)
                                     entity_info_map[info['id']] = info
                                 if dynasty_results:
-                                    print(f"[{request_id}] 朝代别名回退: '{entity}' → {dynasty_values}, 找到 {len(dynasty_results)} 条事件")
+                                    logger.info(f"[{request_id}] 朝代别名回退: '{entity}' → {dynasty_values}, 找到 {len(dynasty_results)} 条事件")
                                     continue
 
                             # 模糊查询
-                            fuzzy_query = f"""
+                            fuzzy_query = """
                             MATCH (n)
-                            WHERE n.name CONTAINS '{entity}' OR '{entity}' CONTAINS n.name
+                            WHERE n.name CONTAINS $entity OR $entity CONTAINS n.name
                             RETURN n
                             LIMIT 5
                             """
-                            fuzzy_results = neo4j_db_handle.graph.run(fuzzy_query).data()
+                            fuzzy_results = neo4j_db_handle.graph.run(fuzzy_query, entity=entity).data()
                             for result in fuzzy_results:
                                 node = result['n']
                                 info = {
@@ -2668,7 +2807,7 @@ def ai_inference_stream():
                 all_relationships.extend(inferred_relationships)
 
                 query_time = time.time() - query_start
-                print(f"[{request_id}] 图谱查询完成，耗时: {query_time:.2f}秒")
+                logger.info(f"[{request_id}] 图谱查询完成，耗时: {query_time:.2f}秒")
 
                 # 发送查询结果
                 yield f"data: {json.dumps({'status': 'queried', 'entity_count': len(all_entity_info), 'relation_count': len(all_relationships), 'query_time': round(query_time, 2)})}\n\n"
@@ -2752,13 +2891,13 @@ def ai_inference_stream():
                             yield f"data: {json.dumps({'status': 'content', 'content': content})}\n\n"
 
                 except Exception as llm_err:
-                    print(f"[{request_id}] LLM调用失败: {str(llm_err)}")
+                    logger.warning(f"[{request_id}] LLM调用失败: {str(llm_err)}")
                     yield f"data: {json.dumps({'status': 'error', 'message': f'大模型调用失败: {str(llm_err)}'})}\n\n"
                     return
 
                 generate_time = time.time() - generate_start
                 total_time = time.time() - start_time
-                print(f"[{request_id}] 回答生成完成，耗时: {generate_time:.2f}秒，总耗时: {total_time:.2f}秒")
+                logger.info(f"[{request_id}] 回答生成完成，耗时: {generate_time:.2f}秒，总耗时: {total_time:.2f}秒")
 
                 # ========== 步骤4: 构建可视化数据 ==========
                 kg_data = rule_engine._convert_to_visual_data(all_entity_info, original_relationships, all_paths)
@@ -2772,7 +2911,7 @@ def ai_inference_stream():
             except Exception as e:
                 error_type = type(e).__name__
                 error_msg = str(e)
-                print(f"[{request_id}] SSE处理出错: {error_type} - {error_msg}")
+                logger.info(f"[{request_id}] SSE处理出错: {error_type} - {error_msg}")
                 import traceback
                 traceback.print_exc()
                 yield f"data: {json.dumps({'status': 'error', 'message': f'处理出错: {error_msg}'})}\n\n"
@@ -2785,7 +2924,7 @@ def ai_inference_stream():
     except Exception as e:
         error_type = type(e).__name__
         error_msg = str(e)
-        print(f"SSE请求处理错误: {error_type} - {error_msg}")
+        logger.warning(f"SSE请求处理错误: {error_type} - {error_msg}")
         import traceback
         traceback.print_exc()
         return jsonify({'success': False, 'error': f'请求处理错误: {error_msg}'}), 500
@@ -3118,14 +3257,14 @@ def extract_all_optimized(llm, text: str):
         if not chunk_text.strip():
             continue
 
-        print(f"[提取] 处理文本段: {chunk_start}-{chunk_end} ({len(chunk_text)}字)")
+        logger.info(f"[提取] 处理文本段: {chunk_start}-{chunk_end} ({len(chunk_text)}字)")
 
         # ========== 第1阶段：实体抽取 ==========
         try:
             chunk_entities = entity_extractor.extract(chunk_text)
-            print(f"[提取] 实体抽取完成: {len(chunk_entities.places)}地点, {len(chunk_entities.organizations)}组织, {len(chunk_entities.persons)}人物")
+            logger.info(f"[提取] 实体抽取完成: {len(chunk_entities.places)}地点, {len(chunk_entities.organizations)}组织, {len(chunk_entities.persons)}人物")
         except Exception as e:
-            print(f"[提取] 实体抽取失败: {e}")
+            logger.warning(f"[提取] 实体抽取失败: {e}")
             chunk_entities = EntityExtractionResult()
 
         # 收集实体（去重）
@@ -3181,9 +3320,9 @@ def extract_all_optimized(llm, text: str):
         # ========== 第2阶段：事件抽取 ==========
         try:
             chunk_event_result = event_extractor.extract(chunk_text, chunk_entities)
-            print(f"[提取] 事件抽取完成: {len(chunk_event_result.events)}事件")
+            logger.info(f"[提取] 事件抽取完成: {len(chunk_event_result.events)}事件")
         except Exception as e:
-            print(f"[提取] 事件抽取失败: {e}")
+            logger.warning(f"[提取] 事件抽取失败: {e}")
             chunk_event_result = EventExtractionResult()
 
         # 收集事件（去重，类型安全处理）
@@ -3218,7 +3357,7 @@ def extract_all_optimized(llm, text: str):
             chunk_event_names.append(event_name)
 
         if not chunk_event_names:
-            print(f"[提取] 该段未识别到事件，跳过关系抽取")
+            logger.info(f"[提取] 该段未识别到事件，跳过关系抽取")
             continue
 
         # ========== 第3阶段：关系抽取 ==========
@@ -3230,12 +3369,12 @@ def extract_all_optimized(llm, text: str):
                 org_list="、".join(chunk_org_names),
                 person_list="、".join(chunk_person_names),
             )
-            print(f"[提取] 关系抽取完成: {len(chunk_relations.event_place_relations)}事件-地点, "
+            logger.info(f"[提取] 关系抽取完成: {len(chunk_relations.event_place_relations)}事件-地点, "
                   f"{len(chunk_relations.event_person_relations)}事件-人物, "
                   f"{len(chunk_relations.event_organization_relations)}事件-组织, "
                   f"{len(chunk_relations.event_event_relations)}事件-事件")
         except Exception as e:
-            print(f"[提取] 关系抽取失败: {e}")
+            logger.warning(f"[提取] 关系抽取失败: {e}")
             chunk_relations = RelationExtractionResult()
 
         # 收集关系（类型安全处理）
@@ -3331,7 +3470,7 @@ def extract_entities_events():
             from src.extractors.relation_extractor import RelationExtractor
             from src.utils import EntityClassifier, Normalizer
         except ImportError as import_err:
-            print(f"导入提取器模块失败: {import_err}")
+            logger.warning(f"导入提取器模块失败: {import_err}")
             return jsonify({
                 "code": 500,
                 "msg": f"提取器模块导入失败: {str(import_err)}",
@@ -3374,7 +3513,7 @@ def extract_entities_events():
 
                         return content
                     except Exception as e:
-                        print(f"Ollama调用失败，重试 {attempt + 1}/{max_retries}: {e}")
+                        logger.warning(f"Ollama调用失败，重试 {attempt + 1}/{max_retries}: {e}")
                         if attempt < max_retries - 1:
                             import time
                             time.sleep(1)
@@ -3384,9 +3523,9 @@ def extract_entities_events():
         # 初始化LLM客户端
         try:
             llm = OllamaAdapter("deepseek-r1:7b")
-            print("[提取] 使用本地Ollama模型: deepseek-r1:7b")
+            logger.info("[提取] 使用本地Ollama模型: deepseek-r1:7b")
         except Exception as llm_err:
-            print(f"LLM客户端初始化失败: {llm_err}")
+            logger.warning(f"LLM客户端初始化失败: {llm_err}")
             return jsonify({
                 "code": 500,
                 "msg": f"LLM客户端初始化失败: {str(llm_err)}",
@@ -3394,12 +3533,12 @@ def extract_entities_events():
             })
 
         # 使用优化的单次抽取方案
-        print(f"[提取] 开始单次综合抽取，文本长度: {len(text)}")
+        logger.info(f"[提取] 开始单次综合抽取，文本长度: {len(text)}")
 
         entities, event_result, relations = extract_all_optimized(llm, text)
 
-        print(f"[提取] 抽取完成: {len(entities.places)}地点, {len(entities.organizations)}组织, {len(entities.persons)}人物, {len(event_result.events)}事件")
-        print(f"[提取] 关系: {len(relations.event_place_relations)}事件-地点, {len(relations.event_person_relations)}事件-人物, {len(relations.event_organization_relations)}事件-组织, {len(relations.event_event_relations)}事件-事件")
+        logger.info(f"[提取] 抽取完成: {len(entities.places)}地点, {len(entities.organizations)}组织, {len(entities.persons)}人物, {len(event_result.events)}事件")
+        logger.info(f"[提取] 关系: {len(relations.event_place_relations)}事件-地点, {len(relations.event_person_relations)}事件-人物, {len(relations.event_organization_relations)}事件-组织, {len(relations.event_event_relations)}事件-事件")
 
         process_time = time.time() - start_time
 
@@ -3529,7 +3668,7 @@ def extract_entities_events():
     except Exception as e:
         error_type = type(e).__name__
         error_msg = str(e)
-        print(f"文本实体识别失败: {error_type} - {error_msg}")
+        logger.warning(f"文本实体识别失败: {error_type} - {error_msg}")
         import traceback
         traceback.print_exc()
         return jsonify({
@@ -3692,8 +3831,8 @@ def get_permission():
 
 def graceful_shutdown():
     """优雅关闭"""
-    print("\n🛑 正在关闭应用...")
-    print("✅ 应用已安全关闭")
+    logger.info("🛑 正在关闭应用...")
+    logger.info("✅ 应用已安全关闭")
 
 
 atexit.register(graceful_shutdown)
@@ -3701,12 +3840,22 @@ atexit.register(graceful_shutdown)
 # ================== 启动应用 ==================
 
 if __name__ == "__main__":
-    print("\n" + "=" * 60)
-    print("🌐 启动历史地名知识图谱系统")
-    print("=" * 60)
-    print("📍 访问地址: http://localhost:5000")
-    print("💾 主存储: SQLite 关系型数据库")
-    print("🔄 可视化: Neo4j 图数据库")
-    print("=" * 60 + "\n")
+    logger.info("\n" + "=" * 60)
+    logger.info("🌐 启动历史地名知识图谱系统")
+    logger.info("=" * 60)
 
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    # 监听地址与调试开关都由环境变量控制：默认关闭 debug、只监听本机。
+    # 不要用 debug=True + 0.0.0.0 对外提供服务：Werkzeug 调试器可执行任意代码。
+    debug_enabled = local_settings.get("FLASK_DEBUG", "").strip().lower() in {"1", "true", "yes", "on"}
+    host = local_settings.get("BACKEND_HOST", "127.0.0.1").strip() or "127.0.0.1"
+    try:
+        port = int(local_settings.get("BACKEND_PORT", "5000") or 5000)
+    except ValueError:
+        port = 5000
+
+    logger.info(f"📍 监听地址: http://{host}:{port}（调试模式: {'开' if debug_enabled else '关'}）")
+    logger.info("💾 主存储: SQLite 关系型数据库")
+    logger.info("🔄 可视化: Neo4j 图数据库")
+    logger.info("=" * 60 + "\n")
+
+    app.run(debug=debug_enabled, port=port, host=host)

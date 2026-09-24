@@ -16,6 +16,7 @@ data-contract.md 规定了一组统一结构。本层把它们落成 Python data
 | 查询请求 / F02 内部输出 / 纠正实体 | F01→F06 链路 | `request.py` |
 | 检索通道输出信封（GraphResult/TextResult/FusionOutput 等） | F03/F04/F05 | `retrieval.py` |
 | SSE 事件协议与事件类型 | F01/F06 | `sse.py` |
+| 非流式问答结果（SSE 帧聚合后的完整结果） | `POST /api/query/json` | `query_json.py` |
 | 知识面板数据（entity_cards/subgraph/timeline/map_points） | F05 装配 / F07 展示 | `panel.py` |
 | 冲突对象与 conflict_type | F05 | `conflict.py` |
 | 治理输出：词典 / 版本 / 战争类型映射 / 关系-卡片字段映射 | F09 离线 | `governance.py` |

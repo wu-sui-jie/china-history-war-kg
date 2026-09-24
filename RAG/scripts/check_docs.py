@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-SKIP_DIRS = {".git", "node_modules", "dist", "new", "__pycache__", ".pytest_cache", "logs"}
+SKIP_DIRS = {".git", "node_modules", "dist", "__pycache__", ".pytest_cache", "logs"}
 
 # current-status 里的数据集行：`NNNN 实体 / NNNN 关系 / NNNN 向量条`
 DATASET_PATTERN = re.compile(

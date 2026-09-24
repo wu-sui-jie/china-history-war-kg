@@ -7,7 +7,7 @@
 
 | 项 | 要求 |
 | --- | --- |
-| Python | 3.11（本项目在 `E:/anaconda/envs/AI_Agent` 验证；依赖见 `requirements.txt`） |
+| Python | 3.11（本项目在 conda 环境 `AI_Agent` 中验证；依赖见 `requirements.txt`。本机安装位置见根 README「本机环境备注」） |
 | Node | 仅"重新构建前端"时需要（`frontend/`，Vue3 + Vite） |
 | 数据制品 | `data/snapshot/<v>` + `data/index/<v>`（**两目录已被 .gitignore 忽略，需随部署包携带**） |
 | 外部服务 | ① 阿里云百炼（文本向量化）② LLM endpoint（中转 `api.commandcode.ai` 或官方 `api.deepseek.com`）——**两者都需要外网** |

@@ -15,6 +15,7 @@ from pathlib import Path
 from flask import Flask
 from sqlalchemy import text
 
+from common_utils import safe_identifier
 from models import db, Event, Place, Organization, Person
 from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
 
@@ -53,7 +54,7 @@ def clear_migration_tables():
                 "event_organization_rel",
             ]
             for table in tables:
-                db.session.execute(text(f"DELETE FROM {table}"))
+                db.session.execute(text(f"DELETE FROM {safe_identifier(table, kind='表名')}"))
 
             result = db.session.execute(
                 text("SELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence'")
@@ -512,7 +513,12 @@ class JsonToSqliteImporter:
             "关系": self.stats["relations"],
         }
 
-    def run(self):
+    def run(self, confirm: bool = False):
+        if not confirm:
+            raise SystemExit(
+                "已中止：本命令会 drop_all() 重建整个 SQLite 库，属于破坏性操作。"
+                "确认要覆盖现有数据库时加 --yes 重跑。"
+            )
         with app.app_context():
             db.drop_all()
             db.create_all()
@@ -538,6 +544,11 @@ if __name__ == "__main__":
         default=str(DEFAULT_FINAL_JSON),
         help="抽取结果文件路径，默认使用完整 9_final_all.json，也支持 published/final.json 或旧版 processed 目录",
     )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="确认 drop_all() 重建数据库；不加该参数时脚本拒绝执行",
+    )
     args = parser.parse_args()
     importer = JsonToSqliteImporter(source_path=args.source)
-    importer.run()
+    importer.run(confirm=args.yes)

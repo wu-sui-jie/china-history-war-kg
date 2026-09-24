@@ -14,6 +14,7 @@ from __future__ import annotations
 import os
 import secrets as _secrets
 from pathlib import Path
+from typing import Optional
 
 _ENV_FILE = Path(__file__).resolve().parent / ".env"
 _env_loaded = False
@@ -60,7 +61,9 @@ def require_neo4j_password() -> str:
 
 
 # ---- JWT（登录鉴权）----
-_jwt_secret_cache: str | None = None
+# 写成 Optional[str] 而不是 `str | None`：后者是 PEP 604 语法，在 3.8 下仅靠
+# 文件顶部的 `from __future__ import annotations` 才合法，被复制到别处即 SyntaxError。
+_jwt_secret_cache: Optional[str] = None
 
 
 def jwt_secret() -> str:

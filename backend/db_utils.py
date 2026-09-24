@@ -1,7 +1,11 @@
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from models import Event, Organization, Person, Place, UserInfo, db
+
+from logging_util import get_logger
+
+logger = get_logger(__name__)
 
 
 class DbUtil:
@@ -10,7 +14,7 @@ class DbUtil:
         db.init_app(app)
         with app.app_context():
             db.create_all()
-            print("SQLite schema initialized")
+            logger.info("SQLite schema initialized")
 
     def authentication(self, params):
         account = (params or {}).get("account", "")
@@ -21,6 +25,8 @@ class DbUtil:
 
         stored_password = user.password or ""
         if stored_password == password:
+            # 存量明文口令：命中即就地升级为哈希，升级后不再走这条分支。
+            logger.warning(f"⚠️ 账号 {account} 使用明文口令登录，已自动升级为哈希存储；请改用哈希后的口令。")
             user.password = generate_password_hash(password)
             db.session.commit()
             return user
@@ -31,27 +37,49 @@ class DbUtil:
         return None
 
     def find_user(self, user_id):
-        user = UserInfo.query.get(user_id)
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
         return user.to_dict() if user else None
 
-    def add_user(self, data):
-        exists = UserInfo.query.filter(UserInfo.account == data.get("account")).all()
-        if exists:
-            return {"code": 500, "msg": "用户账号已存在"}
+    @staticmethod
+    def get_role(user_id):
+        """取用户角色。
 
-        account = (data or {}).get("account", "").strip()
-        password = (data or {}).get("password", "")
-        name = (data or {}).get("name", "").strip()
+        查不到返回空串（按未授权处理）；存量账号 role 为空时按 admin 处理，
+        避免引入角色模型后把原有账号锁成只读。
+        没有应用上下文时同样返回空串——fail-closed，宁可拒绝也不放行。
+        """
+        if user_id is None:
+            return ""
+        try:
+            user = db.session.get(UserInfo, user_id)
+        except RuntimeError:
+            return ""
+        if user is None:
+            return ""
+        return user.role or "admin"
+
+    def add_user(self, data):
+        data = data or {}
+        account = (data.get("account") or "").strip()
+        password = data.get("password") or ""
+        name = (data.get("name") or "").strip()
         if not account or not password or not name:
             return {"code": 400, "msg": "用户名、昵称和密码不能为空"}
 
+        # 注册用户一律只读（viewer）；需要写权限的账号由管理员改库中 role。
         params = UserInfo(
             account=account,
             name=name,
-            password=generate_password_hash(password)
+            password=generate_password_hash(password),
+            role="viewer",
         )
         db.session.add(params)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except IntegrityError:
+            # account 的唯一约束兜住并发注册（原先"先查后插"存在竞态）
+            db.session.rollback()
+            return {"code": 500, "msg": "用户账号已存在"}
         return {
             "code": 200,
             "data": {
@@ -67,6 +95,45 @@ class DbUtil:
             "Organization": Organization,
             "Person": Person,
         }.get(node_type)
+
+    @staticmethod
+    def _find_neo4j_by_name(neo4j_handle, node_type, node_name):
+        """按名回退查找 Neo4j 节点，返回 (唯一匹配或 None, 错误说明)。
+
+        只在 SQLite 侧缺 neo4j_id 时才需要。同名同类型多于一个时返回说明而不返回匹配，
+        由调用方「宁可不做」——取第一条可能动到另一个对象的节点。
+        """
+        results = neo4j_handle.search_nodes_by_name(node_name, limit=10)
+        matches = [
+            item for item in ((results or {}).get("nodes") or [])
+            if item.get("type") == node_type
+        ]
+        if len(matches) == 1:
+            return matches[0], ""
+        if len(matches) > 1:
+            return None, (
+                f"Neo4j 中有 {len(matches)} 个同名同类型节点（{node_type}/{node_name}），"
+                "需人工核对后再处理（本次未改动 Neo4j）"
+            )
+        return None, "Neo4j 未找到对应节点"
+
+    @staticmethod
+    def _delete_neo4j_by_name(neo4j_handle, node_type, node_name):
+        """按名回退删除：唯一匹配才删。返回 (是否成功, 错误说明)。"""
+        match, error = DbUtil._find_neo4j_by_name(neo4j_handle, node_type, node_name)
+        if match is None:
+            return False, error
+        neo4j_handle.delete_node(node_type, match["id"])
+        return True, ""
+
+    @staticmethod
+    def _update_neo4j_by_name(neo4j_handle, node_type, node_name, new_name):
+        """按名回退改名：唯一匹配才改。返回 (匹配到的 Neo4j 节点 id 或 None, 错误说明)。"""
+        match, error = DbUtil._find_neo4j_by_name(neo4j_handle, node_type, node_name)
+        if match is None:
+            return None, error
+        neo4j_handle.update_node(node_type, match["id"], new_name)
+        return match["id"], ""
 
     @staticmethod
     def _field_mapping_by_type(node_type: str):
@@ -258,6 +325,8 @@ class DbUtil:
                     setattr(node, mapped_key, value)
             db.session.commit()
 
+            neo4j_sync_success = False
+            neo4j_error_msg = ""
             try:
                 from model_search import neo4j_db
 
@@ -270,29 +339,37 @@ class DbUtil:
                             neo4j_id,
                             {k: v for k, v in DbUtil._neo4j_props(node_type, {"name": new_name, **normalized_properties}).items() if v is not None},
                         )
+                    neo4j_sync_success = True
                 else:
-                    results = neo4j_handle.search_nodes_by_name(old_name, limit=1)
-                    if results and results.get("nodes"):
-                        neo4j_id = results["nodes"][0]["id"]
-                        neo4j_handle.update_node(node_type, neo4j_id, new_name)
+                    # 回退按名查找只在 neo4j_id 缺失时才走；同名同类型多于一个时不动，
+                    # 交人工核对——取第一条可能改到另一个对象的节点上。
+                    found_id, find_error = DbUtil._update_neo4j_by_name(
+                        neo4j_handle, node_type, old_name, new_name
+                    )
+                    if found_id is None:
+                        neo4j_error_msg = find_error
+                    else:
                         if normalized_properties:
                             neo4j_handle.update_node_properties(
-                                neo4j_id,
+                                found_id,
                                 {k: v for k, v in DbUtil._neo4j_props(node_type, {"name": new_name, **normalized_properties}).items() if v is not None},
                             )
-                        node.neo4j_id = neo4j_id
+                        node.neo4j_id = found_id
                         db.session.commit()
-            except Exception:
-                pass
+                        neo4j_sync_success = True
+            except Exception as sync_err:
+                # 不再静默吞掉：把真实失败原因带回响应，避免不一致悄悄累积
+                neo4j_error_msg = str(sync_err)
 
             return {
                 "code": 200,
-                "msg": "更新成功",
+                "msg": "更新成功" if neo4j_sync_success else f"更新成功（Neo4j同步失败: {neo4j_error_msg}）",
                 "data": {
                     "id": node_id,
                     "type": node_type,
                     "name": new_name,
-                    "sync_status": "success",
+                    "sync_status": "success" if neo4j_sync_success else "failed",
+                    "sync_error": neo4j_error_msg or None,
                 },
             }
         except Exception as e:
@@ -312,8 +389,14 @@ class DbUtil:
 
             neo4j_id = getattr(node, "neo4j_id", None)
             node_name = node.name
-            neo4j_sync_success = False
 
+            # 先删主存储（SQLite）并提交：主存储删除失败时直接返回错误、不动 Neo4j，
+            # 不会留下「Neo4j 已删、SQLite 还在」的永久不一致。
+            db.session.delete(node)
+            db.session.commit()
+
+            neo4j_sync_success = False
+            neo4j_error_msg = ""
             try:
                 from model_search import neo4j_db
 
@@ -322,21 +405,21 @@ class DbUtil:
                     neo4j_handle.delete_node(node_type, neo4j_id)
                     neo4j_sync_success = True
                 else:
-                    results = neo4j_handle.search_nodes_by_name(node_name, limit=1)
-                    if results and results.get("nodes"):
-                        neo4j_handle.delete_node(node_type, results["nodes"][0]["id"])
-                        neo4j_sync_success = True
-            except Exception:
-                pass
+                    # 仅在没有 neo4j_id 时才按名回退查找。同名同类型多于一个时宁可不动，
+                    # 让人工核对后处理——取第一条可能删掉另一个对象的节点。
+                    neo4j_sync_success, neo4j_error_msg = DbUtil._delete_neo4j_by_name(
+                        neo4j_handle, node_type, node_name
+                    )
+            except Exception as sync_err:
+                neo4j_error_msg = str(sync_err)
 
-            db.session.delete(node)
-            db.session.commit()
             return {
                 "code": 200,
-                "msg": "删除成功" if neo4j_sync_success else "删除成功（Neo4j同步删除失败）",
+                "msg": "删除成功" if neo4j_sync_success else f"删除成功（Neo4j同步删除失败: {neo4j_error_msg}）",
                 "data": {
                     "id": node_id,
                     "sync_status": "success" if neo4j_sync_success else "failed",
+                    "sync_error": neo4j_error_msg or None,
                 },
             }
         except Exception as e:
@@ -369,6 +452,8 @@ class DbUtil:
                     setattr(node, mapped_key, value)
             db.session.commit()
 
+            neo4j_sync_success = False
+            neo4j_error_msg = ""
             try:
                 from model_search import neo4j_db
 
@@ -379,10 +464,21 @@ class DbUtil:
                         neo4j_id,
                         {k: v for k, v in DbUtil._neo4j_props(node_type, mapped_properties).items() if v is not None},
                     )
-            except Exception:
-                pass
+                    neo4j_sync_success = True
+                else:
+                    neo4j_error_msg = "节点没有 neo4j_id，无法同步到 Neo4j"
+            except Exception as sync_err:
+                neo4j_error_msg = str(sync_err)
 
-            return {"code": 200, "msg": "属性更新成功", "data": {"id": node_id, "sync_status": "success"}}
+            return {
+                "code": 200,
+                "msg": "属性更新成功" if neo4j_sync_success else f"属性更新成功（Neo4j同步失败: {neo4j_error_msg}）",
+                "data": {
+                    "id": node_id,
+                    "sync_status": "success" if neo4j_sync_success else "failed",
+                    "sync_error": neo4j_error_msg or None,
+                },
+            }
         except Exception as e:
             db.session.rollback()
             return {"code": 500, "msg": f"属性更新失败: {str(e)}"}

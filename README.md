@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | **旧知识库系统** | `backend/`（Flask + SQLite + Neo4j）与 `frontend/`（Vue3 + layui-vue 管理台）：图谱可视化、节点关系管理、数据运营、旧版智能问答 | Python 3.8 / Node ≥ 18 |
 | **RAG 问答系统** | `RAG/`（代码在本仓库内，但作为独立服务单独部署）：图谱 + 文本双通道检索增强问答，自带 Vue3 前端 | Python 3.11 |
+| **飞书机器人** | `feishu-bot/`：项目级 IM 入口，把 RAG 接进飞书（长连接，无需公网回调）；技能框架起步两个技能（知识问答 / 纠错反馈） | Python 3.11 / Node ≥ 18（子图出图） |
 | **知识抽取** | `entity-event-relation/`：从战争史文献抽取实体/事件/关系的离线流水线，附学术评估 | Python 3.8+ |
 
 > **先看文档总索引：[docs/README.md](docs/README.md)** —— 按"我想做什么"定位到具体文档。
@@ -25,15 +26,18 @@ RAG 子系统不直接连这两个库，只读取自己目录下的治理快照�
 
 ### 基础环境
 
-- **JDK**: 17（`C:\Program Files\Java\jdk-17`）
-- **Python**: 3.8.10（旧后端）/ 3.11（RAG，见下方前置条件）
+- **JDK**: 17（Neo4j 5.x 要求）
+- **Python**: 3.8+（旧后端与知识抽取）/ 3.11（RAG——chromadb 要求 ≥ 3.10，因此两者必须分开建环境）
 - **Node.js**: ≥ 18（旧前端与 RAG 前端构建）
+
+> 本机（作者开发机）的安装位置与 conda 环境名集中在文末「本机环境备注」，与代码无关，
+> 换机器时按本节要求自行安装即可。
 
 ### 数据库配置
 
 **Neo4j 图数据库**
 
-- **安装路径**: `D:\neo4j\neo4j-community-5.26.19`
+- **版本**: 5.x
 - **连接**: 默认 `bolt://localhost:7687`，用户名 `neo4j`，口令由 `backend/.env` 的 `NEO4J_PASSWORD` 提供（见下）
 - **启动方式**: 终端执行 `neo4j console`，然后访问 http://localhost:7474/
 
@@ -55,6 +59,7 @@ ollama pull deepseek-r1:7b   # 首次需拉取模型（约 4GB）
 china-war/
 ├── README.md                  # 本文件：项目总入口
 ├── docs/                      # 文档总索引 + 跨模块集成约定
+├── deploy/                    # 部署到服务器（nginx + systemd + 脚本）→ deploy/README.md
 ├── backend/                   # 旧后端（Flask + SQLite + Neo4j）→ backend/README.md
 │   ├── app.py                 #   Flask 应用入口（:5000）
 │   ├── db_utils.py            #   SQLite 读写与 Neo4j 同步
@@ -77,6 +82,11 @@ china-war/
 │       └── layouts/ router/ api/ store/ utils/
 ├── entity-event-relation/     # 知识抽取与评估（离线）→ entity-event-relation/README.md
 ├── RAG/                       # RAG 问答系统（独立服务，代码在本仓库内）→ RAG/README.md
+├── feishu-bot/                # 飞书知识问答机器人（项目级 IM 入口）→ feishu-bot/README.md
+│   ├── main.py                #   入口：配置校验 → 建表 → 自检 → ws 长连接
+│   ├── bot/                   #   事件接入/会话/技能/卡片/子图出图
+│   ├── render/                #   Node SSR 出图脚本（echarts + resvg + d3-force）
+│   └── scripts/               #   一致性回归、过期数据清理
 └── requirements.txt           # 旧项目的 Python 依赖（见下方说明）
 ```
 
@@ -107,6 +117,37 @@ Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接�
 两者的关系与边界见 [docs/集成与入口约定.md](docs/集成与入口约定.md)。
 
 ## 运行项目
+
+> **要部署到服务器**（让其他人用浏览器访问、你的电脑不用开机）：见 **[deploy/README.md](deploy/README.md)** ——
+> 里面备好了 nginx 配置、systemd 服务单元与初始化/自检脚本，照做即可。以下内容是**本机开发**口径。
+
+> ⚠️ **克隆后先看这条：仓库里没有数据，这是正常的。**
+> 数据制品一律不入库（体积大，且原书全文受版权约束）：`backend/database`（SQLite 主库）、
+> `entity-event-relation/output/`（抽取结果）、`RAG/data/snapshot`、`RAG/data/index` 都要本地重建。
+> 直接启动的话，旧后端是**空表**、RAG 会报数据版本缺失——不是环境装错了。
+
+### 数据从哪来
+
+四步依赖关系（各步的详细参数见对应模块 README）：
+
+```text
+原书文本 → ① 知识抽取 → ② 导入 SQLite → ③ 同步 Neo4j
+                              └────────→ ④ 导出 RAG 快照 → 建索引 → 起服务
+```
+
+| 步骤 | 在哪执行 | 命令 | 产物 |
+| --- | --- | --- | --- |
+| ① 知识抽取 | `entity-event-relation/` | `python main.py data/中国历代战争简史.txt` | `output/<批次>/9_final_all.json` |
+| ② 导入 SQLite | `backend/` | `python import_json_to_sqlite.py --yes` | `backend/database` |
+| ③ 同步 Neo4j | `backend/` | `python sync_sqlite_to_neo4j.py --mode full` | Neo4j 图数据 |
+| ④ 导出快照与索引 | `RAG/` | `python scripts/export_snapshot.py` → `python scripts/build_index.py` | `RAG/data/snapshot`、`RAG/data/index` |
+
+说明：
+
+- ①需要自备原书文本（放 `entity-event-relation/data/`，见该模块 README 第四节），且要配置大模型 API；
+  不做抽取、只想把系统跑起来时，从已有环境拷贝一份 `9_final_all.json`，直接从第 ② 步开始即可。
+- ②会 **drop_all() 重建整个 SQLite 库**，因此默认拒绝执行，确认覆盖时加 `--yes`。
+- ④的 `RAG/data/snapshot` 与 `RAG/data/index` **必须同名版本**，否则 RAG 启动即报版本不一致。
 
 本项目由**两个独立环境**组成，运行时不同、需要分别启动；浏览器只访问旧前端一个入口：
 
@@ -231,6 +272,7 @@ RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/
 | `/api/ai/inference` | POST | 旧版智能问答（非流式） |
 | `/api/ai/inference/stream` | POST | 旧版智能问答（SSE 流式） |
 | `/api/query` | POST | RAG 问答（SSE 流式，由 RAG 服务提供） |
+| `/api/query/json` | POST | RAG 问答（非流式，一次取完整结果；飞书机器人等非浏览器调用方使用，可选 `X-Bot-Key`） |
 | `/api/health` / `/api/dicts` / `/api/demo/examples` | GET | RAG 健康检查 / 筛选项词典 / 演示示例题 |
 
 完整接口清单与请求/响应示例见 [backend/README.md](backend/README.md)（旧后端）与
@@ -251,5 +293,22 @@ RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/
 3. **可视化**：知识图谱展示从 Neo4j 读取数据
 4. **两套问答互不影响**：旧问答依赖 Ollama 常驻；RAG 无 LLM 密钥时走离线摘要回答器，仍可端到端验收
 5. **密钥一律走 .env**（两个子系统都是，均已 gitignore）：RAG 见 `RAG/.env.example`；
-   旧后端见 `backend/.env.example`（`NEO4J_PASSWORD`、`JWT_SECRET`）。源码里不再有明文凭据——
-   本仓库是公开仓库，不要把口令提交进来
+   旧后端见 `backend/.env.example`（`NEO4J_PASSWORD`、`JWT_SECRET`）。
+   当前 HEAD 的源码里没有明文凭据，但 **git 历史（初始提交 `57eea5b`）里曾提交过旧口令与密钥，
+   旧值视同已泄露**——部署前务必轮换，步骤见 [deploy/README.md](deploy/README.md) 第六节第 7 条。
+
+---
+
+## 本机环境备注
+
+> 以下只是作者开发机的实际安装位置，**不是项目要求**；换机器按「环境配置」一节自装即可。
+> 文档正文里不再重复这些路径。
+
+| 项 | 本机位置 |
+| --- | --- |
+| conda 根目录 | `E:/anaconda` |
+| 旧后端 / 知识抽取环境 | `E:/anaconda/envs/place-name-KG`（Python 3.8.20） |
+| RAG / 飞书机器人环境 | `E:/anaconda/envs/AI_Agent`（Python 3.11.15） |
+| JDK | `C:\Program Files\Java\jdk-17` |
+| Neo4j | `D:\neo4j\neo4j-community-5.26.19` |
+

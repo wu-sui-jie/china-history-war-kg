@@ -18,6 +18,10 @@ from collections import OrderedDict
 from common_utils import lru_get as _cache_get
 from common_utils import lru_set as _cache_set
 
+from logging_util import get_logger
+
+logger = get_logger(__name__)
+
 
 class Extractor:
     """
@@ -55,9 +59,9 @@ class Extractor:
         self.model_name = model_name
         self._entity_cache = OrderedDict()
         self._known_entities = set(known_entities or [])
-        print(f"已初始化大模型地名实体提取器，使用模型: {model_name}")
+        logger.info(f"已初始化大模型地名实体提取器，使用模型: {model_name}")
         if self._known_entities:
-            print(f"已加载 {len(self._known_entities)} 个已知实体")
+            logger.info(f"已加载 {len(self._known_entities)} 个已知实体")
 
     def load_known_entities(self, neo4j_db):
         """从知识图谱加载已知实体列表
@@ -73,9 +77,9 @@ class Extractor:
             """
             results = neo4j_db.graph.run(query).data()
             self._known_entities = {row['name'] for row in results if row.get('name')}
-            print(f"从知识图谱加载了 {len(self._known_entities)} 个已知实体")
+            logger.info(f"从知识图谱加载了 {len(self._known_entities)} 个已知实体")
         except Exception as e:
-            print(f"加载已知实体失败: {e}")
+            logger.warning(f"加载已知实体失败: {e}")
 
     def _extract_by_rules(self, text):
         """基于规则的快速实体提取
@@ -139,35 +143,35 @@ class Extractor:
             list: 提取的实体列表
         """
         if not text or len(text.strip()) == 0:
-            print("输入文本为空，无法提取实体")
+            logger.info("输入文本为空，无法提取实体")
             return []
 
         # 记录文本的开头部分作为示例
         text_preview = text[:100] + "..." if len(text) > 100 else text
-        print(f"准备提取文本中的地名实体，文本长度: {len(text)} 字符，文本开头: '{text_preview}'")
+        logger.info(f"准备提取文本中的地名实体，文本长度: {len(text)} 字符，文本开头: '{text_preview}'")
 
         # 检查缓存
         cache_key = text.strip()
         cached_entities = _cache_get(self._entity_cache, cache_key)
         if cached_entities is not None:
-            print(f"命中实体抽取缓存: {cached_entities}")
+            logger.info(f"命中实体抽取缓存: {cached_entities}")
             return cached_entities
 
         # ========== 优化：先尝试规则匹配 ==========
         rule_start_time = time.time()
         rule_entities = self._extract_by_rules(text)
         rule_time = time.time() - rule_start_time
-        print(f"规则匹配完成，耗时: {rule_time:.4f}秒，匹配到 {len(rule_entities)} 个实体")
+        logger.info(f"规则匹配完成，耗时: {rule_time:.4f}秒，匹配到 {len(rule_entities)} 个实体")
 
         # 如果规则匹配到足够实体（>=2个），直接返回
         if len(rule_entities) >= 2:
-            print(f"规则匹配到足够实体，跳过模型调用: {rule_entities}")
+            logger.info(f"规则匹配到足够实体，跳过模型调用: {rule_entities}")
             result = self._post_process_entities(rule_entities)
             _cache_set(self._entity_cache, cache_key, result)
             return result
 
         # ========== 规则匹配不足，调用大模型 ==========
-        print(f"规则匹配实体不足，调用大模型进行提取...")
+        logger.info(f"规则匹配实体不足，调用大模型进行提取...")
 
         # 构建提示词
         prompt = self._build_prompt(text)
@@ -178,7 +182,7 @@ class Extractor:
 
             # 记录模型调用开始时间
             model_start_time = time.time()
-            print(f"调用 {self.model_name} 模型进行实体提取...")
+            logger.info(f"调用 {self.model_name} 模型进行实体提取...")
             # 调用大模型进行实体提取
             response = ollama.chat(
                 model=self.model_name,
@@ -200,7 +204,7 @@ class Extractor:
 
             # 记录模型调用耗时
             model_time = time.time() - model_start_time
-            print(f"模型响应成功，耗时: {model_time:.2f}秒，"
+            logger.info(f"模型响应成功，耗时: {model_time:.2f}秒，"
                   f"响应长度: {len(response['message']['content'])} 字符，开始解析实体...")
 
             # 记录解析开始时间
@@ -216,9 +220,9 @@ class Extractor:
             if extracted_entities:
                 entity_examples = ', '.join(extracted_entities[:5])
                 entity_examples += "..." if len(extracted_entities) > 5 else ""
-                print(f"解析得到 {len(extracted_entities)} 个初步实体，解析耗时: {parse_time:.2f}秒，示例: {entity_examples}")
+                logger.info(f"解析得到 {len(extracted_entities)} 个初步实体，解析耗时: {parse_time:.2f}秒，示例: {entity_examples}")
             else:
-                print(f"解析完成但未找到任何实体，解析耗时: {parse_time:.2f}秒，请检查文本内容或模型响应")
+                logger.info(f"解析完成但未找到任何实体，解析耗时: {parse_time:.2f}秒，请检查文本内容或模型响应")
 
             # 记录后处理开始时间
             postprocess_start_time = time.time()
@@ -233,19 +237,19 @@ class Extractor:
             total_time = time.time() - total_start_time
 
             # 记录详细的性能统计
-            print(f"地名实体提取完成，总耗时: {total_time:.2f}秒")
-            print(f"性能指标 - 模型调用: {model_time:.2f}秒 ({model_time/total_time:.1%}), 解析: {parse_time:.2f}秒 ({parse_time/total_time:.1%}), 后处理: {postprocess_time:.2f}秒 ({postprocess_time/total_time:.1%})")
+            logger.info(f"地名实体提取完成，总耗时: {total_time:.2f}秒")
+            logger.info(f"性能指标 - 模型调用: {model_time:.2f}秒 ({model_time/total_time:.1%}), 解析: {parse_time:.2f}秒 ({parse_time/total_time:.1%}), 后处理: {postprocess_time:.2f}秒 ({postprocess_time/total_time:.1%})")
 
             # 记录结果统计信息
             if result:
                 result_examples = ', '.join(result[:5])
                 result_examples += "..." if len(result) > 5 else ""
                 avg_entity_length = sum(len(entity) for entity in result) / max(1, len(result))
-                print(f"实体统计 - 初始解析: {len(extracted_entities)}个, 最终有效: {len(result)}个, 过滤率: {(1 - len(result)/max(1, len(extracted_entities))):.2%}")
-                print(f"实体质量 - 平均长度: {avg_entity_length:.1f}字符, 最终实体示例: {result_examples}")
-                print(f"提取比率 - 每千字符实体数: {(len(result) * 1000 / max(1, len(text))):.2f}")
+                logger.info(f"实体统计 - 初始解析: {len(extracted_entities)}个, 最终有效: {len(result)}个, 过滤率: {(1 - len(result)/max(1, len(extracted_entities))):.2%}")
+                logger.info(f"实体质量 - 平均长度: {avg_entity_length:.1f}字符, 最终实体示例: {result_examples}")
+                logger.info(f"提取比率 - 每千字符实体数: {(len(result) * 1000 / max(1, len(text))):.2f}")
             else:
-                print(f"警告: 后处理后没有剩余有效实体，请检查过滤条件或原始提取结果")
+                logger.info(f"警告: 后处理后没有剩余有效实体，请检查过滤条件或原始提取结果")
 
             _cache_set(self._entity_cache, cache_key, result)
             return result
@@ -253,9 +257,9 @@ class Extractor:
         except Exception as e:
             error_type = type(e).__name__
             error_details = str(e)
-            print(f"大模型实体提取失败: {error_type} - {error_details}")
+            logger.warning(f"大模型实体提取失败: {error_type} - {error_details}")
             import traceback
-            print(f"错误追踪: {traceback.format_exc()}")
+            logger.warning(f"错误追踪: {traceback.format_exc()}")
             # 如果大模型调用失败，返回空列表
             return []
 
@@ -298,10 +302,10 @@ class Extractor:
                 try:
                     data = json.loads(json_str)
                     if 'entities' in data and isinstance(data['entities'], list):
-                        print(f"成功通过JSON格式解析，找到实体数量: {len(data['entities'])}")
+                        logger.info(f"成功通过JSON格式解析，找到实体数量: {len(data['entities'])}")
                         return data['entities']
                 except Exception as json_err:
-                    print(f"JSON解析失败: {str(json_err)}")
+                    logger.warning(f"JSON解析失败: {str(json_err)}")
 
             # 如果没找到JSON或解析失败，尝试其他解析方法
             # 查找列表形式
@@ -313,12 +317,12 @@ class Extractor:
                     try:
                         entities = json.loads(list_str)
                         if isinstance(entities, list):
-                            print(f"通过列表格式解析，找到实体数量: {len(entities)}")
+                            logger.info(f"通过列表格式解析，找到实体数量: {len(entities)}")
                             return entities
                     except Exception as list_err:
-                        print(f"列表解析失败: {str(list_err)}")
+                        logger.warning(f"列表解析失败: {str(list_err)}")
 
-            print("标准解析失败，尝试按行分割进行解析")
+            logger.warning("标准解析失败，尝试按行分割进行解析")
             # 回退方案：按行分割并清理
             lines = response_text.split('\n')
             entities = []
@@ -330,12 +334,12 @@ class Extractor:
                 if line and len(line) >= 2:
                     entities.append(line)
 
-            print(f"通过行分割解析，找到实体数量: {len(entities)}")
+            logger.info(f"通过行分割解析，找到实体数量: {len(entities)}")
             return entities
 
         except Exception as e:
-            print(f"解析模型响应失败: {str(e)}")
-            print(f"原始响应: {response_text}")
+            logger.warning(f"解析模型响应失败: {str(e)}")
+            logger.info(f"原始响应: {response_text}")
             return []
 
     def _post_process_entities(self, entities):
@@ -345,16 +349,16 @@ class Extractor:
 
         # 去重
         unique_entities = list(set(entities))
-        print(f"实体去重: {len(entities)} -> {len(unique_entities)}个")
+        logger.info(f"实体去重: {len(entities)} -> {len(unique_entities)}个")
 
         # 过滤明显不是地名的实体和太短的实体
         filtered_entities = [entity for entity in unique_entities
                             if len(entity) >= 2 and not self._should_filter(entity)]
 
-        print(f"实体过滤: {len(unique_entities)} -> {len(filtered_entities)}个")
+        logger.info(f"实体过滤: {len(unique_entities)} -> {len(filtered_entities)}个")
         if len(unique_entities) > len(filtered_entities):
             filtered_out = set(unique_entities) - set(filtered_entities)
-            print(f"被过滤掉的实体: {', '.join(filtered_out)}")
+            logger.info(f"被过滤掉的实体: {', '.join(filtered_out)}")
 
         # 按长度排序（优先考虑较长的地名，通常更具体）
         filtered_entities.sort(key=len, reverse=True)

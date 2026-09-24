@@ -29,20 +29,26 @@ def _base_with_meta(model_obj, payload: dict):
 
 class UserInfo(db.Model):
     """
-    用户信息表模型 - 保持原样不动
+    用户信息表模型
+
+    role 是权限角色：admin / editor 可写，viewer 只读。
+    注册接口一律建 viewer；存量账号（role 为空）按 admin 处理，
+    避免升级后把原有账号锁成只读。
     """
     __tablename__ = 'UserInfo'
 
     id = db.Column(db.Integer, primary_key=True)
-    account = db.Column(db.String(255))
+    account = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     name = db.Column(db.String(255))
+    role = db.Column(db.String(32), default='viewer')
 
     def to_dict(self):
         return {
             'id': self.id,
             'account': self.account,
-            'name': self.name
+            'name': self.name,
+            'role': self.role or 'admin'
         }
 
 

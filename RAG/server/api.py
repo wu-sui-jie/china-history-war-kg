@@ -1,6 +1,7 @@
 """FastAPI 服务入口（server/api.py）。
 
 - POST /api/query：SSE 流式问答（F02→F03/F04→F05→F06）
+- POST /api/query/json：非流式问答（消费同一条编排路径，供飞书机器人等非浏览器调用方）
 - GET /api/health：健康检查（含活跃数据版本、制品哈希与 Git commit）
 - GET /api/dicts：朝代/战争类型标准词典（F01 筛选下拉数据源，RAGv3）
 - GET /api/demo/examples：F08 示例题清单
@@ -15,6 +16,8 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
+import secrets
 import threading
 import time
 from collections import OrderedDict
@@ -26,10 +29,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from config.settings import Settings, get_settings
+from contracts.query_json import QueryJsonResult
 from contracts.request import QueryRequest, RequestValidationError
 from contracts.sse import ErrorCode, FinishReason
 from server.runtime import Runtime, build_runtime
-from server.sse import sse_format, shutdown_sync_pool, sync_pool_stats
+from server.sse import run_query, sse_format, shutdown_sync_pool, sync_pool_stats
 
 
 @asynccontextmanager
@@ -114,7 +118,7 @@ def _load_dicts_payload(rt) -> dict:
 
         dicts_path = rt.snapshot_dir / "dicts.json"
         if not dicts_path.exists():
-            return {"status": "error", "message": f"dicts.json 不存在: {dicts_path}"}
+            return {"status": "error", "message": f"dicts.json 不存在: {_public_text(dicts_path)}"}
         raw = json.loads(dicts_path.read_text(encoding="utf-8"))
         dynasty_aliases = raw.get("dynasty_aliases") or {}
         # "不详"不作为筛选项；列表按名称排序，保证下拉稳定
@@ -220,7 +224,7 @@ def _demo_status(rt) -> dict:
         return {"demo_ready": False, "demo_error": "runtime not loaded"}
     path = _demo_path(rt)
     if not path.exists():
-        return {"demo_ready": False, "demo_error": f"示例题清单不存在: {path}"}
+        return {"demo_ready": False, "demo_error": f"示例题清单不存在: {_public_text(path)}"}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:  # noqa: BLE001
@@ -248,7 +252,7 @@ def _load_demo_examples(rt) -> dict:
     try:
         path = _demo_path(rt)
         if not path.exists():
-            return {"status": "error", "message": f"示例题清单不存在: {path}"}
+            return {"status": "error", "message": f"示例题清单不存在: {_public_text(path)}"}
         data = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
             return {"status": "error", "message": "示例题清单根节点必须是对象"}
@@ -337,7 +341,27 @@ def _runtime():
 
 
 def _load_error():
-    return getattr(app.state, "load_error", None)
+    return _public_text(getattr(app.state, "load_error", None))
+
+
+# 服务器绝对路径脱敏（RAG-4）：路径本身不是漏洞，但会白送部署结构与用户名，
+# 公开接口没必要回传。只做替换，不改变错误语义。
+_RAG_ROOT = str(Path(__file__).resolve().parents[1])
+_ABS_PATH_RE = re.compile(
+    r"(?:[A-Za-z]:[\\/][^\s\"'）)]+|/(?:home|opt|Users|root|var|srv|tmp)/[^\s\"'）)]*)"
+)
+
+
+def _public_text(value):
+    """把对外响应文本里的服务器绝对路径收敛为占位符。"""
+    if value is None:
+        return value
+    text = str(value)
+    if not text:
+        return text
+    if _RAG_ROOT:
+        text = text.replace(_RAG_ROOT, "<RAG_ROOT>")
+    return _ABS_PATH_RE.sub("<path>", text)
 
 
 def _rate_limiter() -> RateLimiter:
@@ -508,6 +532,236 @@ async def query(req: Request):
     )
 
 
+# ---- 非流式问答（POST /api/query/json）：本改动是 RAG 侧唯一的增量 ----
+#
+# 消费**同一个** run_query 生成器（server/sse.py），逐帧解析后按事件类型聚合，
+# 不复制任何编排逻辑——这是"两条通道结果天然一致"（P0 回归口径）的实现方式。
+# 聚合规则见 feishu-bot/docs/开发文档.md 6.2，响应契约见 contracts/query_json.py。
+
+# 聚合期间出现 error 事件（含聚合超时）时的 HTTP 状态码映射。
+# 编排内错误统一 500 并透传事件的 error_code；超时单独 504（客户端等不到结果，
+# 与服务端内部故障是两回事，调用方据此决定"重试"还是"降级提示"）。
+_ERROR_HTTP_STATUS = {
+    ErrorCode.TIMEOUT.value: 504,
+    ErrorCode.SERVER_BUSY.value: 500,
+    ErrorCode.INTERNAL.value: 500,
+}
+
+# 聚合超时注入的 error 事件（与 SSE 通道 _timeout_frames 的文案口径保持一致）
+def _timeout_error(deadline: float) -> dict:
+    return {"error_code": ErrorCode.TIMEOUT.value,
+            "message": f"生成超过 {deadline:.0f}s 上限，已中止"}
+
+
+class _FrameAggregator:
+    """把 run_query 的 SSE 事件聚合为一份完整结果（开发文档 6.2 的逐事件规则）。
+
+    设计成"只收集、不判断"的纯对象：不涉及 I/O、不抛异常，
+    因此可以用假帧序列直接单测（含 cache_hit 分支、error+done、超时中断）。
+    """
+
+    def __init__(self) -> None:
+        self._answer_parts: list[str] = []
+        self._citations: list = []
+        self._conflicts: list = []
+        self._panel: dict = {}
+        self._finish_reason = ""
+        self._model_used = ""
+        self._cache_hit = False
+        self._truncated = False
+        self._error: dict | None = None
+
+    def feed(self, event: dict) -> None:
+        """处理一帧事件。未知类型一律忽略（session_start/status/entities/... 都不参与聚合）。"""
+        if not isinstance(event, dict):
+            return
+        etype = event.get("type")
+        data = event.get("data")
+
+        if etype == "answer":
+            delta = (data or {}).get("delta")
+            if isinstance(delta, str):
+                # 增量拼接保真：不做 strip/换行归一，拼回结果必须与原文严格相等
+                self._answer_parts.append(delta)
+        elif etype == "citations":
+            payload = data or {}
+            self._citations = payload.get("citations") or []
+            self._conflicts = payload.get("conflicts") or []
+        elif etype == "panel":
+            # panel 事件的 payload 本身就是 PanelData 字典
+            self._panel = data if isinstance(data, dict) else {}
+        elif etype == "done":
+            payload = data or {}
+            self._finish_reason = payload.get("finish_reason") or ""
+            self._model_used = payload.get("model_used") or ""
+            self._cache_hit = bool(payload.get("cache_hit", False))
+            self._truncated = bool(payload.get("truncated", False))
+        elif etype == "error":
+            payload = data or {}
+            # 只记第一个错误：后续事件（done=failed）只用来取终态
+            if self._error is None:
+                self._error = {
+                    "error_code": str(payload.get("error_code") or ErrorCode.INTERNAL.value),
+                    "message": str(payload.get("message") or ""),
+                }
+
+    @property
+    def has_terminal(self) -> bool:
+        """是否已拿到终态（done 帧或 error 事件）。用于区分"编排正常走完"与"中途死掉"。"""
+        return bool(self._finish_reason) or self._error is not None
+
+    def note_timeout(self, deadline: float) -> None:
+        """聚合超时：等价于收到一个 error(timeout) 事件。
+
+        注意不在这里伪造 done 帧：超时轮没有终态（finish_reason 保持空），
+        与 SSE 通道"未送出正文即 failed"的处理不同——非流式接口直接以 HTTP 504 回绝，
+        finish_reason 不会出现在响应里，不存在误判空间。
+        """
+        if self._error is None:
+            self._error = _timeout_error(deadline)
+
+    def result(self) -> QueryJsonResult:
+        return QueryJsonResult(
+            answer_md="".join(self._answer_parts),
+            citations=list(self._citations),
+            conflicts=list(self._conflicts),
+            panel=self._panel,
+            finish_reason=self._finish_reason,
+            model_used=self._model_used,
+            cache_hit=self._cache_hit,
+            truncated=self._truncated,
+            error=self._error,
+        )
+
+
+def _parse_frame(frame: str) -> dict | None:
+    """把 run_query 的一帧字符串解析回事件 dict；非 data 帧（心跳注释等）返回 None。"""
+    if not isinstance(frame, str) or not frame.startswith("data: "):
+        return None
+    try:
+        payload = json.loads(frame[len("data: "):].strip())
+    except Exception:  # noqa: BLE001
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+async def _collect(rt, q: QueryRequest, deadline: float) -> QueryJsonResult:
+    """消费 run_query 直到终态或超时，返回聚合结果。
+
+    超时行为：`agen.aclose()` 会走 run_query 的 finally 分支，取消未完成的 gen_task
+    （LLM 生成），与 SSE 客户端断连时的回收路径完全一致，不泄漏任务；
+    超时轮不写缓存（finish_reason 不是 normal/refused，既有缓存卫生逻辑自动覆盖）。
+    """
+    agg = _FrameAggregator()
+    deadline_at = time.monotonic() + max(0.0, float(deadline))
+    agen = run_query(rt, q)
+    try:
+        while True:
+            remaining = deadline_at - time.monotonic()
+            if remaining <= 0:
+                agg.note_timeout(deadline)
+                break
+            try:
+                frame = await asyncio.wait_for(agen.__anext__(), timeout=remaining)
+            except StopAsyncIteration:
+                break
+            except asyncio.TimeoutError:
+                # 等待下一帧超过剩余预算：整体超时（非流式没有心跳窗口的概念）
+                agg.note_timeout(deadline)
+                break
+            except Exception as e:  # noqa: BLE001
+                # 生成器自身抛错。run_query 内部已把编排异常转成 error 事件，
+                # 走到这里说明异常逃出了它的 except（例如收尾时 aclose 出问题）——
+                # 已有终态时当收尾噪音忽略，否则记为内部错误，不静默返回空答案。
+                if not agg.has_terminal:
+                    agg.feed({"type": "error",
+                              "data": {"error_code": ErrorCode.INTERNAL.value,
+                                       "message": f"编排异常: {e}"}})
+                break
+            event = _parse_frame(frame)
+            if event is not None:
+                agg.feed(event)
+    finally:
+        # aclose 触发 run_query 的 finally（取消 LLM 任务）；已被取消的生成器会直接返回，
+        # 但异常路径仍要吞掉——收尾失败不应盖住真实结果（与 _stream_with_heartbeat 一致）
+        try:
+            await agen.aclose()
+        except Exception:  # noqa: BLE001
+            pass
+    return agg.result()
+
+
+def _bot_key_problem(request: Request, settings: Settings) -> str | None:
+    """可选共享密钥校验（开发文档 6.4）；未配置 RAG_BOT_API_KEY 时返回 None（不校验）。
+
+    比较用 `secrets.compare_digest`（常量时间），避免"按字符逐位比较"从响应时间上
+    泄漏密钥前缀。
+    """
+    expected = (getattr(settings, "bot_api_key", "") or "").strip()
+    if not expected:
+        return None
+    provided = request.headers.get("x-bot-key") or ""
+    if secrets.compare_digest(provided.encode("utf-8"), expected.encode("utf-8")):
+        return None
+    return "X-Bot-Key 校验失败：该接口已启用共享密钥，请带上正确的请求头"
+
+
+@app.post("/api/query/json")
+async def query_json(req: Request):
+    """非流式问答：一次调用取完整结果（飞书机器人等非浏览器调用方）。
+
+    前置检查与 /api/query 完全一致（runtime → 限流 → 请求体尺寸 → QueryRequest 校验），
+    只是把 SSE 流换成聚合结果；失败同样在返回体之前用 4xx/5xx 表达，
+    调用方无需解析任何流式协议即可区分参数错误、限流与超时。
+    """
+    settings: Settings = app.state.settings
+
+    # 鉴权放在最前：未通过校验的请求不应消耗限流配额，也不该暴露运行态信息
+    key_problem = _bot_key_problem(req, settings)
+    if key_problem:
+        return _json_error(401, key_problem, ErrorCode.UNAUTHORIZED)
+
+    rt = _runtime()
+    if rt is None:
+        return _json_error(503, _load_error() or "runtime not loaded",
+                           ErrorCode.INTERNAL)
+
+    limiter = _rate_limiter()
+    if not limiter.allow(_client_key(req)):
+        return _json_error(
+            429,
+            f"请求过于频繁：每分钟最多 {limiter.per_minute} 次，请稍后再试",
+            ErrorCode.RATE_LIMITED,
+        )
+
+    try:
+        payload = await _read_json_limited(req, settings.request_max_bytes)
+    except _PayloadTooLarge as e:
+        return _json_error(413, str(e), ErrorCode.PAYLOAD_TOO_LARGE)
+    except RequestValidationError as e:
+        return _json_error(400, f"请求格式不合法: {e}", ErrorCode.INVALID_REQUEST)
+
+    try:
+        q = QueryRequest.from_dict(payload, settings=settings)
+    except RequestValidationError as e:
+        return _json_error(400, f"请求不合法: {e}", ErrorCode.INVALID_REQUEST)
+
+    result = await _collect(rt, q, settings.query_json_timeout_seconds)
+    if result.error:
+        code = result.error["error_code"]
+        try:
+            error_code = ErrorCode(code)
+        except ValueError:
+            # 编排层理论上只产出 timeout / server_busy / internal；出现未知码时
+            # 按 internal 上报，但 HTTP 状态仍取映射默认值 500，不静默当成功
+            error_code = ErrorCode.INTERNAL
+        return _json_error(_ERROR_HTTP_STATUS.get(code, 500),
+                           result.error["message"] or "问答失败", error_code)
+
+    # skip_none：error 为空时该字段不出现在响应里
+    return {"status": "ok", "data": result.to_dict()}
+
+
 def _frame_type(frame: str) -> str:
     """取 SSE 帧的事件类型（超时终态判定用）。
 
@@ -600,7 +854,23 @@ _dist_dir = Path(str(_settings_boot.frontend_dist or ""))
 if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
     from fastapi.staticfiles import StaticFiles
 
-    app.mount("/", StaticFiles(directory=str(_dist_dir), html=True), name="frontend")
+    class _SecurityHeadersStaticFiles(StaticFiles):
+        """同源托管的前端产物：补基础安全响应头（RAG-3）。
+
+        /rag/* 若被第三方站点 iframe 嵌入，等于替对方消耗限流配额与模型成本；
+        X-Frame-Options / CSP frame-ancestors 直接堵掉这条路。
+        只加 frame-ancestors，不限制 script-src 等，避免影响前端自身。
+        """
+
+        async def get_response(self, path, scope):
+            response = await super().get_response(path, scope)
+            response.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+            response.headers.setdefault("Content-Security-Policy", "frame-ancestors 'self'")
+            response.headers.setdefault("X-Content-Type-Options", "nosniff")
+            response.headers.setdefault("Referrer-Policy", "no-referrer")
+            return response
+
+    app.mount("/", _SecurityHeadersStaticFiles(directory=str(_dist_dir), html=True), name="frontend")
     print(f"[api] 同源托管已启用：{_dist_dir}（浏览器直接访问 / 即可，无需另起前端服务）")
 else:
     print(f"[api] 未启用同源托管：未发现前端产物 {_dist_dir}"

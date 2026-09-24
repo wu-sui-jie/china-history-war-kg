@@ -1,0 +1,51 @@
+# RAG 问答服务（FastAPI :8000，同源托管 RAG 前端）
+#
+# 安装：
+#   sudo cp deploy/systemd/china-war-rag.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now china-war-rag
+# 日志：journalctl -u china-war-rag -f
+#
+# 密钥（LLM_API_KEY / DASHSCOPE_API_KEY）从 /etc/china-war/rag-secrets.env 注入，
+# 不写进项目目录，见 deploy/README.md 第六节。
+
+[Unit]
+Description=干戈纪略 · RAG 问答服务（FastAPI :8000）
+Documentation=file:///opt/china-war/deploy/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=chinawar
+Group=chinawar
+WorkingDirectory=/opt/china-war/RAG
+
+Environment=PYTHONUNBUFFERED=1
+
+# 非密钥配置（模型地址、检索模式、限流、CORS…）在 /opt/china-war/RAG/.env 里由应用自读。
+# 这里只注入密钥，文件权限应为 600 root:root。
+EnvironmentFile=-/etc/china-war/rag-secrets.env
+
+# --version 固定数据版本：换数据版本时改 /etc/systemd/system/china-war-rag.service 这一行，
+# 同时把 RAG/.env 的 RAG_VERSION 一起改（两者必须一致，否则 health 里会报版本来源冲突）。
+ExecStart=/opt/miniconda3/envs/china-war-rag/bin/python scripts/run_server.py \
+    --host 127.0.0.1 --port 8000 --version 20260915_v1
+
+Restart=on-failure
+RestartSec=5s
+
+# 停机时先停收新任务并等在途同步任务，给 RAG 的 SHUTDOWN_DRAIN_SECONDS 留出余量
+TimeoutStopSec=60s
+
+# workers 固定为 1：内存图谱、回答缓存、限流计数都在进程内，多 worker 会各持一份
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=china-war-rag
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

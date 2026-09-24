@@ -1,0 +1,26 @@
+# ---- 环境与密钥 ----
+.env
+*.env
+!.env.example
+
+# ---- 运行期状态（会话/消息/反馈/去重；删除即清空会话，可安全重建）----
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# ---- Node 出图依赖（package.json 与 package-lock.json 入库，保证可复现安装）----
+render/node_modules/
+
+# ---- Python 运行时 / 测试产物 ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ---- 编辑器 ----
+.idea/
+.vscode/
+
+# ---- 工具缓存 ----
+.ruff_cache/

@@ -5,6 +5,24 @@ entity_extract/extractor.py / inference/rule_llm_integration.py 里各写一份�
 现收敛到本模块。
 """
 
+import re
+
+# Cypher 不支持参数化标签 / 关系类型（`MATCH (n:$label)` 不是合法语法），
+# 这类标识符只能校验后内联；其余一切用户输入必须走查询参数。
+_SAFE_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9_\u4e00-\u9fff]{1,64}$")
+
+
+def safe_identifier(value, kind="标签"):
+    """校验要内联进 Cypher 的标签 / 关系类型等标识符。
+
+    只允许字母、数字、下划线与汉字，长度不超过 64；不合法直接拒绝，
+    避免把用户输入当成 Cypher 片段执行。
+    """
+    text = "" if value is None else str(value).strip()
+    if not _SAFE_IDENTIFIER_RE.match(text):
+        raise ValueError(f"非法的{kind}: {value!r}")
+    return text
+
 
 def safe_text(value):
     """把任意值转成去空白字符串，None 与空白统一成空串。"""

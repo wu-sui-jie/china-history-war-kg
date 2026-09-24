@@ -2,6 +2,8 @@
 .env
 *.env
 !.env.example
+# 例外：deploy/env/ 是部署模板（只含占位符，无真实值），必须入库
+!deploy/env/*.env
 
 # 依赖与构建产物
 node_modules/
@@ -27,6 +29,10 @@ backend/data/processed/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# 本机专用脚本：写死了私人代理端口与私人备份仓库名，不适合进公开仓库。
+# 本地需要一键备份时保留此文件即可，git 不跟踪。
+/backup.cmd
 
 # ---- 本仓库是公开仓库：以下内容一律不入库（本地保留，路径见各 README）----
 # 1) 原书全文（受版权约束，不得公开发布）

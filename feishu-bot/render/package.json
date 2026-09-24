@@ -1,0 +1,16 @@
+{
+  "name": "feishu-bot-subgraph-render",
+  "version": "1.0.0",
+  "private": true,
+  "description": "panel.subgraph → PNG（ECharts SSR + resvg），供飞书机器人上传为卡片图片",
+  "main": "render_subgraph.js",
+  "scripts": {
+    "render": "node render_subgraph.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "d3-force": "^3.0.0",
+    "echarts": "^6.1.0"
+  }
+}

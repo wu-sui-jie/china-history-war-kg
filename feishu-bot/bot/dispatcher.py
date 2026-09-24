@@ -1,0 +1,477 @@
+"""事件接入：去重、入队、worker 线程与技能执行（开发文档 5.1 / 第四节）。
+
+三条硬约束决定了这个模块的形状：
+1. **回调必须毫秒级返回**：SDK 回调跑在 ws 的 event loop 线程里，在里面调 RAG 会把
+   ping/重连一起卡住，也会让飞书判定"超时未应答"而重投 → 回调只做"去重 + 入队"；
+2. **至少一次投递**：飞书的重试必须靠幂等兜底，所以去重要落库（进程重启后依然有效）；
+3. **单 worker 串行**：会话内消息必须按顺序处理；P0 单 worker 意味着所有会话一起排队
+   （开发文档第四节已明确这是起步期的并发上限）。
+
+本模块**不导入 lark-oapi**：事件对象按鸭子类型读取属性，
+这样单元测试可以用 SimpleNamespace 构造事件，不需要装 SDK、也不需要 mock 网络。
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import logging
+import queue
+import threading
+import time
+from dataclasses import dataclass, field
+from typing import Any, Callable
+
+from bot.cards.builder import (NOT_TEXT_MESSAGE, attach_feedback_button,
+                               build_degraded_card, build_notice_card)
+from bot.db import Database, now_ts
+from bot.session import SessionStore, session_key
+from bot.skills.base import Reply, SkillContext, SkillRegistry
+
+log = logging.getLogger(__name__)
+
+# 任务类型
+TASK_MESSAGE = "message"
+TASK_CARD_ACTION = "card_action"
+
+
+@dataclass
+class MessageEvent:
+    """从 SDK 事件里提取出的最小字段集（开发文档 5.1 的字段表）。"""
+
+    event_id: str
+    message_id: str
+    chat_id: str
+    chat_type: str          # p2p / group
+    open_id: str
+    text: str
+    message_type: str = "text"
+    mentions: list[dict] = field(default_factory=list)
+    raw_text: str = ""      # 未剥离 @ 的原文，仅用于诊断
+
+    @property
+    def is_group(self) -> bool:
+        return self.chat_type == "group"
+
+    @property
+    def session_key(self) -> str:
+        return session_key(self.open_id, self.chat_id)
+
+
+@dataclass
+class CardAction:
+    """卡片按钮回调（card.action.trigger）。"""
+
+    event_id: str
+    open_id: str
+    chat_id: str
+    message_id: str          # 卡片所在消息（context.open_message_id）
+    action: str              # value.action：ask / report_error
+    value: dict = field(default_factory=dict)
+
+    def dedupe_key(self) -> str:
+        """缺少 event_id 时的退化去重键：动作身份（不含时间，时间窗在调用处加）。
+
+        只用来压制"同一次点击的重投"，因此必须把按钮的全部区分信息纳入：
+        消息 + 操作人 + 组件 tag + value 摘要——连点两次同一个按钮会被窗口内误杀，
+        这正是窗口取得极小（默认 2s）的原因。
+        """
+        digest = hashlib.sha1(
+            json.dumps(self.value, ensure_ascii=False, sort_keys=True).encode("utf-8")
+        ).hexdigest()[:16]
+        return f"card:{self.message_id}:{self.open_id}:{self.action}:{digest}"
+
+
+# ---- 事件解析（鸭子类型，不依赖 SDK）----
+
+
+def _attr(obj: Any, *path: str, default: Any = None) -> Any:
+    """按属性路径安全取值：_attr(event, "event", "message", "chat_id")。"""
+    cur = obj
+    for name in path:
+        if cur is None:
+            return default
+        cur = getattr(cur, name, None)
+    return default if cur is None else cur
+
+
+def _parse_content_text(content: Any) -> str:
+    """message.content 是 JSON 字符串（如 '{"text": "你好"}'）。"""
+    if not content:
+        return ""
+    if isinstance(content, dict):
+        return str(content.get("text") or "")
+    try:
+        parsed = json.loads(content)
+    except Exception:  # noqa: BLE001 - 非 JSON 内容按空文本处理，走"暂只支持文字提问"
+        return ""
+    return str(parsed.get("text") or "") if isinstance(parsed, dict) else ""
+
+
+def _extract_mentions(message: Any) -> list[dict]:
+    """mentions 元素为 MentionEvent：key / name / id.open_id（id 是对象，不是字符串）。
+
+    同时兼容 dict 形态（测试与事件回放帧用），避免解析层被"事件对象 vs 字典"这种
+    表示差异绊住——两种形态的字段名是一样的。
+    """
+    out: list[dict] = []
+    for m in getattr(message, "mentions", None) or []:
+        if isinstance(m, dict):
+            mention_id = m.get("id") if isinstance(m.get("id"), dict) else {}
+            open_id = m.get("open_id") or (mention_id or {}).get("open_id") or ""
+            out.append({"key": m.get("key") or "", "name": m.get("name") or "",
+                        "open_id": open_id})
+        else:
+            out.append({
+                "key": getattr(m, "key", "") or "",
+                "name": getattr(m, "name", "") or "",
+                "open_id": _attr(m, "id", "open_id", default="") or "",
+            })
+    return out
+
+
+def parse_message_event(data: Any) -> MessageEvent | None:
+    """P2ImMessageReceiveV1 → MessageEvent；结构不符时返回 None（记日志后静默丢弃）。"""
+    header = getattr(data, "header", None)
+    event = getattr(data, "event", None)
+    message = getattr(event, "message", None) if event is not None else None
+    if header is None or message is None:
+        log.warning("消息事件结构不符合预期，已忽略：%r", type(data).__name__)
+        return None
+
+    message_id = getattr(message, "message_id", "") or ""
+    chat_id = getattr(message, "chat_id", "") or ""
+    open_id = _attr(event, "sender", "sender_id", "open_id", default="") or ""
+    if not message_id or not chat_id or not open_id:
+        log.warning("消息事件缺少必要字段，已忽略：message_id=%r chat_id=%r open_id=%r",
+                    message_id, chat_id, open_id)
+        return None
+
+    return MessageEvent(
+        event_id=getattr(header, "event_id", "") or "",
+        message_id=message_id,
+        chat_id=chat_id,
+        chat_type=getattr(message, "chat_type", "") or "",
+        open_id=open_id,
+        text=_parse_content_text(getattr(message, "content", None)),
+        message_type=getattr(message, "message_type", "") or "",
+        mentions=_extract_mentions(message),
+    )
+
+
+def parse_card_action(data: Any) -> CardAction | None:
+    """P2CardActionTrigger → CardAction。"""
+    header = getattr(data, "header", None)
+    event = getattr(data, "event", None)
+    if header is None or event is None:
+        log.warning("卡片回调结构不符合预期，已忽略：%r", type(data).__name__)
+        return None
+    value = getattr(getattr(event, "action", None), "value", None) or {}
+    if not isinstance(value, dict):
+        value = {}
+    return CardAction(
+        event_id=getattr(header, "event_id", "") or "",
+        open_id=_attr(event, "operator", "open_id", default="") or "",
+        chat_id=_attr(event, "context", "open_chat_id", default="") or "",
+        message_id=_attr(event, "context", "open_message_id", default="") or "",
+        action=str(value.get("action") or ""),
+        value=value,
+    )
+
+
+def strip_mentions(text: str, mentions: list[dict]) -> str:
+    """剥离文本中的 @机器人 片段（mention key 形如 `@_user_1`）。
+
+    只在群聊里调用：单聊没有 @ 语义，文本原样作为问题（开发文档 5.1）。
+    """
+    out = text
+    for mention in mentions:
+        key = mention.get("key") or ""
+        if key:
+            out = out.replace(key, " ")
+    return " ".join(out.split())
+
+
+def mentioned_bot(event: MessageEvent, bot_open_id: str | None) -> bool:
+    """群聊是否 @ 了本机器人。
+
+    优先比对 mention 的 open_id 与机器人自己的 open_id；拿不到 bot open_id 时
+    退化为"文本开头出现任意 mention key"（开发文档 5.1 给的两条口径）。
+    P0-4 实测已确认事件里 mention.id.open_id 可用，退化路径只是兜底。
+    """
+    keys = {(m.get("key") or "") for m in event.mentions}
+    keys.discard("")
+    if not keys:
+        return False
+    if bot_open_id:
+        return any((m.get("open_id") or "") == bot_open_id for m in event.mentions)
+    head = event.text.strip()
+    return any(head.startswith(key) for key in keys)
+
+
+class Dispatcher:
+    """事件接入与 worker。"""
+
+    def __init__(self, *, db: Database, session: SessionStore, skills: list,
+                 feishu, config, clock: Callable[[], float] = time.time):
+        self.db = db
+        self.session = session
+        self.skills = skills
+        self.registry = SkillRegistry(skills)     # 分流顺序的唯一实现处
+        self.feishu = feishu
+        self.config = config
+        self.clock = clock
+        self.queue: queue.Queue = queue.Queue()
+        self._worker: threading.Thread | None = None
+        self._stop = threading.Event()
+        self.command_bot_open_id: str | None = None
+        # 卡片回调的退化去重窗口：{dedupe_key: 上次处理时刻}
+        self._card_seen: dict[str, float] = {}
+        # 观测计数（日志与测试断言共用）
+        self.stats = {"received": 0, "duplicate": 0, "enqueued": 0, "handled": 0,
+                      "failed": 0}
+
+    # ---- 生命周期 ----
+    def start(self) -> None:
+        if self._worker is not None and self._worker.is_alive():
+            return
+        self._stop.clear()
+        self._worker = threading.Thread(target=self.worker_loop, name="bot-worker",
+                                        daemon=True)
+        self._worker.start()
+        log.info("worker 线程已启动（单 worker：所有会话串行处理）")
+
+    def stop(self) -> None:
+        self._stop.set()
+        self.queue.put(None)          # 唤醒 worker 让它退出
+        if self._worker is not None:
+            self._worker.join(timeout=5.0)
+            self._worker = None
+
+    # ---- 去重（开发文档 5.1 / 风险 4）----
+    def _claim_event(self, event_id: str, event_type: str) -> bool:
+        """认领一个事件；已被处理过返回 False（幂等，静默丢弃重投）。
+
+        `INSERT OR IGNORE` 的 rowcount 就是"是否首次"：检查与写入在同一条语句里完成，
+        不存在"先查后写"的竞态窗口（飞书的重投可能落在不同线程）。
+        """
+        if not event_id:
+            return True               # 调用方负责给退化键
+        with self.db.transaction() as conn:
+            cur = conn.execute(
+                "INSERT OR IGNORE INTO processed_events (event_id, event_type, received_at) "
+                "VALUES (?, ?, ?)", (event_id, event_type, now_ts()),
+            )
+            return cur.rowcount == 1
+
+    def _claim_card_action(self, action: CardAction) -> bool:
+        """卡片回调去重：优先 event_id（长期）；缺失时退化为动作身份 + 短时间窗。"""
+        if action.event_id:
+            return self._claim_event(action.event_id, "card.action.trigger")
+        key = action.dedupe_key()
+        now = self.clock()
+        window = self.config.card_dedupe_window_seconds
+        last = self._card_seen.get(key)
+        if last is not None and now - last < window:
+            return False
+        self._card_seen[key] = now
+        # 顺手清理过期键，避免长跑进程里字典无限增长
+        if len(self._card_seen) > 512:
+            self._card_seen = {k: t for k, t in self._card_seen.items()
+                               if now - t < window}
+        return True
+
+    # ---- SDK 回调入口（只做去重 + 入队）----
+    def on_message(self, data: Any) -> None:
+        """im.message.receive_v1 回调。必须毫秒级返回（开发文档 5.1）。"""
+        event = parse_message_event(data)
+        if event is None:
+            return
+        self.stats["received"] += 1
+
+        # 消息事件的退化去重键用 message_id：同一条消息的重投 message_id 必然相同，
+        # 且用户不可能"再发一条 message_id 相同的新消息"，因此不需要时间窗。
+        key = event.event_id or f"msg:{event.message_id}"
+        if not self._claim_event(key, "im.message.receive_v1"):
+            self.stats["duplicate"] += 1
+            log.info("duplicate 事件已丢弃：event_id=%s message_id=%s",
+                     event.event_id, event.message_id)
+            return
+
+        self.queue.put((TASK_MESSAGE, event))
+        self.stats["enqueued"] += 1
+
+    def on_card_action(self, data: Any) -> dict | None:
+        """card.action.trigger 回调。
+
+        返回给 SDK 的即时回执（toast）。**业务处理一律入队**：
+        卡片回调超时同样会重投，而组卡片/发工单都是慢操作。
+        """
+        action = parse_card_action(data)
+        if action is None:
+            return None
+        self.stats["received"] += 1
+        if not action.action:
+            log.warning("卡片回调缺少 value.action，已忽略：value=%r", action.value)
+            return None
+        if not self._claim_card_action(action):
+            self.stats["duplicate"] += 1
+            log.info("duplicate 卡片回调已丢弃：event_id=%s action=%s message_id=%s",
+                     action.event_id, action.action, action.message_id)
+            return None
+
+        self.queue.put((TASK_CARD_ACTION, action))
+        self.stats["enqueued"] += 1
+        # 立即回执：toast 只是"已收到"，不承诺处理结果（处理结果由 worker 发卡片）
+        toast = {
+            "ask": "正在查询…",
+            "report_error": "已收到反馈，谢谢！",
+        }.get(action.action, "已收到")
+        return {"toast": {"type": "info", "content": toast}}
+
+    # ---- worker ----
+    def worker_loop(self) -> None:
+        log.info("worker 开始取任务")
+        while not self._stop.is_set():
+            item = self.queue.get()
+            try:
+                if item is None:                    # 停机信号
+                    break
+                kind, payload = item
+                if kind == TASK_MESSAGE:
+                    self.handle_message(payload)
+                elif kind == TASK_CARD_ACTION:
+                    self.handle_card_action(payload)
+            except Exception as e:  # noqa: BLE001 - worker 绝不能静默死掉
+                self.stats["failed"] += 1
+                log.exception("任务处理失败：%s", e)
+            finally:
+                self.queue.task_done()
+        log.info("worker 已退出")
+
+    # ---- 业务处理 ----
+    def handle_message(self, event: MessageEvent) -> None:
+        if event.is_group:
+            if not mentioned_bot(event, self.command_bot_open_id):
+                log.info("群聊消息未 @ 机器人，忽略：chat_id=%s", event.chat_id)
+                return
+            question = strip_mentions(event.text, event.mentions)
+        else:
+            question = event.text.strip()
+
+        if event.message_type and event.message_type != "text":
+            # P0 采用"回复提示"而不是静默忽略：避免用户以为机器人坏了（开发文档 5.1）
+            self._reply_card(event, build_notice_card(NOT_TEXT_MESSAGE))
+            return
+
+        if not question:
+            if event.is_group:
+                log.info("剥离 @ 后问题为空，忽略：chat_id=%s", event.chat_id)
+                return
+            self._reply_card(event, build_notice_card("没有收到问题内容，请再发一次。"))
+            return
+
+        log.info("处理提问：event_id=%s session=%s question=%r",
+                 event.event_id, event.session_key, question[:60])
+        ctx = self._build_context(event, question)
+        if ctx is None:
+            return
+        reply = self._run_skill(ctx)
+        msg_key = self._record_assistant(event, reply)
+        if msg_key is not None:
+            # 卡片在发送前才补"反馈有误"按钮：value 要带 messages.id，而 id 先落库才有
+            attach_feedback_button(reply.card, msg_key)
+        sent_id = self._send_reply(event, reply)
+        if msg_key is not None and sent_id:
+            self.session.set_bot_message_id(msg_key, sent_id)
+        self.stats["handled"] += 1
+
+    def handle_card_action(self, action: CardAction) -> None:
+        handlers = self._card_handlers()
+        skill = handlers.get(action.action)
+        if skill is None:
+            log.warning("未知的卡片动作：%r（value=%r）", action.action, action.value)
+            return
+        skill.handle_card_action(action, self)
+        self.stats["handled"] += 1
+
+    def _card_handlers(self) -> dict:
+        """{action: skill}：技能用类属性 `card_action` 声明自己处理哪个按钮动作。"""
+        handlers: dict[str, Any] = {}
+        for skill in self.skills:
+            action = getattr(skill, "card_action", "")
+            if action:
+                handlers[action] = skill
+        return handlers
+
+    # ---- 内部：上下文 / 技能 / 落库 ----
+
+    def build_synthetic_event(self, action: CardAction, question: str) -> MessageEvent:
+        """把卡片点击（value.action=ask）转成一个"新提问"事件。
+
+        不依赖原消息内容（开发文档 5.5.3）：chat_type 置空以便走单聊分支——
+        卡片点击不存在 @ 语义，问题文本无需剥离，也不该被群聊规则挡下。
+        """
+        return MessageEvent(
+            event_id=action.event_id or action.dedupe_key(),
+            message_id=action.message_id,
+            chat_id=action.chat_id,
+            chat_type="",
+            open_id=action.open_id,
+            text=question,
+            message_type="text",
+        )
+
+    def _build_context(self, event: MessageEvent, question: str) -> SkillContext | None:
+        """会话落库 + 历史组装。历史必须在记录本轮提问**之前**取，否则当前问题会重复进入上下文。"""
+        self.session.touch(event.session_key, event.open_id, event.chat_id)
+        history = self.session.history_for_rag(event.session_key)
+        self.session.record_user(event.session_key, event.message_id, question)
+        return SkillContext(event=event, question=question, session_key=event.session_key,
+                            history=history)
+
+    def _run_skill(self, ctx: SkillContext) -> Reply:
+        """按注册顺序解析并执行技能（顺序规则见 skills/base.py::SkillRegistry）。"""
+        skill = self.registry.resolve(ctx)
+        if skill is None:
+            log.error("没有技能命中且无兜底技能，返回降级卡片")
+            return Reply(kind="card", card=build_degraded_card(reason="internal"))
+        try:
+            log.debug("技能命中：%s", skill.name)
+            return skill.run(ctx)
+        except Exception as e:  # noqa: BLE001
+            log.exception("技能 %s 执行异常：%s", skill.name, e)
+            return Reply(kind="card", card=build_degraded_card(reason="internal"))
+
+    def _send_reply(self, event: MessageEvent, reply: Reply) -> str | None:
+        """发送回复并返回机器人消息 id（可能为 None，落库时容错）。"""
+        if reply.kind == "text" and reply.text:
+            return self.feishu.reply_text(event.message_id, reply.text)
+        card = reply.card or build_degraded_card(reason="internal")
+        return self.feishu.reply_card(event.message_id, card)
+
+    def _reply_card(self, event: MessageEvent, card: dict) -> str | None:
+        """直接回一张卡片（非文本消息提示、空问题提示等，不经过技能）。"""
+        return self.feishu.reply_card(event.message_id, card)
+
+    def _record_assistant(self, event: MessageEvent, reply: Reply) -> int | None:
+        """写 assistant 轮并返回行 id（= 卡片按钮的 msg_key）。
+
+        只有技能明确给出 assistant_turn 且终态可入历史时才写；不写就意味着这轮
+        既进不了下一轮历史、也没有纠错按钮——两者是同一件事的两面（都没有可指的对象）。
+        `bot_message_id` 在发送成功后由调用方回填。
+        """
+        turn = reply.assistant_turn
+        if turn is None:
+            return None
+        if not turn.is_history_eligible:
+            log.info("终态 %s 不写入历史（按开发文档 5.2）", turn.finish_reason)
+            return None
+        return self.session.record_assistant(
+            event.session_key, bot_message_id=None, content=turn.content,
+            finish_reason=turn.finish_reason, citations=turn.citations,
+        )
+
+    def reply_card_to_chat(self, chat_id: str, card: dict) -> str | None:
+        """主动发卡片（示例问题/工单等不依附原消息的场景）。"""
+        return self.feishu.send_card(chat_id, card)
