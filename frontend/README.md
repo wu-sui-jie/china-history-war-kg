@@ -64,21 +64,35 @@ pnpm build:check    # 类型检查（vue-tsc --noEmit）+ 生产构建，提 PR 
 frontend/src/
 ├── api/
 │   ├── http.ts            # 唯一的 axios 封装：注入 token、统一解包 response.data
-│   └── module/            # 按业务分组的接口函数（commone / user / workspace）
+│   └── module/            # 按业务分组的接口函数（commone / user / workspace / node / graph / admin / inference）
+│   │                      #   inference.ts：SSE 问答客户端 + 帧协议 + 把帧应用到消息
+├── composables/           # 页面级状态复用（useNodeCrudPage / useChatHistory / useInferenceSidebar）
 ├── config/index.ts        # baseURL（同源相对路径 `/`）、ragBase（/rag/）、timeout
 ├── layouts/               # BasicLayout + global/ 下的头部、菜单、标签页、设置
 ├── library/               # 通用工具（treeUtil 等）
 ├── router/                # index.ts（守卫）+ module/base-routes.ts（全部路由）
 ├── store/                 # Pinia：app（标签页主题）、user（token/菜单/权限）
 ├── styles/                # 全局样式
-├── types/                 # TS 类型（result / user）
+├── types/                 # TS 类型（result / user / inference）
 ├── utils/
 │   ├── knowledge.ts       # 实体类型/字段标签映射、关系属性分组等业务工具
 │   ├── userScopedStorage.ts # 按账号隔离的 localStorage 读写（问答/识别记录）
 │   ├── apiError.ts        # 从 axios 失败响应里取后端 msg（错误提示统一入口）
+│   ├── clipboard.ts       # 复制到剪贴板（剪贴板 API + 文本域回退）
+│   ├── inference-export.ts # 问答记录导出 Markdown（纯函数）
 │   └── date.ts            # 对话时间展示
 └── views/                 # 页面（inference / knowledge / knowledge-list / workspace / admin / login / error）
+    └── inference/         # 历史问答助手：index.vue（400 行，只留状态与编排）+ index.css
+        └── components/    # SessionSidebar / ChatMessages / ChatInput / KgNodeDrawer / KgGraph
 ```
+
+`scripts/` 下有三个与页面维护相关的脚本（都不是构建流程的一部分）：
+
+| 脚本 | 用途 |
+| --- | --- |
+| `namespace-inference-css.mjs` | 给 `views/inference/index.css` 的选择器加 `.inference-container` 命名空间前缀（幂等，写回前做等价校验） |
+| `check-inference-style-coverage.mjs` | 检查问答页与四个子组件模板里用到的 class 都有样式兜底（拆组件时最容易掉的样式） |
+| `smoke-inference-page.mjs` | 浏览器冒烟：桩后端托管 `dist/`，用 Playwright 断言计算样式与交互（提问/切会话/图谱/导出/落盘） |
 
 ## 两条必须知道的约定
 
@@ -136,6 +150,12 @@ RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 ifram
 - 图谱/地图类页面复用现成封装：关系图用 `views/knowledge/graph/EChartsGraph.vue`，
   问答内的子图用 `views/inference/components/KgGraph.vue`；
   **新增关系维度只需在 `EntityGraph.vue` 的 `GRAPH_CONFIGS` 加一项 + 注册路由**，不要再复制页面
+- **大页面按"模板进 components、状态进 composables、纯逻辑进 utils/api"拆**（样板见 `views/inference/`：
+  1189 行拆成 400 行页面 + 4 个子组件 + 2 个组合式函数 + 3 个工具模块），拆前先给子组件写挂载测试
+- **子组件的样式归它自己**：父组件的 `<style scoped>` 不会作用于子组件内部的元素。
+  页面级共用样式（如 `inference/index.css`）要按**页面根元素的命名空间**写
+  （每条选择器前缀 `.inference-container`），否则会和其它页面重名的 class 互相污染
+  （`frontend/scripts/namespace-inference-css.mjs` 的注释里写了原因与做法）
 
 ## 常见问题
 
