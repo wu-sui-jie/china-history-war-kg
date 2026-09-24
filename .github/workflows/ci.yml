@@ -159,6 +159,13 @@ jobs:
           python-version: "3.8"
       - name: 语法编译（backend + entity-event-relation，目标解释器为 3.8）
         run: python -m compileall -q backend entity-event-relation
+      - name: 静态检查（ruff F821：未定义名）
+        # compileall 只验语法，查不出"函数被删掉但调用还在"这类 NameError。
+        # 该门禁原先只在实施者本机跑过（第 3 轮审核第 3 条），这里固化进 CI；
+        # ruff 版本钉死，避免升级后判定变化导致门禁口径漂移。
+        run: |
+          python -m pip install --disable-pip-version-check "ruff==0.16.8"
+          python -m ruff check --select F821 --target-version py38 backend entity-event-relation
       - name: 旧后端不得出现明文密钥
         run: |
           # 与 RAG 的 check_secrets.py 同口径：只看明显的密钥形态，放过占位符
