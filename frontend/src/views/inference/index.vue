@@ -368,6 +368,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, onMounted, reactive, onBeforeUnmount } from 'vue';
 import { useUserStore } from '../../store/user';
+import { layer } from '@layui/layui-vue';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
@@ -1037,14 +1038,12 @@ function deleteChat(index: number) {
 }
 
 // 导出对话内容到Markdown
-function getGraphNodeDisplayName(node: any) {
-  if (!node) return '-';
-  return node.EventName || node.PersonName || node.OrgName || node.geo_name || node.name || node.label || '-';
-}
+// 与 utils/knowledge 的 nodeDisplayName 同义，这里保留短名以便调用点少改
+const getGraphNodeDisplayName = (node: any) => nodeDisplayName(node || {});
 
 function exportToMarkdown() {
   if (currentChat.value.messages.length === 0) {
-    alert('当前对话为空，无法导出');
+    layer.msg('当前对话为空，无法导出', { icon: 0 });
     return;
   }
 
@@ -1123,7 +1122,7 @@ function exportToMarkdown() {
       }, 2000);
     }, 100);
   } catch (error) {
-    alert(`导出失败: ${error instanceof Error ? error.message : String(error)}`);
+    layer.msg(`导出失败: ${error instanceof Error ? error.message : String(error)}`, { icon: 2 });
   }
 }
 

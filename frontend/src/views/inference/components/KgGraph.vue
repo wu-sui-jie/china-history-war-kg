@@ -15,6 +15,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, onBeforeUnmount } from 'vue';
 import * as echarts from 'echarts';
+import { nodeDisplayName } from '@/utils/knowledge';
+import { graphCategoryLabelMap } from '@/utils/graph';
 
 const props = defineProps({
   data: {
@@ -32,10 +34,8 @@ const graphContainer = ref<HTMLDivElement | null>(null);
 let chart: echarts.ECharts | null = null;
 let resizeObserver: ResizeObserver | null = null;
 
-function getNodeDisplayName(node: any) {
-  if (!node) return '';
-  return node.EventName || node.PersonName || node.OrgName || node.geo_name || node.name || '';
-}
+// 显示名与分类名都用共享实现（原先本文件自带一份，与 utils 漂移）
+const getNodeDisplayName = (node: any) => nodeDisplayName(node || {});
 
 // 初始化图表
 function initChart() {
@@ -126,16 +126,9 @@ function renderGraph() {
   const { nodes, lines } = (props.data || {}) as { nodes: any[]; lines: any[] };
 
   // ================== 类型标准化映射 ==================
-  const typeNormalizeMap: Record<string, string> = {
-    'Event': '战争事件',
-    '事件': '战争事件',
-    'Organization': '势力组织',
-    '势力组织': '势力组织',
-    'Person': '历史人物',
-    '历史人物': '历史人物',
-    'Place': '战争地点',
-    '战争地点': '战争地点'
-  };
+  // 口径与配色表都由 utils/graph 提供（图谱侧用「势力组织」，与详情页的「参战组织」不同名，
+  // 原因见 utils/graph.ts 的注释）
+  const typeNormalizeMap = graphCategoryLabelMap;
   
 
   // 定义节点类型颜色配置

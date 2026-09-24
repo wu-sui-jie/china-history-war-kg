@@ -193,14 +193,6 @@ export default {
       {name: 'en_US', locale: en_US, merge: true}
     ]
 
-    function toUserInfo() {
-      router.push('/enrollee/profile')
-    }
-
-    function toSystemSet() {
-      router.push('/system/menu')
-    }
-
     const flag = ref(false)
 
     function changeDropdown() {
@@ -231,8 +223,6 @@ export default {
       showGlobalSearchBar,
       goGlobalSearch,
       locales,
-      toUserInfo,
-      toSystemSet,
       changeDropdown,
       flag
     }

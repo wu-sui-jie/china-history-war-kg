@@ -74,7 +74,6 @@
 </template>
 
 <script lang="ts">
-import {loginQrcode, verificationImg} from '../../api/module/commone'
 import {defineComponent, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useUserStore} from '../../store/user'
@@ -89,9 +88,7 @@ export default defineComponent({
     const router = useRouter()
     const userStore = useUserStore()
     const method = ref('1')
-    const verificationImgUrl = ref('')
     const loging = ref(false);
-    const loginQrcodeText = ref('')
     const loginForm = reactive({
       account: '',
       name: '',
@@ -202,26 +199,7 @@ export default defineComponent({
           .finally(() => (loging.value = false));
     }
 
-    const toRefreshImg = async () => {
-      let {data, code, msg} = await verificationImg()
-      if (code == 200) {
-        verificationImgUrl.value = data.data
-      } else {
-        layer.msg(msg, {icon: 2})
-      }
-    }
-    const toRefreshQrcode = async () => {
-      let {data, code, msg} = await loginQrcode()
-      if (code == 200) {
-        loginQrcodeText.value = data.data
-      } else {
-        layer.msg(msg, {icon: 2})
-      }
-    }
-
     return {
-      toRefreshQrcode,
-      toRefreshImg,
       loginSubmit,
       signinSubmit,
       loginForm,

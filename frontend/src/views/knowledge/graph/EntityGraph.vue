@@ -62,6 +62,7 @@ import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import EChartsGraph from './EChartsGraph.vue'
 import Http from '@/api/http'
+import { mergeNodeRelations } from '@/utils/graph'
 
 /** 四个子页的全部差异集中在这里，模板与逻辑共享。 */
 const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTypes: string[]; endpoint: string }> = {
@@ -122,19 +123,8 @@ async function loadNodeRelations(nodeId: string) {
   try {
     const response = await Http.get(`/api/node/relations?id=${nodeId}`)
     if (response.code === 200) {
-      const currentNodes = new Set(datasource.value.nodes.map((n: any) => n.id))
-      const currentLines = new Set(datasource.value.lines.map((l: any) => `${l.from}-${l.to}-${l.text}`))
-
-      const newNodes = response.data.nodes.filter((node: any) => !currentNodes.has(node.id))
-      const newLines = response.data.lines.filter((line: any) => {
-        const lineKey = `${line.from}-${line.to}-${line.text}`
-        return !currentLines.has(lineKey)
-      })
-
-      datasource.value = {
-        nodes: [...datasource.value.nodes, ...newNodes],
-        lines: [...datasource.value.lines, ...newLines]
-      }
+      // 合并去重的实现收敛在 utils/graph.ts（原先与 OverviewGraph 各一份）
+      datasource.value = mergeNodeRelations(datasource.value, response.data || {})
       syncPageSummary()
     }
   } catch (error) {

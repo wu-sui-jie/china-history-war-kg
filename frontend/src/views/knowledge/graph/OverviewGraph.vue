@@ -4,7 +4,8 @@
       <div>
         <h1>{{ focusName ? '实体关系验证图' : '中国历史战争事件总览图' }}</h1>
       </div>
-      <lay-button v-if="focusName" size="sm" @click="loadFullGraph">返回完整图谱</lay-button>
+      <lay-button v-if="focusName" size="sm" @click="loadAllGraph">返回完整图谱</lay-button>
+      <lay-button v-else size="sm" @click="loadAllGraph">加载全部节点</lay-button>
     </div>
 
     <div class="graph-wrapper">
@@ -17,14 +18,19 @@
 <script setup lang="ts">
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { layer } from '@layui/layui-vue'
 import EChartsGraph from './EChartsGraph.vue'
 import Http from '@/api/http'
+import { mergeNodeRelations } from '@/utils/graph'
 
 const loading = ref(false)
 const datasource = ref<any>({ nodes: [], lines: [] })
 const graphPageSummary = inject<any>('graphPageSummary', null)
 const route = useRoute()
 const focusName = ref('')
+// 默认只加载限量视图：全图分支没有分页，规模大时会把浏览器拖死（BE-6/BE-8）。
+// 用户显式点「加载全部节点」时才请求全图，后端还会按节点数上限拦截。
+const wantFullGraph = ref(false)
 
 function syncPageSummary() {
   graphPageSummary?.setGraphPageSummary(
@@ -38,17 +44,8 @@ async function loadNodeRelations(nodeId: string) {
   try {
     const response = await Http.get(`/api/node/relations?id=${nodeId}`)
     if (response.code === 200) {
-      const currentNodes = new Set(datasource.value.nodes.map((node: any) => String(node.id)))
-      const currentLines = new Set(datasource.value.lines.map((line: any) => `${line.from || line.source}-${line.to || line.target}-${line.text || ''}`))
-      const newNodes = (response.data.nodes || []).filter((node: any) => !currentNodes.has(String(node.id)))
-      const newLines = (response.data.lines || []).filter((line: any) => {
-        const lineKey = `${line.from || line.source}-${line.to || line.target}-${line.text || ''}`
-        return !currentLines.has(lineKey)
-      })
-      datasource.value = {
-        nodes: [...(datasource.value.nodes || []), ...newNodes],
-        lines: [...(datasource.value.lines || []), ...newLines],
-      }
+      // 合并去重的实现收敛在 utils/graph.ts（原先与 EntityGraph 各一份）
+      datasource.value = mergeNodeRelations(datasource.value, response.data || {})
       syncPageSummary()
     }
   } catch (error) {
@@ -58,10 +55,15 @@ async function loadNodeRelations(nodeId: string) {
   }
 }
 
-async function loadFullGraph() {
+async function loadAllGraph() {
   focusName.value = ''
   sessionStorage.removeItem('graphFocus')
-  await getGraph(false)
+  wantFullGraph.value = true
+  try {
+    await getGraph(false)
+  } finally {
+    wantFullGraph.value = false
+  }
 }
 
 async function getGraph(allowFocus = true) {
@@ -70,8 +72,12 @@ async function getGraph(allowFocus = true) {
     const focus = allowFocus ? getGraphFocus() : null
     const response = focus
       ? await Http.get('/api/graph/node_context', focus)
-      : await Http.post('/search_name_kg', { load_all: true })
+      : await Http.post('/search_name_kg', { load_all: wantFullGraph.value })
     datasource.value = response.code === 200 ? response.data || { nodes: [], lines: [] } : { nodes: [], lines: [] }
+    // 后端因规模超限把全图请求降级为限量加载时明确告知，避免用户以为"图就这么多"
+    if (!focus && wantFullGraph.value && response?.graph_mode === 'limited') {
+      layer.msg('节点数超过后端上限，已按限量加载；可用顶部搜索聚焦具体实体', { icon: 0 })
+    }
   } catch (error) {
     console.error('获取图谱数据失败:', error)
     datasource.value = { nodes: [], lines: [] }

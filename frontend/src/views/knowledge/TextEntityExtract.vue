@@ -430,6 +430,7 @@
 
 <script setup lang="ts">
 import { ref, computed, reactive, onMounted } from 'vue';
+import { layer } from '@layui/layui-vue'
 import { useRouter } from 'vue-router';
 import Http from '../../api/http';
 import KgGraph from '../inference/components/KgGraph.vue';
@@ -632,11 +633,11 @@ async function startExtract() {
       // 识别成功后保存到历史记录
       saveToHistory();
     } else {
-      alert(response?.msg || '识别失败，请重试');
+      layer.msg(response?.msg || '识别失败，请重试', { icon: 2 });
     }
   } catch (error: any) {
     console.error('识别请求失败:', error);
-    alert('识别请求失败: ' + (error.message || '未知错误'));
+    layer.msg('识别请求失败: ' + (error instanceof Error ? error.message : String(error)), { icon: 2 });
   } finally {
     loading.value = false;
   }
@@ -741,7 +742,7 @@ function deleteHistory(index: number) {
 // 导出为Markdown
 function exportToMarkdown() {
   if (!result.value) {
-    alert('没有可导出的识别结果');
+    layer.msg('没有可导出的识别结果', { icon: 0 });
     return;
   }
 
@@ -855,14 +856,14 @@ function exportToMarkdown() {
     URL.revokeObjectURL(url);
   } catch (error) {
     console.error('导出Markdown失败:', error);
-    alert('导出失败');
+    layer.msg('导出失败', { icon: 2 });
   }
 }
 
 // 导出为JSON
 function exportToJSON() {
   if (!result.value) {
-    alert('没有可导出的识别结果');
+    layer.msg('没有可导出的识别结果', { icon: 0 });
     return;
   }
 
@@ -884,7 +885,7 @@ function exportToJSON() {
     URL.revokeObjectURL(url);
   } catch (error) {
     console.error('导出JSON失败:', error);
-    alert('导出失败');
+    layer.msg('导出失败', { icon: 2 });
   }
 }
 
