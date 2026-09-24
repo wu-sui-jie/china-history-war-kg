@@ -26,24 +26,6 @@ const MAP_MENU: MenuItem = {
   title: '历史地图视图'
 }
 
-const WORKSPACE_GROUP: MenuItem = {
-  id: '/workspace/manage',
-  icon: 'layui-icon-console',
-  title: '数据运营',
-  children: [
-    {
-      id: '/workspace/dataset',
-      icon: 'layui-icon-template-1',
-      title: '数据集中心'
-    },
-    {
-      id: '/workspace/quality',
-      icon: 'layui-icon-vercode',
-      title: '图谱质检'
-    }
-  ]
-}
-
 // 不在侧边栏展示的菜单项：路由、页面与后端接口都保留，只是不进导航栏。
 // 「历史问答助手」的入口已由「RAG 智能问答」承接，暂从导航栏下线；
 // 需要恢复入口时，把对应 id 从这里删掉即可。
@@ -79,7 +61,11 @@ function mergeWorkspaceMenus(source: MenuItem[] = []) {
     ].filter(Boolean) as MenuItem[]
   }
 
-  const workspaceGroup = menuMap.get('/workspace/manage') || WORKSPACE_GROUP
+  // 修正 2026-09-25：不再用 WORKSPACE_GROUP 兜底。菜单唯一事实源是后端
+  // get_menu()，viewer 的数据运营组被角色裁剪后本就不该出现——原先的
+  // `|| WORKSPACE_GROUP` 保底会把内置默认组（数据集中心+图谱质检）硬塞
+  // 回给 viewer，等于部分撤销后端的裁剪。
+  const workspaceGroup = menuMap.get('/workspace/manage')
   if (workspaceGroup?.children) {
     const childMap = new Map((workspaceGroup.children || []).map((item) => [item?.id, item]))
     workspaceGroup.children = [
