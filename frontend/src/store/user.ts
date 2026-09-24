@@ -138,6 +138,18 @@ export const useUserStore = defineStore({
       this.userInfo = {}
       this.permissions = []
       this.menus = []
+    },
+    /**
+     * 确保 userInfo 已加载，并返回它。拿账号 id 做事的地方（问答记录按账号隔离、
+     * 给 RAG 传身份）必须走这个而不是直接读 userInfo：
+     * BasicLayout 的 onMounted 里 loadUserInfo() 是不 await 的，而子组件的 mounted
+     * 先于父组件执行——直接读会拿到空对象，隔离就退化成"共享 key"。
+     */
+    async ensureUserInfo() {
+      if (!this.userInfo?.id) {
+        await this.loadUserInfo()
+      }
+      return this.userInfo
     }
   },
   persist: {

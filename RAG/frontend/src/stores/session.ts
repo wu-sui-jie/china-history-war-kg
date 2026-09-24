@@ -18,6 +18,7 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
+import { activeStorageKey, getActiveUid, setActiveUid } from '@/utils/userScope'
 import { fetchDicts, fetchHealth } from '@/api/http'
 import { streamQuery } from '@/api/sse'
 import {
@@ -39,8 +40,10 @@ import {
   type TurnStatus,
 } from '@/types/contract'
 
-/** 存储键带 schema 版本：字段结构变化时可以并存而不是把旧数据读坏。 */
-const STORAGE_KEY = 'ragv5-session-v3'
+/** 存储键带 schema 版本：字段结构变化时可以并存而不是把旧数据读坏。
+ *  实际 key 由 utils/userScope 按账号组装（主应用 iframe 嵌入时是 `...:u{uid}`，
+ *  独立访问 :8000 时就是下面这个基础 key，行为与改造前一致）。 */
+const STORAGE_KEY_BASE = 'ragv5-session-v3'
 const LEGACY_STORAGE_KEYS = ['ragv5-session-v2', 'ragv3-session-v1', 'ragv5-session-v1']
 const STORAGE_SCHEMA_VERSION = 3
 /** 无法安全解析/版本过新的原值隔离位置（不删除，便于排查） */
@@ -410,7 +413,7 @@ function messagesOf(bodies: Map<string, ChatMessage[]>, id: string): ChatMessage
  * - 结构非法：同样隔离原值后从空会话开始（不再静默丢弃）。
  */
 function readPersisted(): PersistedSessions & { notice: PersistNotice | null } {
-  const keys = [STORAGE_KEY, ...LEGACY_STORAGE_KEYS]
+  const keys = [activeStorageKey(STORAGE_KEY_BASE), ...LEGACY_STORAGE_KEYS]
   for (const key of keys) {
     let raw: string | null = null
     try {
@@ -651,7 +654,7 @@ export const useSessionStore = defineStore('session', () => {
 
   function persist(): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildPayload({
+      localStorage.setItem(activeStorageKey(STORAGE_KEY_BASE), JSON.stringify(buildPayload({
         maxSessions: MAX_SESSIONS,
         perSession: MAX_PERSISTED_MESSAGES,
         stripPanel: false,
@@ -661,7 +664,7 @@ export const useSessionStore = defineStore('session', () => {
       // 配额/隐私模式：先降级（减会话数、去掉面板与过程记录、每会话只留 20 条）再试一次
     }
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildPayload({
+      localStorage.setItem(activeStorageKey(STORAGE_KEY_BASE), JSON.stringify(buildPayload({
         maxSessions: DEGRADED_SESSIONS,
         perSession: DEGRADED_MESSAGES,
         stripPanel: true,
@@ -676,6 +679,34 @@ export const useSessionStore = defineStore('session', () => {
         showToast('warn', '本地存储不可用（隐私模式或配额已满）：本次会话刷新后不会保留')
       }
     }
+  }
+
+  /**
+   * 切换账号作用域（主应用 iframe 嵌入时通过 postMessage 告知，见 utils/userScope）。
+   *
+   * 顺序是关键：**先把当前内存状态写回"当前" key，再换 uid、再读新 key**。
+   * 反过来的话，上一个账号的会话会被写进新账号的存储里（串数据）。
+   *
+   * 没收到过消息时（独立访问 :8000）不会调用本函数，存储 key 不带后缀，行为与改造前一致。
+   */
+  function applyUserScope(uid: string | null): void {
+    if (uid === getActiveUid()) return
+    persist()
+    setActiveUid(uid)
+    const reloaded = readPersisted()
+    sessions.value = reloaded.sessions
+    activeSessionId.value = reloaded.activeSessionId
+    messages.value = reloaded.messages
+    sessionBodies.clear()
+    for (const [id, list] of reloaded.bodies) sessionBodies.set(id, list)
+
+    // 上一账号的瞬态状态不能带过来：在途回答、选中轮、当前回答对象
+    cancelStream()
+    active.value = null
+    selectedTurnId.value = null
+    citationFocus.value = null
+
+    if (reloaded.notice) showToast(reloaded.notice.kind, reloaded.notice.text)
   }
 
   // 流式期间的持久化节流（第四轮复核 P1-11）：每个 delta 都写 localStorage 会明显掉帧，
@@ -1354,6 +1385,8 @@ export const useSessionStore = defineStore('session', () => {
     panelMessage,
     showToast,
     boot,
+    /** 切换账号作用域（主应用 iframe 通过 postMessage 告知身份后调用；独立访问不会调用） */
+    applyUserScope,
     /** 等待当前活动流收尾（严格单流约束的可观测入口，测试也用它同步） */
     whenIdle: () => runChain,
     toggleFilter,

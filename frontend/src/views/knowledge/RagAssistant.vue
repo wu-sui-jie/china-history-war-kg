@@ -32,23 +32,62 @@
         title="RAG 智能问答"
         sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"
         referrerpolicy="no-referrer"
+        @load="onFrameLoad"
       ></iframe>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import config from '../../config'
+import { useUserStore } from '../../store/user'
 
 const ragBase = config.ragBase
 const frameKey = ref(0)
 const frameRef = ref<HTMLIFrameElement | null>(null)
+const userStore = useUserStore()
 
 /** 换 key 重建 iframe 来触发重新加载：不碰 contentWindow，避免同源判定带来的限制。 */
 const reloadFrame = () => {
   frameKey.value += 1
 }
+
+/**
+ * 把当前账号告知 iframe 里的 RAG 前端（问题二方案 A）。
+ *
+ * 为什么需要：RAG 是独立服务、没有用户体系，会话历史存在它自己的 localStorage 里，
+ * key 全局唯一——同一浏览器上任何账号打开 RAG 看到的都是同一份记录。
+ * 主应用这边知道"现在是谁"，就把账号 id 传进去，RAG 按 uid 分 key 存。
+ *
+ * 用 postMessage 而不是拼在 iframe URL 上：URL 会进浏览器历史与各级访问日志。
+ * targetOrigin 用 `/`（= 只发给同源文档，见 HTML 规范）——RAG 与主应用同源，
+ * 换成独立域名部署时这里要同步改成那一个源。
+ *
+ * 边界（如实说）：这只解决"串记录"，不防"冒充"——同源之下，懂控制台的账号可以改 uid
+ * 去看别人的记录。公网部署需要方案 B（传 JWT + RAG 服务端验签）。
+ */
+const postUserScope = () => {
+  const frame = frameRef.value
+  const uid = userStore.userInfo?.id
+  if (!frame?.contentWindow || uid === undefined || uid === null) return
+  frame.contentWindow.postMessage({ type: 'cw-user', uid: String(uid) }, '/')
+}
+
+/** iframe 每次 load 后重发：RAG 可能比本页晚拿到账号，或自身刚被重建。 */
+const onFrameLoad = async () => {
+  await userStore.ensureUserInfo()
+  postUserScope()
+}
+
+// 账号变化（换号登录）时重建 iframe 并重发：RAG 前端按新 uid 重新读它自己的存储
+watch(() => userStore.userInfo?.id, () => {
+  reloadFrame()
+})
+
+onMounted(async () => {
+  await userStore.ensureUserInfo()
+})
 
 const openInNewTab = () => {
   window.open(ragBase, '_blank', 'noopener')

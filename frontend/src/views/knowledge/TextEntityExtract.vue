@@ -435,8 +435,14 @@ import { useRouter } from 'vue-router';
 import { extractEntitiesEvents } from '../../api/module/node'
 import KgGraph from '../inference/components/KgGraph.vue';
 import { formatChatTime } from '../../utils/date';
+import { readScoped, writeScoped } from '../../utils/userScopedStorage';
+import { useUserStore } from '../../store/user';
 
 const router = useRouter();
+const userStore = useUserStore();
+
+// 识别记录的存储 key：按账号隔离（问题二方案 A；老全局记录由 readScoped 归档）
+const EXTRACT_HISTORY_KEY = 'extractHistory';
 
 // 状态变量
 const inputText = ref('');
@@ -652,22 +658,22 @@ function useExample(example: any) {
   textLength.value = example.text.length;
 }
 
-// 从localStorage加载历史记录
+// 从localStorage加载历史记录（按账号隔离）
 function loadHistoryFromStorage() {
   try {
-    const stored = localStorage.getItem('extractHistory');
-    if (stored) {
-      historyList.value = JSON.parse(stored);
+    const stored = readScoped<any[]>(EXTRACT_HISTORY_KEY, userStore.userInfo?.id, []);
+    if (Array.isArray(stored)) {
+      historyList.value = stored;
     }
   } catch (error) {
     console.error('加载历史记录失败:', error);
   }
 }
 
-// 保存历史记录到localStorage
+// 保存历史记录到localStorage（按账号隔离）
 function saveHistoryToStorage() {
   try {
-    localStorage.setItem('extractHistory', JSON.stringify(historyList.value));
+    writeScoped(EXTRACT_HISTORY_KEY, userStore.userInfo?.id, historyList.value);
   } catch (error) {
     console.error('保存历史记录失败:', error);
   }
@@ -888,7 +894,9 @@ function exportToJSON() {
 }
 
 // 组件挂载时加载历史记录
-onMounted(() => {
+onMounted(async () => {
+  // 先确保拿到账号 id 再读历史（否则退回共享 key，见 store.ensureUserInfo）
+  await userStore.ensureUserInfo();
   loadHistoryFromStorage();
 });
 </script>

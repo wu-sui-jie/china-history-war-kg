@@ -375,9 +375,13 @@ import { fieldLabel, groupRelationAttributes, nodeDisplayName, normalizeType, ty
 import { formatChatTime } from '../../utils/date';
 // Markdown / 图谱上下文的渲染与净化（S3-5 第一步已抽成独立模块，见其文件头）
 import { renderKgContextMarkdown, renderMarkdown, renderThinkingContent } from '../../utils/inference-render';
+import { readScoped, writeScoped } from '../../utils/userScopedStorage';
 
-// 用户store（用于获取token）
+// 用户store（用于获取token与账号 id）
 const userStore = useUserStore();
+
+// 问答记录的存储 key 前缀：按账号隔离（见 utils/userScopedStorage）
+const CHAT_HISTORY_KEY = 'chatHistory';
 
 // 进行中的问答流控制器（见 handleQuery / onBeforeUnmount）
 let streamController: AbortController | null = null;
@@ -619,11 +623,13 @@ watch(() => currentChat.value.messages.length, () => {
 }, { immediate: true });
 
 // 从localStorage加载聊天记录
+// 存储 key 按账号隔离（问题二方案 A）：同一浏览器上换账号不再看到同一个人的提问记录。
+// 老版本存在全局 key 'chatHistory' 下，首次按账号读取时由 readScoped 归档，不归属任何账号。
 function loadChatHistory() {
   try {
-    const storedHistory = localStorage.getItem('chatHistory');
-    if (storedHistory) {
-      chatHistory.value = JSON.parse(storedHistory);
+    const stored = readScoped<Chat[]>(CHAT_HISTORY_KEY, userStore.userInfo?.id, []);
+    if (Array.isArray(stored) && stored.length) {
+      chatHistory.value = stored;
     }
     // 设置一个短暂的加载延迟，以显示加载状态
     setTimeout(() => {
@@ -655,17 +661,17 @@ function trimChatHistory() {
   }
 }
 
-// 保存聊天记录到localStorage
+// 保存聊天记录到localStorage（按账号分 key，见 loadChatHistory 的说明）
 function saveChatHistory() {
   try {
     trimChatHistory();
-    localStorage.setItem('chatHistory', JSON.stringify(chatHistory.value));
+    writeScoped(CHAT_HISTORY_KEY, userStore.userInfo?.id, chatHistory.value);
   } catch (error) {
     // 配额仍不够：丢掉一半会话再试一次；还失败就只告警，不阻塞对话
     try {
       trimChatHistory();
       chatHistory.value = chatHistory.value.slice(0, Math.max(1, Math.floor(MAX_CHATS / 2)));
-      localStorage.setItem('chatHistory', JSON.stringify(chatHistory.value));
+      writeScoped(CHAT_HISTORY_KEY, userStore.userInfo?.id, chatHistory.value);
       console.warn('聊天记录超出 localStorage 配额，已丢弃较旧的会话');
     } catch (retryError) {
       console.warn('聊天记录写入 localStorage 失败，本次不保存历史:', retryError);
@@ -948,7 +954,9 @@ function handleResize() {
 }
 
 // 组件挂载时添加窗口大小监听
-onMounted(() => {
+onMounted(async () => {
+  // 先确保拿到账号 id 再读历史：否则会退回共享 key，隔离失效（见 store.ensureUserInfo）
+  await userStore.ensureUserInfo();
   loadChatHistory();
   scrollToBottom();
   window.addEventListener('resize', handleResize);
