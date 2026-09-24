@@ -34,7 +34,8 @@
       <div class="panel">
         <div class="panel-header">
           <h3>核心属性</h3>
-          <lay-button size="sm" @click="goRepair">进入修复工作台</lay-button>
+          <!-- 普通用户不显示；且实体数据未就绪时不带 undefined 参数跳转 -->
+          <lay-button v-if="hasWriteRole && entity.node?.type" size="sm" @click="goRepair">进入修复工作台</lay-button>
         </div>
         <div class="property-list">
           <div v-for="[key, value] in visibleFields" :key="key" class="property-item">
@@ -143,9 +144,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { getEntityDetail } from '../../api/module/workspace'
 import { fieldLabel, fieldValueLabel, groupRelationAttributes, problemLabel, toEditableFields, typeLabel } from '@/utils/knowledge'
+import { useHasWriteRole } from '@/utils/auth'
 
 const route = useRoute()
 const router = useRouter()
+const hasWriteRole = useHasWriteRole()
 
 const entity = ref<any>({
   node: {},

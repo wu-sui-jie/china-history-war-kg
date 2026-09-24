@@ -18,11 +18,11 @@
         <span class="nav-title">首页仪表盘</span>
         <span class="nav-desc">查看概览统计与最近状态</span>
       </div>
-      <div class="quick-nav-card" @click="goDatasetCenter">
+      <div v-if="hasWriteRole" class="quick-nav-card" @click="goDatasetCenter">
         <span class="nav-title">数据集中心</span>
         <span class="nav-desc">查看当前导入批次与版本信息</span>
       </div>
-      <div class="quick-nav-card" @click="goQualityPage">
+      <div v-if="hasWriteRole" class="quick-nav-card" @click="goQualityPage">
         <span class="nav-title">图谱质检</span>
         <span class="nav-desc">查看缺失字段、孤立节点与时间异常</span>
       </div>
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="panel-inline-actions">
-          <lay-button size="sm" @click="goQualityPage">进入质检工作台</lay-button>
+          <lay-button v-if="hasWriteRole" size="sm" @click="goQualityPage">进入质检工作台</lay-button>
         </div>
       </div>
     </div>
@@ -102,6 +102,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { getDashboardOverview } from '../../api/module/workspace'
+import { useHasWriteRole } from '../../utils/auth'
 
 // 仪表盘数据结构：与后端接口保持对应，便于后续扩展字段
 const dashboard = ref<any>({
@@ -109,6 +110,8 @@ const dashboard = ref<any>({
   dynasty_distribution: [],
   quality_snapshot: {}
 })
+
+const hasWriteRole = useHasWriteRole()
 
 const router = useRouter()
 const loading = ref(false)

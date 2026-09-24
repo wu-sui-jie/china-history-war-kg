@@ -8,6 +8,7 @@
 
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { flushPromises, mount, type VueWrapper } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
 import Layui from '@layui/layui-vue'
 
 import { layerSpies, makeTestRouter } from './helpers'
@@ -15,6 +16,7 @@ import Http from '@/api/http'
 import GlobalSearch from '@/views/knowledge/GlobalSearch.vue'
 import Dashboard from '@/views/workspace/Dashboard.vue'
 import { getDashboardOverview } from '@/api/module/workspace'
+import { useUserStore } from '@/store/user'
 
 vi.mock('@/api/http', () => ({
   default: { get: vi.fn(), post: vi.fn(), put: vi.fn(), delete: vi.fn() },
@@ -35,6 +37,13 @@ vi.mock('@layui/layui-vue', async (importOriginal) => {
 const get = Http.get as unknown as ReturnType<typeof vi.fn>
 const overview = getDashboardOverview as unknown as ReturnType<typeof vi.fn>
 
+// 组件 setup 里会 useUserStore（角色过滤）：每个用例先备好一个 Pinia 实例
+let pinia: ReturnType<typeof createPinia>
+beforeEach(() => {
+  pinia = createPinia()
+  setActivePinia(pinia)
+})
+
 describe('GlobalSearch 全局搜索', () => {
   let wrapper: VueWrapper<any>
 
@@ -42,7 +51,7 @@ describe('GlobalSearch 全局搜索', () => {
   afterEach(() => wrapper?.unmount())
 
   test('空关键词只提示，不发请求', async () => {
-    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     wrapper.vm.search()
@@ -60,7 +69,7 @@ describe('GlobalSearch 全局搜索', () => {
         { id: 1, type: 'Event', name: '巨鹿之战', type_label: '战争事件', entity_route: '/knowledge/entity/Event/1' },
       ],
     })
-    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     wrapper.vm.keyword = '  巨鹿  '
@@ -76,7 +85,7 @@ describe('GlobalSearch 全局搜索', () => {
 
   test('接口非 200 时结果清空且显示空态', async () => {
     get.mockResolvedValue({ code: 500, msg: '炸了' })
-    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     wrapper.vm.keyword = '秦'
@@ -104,6 +113,7 @@ describe('GlobalSearch 全局搜索', () => {
 
 describe('Dashboard 首页仪表盘', () => {
   let wrapper: VueWrapper<any>
+  let pinia: ReturnType<typeof createPinia>
 
   const payload = {
     cards: [
@@ -117,12 +127,16 @@ describe('Dashboard 首页仪表盘', () => {
     quality_snapshot: { missing_required_fields: 3 },
   }
 
-  beforeEach(() => vi.clearAllMocks())
+  beforeEach(() => {
+    vi.clearAllMocks()
+    // Dashboard 用 useHasWriteRole 过滤快捷卡：预置管理员角色，卡片全渲染
+    useUserStore().userInfo = { id: 1, account: 'tester', role: 'admin' }
+  })
   afterEach(() => wrapper?.unmount())
 
   test('挂载即拉总览，卡片与刷新时间都有值，且首屏不弹提示', async () => {
     overview.mockResolvedValue({ code: 200, data: payload })
-    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     expect(overview).toHaveBeenCalledTimes(1)
@@ -135,7 +149,7 @@ describe('Dashboard 首页仪表盘', () => {
 
   test('手动刷新给明确反馈；零值朝代被过滤后用全量兜底', async () => {
     overview.mockResolvedValue({ code: 200, data: payload })
-    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     await wrapper.vm.loadData(false)
@@ -150,7 +164,7 @@ describe('Dashboard 首页仪表盘', () => {
 
   test('接口返回非 200 时提示后端文案，loading 复位', async () => {
     overview.mockResolvedValue({ code: 500, msg: '数据库炸了' })
-    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     expect(layerSpies().msg).toHaveBeenCalledWith('数据库炸了', { icon: 2 })
@@ -161,7 +175,7 @@ describe('Dashboard 首页仪表盘', () => {
   test('请求抛异常时提示兜底文案（不能让首屏一直转圈）', async () => {
     overview.mockRejectedValue(new Error('network down'))
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
-    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter()] } })
+    wrapper = mount(Dashboard, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
     await flushPromises()
 
     expect(layerSpies().msg).toHaveBeenCalledWith('加载首页数据失败', { icon: 2 })
