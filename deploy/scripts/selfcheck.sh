@@ -34,6 +34,21 @@ for unit in china-war-backend china-war-rag china-war-bot; do
     fi
 done
 
+# ---------------------------------------------------------------- 补偿队列定时器
+head_ "补偿队列（outbox 自动重放）"
+if ! systemctl cat china-war-outbox-retry.timer >/dev/null 2>&1; then
+    # 第 14 轮审计 P2-23：这两个单元原先只能手工 cp，README 的步骤里没有它们，
+    # 漏装之后"Noo4j 写失败会自动补"就成了一句没有执行者的承诺。
+    bad "未安装 china-war-outbox-retry.timer —— Neo4j 写失败后的自动重放不会发生（install_services.sh 会装它）"
+elif systemctl is-active china-war-outbox-retry.timer | grep -q '^active$'; then
+    ok "china-war-outbox-retry.timer 已启用"
+    # 下次触发时间是"它真的在跑"的直接证据（未启用时这一行是空的）
+    next_run=$(systemctl list-timers --no-pager china-war-outbox-retry.timer 2>/dev/null | sed -n 2p || true)
+    [[ -n "${next_run}" ]] && echo "  - 下次触发：$(echo "${next_run}" | awk '{print $1, $2, $3}')"
+else
+    bad "china-war-outbox-retry.timer 未运行：systemctl enable --now china-war-outbox-retry.timer"
+fi
+
 # ---------------------------------------------------------------- 后端直连
 head_ "旧后端（:5000）"
 if fetch "http://127.0.0.1:5000/api/graph/event_event" | grep -q '{'; then

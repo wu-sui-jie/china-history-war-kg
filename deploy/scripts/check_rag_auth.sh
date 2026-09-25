@@ -199,7 +199,15 @@ if [[ "${mode}" == "jwt" ]]; then
             warn "未启用凭证撤销查询：**账号被停用或改密码后，旧 token 在自然过期（默认 7 天）前仍可调用 RAG 问答接口**（旧后端已立刻拒绝，两侧口径不同）"
         fi
     elif [[ -z "${introspect_url}" || -z "${rag_key}" ]]; then
-        bad "撤销查询只配了一半（RAG_INTROSPECT_URL / RAG_INTERNAL_SERVICE_KEY 缺一）：RAG 会按未启用处理，撤销延迟边界依然存在"
+        # P2-19：模板预填了 RAG_INTROSPECT_URL，于是"jwt + 生产档 + 显式接受延迟撤销"
+        # 这个组合会走到"只配了一半"这一支而被判失败——但 RAG 自己的启动门禁在这种
+        # 配置下是放行的（它只看"撤销查询能不能用"）。脚本头部声称的"与启动门禁同口径"
+        # 必须真的成立：显式接受延迟时，半配置只提醒，不算失败。
+        if [[ "${delayed_ok}" == "true" ]]; then
+            warn "撤销查询只配了一半（RAG_INTROSPECT_URL / RAG_INTERNAL_SERVICE_KEY 缺一）且已显式接受延迟撤销：服务会正常启动，但停用/改密码后在 token 到期前仍可用。要么补另一个键，要么删掉这半套配置以免误以为已启用"
+        else
+            bad "撤销查询只配了一半（RAG_INTROSPECT_URL / RAG_INTERNAL_SERVICE_KEY 缺一）：RAG 会按未启用处理，撤销延迟边界依然存在"
+        fi
     elif [[ -z "${backend_key}" ]]; then
         bad "backend/.env 未配置 INTERNAL_SERVICE_KEY：内部接口会返回 503，RAG 的撤销查询全部失败（fail_mode=${fail_mode}）"
     elif [[ "${rag_key}" != "${backend_key}" ]]; then

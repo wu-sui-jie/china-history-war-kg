@@ -72,11 +72,21 @@ chmod 755 "${APP_DIR}"
 
 # ---------------------------------------------------------------- systemd
 log "2/5 安装 systemd 服务单元"
-for unit in china-war-backend china-war-rag china-war-bot; do
-    src="${APP_DIR}/deploy/systemd/${unit}.service"
-    [[ -f "${src}" ]] || die "缺少 ${src}"
-    render < "${src}" > "/etc/systemd/system/${unit}.service"
-    echo "已写入 /etc/systemd/system/${unit}.service"
+# 补偿队列的两个单元一起装（第 14 轮审计 P2-23）：原先它们只能手工 `cp`，
+# 而 selfcheck.sh 也不查——照 README 从上到下执行的人大概率漏掉，
+# 于是 Neo4j 写失败后的自动重放长期不生效，且没有任何检查会报出来。
+for unit in china-war-backend china-war-rag china-war-bot             china-war-outbox-retry.service china-war-outbox-retry.timer; do
+    src="${APP_DIR}/deploy/systemd/${unit}"
+    if [[ ! -f "${src}" ]]; then
+        # 只有可选的 bot 允许缺失；其它缺了就是部署包不完整
+        if [[ "${unit}" == "china-war-bot.service" ]]; then
+            warn "缺少 ${src}（不用飞书机器人可忽略）"
+            continue
+        fi
+        die "缺少 ${src}"
+    fi
+    render < "${src}" > "/etc/systemd/system/${unit}"
+    echo "已写入 /etc/systemd/system/${unit}"
 done
 
 # 非密钥的 RAG 配置由应用自读；密钥单独放 /etc/china-war/rag-secrets.env
@@ -92,6 +102,11 @@ systemctl daemon-reload
 systemctl enable china-war-backend china-war-rag
 if [[ -f "${APP_DIR}/feishu-bot/.env" ]]; then
     systemctl enable china-war-bot
+fi
+# 定时器用 --now 立刻生效：它每分钟跑一次重放，不启动的话"自动重放"只是文件躺在磁盘上
+if [[ -f /etc/systemd/system/china-war-outbox-retry.timer ]]; then
+    systemctl enable --now china-war-outbox-retry.timer
+    systemctl list-timers --no-pager china-war-outbox-retry.timer || true
 fi
 
 # ---------------------------------------------------------------- nginx

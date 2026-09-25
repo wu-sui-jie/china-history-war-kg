@@ -202,6 +202,30 @@ jobs:
       - name: 扫描整个仓库
         run: python RAG/scripts/check_secrets.py --root .
 
+  deploy-config:
+    # 部署配置的结构检查（第 14 轮审计 P2-22）。
+    #
+    # 原先 CI 里**没有任何步骤碰过 deploy/**：7 个脚本、nginx 站点、systemd 单元的
+    # 语法与路径错误可以全绿进 main，而文档还把 `bash -n deploy/scripts/*.sh` 记成
+    # "本机实测"。这里把它固定下来——不需要服务器、不需要装 nginx，
+    # 检查脚本语法、单元必需键与指向、站点必需 location 与 SSE 不缓冲。
+    # 真机才能验的部分（nginx 能否起来、timer 是否触发）留在 deploy/README 第八节。
+    name: 部署配置（脚本语法 + 单元 + nginx）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 脚本语法（bash -n，逐个失败即停）
+        run: |
+          for f in deploy/scripts/*.sh; do
+            bash -n "$f" || { echo "::error::$f 语法错误"; exit 1; }
+          done
+          echo "全部脚本语法通过"
+      - name: 单元与站点配置结构检查
+        run: python scripts/check_deploy_config.py
+
   feishu-bot:
     # 飞书机器人进 CI（第 12 轮审查 P2-4）。
     #

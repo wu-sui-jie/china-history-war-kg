@@ -36,8 +36,10 @@ Environment=PYTHONUNBUFFERED=1
 # 这里只注入密钥，文件权限应为 600 root:root。
 EnvironmentFile=-/etc/china-war/rag-secrets.env
 
-# --version 固定数据版本：换数据版本时改 /etc/systemd/system/china-war-rag.service 这一行，
-# 同时把 RAG/.env 的 RAG_VERSION 一起改（两者必须一致，否则 health 里会报版本来源冲突）。
+# --version 固定数据版本：换数据版本时改这一行，**同时**把 RAG/.env 的
+# RAG_ACTIVE_VERSION 一起改（两者必须一致；不一致时 health 里的 version_selection
+# 与实际加载的版本会对不上）。注意键名是 RAG_ACTIVE_VERSION —— 曾经的 RAG_VERSION
+# 是个没有任何代码读的死键，已在第 14 轮审计 P2-24 从模板删除。
 ExecStart=/opt/miniconda3/envs/china-war-rag/bin/python scripts/run_server.py \
     --host 127.0.0.1 --port 8000 --version 20260915_v1
 
