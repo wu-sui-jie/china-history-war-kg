@@ -8,6 +8,7 @@ import os
 
 import local_settings
 from common_utils import safe_identifier
+from graph_key import graph_key_for
 from node_property_mapping import SYNC_FIXED_PROPS, neo4j_props, orm_row
 from relation_types import normalize_event_relation_type
 from flask import Flask
@@ -60,23 +61,51 @@ class SqliteToNeo4jSync:
                 db.session.execute(model.__table__.update().values(neo4j_id=None))
             db.session.commit()
 
-    def _create_node(self, label, name, properties=None):
+    def _create_node(self, label, name, properties=None, graph_key=None):
+        """按**稳定图谱键** upsert 节点，返回 (neo4j 节点 id, 状态)。
+
+        原先用 `MERGE (n:Label {name: $name})` 去重，两个后果（文档第六节第 5 条）：
+        同名节点被合成一个（"赤壁之战"在不同来源/朝代里确实有多个），
+        而改名会被当成新建，留下旧节点加一个新节点。按 `<Type>:<SQLite 主键>` 定位后，
+        改名就是一次属性更新，也不会再把两个不同对象合成一个。
+
+        `graph_key` 为空时回退到按名字 MERGE：独立脚本（如早期的一次性工具）可能还没
+        传入图谱键，直接报错会把它们一起打坏；回退路径会在日志里留一条提示。
+        """
         try:
             label = safe_identifier(label, kind="节点标签")
             props = properties or {}
             props["name"] = name
-            # ON CREATE / ON MATCH 互斥执行：用临时标记区分本次是新建还是命中存量，
-            # 读完立即 REMOVE。（原先用 n.created 判断，存量节点同样带 created，
-            # 于是全部被算成新建、nodes_updated 恒为 0。）
-            cypher = f"""
-            MERGE (n:`{label}` {{name: $name}})
-            ON CREATE SET n._sync_new = true, n.created = timestamp(), n += $props
-            ON MATCH SET n._sync_new = false, n.updated = timestamp(), n += $props
-            WITH n, n._sync_new AS is_new
-            REMOVE n._sync_new
-            RETURN id(n) as node_id, is_new
-            """
-            result = graph.run(cypher, name=name, props=props).data()
+            if not graph_key:
+                print(f"⚠️ 未提供图谱键，按名字合并（同名节点可能被合并）：{label}/{name}")
+                cypher = f"""
+                MERGE (n:`{label}` {{name: $name}})
+                ON CREATE SET n._sync_new = true, n.created = timestamp(), n += $props
+                ON MATCH SET n._sync_new = false, n.updated = timestamp(), n += $props
+                WITH n, n._sync_new AS is_new
+                REMOVE n._sync_new
+                RETURN id(n) as node_id, is_new
+                """
+                result = graph.run(cypher, name=name, props=props).data()
+            else:
+                # 与 model_search.upsert_node 同一套语义（含"认领同名无键历史节点"）：
+                # 两条写路径必须一致，否则管理台改完、全量同步一跑又变回旧样子。
+                graph.run(f"""
+                MATCH (legacy:`{label}` {{name: $name}})
+                WHERE legacy.graph_key IS NULL
+                WITH legacy LIMIT 1
+                SET legacy.graph_key = $graph_key, legacy.adopted = timestamp()
+                """, graph_key=graph_key, name=name)
+                cypher = f"""
+                MERGE (n:`{label}` {{graph_key: $graph_key}})
+                ON CREATE SET n._sync_new = true, n.created = timestamp()
+                ON MATCH SET n._sync_new = false
+                SET n += $props, n.name = $name, n.graph_key = $graph_key, n.updated = timestamp()
+                WITH n, n._sync_new AS is_new
+                REMOVE n._sync_new
+                RETURN id(n) as node_id, is_new
+                """
+                result = graph.run(cypher, graph_key=graph_key, name=name, props=props).data()
             if result:
                 node_id = result[0]["node_id"]
                 return node_id, "created" if result[0].get("is_new") else "updated"
@@ -104,7 +133,10 @@ class SqliteToNeo4jSync:
                             continue
                         props = {k: v for k, v in properties_builder(entity).items() if v not in (None, "")}
 
-                    neo4j_id, status = self._create_node(label, name, props)
+                    neo4j_id, status = self._create_node(
+                        label, name, props,
+                        graph_key=graph_key_for(label, entity.id),
+                    )
                     if not neo4j_id:
                         self.stats["nodes_skipped"] += 1
                         continue

@@ -76,6 +76,100 @@ class neo4j_db():
             raise
 
     # 更新节点
+    def upsert_node(self, label, graph_key, name, properties=None):
+        """按**稳定图谱键** upsert 一个节点，返回 `(neo4j 内部 id, 是否新建)`。
+
+        定位依据是 `graph_key`（`<Type>:<SQLite 主键>`，见 graph_key.py），不是名字：
+
+        - 按名字 MERGE 会把同名节点合成一个（"赤壁之战"在不同来源/朝代里确实有多个），
+          也会让"改名"表现为"旧节点留着 + 新节点被创建"；
+        - 按 `id(n)` 定位则不抗重建——全量重导 / 恢复备份后 id 全变，重放会改错对象。
+
+        `RETURN` 里的 `id(n)` 只用于回写 `neo4j_id`（日志/可视化对账用），
+        写入路径自己从不依赖它。Neo4j 5 起 `id()` 已废弃、`elementId()` 才是替代，
+        但本仓库其余查询仍按数字 id 比对，这里保持一致，等 id 体系整体迁移时一起换。
+        """
+        try:
+            label = safe_identifier(label)
+            props = {k: v for k, v in (properties or {}).items()
+                     if v is not None and k not in ("id", "type", "graph_key", "name")}
+            # 先"认领"一个同名且没有图谱键的历史节点（改造前用 MERGE{name} 建的）：
+            # 没有这一步，升级后第一次 upsert 会因为找不到 graph_key 而**新建一个节点**，
+            # 旧节点变成同名的孤儿——正是这个改造要消除的现象。
+            # 只认领 `graph_key IS NULL` 的节点，因此不会抢走新体系里同名的另一个对象。
+            self.graph.run(f"""
+            MATCH (legacy:`{label}` {{name: $name}})
+            WHERE legacy.graph_key IS NULL
+            WITH legacy LIMIT 1
+            SET legacy.graph_key = $graph_key, legacy.adopted = timestamp()
+            """, graph_key=graph_key, name=name)
+            cypher = f"""
+            MERGE (n:`{label}` {{graph_key: $graph_key}})
+            ON CREATE SET n._sync_new = true, n.created = timestamp()
+            ON MATCH SET n._sync_new = false
+            SET n += $props, n.name = $name, n.graph_key = $graph_key, n.updated = timestamp()
+            WITH n, n._sync_new AS is_new
+            REMOVE n._sync_new
+            RETURN id(n) AS node_id, is_new
+            """
+            result = self.graph.run(cypher, graph_key=graph_key, name=name, props=props).data()
+            if not result:
+                logger.error(f"❌ Neo4j upsert 无返回结果：{label}/{graph_key}")
+                return None, False
+            return result[0]["node_id"], bool(result[0].get("is_new"))
+        except Exception as e:
+            logger.error(f"❌ Neo4j upsert 异常：{label}/{graph_key} - {e}")
+            raise
+
+    def delete_node_by_graph_key(self, label, graph_key):
+        """按稳定图谱键删除节点（连同它的关系），返回删除条数。
+
+        删除成功但节点本来就不存在时返回 0 而不是报错：重放删除是幂等的，
+        "要删的东西已经不在"就是已完成状态。
+        """
+        try:
+            label = safe_identifier(label)
+            cypher = f"""
+            MATCH (n:`{label}` {{graph_key: $graph_key}})
+            WITH n
+            DETACH DELETE n
+            RETURN count(*) AS removed
+            """
+            result = self.graph.run(cypher, graph_key=graph_key).data()
+            removed = int(result[0]["removed"]) if result else 0
+            logger.info(f"✅ 按图谱键删除节点：{label}/{graph_key}（{removed} 条）")
+            return removed
+        except Exception as e:
+            logger.error(f"❌ 按图谱键删除节点异常：{label}/{graph_key} - {e}")
+            raise
+
+    def drop_legacy_node_without_graph_key(self, label, name):
+        """删掉按名字匹配、**且没有 graph_key** 的历史节点；返回删除条数。
+
+        只服务于"改名后的残留清理"：改造前用 `MERGE {name: ...}` 建的节点没有 graph_key，
+        改名后会在图谱里留下一个旧名的孤儿（文档第六节第 3 条 C 说的就是这个）。
+        带上 `n.graph_key IS NULL` 是为了**不误伤**新体系的节点——它们哪怕重名也各有主，
+        由各自的 graph_key 管。
+        """
+        try:
+            label = safe_identifier(label)
+            cypher = f"""
+            MATCH (n:`{label}` {{name: $name}})
+            WHERE n.graph_key IS NULL
+            WITH n
+            DETACH DELETE n
+            RETURN count(*) AS removed
+            """
+            result = self.graph.run(cypher, name=name).data()
+            removed = int(result[0]["removed"]) if result else 0
+            if removed:
+                logger.info(f"🧹 已清理无图谱键的历史同名节点：{label}/{name}（{removed} 条）")
+            return removed
+        except Exception as e:  # noqa: BLE001 - 清理是尽力而为，失败不该让整次重放算失败
+            logger.warning(f"⚠️ 清理历史同名节点失败（不影响本次写入）：{label}/{name} - {e}")
+            return 0
+
+    # 更新节点
     def update_node(self, label, node_id, new_name):
         """使用 Cypher 更新节点名称"""
         try:

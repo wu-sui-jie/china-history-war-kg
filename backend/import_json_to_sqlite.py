@@ -16,9 +16,12 @@ from flask import Flask
 from sqlalchemy import text
 
 from common_utils import repair_mojibake, safe_identifier
+from logging_util import get_logger
 from relation_types import normalize_event_relation_type
 from models import db, Event, Place, Organization, Person
 from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
+
+logger = get_logger(__name__)
 
 
 app = Flask(__name__)
@@ -61,19 +64,28 @@ def _safe_float(value):
 
 
 def clear_migration_tables():
-    """清空迁移相关表。"""
+    """清空 4 类实体表与 4 类关系表。**不动 UserInfo 等非知识表。**
+
+    删除顺序是"先关系、后实体"，不是随便排的：app.py 的连接钩子对每个连接执行
+    `PRAGMA foreign_keys=ON`，被引用的实体行若先于引用它的关系行删除，SQLite 会直接
+    报 FOREIGN KEY constraint failed。原先这里先删实体、再删关系，靠一句
+    `PRAGMA foreign_keys = OFF` 兜着——那个 PRAGMA 在 SQLAlchemy 已经开启的事务里
+    是**静默无效**的（SQLite 明确要求它必须在事务外执行），所以改成不依赖 PRAGMA 的
+    顺序本身就是正确做法。
+    """
     with app.app_context():
         try:
-            db.session.execute(text("PRAGMA foreign_keys = OFF"))
             tables = [
-                "events",
-                "places",
-                "organizations",
-                "persons",
+                # 关系表先删（它们引用实体表）
                 "event_event_relations",
                 "event_place_relations",
                 "event_person_relations",
                 "event_organization_rel",
+                # 再删实体表
+                "events",
+                "places",
+                "organizations",
+                "persons",
             ]
             for table in tables:
                 db.session.execute(text(f"DELETE FROM {safe_identifier(table, kind='表名')}"))
@@ -92,8 +104,17 @@ def clear_migration_tables():
                     )
                 )
 
-            db.session.execute(text("PRAGMA foreign_keys = ON"))
             db.session.commit()
+            # 重导同时作废旧的待补偿任务（第 13 轮整改，文档第六节第 3 条 F）：
+            # 主键会从 sqlite_sequence 重置后重新分配，旧任务指向的是**上一批数据的 id**。
+            # 不在这里作废，它们会被后台照常重放，把上一批数据重新写进图谱，
+            # 与新数据混在一起——而且这种混合没有任何报错，只能在图里肉眼发现。
+            try:
+                from sync_compensation import bump_dataset_version
+
+                bump_dataset_version()
+            except Exception as exc:  # noqa: BLE001 - 表还没建时不该让重导失败
+                logger.warning(f"⚠️ 作废旧待补偿任务失败（不影响本次重导）：{exc}")
             return True, "成功"
         except Exception as exc:
             db.session.rollback()
@@ -535,15 +556,41 @@ class JsonToSqliteImporter:
             "关系": self.stats["relations"],
         }
 
+    def _user_snapshot(self):
+        """当前账号快照：(总数, {账号: 角色})。
+
+        导入前后各取一次做对照——导入是"只清知识表"的，账号必须一条不少、角色一个不变。
+        这不是多余的断言：脚本只清 8 张业务表，任何把 UserInfo 带进去的改动都会被这里挡下，
+        并在响应里明写"账号数量对不上"，而不是让人事后才发现登录不了。
+        """
+        try:
+            rows = db.session.execute(
+                text("SELECT account, role FROM UserInfo")
+            ).fetchall()
+        except Exception:
+            # 全新库还没建 UserInfo（create_all 之前）——视为空快照
+            return 0, {}
+        return len(rows), {row[0]: (row[1] or "viewer") for row in rows}
+
     def run(self, confirm: bool = False):
         if not confirm:
             raise SystemExit(
-                "已中止：本命令会 drop_all() 重建整个 SQLite 库，属于破坏性操作。"
-                "确认要覆盖现有数据库时加 --yes 重跑。"
+                "已中止：本命令会**清空全部知识数据**（4 类实体 + 4 类关系表）并重新导入，"
+                "属于破坏性操作，请先备份数据库文件。"
+                "确认要覆盖现有知识数据时加 --yes 重跑。"
+                "（账户表 UserInfo 不在清理范围内，导入前后会核对账号数量与角色。）"
             )
         with app.app_context():
-            db.drop_all()
+            # 只建缺失的表，**不 drop_all**。
+            #
+            # 这里原先调 db.drop_all() + create_all()，而 UserInfo 与知识表共用同一个
+            # SQLAlchemy metadata，于是"换一份抽取数据集重导"会连带删光所有账号、
+            # 口令哈希与角色；管理员账号消失后系统只能重新注册 viewer，再手工改 SQLite 才能恢复。
+            # create_all 对已存在的表是空操作，正好满足"补齐新表、不动老表"。
             db.create_all()
+
+            users_before = self._user_snapshot()
+
             success, msg = clear_migration_tables()
             if not success:
                 print(f"清空数据表失败：{msg}")
@@ -556,7 +603,19 @@ class JsonToSqliteImporter:
             self.import_relations()
             self._save_dataset_meta()
             self._save_legacy_processed_snapshot()
+
+            users_after = self._user_snapshot()
+            if users_before != users_after:
+                # 走到这里说明账号被动过：业务表清理的范围出了问题，必须显式失败，
+                # 不能打印一行统计就当成功（这条路径本该不可达）。
+                print(
+                    f"❌ 账号数据被意外改动：导入前 {users_before[0]} 个账号 / "
+                    f"导入后 {users_after[0]} 个账号。请立即从备份恢复并检查清理范围。"
+                )
+                sys.exit(1)
+
             print(json.dumps(self._build_output_stats(), ensure_ascii=False, indent=2))
+            print(f"✅ 账号未受影响：{users_after[0]} 个账号，角色不变。")
 
 
 if __name__ == "__main__":
@@ -569,7 +628,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--yes",
         action="store_true",
-        help="确认 drop_all() 重建数据库；不加该参数时脚本拒绝执行",
+        help="确认清空知识表（4 类实体 + 4 类关系）并重新导入；不加该参数时脚本拒绝执行。"
+             "账号表 UserInfo 不受影响。",
     )
     args = parser.parse_args()
     importer = JsonToSqliteImporter(source_path=args.source)
