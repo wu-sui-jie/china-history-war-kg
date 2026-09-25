@@ -1,13 +1,13 @@
 """图谱可视化与检索路由（P2-1 收官：从 app.py 按业务分组迁出）。
 
 覆盖全图检索（search_name_kg）、四类子页面关系图、单节点一阶子图、关系分析与全局搜索。
-**URL 与行为逐字未变**。
+**URL 未变**；错误口径按第 13 轮复核第七节迁移：统一 JSON + 正确 HTTP 状态 + 不外发异常原文
+（改动前这里一律是 `HTTP 200 + code 500 + msg=str(e)`，详见 api_errors 的模块文档）。
 """
-
-import traceback
 
 from flask import Blueprint, jsonify, request
 
+import api_errors
 from db_handle import neo4j_db_handle
 from logging_util import get_logger
 from report_builders import build_global_search
@@ -26,7 +26,9 @@ def search_name():
     知识图谱搜索 - 从Neo4j读取（可视化展示）
     保持原样，前端可视化仍从Neo4j读取
     """
-    data = request.get_json()
+    data, error = api_errors.json_body()
+    if error:
+        return error
     entity = data.get('name', '')
     node_type = data.get('node_type', '')
     rel_type = data.get('rel_type', '')
@@ -74,13 +76,9 @@ def search_name():
                            else "limited"),
         })
     except Exception as e:
-        logger.warning(f"搜索地名知识图谱异常: {str(e)}")
-        traceback.print_exc()
-        return jsonify({
-            "code": 500,
-            "msg": str(e),
-            "data": {"nodes": [], "lines": []}
-        })
+        # 完整堆栈由 server_error 记进日志（原先这里还有一次 traceback.print_exc()，
+        # 与 logger.exception 重复）；响应里只有安全文案 + request_id
+        return api_errors.server_error("图谱搜索失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/graph/event_event', methods=['GET'])
@@ -92,7 +90,7 @@ def get_event_event_graph():
     try:
         name_filter = request.args.get('name', '')
         rel_type = request.args.get('rel_type', '')
-        
+
         result = neo4j_db_handle.get_event_event_relations(name_filter, rel_type)
         return jsonify({
             "code": 200,
@@ -100,10 +98,7 @@ def get_event_event_graph():
             "data": result
         })
     except Exception as e:
-        return jsonify({
-            "code": 500,
-            "msg": str(e)
-        })
+        return api_errors.server_error("加载事件关系图失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/graph/event_organization', methods=['GET'])
@@ -115,7 +110,7 @@ def get_event_organization_graph():
     try:
         name_filter = request.args.get('name', '')
         rel_type = request.args.get('rel_type', '')
-        
+
         result = neo4j_db_handle.get_event_organization_relations(name_filter, rel_type)
         return jsonify({
             "code": 200,
@@ -123,10 +118,7 @@ def get_event_organization_graph():
             "data": result
         })
     except Exception as e:
-        return jsonify({
-            "code": 500,
-            "msg": str(e)
-        })
+        return api_errors.server_error("加载势力关系图失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/graph/event_person', methods=['GET'])
@@ -138,7 +130,7 @@ def get_event_person_graph():
     try:
         name_filter = request.args.get('name', '')
         rel_type = request.args.get('rel_type', '')
-        
+
         result = neo4j_db_handle.get_event_person_relations(name_filter, rel_type)
         return jsonify({
             "code": 200,
@@ -146,10 +138,7 @@ def get_event_person_graph():
             "data": result
         })
     except Exception as e:
-        return jsonify({
-            "code": 500,
-            "msg": str(e)
-        })
+        return api_errors.server_error("加载人物关系图失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/graph/event_place', methods=['GET'])
@@ -161,7 +150,7 @@ def get_event_place_graph():
     try:
         name_filter = request.args.get('name', '')
         rel_type = request.args.get('rel_type', '')
-        
+
         result = neo4j_db_handle.get_event_place_relations(name_filter, rel_type)
         return jsonify({
             "code": 200,
@@ -169,10 +158,7 @@ def get_event_place_graph():
             "data": result
         })
     except Exception as e:
-        return jsonify({
-            "code": 500,
-            "msg": str(e)
-        })
+        return api_errors.server_error("加载地点关系图失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/graph/node_context', methods=['GET'])
@@ -189,12 +175,15 @@ def get_node_context_graph():
                 graph_id = nodes[0].get('id')
 
         if graph_id is None:
-            return jsonify({"code": 400, "msg": "缺少可定位的图谱节点", "data": {"nodes": [], "lines": []}})
+            # 参数不足是 400（改前是 HTTP 200 + code 400）：前者才是"客户端用错了接口"
+            # 的标准表达，也让前端/反代/监控能按状态码分流。
+            return jsonify(api_errors.error_payload(400, "缺少可定位的图谱节点",
+                                                    data={"nodes": [], "lines": []})), 400
 
         result = neo4j_db_handle.get_node_relations(graph_id)
         return jsonify({"code": 200, "msg": "success", "data": result})
     except Exception as e:
-        return jsonify({"code": 500, "msg": str(e), "data": {"nodes": [], "lines": []}})
+        return api_errors.server_error("加载节点子图失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/relation-analysis/query', methods=['GET', 'POST'])
@@ -204,7 +193,13 @@ def relation_analysis_query():
         data = request.get_json() if request.method == 'POST' else request.args
         name = data.get('name', '')
         node_type = data.get('type', '')
-        depth = int(data.get('depth', 1) or 1)
+        try:
+            depth = int(data.get('depth', 1) or 1)
+        except (TypeError, ValueError):
+            # 非法 depth 改前会被下面的兜底 except 收成 500 + str(e)（"invalid literal for
+            # int()"），把一次参数错误说成服务器故障——排查方向一开始就是错的
+            return jsonify(api_errors.error_payload(
+                400, "depth 必须是整数", data={"nodes": [], "lines": []})), 400
         rel_type = data.get('rel_type', '')
 
         if rel_type:
@@ -231,7 +226,7 @@ def relation_analysis_query():
 
         return jsonify({"code": 200, "data": graph_data})
     except Exception as e:
-        return jsonify({"code": 500, "msg": str(e), "data": {"nodes": [], "lines": []}})
+        return api_errors.server_error("关系分析失败", e, data={"nodes": [], "lines": []})
 
 
 @graph_bp.route('/api/search/global', methods=['GET'])
@@ -240,4 +235,4 @@ def global_search():
         keyword = request.args.get("keyword", "")
         return jsonify({"code": 200, "data": build_global_search(keyword)})
     except Exception as e:
-        return jsonify({"code": 500, "msg": str(e), "data": []})
+        return api_errors.server_error("全局搜索失败", e, data=[])

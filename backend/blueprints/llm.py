@@ -2,11 +2,19 @@
 
 三条都受 require_write_role 保护（会消耗 LLM 配额）：旧问答（同步与 SSE 流式）与文本抽取。
 SSE 那条直接返回 Response(generator, mimetype='text/event-stream')，不要包成 jsonify。
-**URL 与行为逐字未变**。
+**URL 未变**。
+
+错误口径（第 13 轮复核第七节）：这三条接口的响应契约与其它接口不同——问答通道回的是
+`{success, error, answer, kg_data}`（前端 inference 页按它渲染），因此这里**保留原有形状**，
+只做两件事：
+
+1. **不再外发异常原文**。改动前同步/流式两条把 `error_detail = str(e)` 直接给客户端，
+   那里面常带绝对路径、连接串与库名（文档第七节第 3 条明确禁止）。
+   现在只回一句人话文案，完整原因交 `logger.exception` 写进服务端日志并带 request_id；
+2. **HTTP 状态一律用 4xx/5xx**，让前端、反代与监控能按状态码分流。
 """
 
 import time
-import traceback
 import uuid
 
 from flask import Blueprint, Response, g, jsonify, request
@@ -104,16 +112,13 @@ def ai_inference():
         return jsonify(payload), status
 
     except Exception as e:
-        error_type = type(e).__name__
-        error_msg = str(e)
-        logger.info(f"处理推理请求时出错: {error_type} - {error_msg}")
-        traceback.print_exc()
-
+        # 完整堆栈与异常原文只进日志（logger.exception 自带 traceback），
+        # 响应里不再有 error_detail —— 它此前会把绝对路径/连接串/库名送给客户端。
+        logger.exception(f"处理推理请求时出错: {type(e).__name__}")
         return jsonify({
             'success': False,
-            'error': f'请求处理错误: {error_type}',
-            'error_detail': error_msg,
-            'answer': f"抱歉，系统无法处理您的请求。请检查输入格式是否正确，或稍后再试。",
+            'error': '请求处理错误，请稍后再试',
+            'answer': "抱歉，系统无法处理您的请求。请检查输入格式是否正确，或稍后再试。",
             'kg_data': {'nodes': [], 'lines': []}
         }), 500
 
@@ -171,11 +176,8 @@ def ai_inference_stream():
         )
 
     except Exception as e:
-        error_type = type(e).__name__
-        error_msg = str(e)
-        logger.warning(f"SSE请求处理错误: {error_type} - {error_msg}")
-        traceback.print_exc()
-        return jsonify({'success': False, 'error': f'请求处理错误: {error_msg}'}), 500
+        logger.exception(f"SSE请求处理错误: {type(e).__name__}")
+        return jsonify({'success': False, 'error': '请求处理错误，请稍后再试'}), 500
 
 
 @llm_bp.route('/api/extract/entities-events', methods=['POST'])
@@ -272,12 +274,11 @@ def extract_entities_events():
             "data": {}
         }), 500
     except Exception as e:
-        error_type = type(e).__name__
-        error_msg = str(e)
-        logger.warning(f"文本实体识别失败: {error_type} - {error_msg}")
-        traceback.print_exc()
+        # brief_error 保留一行式原因（截断到 200 字）：完全不给原因会让"模型没起"
+        # 这类本可自行处理的故障无从判断（见 common_utils.brief_error 的说明）。
+        logger.exception(f"文本实体识别失败: {type(e).__name__}")
         return jsonify({
             "code": 500,
-            "msg": f"识别失败（{error_type}）: {brief_error(e)}",
+            "msg": f"识别失败（{type(e).__name__}）: {brief_error(e)}",
             "data": {}
         }), 500
