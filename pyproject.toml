@@ -36,6 +36,22 @@
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
+# 本发行包**不装任何可导入的代码**，只承载上面那份按模块分组的依赖声明
+# （四个模块仍是四个独立进程，见「用法」一节）。
+#
+# 这一行是必需的，不是装饰：setuptools 的扁平布局自动发现会把这个仓库里的
+# `RAG/`、`backend/`、`frontend/`、`deploy/` 视作多个顶层包，直接拒绝构建——
+#
+#   error: Multiple top-level packages discovered in a flat-layout:
+#          ['RAG', 'deploy', 'backend', 'frontend']
+#
+# 后果是 `pip install -e ".[all]"`（Python 3.11 统一方案的 5.3 步）在本仓库
+# **根本执行不了**：它在干净环境上直接失败，而不是装完缺少依赖。显式声明空包列表
+# 即可让构建器不去猜——真要装代码，装的是 `entity-event-relation` 那个包
+# （它有自己的 pyproject 与 `include = ["war_extraction*"]`）。
+[tool.setuptools]
+packages = []
+
 [project]
 name = "china-war"
 version = "0.1.0"
