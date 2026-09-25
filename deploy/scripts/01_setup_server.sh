@@ -14,7 +14,7 @@ set -euo pipefail
 APP_DIR=${APP_DIR:-/opt/china-war}
 CONDA_DIR=${CONDA_DIR:-/opt/miniconda3}
 APP_USER=${APP_USER:-chinawar}
-BACKEND_ENV=china-war-backend      # Python 3.8：旧后端
+BACKEND_ENV=china-war-backend      # Python 3.11：旧后端（与 RAG 同主版本）
 RAG_ENV=china-war-rag              # Python 3.11：RAG 服务 + 飞书机器人
 NODE_MAJOR=20
 
@@ -74,7 +74,7 @@ mkdir -p "${APP_DIR}" /var/log/china-war
 chown -R "${APP_USER}:${APP_USER}" "${APP_DIR}" /var/log/china-war
 
 # ---------------------------------------------------------------- 4. Miniconda
-log "4/6 检查 Miniconda（需要它提供 Python 3.8，系统源里没有）"
+log "4/6 检查 Miniconda（四个模块统一 3.11，系统源版本不够新）"
 if [[ ! -x "${CONDA_DIR}/bin/conda" ]]; then
     case "$(uname -m)" in
         x86_64)  CONDA_ARCH=x86_64 ;;
@@ -98,7 +98,11 @@ chown -R "${APP_USER}:${APP_USER}" "${CONDA_DIR}/envs" 2>/dev/null || true
 
 # ---------------------------------------------------------------- 5. Python 环境
 log "5/6 创建两个 Python 环境"
-# 必须分成两个：chromadb 要求 Python ≥ 3.10，py2neo/Flask 这一套按 3.8 写
+# **两个环境同为 Python 3.11**（第 14 轮审计 §5.9）：此前后端钉 3.8、RAG 钉 3.11，
+# 是因为旧后端那套 (Flask + py2neo) 按 3.8 写而 chromadb 要求 ≥3.10；
+# 现在四个模块统一在 3.11 上验证通过，版本不再是分成两个环境的理由。
+# 仍然分两个环境是**隔离选择**（按服务拆环境/容器，其中一个的依赖升级不会波及另一个），
+# 不是版本要求——本地开发共用一个 china-war-py311 即可（见根 README）。
 conda_create() {
     local env_name="$1" py_ver="$2"
     if "${CONDA_DIR}/bin/conda" env list | awk '{print $1}' | grep -qx "${env_name}"; then
@@ -107,7 +111,7 @@ conda_create() {
         "${CONDA_DIR}/bin/conda" create -y -n "${env_name}" "python=${py_ver}"
     fi
 }
-conda_create "${BACKEND_ENV}" "3.8"
+conda_create "${BACKEND_ENV}" "3.11"
 conda_create "${RAG_ENV}" "3.11"
 
 BACKEND_PY="${CONDA_DIR}/envs/${BACKEND_ENV}/bin/python"
@@ -122,7 +126,7 @@ log "6/6 安装 Python 依赖"
 pip_install "${BACKEND_PY}" --upgrade pip
 pip_install "${RAG_PY}" --upgrade pip
 
-echo "--- 旧后端（Python 3.8）---"
+echo "--- 旧后端（Python 3.11）---"
 # 两份依赖声明都装：
 #   backend/requirements.txt  带版本范围，更精确
 #   requirements.txt（仓库根） 历史清单，补齐前者未列出的运行时依赖（如 pydantic——

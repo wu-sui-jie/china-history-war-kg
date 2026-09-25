@@ -10,15 +10,18 @@
 #
 # ## 这个文件不是什么（请勿误读）
 #
-# **它还不是一份经过验证的锁文件**。文档第十四节的迁移分七个阶段，当前只完成了
-# 阶段 1（声明目标）。以下事项**尚未完成验证**，所以本文件声明的是**目标**而不是现状：
+# **它本身不是锁文件**：这里声明的是版本区间与分组，锁定的精确版本在根
+# `requirements.lock`（119 个包、带 sha256，生成脚本 `scripts/gen_unified_lock.py`）。
 #
-#   - backend 目前在本机以 Python 3.8 + SQLAlchemy 1.4 跑通 101 项测试；
-#     装到 3.11 + SQLAlchemy 2.0 上能否全绿**未经实测**（`Query.get()` 这类
-#     1.x 用法会产生 LegacyAPIWarning，2.0 下部分已废弃接口的行为需要逐条确认）；
-#   - py2neo 尚未替换成 Neo4j 官方 driver（文档第十三节）：py2neo 只发布过到
-#     2021.2.4，且没有声明支持 3.12+，它是"统一到 3.11 就够、不要跳到 3.12"的主因；
-#   - 可复现 lock（阶段 5）要在全部测试通过之后才生成，见文件末尾说明。
+# ## 迁移状态（第 14 轮审计后的实测，2026-09-25）
+#
+# | 项 | 状态 |
+# | --- | --- |
+# | 四个模块统一 Python 3.11 | **已实测**：`china-war-py311`（3.11.16）上 backend 200 / EER 109 / RAG 441 / 飞书 297 全绿，与 3.8 基线逐套一致 |
+# | SQLAlchemy 2 兼容 | **已实测**：本机一直是 SQLAlchemy 2.x（此前文件头写的"1.4"有误，见第 14 轮审计 E-1/C.3）；10 处 `Query.get()` 已改 `db.session.get()`，CI 现在把 `LegacyAPIWarning` 当失败门禁 |
+# | 可复现 lock | **已生成并验证**：空环境 `pip install --require-hashes -r requirements.lock` 后四套测试全绿 |
+# | CI 双跑 3.8 / 3.11 | 已加（`legacy-backend` 矩阵），稳定后再删 3.8 那一档 |
+# | py2neo → 官方 driver | **未做**：py2neo 只发布到 2021.2.4、未声明支持 3.12+，这是"统一到 3.11 就够、不要跳到 3.12"的主因（文档第十三节） |
 #
 # ## 用法
 #
@@ -28,6 +31,13 @@
 #   pip install -e ".[bot]"          # 飞书机器人
 #   pip install -e ".[extract]"      # 离线抽取链
 #   pip install -e ".[all]"          # 本机统一开发环境（推荐）
+#
+#   # 上面这一步**不含抽取链包本身**（它是仓库内的独立包，不是三方依赖），
+#   # 而旧后端会 `import war_extraction`——漏装它后端直接起不来（第 14 轮审计 E-5）：
+#   pip install -e entity-event-relation
+#
+#   # 要复现"验证过的那套版本"用 lock（四套测试已在此组合上全绿）：
+#   pip install --require-hashes -r requirements.lock
 #
 # 四个模块仍然是**四个独立进程**，不是合并成一个程序——分组只是依赖声明，
 # 不改变部署形态（文档第十四节第 4 条）。
@@ -143,12 +153,53 @@ all = [
 
 # ## 关于可复现 lock（文档第十四节第 5 条 / 迁移阶段 5）
 #
-# 这里**不**提供 requirements.lock。原因是顺序：lock 必须在六个模块的测试全部
-# 通过之后才生成，否则锁定的是"还没验证过的组合"，看起来可复现、实际不可信。
-# 生成时的做法（届时另起一次改动）：
+# 根 `requirements.lock` **已生成并验证**（第 14 轮审计 §5.8）：
 #
-#   pip install -e ".[all]"
-#   pytest backend/tests RAG/tests feishu-bot/tests entity-event-relation/tests
-#   pip freeze > requirements.lock.txt        # 或 pip-compile --generate-hashes
+#   python scripts/gen_unified_lock.py     # 生成 + 补哈希 + 自检
+#   python scripts/gen_unified_lock.py --check   # 只校验（CI 用）
 #
-# 注意 RAG 已有自己的带哈希锁文件，生成全仓 lock 时要与它对齐而不是覆盖它。
+# 生成顺序是"先全绿再锁"：lock 固定的是**验证通过的那套版本组合**，
+# 反过来先锁再验，锁住的是一个尚未验证的组合、看起来可复现实际不可信。
+# RAG 自己那份带哈希的 `RAG/requirements.lock` 保持独立、不与本锁互相覆盖。
+
+
+# ================== Ruff 配置（第 14 轮审计 E-7）==================
+#
+# ## 为什么必须有这一段
+#
+# 全仓此前**没有任何 ruff 配置**，于是 ruff 用**自己的默认规则集**跑，
+# 而默认规则集在不同版本之间会变：0.14.4 → 0.16.8 之间扩大了。
+# 实测同一命令、同一目录，只换版本：
+#
+#     ruff 0.14.4（CI 的 RAG / 飞书 job）  →  All checks passed!
+#     ruff 0.16.8（pyproject 与本机 3.8 环境）→  RAG 480 errors / 飞书 74 errors
+#
+# 而两个版本各自恰好装在不同的本机环境里——**本地怎么跑都不会暴露差异**，
+# 这正是它一直没被发现的原因（第 14 轮审计 P3-12 的实测记录）。
+# 所以"把 CI 的版本号从 0.14.4 改成 0.16.8"这种直接统一的动作会让 RAG 的 lint job
+# 当场变红；正确顺序是先把规则集写死，再统一版本。
+#
+# ## 为什么 select 就写这四条
+#
+# `E4, E7, E9, F` 就是 0.14.4 的默认规则集（pycodestyle 的错误子集 + Pyflakes），
+# 也是本仓库 CI 一直实际执行的那一套。写死它 = **把现有门禁口径冻结下来**，
+# 让它不再随 ruff 版本漂移；统一到 0.16.8 之后判定与今天完全一致。
+#
+# 新默认集里多出来的 550 余条（UP045 `Optional[X]`→`X | None` 204 条、UP006、
+# I001 导入排序、RUF100 无用 noqa…）**属于风格现代化，不在本次范围内**：
+# 一次性改 550 处会让"哪一处改动引入了回归"变得无法归因，而它们与当前这批
+# 安全/数据完整性修复没有关系。其中确实有几类形状像 bug 的（B023 闭包捕获循环变量、
+# PLW1510 subprocess 未给 check=、DTZ005 不带时区的 now()），已单独记入实施记录，
+# 建议作为独立一轮按类别逐个处理。
+#
+# ## 作用范围
+#
+# ruff 从被检查文件所在目录向上找最近的 `pyproject.toml`/`ruff.toml`：
+# `backend/`、`RAG/`、`feishu-bot/` 都没有自己的配置文件，因此统一落到这一段。
+# `entity-event-relation/pyproject.toml` 存在，会**遮蔽**本段（该模块的 lint 只跑
+# `--select F821`，显式 select 优先于配置，不受影响）。
+[tool.ruff]
+# 声明被检查代码的语法下限（旧后端与抽取链要能在 3.8 上跑），而不是"本机解释器版本"。
+target-version = "py38"
+# 只有这四条。刻意**不**写 line-length：E501 不在 select 里，写上去会让人以为行长被检查。
+select = ["E4", "E7", "E9", "F"]

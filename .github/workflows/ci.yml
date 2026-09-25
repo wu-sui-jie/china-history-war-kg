@@ -10,7 +10,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  backend:
+  rag:
+    # 键名是 `rag`，不是 `backend`（第 14 轮审计 P3-17）：这个 job 的
+    # working-directory 是 RAG、跑的是 RAG 的测试，而键名叫 backend 会让状态列表里
+    # 那条绿色的 `backend (3.11)` 被读成"旧后端已在 3.11 上通过"——旧后端自己的测试
+    # 在 legacy-backend job 里（该 job 另有 backend-py311 这一档）。名字与实际一致，
+    # 才不会在下一次"给旧后端加 3.11 job"时被自己骗过去。
+    name: RAG（测试 + 发布守护）
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -151,13 +157,23 @@ jobs:
           fi
       - name: 锁文件必须带哈希（P2-6 门禁）
         run: python scripts/lock_hashes.py --check
+      - name: 全仓统一 lock 的形态校验（第 14 轮审计 §5.8 门禁）
+        # 查三件不能出现在锁文件里的东西：本机绝对路径、写死的镜像地址、本仓库自引用。
+        # 它们都能让锁"看起来存在"，而别人照着装必然失败。
+        # 用绝对路径调脚本（脚本自己按 __file__ 定位仓库根），不依赖 cwd——
+        # 本 job 的默认工作目录是 RAG，写相对路径会指到 RAG/scripts 下去。
+        run: python "$GITHUB_WORKSPACE/scripts/gen_unified_lock.py" --check
       - name: 静态检查（Ruff：语法错误 / 未定义名 / 无占位 f-string / 导入位置）
         # 第 12 轮审查 P2-9：这个 job 名叫 `lint`，实际却没执行 Ruff——审查当次完整 Ruff 检查
         # 发现 7 项（6 个 F541 + 1 个 E402），本次全部修掉。门禁缺位的代价是
         # 「已修复」只在本机成立，下一次提交同样能悄悄带回来。
-        # 版本钉死，避免升级后判定变化导致门禁口径漂移（与 legacy-backend 的 ruff 同理由）。
+        #
+        # 版本与规则集（第 14 轮审计 E-7 / P3-12）：版本统一为 0.16.8——**前提是根
+        # pyproject.toml 已有显式 `[tool.ruff] select = ["E4","E7","E9","F"]`**。
+        # 在此之前"把 0.14.4 升到 0.16.8"会让本 job 从 0 错变成 480 错：仓库原先
+        # 没有任何 ruff 配置，两个版本各用自己的默认规则集，而默认集在两者之间扩大了。
         run: |
-          python -m pip install --disable-pip-version-check "ruff==0.14.4"
+          python -m pip install --disable-pip-version-check "ruff==0.16.8"
           python -m ruff check server config contracts lib data scripts evaluation tests
       - name: 文档链接 / current 口径 / .env.example 一致性 / 数据计数
         run: python scripts/check_docs.py --strict
@@ -189,8 +205,8 @@ jobs:
   feishu-bot:
     # 飞书机器人进 CI（第 12 轮审查 P2-4）。
     #
-    # 机器人本地 279 项用例全通过，但此前 CI 里没有任何 job 覆盖它——后续提交可以在
-    # 全绿的情况下把机器人改坏。依赖独立在两处：lark-oapi 版本被刻意锁死（长连接对卡片
+    # 机器人本地 297 项用例全通过（原写 279，第 14 轮审计 P3-12 实测更正），
+    # 但此前 CI 里没有任何 job 覆盖它——后续提交可以在全绿的情况下把机器人改坏。依赖独立在两处：lark-oapi 版本被刻意锁死（长连接对卡片
     # 回调帧的分发是 SDK 内部实现细节，升级会静默改行为），所以这里装的是它自己的
     # requirements.txt，不共用 RAG 的锁文件。
     name: 飞书机器人（测试 + 静态检查）
@@ -212,7 +228,7 @@ jobs:
       - name: 静态检查（Ruff，含未使用导入）
         # 与 RAG 的 lint job 同版本，避免同一个仓库两套判定
         run: |
-          python -m pip install --disable-pip-version-check "ruff==0.14.4"
+          python -m pip install --disable-pip-version-check "ruff==0.16.8"
           python -m ruff check .
       - name: 安装出图依赖（子图渲染用例需要）
         # 为什么在 CI 里装：runner 自带 node 却没有 render/node_modules，而
@@ -237,15 +253,29 @@ jobs:
     #
     # 刻意钉在 22.04：Python 3.8 已 EOL，ubuntu-24.04 镜像上 actions/setup-python 不再提供它
     # （用 ubuntu-latest 会直接报 "Version 3.8 was not found" 而失败）。
-    name: 旧后端与知识抽取（语法 + 常驻测试）
+    #
+    # **双跑 3.8 与 3.11**（第 14 轮审计 §5.7）：3.11 环境在本机已实测四套测试全绿
+    # （backend 200 / EER 109 / RAG 441 / 飞书 297），但"本机通过"不等于 CI 通过——
+    # 依赖解析结果、py2neo 这样的旧包、乃至 pytest 版本都可能不同。两档都绿并稳定一段时间后，
+    # 再按方案 §5.10 删掉 3.8 那一档（该步骤明确要等 lock 与文档切换完成，本轮不做）。
+    #
+    # 命名刻意带 Python 版本：状态列表里要看得出"哪一档挂了"，也避免与 rag job 混淆
+    # （那个 job 曾叫 backend，见 P3-17）。
+    name: 旧后端与知识抽取（Python ${{ matrix.python-version }}）
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.11"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.8"
+          python-version: ${{ matrix.python-version }}
           cache: pip
       - name: 语法编译（backend + entity-event-relation，目标解释器为 3.8）
+        # 目标版本固定 py38：这不是"用当前解释器编译"，而是"确认代码不依赖 3.8 之后的语法"。
+        # 3.11 那一档跑它同样有意义（3.11 能编译 → 不代表 3.8 能）。
         run: python -m compileall -q backend entity-event-relation
       - name: 静态检查（ruff F821：未定义名）
         # compileall 只验语法，查不出"函数被删掉但调用还在"这类 NameError。
@@ -266,8 +296,25 @@ jobs:
           python -m pip install -r requirements.txt pytest
           python -m pip install -e entity-event-relation
       - name: 常驻测试（鉴权 / 菜单裁剪 / 提权链路 / 抽取失败口径）
+        # 两条断言，任一条不过都算失败：
+        #   1. 全绿；
+        #   2. **不再出现 SQLAlchemy 的 LegacyAPIWarning**（方案 §5.5 的验收标准）。
+        #      第 14 轮审计前的 10 处 `Model.query.get(id)` 已全部改成 `db.session.get(...)`，
+        #      这里把它固化成门禁——否则下一处新写的 `query.get()` 只会在日志里告警，
+        #      而"告警不算失败"正是它当初能积累 10 处的原因。
         working-directory: backend
-        run: python -m pytest tests -q
+        # 退出码必须自己算：`pytest | tee` 这种管道在 bash 里只看**最后一条命令**的
+        # 退出状态，而 tee 永远成功——直接写管道会让"测试挂了"被静默吞掉，
+        # 门禁变成一句装饰（这一步的写法比它检查的东西更容易出错，所以写显式些）。
+        run: |
+          set +e
+          python -m pytest tests -q 2>&1 | tee /tmp/pytest-backend.log
+          status=${PIPESTATUS[0]}
+          if grep -q "LegacyAPIWarning" /tmp/pytest-backend.log; then
+            echo "::error::出现 SQLAlchemy LegacyAPIWarning：请把 Query.get() 改成 db.session.get(Model, id)"
+            status=1
+          fi
+          exit ${status}
       - name: 抽取链常驻测试（评估可复现 / 地名噪声正则 / 缓存原子写）
         # 抽取链此前在 CI 里只有 compileall + ruff，零用例——"评估可复现"这类口径没有回归
         # 保护：第 7 轮就实测到同一输入两次评估指标不同，一路拖到第 9 轮才定位（EER-15）。

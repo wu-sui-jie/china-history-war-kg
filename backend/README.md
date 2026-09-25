@@ -2,7 +2,7 @@
 
 Flask 应用，为管理台（`frontend/`）提供图谱查询、节点 CRUD、数据运营与旧版智能问答接口。
 
-- **运行时**：Python 3.8（`place-name-KG` 环境），端口 **5000**
+- **运行时**：Python 3.11（统一环境，见根 README；CI 双跑 3.8/3.11，3.8 是过渡档），端口 **5000**
 - **数据**：SQLite（主存储，WAL 模式）+ Neo4j（可视化与图谱查询，SQLite 变更后同步）
 - **智能问答**：规则引擎（`rules/rule_base.json`，20 条）+ Ollama 本地大模型
 - **问答设计细节**：见 [规则引擎与LLM问答设计.md](规则引擎与LLM问答设计.md)
@@ -259,8 +259,8 @@ SELECT account, role FROM UserInfo WHERE account = 'someone';
 ## 运行方式
 
 ```bash
-# 用 place-name-KG 环境（Python 3.8.20，依赖已装齐；本机解释器路径见根 README 的「本机环境备注」）
-conda activate place-name-KG
+# 统一环境（Python 3.11；本机解释器路径见根 README 的「本机环境备注」）
+conda activate china-war-py311
 cd backend
 python app.py
 # 服务地址: http://localhost:5000

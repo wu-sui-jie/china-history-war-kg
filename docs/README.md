@@ -102,14 +102,15 @@ china-war/
 
 ## 两个环境、四个服务
 
-运行时**必须用两个不同的 Python 环境**（RAG 的 chromadb 要求 ≥3.10，旧后端整套按 3.8 编写）：
+四个 Python 模块**统一在 3.11**（第 14 轮审计 §5.9；本地共用一个环境，
+生产按服务拆环境是隔离选择而不是版本要求）：
 
 | 服务 | 端口 | 环境 | 运行方式 |
 | --- | --- | --- | --- |
-| RAG 问答（FastAPI，含前端 dist 同源托管） | 8000 | `AI_Agent`（Python 3.11） | `RAG/scripts/run_server.py` |
-| 旧后端（Flask） | 5000 | `place-name-KG`（Python 3.8） | `backend/app.py` |
+| RAG 问答（FastAPI，含前端 dist 同源托管） | 8000 | `china-war-py311`（Python 3.11） | `RAG/scripts/run_server.py` |
+| 旧后端（Flask） | 5000 | `china-war-py311`（Python 3.11） | `backend/app.py` |
 | 旧前端（Vite 开发服务器） | 3001 | —（Node ≥ 18） | `frontend` 下的 `pnpm dev` |
-| 飞书机器人（可选，长连接无端口） | — | `AI_Agent`（Python 3.11，与 RAG 共环境） | `feishu-bot/main.py` |
+| 飞书机器人（可选，长连接无端口） | — | `china-war-py311`（Python 3.11） | `feishu-bot/main.py` |
 
 浏览器只访问 **http://localhost:3001** 一个入口：`/api` 由 vite 代理到 5000，`/rag` 代理到 8000。
 飞书机器人是**独立进程**（不占端口、不在浏览器链路上），通过 `RAG_BASE_URL` 直连 RAG 的

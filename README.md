@@ -4,10 +4,10 @@
 
 | 部分 | 内容 | 运行时 |
 | --- | --- | --- |
-| **旧知识库系统** | `backend/`（Flask + SQLite + Neo4j）与 `frontend/`（Vue3 + layui-vue 管理台）：图谱可视化、节点关系管理、数据运营、旧版智能问答 | Python 3.8 / Node ≥ 18 |
+| **旧知识库系统** | `backend/`（Flask + SQLite + Neo4j）与 `frontend/`（Vue3 + layui-vue 管理台）：图谱可视化、节点关系管理、数据运营、旧版智能问答 | Python 3.11 / Node ≥ 18 |
 | **RAG 问答系统** | `RAG/`（代码在本仓库内，但作为独立服务单独部署）：图谱 + 文本双通道检索增强问答，自带 Vue3 前端 | Python 3.11 |
 | **飞书机器人** | `feishu-bot/`：项目级 IM 入口，把 RAG 接进飞书（长连接，无需公网回调）；技能框架起步两个技能（知识问答 / 纠错反馈） | Python 3.11 / Node ≥ 18（子图出图） |
-| **知识抽取** | `entity-event-relation/`：从战争史文献抽取实体/事件/关系的离线流水线，附学术评估 | Python 3.8+ |
+| **知识抽取** | `entity-event-relation/`：从战争史文献抽取实体/事件/关系的离线流水线，附学术评估 | Python 3.11（与其它模块同一主版本） |
 
 > **先看文档总索引：[docs/README.md](docs/README.md)** —— 按"我想做什么"定位到具体文档。
 > 想知道「现在什么状态、还差什么、下一步做什么」：[docs/项目现状与后续计划.md](docs/项目现状与后续计划.md)。
@@ -93,7 +93,9 @@ china-war/
 
 `backend/requirements.txt` 已补齐（P1-1，UTF-8、带版本下界，按代码 import 清单核对过）；
 根 `requirements.txt` 是「旧后端 + 离线知识抽取」合并的便捷入口，两者新增依赖需同步。
-本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
+**依赖已锁定**：根 `requirements.lock`（119 个包、带 sha256）覆盖四个模块的全部三方依赖，
+在空环境用 `pip install --require-hashes -r requirements.lock` 可重装并跑通四套测试
+（第 14 轮审计 §5.8 实测）。
 
 ## 功能模块
 
@@ -173,7 +175,7 @@ china-war/
 
 | 环境 | 组成 | 运行时 | 端口 |
 | --- | --- | --- | --- |
-| 旧知识库系统 | Flask 后端（`backend/`）+ layui 管理台（`frontend/`） | Python 3.8、Node ≥ 18 | 5000 / 3001 |
+| 旧知识库系统 | Flask 后端（`backend/`）+ layui 管理台（`frontend/`） | Python 3.11、Node ≥ 18 | 5000 / 3001 |
 | RAG 问答系统（`RAG/`） | FastAPI 服务 + Vue3 前端（dist 由 RAG 服务同源托管） | Python 3.11 | 8000 |
 
 `frontend/vite.config.ts` 已配好代理：`/api` → 5000、`/rag` → 8000，所以浏览器只需访问
@@ -181,14 +183,25 @@ china-war/
 
 ### 前置条件
 
-**两个模块必须用不同的 Python 环境**：RAG 的 chromadb 要求 Python ≥ 3.10，而旧后端整套按
-Python 3.8 编写（Flask + py2neo 生态），装进同一个环境必有一边跑不起来。
+**四个模块统一在 Python 3.11 上**（第 14 轮审计 §5.9）。此前旧后端固定在 3.8、
+RAG 固定在 3.11——那只是"当时各自验证过的版本"，不是设计要求；现在两档在 CI 里双跑，
+本地共用一个环境即可。
 
 | 组件 | 要求 | conda 环境名（本机路径见文末「本机环境备注」） |
 | --- | --- | --- |
 | Node.js | ≥ 18（旧前端与 RAG 前端构建） | —（走 Node/pnpm，不用 conda） |
-| 旧后端 | Python 3.8+；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；抽取链包 `war_extraction` 需装好——`pip install -e entity-event-relation`（P2-4 起为正式包，不再靠 `sys.path` 注入） | **`place-name-KG`**（Python 3.8.20） |
-| RAG 服务 | Python 3.11 + RAG 依赖（见 `RAG/requirements.txt`） | **`AI_Agent`**（Python 3.11.15） |
+| 四个 Python 模块 | Python **3.11**；Neo4j 5.x（图谱可视化与问答）；Ollama 及模型（旧问答用）；抽取链包 `war_extraction` 需装好——`pip install -e entity-event-relation`（P2-4 起为正式包，不再靠 `sys.path` 注入） | **`china-war-py311`**（统一环境，见下） |
+
+**本机统一环境 `china-war-py311` 的建立方式**（一次性）：
+
+```bash
+conda create -n china-war-py311 python=3.11 -y && conda activate china-war-py311
+pip install --no-cache-dir -r requirements.lock     # 带哈希，复现验证过的版本组合
+pip install -e entity-event-relation                # 抽取链是仓库内的包，不在 lock 里
+```
+
+> 旧的 `place-name-KG`（3.8）与 `AI_Agent`（3.11）环境**暂时保留**：方案要求
+> "3.8 只能在 lock、文档、CI 切换全部完成后才删"，而 CI 目前是 3.8/3.11 双跑（过渡档）。
 | RAG 前端产物 | `RAG/frontend/dist` 必须是**并入模式**构建产物（`npm run build:integration`），否则 `/rag/` 页面白屏 | — |
 
 ### 启动顺序
@@ -205,11 +218,11 @@ npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=
 > 页面在 `/rag/` 下会白屏——补跑一次 `npm run build:integration` 即可恢复。
 > 口径见 [docs/集成与入口约定.md](docs/集成与入口约定.md) 第三节。
 
-**2. 启动 RAG 服务（:8000，用 `AI_Agent` 环境）**
+**2. 启动 RAG 服务（:8000）**
 
 ```bash
 cd RAG
-conda activate AI_Agent
+conda activate china-war-py311
 python scripts/run_server.py --port 8000 --version 20260915_v1
 ```
 
@@ -218,10 +231,10 @@ python scripts/run_server.py --port 8000 --version 20260915_v1
 
 `--version` 固定数据版本（省略则自动取最新一致版本；生产档下必须显式指定）。
 
-**3. 启动旧后端（:5000，用 `place-name-KG` 环境）**
+**3. 启动旧后端（:5000）**
 
 ```bash
-conda activate place-name-KG
+conda activate china-war-py311
 
 # 首次（或 entity-event-relation 有改动时）：装依赖 + 以可编辑方式装上抽取链包
 python -m pip install -r requirements.txt
@@ -336,8 +349,9 @@ RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/
 | 项 | 本机位置 |
 | --- | --- |
 | conda 根目录 | `E:/anaconda` |
-| 旧后端 / 知识抽取环境 | `E:/anaconda/envs/place-name-KG`（Python 3.8.20） |
-| RAG / 飞书机器人环境 | `E:/anaconda/envs/AI_Agent`（Python 3.11.15） |
+| **统一环境（推荐）** | `E:/anaconda/envs/china-war-py311`（Python 3.11.16，装了 `[all]` + lock） |
+| 过渡：旧后端 3.8 环境 | `E:/anaconda/envs/place-name-KG`（Python 3.8.20，CI 双跑期间保留） |
+| 过渡：RAG / 飞书 3.11 环境 | `E:/anaconda/envs/AI_Agent`（Python 3.11.15） |
 | JDK | `C:\Program Files\Java\jdk-17` |
 | Neo4j | `D:\neo4j\neo4j-community-5.26.19` |
 
