@@ -46,7 +46,7 @@ def test_失败会落成待办(_app_context):
     job_id = sc.enqueue_failed_sync("Event", 42, "测试-事件", {"dynasty": "汉"}, "连接被拒")
 
     assert job_id is not None
-    job = Neo4jSyncJob.query.get(job_id)
+    job = db.session.get(Neo4jSyncJob, job_id)
     assert (job.node_type, job.node_id, job.node_name) == ("Event", 42, "测试-事件")
     assert job.status == sc.STATUS_PENDING
     assert job.attempts == 1
@@ -61,7 +61,7 @@ def test_同一节点连续失败不堆记录(_app_context):
 
     assert first == second, "同一节点的待办应该被合并，而不是堆成两条"
     assert _count(sc.STATUS_PENDING) == 1
-    job = Neo4jSyncJob.query.get(first)
+    job = db.session.get(Neo4jSyncJob, first)
     assert job.attempts == 2
     assert "第二次失败" in job.last_error
 
@@ -72,7 +72,7 @@ def test_达到尝试上限转人工(_app_context):
     for i in range(sc.MAX_ATTEMPTS):
         job_id = sc.enqueue_failed_sync("Place", 9, "测试-地点", {}, f"第 {i} 次失败")
 
-    job = Neo4jSyncJob.query.get(job_id)
+    job = db.session.get(Neo4jSyncJob, job_id)
     assert job.status == sc.STATUS_ABANDONED
     assert _count(sc.STATUS_PENDING) == 0
     assert _count(sc.STATUS_ABANDONED) == 1
@@ -111,7 +111,7 @@ def test_重放成功即结单(_app_context, monkeypatch):
     assert calls["upsert"][:3] == ("Event", "Event:3", "测试-事件")
     # 属性按 Neo4j 侧的命名重放（列名 dynasty → 属性 DynastyName）
     assert calls["upsert"][3].get("DynastyName") == "唐"
-    job = Neo4jSyncJob.query.get(job_id)
+    job = db.session.get(Neo4jSyncJob, job_id)
     assert job.status == sc.STATUS_DONE
     assert job.last_error == ""
 
@@ -252,7 +252,7 @@ def test_重放失败累计到上限转_abandoned(_app_context, monkeypatch):
         stats = sc.retry_pending()
         assert stats["failed"] == 1
 
-    job = Neo4jSyncJob.query.get(job_id)
+    job = db.session.get(Neo4jSyncJob, job_id)
     assert job.status == sc.STATUS_ABANDONED
     assert job.next_retry_at is None, "已放弃的任务不该再排重试"
     assert "仍不可用" in job.last_error

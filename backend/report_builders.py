@@ -1170,7 +1170,7 @@ def build_entity_detail(node_type, node_id):
     if not model:
         return None
 
-    record = model.query.get(node_id)
+    record = db.session.get(model, node_id)
     if not record:
         record = model.query.filter(model.neo4j_id == node_id).first()
     if not record:

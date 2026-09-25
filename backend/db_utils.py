@@ -411,7 +411,7 @@ class DbUtil:
             if not model:
                 return {"code": 400, "msg": f"未知节点类型: {node_type}"}
 
-            node = model.query.get(node_id)
+            node = db.session.get(model, node_id)
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
@@ -481,7 +481,7 @@ class DbUtil:
             if not model:
                 return {"code": 400, "msg": f"未知节点类型: {node_type}"}
 
-            node = model.query.get(node_id)
+            node = db.session.get(model, node_id)
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
@@ -543,7 +543,7 @@ class DbUtil:
             if not model:
                 return {"code": 400, "msg": f"未知节点类型: {node_type}"}
 
-            node = model.query.get(node_id)
+            node = db.session.get(model, node_id)
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
@@ -637,7 +637,7 @@ class DbUtil:
             model = DbUtil._get_model_by_type(node_type)
             if not model:
                 return None
-            node = model.query.get(node_id)
+            node = db.session.get(model, node_id)
             if node:
                 result = node.to_dict()
                 result["type"] = node_type
