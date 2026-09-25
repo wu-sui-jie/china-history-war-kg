@@ -231,7 +231,16 @@ if [[ "${mode}" == "nginx" ]]; then
 
     # 真正生效的配置以 nginx -T 为准：站点文件写对了但没被 include、或另有 location
     # 覆盖了认证，都只有在合并后的配置里才看得见。
-    if command -v nginx >/dev/null 2>&1; then
+    #
+    # 前置条件：站点文件必须落在 nginx 的配置树里（默认 /etc/nginx/sites-enabled/...）。
+    # 否则 `nginx -T` 的输出里根本不会有这个文件，拿它判断等于"用一份不含被测对象的
+    # 快照去证明被测对象"——那会得到一条**假失败**（CI 上实测过：runner 自带 nginx
+    # 但没装这个站点，检查于是报"nginx -T 无输出"，与本项目的脚本语法毫无关系）。
+    if [[ "${NGINX_SITE}" != /etc/nginx/* ]]; then
+        warn "站点配置不在 /etc/nginx 下（${NGINX_SITE}），跳过 nginx -T 生效性校验（该文件不会被 nginx 加载）"
+    elif ! command -v nginx >/dev/null 2>&1; then
+        warn "未安装 nginx，跳过 nginx -T 校验"
+    else
         merged=$(nginx -T 2>/dev/null || true)
         if [[ -z "${merged}" ]]; then
             bad "nginx -T 无输出（配置有语法错误？先跑 nginx -t）"
@@ -249,8 +258,6 @@ if [[ "${mode}" == "nginx" ]]; then
                 bad "nginx 实际生效的 /rag/ 配置里没有 auth_basic（认证没有作用在 /rag/ 上）"
             fi
         fi
-    else
-        warn "未安装 nginx，跳过 nginx -T 校验"
     fi
 fi
 

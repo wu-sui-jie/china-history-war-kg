@@ -47,7 +47,8 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
           nginx_mode: bool = False,
           auth_basic_enabled: bool = False,
           introspect_configured: bool = True,
-          allow_delayed_revocation: bool = False) -> subprocess.CompletedProcess:
+          allow_delayed_revocation: bool = False,
+          extra_path: str | None = None) -> subprocess.CompletedProcess:
     """用合成配置跑一次门禁，返回完成的进程（看 returncode 与输出）。"""
     rag_env = tmp_path / "RAG" / ".env"
     backend_env = tmp_path / "backend" / ".env"
@@ -97,7 +98,8 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
         [BASH, str(GATE)],
         capture_output=True, text=True, encoding="utf-8", errors="replace",
         env={
-            "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+            # extra_path 用于把"假的 nginx"放进 PATH，复现 CI 上"装了 nginx"的分支
+            "PATH": (f"{extra_path}:" if extra_path else "") + "/usr/bin:/bin:/usr/sbin:/sbin",
             "APP_DIR": str(tmp_path),
             "RAG_ENV": str(rag_env),
             "BACKEND_ENV": str(backend_env),
@@ -299,3 +301,28 @@ def test_rag_服务声明依赖_backend():
         "RAG 的凭证撤销查询要调 backend；启动顺序必须声明出来。"
         f"当前 directive 行：{directives!r}"
     )
+
+
+def test_站点不在_nginx_配置树时跳过生效性校验(tmp_path):
+    """复现 CI 的真实场景：runner 自带 nginx，但站点文件没装进 /etc/nginx。
+
+    此时 `nginx -T` 的输出里根本不会有这个文件，拿它判断等于"用一份不含被测对象的
+    快照去证明被测对象"——会得到一条**假失败**（CI 上实测：报"nginx -T 无输出"，
+    与本项目的脚本毫无关系）。门禁必须跳过并说明原因，而不是装作验证过。
+    """
+    fake_bin = tmp_path / "fakebin"
+    fake_bin.mkdir()
+    fake_nginx = fake_bin / "nginx"
+    # 只做一件事：让 `command -v nginx` 与 `nginx -T` 都不报错（模拟"装了 nginx"）
+    fake_nginx.write_text("""#!/bin/sh
+exit 0
+""", encoding="utf-8")
+    fake_nginx.chmod(0o755)
+
+    result = _gate(tmp_path, nginx_mode=True, auth_basic_enabled=True,
+                   extra_path=str(fake_bin))
+
+    assert result.returncode == 0, _out(result)
+    assert "跳过 nginx -T" in result.stdout
+    assert ".htpasswd 存在且非空" in result.stdout
+    assert "auth_basic 处于启用状态" in result.stdout
