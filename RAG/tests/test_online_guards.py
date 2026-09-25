@@ -17,6 +17,7 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+from types import SimpleNamespace
 
 import pytest
 
@@ -663,3 +664,68 @@ def test_config_validation_fails_fast():
     s.rate_limit_per_minute = 0
     with pytest.raises(ValueError):
         s.validate()
+
+
+# ------------------------------------------- XFF 取哪一段（第 14 轮审计 P1-3）
+
+
+def test_限流来源取_X_Real_IP_而不是_XFF_首段():
+    """nginx 用 `$proxy_add_x_forwarded_for`：**客户端自带的 XFF 在最前**，真实地址追加在后。
+
+    原实现取首段 → 攻击者每次换一个伪造值就换一个限流桶（IP 维度形同不存在）。
+    现在优先用 nginx 覆盖下发的 `X-Real-IP`。
+    """
+    from starlette.requests import Request
+
+    from server.api import _client_key
+
+    settings = SimpleNamespace(rate_limit_trust_forwarded_for=True,
+                               rate_limit_trusted_proxies=["127.0.0.1"])
+    app = SimpleNamespace(state=SimpleNamespace(settings=settings))
+
+    def key(headers: dict[str, str]) -> str:
+        # 对端必须是**可信代理**（同机 nginx 就是 127.0.0.1），否则转发头一律忽略
+        scope = {"type": "http", "app": app, "client": ("127.0.0.1", 1234), "headers": [
+            (name.lower().encode(), value.encode()) for name, value in headers.items()]}
+        return _client_key(Request(scope))
+
+    real = "203.0.113.7"
+    # 同一个真实来源、三次不同伪造首段 → 必须是同一个桶
+    keys = {
+        key({"x-forwarded-for": f"10.0.0.{i}, {real}", "x-real-ip": real})
+        for i in range(3)
+    }
+    assert keys == {real}, f"伪造的首段把限流桶切碎了：{keys}"
+
+    # 退路：没有 X-Real-IP 时取**最右段**
+    assert key({"x-forwarded-for": f"9.9.9.9, 5.6.7.8, {real}"}) == real
+
+
+def test_未显式信任反代时任何转发头都不采信():
+    """默认档位下 XFF / X-Real-IP 都是客户端自己写的，一律忽略（客户端地址为准）。"""
+    from starlette.requests import Request
+
+    from server.api import _client_key
+
+    settings = SimpleNamespace(rate_limit_trust_forwarded_for=False,
+                               rate_limit_trusted_proxies=[])
+    app = SimpleNamespace(state=SimpleNamespace(settings=settings))
+    scope = {"type": "http", "app": app, "client": ("192.0.2.5", 1234), "headers": [
+        (b"x-forwarded-for", b"1.2.3.4"), (b"x-real-ip", b"1.2.3.4")]}
+
+    assert _client_key(Request(scope)) == "192.0.2.5"
+
+
+def test_对端不在可信代理列表时忽略转发头():
+    """只有**可信代理**传来的转发头才认：直连方自己带的一律忽略。"""
+    from starlette.requests import Request
+
+    from server.api import _client_key
+
+    settings = SimpleNamespace(rate_limit_trust_forwarded_for=True,
+                               rate_limit_trusted_proxies=["127.0.0.1"])
+    app = SimpleNamespace(state=SimpleNamespace(settings=settings))
+    scope = {"type": "http", "app": app, "client": ("203.0.113.99", 1234), "headers": [
+        (b"x-real-ip", b"1.2.3.4")]}
+
+    assert _client_key(Request(scope)) == "203.0.113.99"

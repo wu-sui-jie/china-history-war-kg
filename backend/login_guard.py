@@ -491,14 +491,31 @@ def record_success(scope: Scope, key: str) -> None:
 def client_ip(request) -> str:
     """取来源 IP。
 
-    **默认不看 X-Forwarded-For**：那是客户端可以自己写的头，直接采信等于把限流
-    交给攻击者决定（伪造一堆 IP 就绕过了）。只有当部署方显式声明"前面有可信反代"
-    （`LOGIN_TRUST_FORWARDED_FOR=1`）时才取 XFF 的第一段。
+    **默认不看任何转发头**：`X-Forwarded-For` / `X-Real-IP` 都是客户端可以自己写的，
+    直接采信等于把限流交给攻击者决定（伪造一堆 IP 就绕过了）。只有当部署方显式声明
+    "前面有可信反代"（`LOGIN_TRUST_FORWARDED_FOR=1`）时才采信，且**取哪一段是有讲究的**：
+
+    第 14 轮审计 P1-3：这里原先取 XFF 的**第一段**，而 nginx 用的是
+    `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for`——它的语义是
+    "**客户端自带的值放在最前**，真实地址追加在后"。于是第一段正是攻击者可控的那一段：
+    每次换一个伪造值就把 IP 维度的限流完全绕开（只剩账号维度的 5 次锁定，换账号即可）。
+    思路（不信任客户端）是对的，取错了段。
+
+    现在的顺序：
+      1. `X-Real-IP`——nginx 用 `proxy_set_header X-Real-IP $remote_addr` 覆盖下发，
+         客户端伪造的值会被 nginx 覆盖掉，是这条链路上最可信的那一个；
+      2. 退到 XFF 的**最右段**——那是最近一跳（我们的 nginx）追加的真实地址，
+         而最左段是别人自己写进来的；
+      3. 都没有才用 TCP 对端地址。
     """
     if local_settings.get("LOGIN_TRUST_FORWARDED_FOR", "") in ("1", "true", "True"):
-        forwarded = (request.headers.get("X-Forwarded-For") or "").split(",")[0].strip()
-        if forwarded:
-            return forwarded
+        real_ip = (request.headers.get("X-Real-IP") or "").strip()
+        if real_ip:
+            return real_ip
+        chain = [part.strip() for part in
+                 (request.headers.get("X-Forwarded-For") or "").split(",") if part.strip()]
+        if chain:
+            return chain[-1]
     return request.remote_addr or "unknown"
 
 

@@ -363,10 +363,16 @@ def apply_job(job) -> tuple[bool, str]:
 
         props = {k: v for k, v in neo4j_props(
             node_type, json.loads(job.properties_json or "{}")).items() if v is not None}
-        node_id, _is_new = handle.upsert_node(node_type, graph_key, job.node_name, props)
+        # 名称取 job.node_name；它为空时退回属性快照里的 `name` 列（第 14 轮审计 P1-4）。
+        # 后者是给"修复前落库的旧 pending 行"准备的：那些行的 node_name 是 None
+        # （因为前端从来不发 `name`），重放时若不回退就会把图谱的名字抹掉——
+        # 而 upsert_node 现在也会拒绝写空名（兜底），这里做的是让它能拿到正确的值。
+        snapshot = json.loads(job.properties_json or "{}")
+        effective_name = (job.node_name or "").strip() or str(snapshot.get("name") or "").strip()
+        node_id, _is_new = handle.upsert_node(node_type, graph_key, effective_name, props)
         if node_id is None:
             return False, "Neo4j 未返回节点 id"
-        if operation == OP_NODE_UPDATE and job.from_name and job.from_name != job.node_name:
+        if operation == OP_NODE_UPDATE and job.from_name and job.from_name != effective_name:
             # 改名后的残留清理：只动"没有 graph_key"的历史节点，不误伤新体系里同名的其他节点
             handle.drop_legacy_node_without_graph_key(node_type, job.from_name)
         _write_back(job, node_id)

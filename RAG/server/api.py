@@ -515,6 +515,11 @@ def _client_key(request: Request) -> str:
 
     X-Forwarded-For 只有在显式开启信任（RATE_LIMIT_TRUST_FORWARDED_FOR）时才采用；
     开启后仍可限定可信代理（RATE_LIMIT_TRUSTED_PROXIES），未列入的直连方所带 XFF 一律忽略。
+
+    **取哪一段与后端保持同一口径**（第 14 轮审计 P1-3）：原实现取 XFF 的第一段，
+    而 nginx 用的是 `$proxy_add_x_forwarded_for`——"客户端自带值在前、真实地址追加在后"，
+    所以第一段恰好是攻击者可控的那一段，换一个伪造值就换一个限流桶。
+    现在优先用 nginx 覆盖下发的 `X-Real-IP`，退而取 XFF 的**最右段**。
     """
     settings: Settings = request.app.state.settings
     peer = request.client.host if request.client else "unknown"
@@ -523,11 +528,14 @@ def _client_key(request: Request) -> str:
     trusted = list(getattr(settings, "rate_limit_trusted_proxies", []) or [])
     if trusted and peer not in trusted:
         return peer
+    real_ip = (request.headers.get("x-real-ip") or "").strip()
+    if real_ip:
+        return real_ip
     fwd = request.headers.get("x-forwarded-for")
     if fwd:
-        first = fwd.split(",")[0].strip()
-        if first:
-            return first
+        chain = [part.strip() for part in fwd.split(",") if part.strip()]
+        if chain:
+            return chain[-1]
     return peer
 
 

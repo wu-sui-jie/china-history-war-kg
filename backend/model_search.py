@@ -93,26 +93,39 @@ class neo4j_db():
             label = safe_identifier(label)
             props = {k: v for k, v in (properties or {}).items()
                      if v is not None and k not in ("id", "type", "graph_key", "name")}
+            # **名称缺省时不要写**（第 14 轮审计 P1-4）：原实现无条件 `SET n.name = $name`，
+            # 于是任何一次"name 传空"的写入都会把图谱属性抹成 null——属性被删掉了，
+            # 而调用方看到的是一条"更新成功"。这是数据损坏最深处的一道，放在这里是因为
+            # 除 update_node 之外，outbox 重放与同步脚本也都会走到这里。
+            # `coalesce($name, n.name)`：$name 为 null 时保留图谱上已有的名字。
+            normalized_name = (name or "").strip() if isinstance(name, str) else None
+            if not normalized_name:
+                logger.warning(
+                    "upsert_node 未拿到有效名称（%s/%s）：保留图谱上已有的 name，不写入空值",
+                    label, graph_key)
+                normalized_name = None
             # 先"认领"一个同名且没有图谱键的历史节点（改造前用 MERGE{name} 建的）：
             # 没有这一步，升级后第一次 upsert 会因为找不到 graph_key 而**新建一个节点**，
             # 旧节点变成同名的孤儿——正是这个改造要消除的现象。
             # 只认领 `graph_key IS NULL` 的节点，因此不会抢走新体系里同名的另一个对象。
+            # （名称缺省时这一步自然匹配不到任何节点，等于跳过认领。）
             self.graph.run(f"""
             MATCH (legacy:`{label}` {{name: $name}})
             WHERE legacy.graph_key IS NULL
             WITH legacy LIMIT 1
             SET legacy.graph_key = $graph_key, legacy.adopted = timestamp()
-            """, graph_key=graph_key, name=name)
+            """, graph_key=graph_key, name=normalized_name)
             cypher = f"""
             MERGE (n:`{label}` {{graph_key: $graph_key}})
             ON CREATE SET n._sync_new = true, n.created = timestamp()
             ON MATCH SET n._sync_new = false
-            SET n += $props, n.name = $name, n.graph_key = $graph_key, n.updated = timestamp()
+            SET n += $props, n.name = coalesce($name, n.name), n.graph_key = $graph_key, n.updated = timestamp()
             WITH n, n._sync_new AS is_new
             REMOVE n._sync_new
             RETURN id(n) AS node_id, is_new
             """
-            result = self.graph.run(cypher, graph_key=graph_key, name=name, props=props).data()
+            result = self.graph.run(cypher, graph_key=graph_key, name=normalized_name,
+                                    props=props).data()
             if not result:
                 logger.error(f"❌ Neo4j upsert 无返回结果：{label}/{graph_key}")
                 return None, False

@@ -74,6 +74,17 @@ def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
     return False, message, None
 
 
+# 由数据库维护、**不接受外部指定**的列（第 14 轮审计 P2-5）。
+#
+# 它们都是"真实的列"，所以"只按列名过滤"挡不住：editor 可以在 create_node 的请求体里
+# 塞 `id` 指定主键，塞 `created_at` 伪造入库时间。
+#   - id：自增序列被污染；更麻烦的是 `graph_key = "<Type>:<id>"` 是**稳定键**，
+#     删除后 id 会被复用，旧的 pending 任务就可能指向另一个新节点；
+#   - neo4j_id：图谱侧标识由同步流程回写，外部填了只会让对账错位；
+#   - created_at：质检报表按它统计"最近新增"，可伪造即报表不可信。
+MANAGED_COLUMNS = frozenset({"id", "neo4j_id", "created_at"})
+
+
 class DbUtil:
     @staticmethod
     def init_app(app):
@@ -367,7 +378,7 @@ class DbUtil:
                 data.update(properties)
             mapped_data = DbUtil._normalize_payload(node_type, data)
 
-            valid_columns = {c.name for c in model.__table__.columns}
+            valid_columns = {c.name for c in model.__table__.columns} - MANAGED_COLUMNS
             filtered_data = {k: v for k, v in mapped_data.items() if k in valid_columns}
             new_node = model(**filtered_data)
             db.session.add(new_node)
@@ -415,25 +426,48 @@ class DbUtil:
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
-            old_name = node.name
-            node.name = new_name
+            # 名称要从**归一化后的属性**里取（第 14 轮审计 P1-4 根因 a）。
+            #
+            # 前端从来不发 `name`：它按各实体的字段名发 `EventName` / `PersonName` /
+            # `OrgName` / `geo_name`（useNodeCrudPage 按 nameField 组装）。原实现只读
+            # `data.get("name")`，于是 new_name 恒为 None，一路作为 job.node_name 传到
+            # `SET n.name = $name`，把图谱里的 name 写成 null（等价于删除）；
+            # 而 SQLite 那边因为下面的归一化循环会把名字救回来，所以**只有图谱坏掉、
+            # 主存储看不出来**。
+            normalized = DbUtil._normalize_payload(node_type, properties or {})
+            valid_columns = ({column.name for column in model.__table__.columns}
+                             - MANAGED_COLUMNS)
+            # 与 create_node 同一口径：先归一化，再按真实列过滤
+            # （id / created_at / neo4j_id 这类由库维护，不接受外部指定）
+            mapped_properties = {key: value for key, value in normalized.items()
+                                 if key in valid_columns}
+            effective_name = new_name or mapped_properties.get("name")
+            if not (isinstance(effective_name, str) and effective_name.strip()):
+                # 宁可 400，也不要把图谱写成无名节点——写坏了只能靠重导或手工补
+                return {"code": 400, "msg": "缺少节点名称"}
+            effective_name = effective_name.strip()
 
-            normalized_properties = DbUtil._normalize_payload(node_type, properties or {})
-            for mapped_key, value in normalized_properties.items():
+            old_name = node.name
+            node.name = effective_name
+
+            for mapped_key, value in mapped_properties.items():
                 if hasattr(node, mapped_key):
                     setattr(node, mapped_key, value)
-            # 属性快照用"这次提交的这一份"：重放要复原的是"这次写"，
-            # 而不是之后可能又被改过的当前行。
-            snapshot = {"name": new_name, **(properties or {})}
+            # 属性快照用"这次提交的这一份"，且键名必须是 **SQLite 列名**（根因 b）：
+            # 重放路径走 `neo4j_props()`，它按列名取值——用 API 键名做快照时全部取到
+            # None 再被 `if v is not None` 过滤掉，属性一个都同步不过去，
+            # 而函数却返回 sync_status: success。
+            snapshot = dict(mapped_properties)
+            snapshot.setdefault("name", effective_name)
             job = _stage_sync_job(
-                node_type, node_id, OP_NODE_UPDATE, new_name, snapshot,
-                from_name=old_name if old_name != new_name else None,
+                node_type, node_id, OP_NODE_UPDATE, effective_name, snapshot,
+                from_name=old_name if old_name != effective_name else None,
             )
             db.session.commit()
 
             neo4j_sync_success, neo4j_error_msg, _neo4j_id = _try_sync_now(
                 job, node_type, node_id, graph_key=job.graph_key,
-                name=new_name, properties=None, from_name=job.from_name,
+                name=effective_name, properties=None, from_name=job.from_name,
             )
 
             return {
@@ -442,7 +476,7 @@ class DbUtil:
                 "data": {
                     "id": node_id,
                     "type": node_type,
-                    "name": new_name,
+                    "name": effective_name,
                     "graph_key": job.graph_key,
                     "sync_status": "success" if neo4j_sync_success else "failed",
                     "sync_error": neo4j_error_msg or None,

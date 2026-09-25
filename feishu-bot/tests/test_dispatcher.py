@@ -10,6 +10,7 @@
 
 from __future__ import annotations
 
+import sqlite3
 import threading
 import time
 from types import SimpleNamespace
@@ -817,3 +818,72 @@ def test_老库补列迁移把既有事件视为已处理(tmp_path):
         assert row["status"] == "accepted"
     finally:
         database.close()
+
+
+# ------------------------------- 卡住事件的启动恢复（第 14 轮审计 P1-5）
+
+
+def _status(db, event_id: str) -> str | None:
+    row = db.query_one("SELECT status FROM processed_events WHERE event_id = ?", (event_id,))
+    return row["status"] if row else None
+
+
+def _insert_event(db, event_id: str, status: str, received_at: int) -> None:
+    db.execute("INSERT INTO processed_events (event_id, event_type, status, received_at) "
+               "VALUES (?, 'im.message.receive_v1', ?, ?)", (event_id, status, received_at))
+
+
+def test_启动时把卡住的_processing_扫回可认领(config, session, db):
+    """进程被强杀会留下永久的 processing，而它在 _CLAIMED_STATUSES 里 →
+    飞书重投被当重复丢掉，那条提问永久消失。"""
+    now = int(time.time())
+    _insert_event(db, "stuck-ev", "processing", now - 3600)     # 一小时前卡住
+    _insert_event(db, "fresh-ev", "processing", now - 5)        # 5 秒前，可能真在跑
+    dispatcher = make_dispatcher(config, session, db)
+
+    changed = dispatcher.recover_stuck_events(stale_seconds=600)
+
+    assert changed == 1, "只该恢复超时的那些"
+    assert _status(db, "stuck-ev") == "received", "恢复后必须可被重投认领"
+    assert _status(db, "fresh-ev") == "processing", "在途任务不能被抢（会让同一条提问被回答两次）"
+
+
+def test_恢复后飞书重投能再认领(config, session, db):
+    """恢复的意义就在这一条：end-to-end 走一次重投。"""
+    now = int(time.time())
+    _insert_event(db, "lost-ev", "processing", now - 3600)
+    dispatcher = make_dispatcher(config, session, db)
+    dispatcher.recover_stuck_events(stale_seconds=600)
+
+    claim = dispatcher._claim_event("lost-ev", "im.message.receive_v1")
+
+    assert claim is not None, "重投必须能重新认领（这是'提问永久卡死'的修法）"
+
+
+def test_已完成的与失败的不会被恢复(config, session, db):
+    """done/failed 是"已有结论"，恢复它们会让同一条提问被回答两次。"""
+    now = int(time.time())
+    _insert_event(db, "done-ev", "done", now - 3600)
+    _insert_event(db, "failed-ev", "failed", now - 3600)
+    _insert_event(db, "busy-ev", "rejected_busy", now - 3600)
+    dispatcher = make_dispatcher(config, session, db)
+
+    changed = dispatcher.recover_stuck_events(stale_seconds=600)
+
+    assert changed == 0
+    assert _status(db, "done-ev") == "done"
+    assert _status(db, "failed-ev") == "failed"
+    assert _status(db, "busy-ev") == "rejected_busy", "rejected_busy 本来就无需恢复"
+
+
+def test_恢复失败不影响启动(config, session, db, monkeypatch):
+    """恢复是"补救"，不该变成新的单点故障。"""
+    def boom():
+        raise sqlite3.OperationalError("database is locked")
+
+    monkeypatch.setattr(db, "transaction", boom)
+    dispatcher = make_dispatcher(config, session, db)
+
+    assert dispatcher.recover_stuck_events() == 0     # 不抛异常
+    dispatcher.start()                                # 仍然能起来
+    dispatcher.stop(timeout=1.0)

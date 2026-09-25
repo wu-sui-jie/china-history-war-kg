@@ -59,6 +59,19 @@ STATUS_FAILED = "failed"                    # 处理中抛异常
 # 重投可以再认领一次——这正是"队列满时消息永久消失"的修法。
 _CLAIMED_STATUSES = (STATUS_ACCEPTED, STATUS_PROCESSING, STATUS_DONE, STATUS_FAILED)
 
+# 卡住多久算"上一轮没做成"（第 14 轮审计 P1-5）。
+#
+# `processing` 也在 _CLAIMED_STATUSES 里，于是**进程被强杀**（SIGKILL / OOM /
+# 双重 Ctrl-C 的 os._exit(0) / 停机超时后退出）会永久留下一行 status='processing'：
+# 飞书重投同一 event_id 会被当成重复丢掉，那条提问就此永久消失，用户那张
+# "正在检索史料…"的占位卡在 24 小时 TTL 内也不会恢复。代码原先只给 `received`
+# 留了恢复口（不在 _CLAIMED_STATUSES 里），`processing` 没有。
+#
+# 阈值取 10 分钟：一次问答的预算是 RAG_QUERY_TIMEOUT(25s) + 连接超时 + 渲染，
+# 真实在途任务不会超过一两分钟。留得宽松是为了避免把"正在跑"的任务抢回来——
+# 抢回来会让同一条提问被回答两次。
+STUCK_EVENT_SECONDS = 600.0
+
 
 @dataclass(frozen=True)
 class Claim:
@@ -327,9 +340,51 @@ class Dispatcher:
         self._last_stats_log = 0.0
 
     # ---- 生命周期 ----
+    def recover_stuck_events(self, *, stale_seconds: float = STUCK_EVENT_SECONDS) -> int:
+        """把"上一轮没做成"的事件扫回可重认领状态，返回改动行数（第 14 轮审计 P1-5）。
+
+        要恢复的有两类：
+
+        - `processing`：worker 正在处理时进程被强杀（SIGKILL / OOM / os._exit），
+          这一行会永久留着，而它在 `_CLAIMED_STATUSES` 里 → 飞书重投被当重复丢弃，
+          那条提问就此永久消失；
+        - `received`：认领成功但还没来得及入队（进程在同一瞬间被杀），
+          `received` 本来就可重认领，但**只有超时才动**——刚落库的正常在途认领不该被抢。
+
+        为什么用时间窗而不是"一律恢复 processing"：worker 可能**正在**处理一条
+        耗时任务，无条件改状态会让同一条提问被回答两次（用户在飞书里收到两条回答，
+        比晚几秒看到结果更难解释）。10 分钟窗口把这两种情况分开。
+
+        什么时候调用：进程启动、worker 起来**之前**（见 main.run）。放在停机路径上
+        没有用——强杀的进程没有停机路径可走。
+        """
+        if stale_seconds <= 0:
+            return 0
+        cutoff = self.clock() - stale_seconds
+        try:
+            with self.db.transaction() as conn:
+                cursor = conn.execute(
+                    "UPDATE processed_events SET status = ?, received_at = ? "
+                    "WHERE status IN (?, ?) AND received_at < ?",
+                    (STATUS_RECEIVED, self.clock(), STATUS_PROCESSING, STATUS_RECEIVED,
+                     cutoff),
+                )
+                changed = cursor.rowcount or 0
+        except Exception as exc:  # noqa: BLE001 - 恢复失败不该挡住机器人启动
+            log.error("卡住事件恢复失败（不影响启动，重投仍会走正常去重）：%s", exc)
+            return 0
+        if changed:
+            # 这条日志是"进程被杀过"的证据：正常运行不会出现
+            log.warning("已恢复 %d 条卡住的事件（processing/received 超过 %.0fs）："
+                        "它们之前因为进程被强杀而无法被飞书重投认领", changed, stale_seconds)
+        return changed
+
     def start(self) -> None:
         if self._worker is not None and self._worker.is_alive():
             return
+        # 先恢复卡住的事件，再启动 worker：顺序反了的话，刚恢复的行可能被
+        # 正在运行的 worker 与新到达的消息同时看到（虽然也能自洽，但没有必要）。
+        self.recover_stuck_events()
         self._stop.clear()
         self._worker = threading.Thread(target=self.worker_loop, name="bot-worker",
                                         daemon=True)

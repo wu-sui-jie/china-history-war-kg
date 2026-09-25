@@ -549,3 +549,55 @@ def test_health_免登录且报出失败策略(client, monkeypatch):
     assert data["login_guard"]["failure_mode"] == "open"
     raw = response.get_data(as_text=True)
     assert "LOGIN_GUARD" not in raw and "database" not in raw, "免登录接口不该泄露配置细节"
+
+
+def test_伪造的_XFF_首段不会被采信(client, make_user, monkeypatch):
+    """第 14 轮审计 P1-3：XFF 的第一段是**客户端自己写**的那一段。
+
+    nginx 用的是 `$proxy_add_x_forwarded_for`——"客户端自带值在前、真实地址追加在后"，
+    所以取第一段等于把限流桶的钥匙交给攻击者：每次换一个伪造值就换一个桶。
+    这里模拟 nginx 下发（X-Real-IP=真实地址 + XFF="伪造值, 真实地址"），
+    断言 5 次不同首段的尝试全部落在**同一个**限流桶上。
+    """
+    monkeypatch.setenv("LOGIN_TRUST_FORWARDED_FOR", "true")
+    monkeypatch.setenv("LOGIN_RATE_LIMIT_PER_MINUTE", "3")
+    make_user("someone", "viewer", password="correct-password-1")
+    real_ip = "203.0.113.7"
+
+    for index in range(3):
+        response = client.post(
+            "/api/login", json={"account": "someone", "password": "wrong-password"},
+            headers={"X-Forwarded-For": f"10.0.0.{index}, {real_ip}",
+                     "X-Real-IP": real_ip},
+        )
+        assert _code(response) == 403, "前 3 次应当只是口令错误"
+
+    # 第 4 次：如果桶被伪造的首段切碎了（旧行为），这里会继续是 403
+    limited = client.post(
+        "/api/login", json={"account": "someone", "password": "wrong-password"},
+        headers={"X-Forwarded-For": f"10.0.0.{99}, {real_ip}", "X-Real-IP": real_ip},
+    )
+
+    assert limited.status_code == 429, "换了伪造首段仍然应当命中同一个桶"
+    # 计数确实落在真实地址上
+    row = _row("ip", real_ip)
+    assert row is not None and row[0] >= 3
+
+
+def test_没有_X_Real_IP_时取_XFF_最右段(client, make_user, monkeypatch):
+    """退路也要对：只有 XFF 时取**最右段**（最近一跳追加的真实地址）。"""
+    monkeypatch.setenv("LOGIN_TRUST_FORWARDED_FOR", "true")
+    monkeypatch.setenv("LOGIN_RATE_LIMIT_PER_MINUTE", "2")
+    make_user("someone", "viewer", password="correct-password-1")
+    real_ip = "198.51.100.9"
+
+    for _ in range(2):
+        client.post("/api/login", json={"account": "someone", "password": "wrong"},
+                    headers={"X-Forwarded-For": f"1.2.3.4, 5.6.7.8, {real_ip}"})
+
+    assert client.post(
+        "/api/login", json={"account": "someone", "password": "wrong"},
+        headers={"X-Forwarded-For": f"9.9.9.9, 5.6.7.8, {real_ip}"},
+    ).status_code == 429
+    assert _row("ip", real_ip) is not None
+    assert _row("ip", "1.2.3.4") is None, "最左段（伪造的那一段）不该成为限流桶"
