@@ -99,7 +99,9 @@ sudo bash deploy/scripts/01_setup_server.sh
 ```
 
 脚本做的事：装系统基础包 → 装 Node 20 → 建 `chinawar` 用户 → 装 Miniconda →
-建两个 Python 环境（`china-war-backend` = 3.8，`china-war-rag` = 3.11）→ 装三份依赖。
+建两个 Python 环境（`china-war-backend` = 3.8，`china-war-rag` = 3.11）→ 装依赖
+（含仓库内的抽取链包 `war_extraction`：按 `backend/requirements.txt` 写明的顺序做
+`pip install -e entity-event-relation` 可编辑安装；漏装它旧后端会以 `ModuleNotFoundError` 崩溃）。
 
 - 幂等，可重复执行。
 - 国内服务器下载慢，可加镜像：`sudo PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple bash deploy/scripts/01_setup_server.sh`

@@ -132,6 +132,16 @@ if [[ -f "${APP_DIR}/backend/requirements.txt" ]]; then
 fi
 pip_install "${BACKEND_PY}" -r "${APP_DIR}/requirements.txt"
 
+# backend 通过正式包 war_extraction 引用抽取链（同级目录 entity-event-relation）。
+# 路径依赖不能写进 requirements.txt（换工作目录就失效），所以按 backend/requirements.txt
+# 里写明的顺序单独做这一步——漏了它，旧后端启动会报 ModuleNotFoundError: war_extraction。
+echo "--- 抽取链包 war_extraction（entity-event-relation）---"
+if [[ -f "${APP_DIR}/entity-event-relation/pyproject.toml" ]]; then
+    pip_install "${BACKEND_PY}" -e "${APP_DIR}/entity-event-relation"
+else
+    warn "未找到 ${APP_DIR}/entity-event-relation/pyproject.toml，跳过；旧后端会启动失败"
+fi
+
 echo "--- RAG（Python 3.11）---"
 # 优先用带哈希校验的锁文件；若因平台差异装不上，退回未锁版本的 requirements.txt
 if [[ -f "${APP_DIR}/RAG/requirements.lock" ]] \
