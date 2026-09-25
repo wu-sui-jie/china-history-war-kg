@@ -41,7 +41,7 @@ entity-event-relation/
 │   │   └── json_to_excel.py   # JSON → Excel
 │   ├── evaluation/            # optimal_evaluator（唯一在用的评估器），评估口径见其 docstring
 │   ├── geocoding/             # 历史地名 → 现代坐标（高德 API + 人工审核），见 war_extraction/geocoding/README.md
-│   └── utils/                 # normalizer（名称/关系归一，别名表唯一来源）、entity_classifier、alignment（零引用，待删）
+│   └── utils/                 # normalizer（名称/关系归一，别名表唯一来源）、entity_classifier、json_payload、value_parsing、relation_rules
 ├── config/                    # aliases.json / dynasty_ranges.json / eval_config.json / relation_types.json
 ├── data/                      # 输入原文 + data/annotations/ 人工标注（**字段口径见其 README**）
 ├── output/                    # 抽取结果（按运行批次分目录，自动生成）
@@ -186,7 +186,7 @@ cd entity-event-relation
 python -m pytest tests -q
 ```
 
-常驻用例（**11 个文件、104 例**，都已进 CI 的 `legacy-backend` job = `.github/workflows/ci.yml`）：
+常驻用例（**12 个文件、109 例**，都已进 CI 的 `legacy-backend` job = `.github/workflows/ci.yml`）：
 
 | 用例 | 钉住的回归 |
 | --- | --- |
@@ -198,7 +198,8 @@ python -m pytest tests -q
 | `tests/test_relation_types.py` | C-6：五个规范事件-事件关系类型必须精确相等（修前「因果关系 vs 顺承关系」算匹配） |
 | `tests/test_prompt_version.py` | C-4：提示词版本由源码哈希派生，改一个字符就换版本、缓存键随之失效 |
 | `tests/test_geocode_amap.py`、`tests/test_geocoding_pipeline.py`、`tests/test_geocoding_db_path.py` | EER-12 重试/配额/逐条落盘、A-2/A-3 一批一进度文件与配额截断提示、EER-7 路径口径 |
-| `tests/test_shared_helpers.py` | EER-6：公共 JSON/多值/年份/仲裁实现，含两条**刻意保留**的差异 |
+| `tests/test_shared_helpers.py` | EER-6：公共 JSON/多值/年份/仲裁实现，含**刻意保留**的差异（两个 JSON 策略不可互换） |
+| `tests/test_decision_filters.py` | 决策项收口：人名过滤名单已删除（`秦始皇`/`吴起` 是合法人名）、占位词排除集统一为宽口径、`utils/alignment.py` 已移除 |
 
 每条用例都是先确认「修前失败」才入库的（清单见 `docs/修复实施记录-第11轮-20260925.md` 的验证表）。
 `tests/fixtures/relation_slice_repro.json` 是 EER-15 的最小复现夹具（从 `9_final_all.json`

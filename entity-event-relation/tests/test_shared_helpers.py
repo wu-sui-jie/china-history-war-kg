@@ -8,7 +8,8 @@
    `extract_largest_json_text`（取最大候选、返回文本、不试整体解析）**不是同一个策略**，
    合并掉任何一个都会改变抽取产物；
 2. `split_multi_value` 的排除集：抽取器用宽的（含"未知/无/None"），
-   main.py 用窄的（只排除"不详/null"）。这个分歧本轮**原样保留**，没顺手统一。
+   main.py 曾用窄的（只排除"不详/null"）。**2026-09-25 已按决策统一为宽口径、窄集删除**
+   ——那条钉分歧的用例已移出本文件，改由 `tests/test_decision_filters.py` 钉统一后的行为。
 """
 
 import json
@@ -25,7 +26,6 @@ from war_extraction.utils.json_payload import (
 from war_extraction.utils.relation_rules import arbitrate_event_event_relation
 from war_extraction.utils.value_parsing import (
     PLACEHOLDERS_FULL,
-    PLACEHOLDERS_MINIMAL,
     ensure_event_date_order,
     parse_year_for_order,
     split_multi_value,
@@ -93,17 +93,10 @@ def test_split_multi_value_wide_placeholders_are_removed():
     assert split_multi_value("甲、None、乙", placeholders=PLACEHOLDERS_FULL) == ["甲", "乙"]
 
 
-def test_split_multi_value_narrow_placeholders_kept():
-    """
-    窄口径（main.py 原来那份）：只滤"不详/null"。
-
-    这条用例的作用是**钉住这个分歧**——第 10 轮是纯重构，没统一两边的排除集。
-    哪天决定统一成宽口径，改这条用例要在提交信息里说明这是抽取产物的口径变更。
-    """
-    assert split_multi_value("甲、未知、乙", placeholders=PLACEHOLDERS_MINIMAL) == ["甲", "未知", "乙"]
-    assert split_multi_value("甲、无、乙", placeholders=PLACEHOLDERS_MINIMAL) == ["甲", "无", "乙"]
-    assert split_multi_value("甲、不详、乙", placeholders=PLACEHOLDERS_MINIMAL) == ["甲", "乙"]
-    assert split_multi_value("甲、null、乙", placeholders=PLACEHOLDERS_MINIMAL) == ["甲", "乙"]
+# 注：原先这里还有一条 `test_split_multi_value_narrow_placeholders_kept`，钉的是
+# "main.py 用窄排除集"这个**刻意保留的分歧**。2026-09-25 决策统一为宽口径、窄集删除后，
+# 该用例的前提不复存在，已移出本文件；统一后的行为由 `tests/test_decision_filters.py`
+# 的 `test_placeholder_set_unified_to_wide` 与 `test_main_pipeline_uses_the_unified_wide_set` 钉住。
 
 
 def test_split_multi_value_empty_input():

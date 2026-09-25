@@ -3,7 +3,8 @@
 
 EER-6：这几段逻辑此前在 `main.py` 与 `war_extraction/extractors/` 下各存一份
 （多值拆分两份、年份解析两份、起止时间定序两份），改一处忘一处就会两边漂移。
-这里收成单一实现，调用方保留各自原有的口径（见下方两个占位词集合的说明）。
+这里收成单一实现。多值拆分的占位词排除集原先两边不一致，**2026-09-25 已统一为宽口径**
+（见下方 `PLACEHOLDERS_FULL` 的说明）。
 """
 from __future__ import annotations
 
@@ -13,7 +14,6 @@ from typing import List, Optional, Set
 __all__ = [
     "MULTI_VALUE_SEPARATORS",
     "PLACEHOLDERS_FULL",
-    "PLACEHOLDERS_MINIMAL",
     "split_multi_value",
     "parse_year_for_order",
     "ensure_event_date_order",
@@ -22,15 +22,14 @@ __all__ = [
 #: 多值字段的分隔符。**顺序有意义**：先把长分隔符换成 "|"，再处理单字符分隔符。
 MULTI_VALUE_SEPARATORS = ("、", "，", ",", "；", ";", "及", "与", "和", "/", " vs ", " VS ", "vs.")
 
-#: 排除集（宽）：relation_extractor 原先用的那一份，把占位词也算作"没有值"。
+#: 排除集：把"没有值"的占位词也算作空值。
+#: 原先有两套——关系抽取器用这套宽的，`main.py` 用一套只排除"不详/null"的窄集，
+#: 于是同一段 `"甲、未知、乙"` 在两边分别拆成 `["甲","乙"]` 与 `["甲","未知","乙"]`
+#: （"未知"被当成真名字留下）。**2026-09-25 按决策统一为这一套宽口径**，窄集已删除
+#: （留着它是死代码，与同期删掉的 `AlignmentTool` 同一类问题）。
+#: 影响面：`main.py` 侧的多值字段会多滤掉"未知/无/None"，属**抽取产物口径变更**——
+#: 只在下一次抽取的产物里可见，当前产物与评估指标不受影响。
 PLACEHOLDERS_FULL = frozenset({"不详", "未知", "null", "None", "无"})
-
-#: 排除集（窄）：main.py 原先用的那一份，只排除"不详"与"null"。
-#: **与 FULL 的分歧是本轮刻意保留的**：修掉它会让 main.py 侧的字段多被滤掉几个
-#: （"未知"、"无"、"None"），属于抽取产物口径变化，不是纯重构该顺手做的事。
-#: 要不要统一成 FULL 需要单独决策；下游 `Normalizer.is_placeholder_value` 已覆盖这些词，
-#: 所以实际影响可能很小，但没实测过就不要假装验证过。
-PLACEHOLDERS_MINIMAL = frozenset({"不详", "null"})
 
 
 def split_multi_value(value: str, placeholders: Set[str] = PLACEHOLDERS_FULL) -> List[str]:

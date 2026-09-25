@@ -30,7 +30,6 @@ from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_cont
 from war_extraction.utils import EntityClassifier, Normalizer
 from war_extraction.utils.relation_rules import arbitrate_event_event_relation
 from war_extraction.utils.value_parsing import (
-    PLACEHOLDERS_MINIMAL,
     ensure_event_date_order,
     parse_year_for_order,
     split_multi_value,
@@ -42,11 +41,10 @@ from war_extraction.utils.value_parsing import (
 
 
 def _split_multi_value(value: str):
-    # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来 main.py 与
-    # relation_extractor 各一份，且**排除集不一致**：这里只排除"不详/null"，
-    # 抽取器那份还排除"未知/无/None"）。本轮是纯重构，故显式传本文件的窄口径，
-    # 行为保持不变；两边要不要统一需要单独决策（会改变抽取产物）。
-    return split_multi_value(value, placeholders=PLACEHOLDERS_MINIMAL)
+    # 实现搬到 war_extraction/utils/value_parsing.py（EER-6）。排除集原先这里用窄的
+    # （只排除"不详/null"），抽取器那份还排除"未知/无/None"——2026-09-25 按决策
+    # **统一为宽口径**（不再显式传参），属抽取产物的口径变更，只在下一次抽取时见效。
+    return split_multi_value(value)
 
 
 def _looks_like_person_name(value: str) -> bool:

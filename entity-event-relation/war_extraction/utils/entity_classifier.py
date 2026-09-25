@@ -35,15 +35,16 @@ class EntityClassifier:
         "下旨", "南征", "东征", "西征", "北伐", "战争", "之战", "作战",
         "三个宗族集团", "夷族", "诸侯国", "方国", "四周方国", "夷",
     }
-    #: 一律丢弃的人名。**这份名单需要口径确认**（第 11 轮 C-5 第 3 条留下的决策项）：
-    #: 实测这两条都在人工标注里各出现 1 次（data/annotations/sample_entities.json），
-    #: 而预测 persons 里是 0 次——也就是说这个过滤器让这两条**永远不可能被匹配**，
-    #: 直接贡献 2 个 FN。当初把它们当"低质量人名"的意图（疑似"朝代开创者常被误抽成
-    #: 参战方"这类数据集特定过滤）无法从代码看出，故本轮**不改行为**，只把证据写在这里，
-    #: 等口径确认后再决定是删掉还是改成可配置项。
-    #: 另注："孙滨"原先也在这份名单里，那是错的——它是"孙膑"的原书错字变体，
+    #: 人名过滤名单**已删除**（2026-09-25 决策项收口，用户裁定"删掉"）。
+    #: 这里原先有 `LOW_QUALITY_PERSON_NAMES = {"秦始皇", "吴起"}`，把这两条整条丢弃。删除依据（实测）：
+    #: 两者都在人工标注里各出现 1 次（data/annotations/sample_entities.json），而预测 persons 里各 0 次
+    #: ——实体评估只比对 PersonName，所以那份名单保证它们永远配不上，直接贡献 2 个 FN。模型其实抽出来了，
+    #: 只是散在别处：`relations.event_person_relations[].PersonName` 里 `吴起` 作「统帅」、
+    #: `秦始皇` 作「君主」各 2 条，事件的 `Commanders` / `KeyPersons` 里也都有。
+    #: **注意**：过滤发生在抽取阶段（main.py 建 persons 列表时），删掉它只在下一次抽取的产物里见效；
+    #: 当前产物与评估指标不受影响（改前/改后对同一份产物各跑一次评估，除时间戳外逐字段相同）。
+    #: 另注："孙滨"更早也在这份名单里，那本来就是错的——它是"孙膑"的原书错字变体，
     #: 已改为别名归一（见 Normalizer.ENTITY_ALIASES），不该整条丢弃。
-    LOW_QUALITY_PERSON_NAMES = {"秦始皇", "吴起"}
 
     KIND_MAPPING = {
         "place": "place",
@@ -132,8 +133,8 @@ class EntityClassifier:
         stripped = cls.normalize_person_name(value)
         if not stripped or len(stripped) > 12:
             return False
-        if stripped in cls.LOW_QUALITY_PERSON_NAMES:
-            return False
+        # 原先这里还有一条"在 LOW_QUALITY_PERSON_NAMES 里就丢弃"——该名单已于 2026-09-25 删除，
+        # 理由见类顶部注释。
         if cls.looks_like_org_name(stripped) and not cls.looks_like_person_name(stripped):
             return False
         return True
