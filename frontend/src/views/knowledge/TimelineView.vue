@@ -136,6 +136,7 @@ import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { getTimelineEvents } from '../../api/module/workspace'
+import { apiErrorMessage } from '../../utils/apiError'
 import { problemLabel } from '../../utils/knowledge'
 
 const router = useRouter()
@@ -158,15 +159,23 @@ const timeline = ref<any>({
 const dynasties = computed(() => timeline.value.dynasties || [])
 
 const loadData = async () => {
-  const res = await getTimelineEvents({
-    ...filters,
-    only_issues: onlyIssues.value ? '1' : '0',
-  })
-  if (res.code === 200) {
-    timeline.value = res.data || {}
-    return
+  // 后端失败现在是 HTTP 5xx（第 13 轮复核第七节：失败不再伪装成 200），
+  // 因此必须走 catch —— 只判断 `res.code === 200` 的话，失败时页面会静默不动、
+  // 用户看不到任何原因（axios 异常分支里才有后端的 msg）。
+  try {
+    const res = await getTimelineEvents({
+      ...filters,
+      only_issues: onlyIssues.value ? '1' : '0',
+    })
+    if (res.code === 200) {
+      timeline.value = res.data || {}
+      return
+    }
+    layer.msg(res.msg || '加载时间轴失败', { icon: 2 })
+  } catch (error) {
+    console.error('加载时间轴失败:', error)
+    layer.msg(apiErrorMessage(error, '加载时间轴失败，请稍后重试'), { icon: 2 })
   }
-  layer.msg(res.msg || '加载时间轴失败', { icon: 2 })
 }
 
 const resetFilters = () => {

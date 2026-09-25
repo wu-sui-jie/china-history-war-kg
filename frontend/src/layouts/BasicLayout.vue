@@ -71,7 +71,7 @@
           </div>
           <lay-tooltip content="退出登录">
             <div class="side-brand-icon" @click="logOut">
-              <img src="/icon/logout.svg" style="width: 16px;"/>
+              <img :src="logoutIcon" alt="退出登录" style="width: 16px;"/>
             </div>
           </lay-tooltip>
         </div>
@@ -110,6 +110,12 @@ import {useRoute, useRouter} from 'vue-router'
 import {useMenu} from './composable/useMenu'
 import zh_CN from '../lang/zh_CN'
 import en_US from '../lang/en_US'
+
+// public/icon/logout.svg 原样拷贝、不改名，路径必须自己带 vite base（/static/）。
+// 原先写死的 `/icon/logout.svg` 在生产会被 nginx 的 `location /` 转给旧后端 Flask，
+// 后端没有这条静态路由 → 退出按钮的图标 404（与登录页 P1-4 同一类缺陷）。
+// 详见 frontend/scripts/check-dist-assets.mjs（构建后按产物核对）。
+const logoutIcon = `${import.meta.env.BASE_URL}icon/logout.svg`
 
 export default {
   components: {
@@ -221,6 +227,7 @@ export default {
 
     return {
       sideWidth,
+      logoutIcon,
       mainSelectedKey,
       fullscreenRef,
       appStore,

@@ -4,6 +4,11 @@
  * graph_route / timeline_route 是三个知识页的入口，改路由或改接口都会断在这里），
  * `Dashboard` 是登录后的落地页（首屏数据来自 /api/dashboard/overview）。
  * 两页此前都没有任何测试，挂载即崩、接口打错也没人发现。
+ *
+ * 第 13 轮复核第七节后又加了两组（TimelineView / EntityDetail）：后端失败从
+ * `HTTP 200 + code 5xx` 改成了真正的 4xx/5xx，于是**只有 catch 分支才拿得到后端文案**。
+ * 这两个页面此前没有 try/catch——失败时页面静默不动，用户完全看不到原因。
+ * 这两条用例就是钉住"失败必须给提示"这条契约的。
  */
 
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
@@ -15,7 +20,9 @@ import { layerSpies, makeTestRouter } from './helpers'
 import Http from '@/api/http'
 import GlobalSearch from '@/views/knowledge/GlobalSearch.vue'
 import Dashboard from '@/views/workspace/Dashboard.vue'
-import { getDashboardOverview } from '@/api/module/workspace'
+import EntityDetail from '@/views/knowledge/EntityDetail.vue'
+import TimelineView from '@/views/knowledge/TimelineView.vue'
+import { getDashboardOverview, getEntityDetail, getTimelineEvents } from '@/api/module/workspace'
 import { useUserStore } from '@/store/user'
 
 vi.mock('@/api/http', () => ({
@@ -24,6 +31,8 @@ vi.mock('@/api/http', () => ({
 
 vi.mock('@/api/module/workspace', () => ({
   getDashboardOverview: vi.fn(),
+  getEntityDetail: vi.fn(),
+  getTimelineEvents: vi.fn(),
 }))
 
 vi.mock('@layui/layui-vue', async (importOriginal) => {
@@ -36,6 +45,8 @@ vi.mock('@layui/layui-vue', async (importOriginal) => {
 
 const get = Http.get as unknown as ReturnType<typeof vi.fn>
 const overview = getDashboardOverview as unknown as ReturnType<typeof vi.fn>
+const timelineEvents = getTimelineEvents as unknown as ReturnType<typeof vi.fn>
+const entityDetail = getEntityDetail as unknown as ReturnType<typeof vi.fn>
 
 // 组件 setup 里会 useUserStore（角色过滤）：每个用例先备好一个 Pinia 实例
 let pinia: ReturnType<typeof createPinia>
@@ -108,6 +119,82 @@ describe('GlobalSearch 全局搜索', () => {
 
     expect(wrapper.vm.keyword).toBe('垓下')
     expect(get).toHaveBeenCalledWith('/api/search/global', { keyword: '垓下' })
+  })
+
+  test('接口失败（HTTP 5xx）时清空结果并提示后端文案', async () => {
+    // 第 13 轮复核第七节后，后端失败一律是 4xx/5xx，axios 走 reject 分支——
+    // 组件必须 catch 之后再提示，否则"搜索失败"和"没有匹配"在界面上分不出来。
+    get.mockRejectedValue({ response: { status: 500, data: { msg: '全局搜索失败，请稍后重试' } } })
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
+    await flushPromises()
+
+    wrapper.vm.keyword = '秦'
+    wrapper.vm.search()
+    await flushPromises()
+
+    expect(wrapper.vm.results).toEqual([])
+    expect(wrapper.vm.searched).toBe(true)
+    expect(layerSpies().msg).toHaveBeenCalledWith('全局搜索失败，请稍后重试', { icon: 2 })
+    consoleError.mockRestore()
+  })
+})
+
+describe('TimelineView 历史时间轴', () => {
+  let wrapper: VueWrapper<any>
+
+  beforeEach(() => vi.clearAllMocks())
+  afterEach(() => wrapper?.unmount())
+
+  test('接口失败时提示文案，而不是静默不动', async () => {
+    timelineEvents.mockRejectedValue({
+      response: { status: 500, data: { msg: '加载时间轴事件失败，请稍后重试' } },
+    })
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    wrapper = mount(TimelineView, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
+    await flushPromises()
+
+    expect(layerSpies().msg).toHaveBeenCalledWith('加载时间轴事件失败，请稍后重试', { icon: 2 })
+    consoleError.mockRestore()
+  })
+
+  test('接口正常时按 code 分支渲染', async () => {
+    timelineEvents.mockResolvedValue({
+      code: 200,
+      data: { summary: { event_count: 1 }, dynasties: ['秦'], events: [] },
+    })
+
+    wrapper = mount(TimelineView, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
+    await flushPromises()
+
+    expect(wrapper.vm.timeline.summary.event_count).toBe(1)
+    expect(layerSpies().msg).not.toHaveBeenCalled()
+  })
+})
+
+describe('EntityDetail 实体详情', () => {
+  let wrapper: VueWrapper<any>
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    useUserStore().userInfo = { id: 1, account: 'tester', role: 'admin' }
+  })
+  afterEach(() => wrapper?.unmount())
+
+  test('实体不存在（HTTP 404）时提示后端文案', async () => {
+    // 后端把"实体不存在"从 `200 + code 404` 改成了 HTTP 404（第 13 轮复核第七节）
+    entityDetail.mockRejectedValue({ response: { status: 404, data: { msg: '实体不存在' } } })
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const router = makeTestRouter()
+    await router.push('/knowledge/entity-detail?type=Event&id=999')
+    await router.isReady()
+
+    wrapper = mount(EntityDetail, { global: { plugins: [Layui, router, pinia] } })
+    await flushPromises()
+
+    expect(layerSpies().msg).toHaveBeenCalledWith('实体不存在', { icon: 2 })
+    consoleError.mockRestore()
   })
 })
 

@@ -1,8 +1,12 @@
-/** RAG 嵌入页的跨应用身份契约（问题二方案 A）。
+/** RAG 嵌入页的跨应用身份契约（问题二方案 A + 方案 B 的凭证）。
  *
- * 契约的另一半在 RAG 前端：它只认 `{type:'cw-user', uid}` 且只认同源（见 RAG 仓库
- * tests/unit/user-scope.test.ts）。这里钉住主应用发出的这一半——载荷形状、
+ * 契约的另一半在 RAG 前端：它只认 `{type:'cw-user', uid, role, token}` 且只认同源
+ * （见 RAG 仓库 tests/unit/user-scope.test.ts）。这里钉住主应用发出的这一半——载荷形状、
  * targetOrigin、以及"在 iframe load 之后才发"（早于 load 发会丢消息）。
+ *
+ * token 是第 12 轮审查 P1-1 加的：uid/role 只用于分 localStorage 桶（防串记录），
+ * 防冒充靠 RAG 服务端验签这份 token。少发它不会导致前端报错，只会让开启
+ * RAG_REQUIRE_AUTH 的部署里所有问答 401——所以必须在契约层钉住。
  */
 
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
@@ -53,7 +57,17 @@ describe('RagAssistant 身份传递', () => {
     expect(postMessage).toHaveBeenCalledTimes(1)
     // targetOrigin 用 '/'：只发给同源文档。改成 '*' 会让消息投给任意嵌入方
     // role 一起带上（RAG 侧只存不用；老版本主应用不发时 RAG 按空串处理）
-    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7', role: 'viewer' }, '/')
+    // token 是登录凭证：放进 URL 会进日志，因此只能走 postMessage
+    const store = useUserStore()
+    store.token = 'aaa.bbb.ccc'
+    await flushPromises()
+    postMessage.mockClear()
+    await wrapper.find('iframe').trigger('load')
+    await flushPromises()
+
+    expect(postMessage).toHaveBeenCalledWith(
+      { type: 'cw-user', uid: '7', role: 'viewer', token: 'aaa.bbb.ccc' }, '/')
+    expect(postMessage).toHaveBeenCalledTimes(1)
   })
 
   test('账号未知时先拉取再发（不能把空 uid 发出去）', async () => {
@@ -68,7 +82,10 @@ describe('RagAssistant 身份传递', () => {
     await wrapper.find('iframe').trigger('load')
     await flushPromises()
 
-    expect(postMessage).toHaveBeenCalledWith({ type: 'cw-user', uid: '7', role: 'viewer' }, '/')
+    // 没登录（无 token）时不带 token 字段值——RAG 侧按"没有身份"处理，
+    // 这与服务端未开启校验的行为一致
+    expect(postMessage).toHaveBeenCalledWith(
+      { type: 'cw-user', uid: '7', role: 'viewer', token: '' }, '/')
   })
 
   test('首次解析出账号不重建 iframe（否则进页面会白加载两遍）', async () => {

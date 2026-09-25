@@ -286,6 +286,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import * as echarts from 'echarts'
 import { getEventMap } from '../../api/module/workspace'
+import { apiErrorMessage } from '../../utils/apiError'
 
 const router = useRouter()
 const route = useRoute()
@@ -973,22 +974,28 @@ const renderChart = async () => {
 }
 
 const loadData = async () => {
-  const res = await getEventMap({ ...filters })
-  if (res.code === 200) {
-    mapData.value = res.data || {}
-    dynasties.value = res.data?.dynasties || []
-    selectedPlace.value = null
-    selectedEventPoint.value = null
-    selectedRoute.value = null
-    selectedEventName.value = ''
-    selectedEventIds.value = []
-    mapState.center = [104, 36]
-    mapState.zoom = 1.25
-    applyRouteFocusFromQuery()
-    renderChart()
-    return
+  // 后端失败改为 HTTP 5xx（第 13 轮复核第七节），异常分支里才拿得到后端的 msg
+  try {
+    const res = await getEventMap({ ...filters })
+    if (res.code === 200) {
+      mapData.value = res.data || {}
+      dynasties.value = res.data?.dynasties || []
+      selectedPlace.value = null
+      selectedEventPoint.value = null
+      selectedRoute.value = null
+      selectedEventName.value = ''
+      selectedEventIds.value = []
+      mapState.center = [104, 36]
+      mapState.zoom = 1.25
+      applyRouteFocusFromQuery()
+      renderChart()
+      return
+    }
+    layer.msg(res.msg || '加载地图数据失败', { icon: 2 })
+  } catch (error) {
+    console.error('加载地图数据失败:', error)
+    layer.msg(apiErrorMessage(error, '加载地图数据失败，请稍后重试'), { icon: 2 })
   }
-  layer.msg(res.msg || '加载地图数据失败', { icon: 2 })
 }
 
 const resetFilters = () => {

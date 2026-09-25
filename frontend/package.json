@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:check": "vue-tsc --noEmit && vite build",
+    "build:check": "vue-tsc --noEmit && vite build && node scripts/check-dist-assets.mjs",
     "build:prod": "vite build --mode production",
+    "check:assets": "node scripts/check-dist-assets.mjs",
     "serve": "vite preview",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",

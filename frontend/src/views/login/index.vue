@@ -8,7 +8,7 @@
     - Token存储: JWT Token保存到本地
 -->
 <template>
-  <div class="login-wrap">
+  <div class="login-wrap" :style="wrapStyle">
     <div class="login-root">
       <div class="login-main">
         <div class="login-container">
@@ -21,7 +21,7 @@
 <!--              </h3>-->
 
               <div>
-                <img src="/login.jpg" style="width: 300px;margin-top: 40px"/>
+                <img :src="loginImage" alt="干戈纪略" style="width: 300px;margin-top: 40px"/>
               </div>
             </div>
           </div>
@@ -79,9 +79,31 @@ import {useRouter} from 'vue-router'
 import {useUserStore} from '../../store/user'
 import {layer} from "@layui/layui-vue"
 import { login, signIn } from "@/api/module/user"
+import {apiErrorMessage} from "@/utils/apiError"
 
-const MIN_PASSWORD_LENGTH = 6
-const MAX_PASSWORD_LENGTH = 20
+// 口令长度必须与后端 `db_utils.MIN_PASSWORD_LENGTH / MAX_PASSWORD_LENGTH` 一致。
+// 原先这里是 6~20，而后端第 13 轮整改把下限提到 10：不一致的后果是前端放行、
+// 后端 400，用户看到"密码长度需在 10~64 位之间"却不知道自己哪里填错了。
+// 上限也从 20 提到 64——前端比后端更严会在用户用长口令时凭空拦住他。
+const MIN_PASSWORD_LENGTH = 10
+const MAX_PASSWORD_LENGTH = 64
+
+// 登录页的两张图放在 public/ 下：vite 原样拷贝、不做哈希改名，因此**不会**被构建器
+// 补上部署前缀，路径必须自己带上 vite 的 base（本仓库是 /static/）。
+//
+// 原先这里是 `src="/login.jpg"` 与 CSS 里的 `url(background.jpg)`，两者在生产都指向
+// 不存在的地址（第 12 轮审查 P1-4）：
+//   - `/login.jpg` 不带 /static/ 前缀，nginx 会按 `location /` 转给旧后端 Flask，
+//     后端没有这条静态路由 → 401/404；
+//   - CSS 里的相对 `background.jpg` 会相对 `dist/assets/*.css` 解析成
+//     `/static/assets/background.jpg`，而图片实际在 `/static/background.jpg`。
+// 构建本身不会报错（vite 只是留一条未解析警告），组件测试也测不到资源路径，
+// 所以另加了 scripts/check-dist-assets.mjs 在构建后按产物核对（CI 里跑）。
+//
+// 用 BASE_URL 而不是写死 /static/：写死会在改 base 或换部署前缀时再犯同一次错。
+const BASE_URL = import.meta.env.BASE_URL
+const loginImage = `${BASE_URL}login.jpg`
+const wrapStyle = { backgroundImage: `url(${BASE_URL}background.jpg)` }
 
 export default defineComponent({
   setup() {
@@ -111,10 +133,13 @@ export default defineComponent({
         layer.msg('请输入密码', {icon: 2})
         return null
       }
-      if (password.length < MIN_PASSWORD_LENGTH || password.length > MAX_PASSWORD_LENGTH) {
-        layer.msg(`密码长度需为 ${MIN_PASSWORD_LENGTH}-${MAX_PASSWORD_LENGTH} 位`, {icon: 2})
-        return null
-      }
+      // 登录**不校验口令长度**（第 13 轮整改修正）。
+      //
+      // 长度策略的作用是"不许设置弱口令"，只该出现在**设置口令**的路径上
+      // （注册 validateSignInForm、改密码的接口）。放在登录路径上会直接锁人：
+      // 策略提高之前建的账号口令可能只有 6~9 位，服务端 `DbUtils.authentication`
+      // 从不检查长度、这些口令完全合法，而前端在本地就把他们拦在门外了。
+      // "老口令继续可用、新口令必须够长"是口令策略该有的迁移语义。
       return {account, password}
     }
 
@@ -170,6 +195,10 @@ export default defineComponent({
               layer.msg(msg, {icon: 2})
             }
           })
+          // 失败分支必须有 catch（第 13 轮整改）：后端新引入的 429（登录限流）
+          // 走的是 axios 的 reject 分支，没有 catch 时用户点完登录**什么都看不到**，
+          // 按钮只是重新亮起来——看起来像"没反应"，而实际原因是"尝试太频繁"。
+          .catch((error) => layer.msg(apiErrorMessage(error, '登录失败，请稍后重试'), {icon: 2}))
           .finally(() => (loging.value = false));
     }
 
@@ -198,6 +227,9 @@ export default defineComponent({
               layer.msg(msg, {icon: 2})
             }
           })
+          // 注册同样会因限流/注册开关关闭而走 reject（403/429），没有 catch 时用户
+          // 只会看到"点了没反应"。关闭自助注册的部署下这条提示尤其重要。
+          .catch((error) => layer.msg(apiErrorMessage(error, '注册失败，请稍后重试'), {icon: 2}))
           .finally(() => (loging.value = false));
     }
 
@@ -206,7 +238,9 @@ export default defineComponent({
       signinSubmit,
       loginForm,
       method,
-      loging
+      loging,
+      loginImage,
+      wrapStyle
     }
   }
 })
@@ -223,9 +257,10 @@ export default defineComponent({
   overflow: auto;
   min-width: 600px;
   z-index: 9;
-  background-image: url(background.jpg);
+  /* 背景图地址由模板的 :style 下发（要带 vite base 前缀，见 script 里的说明） */
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   min-height: 100vh;
 }
 

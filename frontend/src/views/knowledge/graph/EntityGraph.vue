@@ -60,9 +60,11 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { layer } from '@layui/layui-vue'
 import EChartsGraph from './EChartsGraph.vue'
 import { getEventGraph, type EventGraphEndpoint } from '@/api/module/graph'
 import { getNodeRelations } from '@/api/module/node'
+import { apiErrorMessage } from '@/utils/apiError'
 import { mergeNodeRelations } from '@/utils/graph'
 
 /** 四个子页的全部差异集中在这里，模板与逻辑共享。 */
@@ -149,8 +151,11 @@ async function getGraph() {
       datasource.value = { nodes: [], lines: [] }
     }
   } catch (error) {
+    // 后端失败改为 HTTP 5xx（第 13 轮复核第七节）：清空画布之外还要给一句提示，
+    // 否则用户只看到"图没了"，分不清是查询失败还是本来就没有数据。
     console.error('请求图谱数据失败:', error)
     datasource.value = { nodes: [], lines: [] }
+    layer.msg(apiErrorMessage(error, '加载图谱数据失败，请稍后重试'), { icon: 2 })
   } finally {
     syncPageSummary()
     loading.value = false

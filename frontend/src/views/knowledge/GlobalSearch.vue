@@ -31,6 +31,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { globalSearch } from '../../api/module/graph'
+import { apiErrorMessage } from '../../utils/apiError'
 
 const router = useRouter()
 const route = useRoute()
@@ -43,9 +44,18 @@ const search = async () => {
     layer.msg('请输入关键词', { icon: 2 })
     return
   }
-  const res = await globalSearch(keyword.value.trim())
-  searched.value = true
-  results.value = res.code === 200 ? res.data || [] : []
+  // 后端失败改为 HTTP 5xx（第 13 轮复核第七节）：失败时既要把结果清空，也要给出提示，
+  // 否则"搜索了但没反应"和"确实没有匹配"在界面上长得一模一样。
+  try {
+    const res = await globalSearch(keyword.value.trim())
+    searched.value = true
+    results.value = res.code === 200 ? res.data || [] : []
+  } catch (error) {
+    console.error('全局搜索失败:', error)
+    searched.value = true
+    results.value = []
+    layer.msg(apiErrorMessage(error, '搜索失败，请稍后重试'), { icon: 2 })
+  }
 }
 
 onMounted(() => {

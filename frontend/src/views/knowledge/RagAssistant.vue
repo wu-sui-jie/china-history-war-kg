@@ -23,7 +23,9 @@
       <!-- sandbox：限制弹窗、顶层导航、下载等越权动作。
            注意这**不是安全隔离**：RAG 页面与主应用同源，`allow-scripts` + `allow-same-origin`
            组合下 iframe 内脚本可以直接访问父页面（也能移除自身 sandbox 属性，浏览器规范明示）。
-           真正的隔离要靠把 RAG 部署到独立域名，或至少在反代层给 /rag/ 加认证。 -->
+           **防"读到别的账号数据"靠服务端**：RAG 侧开启 RAG_REQUIRE_AUTH 后，
+           问答接口要求请求头里带本文下发的 token，由 RAG 服务端验签（第 12 轮审查 P1-1）；
+           彻底隔离仍需把 RAG 部署到独立域名。 -->
       <iframe
         :key="frameKey"
         ref="frameRef"
@@ -60,20 +62,27 @@ const reloadFrame = () => {
  * key 全局唯一——同一浏览器上任何账号打开 RAG 看到的都是同一份记录。
  * 主应用这边知道"现在是谁"，就把账号 id 传进去，RAG 按 uid 分 key 存。
  *
- * 用 postMessage 而不是拼在 iframe URL 上：URL 会进浏览器历史与各级访问日志。
- * targetOrigin 用 `/`（= 只发给同源文档，见 HTML 规范）——RAG 与主应用同源，
- * 换成独立域名部署时这里要同步改成那一个源。
+ * token 一起带上（第 12 轮审查 P1-1，即方案 B）：分桶只解决"串记录"，防不了冒充
+ * ——同源之下懂控制台的人能改 uid 去看别人的记录。RAG 服务端开启 RAG_REQUIRE_AUTH 后，
+ * 会用与旧后端共享的密钥验签请求头里的这份凭证，改 uid 不再有意义。
  *
- * 边界（如实说）：这只解决"串记录"，不防"冒充"——同源之下，懂控制台的账号可以改 uid
- * 去看别人的记录。公网部署需要方案 B（传 JWT + RAG 服务端验签）。
+ * 用 postMessage 而不是拼在 iframe URL 上：URL 会进浏览器历史与各级访问日志，
+ * 而 token 是登录凭证——放进 URL 等于把它写进日志文件。也因此这里只发同源
+ * （targetOrigin 用 `/`，见 HTML 规范）：换成独立域名部署时要同步改成那一个源。
  */
 const postUserScope = () => {
   const frame = frameRef.value
   const uid = userStore.userInfo?.id
   if (!frame?.contentWindow || uid === undefined || uid === null) return
-  // role 一起带上：RAG 侧现在只存不用（未来按角色收敛界面时要用），老版本主应用不发也能跑
+  // role 一起带上：RAG 侧现在只存不用（未来按角色收敛界面时要用），老版本主应用不发也能跑。
+  // token 为空时 RAG 侧按"没有身份"处理，与服务端未开启校验时的行为一致。
   frame.contentWindow.postMessage(
-    { type: 'cw-user', uid: String(uid), role: String(userStore.userInfo?.role || '') },
+    {
+      type: 'cw-user',
+      uid: String(uid),
+      role: String(userStore.userInfo?.role || ''),
+      token: String(userStore.token || ''),
+    },
     '/',
   )
 }

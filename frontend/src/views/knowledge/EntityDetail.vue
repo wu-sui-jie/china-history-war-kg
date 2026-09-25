@@ -143,6 +143,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { layer } from '@layui/layui-vue'
 import { getEntityDetail } from '../../api/module/workspace'
+import { apiErrorMessage } from '../../utils/apiError'
 import { fieldLabel, fieldValueLabel, groupRelationAttributes, problemLabel, toEditableFields, typeLabel } from '@/utils/knowledge'
 import { useHasWriteRole } from '@/utils/auth'
 
@@ -204,15 +205,22 @@ const loadData = async () => {
     return
   }
 
-  const res = await getEntityDetail({ id, type })
-  if (res.code === 200) {
-    entity.value = res.data || {}
-    const back = String(route.query.back || '')
-    if (isAllowedBackPath(back)) {
-      sessionStorage.setItem('entityDetailBackPath', back)
+  // 后端失败改为 HTTP 4xx/5xx（第 13 轮复核第七节）：参数缺失是 400、实体不存在是 404，
+  // 两者都走 axios 异常分支，因此必须 catch 之后再取值——只判断 code 会让失败静默。
+  try {
+    const res = await getEntityDetail({ id, type })
+    if (res.code === 200) {
+      entity.value = res.data || {}
+      const back = String(route.query.back || '')
+      if (isAllowedBackPath(back)) {
+        sessionStorage.setItem('entityDetailBackPath', back)
+      }
+    } else {
+      layer.msg(res.msg || '加载实体详情失败', { icon: 2 })
     }
-  } else {
-    layer.msg(res.msg || '加载实体详情失败', { icon: 2 })
+  } catch (error) {
+    console.error('加载实体详情失败:', error)
+    layer.msg(apiErrorMessage(error, '加载实体详情失败，请稍后重试'), { icon: 2 })
   }
 }
 
