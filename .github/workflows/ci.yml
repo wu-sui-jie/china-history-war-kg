@@ -214,6 +214,16 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check "ruff==0.14.4"
           python -m ruff check .
+      - name: 安装出图依赖（子图渲染用例需要）
+        # 为什么在 CI 里装：runner 自带 node 却没有 render/node_modules，而
+        # test_render_subgraph.py 里需要**真实渲染**的那几个用例只有在依赖齐备时才跑得起来。
+        # 原先只在 Python 侧判断 `shutil.which("node")`，"有 node 但没依赖"的 CI 环境
+        # 会走到产品代码后被"缺少 Node 依赖"提前拦下 —— 一条用例因此在 CI 上红了很久
+        # （本机装了依赖所以一直是绿的）。现在：CI 装依赖跑全量，用例侧也统一按
+        # renderer.is_available()（node + 依赖 + 脚本）判断，两边口径一致。
+        # 用 cd 而不是 working-directory：本 job 的默认工作目录已经是 feishu-bot，
+        # step 级 working-directory 的解析基准容易读错，显式 cd 没有歧义。
+        run: cd render && npm ci --no-audit --no-fund
       - name: 单元与集成用例（含子图渲染降级）
         # tests/test_render_subgraph.py 覆盖 render_subgraph.js 缺失 / Node 不可用 / 超时
         # 三条降级路径——部署机不一定装了 Node，脚本本身会走降级分支。

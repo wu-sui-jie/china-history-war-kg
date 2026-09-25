@@ -43,6 +43,35 @@ def renderer(tmp_path):
     return SubgraphRenderer(FakeFeishu(), timeout=20.0, work_dir=tmp_path / "render")
 
 
+@pytest.fixture
+def fake_render_env(tmp_path, monkeypatch):
+    """把"渲染环境可用"这件事做成这些用例真正需要的最小条件。
+
+    为什么需要它（2026-09-25 CI 红灯的根因）：这些用例用的是**假 Node 脚本**
+    （只往 stdout 写字，不 require echarts/resvg/d3），因此真实 npm 依赖并不是
+    它们的前提；但产品代码的预检要求 `render/node_modules` 存在才算"可用"。
+    只判断 `shutil.which("node")` 的写法在 CI 上会漏判——GitHub 的 runner 自带 node
+    却没有 `npm install` 过的 render/node_modules，于是用例走进产品代码后被
+    "缺少 Node 依赖"提前拦下，日志里自然没有假脚本的 stdout 片段，断言失败。
+    （本机装了 node_modules 所以一直是绿的：典型的"本机绿、CI 红"。）
+
+    这里造一个空的 node_modules 让预检通过：CI 上这些用例就能**真的执行**，
+    而不是被 skip —— 它们考的正是"失败时的日志与产物清理"，是 CI 最该覆盖的降级路径。
+
+    需要真实 npm 依赖的用例（真实渲染那两个）不挂这个 fixture，它们自带 npm 依赖检查。
+    """
+    render_dir = tmp_path / "render-env"
+    (render_dir / "node_modules").mkdir(parents=True)
+    monkeypatch.setattr("bot.render.subgraph.RENDER_DIR", render_dir)
+    return render_dir
+
+
+def _skip_without_node(renderer) -> None:
+    """没有 node 可执行文件时跳过：上面那些用例真的会起 Node 进程。"""
+    if shutil.which(renderer.node_bin) is None:
+        pytest.skip("未安装 Node")
+
+
 def test_unavailable_reason_when_node_missing(renderer):
     renderer.node_bin = "definitely-not-a-node-binary"
     reason = renderer.unavailable_reason()
@@ -72,14 +101,13 @@ def test_missing_node_binary_returns_none(renderer):
     assert renderer.render_and_upload(SUBGRAPH) is None
 
 
-def test_broken_script_returns_none(renderer, tmp_path, monkeypatch):
+def test_broken_script_returns_none(renderer, tmp_path, monkeypatch, fake_render_env):
     """脚本报错（模拟 Node 环境坏掉）→ None，不抛异常。"""
+    _skip_without_node(renderer)
     broken = tmp_path / "broken.js"
     broken.write_text("process.stdout.write(JSON.stringify({ok:false,error:'炸了'}));"
                       "process.exit(1);", encoding="utf-8")
     monkeypatch.setattr("bot.render.subgraph.RENDER_SCRIPT", broken)
-    if shutil.which(renderer.node_bin) is None:
-        pytest.skip("未安装 Node")
     assert renderer.render_png(SUBGRAPH) is None
 
 
@@ -98,11 +126,10 @@ def test_parse_result_survives_mojibake():
     assert SubgraphRenderer._parse_result(f"warning\n{line}\n") == payload
 
 
-def test_subprocess_is_called_with_explicit_utf8(renderer, monkeypatch):
+def test_subprocess_is_called_with_explicit_utf8(renderer, monkeypatch, fake_render_env):
     """必须显式声明 UTF-8：Windows 上默认按本地编码（cp936）解读 Node 的 UTF-8 输出，
     会导致解析失败并误判"渲染失败"（实测：我的环境开了 UTF-8 模式所以不复现）。"""
-    if shutil.which(renderer.node_bin) is None:
-        pytest.skip("未安装 Node")
+    _skip_without_node(renderer)
     calls: list[dict] = []
     real_run = subprocess.run
 
@@ -119,14 +146,14 @@ def test_subprocess_is_called_with_explicit_utf8(renderer, monkeypatch):
     assert calls[0].get("errors") == "replace"
 
 
-def test_result_json_does_not_need_to_carry_the_path(renderer, tmp_path, monkeypatch):
+def test_result_json_does_not_need_to_carry_the_path(renderer, tmp_path, monkeypatch,
+                                                    fake_render_env):
     """协议：Node 只回 ok/bytes，路径由 Python 侧自己持有。
 
     用一个"只说 ok 但不写文件"的假脚本，验证判断依据是**产物是否存在**，
     而不是 stdout 里回的路径——中文路径回传正是上一版的坑。
     """
-    if shutil.which(renderer.node_bin) is None:
-        pytest.skip("未安装 Node")
+    _skip_without_node(renderer)
     fake = tmp_path / "fake.js"
     fake.write_text('process.stdout.write(JSON.stringify({ok: true, bytes: 123}) + "\\n");',
                     encoding="utf-8")
@@ -135,10 +162,10 @@ def test_result_json_does_not_need_to_carry_the_path(renderer, tmp_path, monkeyp
     assert renderer.render_png(SUBGRAPH) is None
 
 
-def test_failure_logs_stdout_excerpt_when_no_error_field(renderer, tmp_path, monkeypatch, caplog):
+def test_failure_logs_stdout_excerpt_when_no_error_field(renderer, tmp_path, monkeypatch, caplog,
+                                                        fake_render_env):
     """失败但没有 error 字段时，日志必须带上 stdout/stderr 片段（否则只剩一个空冒号）。"""
-    if shutil.which(renderer.node_bin) is None:
-        pytest.skip("未安装 Node")
+    _skip_without_node(renderer)
     fake = tmp_path / "silent.js"
     fake.write_text('process.stdout.write("garbage without json\\n");', encoding="utf-8")
     monkeypatch.setattr("bot.render.subgraph.RENDER_SCRIPT", fake)
@@ -148,10 +175,9 @@ def test_failure_logs_stdout_excerpt_when_no_error_field(renderer, tmp_path, mon
         "无 error 字段时必须把 stdout 片段打进日志"
 
 
-def test_orphan_png_is_cleaned_on_failure(renderer, tmp_path, monkeypatch):
+def test_orphan_png_is_cleaned_on_failure(renderer, tmp_path, monkeypatch, fake_render_env):
     """判定失败时不留半成品 PNG（临时目录不该越跑越大）。"""
-    if shutil.which(renderer.node_bin) is None:
-        pytest.skip("未安装 Node")
+    _skip_without_node(renderer)
     fake = tmp_path / "writes_but_reports_failure.js"
     fake.write_text(
         "const fs=require('fs');const input=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));"

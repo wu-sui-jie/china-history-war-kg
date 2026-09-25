@@ -4,7 +4,11 @@
 !.env.example
 
 # ---- 运行期状态（会话/消息/反馈/去重；删除即清空会话，可安全重建）----
-data/
+# 只忽略**仓库根**的 data/：写 `data/` 会连带忽略 tests/data/，而那里放的是
+# 测试夹具（eval_answers.json 是从 RAG 评测产物里固化下来的真实回答片段，
+# 见 tests/test_md_sanitizer.py）。夹具不入库的后果是"本机绿、CI 红"——
+# 2026-09-25 CI 的 3 个 FileNotFoundError 就是这么来的。
+/data/
 *.db
 *.db-wal
 *.db-shm
