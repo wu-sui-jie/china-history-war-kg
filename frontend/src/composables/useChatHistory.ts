@@ -27,6 +27,14 @@ export interface UseChatHistoryOptions {
   uid: () => string | number | undefined
   /** 已登录但拿不到账号 id：此时既不读也不写公共桶（见第 6 轮 H1） */
   isAccessBlocked: () => boolean
+  /**
+   * 落盘彻底失败时通知界面（第 14 轮审计 P2-14）。
+   *
+   * 可选：不传就只留一条 console.warn。但这**不是可有可无的美化**——
+   * 聊天记录写不进去意味着"刷新就全丢"，用户有权知道，而不是等到刷新后
+   * 发现对话没了才开始怀疑"是不是这个系统本来就不保存"。
+   */
+  onPersistFailed?: () => void
 }
 
 export function useChatHistory(options: UseChatHistoryOptions) {
@@ -53,20 +61,20 @@ export function useChatHistory(options: UseChatHistoryOptions) {
   /** 立即落盘（按账号分 key；账号未知但已登录时跳过） */
   function save() {
     if (options.isAccessBlocked()) return
-    try {
-      trim()
-      writeScoped(CHAT_HISTORY_KEY, options.uid(), chats.value)
-    } catch (error) {
-      // 配额仍不够：丢掉一半会话再试一次；还失败就只告警，不阻塞对话
-      try {
-        trim()
-        chats.value = chats.value.slice(0, Math.max(1, Math.floor(MAX_CHATS / 2)))
-        writeScoped(CHAT_HISTORY_KEY, options.uid(), chats.value)
-        console.warn('聊天记录超出 localStorage 配额，已丢弃较旧的会话')
-      } catch (retryError) {
-        console.warn('聊天记录写入 localStorage 失败，本次不保存历史:', retryError)
-      }
+    // 用**返回值**判断成败，而不是 try/catch（第 14 轮审计 P2-14）：
+    // writeScoped 早先吞掉一切异常且不返回任何东西，于是下面这套降级永远不执行——
+    // localStorage 写满后聊天记录静默停摆，用户完全看不出来。
+    if (writeScoped(CHAT_HISTORY_KEY, options.uid(), chats.value)) return
+    // 配额不够：丢掉一半会话再试一次
+    trim()
+    chats.value = chats.value.slice(0, Math.max(1, Math.floor(MAX_CHATS / 2)))
+    if (writeScoped(CHAT_HISTORY_KEY, options.uid(), chats.value)) {
+      console.warn('聊天记录超出 localStorage 配额，已丢弃较旧的会话')
+      return
     }
+    // 仍然写不进去：这是"刷新就会丢"的状态，必须让用户看见，而不是只写控制台
+    console.warn('聊天记录写入 localStorage 失败，本次不保存历史')
+    options.onPersistFailed?.()
   }
 
   let saveTimer: number | undefined

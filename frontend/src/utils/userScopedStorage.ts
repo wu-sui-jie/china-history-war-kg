@@ -23,11 +23,23 @@ function safeGet(key: string): string | null {
   }
 }
 
-function safeSet(key: string, value: string): void {
+/**
+ * 写 localStorage，返回是否真的写进去了（第 14 轮审计 P2-14）。
+ *
+ * 原先返回 void 且吞掉一切异常，于是**调用方的 catch 永远不会执行**：
+ * `useChatHistory.save()` 里那套"配额不够就丢掉一半会话重试、还失败就告警"的降级逻辑
+ * 成了死代码——localStorage 写满后聊天记录静默停止保存，刷新即全丢，界面上没有任何提示。
+ *
+ * 现在把成败交回给调用方：**能不能写**是调用方要决定的事（重试、丢弃旧数据、还是提示用户），
+ * 不该在这一层替它静默吞掉。读路径仍按"没有"处理（读失败确实等价于没有数据）。
+ */
+function safeSet(key: string, value: string): boolean {
   try {
     localStorage.setItem(key, value)
+    return true
   } catch {
     // 配额满或隐私模式：本次不持久化，但不影响内存里的使用
+    return false
   }
 }
 
@@ -69,14 +81,17 @@ export function readScoped<T>(base: string, uid: string | number | null | undefi
   if (key !== base) {
     const legacy = safeGet(base)
     if (legacy) {
-      safeSet(archivedStorageKey(base), legacy)
+      // 归档失败（配额满）不阻断读取：旧数据留在原 key 上，下次换账号时还会再试一次
+      if (!safeSet(archivedStorageKey(base), legacy)) {
+        console.warn('旧账号记录归档失败（localStorage 配额可能已满），本次仅完成读取')
+      }
       safeRemove(base)
     }
   }
   return fallback
 }
 
-/** 写某账号的记录。 */
-export function writeScoped(base: string, uid: string | number | null | undefined, value: unknown): void {
-  safeSet(scopedStorageKey(base, uid), JSON.stringify(value))
+/** 写某账号的记录；返回是否写成功（调用方据此决定重试还是提示）。 */
+export function writeScoped(base: string, uid: string | number | null | undefined, value: unknown): boolean {
+  return safeSet(scopedStorageKey(base, uid), JSON.stringify(value))
 }

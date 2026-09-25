@@ -16,7 +16,9 @@ const axiosConfig: TAxiosOption = {
 // 未登录/登录过期时的统一处理：清掉本地凭据并回到登录页。
 // 加锁避免并发请求同时触发多次跳转。
 let redirectingToLogin = false;
-function handleUnauthorized() {
+// 导出给走原生 fetch 的链路复用（第 14 轮审计 P2-16：旧问答页的 SSE 绕过 axios，
+// 401 只能自己处理；两处各写一份"清凭据 + 跳登录"必然分叉）
+export function handleUnauthorized() {
     const userInfoStore = useUserStore();
     userInfoStore.clearSession();
     if (redirectingToLogin) return;

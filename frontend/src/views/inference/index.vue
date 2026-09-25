@@ -152,7 +152,15 @@ function isScopedAccessBlocked() {
 }
 
 // 会话列表与按账号隔离的持久化（含自动合并落盘与卸载落盘），见 composables/useChatHistory
-const history = useChatHistory({ uid: () => scopedUid.value, isAccessBlocked: isScopedAccessBlocked });
+const history = useChatHistory({
+  uid: () => scopedUid.value,
+  isAccessBlocked: isScopedAccessBlocked,
+  // 写不进去 = 刷新就丢（第 14 轮审计 P2-14）：明确告诉用户发生了什么与怎么办，
+  // 而不是等他刷新后自己发现对话没了
+  onPersistFailed: () => {
+    layer.msg('本地存储已满，本次对话不会被保存（可清理浏览器数据后重试）', { icon: 2 })
+  },
+});
 const chatHistory = history.chats;
 const currentChatIndex = history.currentIndex;
 const currentChat = history.current;
@@ -300,8 +308,13 @@ async function handleQuery() {
       return;
     }
 
-    // 更新AI消息为错误信息
-    aiMessage.content = '推理请求发生错误，请稍后再试';
+    // 401 已经由 handleUnauthorized 清了凭据并跳登录（见 api/module/inference.ts），
+    // 这里把消息写成"登录已失效"而不是笼统的推理失败——用户刚被踢回登录页，
+    // 回到这一页时看到的错误应该与原因对得上（第 14 轮审计 P2-16）
+    const status = (error as { status?: number })?.status;
+    aiMessage.content = status === 401
+      ? '登录已失效，请重新登录后再试'
+      : '推理请求发生错误，请稍后再试';
     aiMessage.fromKg = false;
     currentChat.value.lastTime = Date.now();
 

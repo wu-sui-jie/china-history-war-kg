@@ -12,12 +12,13 @@ import Layui from '@layui/layui-vue'
 
 import { layerSpies, makeTestRouter } from './helpers'
 import UserManagement from '@/views/admin/UserManagement.vue'
-import { listUsers, updateUserRole } from '@/api/module/admin'
+import { listUsers, setUserDisabled, updateUserRole } from '@/api/module/admin'
 import { useUserStore } from '@/store/user'
 
 vi.mock('@/api/module/admin', () => ({
   listUsers: vi.fn(),
   updateUserRole: vi.fn(),
+  setUserDisabled: vi.fn(),
 }))
 
 vi.mock('@layui/layui-vue', async (importOriginal) => {
@@ -27,10 +28,11 @@ vi.mock('@layui/layui-vue', async (importOriginal) => {
 
 const list = listUsers as unknown as ReturnType<typeof vi.fn>
 const update = updateUserRole as unknown as ReturnType<typeof vi.fn>
+const toggle = setUserDisabled as unknown as ReturnType<typeof vi.fn>
 
 const USERS = [
-  { id: 1, account: 'wusuijie', name: '管理员本人', role: 'admin' },
-  { id: 2, account: '123456', name: '普通用户', role: 'viewer' },
+  { id: 1, account: 'wusuijie', name: '管理员本人', role: 'admin', disabled: false },
+  { id: 2, account: '123456', name: '普通用户', role: 'viewer', disabled: true },
 ]
 
 async function mountPage(currentUserId = 1) {
@@ -140,5 +142,48 @@ describe('UserManagement 用户管理页', () => {
     wrapper = await mountPage()
     expect(layerSpies().msg).toHaveBeenCalledWith('仅管理员可执行该操作', { icon: 2 })
     expect(wrapper.vm.rows).toHaveLength(0)
+  })
+})
+
+
+// ------------------------------------------- 状态列与启用/停用（第 14 轮审计 P2-18）
+
+describe('UserManagement 状态列与停用', () => {
+  let wrapper: VueWrapper<any>
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    list.mockResolvedValue({ code: 200, data: USERS })
+    toggle.mockResolvedValue({ code: 200, data: {} })
+  })
+  afterEach(() => wrapper?.unmount())
+
+  test('已停用与正常账号在列表里能分辨', async () => {
+    // 后端一直返回 disabled，而类型与页面原先都没有它 → 停用后列表里看不出来
+    wrapper = await mountPage()
+
+    const text = wrapper.text()
+    expect(text).toContain('正常')
+    expect(text).toContain('已停用')
+  })
+
+  test('点"停用"会调状态接口，并提示凭证已失效', async () => {
+    wrapper = await mountPage()
+    const row = wrapper.vm.rows.find((item: any) => item.id === 2)
+
+    await wrapper.vm.toggleDisabled(row)
+    await flushPromises()
+
+    expect(toggle).toHaveBeenCalledWith(2, false)   // 该行原本 disabled=true → 变成启用
+    expect(layerSpies().msg).toHaveBeenCalledWith(
+      expect.stringContaining('凭证已失效'), { icon: 1 })
+  })
+
+  test('不能停用自己（按钮禁用，服务端也会拒）', async () => {
+    wrapper = await mountPage(1)
+    const selfRow = wrapper.vm.rows.find((item: any) => item.id === 1)
+
+    // 页面把当前账号那一行的按钮置灰；服务端另有一道 403（见 test_admin_users）
+    expect(selfRow.id).toBe(wrapper.vm.currentUserId)
   })
 })

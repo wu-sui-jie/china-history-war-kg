@@ -25,8 +25,10 @@ function fallbackCopy(text: string): boolean {
 
   let succeeded = false
   try {
-    document.execCommand('copy')
-    succeeded = true
+    // `document.execCommand('copy')` 用**返回值 false** 表示失败（不抛异常）：
+    // 只看有没有异常就会在"非安全上下文 / 剪贴板权限被拒"时提示"复制成功!"，
+    // 而用户粘贴出来是空的（第 14 轮审计 P2-17）。
+    succeeded = document.execCommand('copy')
   } catch (err) {
     succeeded = false
   }

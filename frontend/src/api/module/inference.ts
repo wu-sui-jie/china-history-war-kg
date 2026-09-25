@@ -5,6 +5,7 @@
  * 这样帧协议有类型可依，页面也不再出现 `data` 之类的 any。
  */
 
+import { handleUnauthorized } from '../http'
 import type { ChatMessage, KgGraphData } from '@/types/inference'
 
 /** 服务端逐帧推送的协议（`data: {...}\n\n`）。字段按 status 分支解释，未用到的就是 undefined。 */
@@ -50,6 +51,15 @@ export async function streamInference(
   })
 
   if (!response.ok) {
+    // 401 要接回统一处理（第 14 轮审计 P2-16）：这条流走原生 fetch、绕过 axios 拦截器，
+    // 原先只抛 `HTTP error! status: 401`，页面统一显示"推理请求发生错误，请稍后再试"——
+    // 凭据失效时用户既不回登录页、也看不到真因。
+    if (response.status === 401) {
+      handleUnauthorized();
+      const error = new Error('登录已失效，请重新登录');
+      (error as { status?: number }).status = 401;
+      throw error;
+    }
     throw new Error(`HTTP error! status: ${response.status}`)
   }
 

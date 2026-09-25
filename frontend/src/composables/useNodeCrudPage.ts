@@ -237,6 +237,14 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
       } else {
         layer.msg(res.msg || '查询失败', { icon: 2 })
       }
+    }).catch((error: any) => {
+      // 第 14 轮审计 P2-15：后端失败现在是 4xx/5xx（见第 13 轮复核整改第五节），
+      // 只有 catch 分支拿得到后端文案。原先没有 catch → 接口 500 时表格空白、
+      // 控制台留一条 unhandled rejection，用户只看到"没数据"。
+      console.error('查询节点列表失败:', error)
+      dataSource.value = []
+      page.value.total = 0
+      layer.msg(error?.response?.data?.msg || '加载列表失败，请稍后重试', { icon: 2 })
     })
   }
 

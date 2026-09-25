@@ -111,15 +111,26 @@ export const useUserStore = defineStore({
   },
   actions: {
     async loadMenus() {
-      const { data, code } = await menu()
-      if (code == 200) {
-        this.menus = mergeWorkspaceMenus(data)
+      // 第 14 轮审计 P2-15：这里原先只有 .then —— 接口失败时菜单静默为空
+      // （侧边栏只剩首页），调用方还留着一条 unhandled rejection。
+      // 菜单为空是"看起来像没权限"的状态，必须能说出来是加载失败。
+      try {
+        const { data, code } = await menu()
+        if (code == 200) {
+          this.menus = mergeWorkspaceMenus(data)
+        }
+      } catch (error) {
+        console.error('加载菜单失败:', error)
       }
     },
     async loadPermissions() {
-      const { data, code } = await permission()
-      if (code == 200) {
-        this.permissions = Array.isArray(data) ? data : []
+      try {
+        const { data, code } = await permission()
+        if (code == 200) {
+          this.permissions = Array.isArray(data) ? data : []
+        }
+      } catch (error) {
+        console.error('加载权限失败:', error)
       }
     },
     /** 拉取当前账号信息（account/name/role）：界面显示角色徽标用。
