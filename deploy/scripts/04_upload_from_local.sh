@@ -44,26 +44,41 @@ log() { printf '\n\033[1;32m==> %s\033[0m\n' "$*"; }
 warn() { printf '\033[1;33m[提示] %s\033[0m\n' "$*"; }
 die() { printf '\n\033[1;31m[错误] %s\033[0m\n' "$*" >&2; exit 1; }
 
+# 排除项**一律不带尾斜杠**（第 14 轮审计 P1-1）。
+#
+# 为什么这件事必须写清楚：rsync 与 GNU tar 对尾斜杠的处理不同——
+#   rsync：`--exclude 'node_modules/'` 正常（匹配目录）
+#   tar：  `--exclude 'node_modules/'` **完全不生效**（tar 把它当成"名字以 / 结尾"）
+# 实测（本机无 rsync，正好走 tar 分支）：
+#
+#   带尾斜杠  --exclude '.git/' --exclude 'node_modules/'
+#     →  ./.git/ ./.git/config ./sub/node_modules/x.js 全都进了包
+#   不带尾斜杠 --exclude '.git' --exclude 'node_modules'
+#     →  ./ ./keep/ ./keep/a.txt ./sub/
+#
+# 后果不是"多传几个文件"：`.git`（约 108 MB，含历史里的明文口令）与两个
+# `node_modules`（各约 300 MB）会被整包上传，而文件头写的意图正好相反。
+# 回归用例见 backend/tests/test_upload_excludes.py（它直接从本数组里读模式喂给 tar）。
 EXCLUDES=(
-    --exclude '.git/'
-    --exclude 'node_modules/'
-    --exclude '__pycache__/'
-    --exclude '.pytest_cache/'
-    --exclude '.ruff_cache/'
-    --exclude '.mypy_cache/'
-    --exclude '.idea/'
-    --exclude '.vscode/'
-    --exclude '.zcode/'
+    --exclude '.git'
+    --exclude 'node_modules'
+    --exclude '__pycache__'
+    --exclude '.pytest_cache'
+    --exclude '.ruff_cache'
+    --exclude '.mypy_cache'
+    --exclude '.idea'
+    --exclude '.vscode'
+    --exclude '.zcode'
     --exclude '*.pyc'
-    --exclude 'logs/'
-    --exclude 'RAG/data/cache/'
+    --exclude 'logs'
+    --exclude 'RAG/data/cache'
     # 审计/验证过程留下的临时目录：可能带受限权限或独占锁，
     # 打包时会报 "Cannot open: Permission denied" 并因 set -o pipefail 中止整个上传
-    --exclude '.audit-tmp/'
-    --exclude '.verify-tmp/'
+    --exclude '.audit-tmp'
+    --exclude '.verify-tmp'
     # 服务器上的私密配置与运行期数据：不要覆盖也不要删除
     --exclude '.env'
-    --exclude 'feishu-bot/data/'
+    --exclude 'feishu-bot/data'
 )
 
 DATA_PATHS=(
@@ -90,6 +105,10 @@ sync_path() {
             rsync "${flags[@]}" "${LOCAL_ROOT}/${rel}" "${REMOTE}:${APP_DIR}/${rel}"
         fi
     else
+        # tar 只会"覆盖同名文件"，不会删除服务器上多出来的文件——`--mirror` 的语义
+        # 在这一点上做不到。以前这里静默忽略该参数（用户以为同步是镜像式的，
+        # 实际是叠加式的），现在直接拒绝：宁可让他装 rsync 或去掉参数。
+        [[ "${MIRROR}" -eq 1 ]] && die "本机没有 rsync，tar 回退分支无法实现 --mirror（删除服务器上多余的文件）。请先安装 rsync，或去掉 --mirror 重跑。"
         echo "（本机没有 rsync，改用 tar over ssh）"
         # 与上面的 rsync 分支保持一致：单文件（如 backend/database）只需建它的父目录。
         # 直接 mkdir 目标路径时，若目标已存在且是文件，会以 "File exists" 失败并中止整个上传。
@@ -107,10 +126,11 @@ if [[ "${MODE}" == "all" || "${MODE}" == "code" ]]; then
         if [[ "${MIRROR}" -eq 1 ]]; then flags+=(--delete); fi
         rsync "${flags[@]}" "${EXCLUDES[@]}" \
             --exclude 'backend/database' \
-            --exclude 'backend/data/' \
-            --exclude 'RAG/data/' \
+            --exclude 'backend/data' \
+            --exclude 'RAG/data' \
             "${LOCAL_ROOT}/" "${REMOTE}:${APP_DIR}/"
     else
+        [[ "${MIRROR}" -eq 1 ]] && die "本机没有 rsync，tar 回退分支无法实现 --mirror（删除服务器上多余的文件）。请先安装 rsync，或去掉 --mirror 重跑。"
         # tar 回退：先整体打包，再由服务器解开；数据和私密文件在下面的步骤单独处理
         tar czf - "${EXCLUDES[@]}" \
             --exclude 'backend/database' --exclude 'backend/data' --exclude 'RAG/data' \

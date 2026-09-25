@@ -186,6 +186,16 @@ RAG 有三个**必改项**，不改虽然能启动但行为是错的（`deploy/e
    `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受延迟。两个都不做，服务会**拒绝启动**，
    安装门禁也会在同一口径上拦一次（`check_rag_auth.sh`）。
 
+5. `RAG_BOT_API_KEY`（只在**要接飞书机器人**时必填，第 14 轮审计 P2-20）：
+
+   机器人没有用户身份，只会发 `X-Bot-Key`，而 jwt 档推出 `require_auth=True`——
+   两边都不配的结果是**机器人每问必被 401**，机器人侧却只显示"RAG 不可用"，
+   排障方向完全是反的。取值为随机串（`openssl rand -hex 32`），
+   与 `feishu-bot/.env` 的 `RAG_BOT_API_KEY` **同值**。
+
+   ★ 安装门禁按"仓库里有没有 `feishu-bot/.env`"判断要不要部署机器人：要部署却没配 → 拒绝安装；
+   不部署只提醒。运行期 `/api/health` 的 `warnings` 也会给出同一条提示。
+
 **RAG 的密钥单独放**，不写进项目目录（遵循 `RAG/.env.example` 的约定）：
 
 ```bash

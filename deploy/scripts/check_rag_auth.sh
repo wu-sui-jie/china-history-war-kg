@@ -156,6 +156,21 @@ if [[ "${mode}" == "jwt" ]]; then
     # 同值还不够：同成模板占位符也算"配好了"吗？不算（§2.5）。
     check_secret_value "JWT 密钥（RAG 侧）" "${rag_secret}" 32
     check_secret_value "JWT 密钥（backend 侧）" "${backend_secret}" 32
+
+    # 飞书机器人走的不是 JWT 而是 X-Bot-Key（第 14 轮审计 P2-20）：jwt 档下不配它，
+    # 机器人每问必被 401，而机器人侧只会说"RAG 不可用"——排障方向是反的。
+    # 只在**确实要部署机器人**时才算失败（仓库里有 feishu-bot/.env 就说明要部署），
+    # 否则只提醒：不是每个部署都接机器人。
+    bot_key=$(env_value "${RAG_ENV}" RAG_BOT_API_KEY)
+    if [[ -z "${bot_key}" ]]; then
+        if [[ -f "${APP_DIR}/feishu-bot/.env" ]]; then
+            bad "jwt 档下未配置 RAG_BOT_API_KEY，但检测到 feishu-bot/.env（要部署机器人）：机器人只发 X-Bot-Key，会被 401 拒绝且日志指向错误方向"
+        else
+            warn "jwt 档下未配置 RAG_BOT_API_KEY：若以后要接飞书机器人，两侧必须补上同值（机器人只发 X-Bot-Key）"
+        fi
+    else
+        check_secret_value "机器人共享密钥（RAG 侧）" "${bot_key}" 16
+    fi
 fi
 
 # ---------------------------------------------------------------- 3. 撤销查询

@@ -48,7 +48,9 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
           auth_basic_enabled: bool = False,
           introspect_configured: bool = True,
           allow_delayed_revocation: bool = False,
-          extra_path: str | None = None) -> subprocess.CompletedProcess:
+          extra_path: str | None = None,
+          bot_key: str | None = None,
+          bot_deployed: bool = False) -> subprocess.CompletedProcess:
     """用合成配置跑一次门禁，返回完成的进程（看 returncode 与输出）。"""
     rag_env = tmp_path / "RAG" / ".env"
     backend_env = tmp_path / "backend" / ".env"
@@ -63,6 +65,8 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
         if introspect_configured else [])
     if allow_delayed_revocation:
         revocation_lines.append("RAG_ALLOW_DELAYED_REVOCATION=true")
+    if bot_key:
+        revocation_lines.append(f"RAG_BOT_API_KEY={bot_key}")
     _write(rag_env, "\n".join([
         "RAG_REQUIRE_ACTIVE_VERSION=true",
         f"RAG_AUTH_MODE={'nginx' if nginx_mode else 'jwt'}",
@@ -89,6 +93,9 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
         "    return 404;",
         "}",
     ]) + "\n")
+    if bot_deployed:
+        # 机器人存在 = 这个部署要接它 → 门禁按"必须配 Bot Key"判（P2-20）
+        _write(tmp_path / "feishu-bot" / ".env", "FEISHU_APP_ID=cli_x\n")
     _write(htpasswd, "china-war:$apr1$abcdefgh$0123456789abcdefghij\n")
     _write(rag_unit,
            "[Service]\nExecStart=/opt/china-war/RAG/.venv/bin/python scripts/run_server.py "
@@ -326,3 +333,34 @@ exit 0
     assert "跳过 nginx -T" in result.stdout
     assert ".htpasswd 存在且非空" in result.stdout
     assert "auth_basic 处于启用状态" in result.stdout
+
+
+# ---------------------------------------------------------------- 机器人通道（P2-20）
+
+
+def test_jwt_档未配_Bot_Key_且要部署机器人时失败(tmp_path):
+    """jwt 档下机器人只发 X-Bot-Key → 每问必 401，而机器人侧只说"RAG 不可用"。
+
+    仓库里有 `feishu-bot/.env` 就说明这个部署要接机器人，此时必须拦住。
+    """
+    result = _gate(tmp_path, bot_deployed=True)
+
+    assert result.returncode != 0, _out(result)
+    assert "RAG_BOT_API_KEY" in result.stdout
+
+
+def test_jwt_档未配_Bot_Key_但不部署机器人时只提醒(tmp_path):
+    """不是每个部署都接机器人（它是可选 IM 入口），不该一票否决。"""
+    result = _gate(tmp_path, bot_deployed=False)
+
+    assert result.returncode == 0, _out(result)
+    assert "RAG_BOT_API_KEY" in result.stdout      # 仍然提醒
+    assert "若以后要接飞书机器人" in result.stdout
+
+
+def test_配了_Bot_Key_后通过(tmp_path):
+    result = _gate(tmp_path, bot_deployed=True, bot_key="a" * 40)
+
+    assert result.returncode == 0, _out(result)
+    assert "机器人共享密钥（RAG 侧）" in result.stdout
+    assert "已设置且长度合规" in result.stdout

@@ -626,6 +626,10 @@ def health():
         # 未启用服务端身份校验（第 12 轮审查 P1-1）：不阻断启动，但必须让运维看得见——
         # 否则"知道 /rag/ 地址就能调"会成为一条没有任何留痕的既成事实。
         warnings.append(settings.auth_warning())
+    if settings.bot_channel_warning():
+        # jwt 档 + 空 Bot Key = 飞书机器人每问必 401（第 14 轮审计 P2-20）。
+        # 机器人侧只会说"RAG 不可用"，这条告警是唯一能把方向指对的地方。
+        warnings.append(settings.bot_channel_warning())
     if settings.revocation_warning():
         # 凭证撤销边界（第 13 轮复核）：验签通过 ≠ 仍然有效。未启用撤销查询时，
         # "停用账号/改密码后旧 token 在自然过期前仍可调本服务"这件事必须在运行中的

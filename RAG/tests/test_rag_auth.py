@@ -856,3 +856,48 @@ def test_配了_Bot_Key_时头值不对仍然_401(auth_client):
     #   不是"配了 Bot Key 就排斥 JWT"，见 test_开启校验后_非流式接口接受有效_JWT）
     assert client.post("/api/query/json", json=BODY,
                        headers={"Token": valid_token()}).status_code == 401
+
+
+# ---------------------------------- jwt 档与机器人通道（第 14 轮审计 P2-20）
+
+
+def test_jwt_档未配_Bot_Key_时给出告警(auth_client, monkeypatch):
+    """jwt 档推出 require_auth=True，而机器人只发 X-Bot-Key → 每问必 401。
+
+    这条告警是唯一能把排障方向指对的地方：机器人侧只会显示"RAG 不可用"。
+    """
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    settings.auth_mode = "jwt"
+    monkeypatch.setattr(settings, "bot_api_key", "")
+
+    payload = client.get("/api/health").json()
+
+    assert any("RAG_BOT_API_KEY" in w for w in payload.get("warnings", []))
+
+
+def test_jwt_档配了_Bot_Key_后不再告警(auth_client, monkeypatch):
+    """对照组：配上了就不该继续提示——否则会把"已处理"当成待办。"""
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    settings.auth_mode = "jwt"
+    monkeypatch.setattr(settings, "bot_api_key", "shared-bot-key")
+
+    payload = client.get("/api/health").json()
+
+    assert not any("RAG_BOT_API_KEY" in w for w in payload.get("warnings", []))
+
+
+def test_非_jwt_档不提示_Bot_Key(auth_client, monkeypatch):
+    """nginx/disabled 档下机器人本来就不该被要求带 X-Bot-Key（本服务不验身份）。"""
+    client, settings = auth_client
+    settings.require_auth = False
+    settings.jwt_secret = ""
+    settings.auth_mode = "nginx"
+    monkeypatch.setattr(settings, "bot_api_key", "")
+
+    payload = client.get("/api/health").json()
+
+    assert not any("RAG_BOT_API_KEY" in w for w in payload.get("warnings", []))

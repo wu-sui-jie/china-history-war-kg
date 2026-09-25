@@ -39,15 +39,46 @@ jobs:
     defaults:
       run:
         working-directory: RAG
+    # 这里**不设**生产档（`RAG_REQUIRE_ACTIVE_VERSION=true`）——第 14 轮审计 P1-2 的修法。
+    #
+    # 原因：生产档会连带打开鉴权门禁（`RAG_AUTH_MODE=disabled` 在生产档下**拒绝启动**），
+    # 而本 pipeline 的冒烟、契约与浏览器验收都按"匿名可访问"写的（RAG 前端在独立浏览器
+    # 上下文里没有旧后端签发的 token）。于是原配置下的"启动服务"必然失败，其后每一步
+    # 跟着失败——整个发布链是**必挂**的，而文档只说它"仍待手动触发演练"。
+    #
+    # 为什么选"去掉生产档"而不是"补上鉴权档"：后者要给 smoke_deploy / test:contract /
+    # Playwright 三套工具都接上凭证（得先在 CI 里造一张旧后端的 JWT），改动面远大于它验证的
+    # 东西；而**生产配置的正确性本来就该由部署门禁管**——`deploy/scripts/check_rag_auth.sh`
+    # 在安装期校验鉴权档、两侧密钥同值、nginx 认证真实生效、只监听回环。
+    # 本 pipeline 的职责是"数据制品 + 代码能产出一个可发布的包"（血缘/SBOM/冒烟/契约/清单）。
+    #
+    # 生产档本身仍被下面那一步**反向验证**：配置成"生产 + disabled"必须被拒绝启动。
     env:
-      RAG_REQUIRE_ACTIVE_VERSION: "true"
-      # 生产档：域名白名单未配时必须显式确认公开 CORS（第五轮审核 R5-5）。
-      # 演示站点确实要公开访问，故此处显式打开；正式部署请配 CORS_ALLOW_ORIGINS。
+      # CORS 显式放行通配：本 pipeline 用浏览器验收真实服务，来源是 runner 上的
+      # 临时端口，收窄白名单没有意义；显式表态可避免 health 里出现"通配 CORS"告警。
       ALLOW_PUBLIC_CORS: "true"
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: 生产档门禁仍然有效（反向验证：生产 + 未配鉴权必须被拒）
+        # 这条的作用是"别让上面那段注释变成一句没有执行者的声明"：
+        # 哪天有人把 auth_startup_problem 的生产判定删掉，这里会红。
+        # 不用 heredoc：本文件以前的解析失败正是因为 YAML 里出现了内联多行 Python
+        # （见文件头第 2 条），这里沿用同文件既有写法（单条 python -c）。
+        env:
+          RAG_REQUIRE_ACTIVE_VERSION: "true"
+          # 显式清空，避免"runner 上恰好配了鉴权"造成假通过
+          RAG_AUTH_MODE: ""
+          RAG_REQUIRE_AUTH: ""
+        run: |
+          python -c "
+          import sys; sys.path.insert(0, '.')
+          from config.settings import get_settings
+          problem = get_settings().auth_startup_problem()
+          assert problem, '生产档下未配鉴权却没有被拒绝——鉴权门禁失效了'
+          print('生产档 + 未配鉴权被拒（预期）：', problem[:80])
+          "
       - name: 解析数据版本（tag 触发时取 tag 名，缺失则用默认值）
         env:
           INPUT_VERSION: ${{ github.event.inputs.version }}

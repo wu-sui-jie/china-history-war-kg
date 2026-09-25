@@ -360,6 +360,28 @@ class Settings:
             )
         return None
 
+    def bot_channel_warning(self) -> Optional[str]:
+        """jwt 档下未配 `RAG_BOT_API_KEY` 时的告警（第 14 轮审计 P2-20）。
+
+        jwt 档推出 `require_auth=True`，而非流式接口的准入是"有效 JWT **或**正确的
+        X-Bot-Key，二者其一"。飞书机器人没有用户身份、只会发 `X-Bot-Key`，所以
+        "jwt 档 + 空 Bot Key"下**机器人每问必被 401**——而机器人侧的降级文案只说
+        "RAG 不可用"，运维会朝"RAG 挂了"的方向修，方向完全是反的。
+
+        为什么放在 health 而不是启动门禁：**不是每个部署都接机器人**（它是可选的 IM 入口），
+        把"必须配 Bot Key"做成一票否决会挡住那些根本不用机器人的部署。
+        安装脚本按"仓库里有没有 feishu-bot/.env"来判断——那份配置在就说明要部署机器人。
+        """
+        mode = (self.auth_mode or "").strip().lower()
+        if mode != "jwt":
+            return None
+        if (getattr(self, "bot_api_key", "") or "").strip():
+            return None
+        return ("RAG_AUTH_MODE=jwt 但未配置 RAG_BOT_API_KEY：飞书机器人（只发 X-Bot-Key，"
+                "没有用户身份）调用 /api/query/json 会被 401 拒绝，而机器人侧只会显示"
+                "「RAG 不可用」。要接机器人请把两侧的 RAG_BOT_API_KEY 填成同一个值；"
+                "不接机器人可以忽略本条。")
+
     def auth_warning(self) -> Optional[str]:
         """未启用服务端身份校验时的告警文案（不阻断启动）。"""
         mode = (self.auth_mode or "").strip().lower()
