@@ -76,6 +76,39 @@ cd frontend && npm install && npm run build && cd ..
 | `CORS_ALLOW_ORIGINS` | `*`（本机演示） | **显式生产档**（自己写了 `RAG_REQUIRE_ACTIVE_VERSION=true`）下若仍是 `*`，服务会**拒绝启动**（第五轮 R5-5）；正式部署填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认公开 |
 | `SHUTDOWN_DRAIN_SECONDS` | `10` | 停机时先停收同步任务、撤销排队，再用这个上限等在途任务，最后才关外部客户端（第五轮 P0-3） |
 
+**A2. 身份校验与凭证撤销（对外部署必读）**
+
+这一组开关的门禁比较硬：**显式生产档下配错会直接拒绝启动**。而
+`config/settings.py` 与 `RAG/.env.example` 的报错文案都让人"去看 docs/deploy.md"——
+本小节就是那句话的落点（第 14 轮审计 P2-25：原先这里一处都没提过这些变量）。
+
+| 变量 | 取值 | 说明 |
+| --- | --- | --- |
+| `RAG_AUTH_MODE` | `jwt` / `nginx` / `disabled` | **谁来验身份**。`jwt`＝本服务用共享密钥验签（需 `RAG_JWT_SECRET`）；`nginx`＝网关挡住、本服务只监听回环；`disabled`＝不校验，**显式生产档下拒绝启动**。生产模板默认 `jwt` |
+| `RAG_JWT_SECRET` | 与旧后端 `JWT_SECRET` 同值 | 也接受 `JWT_SECRET` 这个名字。两侧不一致的表现是"问答全部 401" |
+| `RAG_JWT_ISSUER` / `RAG_JWT_AUDIENCE` | 默认 `china-war-backend` / `china-war-rag` | 必须与 `backend/jwt_util.py` 的常量一致；不一致同样是"验签通过但一律 401" |
+| `RAG_BOT_API_KEY` | 与 `feishu-bot/.env` 同值 | **jwt 档下要接飞书机器人就必须配**：机器人只发 `X-Bot-Key`，两边都不配会让它每问必 401，而机器人侧只显示"RAG 不可用" |
+| `RAG_INTROSPECT_URL` | 旧后端内部接口地址 | 凭证撤销查询的地址；与下面的服务间密钥**要么都配、要么都不配** |
+| `RAG_INTERNAL_SERVICE_KEY` | 与 backend `INTERNAL_SERVICE_KEY` 同值 | 服务间密钥。半个配置会被按"未启用"处理 |
+| `RAG_INTROSPECT_TTL_SECONDS` | 默认 `30` | **撤销生效延迟的上界**：停用账号/改密码后，最迟这么多秒内本服务开始拒绝 |
+| `RAG_INTROSPECT_FAIL_MODE` | `closed`（默认）/ `open` | 后端不可用时拒绝还是放行。`closed` 的理由：这是安全查询，"把后端打挂"不该成为绕过撤销的手段 |
+| `RAG_REQUIRE_REVOCATION_CHECK` | `true` / 空 | 要求撤销查询**必须**配齐（配不齐即拒绝启动），与是否生产档无关 |
+| `RAG_ALLOW_DELAYED_REVOCATION` | `true` / 空 | **显式接受**"停用后到 token 自然过期前仍可用"。生产档 + jwt 档下必须与本项或上一项二选一，否则拒绝启动 |
+
+怎么知道自己当前属于哪一种：`GET /api/health` 的 `auth` 字段——
+
+```json
+{"mode": "jwt", "required": true,
+ "revocation": {"policy": "enforced", "max_delay_seconds": 30.0,
+                "last_ok_at": 1790340000.0, "last_failure_at": null}}
+```
+
+`policy` 三态：`enforced`（已启用查询，`max_delay_seconds` 就是缓存 TTL）、
+`delayed`（未启用：停用/改密码后旧 token 在自然过期前仍可用）、
+`not-applicable`（非 jwt 档，本服务不验签）。
+`last_ok_at` / `last_failure_at` / `last_failure_reason` 反映后端是否可达——
+backend 重启期间"它恢复了没有"看这三个字段。
+
 **B. 系统环境变量（密钥，只在这里）**——读取优先级即别名链：
 
 ```
