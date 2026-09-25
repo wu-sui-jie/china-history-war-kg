@@ -30,7 +30,7 @@
 | 前端单元（Vitest） | `cd frontend && npm run test:unit` | **67 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出、**按账号隔离与换桶顺序**）。原写 47 是 2026-09-20 的口径，加入隔离用例后未回写（第 6 轮审核 M6 已修正） |
 | 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **98 passed**（2026-09-25 实测） |
 | 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |
-| 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **14 passed / 4 skipped**（desktop + mobile；含 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言、多会话切换与刷新保持、导出 .md 下载）；桩后端 2026-09-20 实测 14 passed |
+| 浏览器端到端（Playwright） | `npm run test:e2e`（真实服务）或 `npm run test:e2e:offline`（桩后端） | **15 passed / 5 skipped**（2026-09-25 实测，15.3s）。desktop + mobile 两个 project、10 个用例 × 2 = 20 次执行，其中 5 次按各 spec 内的 `test.skip(project === 'mobile')` 跳过。覆盖 Tab/Shift+Tab 焦点陷阱、Escape 回焦、tabs 方向键、live region、reduced-motion 双态断言、多会话切换与刷新保持、导出 .md 下载、**问答记录按账号隔离**。**原写 14/4 是 2026-09-20 的口径**（那时还没有 `user-scope-isolation.spec.ts`：9 个用例 × 2 − 4 skip = 14/4），第 11 轮整理文档时已更正。**跑之前注意**：桩后端把 `frontend/dist` 托管在 `/` 下，而 `dist/` 默认是并入模式（base=`/rag/`）产物会全 404——离线跑请先 `npx vite build --outDir dist-plain` 再用 `E2E_DIST=dist-plain`（见 `scripts/e2e-run.mjs` 注释） |
 | 首屏体积门禁 | `npm run check:bundle` | 通过（入口 gzip 25.1 kB、vendor 75.9 kB、首屏合计 101.0 kB，上限 190 kB） |
 | 文档与配置一致性 | `python scripts/check_docs.py --strict` | 通过（相对链接、current 口径、`.env.example`、**数据计数与清单一致**） |
 | 密钥扫描 | `python scripts/check_secrets.py` | 未发现明文密钥 |

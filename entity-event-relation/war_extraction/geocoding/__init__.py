@@ -4,15 +4,17 @@
 用于处理历史地名到现代坐标映射
 
 使用方法:
-    from geocoding import export_unmapped_places, AmapGeocoder, review_results, import_coordinates
+    from war_extraction.geocoding import export_unmapped_places, AmapGeocoder, review_results, import_coordinates
 
     # 完整流程
-    from geocoding.main import run_full_pipeline
+    from war_extraction.geocoding.main import run_full_pipeline
     run_full_pipeline()  # 从 .env 文件读取 API Key
 
 配置:
-    在 entity-event-relation/src/geocoding/.env 文件中设置:
+    在 entity-event-relation/war_extraction/geocoding/.env 文件中设置:
     AMAP_API_KEY=your_api_key_here
+
+    （该 .env 与包同目录——load_env_file() 按 __file__ 定位；密钥不入库，见 .gitignore）
 """
 
 from .historical_places_mapping import HISTORICAL_MAPPING, get_modern_name, search_by_keyword

@@ -2,7 +2,8 @@
 
 > 目标：把整套系统装到一台服务器上，其他人用浏览器访问，**你的电脑不用开机**。
 >
-> 本目录是部署包：nginx 配置、systemd 服务单元、环境变量模板、5 个脚本。按本文从上到下执行即可。
+> 本目录是部署包：nginx 配置、systemd 服务单元、环境变量模板、6 个脚本（`scripts/` 下四个编号脚本
+> 加 `install_services.sh`、`selfcheck.sh`）。按本文从上到下执行即可。
 > 路径与端口的完整约定见 [../docs/集成与入口约定.md](../docs/集成与入口约定.md)，本文只讲怎么落地。
 
 ---
@@ -117,8 +118,11 @@ Neo4j 的图数据**不需要从本机迁移**——SQLite 才是主存储，用
 
 ```bash
 cd /opt/china-war/backend
-sudo -u chinawar /opt/miniconda3/envs/china-war-backend/bin/python sync_sqlite_to_neo4j.py
+sudo -u chinawar /opt/miniconda3/envs/china-war-backend/bin/python sync_sqlite_to_neo4j.py --mode full
 ```
+
+> **必须显式写 `--mode full`**：脚本的 `--mode` 默认值是 `increment`（增量），
+> 首次重建图数据时用默认值不会得到全量结果。
 
 > 什么时候要重跑：以后在管理台改了图谱数据，SQLite 会自动写，但 Neo4j 不会自动跟——重跑这条命令即可。
 

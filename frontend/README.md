@@ -64,7 +64,7 @@ pnpm build:check    # 类型检查（vue-tsc --noEmit）+ 生产构建，提 PR 
 frontend/src/
 ├── api/
 │   ├── http.ts            # 唯一的 axios 封装：注入 token、统一解包 response.data
-│   └── module/            # 按业务分组的接口函数（commone / user / workspace / node / graph / admin / inference）
+│   └── module/            # 按业务分组的接口函数（admin / graph / inference / node / user / workspace）
 │   │                      #   inference.ts：SSE 问答客户端 + 帧协议 + 把帧应用到消息
 ├── composables/           # 页面级状态复用（useNodeCrudPage / useChatHistory / useInferenceSidebar）
 ├── config/index.ts        # baseURL（同源相对路径 `/`）、ragBase（/rag/）、timeout
@@ -82,7 +82,7 @@ frontend/src/
 │   ├── inference-export.ts # 问答记录导出 Markdown（纯函数）
 │   └── date.ts            # 对话时间展示
 └── views/                 # 页面（inference / knowledge / knowledge-list / workspace / admin / login / error）
-    └── inference/         # 历史问答助手：index.vue（400 行，只留状态与编排）+ index.css
+    └── inference/         # 历史问答助手：index.vue（403 行，只留状态与编排）+ index.css
         └── components/    # SessionSidebar / ChatMessages / ChatInput / KgNodeDrawer / KgGraph
 ```
 
@@ -98,13 +98,13 @@ frontend/src/
 
 ### 1. 加菜单项要改三处
 
-菜单的**唯一事实源是后端 `backend/app.py` 的 `get_menu()`**（按角色裁剪：viewer 不下发数据运营组）。
+菜单的**唯一事实源是后端 `get_menu()`**（现位于 `backend/blueprints/auth.py`，随第 7 轮路由蓝图拆分从 `app.py` 迁入；按角色裁剪：viewer 不下发数据运营组）。
 2026-09-25 移除了 mockjs——它此前在开发态拦下 `/user/menu` 返回硬编码菜单、不感知角色，
 曾导致"开发态菜单与生产不一致、加菜单要改三处"。
 
 新增或调整菜单项，下面三处都要满足，否则菜单会缺项或点进去 404：
 
-1. 菜单数据：`backend/app.py` 的 `get_menu()`；
+1. 菜单数据：`backend/blueprints/auth.py` 的 `get_menu()`；
 2. `src/store/user.ts` 的 `mergeWorkspaceMenus` —— id 白名单，不在清单里的项会被 `.filter(Boolean)` **静默丢弃**；
 3. `src/router/module/base-routes.ts` —— 路由，否则点进去是 404。
 
@@ -151,7 +151,7 @@ RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 ifram
   问答内的子图用 `views/inference/components/KgGraph.vue`；
   **新增关系维度只需在 `EntityGraph.vue` 的 `GRAPH_CONFIGS` 加一项 + 注册路由**，不要再复制页面
 - **大页面按"模板进 components、状态进 composables、纯逻辑进 utils/api"拆**（样板见 `views/inference/`：
-  1189 行拆成 400 行页面 + 4 个子组件 + 2 个组合式函数 + 3 个工具模块），拆前先给子组件写挂载测试
+  1189 行拆成 403 行页面 + 4 个子组件 + 2 个组合式函数 + 3 个工具模块），拆前先给子组件写挂载测试
 - **子组件的样式归它自己**：父组件的 `<style scoped>` 不会作用于子组件内部的元素。
   页面级共用样式（如 `inference/index.css`）要按**页面根元素的命名空间**写
   （每条选择器前缀 `.inference-container`），否则会和其它页面重名的 class 互相污染

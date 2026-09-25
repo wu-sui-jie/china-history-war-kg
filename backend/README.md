@@ -33,7 +33,7 @@ backend/
 ├── rules/rule_base.json      # 推理规则库（20 条：细分规则 17 + 复合规则 3）
 ├── data/current_dataset.json # 当前数据集元信息（由 import 脚本写入，app.py 5 处读取）
 ├── data/raw/                 # 原始战争史文本存档（**无代码读取**，仅作留档）
-└── data/processed/           # 分表 JSON：由 import 脚本每次导入时重建，已 gitignore
+├── data/processed/           # 分表 JSON：由 import 脚本每次导入时重建，已 gitignore
 ├── database                  # SQLite 数据库文件
 └── historical_places.txt     # 历史地名词典（jieba 自定义词典）
 ```
@@ -127,10 +127,10 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 
 | 位置 | 形式 |
 | --- | --- |
-| `backend/app.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；`get_menu()` 按角色裁剪菜单（`ADMIN_MENU_IDS` / `EDITOR_MENU_IDS`） |
+| `backend/roles.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；菜单裁剪白名单 `ADMIN_MENU_IDS` / `EDITOR_MENU_IDS` 与可见性判断。第 7 轮路由蓝图拆分时从 `app.py` 抽成独立模块（`app.py` 现 415 行）。菜单数据本体的 `get_menu()` 在 `backend/blueprints/auth.py` |
 | `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
 | `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
-| `backend/tests/` | 常驻用例：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4） |
+| `backend/tests/` | 常驻用例（**43 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor、抽取提示词与录制回放。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4 建立，后续轮次扩充） |
 
 **生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
 被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。

@@ -15,6 +15,7 @@
 geocoding/
 ├── __init__.py                    # 包初始化
 ├── README.md                      # 本文件
+├── db_path.py                     # 主库路径解析（--db-path / EER_DB_PATH / 默认仓库根，EER-7）
 ├── historical_places_mapping.py   # 历史地名映射表
 ├── export_unmapped_places.py      # 导出待编码地点
 ├── geocode_amap.py                # 高德API编码
@@ -22,6 +23,9 @@ geocoding/
 ├── import_coordinates.py          # 导入数据库
 └── main.py                        # 主程序（协调流程）
 ```
+
+> 目录下若出现 `unmapped_places_*.json` / `geocoded_results_*.json` / `approved_coordinates_*.json` /
+> `geocoding_progress_*.jsonl`，那是跑批产物，已 gitignore、不入库（C-3）。
 
 ## 使用方法
 
@@ -46,40 +50,37 @@ geocoding/
 ### 方式一：运行完整流程
 
 ```bash
-# 进入项目目录
-cd <项目根>/entity-event-relation/src
-
-# 运行完整流程
-python -m geocoding.main pipeline --api-key YOUR_API_KEY
-
-# 指定数据库路径
-python -m geocoding.main pipeline --api-key YOUR_API_KEY --db-path ../backend/database
+# 包已按 `pip install -e entity-event-relation` 安装，在任意工作目录都可这样调用
+python -m war_extraction.geocoding.main pipeline --api-key YOUR_API_KEY
 
 # 批量审核模式（基于置信度自动审核）
-python -m geocoding.main pipeline --api-key YOUR_API_KEY --mode batch
+python -m war_extraction.geocoding.main pipeline --api-key YOUR_API_KEY --mode batch
 ```
+
+> **包名口径**：本模块在 `war_extraction.geocoding` 之下（第 7 轮 W5 把顶层的 `src` 改名并正式打包为
+> `war_extraction`），早先文档里写的 `cd <项目根>/entity-event-relation/src` **那个目录已不存在**。
+> 若不想安装包，也可以在 `entity-event-relation/war_extraction/` 目录下用
+> `python -m geocoding.main ...`（那里 `geocoding` 是顶层包）——两种写法都可用，下文统一用完整包路径。
 
 ### 方式二：分步执行
 
 #### 步骤1：导出待编码地点
 
 ```bash
-python -m geocoding.main export
-
-# 指定数据库路径
-python -m geocoding.main export --db-path ../backend/database
+python -m war_extraction.geocoding.main export
 ```
 
 输出文件：`unmapped_places_YYYYMMDD_HHMMSS.json`
 
 主库路径的解析顺序（EER-7，收在 `war_extraction/geocoding/db_path.py`）：显式 `--db-path` /
-`db_path` 参数 → 环境变量 `EER_DB_PATH` → 默认 `<仓库根>/backend/database`。想指向别的库
-（比如备份库或另一台机器上的路径）设环境变量即可，不必改代码。
+`db_path` 参数 → 环境变量 `EER_DB_PATH` → 默认 `<仓库根>/backend/database`。
+**通常不用传 `--db-path`**（默认就指向本仓库的库）；要指向备份库或另一台机器上的路径，
+设 `EER_DB_PATH` 即可，不必改代码。
 
 #### 步骤2：调用高德API编码
 
 ```bash
-python -m geocoding.main geocode unmapped_places_YYYYMMDD_HHMMSS.json --api-key YOUR_API_KEY
+python -m war_extraction.geocoding.main geocode unmapped_places_YYYYMMDD_HHMMSS.json --api-key YOUR_API_KEY
 ```
 
 输出文件：`geocoded_results_YYYYMMDD_HHMMSS.json`
@@ -113,10 +114,10 @@ python -c "from war_extraction.geocoding.geocode_amap import prune_progress_file
 
 ```bash
 # 交互式审核（推荐）
-python -m geocoding.main review geocoded_results_YYYYMMDD_HHMMSS.json
+python -m war_extraction.geocoding.main review geocoded_results_YYYYMMDD_HHMMSS.json
 
 # 批量审核
-python -m geocoding.main review geocoded_results_YYYYMMDD_HHMMSS.json --mode batch
+python -m war_extraction.geocoding.main review geocoded_results_YYYYMMDD_HHMMSS.json --mode batch
 ```
 
 输出文件：`approved_coordinates_YYYYMMDD_HHMMSS.json`
@@ -124,16 +125,14 @@ python -m geocoding.main review geocoded_results_YYYYMMDD_HHMMSS.json --mode bat
 #### 步骤4：导入数据库
 
 ```bash
-python -m geocoding.main import approved_coordinates_YYYYMMDD_HHMMSS.json
-
-# 指定数据库路径
-python -m geocoding.main import approved_coordinates_YYYYMMDD_HHMMSS.json --db-path ../backend/database
+python -m war_extraction.geocoding.main import approved_coordinates_YYYYMMDD_HHMMSS.json
 ```
 
 ### 方式三：直接调用Python模块
 
 ```python
-from geocoding import export_unmapped_places, AmapGeocoder, review_results, import_coordinates
+from war_extraction.geocoding import export_unmapped_places, AmapGeocoder, review_results, import_coordinates
+from war_extraction.geocoding.geocode_amap import load_and_geocode
 
 # 1. 导出待编码地点
 output_file = export_unmapped_places()

@@ -5,7 +5,8 @@
 
 **这一部分不参与 Web 运行**——它是离线流水线，产物（`output/` 下的 JSON 与 Excel）再由
 `backend/import_json_to_sqlite.py` 导入 SQLite，进而同步到 Neo4j。
-被旧后端的「文本实体识别」页调用时走 `backend/app.py` 的 `/api/extract/entities-events`。
+被旧后端的「文本实体识别」页调用时走 `backend/blueprints/llm.py` 的 `/api/extract/entities-events`
+（第 7 轮路由蓝图拆分后从 `app.py` 迁入）。
 
 ## 抽取内容
 
@@ -49,8 +50,10 @@ entity-event-relation/
 │       ├── published/          # 发布子集（过滤+清洗后的版本，事件与 final_all 不同）
 │       └── excel/              # 便于查看的表格（含 全部数据.xlsx，为其余 8 张的合集）
 ├── cache/                     # API 调用缓存（同时是产物的可复现路径，别随手清）
-├── evaluation/latest/         # **历史基线**（加注说明过、值不可复现，别当回归基线）
-│   └── recheck-*/             # 同上；逐次运行写到 evaluation/run_<时间戳>/（不入库）
+├── evaluation/                # 评估结果目录（`latest/` 与 `recheck-*/` 是**平级**的加注历史基线）
+│   ├── latest/                #   历史基线（加注说明过：值属旧口径且不可复现，别当回归基线）
+│   ├── recheck-micro-20260925/ #  同上（recall 改 micro 口径那次的重跑）
+│   └── run_<时间戳>/           #   逐次运行默认写到这里（不入库）
 ├── tools/
 │   └── threshold_sensitivity.py # 四阈值敏感性扫描（EER-9）
 └── tests/                     # 常驻用例（见「快速开始 6」），已全部进 CI
@@ -183,7 +186,7 @@ cd entity-event-relation
 python -m pytest tests -q
 ```
 
-常驻用例（7 个文件，都已进 CI 的 `legacy-backend` job = `.github/workflows/ci.yml`）：
+常驻用例（**11 个文件、104 例**，都已进 CI 的 `legacy-backend` job = `.github/workflows/ci.yml`）：
 
 | 用例 | 钉住的回归 |
 | --- | --- |

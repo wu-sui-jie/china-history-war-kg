@@ -125,9 +125,11 @@
 2. **依赖 Ollama 常驻**：模型不可用时问答直接失败（与 RAG 不同——RAG 无密钥时会降级到离线摘要回答器）。
    生成回答前会清理模型输出里的 markdown 代码块围栏。
 3. **规则库用相对路径读取**（`rules/rule_base.json`），必须从 `backend/` 目录启动服务。
-4. **Cypher 拼接面**：`model_search.py` 里部分图查询方法用字符串拼接 + 手工转义构造查询，
-   与参数化查询的方法并存。新增查询请一律用参数化写法。
-5. **提示词与规则词表散落**：`app.py` 内仍有多份朝代词表（显示顺序、别名、校正、合法值），
-   与 `inference/rule_llm_integration.py` 的 `DYNASTY_SCOPE_MAP`、`entity_extract` 的 `DYNASTIES`
-   存在同义重复，且 `_normalize_dynasty_name` 与 `_normalize_dynasty` 的方向相反（"秦"↔"秦朝"）。
-   **改动朝代相关逻辑前务必先确认用的是哪一份**。
+4. **Cypher 拼接面**：`model_search.py` 里**标签与属性名**仍是内联拼接（查询值已全部参数化），
+   标签走 `common_utils.safe_identifier()` 的白名单校验；早先那种"手工 `replace` 转义字符串"的写法
+   已不存在（那样处理不了反斜杠，SEC-2/SEC-3 已改参数化）。新增查询请一律用参数化写法。
+5. ~~提示词与规则词表散落~~ **已修复（BE-9）**：朝代数据原先有六份、口径还不一致（"汉朝" vs "汉"），
+   现收敛为 `backend/dynasty_data.py` 单一出处（显示顺序、别名、校正、合法值都在这里），并加了
+   口径差异自检。**改动朝代相关逻辑时以该文件为准**，不要再新增第二份词表。
+6. **旧问答与 RAG 的边界**：本模块已被菜单下线入口（由 RAG 问答承接），接口保留给
+   「文本实体识别」等内部链路，并按 `editor` 及以上限权（见 [README.md](README.md) 的角色职责表）。

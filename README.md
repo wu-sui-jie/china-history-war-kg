@@ -1,6 +1,6 @@
 # 干戈纪略 · 中国历史战争知识图谱
 
-一套以中国历代战争史为对象的知识图谱与智能问答系统，由三部分组成：
+一套以中国历代战争史为对象的知识图谱与智能问答系统，由四部分组成：
 
 | 部分 | 内容 | 运行时 |
 | --- | --- | --- |
@@ -91,8 +91,9 @@ china-war/
 └── requirements.txt           # 旧项目的 Python 依赖（见下方说明）
 ```
 
-`backend/` 目前没有 `requirements.txt`。实际依赖为 Flask、flask-cors、SQLAlchemy、PyJWT、py2neo、
-Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
+`backend/requirements.txt` 已补齐（P1-1，UTF-8、带版本下界，按代码 import 清单核对过）；
+根 `requirements.txt` 是「旧后端 + 离线知识抽取」合并的便捷入口，两者新增依赖需同步。
+本机 `place-name-KG` 环境已全部具备，直接用它即可，无需再装。
 
 ## 功能模块
 
@@ -116,6 +117,24 @@ Werkzeug、requests 等；本机 `place-name-KG` 环境已全部具备，直接�
 | 菜单「RAG 智能问答」 | `RAG/`（iframe 承载） | 图谱 + 文本双通道检索、证据溯源引用、知识面板（实体卡/子图/时间线/地图） |
 
 两者的关系与边界见 [docs/集成与入口约定.md](docs/集成与入口约定.md)。
+
+### 4. 数据运营
+
+`frontend/src/views/workspace/`：仪表盘总览、数据集与版本、图谱质检工作台（含 SQLite 与 Neo4j
+两侧计数对账）、实体详情（关系 / 质检 / 时间线）、战争时间轴总览、事件地图点位。
+地图与时间轴两处总览做过 N+1 下推（2.68s → 0.13s、2.16s → 0.054s）。接口见下文「数据运营接口」。
+
+### 5. 知识抽取（离线，不参与 Web 运行）
+
+`entity-event-relation/`（正式包名 `war_extraction`）：从战争史文献抽取实体 / 事件 / 关系的
+三阶段流水线，带分段缓存、高德地理编码与学术评估（`OptimalEvaluator`）。
+产物经「数据从哪来」四步进入系统。详见 [entity-event-relation/README.md](entity-event-relation/README.md)。
+
+### 6. 飞书机器人（可选）
+
+`feishu-bot/`：项目级 IM 入口，把 RAG 接进飞书（长连接，无需公网回调）。技能框架起步两个技能
+（知识问答 / 纠错反馈），子图出图走 Node SSR。不启动它，其他一切照旧。
+详见 [feishu-bot/README.md](feishu-bot/README.md)。
 
 ## 运行项目
 
