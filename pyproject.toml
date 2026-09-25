@@ -201,5 +201,9 @@ all = [
 [tool.ruff]
 # 声明被检查代码的语法下限（旧后端与抽取链要能在 3.8 上跑），而不是"本机解释器版本"。
 target-version = "py38"
-# 只有这四条。刻意**不**写 line-length：E501 不在 select 里，写上去会让人以为行长被检查。
+
+[tool.ruff.lint]
+# 只有这四条（= ruff 0.14.4 的默认集，也就是 CI 一直实际执行的那套）。
+# 放在 [tool.ruff.lint] 而不是顶层的 `select`：后者在新版 ruff 里已废弃并会告警。
+# 刻意**不**写 line-length：E501 不在 select 里，写上去会让人以为行长被检查。
 select = ["E4", "E7", "E9", "F"]
