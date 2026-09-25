@@ -70,6 +70,12 @@ class TextResult(BaseModel):
     evidence: List[Evidence] = field(default_factory=list)
     mode: str = "keyword"          # keyword / vector / hybrid / none
     vector_available: bool = False
+    # ---- 向量降级是"被观测到的事实"，不靠调用方推断（第 12 轮审查 P2-2）----
+    # vector_available 只说明制品与客户端就绪；查询向量化是网络调用，运行期仍可能失败
+    # 并静默降级关键词。这两个字段把"真的降级了"和原因显式带出来，供 health、日志与
+    # 评测共用同一份判据，不必各自去猜 mode 与 vector_available 的组合含义。
+    vector_degraded: bool = False
+    vector_note: str = ""          # 降级原因（未降级时为空串）
 
 
 @dataclass

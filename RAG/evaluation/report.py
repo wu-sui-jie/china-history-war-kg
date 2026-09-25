@@ -169,7 +169,7 @@ def build_report(run: dict, scores_path: Optional[Path] = None,
     L: list[str] = []
     A = L.append
 
-    A(f"# RAGv4（F10）问答效果评测报告")
+    A("# RAGv4（F10）问答效果评测报告")
     A("")
     A(f"- run_id：{meta.get('run_id', run['run_dir'].name)}")
     A(f"- 数据版本：{meta.get('version')}　题库标注版本：{meta.get('annotation_version') or '（未填）'}")
@@ -519,9 +519,9 @@ def _reproduce(A, meta, run_dir):
     A("## 如何复现 / 更新")
     A("")
     A("```bash")
-    A(f"# 重跑本 run（命令见 meta.json；以实际为准）")
+    A("# 重跑本 run（命令见 meta.json；以实际为准）")
     A(meta.get("command", "python -m evaluation.cli run --bank <bank>"))
-    A(f"# 人工评分后更新报告")
+    A("# 人工评分后更新报告")
     A(f"python -m evaluation.cli report --run {run_dir} --scores <scores.jsonl>")
     A("```")
     A("")

@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 
 import App from '@/App.vue'
 import '@/styles.css'
+import { setAuthToken } from '@/api/authToken'
 import { useSessionStore } from '@/stores/session'
 import { installHostUserBridge } from '@/utils/userScope'
 
@@ -16,7 +17,14 @@ app.use(createPinia())
 //
 // 换桶（setActiveUid）由 store 的 applyUserScope 负责——它必须先把当前状态写回旧桶、
 // 再换 uid（顺序反了会串数据），所以这里只把解析好的身份原样转交。
+//
+// token 另交给 api/authToken 保管（第 12 轮审查 P1-1）：它决定"请求头里带什么身份"，
+// 与"读写哪个 localStorage 桶"是两件独立的事。服务端开启 RAG_REQUIRE_AUTH 后，
+// 验签看的是这个 token，改 uid 冒充不了别人。
 const sessionStore = useSessionStore()
-installHostUserBridge((scope) => sessionStore.applyUserScope(scope))
+installHostUserBridge((scope) => {
+  setAuthToken(scope.token)
+  sessionStore.applyUserScope(scope)
+})
 
 app.mount('#app')

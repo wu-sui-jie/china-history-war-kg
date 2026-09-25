@@ -11,6 +11,7 @@
  */
 
 import { apiUrl } from '@/api/base'
+import { authHeaders } from '@/api/authToken'
 import type { ApiErrorBody, QueryRequest, SSEEnvelope } from '@/types/contract'
 
 export interface StreamOptions {
@@ -194,7 +195,12 @@ export async function streamQuery(
     armTimer()
     const resp = await fetch(apiUrl('/query'), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        // 身份头（第 12 轮审查 P1-1）：服务端验签用。未登录/独立访问时为空对象，
+        // 与服务端未开启校验时的行为一致。
+        ...authHeaders(),
+      },
       body: JSON.stringify(request),
       signal: controller.signal,
     })

@@ -62,33 +62,44 @@ test('activeStorageKey 跟随 setActiveUid', () => {
   assert.equal(activeStorageKey(), SESSION_STORAGE_KEY)
 })
 
-test('消息解析：只认 cw-user 且只认同源（结果带 role）', () => {
+test('消息解析：只认 cw-user 且只认同源（结果带 role 与 token）', () => {
+  const TOKEN = 'aaa.bbb.ccc'
   assert.deepEqual(
-    parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: 3, role: 'admin' } }, ORIGIN),
-    { uid: '3', role: 'admin' },
+    parseUserScopeMessage(
+      { origin: ORIGIN, data: { type: 'cw-user', uid: 3, role: 'admin', token: TOKEN } }, ORIGIN),
+    { uid: '3', role: 'admin', token: TOKEN },
   )
-  // 老版本主应用不发 role：按空串处理，仍然有效
+  // 老版本主应用不发 role/token：按空串处理，仍然有效
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '7' } }, ORIGIN),
-    { uid: '7', role: '' },
+    { uid: '7', role: '', token: '' },
   )
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: null } }, ORIGIN),
-    { uid: null, role: '' },
+    { uid: null, role: '', token: '' },
   )
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '' } }, ORIGIN),
-    { uid: null, role: '' },
+    { uid: null, role: '', token: '' },
   )
   // 非法 uid（对象/超长）：归成"没有账号"，绝不能拼出怪桶
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: { id: 3 } } }, ORIGIN),
-    { uid: null, role: '' },
+    { uid: null, role: '', token: '' },
   )
   assert.deepEqual(
     parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: 'x'.repeat(65) } }, ORIGIN),
-    { uid: null, role: '' },
+    { uid: null, role: '', token: '' },
   )
+  // 非法 token：一律归成"没有身份"。含空白的值进了 HTTP 头会被 fetch 拒绝，
+  // 含换行的值甚至可能被用来注入额外请求头，所以必须在入口就洗干净（P1-1）。
+  for (const bad of ['has space', 'a.b.c\nInjected: 1', { v: 1 }, 42, 'short']) {
+    assert.deepEqual(
+      parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '7', token: bad } }, ORIGIN),
+      { uid: '7', role: '', token: '' },
+      `非法 token 必须归零：${JSON.stringify(bad)}`,
+    )
+  }
   // 其它来源：忽略（返回 undefined 表示"这条消息与我们无关"）
   assert.equal(parseUserScopeMessage({ origin: 'http://evil.example', data: { type: 'cw-user', uid: 9 } }, ORIGIN), undefined)
   // 形状不对：忽略，且不能把 uid 当有效身份

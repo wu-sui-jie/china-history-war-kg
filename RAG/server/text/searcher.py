@@ -61,6 +61,28 @@ class TextSearcher:
         self.query_and_words = max(1, int(query_and_words or DEFAULT_QUERY_AND_WORDS))
         self.query_or_words = max(1, int(query_or_words or DEFAULT_QUERY_OR_WORDS))
         self.and_min_hits = max(1, int(and_min_hits or DEFAULT_QUERY_AND_MIN_HITS))
+
+        # ---- 向量链路的可用性（第 12 轮审查 P2-2 拆解）----
+        #
+        # 原先只有一个 `vector_available`，它回答的是"制品与客户端装好了吗"，却被 health
+        # 与评测当成"向量检索真的能用"。两者不是一回事：查询侧 embedding 是**网络调用**，
+        # 密钥失效 / 端点不可达时制品与客户端依然完好，查询却在运行时静默降级成关键词——
+        # 于是出现"健康检查说向量可用、实际走关键词"的假阳性，还会一路掩盖进评测指标。
+        # 拆成可分别观测的几段：
+        #
+        #   vector_artifact_ready        Chroma 集合能加载且条数与 ids.json 一致（制品）
+        #   embedding_client_configured  查询侧 embed_fn 已装配（客户端）
+        #   embedding_probe_ok           最近一次真实向量化是否成功（None = 尚未探测过）
+        #   last_vector_error            最近一次向量检索失败的原文（排查用）
+        #   effective_text_mode          最近一次 search() 实际执行的模式（由其回写）
+        self.vector_artifact_ready = False
+        self.embedding_client_configured = embed_fn is not None
+        self.embedding_probe_ok: Optional[bool] = None
+        self.last_vector_error = ""
+        # 向量化/近邻查询的累计错误次数（单调递增）。调用方用它算"本次调用里有没有报错"，
+        # 从而把"向量通道故障"与"向量通道返回空结果"这两种情况分开。
+        self.vector_error_count = 0
+        self.effective_text_mode = ""
         # 启动探测向量后端（失败仅影响 mode，不影响关键词检索）
         self.vector_available = False
         self._load_vector_backend()
@@ -70,6 +92,11 @@ class TextSearcher:
         """向量可用性 = Chroma 集合可加载 且 条数与 ids.json 一致 且 查询侧能嵌入。
 
         RAGv5 D2：检索只走 Chroma 一条路径；`embeddings.npy` 仅作审计副本（不参与检索）。
+
+        注意这里**刻意不做 embedding 网络探测**：启动时打一次外部调用会把服务可用性
+        绑到外部端点的超时上（启动慢、离线环境起不来），而这一步失败本来就能被
+        查询期降级兜住。运行期是否真的能用由 `embedding_probe_ok` 如实记录，
+        见 vector_status()。
         """
         if self.embed_fn is None:
             return
@@ -91,7 +118,36 @@ class TextSearcher:
         except Exception:  # noqa: BLE001
             return
         self.collection = collection
+        self.vector_artifact_ready = True
         self.vector_available = True
+
+    def _note_vector_ok(self) -> None:
+        """一次真实的向量化 + 检索成功：这是"向量确实可用"唯一的正面证据。"""
+        self.embedding_probe_ok = True
+        self.last_vector_error = ""
+
+    def _note_vector_error(self, message: str, exc: Optional[BaseException] = None) -> None:
+        """记录向量检索失败：探针置 False，错误原文留给 health 与日志。"""
+        detail = f"{message}: {exc}" if exc is not None else message
+        self.embedding_probe_ok = False
+        self.last_vector_error = detail
+        self.vector_error_count += 1
+
+    def vector_status(self) -> dict:
+        """向量链路的可观测状态（health 与排查共用，避免各处各拼一份）。
+
+        `declared_available` 是启动时的能力声明；`last_error` 非空表示**声明可用但查询期失败**，
+        也就是本次审查要消掉的那种假阳性——health 会据此给出告警。
+        """
+        return {
+            "artifact_ready": bool(self.vector_artifact_ready),
+            "embedding_client_configured": bool(self.embedding_client_configured),
+            "embedding_probe_ok": self.embedding_probe_ok,
+            "last_vector_error": self.last_vector_error,
+            "effective_text_mode": self.effective_text_mode,
+            "vector_error_count": self.vector_error_count,
+            "declared_available": bool(self.vector_available),
+        }
 
     def search_vector(self, query: str, limit: Optional[int] = None,
                       metadata_filter: Optional[dict] = None,
@@ -106,8 +162,11 @@ class TextSearcher:
         limit = limit or self.top_k
         try:
             qv = self.embed_fn([query])[0]
-        except Exception:  # noqa: BLE001
-            return []          # 查询向量化失败 → 返回空，由 resolve_mode/上层决定降级
+        except Exception as exc:  # noqa: BLE001
+            # 查询向量化失败 → 返回空，由 resolve_mode/上层决定降级。
+            # 但必须把原因留下来：这一条就是"向量声明可用、实际不可用"的现场。
+            self._note_vector_error("查询向量化失败（embedding 端点或密钥不可用）", exc)
+            return []
         kwargs = {"query_embeddings": [list(map(float, qv))],
                   "n_results": limit, "include": ["distances"]}
         where = self._where_of(metadata_filter)
@@ -115,12 +174,17 @@ class TextSearcher:
             kwargs["where"] = where
         try:
             res = self.collection.query(**kwargs)
-        except Exception:  # noqa: BLE001
+        except Exception as exc:  # noqa: BLE001
+            self._note_vector_error("向量近邻查询失败", exc)
             return []
         ids = (res.get("ids") or [[]])[0]
         dists = (res.get("distances") or [[]])[0]
         if not ids:
+            # 空结果不代表链路故障（可能真的没有近邻），但向量化与查询都成功了，
+            # 所以探针仍记成功——判据是"能不能用"，不是"有没有命中"。
+            self._note_vector_ok()
             return []
+        self._note_vector_ok()
         sims = [1.0 - float(d) for d in dists]
         norm = _norm_minmax(sims)
         rows = self._fetch_chunks(list(ids))

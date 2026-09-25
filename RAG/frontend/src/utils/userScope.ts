@@ -4,10 +4,11 @@
  * （`ragv5-session-v3`）。主应用以同源 iframe 嵌入 RAG 时共享同一个 localStorage，
  * 于是同一浏览器上任何账号打开 RAG 看到的都是同一份记录。
  *
- * 这里只做两件事：
- * 1. 把主应用 postMessage 来的身份消息解析成 `{uid, role}` 并交给回调；
+ * 这里只做三件事：
+ * 1. 把主应用 postMessage 来的身份消息解析成 `{uid, role, token}` 并交给回调；
  * 2. 按账号组装存储 key——有 uid 用 `ragv5-session-v3:u{uid}`，没有 uid（独立访问
- *    :8000、或消息还没到）沿用原 key，行为与改造前完全一致。
+ *    :8000、或消息还没到）沿用原 key，行为与改造前完全一致；
+ * 3. 把 token 交给 api/authToken 保管，供请求头使用（服务端验签，见 P1-1）。
  *
  * **换桶（setActiveUid）由 store 负责，这里不做**。原因是要保证"先把当前状态写回旧桶、
  * 再换 uid"这个顺序——如果桥先把 uid 改了，store 再写就会把上一个账号的会话写进新账号的
@@ -15,10 +16,12 @@
  * `"[object Object]"`，所有账号落进同一个桶，症状就是"两个账号记录一模一样"。
  * `tests/unit/user-scope-wiring.test.ts` 照 main.ts 的接线方式专门钉这一处。
  *
- * 安全边界（如实）：同源之下懂控制台的账号能改 uid 去看别人的记录，本方案只解决"串记录"。
- * 要防冒充得走方案 B（主应用传 JWT + RAG 服务端验签），见
- * docs/方案分析-账户提权与问答隔离-20260925.md。
+ * 安全边界（如实）：uid/role 是客户端自述，同源之下懂控制台的账号能改 uid 去看别人的记录，
+ * 分桶只解决"串记录"。**防冒充靠 token**：开启 RAG_REQUIRE_AUTH 后，请求头里的 JWT 由
+ * RAG 服务端用与旧后端共享的密钥验签（server/auth.py），改 uid 不再有意义。
  */
+
+import { normalizeToken } from '@/api/authToken'
 
 /** 会话存储的基础 key（与 stores/session.ts 的历史 key 保持一致）。 */
 export const SESSION_STORAGE_KEY = 'ragv5-session-v3'
@@ -87,6 +90,8 @@ export interface UserScopeMessage {
   uid: string | null
   /** 主应用给出的角色（admin/editor/viewer 或空串）。老版本主应用不发这个字段，按空串处理。 */
   role: string
+  /** 主应用的登录凭证（JWT），服务端验签用（第 12 轮审查 P1-1）；老版本主应用不发则为空串。 */
+  token: string
 }
 
 /** 收到的消息是否是本应用认的身份消息（校验 origin 与形状，形状不对一律忽略）。 */
@@ -95,12 +100,15 @@ export function parseUserScopeMessage(
   expectedOrigin: string,
 ): UserScopeMessage | undefined {
   if (event.origin !== expectedOrigin) return undefined
-  const data = event.data as { type?: unknown; uid?: unknown; role?: unknown } | null | undefined
+  const data = event.data as
+    | { type?: unknown; uid?: unknown; role?: unknown; token?: unknown }
+    | null
+    | undefined
   if (!data || typeof data !== 'object' || data.type !== 'cw-user') return undefined
   const role = typeof data.role === 'string' ? data.role.trim() : ''
   // 形状/取值不合法（对象、超长、含分隔符）一律当"没有账号"：宁可退回独立访问语义，
-  // 也不能拼出一个谁都不是的桶
-  return { uid: normalizeUid(data.uid), role }
+  // 也不能拼出一个谁都不是的桶。token 同理——非法值当作没有身份，绝不原样透传。
+  return { uid: normalizeUid(data.uid), role, token: normalizeToken(data.token) }
 }
 
 /**

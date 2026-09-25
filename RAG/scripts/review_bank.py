@@ -721,7 +721,7 @@ def scores_apply(args) -> int:
         "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
         encoding="utf-8")
     print(f"已写入 {used}/{len(rows)} 条已评分记录 → {out_path}")
-    print(f"下一步合并报告：")
+    print("下一步合并报告：")
     print(f"  python scripts/run_evaluation.py report --run {args.run} "
           f"--scores {out_path}")
     return 0

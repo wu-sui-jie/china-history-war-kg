@@ -204,7 +204,7 @@ def _report_md(version: str, rows: list[dict], suites: str, configs: list[str],
     A(f"- 评测口径：套件 `{suites}`、配置 `{configs}`、强制离线回答器（不接 LLM，保证可复现）")
     A(f"- 基线组：`{base_label}`（复用既有索引目录，未重建）")
     A("- 复现命令：`python scripts/compare_chunking.py --sizes "
-      + ",".join(r["label"] for r in rows) + f"`")
+      + ",".join(r["label"] for r in rows) + "`")
     A("")
     A("## 一、片段统计（分块质量第一手证据）")
     A("")

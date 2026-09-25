@@ -253,7 +253,7 @@ def main() -> int:
     if stop_reason:
         print(f"⚠ 因配额/鉴权问题提前停止：{stop_reason}")
         print("  → 明天额度重置后用同一命令继续（进度已落盘，不会重复消耗）：")
-        print(f"     python scripts/fetch_place_coords.py --limit 1000")
+        print("     python scripts/fetch_place_coords.py --limit 1000")
     print(f"进度文件: {progress_path}")
     print("下一步（需确认后执行）：用 progress 中的成功条目生成审核文件 → 旧项目 import 写回 places 表")
     return 0
