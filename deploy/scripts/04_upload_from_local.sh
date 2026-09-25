@@ -91,7 +91,9 @@ sync_path() {
         fi
     else
         echo "（本机没有 rsync，改用 tar over ssh）"
-        ssh "${REMOTE}" "mkdir -p '${APP_DIR}/${rel}'"
+        # 与上面的 rsync 分支保持一致：单文件（如 backend/database）只需建它的父目录。
+        # 直接 mkdir 目标路径时，若目标已存在且是文件，会以 "File exists" 失败并中止整个上传。
+        ssh "${REMOTE}" "mkdir -p '$(dirname "${APP_DIR}/${rel}")'"
         tar czf - "${EXCLUDES[@]}" -C "${LOCAL_ROOT}" "${rel}" \
             | ssh "${REMOTE}" "tar xzf - -C '${APP_DIR}'"
     fi

@@ -27,7 +27,16 @@
 #    在 token 到期前仍可用"这条边界）；
 # 4. nginx 档：.htpasswd 存在、站点配置里 auth_basic 是**启用状态**、nginx -T
 #    的实际生效配置里 /rag/ 带认证——三件缺一不可；
-# 5. 两种档位都要求：RAG 只监听回环，且 nginx 对 /api/internal/ 返回 404。
+# 5. 两种档位都要求：RAG 只监听回环，且 nginx 对 /api/internal/ 返回 404；
+# 6. **密钥不能是模板里的占位符**（第 13 轮复核整改 §2.5）：模板里写的是
+#    `CHANGE_ME_openssl_rand_base64_48` 这类值，部署者如果把同一个占位符复制到两侧，
+#    原先的"非空 + 两侧同值"检查会全部通过——一串所有人都知道的值成了生产密钥。
+#    同时检查最低长度（JWT / 服务间密钥 ≥ 32 字符），以及 Neo4j 口令不是默认值。
+#    占位符的判定口径与 `RAG/scripts/check_secrets.py` 的 ALLOWLIST 一致，
+#    由 `backend/tests/test_deploy_auth_gate.py` 用同一批样本同时校验两侧（改一处要改两处）；
+# 7. **生产档下撤销策略必须显式选择**（第 13 轮复核整改 §2.7）：未配撤销查询时，
+#    要么配齐，要么设 `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受"停用/改密码后
+#    旧 token 到自然过期前仍可用"。口径与 RAG 自己的启动门禁一致。
 
 set -uo pipefail
 
@@ -59,6 +68,38 @@ env_value() {
         | cut -d= -f2- \
         | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
               -e 's/^"//' -e 's/"$//' -e "s/^'//" -e "s/'$//" || echo ""
+}
+
+# 是否"一看就是占位符"。模式镜像 RAG/scripts/check_secrets.py 的 ALLOWLIST——
+# 那份清单的用途是"这些值**不是**泄露"，这里把它反过来用："这些值**不能**当生产密钥"。
+# 两边必须同时改：backend/tests/test_deploy_auth_gate.py 用同一批样本校验两侧判定一致。
+PLACEHOLDER_RE='(change[_-]?me|your[_-]?|example|placeholder|xxx+|<[^>]+>|fake|dummy|redacted|\*{6,}|test[_-]?(key|secret|token|password)|do[_-]?not[_-]?use|openssl|rand[_-]?base64|ci[_-]|占位|待填|留空|同值)'
+
+is_placeholder() {
+    [[ -n "$1" ]] && printf '%s' "$1" | grep -Eiq "${PLACEHOLDER_RE}"
+}
+
+# 检查一个密钥字段：非空、非占位、够长。三个失败原因分开报，便于直接改对。
+check_secret_value() {
+    local label=$1 value=$2 min_len=$3
+    if [[ -z "${value}" ]]; then
+        bad "${label} 为空：模板里的值必须换成真实随机值（生成：openssl rand -hex 32 / -base64 48）"
+        return
+    fi
+    if is_placeholder "${value}"; then
+        bad "${label} 仍是模板占位符（'${value}'）：把同一个占位符复制到两侧会通过"非空 + 两侧同值"检查，但那不是密钥"
+        return
+    fi
+    if (( ${#value} < min_len )); then
+        bad "${label} 过短（${#value} 字符，至少 ${min_len}）：短密钥可被离线暴力破解"
+        return
+    fi
+    ok "${label} 已设置且长度合规"
+}
+
+# 是否"明显是默认口令"（Neo4j 出厂值 / 常见弱值）
+is_default_password() {
+    printf '%s' "$1" | grep -Eiq '^(neo4j|password|passw0rd|changeme|change_me|admin|123456|12345678)$'
 }
 
 [[ -f "${RAG_ENV}" ]] || bad "找不到 ${RAG_ENV}（RAG 配置缺失，无法判定鉴权模式）"
@@ -111,6 +152,10 @@ if [[ "${mode}" == "jwt" ]]; then
     else
         ok "JWT 密钥两侧同值"
     fi
+
+    # 同值还不够：同成模板占位符也算"配好了"吗？不算（§2.5）。
+    check_secret_value "JWT 密钥（RAG 侧）" "${rag_secret}" 32
+    check_secret_value "JWT 密钥（backend 侧）" "${backend_secret}" 32
 fi
 
 # ---------------------------------------------------------------- 3. 撤销查询
@@ -124,8 +169,20 @@ if [[ "${mode}" == "jwt" ]]; then
     fail_mode=$(env_value "${RAG_ENV}" RAG_INTROSPECT_FAIL_MODE)
     [[ -z "${fail_mode}" ]] && fail_mode=closed
 
+    # §2.7：生产档下"撤销延迟"必须是**显式决定**，不能靠"两个值都不填"隐式接受。
+    # 与 RAG 的启动门禁（config/settings.py 的 revocation_startup_problem）同一口径：
+    # 安装期红一次，好过部署后发现"停用账号还要等 7 天"。
+    production=$(env_value "${RAG_ENV}" RAG_REQUIRE_ACTIVE_VERSION | tr '[:upper:]' '[:lower:]')
+    delayed_ok=$(env_value "${RAG_ENV}" RAG_ALLOW_DELAYED_REVOCATION | tr '[:upper:]' '[:lower:]')
+
     if [[ -z "${introspect_url}" && -z "${rag_key}" ]]; then
-        warn "未启用凭证撤销查询：**账号被停用或改密码后，旧 token 在自然过期（默认 7 天）前仍可调用 RAG 问答接口**（旧后端已立刻拒绝，两侧口径不同）"
+        if [[ "${production}" == "true" && "${delayed_ok}" != "true" ]]; then
+            bad "生产档下未启用凭证撤销查询，也未显式接受延迟撤销：账号被停用或改密码后，旧 token 在自然过期（默认 7 天）前仍可调用 RAG 问答接口（服务本身也会拒绝启动）。二选一：配齐 RAG_INTROSPECT_URL + RAG_INTERNAL_SERVICE_KEY，或设 RAG_ALLOW_DELAYED_REVOCATION=true 明确接受"
+        elif [[ "${delayed_ok}" == "true" ]]; then
+            warn "已显式接受延迟撤销（RAG_ALLOW_DELAYED_REVOCATION=true）：停用/改密码后旧 token 在自然过期前仍可调用问答接口"
+        else
+            warn "未启用凭证撤销查询：**账号被停用或改密码后，旧 token 在自然过期（默认 7 天）前仍可调用 RAG 问答接口**（旧后端已立刻拒绝，两侧口径不同）"
+        fi
     elif [[ -z "${introspect_url}" || -z "${rag_key}" ]]; then
         bad "撤销查询只配了一半（RAG_INTROSPECT_URL / RAG_INTERNAL_SERVICE_KEY 缺一）：RAG 会按未启用处理，撤销延迟边界依然存在"
     elif [[ -z "${backend_key}" ]]; then
@@ -136,6 +193,9 @@ if [[ "${mode}" == "jwt" ]]; then
         bad "RAG_INTROSPECT_FAIL_MODE 取值非法：'${fail_mode}'（只允许 closed / open）"
     else
         ok "撤销查询已配置（fail_mode=${fail_mode}，撤销生效延迟上界 = RAG_INTROSPECT_TTL_SECONDS）"
+        # 同值同样不够：两侧都填模板占位符等于"内部接口的钥匙人手一把"
+        check_secret_value "服务间密钥（RAG 侧）" "${rag_key}" 32
+        check_secret_value "服务间密钥（backend 侧）" "${backend_key}" 32
     fi
 fi
 
@@ -192,6 +252,22 @@ if [[ "${mode}" == "nginx" ]]; then
     else
         warn "未安装 nginx，跳过 nginx -T 校验"
     fi
+fi
+
+# ---------------------------------------------------------------- 4.5 数据库口令
+head_ "数据库口令"
+
+neo4j_password=$(env_value "${BACKEND_ENV}" NEO4J_PASSWORD)
+if [[ -z "${neo4j_password}" ]]; then
+    bad "backend/.env 未配置 NEO4J_PASSWORD（服务启动时会报出配置指引）"
+elif is_default_password "${neo4j_password}"; then
+    bad "NEO4J_PASSWORD 是默认/常见弱口令（'${neo4j_password}'）：Neo4j 会被直接连上"
+elif is_placeholder "${neo4j_password}"; then
+    bad "NEO4J_PASSWORD 仍是模板占位符（'${neo4j_password}'）"
+elif (( ${#neo4j_password} < 12 )); then
+    bad "NEO4J_PASSWORD 过短（${#neo4j_password} 字符，至少 12）"
+else
+    ok "NEO4J_PASSWORD 已设置且长度合规"
 fi
 
 # ---------------------------------------------------------------- 5. 两种档位都要满足

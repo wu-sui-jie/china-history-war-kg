@@ -179,6 +179,11 @@ RAG 有三个**必改项**，不改虽然能启动但行为是错的（`deploy/e
    配上之后 RAG 会按 `RAG_INTROSPECT_TTL_SECONDS`（默认 30 秒）向后端确认一次凭证状态，
    **该 TTL 就是撤销生效延迟的上界**。密钥与 backend 的 `INTERNAL_SERVICE_KEY` 必须同值。
 
+   ★ **生产档下这一项必须显式选择**（第 13 轮复核整改 §2.7）：要么按上面配齐（或加一行
+   `RAG_REQUIRE_REVOCATION_CHECK=true` 表示"这个部署必须有"），要么设
+   `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受延迟。两个都不做，服务会**拒绝启动**，
+   安装门禁也会在同一口径上拦一次（`check_rag_auth.sh`）。
+
 **RAG 的密钥单独放**，不写进项目目录（遵循 `RAG/.env.example` 的约定）：
 
 ```bash
@@ -240,6 +245,8 @@ sudo bash deploy/scripts/install_services.sh
 | `jwt` 档：RAG 与 backend 两侧 JWT 密钥**同值** | 这套校验最容易踩的坑——表现为问答全部 401 |
 | `jwt` 档：撤销查询要么两侧配齐，要么明确告警 | "停用账号后在 token 到期前仍可用"这条边界被静默继承 |
 | `nginx` 档：`.htpasswd` 存在、`auth_basic` 处于**启用**状态、`nginx -T` 生效配置里 `/rag/` 带认证 | 复核发现的原始缺陷：模板说 nginx 把关，nginx 里那两行其实是注释 |
+| 密钥不是模板占位符、长度达标（JWT 与服务间密钥 ≥ 32、Neo4j 口令 ≥ 12），Neo4j 口令不是出厂默认值 | 把同一个 `CHANGE_ME_...` 复制到两侧能通过"非空 + 同值"检查；占位符判定与 `RAG/scripts/check_secrets.py` 同口径 |
+| 生产档下撤销策略已显式选择（配齐查询，或 `RAG_ALLOW_DELAYED_REVOCATION=true`） | "两个值都不填"等于静默接受"停用账号后 7 天内仍可用" |
 | 两种档位：RAG 只监听回环；nginx 屏蔽 `/api/internal/` | 直连后端端口绕过鉴权、内部接口暴露到公网 |
 
 单独跑（改完配置后复核）：
@@ -286,15 +293,26 @@ PUBLIC_HOST=你的公网IP bash deploy/scripts/selfcheck.sh    # 也验证经 ng
 数据版本是否固定）、首页与 `/rag/` 的静态资源前缀、`/rag/api/health` 经反代是否可达、Neo4j 连接。
 失败项会给出对应的排查方向。
 
-**另外建议看一眼 `RAG` 的 health**（撤销查询到底开没开，只有运行中的服务知道）：
+**另外建议看一眼两边的 health**（限制策略/撤销查询到底开没开，只有运行中的服务知道）：
 
 ```bash
 curl -s http://127.0.0.1:8000/api/health \
   | python3 -c "import json,sys; a=json.load(sys.stdin)['auth']; print(a['mode'], a['revocation'])"
 ```
 
-`auth.revocation.enabled=false` 表示"停用/改密码后旧 token 在自然过期前仍可用"——
-`warnings` 里也会就这条持续告警。
+`auth.revocation.policy` 是三态：`enforced`（已启用查询，`max_delay_seconds` 即缓存 TTL）、
+`delayed`（未启用：停用/改密码后旧 token 在自然过期前仍可用）、`not-applicable`（非 jwt 档）。
+`last_ok_at` / `last_failure_at` / `last_failure_reason` 反映 backend 是否可达——
+backend 重启时最想知道的就是"它恢复了没有"。
+
+旧后端的运行状态（免登录）：
+
+```bash
+curl -s http://127.0.0.1:5000/api/health
+# {"code":200,"data":{"status":"ok","login_guard":{"failure_mode":"closed"}}}
+```
+
+`failure_mode=closed` 表示"限流表不可用时拒绝登录（503）"；`open` 表示放行。
 
 ### 第 9 步：放行端口并访问
 

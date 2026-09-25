@@ -12,8 +12,17 @@
 [Unit]
 Description=干戈纪略 · RAG 问答服务（FastAPI :8000）
 Documentation=file:///opt/china-war/deploy/README.md
-After=network-online.target
-Wants=network-online.target
+# 依赖 backend（第 13 轮复核整改 §2.9）：RAG 的凭证撤销查询要调旧后端的
+# /api/internal/token/introspect，而 RAG_INTROSPECT_FAIL_MODE=closed（默认）下
+# 后端不可用 = 所有 JWT 用户的问答全部失败。之前这里只依赖 network-online，
+# 于是 RAG 可能先于 backend 起来、并在后端还没就绪的那段时间里把用户全部拒掉。
+#
+# 说明：`After`/`Wants` 保证的是**启动顺序**，不保证"backend 已经能响应请求"
+# （进程起来与端口可用之间有间隔）。那段时间的失败由 introspect 的失败策略兜底：
+# fail_mode=open 时放行、closed 时拒绝，且 health 的 auth.revocation 会记下
+# 最近一次失败——这是有意的取舍，不是遗漏。
+After=network-online.target china-war-backend.service
+Wants=network-online.target china-war-backend.service
 
 [Service]
 Type=simple
