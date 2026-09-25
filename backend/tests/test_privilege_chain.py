@@ -13,7 +13,9 @@ def test_注册接口一律建_viewer(client, auth):
     response = client.post("/api/sign_in", json={
         "account": "self-registered",
         "name": "自注册用户",
-        "password": "pw-123456",
+        # 口令下限已提到 10 位（第 13 轮整改）：登录限流只能压低爆破速率，
+        # 真正决定成本的是口令的搜索空间，所以注册这条路径也要过强度检查。
+        "password": "pw-12345678",
         # 故意塞一个 role：接口必须忽略它，不能被请求体提权
         "role": "admin",
     })

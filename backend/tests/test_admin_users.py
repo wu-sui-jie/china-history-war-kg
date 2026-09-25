@@ -35,7 +35,12 @@ def test_viewer_与_editor_都进不去管理员接口(client, make_user, auth):
 
 
 def test_账号已删除时原_token_立刻失效(client, make_user, auth):
-    """鉴权是每次请求实时查库：删号后旧 token 不能继续用（fail-closed）。"""
+    """鉴权是每次请求实时查库：删号后旧 token 不能继续用（fail-closed）。
+
+    第 13 轮整改后这里返回 **401** 而不是 403：账号不存在是"这个凭证已经不对应
+    任何身份"（未认证），而不是"身份有效但权限不够"。检查位置也从 `require_admin`
+    里查角色提前到了全局拦截器的 token 可用性判断，响应因此更准确。
+    """
     admin = make_user("admin-1", "admin")
     assert client.get("/api/admin/users", headers=auth(admin)).status_code == 200
 
@@ -48,7 +53,91 @@ def test_账号已删除时原_token_立刻失效(client, make_user, auth):
     db.session.delete(db.session.get(UserInfo, victim_id))
     db.session.commit()
 
-    assert client.get("/api/admin/users", headers=victim_headers).status_code == 403
+    assert client.get("/api/admin/users", headers=victim_headers).status_code == 401
+
+
+def test_停用账号后原_token_立刻失效(client, make_user, auth):
+    """封号必须立刻生效，不能等 token 自然过期（最长 7 天）。"""
+    admin = make_user("admin-1", "admin")
+    victim = make_user("to-be-disabled", "viewer")
+    victim_headers = auth(victim)
+    assert client.get("/api/userinfo", headers=victim_headers).status_code == 200
+
+    response = client.post(f"/api/admin/users/{victim.id}/status",
+                           json={"disabled": True}, headers=auth(admin))
+    assert response.status_code == 200
+    assert response.get_json()["data"]["disabled"] is True
+
+    assert client.get("/api/userinfo", headers=victim_headers).status_code == 401
+
+    # 启用后旧 token 依然失效：停用时已经 +1 过 token_version，
+    # 重新启用不该把已经流出去的旧凭证又变回有效凭证。
+    assert client.post(f"/api/admin/users/{victim.id}/status",
+                       json={"disabled": False}, headers=auth(admin)).status_code == 200
+    assert client.get("/api/userinfo", headers=victim_headers).status_code == 401
+
+
+def test_管理员不能停用自己(client, make_user, auth):
+    """否则最后一个管理员能把自己锁在门外，之后再没人能启用任何账号。"""
+    admin = make_user("admin-1", "admin")
+
+    response = client.post(f"/api/admin/users/{admin.id}/status",
+                           json={"disabled": True}, headers=auth(admin))
+
+    assert response.status_code == 403
+
+
+def test_停用接口拒绝非布尔值(client, make_user, auth):
+    """`"disabled": "true"` 这种字符串不该被当成真——写错了要报错而不是猜。"""
+    admin = make_user("admin-1", "admin")
+    victim = make_user("viewer-1", "viewer")
+
+    response = client.post(f"/api/admin/users/{victim.id}/status",
+                           json={"disabled": "true"}, headers=auth(admin))
+
+    assert response.status_code == 400
+
+
+def test_改密码后旧_token_立刻失效(client, make_user, auth):
+    """改密码是用户发现口令泄露时唯一能做的动作，旧凭证必须当场作废。"""
+    user = make_user("someone", "viewer", password="old-password-123")
+    old_headers = auth(user)
+    assert client.get("/api/userinfo", headers=old_headers).status_code == 200
+
+    response = client.post("/api/user/password",
+                           json={"old_password": "old-password-123",
+                                 "new_password": "brand-new-password-456"},
+                           headers=old_headers)
+    assert response.status_code == 200
+
+    assert client.get("/api/userinfo", headers=old_headers).status_code == 401
+    # 新口令能登录，且登录后拿到的新 token 可用
+    login = client.post("/api/login", json={"account": "someone",
+                                            "password": "brand-new-password-456"})
+    assert login.get_json()["code"] == 200
+    assert client.get("/api/userinfo", headers={"Token": login.get_json()["data"]}
+                      ).status_code == 200
+
+
+def test_改密码拒绝错误原口令与弱口令(client, make_user, auth):
+    user = make_user("someone", "viewer", password="old-password-123")
+    headers = auth(user)
+
+    wrong = client.post("/api/user/password",
+                        json={"old_password": "not-my-password",
+                              "new_password": "brand-new-password-456"},
+                        headers=headers)
+    assert wrong.status_code == 403
+
+    weak = client.post("/api/user/password",
+                       json={"old_password": "old-password-123", "new_password": "short"},
+                       headers=headers)
+    assert weak.status_code == 400
+
+    # 失败不该生效：原口令仍然可用
+    assert client.post("/api/login", json={"account": "someone",
+                                           "password": "old-password-123"}
+                       ).get_json()["code"] == 200
 
 
 def test_管理员可列用户且不下发口令(client, make_user, auth):

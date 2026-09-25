@@ -1,12 +1,73 @@
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from models import Event, Organization, Person, Place, UserInfo, db
+from models import (
+    Event,
+    EventEventRelation,
+    EventOrganizationRel,
+    EventPersonRelation,
+    EventPlaceRelation,
+    Organization,
+    Person,
+    Place,
+    UserInfo,
+    db,
+)
 from node_property_mapping import API_TO_COLUMN, neo4j_props
+# outbox 的操作类型常量：写路径与重放路径必须用同一套取值，否则重放会走错分支
+# （例如把删除当成 upsert，把已经删掉的节点又建回图谱）。
+from sync_compensation import OP_NODE_CREATE, OP_NODE_DELETE, OP_NODE_UPDATE
 
 from logging_util import get_logger
 
 logger = get_logger(__name__)
+
+# 口令长度区间（第 13 轮整改，文档第十一节）。下限从"非空"提高到 10 位：
+# 登录限流只能压低在线爆破的速率，真正决定成本的是口令本身的搜索空间。
+MIN_PASSWORD_LENGTH = 10
+MAX_PASSWORD_LENGTH = 64
+
+
+def _enqueue_compensation(node_type, node_id, node_name, properties, error):
+    """把一次失败的 Neo4j 同步登记为待补偿任务**并自行提交**。
+
+    **第 13 轮起优先用同事务路径**（`_stage_sync_job` + 一次 commit）；本函数只保留给
+    "事后补记"的场景（例如导入脚本在事务外发现对不上时）。
+    """
+    from sync_compensation import enqueue_failed_sync
+
+    return enqueue_failed_sync(node_type, node_id, node_name, properties, error)
+
+
+def _stage_sync_job(node_type, node_id, operation, node_name, properties,
+                    *, from_name=None, error=""):
+    """把待补偿任务挂到**当前事务**上（不提交）；返回 job。
+
+    这是事务型 outbox 的入口（文档第六节第 4 条）。调用方必须在
+    `db.session.commit()` 之前调用它，让"业务修改 + 待办"落进同一次原子提交。
+    """
+    from sync_compensation import stage_job
+
+    return stage_job(node_type, node_id, operation, node_name, properties,
+                     from_name=from_name, error=error)
+
+
+def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
+                  from_name=None):
+    """提交后立刻尝试把这次修改同步到 Neo4j；返回 `(是否成功, 错误说明, neo4j_id)`。
+
+    成功 → 结单；失败 → 记错误并排下一次重试时刻（退避落库）。
+    **这条路径不再是"唯一的同步手段"**：任务已经和业务修改一起提交了，
+    这里只是让绝大多数请求不必等后台 worker（用户体验与原先完全一致）。
+    """
+    import sync_compensation as sc
+
+    ok, message = sc.apply_job(job)
+    if ok:
+        sc.mark_job_done(job)
+        return True, "", getattr(job, "neo4j_element_id", None)
+    sc.mark_job_failed(job, message)
+    return False, message, None
 
 
 class DbUtil:
@@ -75,6 +136,11 @@ class DbUtil:
         name = (data.get("name") or "").strip()
         if not account or not password or not name:
             return {"code": 400, "msg": "用户名、昵称和密码不能为空"}
+        # 口令强度是注册路径也要过的门（第 13 轮整改）：只在改密码时管长度，等于
+        # "弱口令只要一开始就设好，就永远不用改"。
+        problem = self._password_policy_problem(password)
+        if problem:
+            return {"code": 400, "msg": problem}
 
         # 注册用户一律只读（viewer）；需要写权限的账号由管理员改库中 role。
         params = UserInfo(
@@ -116,6 +182,140 @@ class DbUtil:
         db.session.commit()
         return user.to_dict()
 
+    # ---- token 撤销（第 13 轮整改，文档第五节）----
+    @staticmethod
+    def token_status(payload):
+        """token 的当前状态，返回结构化字典（第 13 轮复核：供 RAG 的 introspect 使用）。
+
+        ```
+        {"active": bool, "reason": str, "user_id": ..., "role": str,
+         "token_version": int | None, "disabled": bool}
+        ```
+
+        两件事 JWT 自己验不了，必须回库查：
+
+        - **账号是否被禁用**：禁用后即便 token 还没过期也必须立刻拒绝，
+          否则"封号"要等最长 7 天才真正生效；
+        - **token 版本是否一致**：改密码 / 强制下线时 `token_version` +1，
+          旧 token 里的 `ver` 就此对不上。这是没有黑名单时最省事的撤销手段——
+          不需要存一堆已撤销的 jti，只需要一个整数。
+
+        用户不存在（被删号）也按不可用处理：token 里带着的 user_id 已经没有任何
+        对应的账号，继续放行等于给一个已删除的身份开权限。
+
+        原因字符串只用于服务端日志：回给客户端的话术统一是"登录已失效"，
+        不透露是"密码改过"还是"账号被停用"（前者会泄露账号状态）。
+
+        **`check_token_usable` 与 RAG 的 introspect 接口共用本方法**：RAG 的撤销判定
+        必须与本服务自己的守卫逐条一致，否则会出现"旧后端拒绝、RAG 却放行"的裂缝，
+        而那种裂缝只在改密码/封号之后才显形，最难发现。
+        """
+        from jwt_util import token_version_of
+
+        user_id = (payload or {}).get("user_id")
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
+        if user is None:
+            return {"active": False, "reason": "账号不存在", "user_id": user_id,
+                    "role": "", "token_version": None, "disabled": False}
+        current = int(getattr(user, "token_version", 1) or 1)
+        # 角色取库里的当前值而不是 token 里的历史值：管理员的降权要立刻反映到
+        # 下游（角色声明只是签发那一刻的快照）。
+        status = {
+            "active": True,
+            "reason": "",
+            "user_id": user.id,
+            "role": getattr(user, "role", "") or "viewer",
+            "token_version": current,
+            "disabled": bool(getattr(user, "disabled", False)),
+        }
+        if status["disabled"]:
+            status["active"] = False
+            status["reason"] = "账号已被停用"
+        elif token_version_of(payload) != current:
+            status["active"] = False
+            status["reason"] = (f"token 版本过期（token={token_version_of(payload)} "
+                                f"当前={current}）")
+        return status
+
+    @staticmethod
+    def check_token_usable(payload):
+        """校验 token 是否仍然可用。返回 `(是否可用, 原因)`。
+
+        判定规则全部在 `token_status` 里（两者共用同一份实现，口径不会分叉）。
+        """
+        status = DbUtil.token_status(payload)
+        return status["active"], status["reason"]
+
+    @staticmethod
+    def bump_token_version(user_id):
+        """把 token_version +1（强制该用户所有已签发的 token 失效）。
+
+        返回新版本号；用户不存在返回 None。**在改密码、封号、踢人时调用**——
+        这些动作的共同点是"意图让旧凭证立刻作废"，而后端此刻已经没有别的手段
+        表达这件事（JWT 是无状态的）。
+        """
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
+        if user is None:
+            return None
+        user.token_version = int(getattr(user, "token_version", 1) or 1) + 1
+        db.session.commit()
+        return user.token_version
+
+    @staticmethod
+    def set_user_disabled(user_id, disabled):
+        """启用/停用账号；停用时同时 +1 token_version，让在途 token 立刻失效。"""
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
+        if user is None:
+            return None
+        user.disabled = bool(disabled)
+        if disabled:
+            # 只置 disabled 也能拦住后续请求（check_token_usable 每次都查库），
+            # 再 +1 是纵深防御：将来若某条路径漏查 disabled，版本号仍会挡住旧 token。
+            user.token_version = int(getattr(user, "token_version", 1) or 1) + 1
+        db.session.commit()
+        return user.to_dict()
+
+    def change_password(self, user_id, old_password, new_password):
+        """改密码：校验旧口令后落库，并 +1 token_version。
+
+        返回 `{"code": ..., "msg": ...}`（与 add_user 同一口径，路由层直接回给前端）。
+        口令长度下限与文档一致（10–64）：过短的口令在限流之外几乎没有成本。
+        """
+        user = db.session.get(UserInfo, user_id) if user_id is not None else None
+        if user is None:
+            return {"code": 404, "msg": "用户不存在"}
+        if not self._password_matches(user, old_password or ""):
+            return {"code": 403, "msg": "原密码不正确"}
+        problem = self._password_policy_problem(new_password)
+        if problem:
+            return {"code": 400, "msg": problem}
+
+        user.password = generate_password_hash(new_password)
+        # 改密码的语义是"把别人手里的凭证全作废"：不加这一步，旧 token 还能用到自然过期，
+        # 而"改密码"正是用户发现密码泄露时唯一能做的动作。
+        user.token_version = int(getattr(user, "token_version", 1) or 1) + 1
+        db.session.commit()
+        logger.info(f"账号 {user.account}（id={user.id}）已修改密码，token 版本升到 {user.token_version}")
+        return {"code": 200, "msg": "密码已修改，请重新登录"}
+
+    @staticmethod
+    def _password_matches(user, password: str) -> bool:
+        stored = getattr(user, "password", "") or ""
+        if not password or not stored:
+            return False
+        if stored == password:
+            return True
+        return check_password_hash(stored, password)
+
+    @staticmethod
+    def _password_policy_problem(password: str):
+        """口令强度检查；合规返回 None。"""
+        length = len(password or "")
+        if length < MIN_PASSWORD_LENGTH or length > MAX_PASSWORD_LENGTH:
+            return (f"密码长度需在 {MIN_PASSWORD_LENGTH}~{MAX_PASSWORD_LENGTH} 位之间"
+                    f"（当前 {length} 位）")
+        return None
+
     @staticmethod
     def _get_model_by_type(node_type: str):
         return {
@@ -125,44 +325,12 @@ class DbUtil:
             "Person": Person,
         }.get(node_type)
 
-    @staticmethod
-    def _find_neo4j_by_name(neo4j_handle, node_type, node_name):
-        """按名回退查找 Neo4j 节点，返回 (唯一匹配或 None, 错误说明)。
-
-        只在 SQLite 侧缺 neo4j_id 时才需要。同名同类型多于一个时返回说明而不返回匹配，
-        由调用方「宁可不做」——取第一条可能动到另一个对象的节点。
-        """
-        results = neo4j_handle.search_nodes_by_name(node_name, limit=10)
-        matches = [
-            item for item in ((results or {}).get("nodes") or [])
-            if item.get("type") == node_type
-        ]
-        if len(matches) == 1:
-            return matches[0], ""
-        if len(matches) > 1:
-            return None, (
-                f"Neo4j 中有 {len(matches)} 个同名同类型节点（{node_type}/{node_name}），"
-                "需人工核对后再处理（本次未改动 Neo4j）"
-            )
-        return None, "Neo4j 未找到对应节点"
-
-    @staticmethod
-    def _delete_neo4j_by_name(neo4j_handle, node_type, node_name):
-        """按名回退删除：唯一匹配才删。返回 (是否成功, 错误说明)。"""
-        match, error = DbUtil._find_neo4j_by_name(neo4j_handle, node_type, node_name)
-        if match is None:
-            return False, error
-        neo4j_handle.delete_node(node_type, match["id"])
-        return True, ""
-
-    @staticmethod
-    def _update_neo4j_by_name(neo4j_handle, node_type, node_name, new_name):
-        """按名回退改名：唯一匹配才改。返回 (匹配到的 Neo4j 节点 id 或 None, 错误说明)。"""
-        match, error = DbUtil._find_neo4j_by_name(neo4j_handle, node_type, node_name)
-        if match is None:
-            return None, error
-        neo4j_handle.update_node(node_type, match["id"], new_name)
-        return match["id"], ""
+    # 按名回退查找/删除/改名（`_find_neo4j_by_name` / `_delete_neo4j_by_name` /
+    # `_update_neo4j_by_name`）已在第 13 轮整改中删除：它们是为了在 `neo4j_id` 缺失时
+    # "按名字猜一个节点"而存在的，而按名字定位在**同名节点有多个**时无法判断该动哪一个，
+    # 正是文档第六节第 3 条 C 描述的"更新变成新建 / 改错对象"的来源。
+    # 现在写路径一律按稳定图谱键定位（见 graph_key.py），历史遗留节点由
+    # `model_search.upsert_node` 的"认领同名无键节点"步骤平滑接管，不再需要这种兜底。
 
     @staticmethod
     def _field_mapping_by_type(node_type: str):
@@ -199,29 +367,19 @@ class DbUtil:
             filtered_data = {k: v for k, v in mapped_data.items() if k in valid_columns}
             new_node = model(**filtered_data)
             db.session.add(new_node)
+            # flush 而不是 commit：先拿到自增主键（graph_key 要用），但**不提交**——
+            # 业务行与下面的待办必须落进同一次提交（文档第六节第 4 条）。
+            db.session.flush()
+
+            job = _stage_sync_job(
+                node_type, new_node.id, OP_NODE_CREATE, new_node.name, filtered_data,
+            )
             db.session.commit()
 
-            neo4j_sync_success = False
-            neo4j_error_msg = ""
-            neo4j_id = None
-            try:
-                from model_search import neo4j_db
-
-                neo4j_handle = neo4j_db()
-                neo4j_node = neo4j_handle.create_node(node_type, new_node.name)
-                if neo4j_node and hasattr(neo4j_node, "identity"):
-                    neo4j_id = neo4j_node.identity
-                    props = {k: v for k, v in DbUtil._neo4j_props(node_type, filtered_data).items() if v is not None}
-                    if props:
-                        neo4j_handle.update_node_properties(neo4j_id, props)
-                    new_node.neo4j_id = neo4j_id
-                    db.session.commit()
-                    neo4j_sync_success = True
-                else:
-                    neo4j_error_msg = "Neo4j node create returned no identity"
-            except Exception as sync_err:
-                neo4j_error_msg = str(sync_err)
-                db.session.rollback()
+            neo4j_sync_success, neo4j_error_msg, neo4j_id = _try_sync_now(
+                job, node_type, new_node.id, graph_key=job.graph_key,
+                name=new_node.name, properties=None,
+            )
 
             return {
                 "code": 200,
@@ -230,13 +388,17 @@ class DbUtil:
                     "id": new_node.id,
                     "type": node_type,
                     "name": new_node.name,
+                    "graph_key": job.graph_key,
                     "neo4j_id": neo4j_id,
                     "sync_status": "success" if neo4j_sync_success else "failed",
                 },
             }
         except Exception as e:
             db.session.rollback()
-            return {"code": 500, "msg": f"创建失败: {str(e)}"}
+            # 完整异常只进日志：`str(e)` 常带 SQL、列名与库文件路径（第 13 轮复核第七节）。
+            # 调用方（blueprints/node.py）会把 code 透传成 HTTP 状态，因此这里只需给安全文案。
+            logger.exception("创建节点失败：type=%s name=%s", node_type, name)
+            return {"code": 500, "msg": "创建失败，请稍后重试"}
 
     @staticmethod
     def update_node(node_type: str, node_id: int, new_name: str, properties: dict = None):
@@ -256,43 +418,19 @@ class DbUtil:
             for mapped_key, value in normalized_properties.items():
                 if hasattr(node, mapped_key):
                     setattr(node, mapped_key, value)
+            # 属性快照用"这次提交的这一份"：重放要复原的是"这次写"，
+            # 而不是之后可能又被改过的当前行。
+            snapshot = {"name": new_name, **(properties or {})}
+            job = _stage_sync_job(
+                node_type, node_id, OP_NODE_UPDATE, new_name, snapshot,
+                from_name=old_name if old_name != new_name else None,
+            )
             db.session.commit()
 
-            neo4j_sync_success = False
-            neo4j_error_msg = ""
-            try:
-                from model_search import neo4j_db
-
-                neo4j_handle = neo4j_db()
-                neo4j_id = getattr(node, "neo4j_id", None)
-                if neo4j_id:
-                    neo4j_handle.update_node(node_type, neo4j_id, new_name)
-                    if normalized_properties:
-                        neo4j_handle.update_node_properties(
-                            neo4j_id,
-                            {k: v for k, v in DbUtil._neo4j_props(node_type, {"name": new_name, **normalized_properties}).items() if v is not None},
-                        )
-                    neo4j_sync_success = True
-                else:
-                    # 回退按名查找只在 neo4j_id 缺失时才走；同名同类型多于一个时不动，
-                    # 交人工核对——取第一条可能改到另一个对象的节点上。
-                    found_id, find_error = DbUtil._update_neo4j_by_name(
-                        neo4j_handle, node_type, old_name, new_name
-                    )
-                    if found_id is None:
-                        neo4j_error_msg = find_error
-                    else:
-                        if normalized_properties:
-                            neo4j_handle.update_node_properties(
-                                found_id,
-                                {k: v for k, v in DbUtil._neo4j_props(node_type, {"name": new_name, **normalized_properties}).items() if v is not None},
-                            )
-                        node.neo4j_id = found_id
-                        db.session.commit()
-                        neo4j_sync_success = True
-            except Exception as sync_err:
-                # 不再静默吞掉：把真实失败原因带回响应，避免不一致悄悄累积
-                neo4j_error_msg = str(sync_err)
+            neo4j_sync_success, neo4j_error_msg, _neo4j_id = _try_sync_now(
+                job, node_type, node_id, graph_key=job.graph_key,
+                name=new_name, properties=None, from_name=job.from_name,
+            )
 
             return {
                 "code": 200,
@@ -301,13 +439,36 @@ class DbUtil:
                     "id": node_id,
                     "type": node_type,
                     "name": new_name,
+                    "graph_key": job.graph_key,
                     "sync_status": "success" if neo4j_sync_success else "failed",
                     "sync_error": neo4j_error_msg or None,
                 },
             }
         except Exception as e:
             db.session.rollback()
-            return {"code": 500, "msg": f"更新失败: {str(e)}"}
+            logger.exception("更新节点失败：type=%s id=%s", node_type, node_id)
+            return {"code": 500, "msg": "更新失败，请稍后重试"}
+
+    @staticmethod
+    def _relation_models_for(node_type: str):
+        """返回所有**引用了该实体类型**的关系 ORM 与其外键列名。
+
+        Event 是四种关系里都出现的一端（事件-事件出现两次），其余三类各被一种关系引用。
+        这里刻意写成显式的数据映射，不做字符串拼表名——表名拼错会静默变成"什么都没删"。
+        """
+        if node_type == "Event":
+            return [
+                (EventEventRelation, "event_a_id"),
+                (EventEventRelation, "event_b_id"),
+                (EventPlaceRelation, "event_id"),
+                (EventPersonRelation, "event_id"),
+                (EventOrganizationRel, "event_id"),
+            ]
+        return {
+            "Place": [(EventPlaceRelation, "place_id")],
+            "Person": [(EventPersonRelation, "person_id")],
+            "Organization": [(EventOrganizationRel, "org_id")],
+        }.get(node_type, [])
 
     @staticmethod
     def delete_node(node_type: str, node_id: int):
@@ -320,44 +481,56 @@ class DbUtil:
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
-            neo4j_id = getattr(node, "neo4j_id", None)
+            # 删除不再读 node.neo4j_id：定位改走稳定图谱键（`<Type>:<SQLite 主键>`），
+            # 它不依赖图谱是否被重建过。neo4j_id 仅作为观测信息由重放路径回写。
             node_name = node.name
 
-            # 先删主存储（SQLite）并提交：主存储删除失败时直接返回错误、不动 Neo4j，
-            # 不会留下「Neo4j 已删、SQLite 还在」的永久不一致。
+            # 先删引用本节点的关系行，再删实体行。
+            #
+            # 顺序不能反：外键已在每个连接上开启（app.py 的连接钩子），被引用的实体行
+            # 先删会直接报 FOREIGN KEY constraint failed。存量库的关系表没有
+            # ON DELETE CASCADE（DDL 建表时就写死了，create_all 不会改建好的表），
+            # 所以级联删除必须在业务层显式做，不能指望数据库。
+            #
+            # 与实体行同一次提交：中途失败时整体回滚，不会出现"关系删了、节点还在"
+            # 或"节点删了、关系还在"的中间态。
+            removed_relations = 0
+            for relation_model, fk_column in DbUtil._relation_models_for(node_type):
+                removed_relations += relation_model.query.filter(
+                    getattr(relation_model, fk_column) == node_id
+                ).delete(synchronize_session=False)
+
+            # 先删主存储（SQLite）并**与待办同一次提交**：主存储删除失败时整体回滚、
+            # 不动 Neo4j，不会留下「Neo4j 已删、SQLite 还在」的永久不一致。
+            #
+            # 删除现在也进 outbox（第 13 轮整改）：原先明确不补偿删除（理由是"按名重放删除
+            # 有歧义"），于是删除失败会永久留在图谱里，而且没有任何记录。有了稳定图谱键
+            # 之后这个歧义消失了——`Event:123` 只可能指向一个节点，重放删除是明确的。
             db.session.delete(node)
+            job = _stage_sync_job(node_type, node_id, OP_NODE_DELETE, node_name, None)
             db.session.commit()
 
-            neo4j_sync_success = False
-            neo4j_error_msg = ""
-            try:
-                from model_search import neo4j_db
-
-                neo4j_handle = neo4j_db()
-                if neo4j_id:
-                    neo4j_handle.delete_node(node_type, neo4j_id)
-                    neo4j_sync_success = True
-                else:
-                    # 仅在没有 neo4j_id 时才按名回退查找。同名同类型多于一个时宁可不动，
-                    # 让人工核对后处理——取第一条可能删掉另一个对象的节点。
-                    neo4j_sync_success, neo4j_error_msg = DbUtil._delete_neo4j_by_name(
-                        neo4j_handle, node_type, node_name
-                    )
-            except Exception as sync_err:
-                neo4j_error_msg = str(sync_err)
+            neo4j_sync_success, neo4j_error_msg, _neo4j_id = _try_sync_now(
+                job, node_type, node_id, graph_key=job.graph_key, name=node_name,
+                properties=None,
+            )
 
             return {
                 "code": 200,
                 "msg": "删除成功" if neo4j_sync_success else f"删除成功（Neo4j同步删除失败: {neo4j_error_msg}）",
                 "data": {
                     "id": node_id,
+                    # 连带删除的关系条数：删除是级联的，前端要让操作者知道"这一下删掉的不止一个节点"
+                    "removed_relations": removed_relations,
+                    "graph_key": job.graph_key,
                     "sync_status": "success" if neo4j_sync_success else "failed",
                     "sync_error": neo4j_error_msg or None,
                 },
             }
         except Exception as e:
             db.session.rollback()
-            return {"code": 500, "msg": f"删除失败: {str(e)}"}
+            logger.exception("删除节点失败：type=%s id=%s", node_type, node_id)
+            return {"code": 500, "msg": "删除失败，请稍后重试"}
 
     @staticmethod
     def update_node_properties(node_id: int, node_type: str, properties: dict):
@@ -383,38 +556,30 @@ class DbUtil:
                     if mapped_key in {"longitude", "latitude"}:
                         value = None if value in (None, "") else float(value)
                     setattr(node, mapped_key, value)
+            job = _stage_sync_job(
+                node_type, node_id, OP_NODE_UPDATE, node.name, mapped_properties,
+            )
             db.session.commit()
 
-            neo4j_sync_success = False
-            neo4j_error_msg = ""
-            try:
-                from model_search import neo4j_db
-
-                neo4j_handle = neo4j_db()
-                neo4j_id = getattr(node, "neo4j_id", None)
-                if neo4j_id:
-                    neo4j_handle.update_node_properties(
-                        neo4j_id,
-                        {k: v for k, v in DbUtil._neo4j_props(node_type, mapped_properties).items() if v is not None},
-                    )
-                    neo4j_sync_success = True
-                else:
-                    neo4j_error_msg = "节点没有 neo4j_id，无法同步到 Neo4j"
-            except Exception as sync_err:
-                neo4j_error_msg = str(sync_err)
+            neo4j_sync_success, neo4j_error_msg, _neo4j_id = _try_sync_now(
+                job, node_type, node_id, graph_key=job.graph_key, name=node.name,
+                properties=None,
+            )
 
             return {
                 "code": 200,
                 "msg": "属性更新成功" if neo4j_sync_success else f"属性更新成功（Neo4j同步失败: {neo4j_error_msg}）",
                 "data": {
                     "id": node_id,
+                    "graph_key": job.graph_key,
                     "sync_status": "success" if neo4j_sync_success else "failed",
                     "sync_error": neo4j_error_msg or None,
                 },
             }
         except Exception as e:
             db.session.rollback()
-            return {"code": 500, "msg": f"属性更新失败: {str(e)}"}
+            logger.exception("更新节点属性失败：type=%s id=%s", node_type, node_id)
+            return {"code": 500, "msg": "属性更新失败，请稍后重试"}
 
     @staticmethod
     def find_node_page(current: int, limit: int, name_query: str = "", node_type: str = None):
@@ -452,7 +617,15 @@ class DbUtil:
             end = start + limit
             return {"total": total_count, "records": all_records[start:end]}
         except Exception as e:
-            return {"total": 0, "records": [], "error": str(e)}
+            # 这里**不再吞掉异常**：原先返回 `{"total": 0, "records": [], "error": str(e)}`，
+            # 于是查询失败在客户端表现为"列表是空的"、在服务端日志里没有任何痕迹，
+            # 而且 `str(e)` 还会带着 SQL 与库路径回到前端（第 13 轮复核第七节）。
+            # 改为记日志后向上抛，由路由的 `server_error` 收成 HTTP 500 +
+            # 同一份空列表形状（前端不会在 `data.records` 上崩，但能知道"这是失败"）。
+            logger.exception("查询节点列表失败：page=%s size=%s type=%s",
+                             current, limit, node_type)
+            raise
+
 
     @staticmethod
     def get_node_detail_sqlite(node_id: int, node_type: str):

@@ -94,6 +94,25 @@ def _clean_users(_app_context):
     db.session.commit()
 
 
+@pytest.fixture(autouse=True)
+def _clean_login_attempts(_app_context):
+    """每个用例清空登录限流计数。
+
+    限流表是**跨用例累积**的：IP 维度按来源地址计数，而所有用例都来自 127.0.0.1——
+    不清的话前一条用例的失败登录会把后一条的登录直接顶成 429，
+    表现为"单独跑绿、全量跑红"这种最难查的失败。
+    """
+    import login_guard
+    from sqlalchemy import text
+
+    login_guard.ensure_table()
+    db.session.execute(text("DELETE FROM login_attempts"))
+    db.session.commit()
+    yield
+    db.session.execute(text("DELETE FROM login_attempts"))
+    db.session.commit()
+
+
 @pytest.fixture()
 def client():
     return app_module.app.test_client()

@@ -77,12 +77,28 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
     → 同步 Neo4j（model_search.py）→ 图谱可视化
 ```
 
-**同步规则**：节点增删改一律先写 SQLite，再按 `neo4j_id` 同步 Neo4j；创建节点时把 Neo4j ID 回写
-SQLite 的 `neo4j_id` 字段，供后续更新/删除定位。如果某节点还没有 `neo4j_id`，同步逻辑会按名字回退查找。
+**同步规则（第 13 轮整改后）**：节点增删改走**事务型 outbox**，图谱侧按**稳定图谱键**
+（`graph_key = "<Type>:<SQLite 主键>"`，见 `graph_key.py`）定位：
 
-删除的顺序相反：**先删 SQLite 并提交，再删 Neo4j**——这样 SQLite 侧失败时不会留下「Neo4j 已删、
-SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应里带 `sync_status` / `sync_error`，
-质检接口 `/api/quality/report` 还会给出两侧节点计数对账（`sync_reconciliation`）。
+1. 业务行与一条待办（`neo4j_sync_jobs`）在**同一次 SQLite 提交**里落库——提交后进程崩溃也不会
+   留下"改了但没人知道还没同步"的状态；
+2. 提交后立刻尝试写 Neo4j：成功就把待办标 `done`，失败记 `last_error` 并按下一次退避时刻
+   （30 秒 → 2 分钟 → 10 分钟 → 1 小时 → `abandoned`）留待重放；
+3. 重放成功会**回写** `neo4j_id`（原先重试成功但 `neo4j_id` 仍是空，后续更新/删除仍无法定位）。
+
+**为什么不再按名字或 `neo4j_id` 定位**：按名字会把同名节点合成一个（"赤壁之战"在不同来源里确实有多个），
+改名又会被当成新建、留下旧节点；`neo4j_id` 是 Neo4j 内部分配的，全量重导或恢复备份后会全变。
+`graph_key` 由主存储决定，重放、重建、改名都不影响定位，`neo4j_id` 因此降级为观测信息。
+改造前建的无键节点会在第一次 upsert 时被**认领**（`SET n.graph_key`），不会产生重复。
+
+删除的顺序不变：**先删 SQLite、再删 Neo4j**（且待办与删除同一次提交），SQLite 侧失败时不会留下
+「Neo4j 已删、SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应里带
+`sync_status` / `sync_error`，待办可用 `python retry_sync.py`（或 `deploy/systemd/china-war-outbox-retry.timer`
+每分钟自动重放）补齐，质检接口 `/api/quality/report` 还会给出两侧节点计数对账（`sync_reconciliation`）。
+
+**边界**：关系（四类）目前不进该队列，由 `sync_sqlite_to_neo4j.py` 的全量/增量同步承担——
+关系没有主键可对标，要纳入 outbox 得先给关系行拼一个稳定键（两端 graph_key + 关系类型），
+那是一次独立的重构。
 
 ## 接口清单
 
@@ -96,11 +112,16 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 | `/api/admin/users` | GET | 用户列表（仅 `admin`；响应不含口令字段） |
 | `/api/admin/users/<id>/role` | POST | 改角色（仅 `admin`；不能改自己、角色值过白名单、用户不存在给 404） |
 | `/user/menu` / `/user/permission` | GET | 菜单与权限（菜单按角色裁剪，见下「角色职责与三处口径」） |
+| `/api/internal/token/introspect` | POST | **服务间接口**（RAG 调用）：问"这张 JWT 现在还作不作数"。请求头 `X-Internal-Service-Key` 必须等于 `INTERNAL_SERVICE_KEY`；请求体 `{"token": "..."}`；响应 `{"code":200,"data":{"active":bool,"user_id","role","token_version","disabled"}}`。判定规则与 `before_request` 共用 `DbUtil.token_status`，两边口径不会分叉；失败原因只写日志不回给调用方。nginx 对 `/api/internal/` 前缀直接 404，公网不可达 |
 
-除 `/`、`/api/login`、`/api/sign_in`、`/static*` 外，所有接口经全局 `before_request` 校验 token：
+除 `/`、`/api/login`、`/api/sign_in`、`/static*` 与 `/api/internal/*` 外，
+所有接口经全局 `before_request` 校验 token：
 
 - 未带 token、token 过期或伪造：**HTTP 401** + 响应体 `{"code": 401, "msg": ...}`；
 - token 有效但角色无写权限：**HTTP 403**（只作用于写接口，见下）。
+
+`/api/internal/*` 是**服务间接口**（见下表），不进用户 token 校验；它由蓝图级的服务间密钥守卫：
+未配置 `INTERNAL_SERVICE_KEY` 时整体返回 503（而不是"不校验就放行"），密钥不符返回 401。
 
 **写权限角色**：`UserInfo.role` 为 `admin` / `editor` 才能调 `/create_node`、`/update_node`、
 `/delete_node`、`/api/node/update_properties`、`/api/extract/entities-events`、`/api/ai/inference`、
@@ -130,12 +151,31 @@ SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应�
 | `backend/roles.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；菜单裁剪白名单 `ADMIN_MENU_IDS` / `EDITOR_MENU_IDS` 与可见性判断。第 7 轮路由蓝图拆分时从 `app.py` 抽成独立模块（`app.py` 现 415 行）。菜单数据本体的 `get_menu()` 在 `backend/blueprints/auth.py` |
 | `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
 | `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
-| `backend/tests/` | 常驻用例（**43 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor、抽取提示词与录制回放。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4 建立，后续轮次扩充） |
+| `backend/tests/` | 常驻用例（**63 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor、抽取提示词与录制回放，以及第 9 轮新增的四组守护——**空角色回填为 viewer**（不提权）、**删除节点时关系级联且外键真的开着**、**数据重导不删账号**、**首个管理员引导命令**。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4 建立，后续轮次扩充） |
 
 **生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
 被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。
 
-**升级账号**（两个途径，任选）：
+⚠️ **启动迁移对空角色一律回填 `viewer`，不回填 `admin`**（第 12 轮审查 P1-5 改的口径）。
+该迁移每次启动都跑，而空角色行可能来自导入脚本、手工写库或旧版本遗漏——回填 admin 等于
+每次开机都可能静默提权，与 `DbUtil.get_role` 的最小权限兜底正好相反。空值只让人少看几个
+页面，不会让人多写几个接口。**首个管理员请用下面的引导命令，不要再靠改库。**
+
+**升级/引导账号**（三个途径，按场景选）：
+
+0. **库中还没有任何管理员时**（全新部署的必由之路）用一次性引导命令：
+
+   ```bash
+   cd backend
+   python create_admin.py --list                          # 先看清现状
+   python create_admin.py --account alice                 # 提升已注册的账号（推荐：先注册再提升）
+   python create_admin.py --account alice --name 爱丽丝 --password   # 新建（口令交互输入）
+   ```
+
+   护栏：**只在库中确实没有管理员时才动数据**（已有管理员时退出码 1，并要求改走管理台）；
+   口令只从终端读、不进 shell 历史；不走任何 HTTP 接口，因此不存在"匿名首管"的攻击面。
+   为什么需要它：注册接口一律只建 viewer，而「用户管理」页只有 admin 能进——没有管理员
+   就进不去，全新库会死锁（此前只能手写 SQL，且没有"仅首次可用"这层护栏）。
 
 1. 管理员在界面上操作：「用户管理」页把角色下拉改掉再保存（仅 `admin` 可见）。
    防呆由服务端执行——不能改自己的角色（否则最后一个管理员可以把自己降级、系统失管），
@@ -273,6 +313,7 @@ python sync_sqlite_to_neo4j.py --mode full
 | Neo4j 口令 | `NEO4J_PASSWORD` | 无默认值；未配置时启动即报出配置指引 |
 | JWT 密钥 | `JWT_SECRET` | 无默认值；未配置时进程内随机生成（重启后旧 token 失效，生产必须显式配置） |
 | JWT 有效期（秒） | `JWT_TTL_SECONDS` | `604800`（7 天） |
+| 服务间密钥 | `INTERNAL_SERVICE_KEY` | 无默认值；未配置时 `/api/internal/*` 整体返回 503（**不校验就放行是更糟的默认**）。与 RAG 的 `RAG_INTERNAL_SERVICE_KEY` 必须同值 |
 | 监听地址 / 端口 | `BACKEND_HOST` / `BACKEND_PORT` | `127.0.0.1` / `5000` |
 | 调试开关 | `FLASK_DEBUG` | 关（生产必须保持关闭） |
 
@@ -295,12 +336,28 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
    url_prefix**，URL 必须与拆分前逐字相同；改动的行为不变性由
    `python tools/snapshot_responses.py` 的 67 请求前后对照兜底（见该脚本的文件头）。
 1. **数据库初始化**：首次运行自动创建 SQLite 表结构，并做一次结构迁移（`UserInfo.role` 列、
-   `account` 唯一索引、关系表证据字段）；WAL 与 `synchronous=NORMAL` 由 SQLAlchemy 的
-   connect 事件钩子在**每个新连接**上设置，不依赖启动时那一次 PRAGMA
+   `token_version` / `disabled` 列、`account` 唯一索引、关系表证据字段、补偿队列的新列）；
+   WAL 与 `synchronous=NORMAL` 由 SQLAlchemy 的 connect 事件钩子在**每个新连接**上设置，
+   不依赖启动时那一次 PRAGMA。
+   迁移只加列、不改列，且都可重复执行——`create_all()` 不会给已存在的表补列，所以补列是显式的。
 2. **同步失败不再静默**：节点操作会立即尝试同步 Neo4j，失败时 SQLite 不回滚，但响应里带
-   `sync_status=failed` 与原因；`/api/quality/report` 的两侧计数对账（`sync_reconciliation`）
-   与工作台 summary 的 `sync_mismatch` 用来发现累积的缺口
+   `sync_status=failed` 与原因，同时留下一条可重放的待办（见上文"同步规则"）；
+   `/api/quality/report` 的两侧计数对账（`sync_reconciliation`）与工作台 summary 的
+   `sync_mismatch` 用来发现累积的缺口
 3. **两套问答互不影响**：本模块的问答依赖 Ollama 常驻；RAG 问答是独立服务，见 `RAG/README.md`
 4. **菜单接口**：`/user/menu`、`/user/permission` 由前端直连本接口（mockjs 已在 2026-09 移除，
    生产包不含它）。菜单项要改三处（后端接口、`frontend/src/store/user.ts` 白名单、路由表），
    见 [../frontend/README.md](../frontend/README.md)
+5. **错误响应统一形状**：框架层错误（404/405/413/未捕获异常）由 `api_errors.py` 统一成
+   `{code, msg, message, data, request_id}` + 对应 HTTP 状态，不再返回 Flask 的 HTML 页面；
+   500 只回安全文案，真实原因（含堆栈）进日志并带同一个 `request_id`。
+   写接口的请求体用 `api_errors.json_body()` 断言"必须是 JSON 对象"，不再是 AttributeError → 500。
+   **路由自己返回的响应形状未变**（前端按数值 `code` 分支，如登录失败仍是 `200 + code 403`）。
+6. **登录限流与账号撤销**：`login_guard.py` 按来源 IP（每次尝试，默认 10 次/分钟）与账号
+   （连续失败 5 次锁 15 分钟）两把尺子限流，超限返回 **HTTP 429 + `retry_after`**；
+   改密码 / 停用账号会把 `token_version` +1，旧 JWT 立刻失效（见 `DbUtil.check_token_usable`）。
+   配置项与生产建议见 `deploy/env/backend.env`。
+   **落库时间一律是 UTC epoch 秒**（`time.time()`，列名带 `_epoch` 后缀）：这类计数必须跨进程、
+   跨重启可比，而 `time.monotonic()`（开机以来的秒数）在重启后就换了基准——旧实现把它写进库里，
+   重启后会把账号凭空锁住几十万秒、或让锁定提前失效（第 13 轮复核第三节）。
+   升级时旧口径的 `login_attempts` 表会被**整表作废重建**（限流数据是临时安全状态，不是业务数据）。
