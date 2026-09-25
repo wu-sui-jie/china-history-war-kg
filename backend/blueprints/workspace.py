@@ -25,6 +25,31 @@ workspace_bp = Blueprint("workspace", __name__)
 logger = get_logger(__name__)
 
 
+@workspace_bp.route('/api/health', methods=['GET'])
+def health():
+    """运行状态（**唯一免登录的接口**，见 app.py 的 PASS_URLS）。
+
+    为什么需要它（第 13 轮复核整改 §2.4 的验收项）：登录限流在自身故障时按
+    `LOGIN_GUARD_FAILURE_MODE` 决定"拒绝还是放行"，而这两种状态的差别只有运维看得见——
+    不暴露出来，就得靠"登录是不是全 503"去反推配置。
+
+    为什么免登录：监控与 `deploy/scripts/selfcheck.sh` 要在**没有任何账号凭据**的前提下
+    探活；要求 token 等于把"服务是否活着"这件事也锁在登录后面（登录本身出问题时最需要它）。
+
+    为什么只报这么点：免登录接口的返回面越小越好。这里只给"活着"与那个**策略开关**——
+    不含版本、路径、库名、阈值（阈值可以从外部实测出来，但没有必要主动送）。
+    """
+    from login_guard import failure_mode
+
+    return jsonify({
+        "code": 200,
+        "data": {
+            "status": "ok",
+            "login_guard": {"failure_mode": failure_mode()},
+        },
+    })
+
+
 @workspace_bp.route('/api/dashboard/overview', methods=['GET'])
 def get_dashboard_overview():
     """首页仪表盘接口。"""

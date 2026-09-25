@@ -55,6 +55,31 @@ IP 维度的窗口固定 60 秒——"每分钟 N 次"就是它的定义，写�
 这不是业务数据，是"最近谁失败过几次"的临时安全状态，清空的最坏后果是锁定期提前放行一次；
 相比之下把 monotonic 值与 epoch 值混在一列里，会让两个方向的错误都变成随机出现、
 且只能靠读代码才能解释的疑难问题。
+
+## 计数必须是原子的（第 13 轮复核整改 §2.3）
+
+第一版是"SELECT failures → Python 里 +1 → UPDATE"：两个并发请求同时读到 3，
+然后都写回 4——实际发生两次失败，库里只加了一次。爆破脚本要的正是"用并发把计数做废"。
+现在计数、窗口滚动与锁定判定全部放进**一条 UPSERT** 的 SQL 里
+（`_UPSERT_ATTEMPT`）：`ON CONFLICT ... DO UPDATE` 的 SET 表达式读的是该行的旧值，
+因此整条语句是一次原子读改写，不会丢计数。Python 侧只剩两个参数（now 与阈值）。
+
+## 限流自身故障时不能静默失效（第 13 轮复核整改 §2.4）
+
+限流表读写失败时，第一版"记一条日志、继续放行"：数据库锁冲突、表损坏或迁移失败都会让
+爆破保护**无声地消失**，而登录看起来一切正常。现在由 `LOGIN_GUARD_FAILURE_MODE` 显式选择：
+
+| 取值 | 行为 | 适用 |
+| --- | --- | --- |
+| `closed`（默认） | 无法判定就拒绝本次登录：抛 `LoginGuardUnavailable`，路由回 **503** | 生产 |
+| `open` | 记 `ERROR` 日志后放行（保持改造前的可用性优先行为） | 开发/内网 |
+
+默认取 `closed` 是有意的：这是一道安全闸门，"把限流表弄坏"不该成为一种绕过它的手段。
+SQLite 的临时 `busy`/`locked` 属于**已知可恢复**的故障，会先重试几次（`_BUSY_RETRIES`），
+重试仍失败才按上面的策略处置——否则一次短暂的写锁就能让全站登录 503。
+
+`record_success` 是这条规则的一个例外，理由见它的文档字符串（登录已经成功，不能因为
+"没清成计数"就把用户挡回去）。
 """
 
 from __future__ import annotations
@@ -100,7 +125,27 @@ _CLOCK_SLACK_SECONDS = 300.0
 _ddl_done = threading.Event()
 _ddl_lock = threading.Lock()
 
+# 限流自身故障时的策略（第 13 轮复核整改 §2.4）。取值含义见模块文档的同名小节。
+FAILURE_OPEN = "open"
+FAILURE_CLOSED = "closed"
+FAILURE_MODES = (FAILURE_OPEN, FAILURE_CLOSED)
+
+# SQLite 的 busy/locked 属于"别人的写事务还没结束"，重试几次通常就好；
+# 这三个数字只影响"临时锁"的处置，真正的故障仍然按 FAILURE_MODE 走。
+_BUSY_RETRIES = 3
+_BUSY_SLEEP_SECONDS = 0.05
+
 Scope = str
+
+
+class LoginGuardUnavailable(RuntimeError):
+    """限流状态不可用，且失败策略是 closed：调用方必须拒绝本次登录（HTTP 503）。
+
+    单独定义一个异常类型而不是让函数返回"第三种状态"：`check()` 已经有
+    `(是否允许, 等待秒数)` 两个返回值，再加一个"未知"会让每个调用点都要判断它，
+    而漏判的表现是"静默放行"。异常不会被忽略（Python 里没有未检查异常），
+    调用方必须显式处理或让它冒泡成 500。
+    """
 
 
 def _settings() -> dict:
@@ -115,12 +160,62 @@ def _settings() -> dict:
             return default
         return value if value >= low else default
 
+    # 失败策略：只认两个取值，拼错/留空一律取 closed（安全的那一边）。
+    # 与阈值不同——阈值写错最坏是限流松一点，策略写错是"保护整个消失"，
+    # 所以这里不做"非法值回落成默认"，而是回落到**默认里更严的那个**。
+    mode = (local_settings.get("LOGIN_GUARD_FAILURE_MODE", "") or "").strip().lower()
+    if mode not in FAILURE_MODES:
+        mode = FAILURE_CLOSED
+
     return {
         "ip_per_minute": _int("LOGIN_RATE_LIMIT_PER_MINUTE", 10),
         "lock_threshold": _int("LOGIN_FAILURE_LOCK_THRESHOLD", 5),
         "lock_seconds": _int("LOGIN_LOCK_SECONDS", 900),
         "window_seconds": _int("LOGIN_FAILURE_WINDOW_SECONDS", 900),
+        "failure_mode": mode,
     }
+
+
+def failure_mode() -> str:
+    """当前失败策略（`/api/health` 与排障用）。"""
+    return _settings()["failure_mode"]
+
+
+def is_busy_error(exc: Exception) -> bool:
+    """是否是 SQLite 的"临时忙"（可以通过重试恢复），而不是真故障。"""
+    text_of_error = str(exc).lower()
+    return "database is locked" in text_of_error or "database is busy" in text_of_error
+
+
+def _with_busy_retry(action, *, description: str):
+    """跑一段会碰 SQLite 的逻辑；遇 busy 短暂重试，其它异常直接上抛。
+
+    只对 busy/locked 重试：那表示"另一个写事务正在收尾"，等几十毫秒通常就好了；
+    表结构不对、磁盘满这类错误重试多少次都一样，早点暴露出来更好。
+    """
+    last: Optional[Exception] = None
+    for attempt in range(_BUSY_RETRIES):
+        try:
+            return action()
+        except Exception as exc:  # noqa: BLE001 - 分类后再决定是重试还是上抛
+            if not is_busy_error(exc):
+                raise
+            last = exc
+            logger.warning("登录限流表忙（第 %s/%s 次尝试，%s）：%s",
+                           attempt + 1, _BUSY_RETRIES, description, exc)
+            time.sleep(_BUSY_SLEEP_SECONDS * (attempt + 1))
+    assert last is not None
+    raise last
+
+
+def _unavailable(description: str, exc: Exception, mode: str) -> None:
+    """按失败策略处置"限流不可用"：closed 抛异常，open 放行。"""
+    if mode == FAILURE_CLOSED:
+        logger.error("⚠️ 登录限流不可用（%s），按 LOGIN_GUARD_FAILURE_MODE=closed 拒绝本次登录：%s",
+                     description, exc)
+        raise LoginGuardUnavailable(f"限流状态不可用：{description}") from exc
+    logger.error("⚠️ 登录限流不可用（%s），按 LOGIN_GUARD_FAILURE_MODE=open 放行本次登录：%s",
+                 description, exc)
 
 
 def _columns(conn) -> set:
@@ -208,18 +303,52 @@ def read_state(conn, scope: str, key: str, *, now: float, lock_seconds: int):
     return failures, window_start, locked_until
 
 
-def _write(conn, scope: str, key: str, failures: int, window_start: float,
-           locked_until: Optional[float], now: float) -> None:
-    conn.execute(
-        text("INSERT INTO login_attempts (scope, key, failures, window_start_epoch, "
-             "locked_until_epoch, updated_at_epoch) VALUES (:scope, :key, :failures, "
-             ":window_start, :locked_until, :now) "
-             "ON CONFLICT(scope, key) DO UPDATE SET failures = :failures, "
-             "window_start_epoch = :window_start, locked_until_epoch = :locked_until, "
-             "updated_at_epoch = :now"),
-        {"scope": scope, "key": key, "failures": failures, "window_start": window_start,
-         "locked_until": locked_until, "now": now},
-    )
+# 计数、窗口滚动与锁定判定在**一条语句**里完成（第 13 轮复核整改 §2.3）。
+#
+# 为什么必须这样：`ON CONFLICT ... DO UPDATE` 的 SET 表达式读的是该行的**旧值**，
+# 因此 "读 → 判断 → 写" 三步被数据库当成一次原子操作；多个并发请求各自执行这条语句时
+# 不会互相覆盖计数（第一版在 Python 里 +1 再写回，并发下会丢计数）。
+#
+# 三处 CASE 重复了同一个"新计数"表达式：SQL 的 SET 之间不能引用刚算出的新值。
+# 重复而不是用 CTE：SQLite 的 UPSERT 不支持在 DO UPDATE 里 CTE 前置，
+# 而这三行的语义一眼可读——它比"引入一层临时表"更容易在 review 里核准。
+_UPSERT_ATTEMPT = """
+INSERT INTO login_attempts
+  (scope, key, failures, window_start_epoch, locked_until_epoch, updated_at_epoch)
+VALUES
+  (:scope, :key, 1, :now,
+   CASE WHEN :lockable = 1 AND 1 >= :threshold THEN :now + :lock_seconds ELSE NULL END,
+   :now)
+ON CONFLICT(scope, key) DO UPDATE SET
+  failures = CASE
+    WHEN :now - login_attempts.window_start_epoch > :window THEN 1
+    ELSE login_attempts.failures + 1
+  END,
+  window_start_epoch = CASE
+    WHEN :now - login_attempts.window_start_epoch > :window THEN :now
+    ELSE login_attempts.window_start_epoch
+  END,
+  locked_until_epoch = CASE
+    WHEN :lockable = 1 AND (
+      CASE
+        WHEN :now - login_attempts.window_start_epoch > :window THEN 1
+        ELSE login_attempts.failures + 1
+      END
+    ) >= :threshold THEN :now + :lock_seconds
+    ELSE login_attempts.locked_until_epoch
+  END,
+  updated_at_epoch = :now
+"""
+
+
+def _write(conn, scope: str, key: str, *, now: float, window_seconds: float,
+           threshold: int, lock_seconds: int, lockable: bool) -> None:
+    """原子地记一次尝试（计数 +1、必要时滚动窗口、必要时写锁定）。"""
+    conn.execute(text(_UPSERT_ATTEMPT), {
+        "scope": scope, "key": key, "now": now, "window": window_seconds,
+        "threshold": threshold, "lock_seconds": lock_seconds,
+        "lockable": 1 if lockable else 0,
+    })
 
 
 def check(scope: Scope, key: str, *, now: Optional[float] = None) -> tuple[bool, int]:
@@ -238,14 +367,19 @@ def check(scope: Scope, key: str, *, now: Optional[float] = None) -> tuple[bool,
 
     settings = _settings()
     stamp = time.time() if now is None else now
-    try:
+
+    def _read():
         conn = db.session.connection()
         state = read_state(conn, scope, key, now=stamp, lock_seconds=settings["lock_seconds"])
         # 状态被判为异常时上面已把它删掉，删除要落库，否则下一个请求仍读到同一行
         db.session.commit()
-    except Exception as exc:  # noqa: BLE001 - 限流表读不到时宁可放行也不能把登录全锁死
+        return state
+
+    try:
+        state = _with_busy_retry(_read, description=f"读取 {scope} 限流状态")
+    except Exception as exc:  # noqa: BLE001 - 按失败策略处置（closed 抛异常，open 放行）
         db.session.rollback()
-        logger.error(f"⚠️ 登录限流表读取失败，本次不拦截：{exc}")
+        _unavailable(f"读取 {scope} 限流状态失败", exc, settings["failure_mode"])
         return True, 0
 
     if state is None:
@@ -297,27 +431,34 @@ def _bump(scope: Scope, key: str, *, now: Optional[float], lockable: bool) -> No
     settings = _settings()
     window_seconds = 60.0 if scope == "ip" else float(settings["window_seconds"])
     stamp = time.time() if now is None else now
-    try:
+    # 只有账号维度可写锁定：IP 维度按来源地址"锁一段时间"会连带挡住同一出口 NAT
+    # 后面的所有人（公司、学校出口都是这种情况），而频率限制本身已经够了。
+    writable_lock = bool(lockable and scope == "account")
+
+    def _bump_once():
         conn = db.session.connection()
+        # 先做一次可信度检查（丢弃时钟跳变/人工写库留下的"未来"时间戳），
+        # 再走原子写入。这一步只清理垃圾行，判定与计数都在下面的 SQL 里。
         state = read_state(conn, scope, key, now=stamp, lock_seconds=settings["lock_seconds"])
-        if state is None:
-            failures, window_start, locked_until = 1, stamp, None
-        else:
-            failures, window_start, locked_until = state
-            if stamp - window_start > window_seconds:
-                # 窗口已过：重新起一个窗口，而不是让计数无限累积
-                failures, window_start, locked_until = 1, stamp, None
-            else:
-                failures += 1
-        if lockable and scope == "account" and failures >= settings["lock_threshold"]:
-            locked_until = stamp + settings["lock_seconds"]
-            logger.warning(f"⚠️ 账号 {key} 连续登录失败 {failures} 次，已锁定 "
-                           f"{settings['lock_seconds']} 秒")
-        _write(conn, scope, key, failures, window_start, locked_until, stamp)
+        before = int(state[0]) if state else 0
+        _write(conn, scope, key, now=stamp, window_seconds=window_seconds,
+               threshold=settings["lock_threshold"], lock_seconds=settings["lock_seconds"],
+               lockable=writable_lock)
         db.session.commit()
-    except Exception as exc:  # noqa: BLE001 - 记账失败不能把登录流程带崩
+        return before
+
+    try:
+        before = _with_busy_retry(_bump_once, description=f"记录 {scope} 尝试")
+    except Exception as exc:  # noqa: BLE001 - 按失败策略处置（closed 抛异常，open 放行）
         db.session.rollback()
-        logger.error(f"⚠️ 登录失败计数写入失败：{exc}")
+        _unavailable(f"记录 {scope} 尝试失败", exc, settings["failure_mode"])
+        return
+
+    # 锁定是"恰好触发阈值那一次"才值得记一条：每多一次失败都记会让日志变成刷屏，
+    # 而真正需要事后定位的正是"什么时候开始锁的、锁了多久"。
+    if writable_lock and before + 1 == settings["lock_threshold"]:
+        logger.warning("⚠️ 账号 %s 连续登录失败 %s 次，已锁定 %s 秒",
+                       key, before + 1, settings["lock_seconds"])
 
 
 def record_success(scope: Scope, key: str) -> None:
@@ -326,6 +467,12 @@ def record_success(scope: Scope, key: str) -> None:
     必须清，否则"试错 4 次后成功登录"的用户会带着 4 次计数继续用——下一次
     手误就把自己锁住了。**IP 维度不要清**：那会让攻击者"用一个自己的合法账号
     登录一次"就重置整台的预算，限流等于没有。
+
+    **这是 `LOGIN_GUARD_FAILURE_MODE` 规则的一个例外：清零失败不拒绝登录。**
+    此时用户的凭证**已经验证通过**，把一次成功登录改成 503 是把服务端的记账问题
+    转嫁给用户，而收益只是"计数早一点归零"——下一次成功登录会再清一次。
+    风险有上限：只有"清零一直失败 **且** 期间又连续失败到阈值"才会误锁，
+    那时 503 会出现在真正的写失败路径上（`_bump`），排障入口不会消失。
     """
     if not key:
         return

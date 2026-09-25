@@ -15,7 +15,10 @@
 
 from __future__ import annotations
 
+import sqlite3
 import time
+
+import pytest
 
 import login_guard
 from sqlalchemy import text
@@ -337,3 +340,212 @@ def test_旧口径表在升级时整表作废(client):
 
     assert {"window_start_epoch", "locked_until_epoch", "updated_at_epoch"} <= _columns()
     assert _row("account", "someone") is None
+
+
+# ---------------------------------------------- 并发计数与失败策略（第 13 轮复核整改）
+#
+# §2.3：计数必须是原子的。第一版是"读 → Python 里 +1 → 写回"，两个并发请求同时读到
+# failures=3 后都写回 4——实际发生两次失败，库里只加了一次。爆破脚本要的就是这个。
+#
+# §2.4：限流自身故障时不能静默失效。"读不到限流状态就放行"等于让"把限流表弄坏"
+# 成为一种绕过手段，因此默认 fail-closed（503），并显式提供 open 档给开发环境。
+
+
+def _concurrent(workers: int, action) -> None:
+    """在多个线程里并发执行 `action(index)`；任一异常都会让用例失败。
+
+    每个线程都要有自己的 app context：Flask-SQLAlchemy 的 session 按线程隔离，
+    共用外层上下文会让"并发"退化成"串行"（那样测不出丢计数）。
+    """
+    import threading
+
+    import app as app_module
+
+    errors: list[BaseException] = []
+
+    def runner(index: int) -> None:
+        try:
+            with app_module.app.app_context():
+                action(index)
+        except BaseException as exc:  # noqa: BLE001 - 收集后在主线程重放
+            errors.append(exc)
+
+    threads = [threading.Thread(target=runner, args=(i,)) for i in range(workers)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=30)
+    if errors:
+        raise errors[0]
+
+
+def test_并发失败计数不丢(_app_context, monkeypatch):
+    """20 个并发失败请求，最终计数必须是 20（不是"看起来差不多"的数字）。"""
+    monkeypatch.setenv("LOGIN_FAILURE_LOCK_THRESHOLD", "1000")  # 只考计数，不让它锁上
+    workers = 20
+
+    _concurrent(workers, lambda i: login_guard.record_failure("account", "someone"))
+
+    row = _row("account", "someone")
+    assert row is not None
+    assert row[0] == workers, f"并发丢计数：期望 {workers}，实际 {row[0]}"
+
+
+def test_并发下的_IP_维度同样不丢计数(_app_context, monkeypatch):
+    """两个维度走的是同一条 UPSERT，但窗口长度不同，值得各钉一遍。"""
+    monkeypatch.setenv("LOGIN_RATE_LIMIT_PER_MINUTE", "1000")
+    workers = 20
+
+    _concurrent(workers, lambda i: login_guard.record_attempt("ip", "10.0.0.1"))
+
+    assert _row("ip", "10.0.0.1")[0] == workers
+
+
+def test_并发达到阈值后不再放行(_app_context, monkeypatch):
+    """原子性不只是"计数对"，还要保证"到阈值就锁"在并发下也成立。"""
+    monkeypatch.setenv("LOGIN_FAILURE_LOCK_THRESHOLD", "5")
+    monkeypatch.setenv("LOGIN_LOCK_SECONDS", "900")
+
+    _concurrent(20, lambda i: login_guard.record_failure("account", "someone"))
+
+    allowed, wait = login_guard.check("account", "someone")
+    assert allowed is False
+    assert wait > 0
+
+
+def test_失败策略默认_closed_且读不到状态时拒绝(_app_context, monkeypatch):
+    """默认必须是安全的那一边：读不到限流状态就拒绝（503），而不是放行。
+
+    让"读不到"发生的方式是让 `read_state` 抛错（check 里被包住的那一步），
+    而不是删表——删表会连累 autouse 夹具的 `DELETE FROM login_attempts` 清理，
+    表现为"用例报错在 teardown"，把真正要断言的东西盖掉。
+    """
+    monkeypatch.delenv("LOGIN_GUARD_FAILURE_MODE", raising=False)
+    assert login_guard.failure_mode() == "closed"
+    monkeypatch.setattr(login_guard, "read_state",
+                        lambda *a, **k: (_ for _ in ()).throw(sqlite3.ProgrammingError("表坏了")))
+
+    with pytest.raises(login_guard.LoginGuardUnavailable):
+        login_guard.check("account", "someone")
+
+
+def test_显式_open_时读不到状态仍放行(_app_context, monkeypatch):
+    """开发/内网可以用 open 换可用性——但那必须是**显式**选的。"""
+    monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", "open")
+    assert login_guard.failure_mode() == "open"
+    monkeypatch.setattr(login_guard, "read_state",
+                        lambda *a, **k: (_ for _ in ()).throw(sqlite3.ProgrammingError("表坏了")))
+
+    allowed, wait = login_guard.check("account", "someone")
+    assert allowed is True
+    assert wait == 0
+
+
+def test_策略取值非法时回落到_closed(monkeypatch):
+    """拼错/留空一律取 closed：阈值写错最坏是松一点，策略写错是保护整个消失。"""
+    for bad in ("", "opened", "CLOSE", "false", "1"):
+        monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", bad)
+        assert login_guard.failure_mode() == "closed", bad
+
+    monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", "Open")   # 大小写不敏感
+    assert login_guard.failure_mode() == "open"
+
+
+def test_临时_busy_会重试而不是直接失败(_app_context, monkeypatch):
+    """SQLite 的临时写锁是**已知可恢复**的故障：一次短暂锁冲突不该让全站登录 503。"""
+    monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", "closed")
+    monkeypatch.setenv("LOGIN_FAILURE_LOCK_THRESHOLD", "3")
+    attempts = {"count": 0}
+    real_write = login_guard._write
+
+    def flaky_write(*args, **kwargs):
+        attempts["count"] += 1
+        if attempts["count"] == 1:
+            raise sqlite3.OperationalError("database is locked")
+        return real_write(*args, **kwargs)
+
+    monkeypatch.setattr(login_guard, "_write", flaky_write)
+
+    login_guard.record_failure("account", "someone")   # 第一次 busy → 重试后成功
+
+    assert attempts["count"] == 2
+    assert _row("account", "someone")[0] == 1
+
+
+def test_busy_重试耗尽后按策略拒绝(_app_context, monkeypatch):
+    monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", "closed")
+
+    def always_busy(*args, **kwargs):
+        raise sqlite3.OperationalError("database is locked")
+
+    monkeypatch.setattr(login_guard, "_write", always_busy)
+
+    with pytest.raises(login_guard.LoginGuardUnavailable):
+        login_guard.record_failure("account", "someone")
+
+
+def test_非_busy_错误不重试(_app_context, monkeypatch):
+    """表结构不对、磁盘满这类错误重试多少次都一样，早点暴露更好。
+
+    异常类型统一包成 `LoginGuardUnavailable`（路由据此回 503，而不是 500）——
+    本用例钉的是"只调用了一次"，即没有被当成 busy 反复重试。
+    """
+    calls = {"count": 0}
+
+    def broken(*args, **kwargs):
+        calls["count"] += 1
+        raise sqlite3.ProgrammingError("no such column: nope")
+
+    monkeypatch.setattr(login_guard, "_write", broken)
+
+    with pytest.raises(login_guard.LoginGuardUnavailable):
+        login_guard.record_failure("account", "someone")
+    assert calls["count"] == 1, "非 busy 错误不该被重试"
+
+
+def test_登录成功时清零失败不阻断登录(client, make_user, monkeypatch):
+    """`record_success` 是失败策略的例外：凭证已验证通过，不能因为"没清成计数"就把人挡回去。"""
+    monkeypatch.setenv("LOGIN_RATE_LIMIT_PER_MINUTE", "100")
+    make_user("someone", "viewer", password="correct-password-1")
+
+    def boom(*args, **kwargs):
+        raise sqlite3.OperationalError("database is locked")
+
+    monkeypatch.setattr(login_guard, "_delete", boom)
+
+    response = client.post("/api/login", json={"account": "someone",
+                                               "password": "correct-password-1"})
+
+    assert response.get_json()["code"] == 200, "清零失败不该让一次成功登录变成失败"
+
+
+def test_限流不可用时登录返回_503(client, make_user, monkeypatch):
+    """路由层把 `LoginGuardUnavailable` 映射成 503，而不是让它变成 500 或静默放行。"""
+    monkeypatch.setenv("LOGIN_RATE_LIMIT_PER_MINUTE", "100")
+    make_user("someone", "viewer", password="correct-password-1")
+
+    def boom(scope, key, **kwargs):
+        raise login_guard.LoginGuardUnavailable("限流状态不可用")
+
+    monkeypatch.setattr(login_guard, "check", boom)
+
+    response = client.post("/api/login", json={"account": "someone",
+                                               "password": "correct-password-1"})
+
+    assert response.status_code == 503
+    assert response.get_json()["code"] == 503
+    assert "稍后重试" in response.get_json()["msg"]
+
+
+def test_health_免登录且报出失败策略(client, monkeypatch):
+    """监控要在没有凭据时探活，并且能看出限流是"拒绝还是放行"（§2.4 验收项）。"""
+    monkeypatch.setenv("LOGIN_GUARD_FAILURE_MODE", "open")
+
+    response = client.get("/api/health")
+
+    assert response.status_code == 200
+    data = response.get_json()["data"]
+    assert data["status"] == "ok"
+    assert data["login_guard"]["failure_mode"] == "open"
+    raw = response.get_data(as_text=True)
+    assert "LOGIN_GUARD" not in raw and "database" not in raw, "免登录接口不该泄露配置细节"

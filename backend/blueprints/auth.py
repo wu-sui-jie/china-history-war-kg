@@ -26,6 +26,24 @@ auth_bp = Blueprint("auth", __name__)
 logger = get_logger(__name__)
 
 
+def _guard_unavailable(exc: Exception):
+    """限流自身不可用（`LOGIN_GUARD_FAILURE_MODE=closed`）时返回 **503**。
+
+    为什么是 503 而不是"照旧放行"：这是一道安全闸门，读不到状态就意味着**无法判断
+    这次尝试该不该被拦**。放行等于"把限流表弄坏"成为绕过它的手段（第 13 轮复核整改 §2.4）。
+    503 的语义也正好——"依赖的服务暂时不可用"，客户端应稍后重试而不是改口令；
+    因此不占用 403 那条"密码错了"的语义，也不误导用户去反复试密码。
+    """
+    logger.error("登录限流不可用，本次登录按 503 拒绝：%s", exc)
+    response = jsonify({
+        "code": 503,
+        "msg": "登录服务暂时不可用，请稍后重试",
+        "message": "登录服务暂时不可用，请稍后重试",
+    })
+    response.status_code = 503
+    return response
+
+
 def _rate_limited(scope: str, key: str):
     """被限流时返回 429 响应，否则 None。
 
@@ -33,7 +51,10 @@ def _rate_limited(scope: str, key: str):
     客户端要据此决定"等一会再试"而不是"密码错了"。响应里带 `retry_after`，
     前端不必猜要等多久（同时照 HTTP 惯例给出 Retry-After 头）。
     """
-    allowed, wait = login_guard.check(scope, key)
+    try:
+        allowed, wait = login_guard.check(scope, key)
+    except login_guard.LoginGuardUnavailable as exc:
+        return _guard_unavailable(exc)
     if allowed:
         return None
     logger.warning("登录被限流：维度=%s 标识=%s 建议等待=%ss", scope, key, wait)
@@ -45,6 +66,15 @@ def _rate_limited(scope: str, key: str):
     response.status_code = 429
     response.headers["Retry-After"] = str(wait)
     return response
+
+
+def _record(action, scope: str, key: str):
+    """记一次限流状态；不可用时返回 503 响应，否则 None。"""
+    try:
+        action(scope, key)
+    except login_guard.LoginGuardUnavailable as exc:
+        return _guard_unavailable(exc)
+    return None
 
 
 @auth_bp.route('/api/login', methods=['POST'])
@@ -80,18 +110,24 @@ def login():
 
     # IP 维度：每次尝试都计数（成功也算）——限流的对象是请求频率本身，
     # 只计失败的话"每次都成功的刷量脚本"完全不消耗预算。
-    login_guard.record_attempt("ip", ip)
+    # 记不上（且策略是 closed）就拒绝：否则"限流表写不进去"等于预算无限。
+    unavailable = _record(login_guard.record_attempt, "ip", ip)
+    if unavailable:
+        return unavailable
 
     handler = DbUtil()
     user = handler.authentication(params)
     if user and bool(getattr(user, "disabled", False)):
         # 停用账号即便口令正确也不放行：否则"封号"只是一句提示
         logger.warning("已停用账号尝试登录：account=%s ip=%s", account, ip)
-        login_guard.record_failure("account", account)
+        unavailable = _record(login_guard.record_failure, "account", account)
+        if unavailable:
+            return unavailable
         user = None
 
     if user:
-        # 只清账号维度：清 IP 会让"用自己的合法账号登录一次"变成重置配额的手段
+        # 只清账号维度：清 IP 会让"用自己的合法账号登录一次"变成重置配额的手段。
+        # record_success 的失败**不拒绝登录**（凭证已验证通过），理由见 login_guard 的说明。
         login_guard.record_success("account", account)
         # 生成JWT Token。role 一并签发（第 12 轮审查 P1-1）：RAG 服务端验签后能拿到角色，
         # 不必回查旧库；角色变更后旧 token 里的 role 会滞后，所以它只用于收敛界面这类
@@ -107,7 +143,9 @@ def login():
         })
 
     # 失败记在账号维度（IP 那次已在上面的 record_attempt 里计过，不重复计）
-    login_guard.record_failure("account", account)
+    unavailable = _record(login_guard.record_failure, "account", account)
+    if unavailable:
+        return unavailable
     logger.warning("登录失败：account=%s ip=%s", account, ip)
     return jsonify({
         "code": 403,
@@ -165,7 +203,9 @@ def sign_in():
     limited = _rate_limited("ip", ip)
     if limited:
         return limited
-    login_guard.record_attempt("ip", ip)
+    unavailable = _record(login_guard.record_attempt, "ip", ip)
+    if unavailable:
+        return unavailable
 
     data = request.get_json(silent=True)
     handler = DbUtil()

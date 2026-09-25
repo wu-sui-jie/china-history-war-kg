@@ -112,6 +112,7 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
 | `/api/admin/users` | GET | 用户列表（仅 `admin`；响应不含口令字段） |
 | `/api/admin/users/<id>/role` | POST | 改角色（仅 `admin`；不能改自己、角色值过白名单、用户不存在给 404） |
 | `/user/menu` / `/user/permission` | GET | 菜单与权限（菜单按角色裁剪，见下「角色职责与三处口径」） |
+| `/api/health` | GET | **唯一免登录接口**（监控/部署自检用）：只回 `{"status":"ok","login_guard":{"failure_mode":...}}`。要在**没有任何账号凭据**时探活——而"登录是不是全 503"恰恰是最需要探活的时刻。不含版本、路径、阈值、库名 |
 | `/api/internal/token/introspect` | POST | **服务间接口**（RAG 调用）：问"这张 JWT 现在还作不作数"。请求头 `X-Internal-Service-Key` 必须等于 `INTERNAL_SERVICE_KEY`；请求体 `{"token": "..."}`；响应 `{"code":200,"data":{"active":bool,"user_id","role","token_version","disabled"}}`。判定规则与 `before_request` 共用 `DbUtil.token_status`，两边口径不会分叉；失败原因只写日志不回给调用方。nginx 对 `/api/internal/` 前缀直接 404，公网不可达 |
 
 除 `/`、`/api/login`、`/api/sign_in`、`/static*` 与 `/api/internal/*` 外，
@@ -314,6 +315,7 @@ python sync_sqlite_to_neo4j.py --mode full
 | JWT 密钥 | `JWT_SECRET` | 无默认值；未配置时进程内随机生成（重启后旧 token 失效，生产必须显式配置） |
 | JWT 有效期（秒） | `JWT_TTL_SECONDS` | `604800`（7 天） |
 | 服务间密钥 | `INTERNAL_SERVICE_KEY` | 无默认值；未配置时 `/api/internal/*` 整体返回 503（**不校验就放行是更糟的默认**）。与 RAG 的 `RAG_INTERNAL_SERVICE_KEY` 必须同值 |
+| 限流故障策略 | `LOGIN_GUARD_FAILURE_MODE` | `closed`（默认）：读不到/写不了限流表就拒绝本次登录（503）——"把限流表弄坏"不能成为绕过它的手段；`open` 则记 ERROR 后放行（开发/内网）。临时 SQLite 写锁会先重试 3 次再按本策略处置 |
 | 监听地址 / 端口 | `BACKEND_HOST` / `BACKEND_PORT` | `127.0.0.1` / `5000` |
 | 调试开关 | `FLASK_DEBUG` | 关（生产必须保持关闭） |
 
@@ -361,3 +363,11 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
    跨重启可比，而 `time.monotonic()`（开机以来的秒数）在重启后就换了基准——旧实现把它写进库里，
    重启后会把账号凭空锁住几十万秒、或让锁定提前失效（第 13 轮复核第三节）。
    升级时旧口径的 `login_attempts` 表会被**整表作废重建**（限流数据是临时安全状态，不是业务数据）。
+   **计数、窗口滚动与锁定判定在一条 UPSERT 里完成**（第 13 轮复核整改 §2.3）：改造前是
+   "读 → Python 里 +1 → 写回"，20 个并发失败实测只记到 **4** 次；现在记满 20 次。
+   限流自身故障时按 `LOGIN_GUARD_FAILURE_MODE` 处置（见环境变量表），默认 fail-closed。
+7. **口令策略只有一份实现**：`password_policy.py` 的 `MIN/MAX_PASSWORD_LENGTH` 与
+   `password_problem()` 被注册、改密码、首管命令（`create_admin.py`）共用——改造前首管是
+   6–20 位，等于"权限最高的账号允许最弱的密码"，而 21–64 位的强口令反而设不上。
+   策略**只回答合不合规，不修改输入**：首尾空白由它明确报错，前端不再 `trim()` 口令
+   （静默改写用户输入会让人永远猜不到为什么登录不上）。
