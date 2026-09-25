@@ -1,0 +1,41 @@
+# Neo4j 补偿队列的自动重放（文档第六节第 6 条：自动重试）
+#
+# 为什么用 systemd timer 而不是在 web 进程里起后台线程：
+# "重放待办"与请求处理无关，起来一次做完就退出——进程边界清楚，重启/排查都简单，
+# 也不会因为 web 进程被 OOM 杀掉就连带停掉补偿。两者的重放逻辑完全共用
+# （backend/retry_sync.py → sync_compensation.retry_pending），不存在两套实现。
+#
+# 安装：
+#   sudo cp deploy/systemd/china-war-outbox-retry.{service,timer} /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now china-war-outbox-retry.timer
+# 观察：
+#   systemctl list-timers china-war-outbox-retry.timer
+#   journalctl -u china-war-outbox-retry -n 50
+
+[Unit]
+Description=干戈纪略 · 重放待补偿的 Neo4j 同步任务（outbox）
+Documentation=file:///opt/china-war/deploy/README.md
+After=neo4j.service
+
+[Service]
+Type=oneshot
+User=chinawar
+Group=chinawar
+WorkingDirectory=/opt/china-war/backend
+
+# --due-only：只处理退避已到期的任务。退避序列是 30 秒 → 2 分钟 → 10 分钟 → 1 小时，
+# 所以"每分钟跑一次"实际重试节奏由退避决定，定时器只负责"到点来看一眼"。
+# 缺了这个参数，一个持续失败的节点会在每一分钟里都被冲击一次。
+ExecStart=/opt/miniconda3/envs/china-war-backend/bin/python retry_sync.py --due-only
+
+# 有任务仍未补齐时脚本以 1 退出。**不要**让 systemd 因此重启或告警刷屏：
+# 真正的告警看 journalctl 里的 ERROR 行，或管理台的待补偿计数。
+SuccessExitStatus=0 1
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=china-war-outbox-retry
+
+NoNewPrivileges=true
+PrivateTmp=true

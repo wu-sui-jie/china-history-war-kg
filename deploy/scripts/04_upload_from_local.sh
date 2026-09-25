@@ -57,6 +57,10 @@ EXCLUDES=(
     --exclude '*.pyc'
     --exclude 'logs/'
     --exclude 'RAG/data/cache/'
+    # 审计/验证过程留下的临时目录：可能带受限权限或独占锁，
+    # 打包时会报 "Cannot open: Permission denied" 并因 set -o pipefail 中止整个上传
+    --exclude '.audit-tmp/'
+    --exclude '.verify-tmp/'
     # 服务器上的私密配置与运行期数据：不要覆盖也不要删除
     --exclude '.env'
     --exclude 'feishu-bot/data/'

@@ -1,0 +1,16 @@
+# 每分钟触发一次补偿队列重放。实际重试节奏由任务的退避决定（见 .service 的说明）。
+#
+# OnBootSec：开机 2 分钟后再开始——先让后端和 Neo4j 起来，避免开局一片连接失败。
+# RandomizedDelaySec：多实例部署（文档第三阶段）时错开，避免同一秒一起打 Neo4j。
+
+[Unit]
+Description=干戈纪略 · 每分钟重放一次 Neo4j 补偿队列
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+RandomizedDelaySec=15s
+Unit=china-war-outbox-retry.service
+
+[Install]
+WantedBy=timers.target

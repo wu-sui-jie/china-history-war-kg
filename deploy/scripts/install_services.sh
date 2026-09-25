@@ -110,6 +110,18 @@ echo "站点已启用：server_name ${SERVER_NAME}"
 log "4/5 校验配置"
 nginx -t
 
+# 鉴权门禁（第 13 轮复核第五节）：必须在**启动服务之前**拦住
+# "RAG 以为 nginx 在鉴权、nginx 实际没配认证"这类组合——那种部署两边都能正常启动、
+# 日志里没有任何异常，唯一的后果是公网 RAG 没有访问控制。脚本会校验：
+# 鉴权模式取值、两侧 JWT 密钥是否同值、nginx 档下 auth_basic 是否真的生效
+# （含 nginx -T 的实际生效配置）、RAG 是否只监听回环、内部接口是否被屏蔽。
+#
+# 用 `|| true` 包一层只为打印得更清楚：失败原因是"配置项不对"而不是"脚本坏了"，
+# 说清楚之后仍然拒绝继续。
+if ! bash "${APP_DIR}/deploy/scripts/check_rag_auth.sh"; then
+    die "鉴权配置未通过门禁（原因见上）。修好后再执行本脚本；服务未启动。"
+fi
+
 # ---------------------------------------------------------------- 启动
 log "5/5 启动服务"
 systemctl restart china-war-backend china-war-rag
