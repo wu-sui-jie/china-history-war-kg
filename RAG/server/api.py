@@ -579,11 +579,21 @@ def health():
             "bot_key_configured": bool((getattr(settings, "bot_api_key", "") or "").strip()),
             "token_header": "Token",
             "accepts_bearer": True,
-            # 凭证撤销查询（第 13 轮复核）：`enabled=false` 表示"停用/改密码后旧 token 在
-            # 自然过期前仍可用"。这个字段让运维一眼看出自己属于哪一种，而不必读环境变量文件。
-            "revocation": _introspector().snapshot() if settings.require_auth else {
-                "enabled": False, "reason": "本服务未验签（非 jwt 档），不做凭证撤销查询",
-            },
+            # 凭证撤销查询（第 13 轮复核 / 复核整改 §2.7、§2.9）：
+            #   policy=enforced  已启用查询，撤销生效延迟上界 = max_delay_seconds（=TTL）
+            #   policy=delayed   未启用：旧 token 到自然过期前仍可用（要么显式接受，要么漏配）
+            #   policy=not-applicable  非 jwt 档，本服务不验签，也就没有这个问题
+            # 顺带给出 last_ok_at / last_failure_at：backend 重启期间"它恢复了吗"是运维最想知道的。
+            "revocation": ({
+                "enabled": _introspector().enabled,
+                "policy": settings.revocation_policy,
+                "max_delay_seconds": settings.revocation_max_delay_seconds,
+                "delayed_revocation_accepted": bool(settings.allow_delayed_revocation),
+                **_introspector().snapshot(),
+            } if settings.require_auth else {
+                "enabled": False, "policy": "not-applicable",
+                "reason": "本服务未验签（非 jwt 档），不做凭证撤销查询",
+            }),
         },
         "llm_available": rt.generate.llm.available if rt else False,
         "load_error": _load_error(),
@@ -675,12 +685,14 @@ async def query(req: Request):
 
     失败在**建立流之前**用 4xx 返回（P0-2 / P2）：客户端无需解析 SSE 就能区分
     参数错误、超限与限流；只有进入编排后的内部错误才走 SSE 的 error+done。
-    """
-    rt = _runtime()
-    if rt is None:
-        return _json_error(503, _load_error() or "runtime not loaded",
-                           ErrorCode.INTERNAL)
 
+    **顺序：鉴权 → 撤销检查 → runtime → 限流 → 参数校验 → 执行**（第 13 轮复核整改 §2.10）。
+    原先这里先查 runtime 再鉴权，于是 runtime 加载失败时**匿名请求**会先拿到
+    503 与脱敏后的加载错误——服务状态与内部故障信息泄露给了未认证的人；
+    而 `/api/query/json` 是反过来的（先鉴权），两条通道口径不一致。
+    现在两条通道顺序一致：未认证的请求在任何情况下都先得到 401，
+    也看不到 runtime / load_error（它不该知道这台机器的数据加载得怎么样）。
+    """
     # 身份校验（第 12 轮审查 P1-1）：开启 RAG_REQUIRE_AUTH 后，SSE 与 JSON 两条通道
     # 一视同仁地要求可信身份。放在限流之前——未认证的请求不该消耗配额，
     # 也不该从响应耗时上得到任何信息。
@@ -691,6 +703,11 @@ async def query(req: Request):
     rejection = await _revocation_rejection(req)
     if rejection is not None:
         return rejection
+
+    rt = _runtime()
+    if rt is None:
+        return _json_error(503, _load_error() or "runtime not loaded",
+                           ErrorCode.INTERNAL)
 
     limiter = _rate_limiter()
     if not limiter.allow(_client_key(req)):

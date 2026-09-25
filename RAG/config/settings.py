@@ -230,6 +230,22 @@ class Settings:
     # 两种取值都要显式选：默认 closed 会让后端故障期间问答不可用，这是有意的取舍，
     # 因此 health 会把它与当前取值一起报出来。
     introspect_fail_mode: str = "closed"
+    # 生产档下**必须显式选择撤销策略**（第 13 轮复核整改 §2.7）。
+    #
+    # 问题：原先"两个值都不填"就等于接受"停用账号 / 改密码后旧 token 在自然过期前
+    # （默认 7 天）仍能调用 RAG"。而这条边界的代价只有 health 告警能看见——
+    # 而告警是会被忽略的，正如当初那个布尔鉴权开关一样。
+    #
+    # 所以生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下二选一：
+    #   RAG_REQUIRE_REVOCATION_CHECK=true   把撤销查询配齐（url + 服务间密钥）；
+    #   RAG_ALLOW_DELAYED_REVOCATION=true   显式接受延迟撤销（写明"我知道后果"）。
+    # 都不做则**拒绝启动**。
+    allow_delayed_revocation: bool = False
+    allow_delayed_revocation_explicit: bool = False
+    # `RAG_REQUIRE_REVOCATION_CHECK=true`：**要求**撤销查询必须配齐（与生产档无关）。
+    # 它给"我知道必须有它，别的环境随手起也必须有"这种诉求一个明确写法；
+    # 而"生产档下不配就得显式接受延迟"是上面那条默认规则。两者可以同时用。
+    require_revocation_check: bool = False
     cors_allow_origins: List[str] = field(default_factory=lambda: ["*"])
     # 显式确认"就是要公开 API"（第五轮审核 R5-5）：生产 + wildcard CORS 时
     # 必须为真，否则 server.api 启动即失败，避免漏配把公开接口暴露给任意站点。
@@ -387,6 +403,56 @@ class Settings:
         if self.introspect_timeout_seconds <= 0:
             return (f"RAG_INTROSPECT_TIMEOUT_SECONDS 必须为正数，"
                     f"当前 {self.introspect_timeout_seconds!r}")
+        # 显式要求了撤销查询却没配齐：这是配置自相矛盾（与"说了要校验却没给密钥"同一类），
+        # 直接拒绝，而不是让"要求"变成一句没人执行的注释
+        if self.require_revocation_check and not self.revocation_check_enabled:
+            return (
+                "RAG_REQUIRE_REVOCATION_CHECK=true，但撤销查询未配齐：需要同时设置 "
+                "RAG_INTROSPECT_URL 与 RAG_INTERNAL_SERVICE_KEY（后者与后端 "
+                "INTERNAL_SERVICE_KEY 同值）"
+            )
+        # §2.7：生产档 + jwt 档下，"撤销延迟"不能是被默认接受的既成事实
+        if (self.is_explicit_production and self.auth_protected
+                and not self.revocation_check_enabled
+                and not self.allow_delayed_revocation):
+            missing = ("RAG_INTROSPECT_URL 与 RAG_INTERNAL_SERVICE_KEY"
+                       if not (self.introspect_url or "").strip()
+                       and not (self.introspect_service_key or "").strip()
+                       else "凭证撤销查询的配置（只配了一半）")
+            return (
+                f"生产档 + RAG_AUTH_MODE=jwt，但未启用凭证撤销查询（{missing} 未配齐）："
+                "账号被停用或改密码后，旧 token 在自然过期前（后端 JWT_TTL_SECONDS，"
+                "默认 7 天）仍能调用问答接口——旧后端已经拒绝该凭证，两侧口径不同。"
+                "二选一：把 RAG_INTROSPECT_URL 与 RAG_INTERNAL_SERVICE_KEY 配齐并设 "
+                "RAG_REQUIRE_REVOCATION_CHECK=true；或显式接受该延迟并设 "
+                "RAG_ALLOW_DELAYED_REVOCATION=true（后果见 docs/deploy.md 与 "
+                "deploy/scripts/check_rag_auth.sh 的提示）"
+            )
+        return None
+
+    @property
+    def revocation_policy(self) -> str:
+        """撤销策略的当前口径（health 用）：enforced / delayed / not-applicable。
+
+        三态而不是布尔：`enabled=false` 既可能是"显式接受了延迟"，也可能是"根本没配"——
+        而这两者对一个部署的意义完全不同（前者是决定，后者是遗漏）。
+        """
+        if not self.auth_protected:
+            return "not-applicable"
+        if self.revocation_check_enabled:
+            return "enforced"
+        return "delayed"
+
+    @property
+    def revocation_max_delay_seconds(self) -> Optional[float]:
+        """撤销生效延迟的上界（秒）；无法给出确定值时返回 None。
+
+        启用查询时就是缓存 TTL（判定结论在 TTL 内复用）；未启用时上界是"token 的自然
+        过期时间"，而那个数值由签发端（旧后端的 JWT_TTL_SECONDS）决定，本服务不猜——
+        返回 None，由调用方配上"直到 token 过期"的说明。
+        """
+        if self.revocation_check_enabled:
+            return self.introspect_ttl_seconds
         return None
 
     def revocation_warning(self) -> Optional[str]:
@@ -401,6 +467,11 @@ class Settings:
             # 不验签的档位没有"该不该承认这张 token"这个问题（nginx 档由网关把关）
             return None
         if self.revocation_check_enabled:
+            return None
+        # 显式接受延迟就**不再告警**：决定已经写在配置里（health 的 policy=delayed /
+        # delayed_revocation_accepted=true 就是它的记录），反复告警只会训练人忽略告警。
+        # 与"漏配"的区别必须留在 health 字段里，而不是靠"有没有这条文案"。
+        if self.allow_delayed_revocation:
             return None
         # 只配了一半时说得更具体：漏配的一半才是排障要用的信息
         if bool((self.introspect_url or "").strip()) != bool(
@@ -802,6 +873,15 @@ def get_settings() -> Settings:
                                               defaults.INTROSPECT_TIMEOUT_SECONDS, 3.0),
         introspect_fail_mode=_first_env("RAG_INTROSPECT_FAIL_MODE",
                                         default=defaults.INTROSPECT_FAIL_MODE).lower(),
+        # §2.7：两个开关都接受；`RAG_REQUIRE_REVOCATION_CHECK` 只是"要撤销查询"的
+        # 另一种写法（等价于把 url + 密钥配齐），因此它不单独存字段——
+        # 真正决定行为的是"撤销查询能不能用"，而不是运维写了哪个开关名。
+        allow_delayed_revocation=_bool_env("RAG_ALLOW_DELAYED_REVOCATION",
+                                            defaults.ALLOW_DELAYED_REVOCATION),
+        require_revocation_check=_bool_env("RAG_REQUIRE_REVOCATION_CHECK", False),
+        allow_delayed_revocation_explicit=(
+            os.environ.get("RAG_ALLOW_DELAYED_REVOCATION") is not None
+        ),
         # 不再 `or ["*"]`：显式空值必须报错，不能静默变成通配符（第五轮整改复核 B8）
         cors_allow_origins=_csv_env("CORS_ALLOW_ORIGINS", defaults.CORS_ALLOW_ORIGINS),
         allow_public_cors=_bool_env("ALLOW_PUBLIC_CORS", defaults.ALLOW_PUBLIC_CORS),

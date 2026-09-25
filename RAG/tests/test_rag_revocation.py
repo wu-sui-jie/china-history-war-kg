@@ -252,3 +252,122 @@ def test_未配置时从配置构造也保持关闭(monkeypatch):
         monkeypatch.delenv(name, raising=False)
 
     assert introspection.from_settings(get_settings()).enabled is False
+
+
+# ---------------------------------------------- 撤销策略必须显式选择（第 13 轮复核整改 §2.7）
+#
+# 问题：原先"两个值都不填"就等于接受"停用账号 / 改密码后旧 token 在自然过期前
+# （默认 7 天）仍能调用 RAG"，而这条边界的代价只有 health 告警能看见——告警会被忽略，
+# 正如当初那个布尔鉴权开关一样。现在生产档下必须二选一：配齐查询，或显式接受延迟。
+
+
+def _bare_settings(**kwargs):
+    """按字段逐个赋值的 Settings 替身：这些判定只读少数几项，不必构造全量配置。"""
+    from config.settings import Settings
+
+    settings = Settings.__new__(Settings)
+    settings.auth_mode = "jwt"
+    settings.require_auth = True
+    settings.jwt_secret = "x" * 40
+    settings.require_active_version = True
+    settings.require_active_version_explicit = True
+    settings.introspect_url = ""
+    settings.introspect_service_key = ""
+    settings.introspect_ttl_seconds = 30.0
+    settings.introspect_timeout_seconds = 3.0
+    settings.introspect_fail_mode = "closed"
+    settings.allow_delayed_revocation = False
+    settings.allow_delayed_revocation_explicit = False
+    for key, value in kwargs.items():
+        setattr(settings, key, value)
+    return settings
+
+
+def test_生产档未配撤销查询且未显式接受时拒绝启动():
+    problem = _bare_settings().revocation_startup_problem()
+
+    assert problem, "生产档下不能靠「两个值都不填」隐式接受撤销延迟"
+    assert "RAG_ALLOW_DELAYED_REVOCATION" in problem
+
+
+def test_生产档显式接受延迟撤销后放行():
+    settings = _bare_settings(allow_delayed_revocation=True)
+
+    assert settings.revocation_startup_problem() is None
+    assert settings.revocation_policy == "delayed"
+    assert settings.revocation_max_delay_seconds is None, "上界由后端 JWT 有效期决定，本服务不猜"
+
+
+def test_生产档配齐撤销查询后放行():
+    settings = _bare_settings(introspect_url="http://127.0.0.1:5000/x",
+                              introspect_service_key="k" * 40)
+
+    assert settings.revocation_startup_problem() is None
+    assert settings.revocation_policy == "enforced"
+    assert settings.revocation_max_delay_seconds == 30.0, "撤消失效的上界就是缓存 TTL"
+
+
+def test_非生产档未配撤销查询仍可启动():
+    """开发/内网不该被这条门禁挡住——它拦的是"对外提供的服务"。"""
+    settings = _bare_settings(require_active_version=False,
+                              require_active_version_explicit=False)
+
+    assert settings.revocation_startup_problem() is None
+    assert settings.revocation_policy == "delayed"
+
+
+def test_不验签的档位不涉及撤销策略():
+    """nginx 档由网关把关，本服务不认 token，也就没有"这张凭证还作不作数"的问题。"""
+    settings = _bare_settings(auth_mode="nginx", require_auth=False,
+                             allow_delayed_revocation=False)
+
+    assert settings.revocation_startup_problem() is None
+    assert settings.revocation_policy == "not-applicable"
+    assert settings.revocation_warning() is None
+
+
+def test_配齐后再显式接受延迟时两者不冲突():
+    """两个开关同时出现（复制配置时会遇到）：以"撤销查询可用"为准，且不再告警。"""
+    settings = _bare_settings(introspect_url="http://127.0.0.1:5000/x",
+                             introspect_service_key="k" * 40,
+                             allow_delayed_revocation=True)
+
+    assert settings.revocation_startup_problem() is None
+    assert settings.revocation_policy == "enforced"
+
+
+# ---------------------------------------------- 后端可达状态（§2.9）
+
+
+def test_记录最近一次成功与失败(monkeypatch):
+    """计数器只回答"历史上失败过几次"；运维要的是"现在通不通、上次不通是什么时候"。"""
+    clock = [1000.0]
+    monkeypatch.setattr(introspection.time, "time", lambda: clock[0])
+    monkeypatch.setattr(introspection.time, "monotonic", lambda: clock[0])
+    client = _client()
+    client._post = _Recorder(exc=RuntimeError("连接被拒"))
+
+    _run(client.check("t"))
+
+    snapshot = client.snapshot()
+    assert snapshot["last_ok_at"] is None
+    assert snapshot["last_failure_at"] == 1000.0
+    assert "连接被拒" in snapshot["last_failure_reason"]
+
+    # 后端恢复后：成功时刻被记下，失败原因清空（否则运维会以为还在故障中）
+    client._post = _Recorder(Verdict(True))
+    clock[0] = 2000.0
+    _run(client.check("t2"))
+
+    snapshot = client.snapshot()
+    assert snapshot["last_ok_at"] == 2000.0
+    assert snapshot["last_failure_reason"] == ""
+
+
+def test_失败原因只取第一行并截断():
+    """health 的字段会被采集：不要把多行堆栈或长连接串复制进去。"""
+    long_line = "x" * 500
+    assert len(introspection._public_reason(RuntimeError(f"{long_line}\n第二行"))) <= 200
+
+    reason = introspection._public_reason(RuntimeError("连不上 http://127.0.0.1:5000\n详情"))
+    assert reason == "连不上 http://127.0.0.1:5000"

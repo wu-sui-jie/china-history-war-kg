@@ -85,6 +85,12 @@ class Introspector:
         self._cache: dict[str, tuple[float, Verdict]] = {}
         self._client = None            # httpx.AsyncClient，惰性创建
         self.stats = {"queries": 0, "hits": 0, "revoked": 0, "failures": 0}
+        # 最近一次查询的成败（第 13 轮复核整改 §2.9）：`failures>0` 只说明"历史上失败过"，
+        # 而"现在后端是不是可达"要看这两个时刻——backend 重启后运维最想知道的正是
+        # "它恢复了吗"，那时 counters 帮不上忙。
+        self._last_ok_at: Optional[float] = None
+        self._last_failure_at: Optional[float] = None
+        self._last_failure_reason = ""
 
     @property
     def enabled(self) -> bool:
@@ -135,6 +141,8 @@ class Introspector:
             verdict = await self._post(token)
         except Exception as exc:  # noqa: BLE001 - 任何异常都归结为"无法确认状态"
             self.stats["failures"] += 1
+            self._last_failure_at = time.time()
+            self._last_failure_reason = _public_reason(exc)
             # 失败不写缓存：一次抖动不该变成这段时间内人人被拒（或被放行）
             if self.fail_closed:
                 logger.warning("⚠️ 凭证状态查询失败，按失败策略拒绝本次请求：%s", exc)
@@ -142,6 +150,8 @@ class Introspector:
             logger.warning("⚠️ 凭证状态查询失败，按失败策略放行本次请求：%s", exc)
             return Verdict(True, "无法确认凭证状态（按 open 策略放行）")
 
+        self._last_ok_at = time.time()
+        self._last_failure_reason = ""
         self._store(key, verdict, now)
         if not verdict.active:
             self.stats["revoked"] += 1
@@ -164,7 +174,12 @@ class Introspector:
             self._cache.pop(k, None)
 
     def snapshot(self) -> dict:
-        """/api/health 用的状态快照（不含任何 token 或它的哈希）。"""
+        """/api/health 用的状态快照（不含任何 token 或它的哈希）。
+
+        `last_ok_at` / `last_failure_at` / `last_failure_reason` 是 §2.9 要的
+        "backend 可达状态"：计数器只回答"历史上失败过几次"，运维要的是"现在通不通、
+        上次不通是什么时候、为什么"。
+        """
         return {
             "enabled": self.enabled,
             "url_configured": bool(self.url),
@@ -172,6 +187,9 @@ class Introspector:
             "ttl_seconds": self.ttl_seconds,
             "fail_mode": self.fail_mode,
             "cached_entries": len(self._cache),
+            "last_ok_at": self._last_ok_at,
+            "last_failure_at": self._last_failure_at,
+            "last_failure_reason": self._last_failure_reason,
             **self.stats,
         }
 
@@ -180,6 +198,17 @@ class Introspector:
         client, self._client = self._client, None
         if client is not None:
             await client.aclose()
+
+
+def _public_reason(exc: Exception, limit: int = 200) -> str:
+    """给 health / 日志用的失败原因：**只取第一行并截断**。
+
+    异常文本可能带上内部 URL、端口甚至路径；health 是运维看的（不是公开接口），
+    但没必要把这些细节复制进一个会被采集的字段。第一行足够区分
+    "连接被拒 / 超时 / HTTP 401 / 响应形状不对"这几类。
+    """
+    text_of_error = str(exc).strip().splitlines()[0] if str(exc).strip() else type(exc).__name__
+    return text_of_error[:limit]
 
 
 def from_settings(settings) -> Introspector:

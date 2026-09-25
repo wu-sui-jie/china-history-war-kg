@@ -9,9 +9,16 @@
 > `POST /api/internal/token/introspect` 确认凭证状态，结论按
 > `RAG_INTROSPECT_TTL_SECONDS`（默认 30 秒）缓存 —— **该 TTL 就是"撤销生效延迟"的上界**。
 > 后端不可用时按 `RAG_INTROSPECT_FAIL_MODE` 处理：`closed`（默认，拒绝；"把后端打挂"不该
-> 成为绕过撤销的手段）或 `open`（放行）。**未配置这两项 = 不查询**：此时 `/api/health` 的
-> `warnings` 会持续给出"停用/改密码后在 token 到期前仍可用"的告警，`auth.revocation` 字段
-> 报出启用状态 / 缓存秒数 / 失败策略。实现见 `server/introspection.py`。
+> 成为绕过撤销的手段）或 `open`（放行）。
+> **撤销策略必须显式选择**（第 13 轮复核整改 §2.7）：生产档 + jwt 档下要么把查询配齐
+> （或设 `RAG_REQUIRE_REVOCATION_CHECK=true` 表示"必须有"），要么设
+> `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受延迟——两个都不做即**拒绝启动**，
+> 那条边界不能靠"两个值都不填"隐式接受。
+> `/api/health` 的 `auth.revocation` 报三态 `policy`（`enforced` / `delayed` /
+> `not-applicable`）、`max_delay_seconds`（启用时=缓存 TTL；未启用时为 null，因为上界
+> 由签发端的 `JWT_TTL_SECONDS` 决定，本服务不猜）、以及 `last_ok_at` /
+> `last_failure_at` / `last_failure_reason`——backend 重启期间"它恢复了吗"是运维最想知道的。
+> 实现见 `server/introspection.py`。
 > 同时**服务端身份校验改为模式分档**：`RAG_AUTH_MODE=jwt` 时
 > `/api/query` 与 `/api/query/json` 都要求请求头带旧后端签发的 JWT，由 `server/auth.py`
 > 用共享密钥验签，并校验 `iss` / `aud`（挡"同一把密钥的别的服务签的 token"）
@@ -42,14 +49,14 @@
 | 运行环境 | Python 3.11（锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本 |
 | 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`（SSE）、`POST /api/query/json`（非流式）、`GET /` | 契约见 [data-contract.md](data-contract.md)；非流式响应见 `contracts/query_json.py` |
 | 接口身份校验 | `RAG_AUTH_MODE`（`jwt` / `nginx` / `disabled`，默认 `disabled`）+ `RAG_JWT_SECRET`（与 backend/.env 的 `JWT_SECRET` 同值）+ `RAG_JWT_ISSUER` / `RAG_JWT_AUDIENCE` | `jwt` 档两条问答通道都要求请求头 `Token`（也接受 `Authorization: Bearer`）为旧后端签发的有效 JWT，验不过 401。`server/auth.py` 只认 HS256、强制校验 `exp`、**并校验 `iss` / `aud`**（挡"同一把密钥的别的服务签的 token"）、签名用 `hmac.compare_digest`；用标准库实现是为了不引入未审计的依赖（RAG 用带哈希锁文件安装）。非流式接口另接受 `X-Bot-Key`——飞书机器人没有用户身份，要求 JWT 会把这条调用方堵死。启动门禁：`jwt` 档不给密钥**拒绝启动**；**显式生产档**（`RAG_REQUIRE_ACTIVE_VERSION=true`）下 `disabled` 也拒绝启动；`nginx` 档若监听非回环地址由 `scripts/run_server.py` 拒绝。旧开关 `RAG_REQUIRE_AUTH` 仍被接受（`true` ≡ `jwt`）。`/api/health` 的 `auth.mode` 直接给出当前档位。**生产模板默认 `jwt`**（`deploy/env/rag.env`），并以 `deploy/scripts/check_rag_auth.sh` 在安装期校验两侧密钥同值 |
-| 凭证撤销查询 | `RAG_INTROSPECT_URL` + `RAG_INTERNAL_SERVICE_KEY`（与 backend/.env 的 `INTERNAL_SERVICE_KEY` 同值）+ `RAG_INTROSPECT_TTL_SECONDS`（默认 30）= `RAG_INTROSPECT_FAIL_MODE`（`closed` 默认 / `open`） | 验签通过之后，两条问答通道再向旧后端的 `POST /api/internal/token/introspect` 确认"这张凭证现在还作不作数"（该接口用服务间密钥保护，**未配密钥时返回 503 而不是放行**；响应里不回失败原因）。结论按 token 摘要缓存 TTL 秒——**TTL 即撤销生效延迟的上界**。**两项都不配 = 不查询**，此时 `/api/health` 的 `auth.revocation.enabled=false` 且 `warnings` 持续给出"停用/改密码后在 token 到期前仍可用"的边界告警。失败**不写缓存**（一次抖动不该变成一段时间内人人被拒/放行）。`redis` 共享方案（文档方案 C）留给多实例部署 |
+| 凭证撤销查询 | `RAG_INTROSPECT_URL` + `RAG_INTERNAL_SERVICE_KEY`（与 backend/.env 的 `INTERNAL_SERVICE_KEY` 同值）+ `RAG_INTROSPECT_TTL_SECONDS`（默认 30）+ `RAG_INTROSPECT_FAIL_MODE`（`closed` 默认 / `open`）+ **策略开关**：`RAG_REQUIRE_REVOCATION_CHECK`（要求必须配齐）或 `RAG_ALLOW_DELAYED_REVOCATION`（显式接受延迟） | 验签通过之后，两条问答通道再向旧后端的 `POST /api/internal/token/introspect` 确认"这张凭证现在还作不作数"（该接口用服务间密钥保护，**未配密钥时返回 503 而不是放行**；响应里不回失败原因）。结论按 token 摘要缓存 TTL 秒——**TTL 即撤销生效延迟的上界**。**两项都不配 = 不查询**，此时 `/api/health` 的 `auth.revocation.enabled=false` 且 `warnings` 持续给出"停用/改密码后在 token 到期前仍可用"的边界告警。失败**不写缓存**（一次抖动不该变成一段时间内人人被拒/放行）。`redis` 共享方案（文档方案 C）留给多实例部署 |
 | 会话存储与账号隔离 | 主应用嵌入时 `ragv5-session-v3:u{uid}`；独立访问 :8000 时仍是 `ragv5-session-v3` | 账号 id 由主应用的 iframe 通过 `cw-user` postMessage 下发（同源校验、uid 形状受限）。**uid 非空时只读账号桶**，不回落旧全局键——旧记录不属于任何账号，不能被先登录的人收编（第 6 轮审核 H2）；换桶顺序（先写回旧桶再换）见 `frontend/src/stores/session.ts` 的 `applyUserScope` |
 
 ## 二、测试与门禁（本地实测，2026-09-16）
 
 | 层 | 命令 | 结果 |
 | --- | --- | --- |
-| 后端 | `python -m pytest tests -q` | **430 passed**（2026-09-25 第 13 轮复核整改实测，Python 3.11；此前 389/401 的口径见下）。本轮的 29 例新增全部围绕**凭证撤销查询**（`tests/test_rag_revocation.py` 18 例 + `tests/test_rag_auth.py` 内 10 例路由级 + 配置构造 1 例）。历史口径（345 / 298 / 298+23 / 等价 runner 76）已废弃：那几次是在没有 pytest 的环境里分批跑的，不能与全量数字并列。以后只记本行这一条。**其中 1 例**原先是长期失败项（`test_chain_smoke` 的模式透传用例依赖外部 embedding 端点，端点不可用时静默降级导致断言失败），第 12 轮改为**桩向量客户端**离线化后转绿 |
+| 后端 | `python -m pytest tests -q` | **441 passed**（2026-09-25 第 13 轮复核整改第二批实测，Python 3.11；此前 389/401 的口径见下）。新增用例围绕**凭证撤销查询**与**通道准入顺序**（`tests/test_rag_revocation.py` 26 例 + `tests/test_rag_auth.py` 60 例，其中撤销与顺序相关 17 例）。历史口径（345 / 298 / 298+23 / 等价 runner 76）已废弃：那几次是在没有 pytest 的环境里分批跑的，不能与全量数字并列。以后只记本行这一条。**其中 1 例**原先是长期失败项（`test_chain_smoke` 的模式透传用例依赖外部 embedding 端点，端点不可用时静默降级导致断言失败），第 12 轮改为**桩向量客户端**离线化后转绿 |
 | 前端单元（Vitest） | `cd frontend && npm run test:unit` | **79 passed**（SSE 解析/超时分类、状态机、持久化与迁移、多会话、会话导出、**按账号隔离与换桶顺序**、**体积门禁两种构建模式**、**身份头接线**）。原写 47 是 2026-09-20 的口径，加入隔离用例后未回写（第 6 轮审核 M6 已修正） |
 | 前端组件（Vue Test Utils） | `npm run test:component` | **31 passed**（重试入口、同名候选 payload、面板空状态、tabs ARIA、引用定位、chunk 降级、事件卡叙事字段、会话列表）；合计 `npm test` = **110 passed**（2026-09-25 第 9 轮修复实测） |
 | 契约端到端（需已启动服务） | `npm run test:contract -- --base http://127.0.0.1:8125` | 19 项检查全过（含 SSE 事件序、缓存命中、400 错误、同源托管） |

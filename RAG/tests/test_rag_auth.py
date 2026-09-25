@@ -506,9 +506,13 @@ def test_health_报出撤销查询的启用状态(auth_client, monkeypatch):
 
     payload = client.get("/api/health").json()
 
-    assert payload["auth"]["revocation"]["enabled"] is True
-    assert payload["auth"]["revocation"]["ttl_seconds"] == 30.0
-    assert payload["auth"]["revocation"]["fail_mode"] == "closed"
+    revocation = payload["auth"]["revocation"]
+    assert revocation["enabled"] is True
+    assert revocation["ttl_seconds"] == 30.0
+    assert revocation["fail_mode"] == "closed"
+    # §2.7：三态口径 + 明确给出"撤销生效延迟的上界"（启用查询时就是缓存 TTL）
+    assert revocation["policy"] == "enforced"
+    assert revocation["max_delay_seconds"] == 30.0
     assert not any("撤销" in w for w in payload.get("warnings", []))
 
 
@@ -525,7 +529,35 @@ def test_health_未启用撤销查询时给出边界告警(auth_client, monkeypa
     payload = client.get("/api/health").json()
 
     assert payload["auth"]["revocation"]["enabled"] is False
+    # 未启用时上界是"token 的自然过期时间"，那个数值由签发端决定，本服务不猜（None）
+    assert payload["auth"]["revocation"]["policy"] == "delayed"
+    assert payload["auth"]["revocation"]["max_delay_seconds"] is None
     assert any("停用或改密码后" in w for w in payload.get("warnings", []))
+
+
+def test_health_区分显式接受延迟与漏配(auth_client, monkeypatch):
+    """`enabled=false` 既可能是"显式接受了延迟"，也可能是"根本没配"。
+
+    对运维来说这两者意义完全不同（前者是决定、后者是遗漏），因此 health 必须能区分。
+    """
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    settings.auth_mode = "jwt"
+    monkeypatch.setattr(settings, "introspect_url", "")
+    monkeypatch.setattr(settings, "introspect_service_key", "")
+    # 用 monkeypatch 而不是直接赋值：auth_client 夹具只还原 require_auth/jwt_secret/
+    # bot_api_key 三项，直接赋值会泄漏到后面的用例（实测过一次：把"只配了一半"那条
+    # 用例的告警变成了"已显式接受"）。
+    monkeypatch.setattr(settings, "allow_delayed_revocation", True)
+    _stub_introspector(monkeypatch, enabled=False)
+
+    payload = client.get("/api/health").json()
+
+    assert payload["auth"]["revocation"]["policy"] == "delayed"
+    assert payload["auth"]["revocation"]["delayed_revocation_accepted"] is True
+    # 决定的产物不再当成告警反复提示——否则会训练人忽略告警
+    assert not any("停用或改密码后" in w for w in payload.get("warnings", []))
 
 
 def test_撤销查询只配一半时的告警指名缺哪一项(auth_client, monkeypatch):
@@ -543,6 +575,48 @@ def test_撤销查询只配一半时的告警指名缺哪一项(auth_client, mon
     assert any("RAG_INTERNAL_SERVICE_KEY" in w for w in payload.get("warnings", []))
 
 
+def test_匿名请求在_runtime_加载失败时仍先得到_401(auth_client):
+    """顺序问题（第 13 轮复核整改 §2.10）。
+
+    原先 `/api/query` 先查 runtime 再鉴权：runtime 加载失败时**匿名请求**会先拿到 503
+    与脱敏后的加载错误——服务状态与内部故障信息泄露给了未认证的人；
+    而 `/api/query/json` 是反过来的，两条通道口径不一致。
+    """
+    import server.api as api_mod
+
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    # 模拟"数据没加载起来"：两条通道都必须在鉴权之前先拒绝匿名请求
+    api_mod.app.state.runtime = None
+    api_mod.app.state.load_error = "内部细节：快照目录 /srv/rag/data 不存在"
+
+    sse = client.post("/api/query", json=BODY)
+    plain = client.post("/api/query/json", json=BODY)
+
+    assert sse.status_code == 401, "SSE 通道必须先鉴权"
+    assert plain.status_code == 401, "JSON 通道顺序本来就对，别改坏"
+    for response in (sse, plain):
+        # FastAPI 的 TestClient 用 .text（Flask 那套是 get_data）
+        assert "load_error" not in response.text
+        assert "快照目录" not in response.text, "未认证请求不该看到内部加载错误"
+
+
+def test_已认证请求在_runtime_加载失败时看到_503(auth_client):
+    """对照组：身份没问题时，加载失败要如实回报——否则运维会以为"问答正常"。"""
+    import server.api as api_mod
+
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    api_mod.app.state.runtime = None
+    api_mod.app.state.load_error = "runtime not loaded"
+
+    response = client.post("/api/query", json=BODY, headers={"Token": valid_token()})
+
+    assert response.status_code == 503
+
+
 def test_health_带出鉴权口径且未开启时告警(auth_client):
     client, settings = auth_client
     settings.require_auth = False
@@ -556,8 +630,9 @@ def test_health_带出鉴权口径且未开启时告警(auth_client):
                                "bot_key_configured": False, "token_header": "Token",
                                "accepts_bearer": True,
                                # 未验签的档位没有"这张凭证该不该承认"这个问题，
-                               # 因此 revocation 明确报成"不做查询"而不是"没配"
-                               "revocation": {"enabled": False,
+                               # 因此 revocation 明确报成 policy=not-applicable
+                               # （而不是"配了但没启用"——那会让运维去查一个不存在的配置）
+                               "revocation": {"enabled": False, "policy": "not-applicable",
                                               "reason": "本服务未验签（非 jwt 档），"
                                                         "不做凭证撤销查询"}}
     assert any("未启用服务端身份校验" in w for w in payload.get("warnings", []))

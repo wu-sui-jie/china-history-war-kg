@@ -172,6 +172,11 @@ INTROSPECT_TTL_SECONDS = "30"
 INTROSPECT_TIMEOUT_SECONDS = "3"
 # 后端不可用时的取舍：closed（拒绝，默认） / open（放行）。
 INTROSPECT_FAIL_MODE = "closed"
+# 生产档 + jwt 档下必须显式选择撤销策略（第 13 轮复核整改 §2.7）：
+#   RAG_REQUIRE_REVOCATION_CHECK=true   配齐撤销查询（url + 服务间密钥）
+#   RAG_ALLOW_DELAYED_REVOCATION=true   显式接受"停用/改密码后到 token 过期前仍可用"
+# 两者都不做则拒绝启动——那条边界不能靠"两个值都不填"隐式接受。
+ALLOW_DELAYED_REVOCATION = False
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
 # 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。
