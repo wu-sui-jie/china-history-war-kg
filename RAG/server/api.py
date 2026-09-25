@@ -24,6 +24,7 @@ import time
 from collections import OrderedDict
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Optional
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -34,6 +35,7 @@ from contracts.query_json import QueryJsonResult
 from lib.logging_util import setup_rag_logging
 from contracts.request import QueryRequest, RequestValidationError
 from contracts.sse import ErrorCode, FinishReason
+from server import auth, introspection
 from server.runtime import Runtime, build_runtime
 from server.sse import run_query, sse_format, shutdown_sync_pool, sync_pool_stats
 
@@ -59,6 +61,13 @@ async def lifespan(app: FastAPI):
         settings.rate_limit_per_minute,
         max_keys=settings.rate_limit_max_keys,
     )
+    # 凭证撤销查询器（第 13 轮复核）：未配 URL/密钥时它的 enabled 为 False，
+    # 请求路径上直接跳过（见 _revocation_rejection）。
+    app.state.introspector = introspection.from_settings(settings)
+    if app.state.introspector.enabled:
+        logger.info("凭证撤销查询已启用：%s（缓存 %ss，失败策略 %s）",
+                    app.state.introspector.url, app.state.introspector.ttl_seconds,
+                    app.state.introspector.fail_mode)
     if runtime is not None:
         logger.info("runtime 就绪：数据版本 %s | 索引 %s | 向量 %s | LLM %s",
                     runtime.version, runtime.index_dir.name,
@@ -78,6 +87,10 @@ async def lifespan(app: FastAPI):
         else:
             # runtime 构建失败时没有 Runtime 对象，仍要回收可能已创建的同步池
             shutdown_sync_pool()
+        # 撤销查询器的连接池也要关（它可能已经发过请求）
+        introspector = getattr(app.state, "introspector", None)
+        if introspector is not None:
+            await introspector.aclose()
 
 
 app = FastAPI(title="中国历代战争史 RAG 问答", version="ragv5", lifespan=lifespan)
@@ -99,6 +112,27 @@ if _cors_problem:
 _cors_warning = _settings_boot.cors_warning()
 if _cors_warning:
     logger.warning("注意：%s", _cors_warning)
+
+# 身份校验启动门禁（第 12 轮审查 P1-1）。
+# 说的与配的不一致（要校验却没密钥）→ 启动即失败：那等于服务起来后每个问答都 401。
+# 未开启校验时只告警，不阻断——"nginx 认证 + 只监听回环"是合法的内网部署方式，
+# 一刀切成启动失败会把可用部署判成坏配置。告警同时会出现在 /api/health.warnings 里。
+_auth_problem = _settings_boot.auth_startup_problem()
+if _auth_problem:
+    raise RuntimeError(f"鉴权配置被拒绝：{_auth_problem}")
+_auth_warning = _settings_boot.auth_warning()
+if _auth_warning:
+    logger.warning("注意：%s", _auth_warning)
+
+# 凭证撤销查询的启动门禁（第 13 轮复核）。取值非法（如 fail_mode 拼错）会让"后端不可用
+# 时到底放不放行"这件事由默认值默默决定——那是安全取舍，不能由拼写错误决定，因此启动即失败。
+# 未启用或只配一半只告警：服务仍能正常工作，但"撤销延迟到 token 到期"这条边界必须可见。
+_revocation_problem = _settings_boot.revocation_startup_problem()
+if _revocation_problem:
+    raise RuntimeError(f"凭证撤销配置被拒绝：{_revocation_problem}")
+_revocation_warning = _settings_boot.revocation_warning()
+if _revocation_warning:
+    logger.warning("注意：%s", _revocation_warning)
 
 app.add_middleware(
     CORSMiddleware,
@@ -383,6 +417,99 @@ def _rate_limiter() -> RateLimiter:
     return limiter
 
 
+def _resolve_identity(request: Request) -> tuple[Optional[dict], Optional[str]]:
+    """尝试解析请求身份，返回 (identity, 失败原因)。
+
+    `identity` 非空 = 已通过 **服务端验签**（不是浏览器自述的 uid）；失败原因只用于日志，
+    不回给客户端签名细节（不给攻击者做指纹）。
+
+    **配了密钥就尝试验签，与 RAG_AUTH_MODE / RAG_REQUIRE_AUTH 无关**：开关只决定
+    "验不过时拦不拦"。两者分开是有意的——只配密钥没开开关（多半是想开但漏了配置）时，
+    服务应当照常工作并给出告警，而不是把所有请求判成未认证；此时带上有效 token 的请求
+    仍能拿到身份，方便平滑迁移。
+
+    `iss` / `aud` 的期望值来自配置（第 13 轮整改）：只在验签层校验签名是不够的，
+    同一把密钥被别的服务共用时，别人的 token 也能过签名校验。
+    """
+    settings: Settings = request.app.state.settings
+    if not getattr(settings, "jwt_secret", ""):
+        return None, None
+    try:
+        return auth.identity_from_headers(
+            request.headers, settings.jwt_secret,
+            issuer=getattr(settings, "jwt_issuer", auth.ISSUER_DEFAULT),
+            audience=getattr(settings, "jwt_audience", auth.AUDIENCE_DEFAULT),
+        ), None
+    except auth.AuthError as exc:
+        return None, exc.reason
+
+
+def _auth_rejection(request: Request) -> Optional[JSONResponse]:
+    """SSE 通道的准入判定：`RAG_REQUIRE_AUTH=true` 时身份不合法即 401，否则 None。
+
+    未开启校验时不拦，但**能验出的身份照样放进请求上下文**——这样"先配密钥观察一段时间、
+    确认无误再打开开关"是一条可行的迁移路径，而不是只能一次性切换。
+    """
+    settings: Settings = request.app.state.settings
+    identity, reason = _resolve_identity(request)
+    if identity is not None:
+        # 身份放进请求上下文（而不是信任浏览器 postMessage 来的 uid）：
+        # 后续要按用户收敛会话/配额时，读这里就是服务端确认过的事实。
+        request.state.identity = identity
+        return None
+    if not getattr(settings, "require_auth", False):
+        return None
+    logger.warning("拒绝未认证请求：path=%s 原因=%s", request.url.path, reason)
+    return _json_error(401, "未认证：该接口要求旧系统签发的有效登录凭证",
+                       ErrorCode.UNAUTHORIZED)
+
+
+def _introspector() -> introspection.Introspector:
+    """取当前撤销查询器；lifespan 未跑（测试/嵌入式挂载）时按设置惰性创建。"""
+    client = getattr(app.state, "introspector", None)
+    if client is None:
+        client = introspection.from_settings(app.state.settings)
+        app.state.introspector = client
+    return client
+
+
+async def _revocation_rejection(request: Request) -> Optional[JSONResponse]:
+    """凭证撤销检查（第 13 轮复核）：验签通过之后，再问一次后端"这张凭证还作不作数"。
+
+    为什么必须有这一步：验签只能证明"这是旧后端签的"，证明不了"它还该被承认"。
+    停用账号、改密码之后旧后端已经拒绝该 token，而本服务此前会一直放行到 token 自然
+    过期（默认 7 天）——安全动作只在一半系统上生效。
+
+    **只对"已经验签通过"的请求生效**（`request.state.identity` 非空）：没有身份的请求
+    本来就不经过 JWT 这条路（例如飞书机器人走 X-Bot-Key），不该被这里拦下；而
+    "配了密钥但还没开 require_auth"的迁移期也不受影响——那种请求拿不到身份，
+    归 `_auth_rejection` / `_json_endpoint_rejection` 的既有规则处理。
+
+    判定结论在 TTL 内复用（见 server/introspection.py），因此"撤销生效延迟"的上界
+    就是 `RAG_INTROSPECT_TTL_SECONDS`；未配置查询时本函数不拦任何请求，
+    该边界由 /api/health 的 warnings 报出来。
+    """
+    if getattr(request.state, "identity", None) is None:
+        return None
+    client = _introspector()
+    if not client.enabled:
+        return None
+
+    token = auth.extract_token(request.headers)
+    if not token:
+        return None
+
+    verdict = await client.check(token)
+    if verdict.active:
+        return None
+
+    identity = request.state.identity
+    logger.warning("拒绝已失效的凭证：user_id=%s path=%s 原因=%s",
+                   identity.get("user_id"), request.url.path, verdict.reason or "已撤销")
+    # 话术与旧后端逐字一致：同一个"凭证失效"在两条通道上应该只有一种说法
+    return _json_error(401, "登录已失效，请重新登录", ErrorCode.UNAUTHORIZED)
+
+
 def _client_key(request: Request) -> str:
     """限流来源标识。
 
@@ -415,15 +542,49 @@ def health():
     第五轮整改复核 B8：**schema 不依赖运行态**——runtime 加载失败时也要返回与正常态
     完全相同的键（`cache` / `sync_pool` / `rate_limit` 等为零值对象），否则监控在最需要
     观测的失败时刻反而拿到不同字段。
+
+    配置一律读**运行期**的 `app.state.settings`（lifespan 写入，与 `_runtime()` /
+    `_rate_limiter()` 同一取法），模块级的 `_settings_boot` 只作为"没跑 lifespan 时"的兜底。
+    原先这里直接读模块级对象，于是"health 报的口径"与"请求实际用的口径"可能来自两个
+    不同对象——正常启动下两者取值相同，这个分叉只在测试里替换 settings 时才显形，
+    而它对"撤销查询到底开没开"这类安全口径是致命的。
     """
+    settings = getattr(app.state, "settings", None) or _settings_boot
     from server.generate.cache import empty_cache_stats
 
     rt = _runtime()
     meta = (rt.meta if rt else {}) or {}
+    # 向量链路的分解状态（第 12 轮审查 P2-2）。runtime 加载失败时也返回同形状的零值，
+    # 与上面 B8 的口径一致——监控在最需要观测的时刻不该拿到不同的键。
+    vector_status = rt.text.vector_status() if rt else {
+        "artifact_ready": False, "embedding_client_configured": False,
+        "embedding_probe_ok": None, "last_vector_error": "",
+        "effective_text_mode": "", "vector_error_count": 0, "declared_available": False,
+    }
     payload = {
         "status": "ok" if rt else "error",
         "version": rt.version if rt else None,
+        # vector_available 是**启动时的能力声明**（制品可加载 + 客户端已装配），
+        # 不代表查询期真的可用：查询向量化是网络调用。要看真伪请读下面的 vector 对象。
         "vector_available": bool(rt.text.vector_available) if rt else False,
+        "vector": vector_status,
+        # 身份校验的当前口径（第 12 轮审查 P1-1）：让运维一眼看出"这个部署到底验不验身份"，
+        # 而不是靠读环境变量文件推断。`jwt_configured` 只说配了密钥，不泄露密钥本身。
+        "auth": {
+            # 模式是运维真正要看的那个字段（第 13 轮整改）：`required=false` 既可能是
+            # "nginx 在把关"，也可能是"根本没人在把关"，只有模式能区分这两者。
+            "mode": (getattr(settings, "auth_mode", "") or "disabled"),
+            "required": bool(getattr(settings, "require_auth", False)),
+            "jwt_configured": bool(getattr(settings, "jwt_secret", "")),
+            "bot_key_configured": bool((getattr(settings, "bot_api_key", "") or "").strip()),
+            "token_header": "Token",
+            "accepts_bearer": True,
+            # 凭证撤销查询（第 13 轮复核）：`enabled=false` 表示"停用/改密码后旧 token 在
+            # 自然过期前仍可用"。这个字段让运维一眼看出自己属于哪一种，而不必读环境变量文件。
+            "revocation": _introspector().snapshot() if settings.require_auth else {
+                "enabled": False, "reason": "本服务未验签（非 jwt 档），不做凭证撤销查询",
+            },
+        },
         "llm_available": rt.generate.llm.available if rt else False,
         "load_error": _load_error(),
         "meta": rt.meta if rt else None,
@@ -447,10 +608,26 @@ def health():
             "数据版本未显式固定（RAG_ACTIVE_VERSION / --version 未设置）："
             "当前按目录扫描选择最新一致版本，重启可能切换数据"
         )
-    if _settings_boot.cors_allows_any_origin:
+    if settings.cors_allows_any_origin:
         # 能走到这里说明要么是开发态、要么已显式 ALLOW_PUBLIC_CORS=true；
         # 仍要在 health 里留痕，避免"公开 CORS"成为看不见的既成事实
-        warnings.append(_settings_boot.cors_warning() or "")
+        warnings.append(settings.cors_warning() or "")
+    if settings.auth_warning():
+        # 未启用服务端身份校验（第 12 轮审查 P1-1）：不阻断启动，但必须让运维看得见——
+        # 否则"知道 /rag/ 地址就能调"会成为一条没有任何留痕的既成事实。
+        warnings.append(settings.auth_warning())
+    if settings.revocation_warning():
+        # 凭证撤销边界（第 13 轮复核）：验签通过 ≠ 仍然有效。未启用撤销查询时，
+        # "停用账号/改密码后旧 token 在自然过期前仍可调本服务"这件事必须在运行中的
+        # 服务上可见——文档里写一句"注意边界"是不够的。
+        warnings.append(settings.revocation_warning())
+    if vector_status["embedding_probe_ok"] is False:
+        # 声明可用、查询期却失败：这正是本次要消掉的假阳性，必须显式告警而不是静默降级
+        warnings.append(
+            "向量声明可用但查询期失败，已自动降级关键词："
+            f"{vector_status['last_vector_error'] or '（无错误原文）'}；"
+            "请检查 EMBEDDING_API_KEY 与 EMBEDDING_BASE_URL"
+        )
     if warnings:
         payload["warnings"] = warnings
     return payload
@@ -503,6 +680,17 @@ async def query(req: Request):
     if rt is None:
         return _json_error(503, _load_error() or "runtime not loaded",
                            ErrorCode.INTERNAL)
+
+    # 身份校验（第 12 轮审查 P1-1）：开启 RAG_REQUIRE_AUTH 后，SSE 与 JSON 两条通道
+    # 一视同仁地要求可信身份。放在限流之前——未认证的请求不该消耗配额，
+    # 也不该从响应耗时上得到任何信息。
+    rejection = _auth_rejection(req)
+    if rejection is not None:
+        return rejection
+    # 凭证撤销检查（第 13 轮复核）：验签通过不等于仍然有效，见 _revocation_rejection。
+    rejection = await _revocation_rejection(req)
+    if rejection is not None:
+        return rejection
 
     limiter = _rate_limiter()
     if not limiter.allow(_client_key(req)):
@@ -716,6 +904,51 @@ def _bot_key_problem(request: Request, settings: Settings) -> str | None:
     return "X-Bot-Key 校验失败：该接口已启用共享密钥，请带上正确的请求头"
 
 
+def _json_endpoint_rejection(request: Request, settings: Settings) -> Optional[JSONResponse]:
+    """非流式接口的准入判定：**JWT 身份 与 Bot Key 满足其一即可**。
+
+    为什么不是"必须 JWT"：飞书机器人没有用户身份（它是服务到服务的调用方），
+    旧后端也不会给它签发 token——要求 JWT 等于把机器人这条路堵死。
+    两条身份来源各自对应一类调用方，任一通过即放行：
+
+      - 浏览器（主应用 iframe）：走 JWT，身份可追到具体账号；
+      - 飞书机器人：走 X-Bot-Key 共享密钥，代表"这个部署里的机器人"。
+
+    两个都没配时（内网默认）不校验，与改造前一致；此时 health 的 warnings 会给出提示。
+
+    判定顺序（每一档的后果都写清楚，避免"配了一半"变成谁都进不来）：
+      1. 带有效 JWT → 放行（身份进请求上下文）；
+      2. 配了 Bot Key 且头值正确 → 放行；
+      3. 配了 Bot Key 但头值不对 → 401。这是**硬要求**：改造前就是这么判的，
+         不能因为顺手加了 JWT 支持就让配好的 Bot Key 形同虚设；
+      4. 都没配（或只配了密钥而调用方没带 token、且未开 require_auth）→ 放行。
+         只配密钥没开开关时放行是有意的：那多半是"想开但漏了开关"，服务应照常工作并告警，
+         而不是把所有请求判成未认证。开了 require_auth 则没有这一档（下面直接 401）。
+    """
+    require_auth = bool(getattr(settings, "require_auth", False))
+    bot_key_configured = bool((getattr(settings, "bot_api_key", "") or "").strip())
+
+    identity, _reason = _resolve_identity(request)
+    if identity is not None:
+        request.state.identity = identity
+        return None
+
+    if bot_key_configured:
+        problem = _bot_key_problem(request, settings)
+        if problem is None:
+            return None
+        return _json_error(401, problem, ErrorCode.UNAUTHORIZED)
+
+    if require_auth:
+        return _json_error(
+            401,
+            "未认证：该接口要求旧系统签发的有效登录凭证，或正确的 X-Bot-Key 共享密钥",
+            ErrorCode.UNAUTHORIZED,
+        )
+    # 既没配共享密钥、也没强制身份：内网默认，与改造前一致
+    return None
+
+
 @app.post("/api/query/json")
 async def query_json(req: Request):
     """非流式问答：一次调用取完整结果（飞书机器人等非浏览器调用方）。
@@ -726,10 +959,15 @@ async def query_json(req: Request):
     """
     settings: Settings = app.state.settings
 
-    # 鉴权放在最前：未通过校验的请求不应消耗限流配额，也不该暴露运行态信息
-    key_problem = _bot_key_problem(req, settings)
-    if key_problem:
-        return _json_error(401, key_problem, ErrorCode.UNAUTHORIZED)
+    # 鉴权放在最前：未通过校验的请求不应消耗限流配额，也不该暴露运行态信息。
+    # 非流式通道接受两类身份——JWT（浏览器）或 X-Bot-Key（飞书机器人），见函数说明。
+    rejection = _json_endpoint_rejection(req, settings)
+    if rejection is not None:
+        return rejection
+    # 撤销检查只对走 JWT 的调用方生效（机器人没有用户身份，也不该被这条拦住）
+    rejection = await _revocation_rejection(req)
+    if rejection is not None:
+        return rejection
 
     rt = _runtime()
     if rt is None:

@@ -31,10 +31,11 @@ from contracts.sse import (
     StatusStage,
 )
 from contracts.question import QuestionType
+from server.runtime import Runtime
 
 # 日志 handler 由 server.api 在启动时统一配置（rag.* 命名空间，见 lib/logging_util）
 logger = logging.getLogger("rag.sse")
-from server.runtime import Runtime
+
 
 # query 级错误（不可恢复，直接 error+done）
 def _event(type_: SSEEventType, session_id: str, stage=None, data=None) -> dict:

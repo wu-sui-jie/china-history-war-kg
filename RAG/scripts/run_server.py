@@ -52,6 +52,43 @@ def pin_version(version: str | None) -> str:
     return "cli_explicit"
 
 
+def _is_loopback(host: str) -> bool:
+    """监听地址是否只有本机能连（回环）。
+
+    逐条判断而不是只比字符串：`localhost`、`::1`、`[::1]`、`127.0.0.2` 都是回环，
+    而它们写的字面量完全不同。判断错的方向是"把公开监听当成回环"——那正是这个门禁
+    要防的事，所以遇到不认识的形式一律按**非回环**处理（fail-closed）。
+    """
+    candidate = (host or "").strip().strip("[]").lower()
+    if candidate in ("localhost", "::1"):
+        return True
+    parts = candidate.split(".")
+    if len(parts) == 4 and parts[0] == "127":
+        return all(p.isdigit() and 0 <= int(p) <= 255 for p in parts)
+    return False
+
+
+def _reject_nginx_mode_on_public_bind(settings, host: str) -> None:
+    """`RAG_AUTH_MODE=nginx` 时拒绝监听非回环地址。
+
+    这一档把"身份由谁把关"整个交给了 nginx：服务自身不验签（`require_auth=False`），
+    安全性完全来自"外部只能经 nginx 进来"这个前提。若服务同时监听 0.0.0.0，
+    同网段的人可以直接连后端端口绕过 nginx 的 auth_basic，鉴权形同不存在——
+    而配置看起来是"配了 nginx 认证"的，最容易被误判成安全。
+
+    因此在**只有这里才知道真实监听地址**的地方拦掉，而不是在 config 里猜。
+    """
+    mode = (getattr(settings, "auth_mode", "") or "").strip().lower()
+    if mode != "nginx" or _is_loopback(host):
+        return
+    raise SystemExit(
+        f"[run_server] 拒绝启动：RAG_AUTH_MODE=nginx 但监听地址是 {host!r}（非回环）。\n"
+        f"  nginx 档只在「外部只能经 nginx 进来」时成立；直接监听 {host} 会让人绕过 nginx\n"
+        "  直连本服务，鉴权等于没有。请改用 --host 127.0.0.1（推荐，由 nginx 反代），\n"
+        "  或改用 RAG_AUTH_MODE=jwt 让本服务自己验签。"
+    )
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="启动 RAGv5 SSE 问答服务")
     p.add_argument("--host", default="127.0.0.1")
@@ -66,6 +103,7 @@ def main() -> None:
     pin_version(args.version)
 
     s = get_settings()
+    _reject_nginx_mode_on_public_bind(s, args.host)
     effective = args.version or s.active_version or "latest"
     print(f"[run_server] 服务启动 host={args.host} port={args.port} "
           f"version={effective}{'' if (args.version or s.active_version) else '（未固定，按目录扫描）'}")

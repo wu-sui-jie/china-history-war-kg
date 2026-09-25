@@ -140,6 +140,38 @@ QUERY_JSON_TIMEOUT_SECONDS = 30
 # 设置后 /api/query/json 要求请求头 X-Bot-Key 与之相等，否则 401；
 # 留空 = 不校验。只作用于该接口，不影响 /api/query 等既有接口。
 BOT_API_KEY = ""
+# JWT 共享密钥（HS256）：与旧后端 backend/.env 的 JWT_SECRET 必须同值。
+# 留空 = 不启用 JWT 校验。实现见 server/auth.py。
+JWT_SECRET = ""
+# 强制要求可信身份（第 12 轮审查 P1-1）：开启后 /api/query 与非流式接口都要求携带
+# 旧后端签发的 JWT，验不过一律 401。默认关闭以保持内网部署行为不变；
+# 但**对外部署必须二者之一**：本开关 + 密钥，或 nginx 认证 + 只监听回环地址。
+#
+# 第 13 轮整改后推荐改用 RAG_AUTH_MODE 表达同一件事（二者等价、可互相推导）：
+# 这个开关仍被接受，`true` 等价于 `RAG_AUTH_MODE=jwt`，`false` 等价于 `disabled`。
+REQUIRE_AUTH = False
+# 鉴权模式（第 13 轮整改）：jwt / nginx / disabled。
+# 默认 disabled，但**显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下 disabled 会拒绝启动**：
+# 原先只有一个布尔开关，"nginx 在把关"与"根本没人在把关"在配置里长得一样，
+# 于是漏配的人只会看到一条被忽略的 WARNING。现在必须显式二选一。
+AUTH_MODE = "disabled"
+# token 的来源与受众（第 13 轮整改）：必须与签发端 backend/jwt_util.py 一致。
+# 验签只证明"这把密钥签的"，iss/aud 才证明"是谁为谁签的"。
+JWT_ISSUER = "china-war-backend"
+JWT_AUDIENCE = "china-war-rag"
+# ---- 凭证撤销查询（第 13 轮复核，文档第四节方案 B）----
+# 旧后端内部接口地址，形如 http://127.0.0.1:5000/api/internal/token/introspect。
+# 留空 = 不查询（此时"停用/改密码后 RAG 在 token 到期前仍可用"，health 会就此告警）。
+INTROSPECT_URL = ""
+# 服务间共享密钥：与旧后端 backend/.env 的 INTERNAL_SERVICE_KEY 必须同值。
+# 两个名字都认（RAG_INTERNAL_SERVICE_KEY / INTERNAL_SERVICE_KEY），见 introspection.from_settings。
+INTROSPECT_SERVICE_KEY = ""
+# 查询结果缓存秒数：它同时是"撤销生效延迟"的上界。
+INTROSPECT_TTL_SECONDS = "30"
+# 单次查询超时（秒）：同机调用正常在毫秒级，秒级是为"后端正在重启"留出快速失败。
+INTROSPECT_TIMEOUT_SECONDS = "3"
+# 后端不可用时的取舍：closed（拒绝，默认） / open（放行）。
+INTROSPECT_FAIL_MODE = "closed"
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
 # 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。
