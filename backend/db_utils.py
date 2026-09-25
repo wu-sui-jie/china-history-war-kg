@@ -20,12 +20,16 @@ from sync_compensation import OP_NODE_CREATE, OP_NODE_DELETE, OP_NODE_UPDATE
 
 from logging_util import get_logger
 
-logger = get_logger(__name__)
+# 口令策略的唯一实现（第 13 轮复核整改 §2.1）：数值与判定都在 password_policy 里，
+# 注册 / 改密码 / 首管命令 / 前端提示共用同一份口径。这里转出两个常量只是为了
+# 兼容既有引用（`from db_utils import MIN_PASSWORD_LENGTH`），新代码请直接引用该模块。
+from password_policy import (  # noqa: F401  （转出以兼容既有引用）
+    MAX_PASSWORD_LENGTH,
+    MIN_PASSWORD_LENGTH,
+    password_problem,
+)
 
-# 口令长度区间（第 13 轮整改，文档第十一节）。下限从"非空"提高到 10 位：
-# 登录限流只能压低在线爆破的速率，真正决定成本的是口令本身的搜索空间。
-MIN_PASSWORD_LENGTH = 10
-MAX_PASSWORD_LENGTH = 64
+logger = get_logger(__name__)
 
 
 def _enqueue_compensation(node_type, node_id, node_name, properties, error):
@@ -309,12 +313,12 @@ class DbUtil:
 
     @staticmethod
     def _password_policy_problem(password: str):
-        """口令强度检查；合规返回 None。"""
-        length = len(password or "")
-        if length < MIN_PASSWORD_LENGTH or length > MAX_PASSWORD_LENGTH:
-            return (f"密码长度需在 {MIN_PASSWORD_LENGTH}~{MAX_PASSWORD_LENGTH} 位之间"
-                    f"（当前 {length} 位）")
-        return None
+        """口令强度检查；合规返回 None。
+
+        判定实现在 `password_policy.password_problem`（唯一口径，第 13 轮复核整改 §2.1）。
+        保留这个静态方法是为了不动既有调用点（注册与改密码两处），它只做转发。
+        """
+        return password_problem(password)
 
     @staticmethod
     def _get_model_by_type(node_type: str):

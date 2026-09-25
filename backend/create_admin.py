@@ -10,6 +10,10 @@
 不留痕。改成本命令后，「首个管理员」有了一个可审计的唯一入口：只在库里真的没有
 管理员时才会动数据，退出码明确，且不走任何 HTTP 接口（不对外暴露引导面）。
 
+口令强度与注册 / 改密码**共用 `password_policy` 的同一份判定**（第 13 轮复核整改 §2.1）：
+本命令原先是 6–20 位，那意味着权限最高的账号可以设最弱的密码，而 21–64 位的强口令
+反而被拒绝。
+
 用法：
     cd backend
     python create_admin.py --account alice              # 提升已有账号（推荐：先注册再提升）
@@ -31,6 +35,7 @@ from sqlalchemy import text
 from werkzeug.security import generate_password_hash
 
 from models import UserInfo, db
+from password_policy import password_problem
 
 APP_PATH = Path(__file__).resolve().parent
 DATABASE_PATH = APP_PATH / "database"
@@ -39,10 +44,6 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DATABASE_PATH}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
-
-MIN_PASSWORD_LENGTH = 6
-MAX_PASSWORD_LENGTH = 20
-
 
 def _print_users():
     rows = db.session.execute(
@@ -68,10 +69,11 @@ def _read_password() -> str:
     password = getpass.getpass("请输入管理员口令：")
     if password != getpass.getpass("请再次输入以确认："):
         raise SystemExit("两次输入不一致，已中止（未改动数据库）。")
-    if not (MIN_PASSWORD_LENGTH <= len(password) <= MAX_PASSWORD_LENGTH):
-        raise SystemExit(
-            f"口令长度需为 {MIN_PASSWORD_LENGTH}-{MAX_PASSWORD_LENGTH} 位，已中止（未改动数据库）。"
-        )
+    # 与注册 / 改密码共用同一份策略（第 13 轮复核整改 §2.1）：本命令原先是 6–20 位，
+    # 于是**权限最高的账号允许最弱的密码**，而 21–64 位的强口令反而设不上。
+    problem = password_problem(password)
+    if problem:
+        raise SystemExit(f"{problem}，已中止（未改动数据库）。")
     return password
 
 

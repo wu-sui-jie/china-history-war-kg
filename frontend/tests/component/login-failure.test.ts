@@ -120,4 +120,38 @@ describe('登录页失败可见性', () => {
     expect(loginMock).toHaveBeenCalledWith({ account: 'legacy-user', password: 'pw-123456' })
   })
 
+  test('口令按原值发送，不被 trim（第 13 轮复核整改 §2.2）', async () => {
+    // 原先这里 `password: loginForm.password.trim()`：那等于静默改了用户输入。
+    // 历史口令或命令行建的口令若带首尾空格，用户照着输入反而登录不上，
+    // 而提示只能是"用户名或密码错误"——一个用户永远猜不到的原因。
+    // 首尾空格该不该允许由服务端口令策略明确回答，前端不做规范化。
+    const wrapper = mountPage()
+
+    wrapper.vm.loginForm.account = '  somebody  '
+    wrapper.vm.loginForm.password = '  spaced-password  '
+    await wrapper.vm.loginSubmit()
+
+    expect(loginMock).toHaveBeenCalledWith({
+      // 账号仍然 trim（复制粘贴带进来的空格是明显的输入失误）
+      account: 'somebody',
+      // 口令原样发送
+      password: '  spaced-password  ',
+    })
+  })
+
+  test('注册路径同样不 trim 口令', async () => {
+    const wrapper = mountPage()
+
+    wrapper.vm.loginForm.account = 'newbie'
+    wrapper.vm.loginForm.name = ' 新人 '
+    wrapper.vm.loginForm.password = '  spaced-password  '
+    await wrapper.vm.signinSubmit()
+
+    expect(signInMock).toHaveBeenCalledWith({
+      account: 'newbie',
+      name: '新人',
+      password: '  spaced-password  ',
+    })
+  })
+
 })
