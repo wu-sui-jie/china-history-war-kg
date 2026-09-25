@@ -25,7 +25,12 @@ ADMIN_MENU_IDS = {"/admin/users"}
 # 需要 editor 及以上才可见的菜单 id。「文本实体识别」与「历史问答助手」都会调用大模型
 # 消耗配额，只读账号不该有入口——与路由 meta.requiresRole='editor'、接口的
 # require_write_role 是同一口径，三处要一起改（见 backend/README 的角色职责表）。
-EDITOR_MENU_IDS = {"/knowledge/text-extract"}
+#
+# `/knowledge/inference` 是第 14 轮审计 P2-8 补上的：它的路由 meta 与接口
+# （blueprints/llm.py 的 require_write_role）都按 editor 卡，而这份名单里原先只有
+# text-extract——于是 viewer 在菜单里看得见"历史问答助手"，点进去被路由拦下、
+# 直接调接口一律 403。菜单是**三层口径的第一层**，"看得到却进不去"比"看不到"更让人困惑。
+EDITOR_MENU_IDS = {"/knowledge/text-extract", "/knowledge/inference"}
 
 
 def _menu_allowed(menu_id, role):

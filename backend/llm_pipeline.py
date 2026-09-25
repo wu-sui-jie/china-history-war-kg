@@ -26,6 +26,7 @@ import traceback
 
 from db_handle import neo4j_db_handle
 from dynasty_data import DYNASTY_CORRECTIONS, VALID_DYNASTIES
+from common_utils import brief_error
 from logging_util import get_logger
 
 # EER（war_extraction）已是正式包：backend 以依赖方式引用它
@@ -599,10 +600,13 @@ def run_inference(rule_engine, entity_extractor, question, request_id):
         elif "invalid" in error_msg.lower() or "syntax" in error_msg.lower():
             user_message = "抱歉，您的问题格式可能有误，请尝试用不同方式提问。"
 
+        # 完整异常只进日志（第 14 轮审计 P2-4）。原先这里回 `error_detail = str(e)`，
+        # 会把 Ollama/Neo4j 的连接串、主机与内部路径原样送给客户端；
+        # 触发条件是"模型服务没起"这种最常见的情形，因此不是理论风险。
+        # `brief_error` 只取第一行并截断——保留"模型没起"这类用户可自行判断的线索。
         return {
             'success': False,
-            'error': f'处理问题时出错: {error_type}',
-            'error_detail': error_msg,
+            'error': f'处理问题时出错（{error_type}）: {brief_error(process_err)}',
             'answer': user_message,
             'kg_data': {'nodes': [], 'lines': []},
             'process_time': time.time() - start_time
@@ -864,7 +868,7 @@ def stream_inference(rule_engine, entity_extractor, question, request_id):
 
         except Exception as llm_err:
             logger.warning(f"[{request_id}] LLM调用失败: {str(llm_err)}")
-            yield _sse({'status': 'error', 'message': f'大模型调用失败: {str(llm_err)}'})
+            yield _sse({'status': 'error', 'message': f'大模型调用失败: {brief_error(llm_err)}'})
             return
 
         generate_time = time.time() - generate_start
@@ -882,10 +886,8 @@ def stream_inference(rule_engine, entity_extractor, question, request_id):
 
     except Exception as e:
         error_type = type(e).__name__
-        error_msg = str(e)
-        logger.info(f"[{request_id}] SSE处理出错: {error_type} - {error_msg}")
-        traceback.print_exc()
-        yield _sse({'status': 'error', 'message': f'处理出错: {error_msg}'})
+        logger.exception(f"[{request_id}] SSE处理出错: {error_type}")
+        yield _sse({'status': 'error', 'message': f'处理出错（{error_type}）: {brief_error(e)}'})
 
 
 # ================== 进程内单例 ==================

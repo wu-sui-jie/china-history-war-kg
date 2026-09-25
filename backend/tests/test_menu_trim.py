@@ -15,7 +15,9 @@ import pytest
 @pytest.mark.parametrize(
     "role,expect_hidden",
     [
-        ("viewer", {"/admin/users", "/workspace/manage", "/knowledge/text-extract"}),
+        # P2-8：/knowledge/inference 的接口与路由都按 editor 卡，菜单必须一致
+        ("viewer", {"/admin/users", "/workspace/manage", "/knowledge/text-extract",
+                    "/knowledge/inference"}),
         ("editor", {"/admin/users"}),
         ("admin", set()),
     ],
@@ -55,6 +57,7 @@ def test_未知角色按最小权限处理(client, make_user, auth, user_ids):
     assert "/admin/users" not in ids
     assert "/workspace/manage" not in ids
     assert "/knowledge/text-extract" not in ids
+    assert "/knowledge/inference" not in ids
     assert "/workspace/dashboard" in ids
 
 

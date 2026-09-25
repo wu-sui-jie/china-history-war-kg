@@ -157,6 +157,13 @@ class DbUtil:
         if problem:
             return {"code": 400, "msg": problem}
 
+        # 先查一次存在性作为**可读的**第一道（第 14 轮审计 P2-6）：
+        # 唯一索引是并发下的真正防线（下面那个 IntegrityError），但它给不出"哪个账号重复"。
+        # 而且索引可能因为存量重复数据而**没建上**（见 app.py 的启动迁移），
+        # 那时没有这一步就等于重复账号不再被拦。
+        if db.session.query(UserInfo.id).filter_by(account=account).first() is not None:
+            return {"code": 409, "msg": "该账号已存在，请换一个或直接登录"}
+
         # 注册用户一律只读（viewer）；需要写权限的账号由管理员改库中 role。
         params = UserInfo(
             account=account,
@@ -168,9 +175,10 @@ class DbUtil:
         try:
             db.session.commit()
         except IntegrityError:
-            # account 的唯一约束兜住并发注册（原先"先查后插"存在竞态）
+            # account 的唯一约束兜住并发注册（"先查后插"之间存在竞态）
             db.session.rollback()
-            return {"code": 500, "msg": "用户账号已存在"}
+            # 409（冲突）而不是 500：这是**客户端**用错，报成服务端故障会让监控误判
+            return {"code": 409, "msg": "该账号已存在，请换一个或直接登录"}
         return {
             "code": 200,
             "data": {
@@ -408,7 +416,7 @@ class DbUtil:
                     "sync_status": "success" if neo4j_sync_success else "failed",
                 },
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             # 完整异常只进日志：`str(e)` 常带 SQL、列名与库文件路径（第 13 轮复核第七节）。
             # 调用方（blueprints/node.py）会把 code 透传成 HTTP 状态，因此这里只需给安全文案。
@@ -482,7 +490,7 @@ class DbUtil:
                     "sync_error": neo4j_error_msg or None,
                 },
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             logger.exception("更新节点失败：type=%s id=%s", node_type, node_id)
             return {"code": 500, "msg": "更新失败，请稍后重试"}
@@ -565,7 +573,7 @@ class DbUtil:
                     "sync_error": neo4j_error_msg or None,
                 },
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             logger.exception("删除节点失败：type=%s id=%s", node_type, node_id)
             return {"code": 500, "msg": "删除失败，请稍后重试"}
@@ -614,7 +622,7 @@ class DbUtil:
                     "sync_error": neo4j_error_msg or None,
                 },
             }
-        except Exception as e:
+        except Exception:
             db.session.rollback()
             logger.exception("更新节点属性失败：type=%s id=%s", node_type, node_id)
             return {"code": 500, "msg": "属性更新失败，请稍后重试"}
@@ -654,7 +662,7 @@ class DbUtil:
             start = (current - 1) * limit
             end = start + limit
             return {"total": total_count, "records": all_records[start:end]}
-        except Exception as e:
+        except Exception:
             # 这里**不再吞掉异常**：原先返回 `{"total": 0, "records": [], "error": str(e)}`，
             # 于是查询失败在客户端表现为"列表是空的"、在服务端日志里没有任何痕迹，
             # 而且 `str(e)` 还会带着 SQL 与库路径回到前端（第 13 轮复核第七节）。

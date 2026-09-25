@@ -1545,7 +1545,10 @@ def build_sync_reconciliation():
             ).data()
             neo4j_count = result[0]["c"] if result else 0
         except Exception as exc:
-            error = str(exc)
+            # 对账失败要**报出来**（status 会变成 unknown），但不能把原文回给客户端：
+            # 它通常含 bolt 连接串与主机名，而这个接口 viewer 权限就能读（第 14 轮审计 P2-4）。
+            logger.exception("Neo4j 计数失败：label=%s", label)
+            error = f"{type(exc).__name__}（详见服务端日志）"
 
         diff = None if neo4j_count is None else sqlite_count - neo4j_count
         # None（Neo4j 不可达，判不了）与非零差异一样不能算"已对齐"，

@@ -35,8 +35,8 @@ class neo4j_db():
 
         try:
             self.graph = Graph(uri, user=user, password=password)
-                # 测试连接
-            test_result = self.graph.run("RETURN 1 as test").data()
+            # 测试连接：这一步的意义是"真的发一次查询"，返回值本身不用
+            self.graph.run("RETURN 1 as test").data()
             logger.info(f"✅ Neo4j连接成功: {uri}")
         except Exception as e:
             logger.error(f"❌ Neo4j连接失败: {e}")
@@ -66,7 +66,7 @@ class neo4j_db():
 
                 return SimpleNode(node_id)
             else:
-                logger.error(f"❌ Neo4j节点创建失败: Cypher执行无返回结果")
+                logger.error("❌ Neo4j节点创建失败: Cypher执行无返回结果")
                 return None
 
         except Exception as e:
@@ -248,56 +248,10 @@ class neo4j_db():
         # 未查询到节点时返回None
         return None
 
-    # 更新节点所有属性
-    def update_node_properties(self, node_id, properties):
-        """使用 Cypher 更新节点属性"""
-        try:
-            # 移除 id 和 type，这些不是节点属性
-            props = {k: v for k, v in properties.items() if k not in ['id', 'type']}
-
-            if not props:
-                logger.warning(f"⚠️ 无有效属性需要更新")
-                return True
-
-            # 构建 SET 子句和 REMOVE 子句
-            set_clauses = []
-            remove_clauses = []
-            params = {'node_id': node_id}
-            for key, value in props.items():
-                if value is None:
-                    remove_clauses.append(f"n.{key}")
-                elif isinstance(value, (str, int, float, bool)):
-                    set_clauses.append(f"n.{key} = ${key}")
-                    params[key] = value
-
-            if not set_clauses and not remove_clauses:
-                return True
-
-            set_part = f"SET {', '.join(set_clauses)}" if set_clauses else ""
-            remove_part = f"REMOVE {', '.join(remove_clauses)}" if remove_clauses else ""
-
-            cypher = f"""
-            MATCH (n)
-            WHERE id(n) = $node_id
-            {set_part}
-            {remove_part}
-            RETURN id(n) as node_id
-            """
-
-            result = self.graph.run(cypher, **params).data()
-
-            if result:
-                logger.info(f"✅ Neo4j属性更新成功: ID={node_id}, Props={list(props.keys())}")
-                return True
-            else:
-                logger.warning(f"⚠️ Neo4j属性更新失败: 未找到节点 {node_id}")
-                return False
-
-        except Exception as e:
-            logger.error(f"❌ Neo4j属性更新异常: {e}")
-            import traceback
-            traceback.print_exc()
-            return False
+    # 这里曾有一个 `update_node_properties(node_id, properties)`：它用 f-string 把属性名
+    # 直接拼进 Cypher（`f"n.{key} = ${key}"`），且全仓**没有任何调用点**（第 14 轮审计 P2-12）。
+    # 零调用 + 现成的注入点，删除比「补校验再留着」更彻底：属性更新走的是 `upsert_node`
+    # （`SET n += $props`，键名过白名单与映射表）。
 
     # 删除节点
     def delete_node(self, label, node_id):
@@ -309,7 +263,7 @@ class neo4j_db():
             WHERE id(n) = $node_id
             DETACH DELETE n
             """
-            result = self.graph.run(cypher, node_id=node_id)
+            self.graph.run(cypher, node_id=node_id)
             logger.info(f"✅ Neo4j节点删除成功: ID={node_id}")
             return True
 
@@ -365,7 +319,7 @@ class neo4j_db():
     def get_relationship_types_by_Event(self):
         """根据节点类型Event获取关系类型"""
 
-        query = f"""
+        query = """
         MATCH (n:Event)-[r]-(m:Event)
         RETURN DISTINCT type(r) AS type
         ORDER BY type
@@ -490,7 +444,7 @@ class neo4j_db():
         :return: 相关节点和关系
         """
         rel_types = relationship_type_aliases(rel_type)
-        sql = f"""
+        sql = """
         MATCH (n)-[r]-(m)
         WHERE type(r) IN $rel_types
         RETURN n, r, m

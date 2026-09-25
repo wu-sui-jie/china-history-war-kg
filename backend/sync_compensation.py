@@ -291,7 +291,7 @@ def pending_jobs(limit: int = 50):
 
 def due_jobs(limit: int = 50, *, now: float | None = None):
     """到期可重放的任务（`next_retry_at` 已过或为空）；新→旧。"""
-    from models import Neo4jSyncJob, db
+    from models import Neo4jSyncJob
 
     stamp = time.time() if now is None else now
     return (Neo4jSyncJob.query

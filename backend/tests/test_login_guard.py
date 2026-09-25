@@ -601,3 +601,56 @@ def test_没有_X_Real_IP_时取_XFF_最右段(client, make_user, monkeypatch):
     ).status_code == 429
     assert _row("ip", real_ip) is not None
     assert _row("ip", "1.2.3.4") is None, "最左段（伪造的那一段）不该成为限流桶"
+
+
+# ------------------------------------- 重复账号：409 与启动门禁（第 14 轮审计 P2-6）
+
+
+def test_重复账号注册返回_409(client):
+    """409（冲突）而不是 500（服务端故障）：这是客户端用错，报成故障会让监控误判。"""
+    first = client.post("/api/sign_in", json={"account": "dup", "name": "甲",
+                                              "password": "pw-12345678"})
+    assert first.get_json()["code"] == 200
+
+    second = client.post("/api/sign_in", json={"account": "dup", "name": "乙",
+                                               "password": "pw-12345678"})
+
+    assert second.status_code == 409
+    assert second.get_json()["code"] == 409
+    assert "已存在" in second.get_json()["msg"]
+
+
+def test_唯一索引建不上时启动迁移拒绝继续(_app_context, monkeypatch):
+    """索引建不上 = 库里存在重复账号 → 认证完整性有问题，必须当场停下。
+
+    为什么不能只打一条 warning（原实现）：重复账号会同时破坏两件事——
+    - 注册不再被唯一约束拦住；
+    - `authentication` 用 `.first()` 取行，可能拿另一行的口令哈希比对，
+      表现为"这个人的密码能登进那个人的账号"。
+
+    为什么这里用"让建索引语句失败"而不是真的插入两行重复账号：本用例的库由
+    `db.create_all()` 建出，`UserInfo.account` 带 UNIQUE 约束，**插不进重复行**
+    （试过：直接 INSERT 会被约束拒绝）。这个分支实际服务的是"历史库里没有该约束"的
+    情形，所以这里把触发条件打桩在"建索引失败"这一步上，验的是**失败之后的处置**。
+    """
+    import sqlalchemy
+    import app as app_module
+    from models import db
+
+    real_execute = db.session.execute
+
+    def flaky_execute(statement, *args, **kwargs):
+        if "CREATE UNIQUE INDEX" in str(statement):
+            raise sqlalchemy.exc.OperationalError(
+                "CREATE UNIQUE INDEX", None, Exception("index already exists"))
+        return real_execute(statement, *args, **kwargs)
+
+    monkeypatch.setattr(db.session, "execute", flaky_execute)
+
+    with pytest.raises(RuntimeError) as excinfo:
+        app_module.ensure_user_table_schema()
+
+    message = str(excinfo.value)
+    assert "唯一索引" in message and "重复账号" in message
+    assert "拒绝启动" in message, "必须说清是拒绝启动，而不是只告警"
+    assert "处理办法" in message, "要给出下一步怎么做"

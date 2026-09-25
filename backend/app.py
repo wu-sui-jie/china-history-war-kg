@@ -217,8 +217,23 @@ def ensure_user_table_schema():
             text("CREATE UNIQUE INDEX IF NOT EXISTS idx_userinfo_account ON UserInfo(account)")
         )
     except Exception as exc:
-        # 已存在重复账号时索引建不上：保留告警，人工清理后重启即可自动重建
-        logger.warning(f"⚠️ UserInfo.account 唯一索引创建失败（可能存在重复账号）: {exc}")
+        # 建不上索引 = 库里存在重复账号。**不再只打一条 warning 就继续**（第 14 轮审计 P2-6）：
+        # 重复账号会同时破坏两件事——注册不再被拦（唯一约束缺位），
+        # 而且 `authentication` 用 `.first()` 取行，可能拿另一行的口令哈希去比对，
+        # 表现为"这个人的密码能登进那个人的账号"。这属于认证完整性问题，必须当场停下。
+        db.session.rollback()
+        duplicates = db.session.execute(text(
+            "SELECT account, COUNT(*) AS n FROM UserInfo GROUP BY account HAVING n > 1"
+        )).fetchall()
+        detail = "、".join(f"{row[0]}({row[1]} 行)" for row in duplicates) or "（未能列出）"
+        raise RuntimeError(
+            "UserInfo.account 唯一索引创建失败，库中存在重复账号：" + detail + "。"
+            "重复账号会让注册不再被拦，且登录可能比对到另一行的口令哈希，"
+            "属于认证完整性问题，因此拒绝启动。"
+            "处理办法：保留一行、删除或改掉多余的重复行（先备份 database 文件），"
+            "然后重启服务——索引会在启动时自动重建。"
+            f"原始错误：{exc}"
+        ) from exc
     db.session.commit()
 
 
