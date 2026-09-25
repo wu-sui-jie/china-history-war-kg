@@ -78,6 +78,19 @@ def _bool_env(name: str, default: bool, source: dict | None = None) -> bool:
     return raw.lower() in ("1", "true", "yes", "on")
 
 
+def _list_env(name: str, source: dict | None = None) -> tuple[str, ...]:
+    """逗号/空白分隔的列表型配置：去空白、丢空项、按出现顺序去重。"""
+    raw = _env(name, "", source)
+    if not raw:
+        return ()
+    items = [item.strip() for item in raw.replace(" ", ",").split(",")]
+    ordered: list[str] = []
+    for item in items:
+        if item and item not in ordered:
+            ordered.append(item)
+    return tuple(ordered)
+
+
 @dataclass
 class Config:
     """机器人服务的全部配置。"""
@@ -85,6 +98,25 @@ class Config:
     # ---- 必填（飞书开放平台企业自建应用）----
     feishu_app_id: str = ""
     feishu_app_secret: str = ""
+
+    # ---- 使用范围白名单（第 12 轮审查 P2-5）----
+    # 留空 = 不限制（内网默认：任何能访问该机器人的同事都能用，消耗 RAG/LLM 配额）。
+    # 对外或多团队共用时应收窄：
+    #   FEISHU_ALLOWED_CHAT_IDS=oc_aaa,oc_bbb   只允许这些群
+    #   FEISHU_ALLOWED_OPEN_IDS=ou_xxx,ou_yyy   只允许这些用户（含单聊）
+    # 判定口径：**命中任一白名单即放行**；两个都空 = 不限。
+    feishu_allowed_chat_ids: tuple[str, ...] = ()
+    feishu_allowed_open_ids: tuple[str, ...] = ()
+
+    # ---- 队列与并发边界（第 12 轮审查 P2-5）----
+    # 入队上限：队列原先无上限，消息突发时会一路吃内存直到进程被 OOM 杀掉。
+    # 满时**快速拒绝**（见 Dispatcher._enqueue），绝不阻塞飞书回调线程。
+    queue_max_size: int = 200
+    # 队列满时是否回一条"当前繁忙"。关掉就只记日志与计数（适合"宁可静默丢，
+    # 也不要多发消息"的部署）。
+    busy_notice_enabled: bool = True
+    # 繁忙提示的冷却窗口（秒）：同一会话连续猛发时不要把提示刷满屏幕。
+    busy_notice_cooldown_seconds: float = 30.0
 
     # ---- RAG 调用 ----
     rag_base_url: str = "http://127.0.0.1:8000"
@@ -193,6 +225,18 @@ class Config:
                 f"CARD_DEDUPE_WINDOW_SECONDS 不能为负，"
                 f"当前 {self.card_dedupe_window_seconds!r}"
             )
+        if self.queue_max_size <= 0:
+            # 0/负数会让 queue.Queue 变成"无界"（maxsize<=0 即不限大小）——正是本项要修的问题，
+            # 所以显式拒绝，避免有人以为填 0 是"关闭限制"却把内存风险原样留下。
+            problems.append(
+                f"QUEUE_MAX_SIZE 必须为正整数，当前 {self.queue_max_size!r}"
+                "（0 或负数表示无界队列，与本次修复的意图相反）"
+            )
+        if self.busy_notice_cooldown_seconds < 0:
+            problems.append(
+                f"BUSY_NOTICE_COOLDOWN_SECONDS 不能为负，"
+                f"当前 {self.busy_notice_cooldown_seconds!r}"
+            )
         if self.demo_examples_failure_retry_seconds <= 0:
             problems.append(
                 f"DEMO_EXAMPLES_FAILURE_RETRY_SECONDS 必须为正数（失败后的重试窗口），"
@@ -224,6 +268,12 @@ def load_config(env: dict | None = None, *, skip_dotenv: bool = False) -> Config
         rag_connect_timeout=_float_env("RAG_CONNECT_TIMEOUT", 5.0, problems, source),
         rag_json_budget=_float_env("RAG_JSON_BUDGET", 30.0, problems, source),
         feishu_operators_chat_id=_env("FEISHU_OPERATORS_CHAT_ID", source=source),
+        feishu_allowed_chat_ids=_list_env("FEISHU_ALLOWED_CHAT_IDS", source),
+        feishu_allowed_open_ids=_list_env("FEISHU_ALLOWED_OPEN_IDS", source),
+        queue_max_size=_int_env("QUEUE_MAX_SIZE", 200, problems, source),
+        busy_notice_enabled=_bool_env("BUSY_NOTICE_ENABLED", True, source),
+        busy_notice_cooldown_seconds=_float_env("BUSY_NOTICE_COOLDOWN_SECONDS", 30.0,
+                                                problems, source),
         db_path=Path(_env("BOT_DB_PATH", source=source) or DEFAULT_DB_PATH).expanduser(),
         session_ttl_hours=_float_env("SESSION_TTL_HOURS", 24.0, problems, source),
         history_max_bytes=_int_env("HISTORY_MAX_BYTES", DEFAULT_HISTORY_MAX_BYTES,

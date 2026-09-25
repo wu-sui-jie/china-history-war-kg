@@ -10,6 +10,8 @@
 
 from __future__ import annotations
 
+import threading
+import time
 from types import SimpleNamespace
 
 import pytest
@@ -517,3 +519,301 @@ def test_synthetic_event_from_card_has_no_group_semantics(config, session, db):
 def test_parsers_tolerate_bad_payloads(bad):
     assert parse_message_event(bad) is None
     assert parse_card_action(bad) is None
+
+
+# ---- 使用范围白名单（第 12 轮审查 P2-5）----
+
+
+def _wait_until(predicate, timeout: float = 2.0) -> bool:
+    """等一个异步副作用出现（繁忙提示在独立线程里发送）。"""
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if predicate():
+            return True
+        time.sleep(0.01)
+    return False
+
+
+def _dispatcher_with_whitelist(config, session, db, **overrides) -> Dispatcher:
+    from dataclasses import replace
+
+    return make_dispatcher(replace(config, **overrides), session, db)
+
+
+def test_白名单为空时不限制(config, session, db):
+    """内网默认行为必须与改造前逐字一致：不配白名单 = 谁都能用。"""
+    dispatcher = _dispatcher_with_whitelist(config, session, db)
+
+    assert dispatcher.is_allowed("oc_anyone", "ou_anyone") is True
+
+
+def test_群白名单命中才放行(config, session, db):
+    dispatcher = _dispatcher_with_whitelist(
+        config, session, db, feishu_allowed_chat_ids=("oc_allowed",))
+
+    assert dispatcher.is_allowed("oc_allowed", "ou_whatever") is True
+    assert dispatcher.is_allowed("oc_other", "ou_whatever") is False
+
+
+def test_用户白名单命中才放行(config, session, db):
+    dispatcher = _dispatcher_with_whitelist(
+        config, session, db, feishu_allowed_open_ids=("ou_vip",))
+
+    assert dispatcher.is_allowed("oc_any", "ou_vip") is True
+    assert dispatcher.is_allowed("oc_any", "ou_other") is False
+
+
+def test_两份白名单是或的关系(config, session, db):
+    """命中任一即放行：群名单管"哪些群"，用户名单管"哪些人"，不该互相压制。"""
+    dispatcher = _dispatcher_with_whitelist(
+        config, session, db,
+        feishu_allowed_chat_ids=("oc_allowed",), feishu_allowed_open_ids=("ou_vip",))
+
+    assert dispatcher.is_allowed("oc_allowed", "ou_stranger") is True
+    assert dispatcher.is_allowed("oc_other", "ou_vip") is True
+    assert dispatcher.is_allowed("oc_other", "ou_stranger") is False
+
+
+def test_白名单外的消息不入队也不回执(config, session, db):
+    dispatcher = _dispatcher_with_whitelist(
+        config, session, db, feishu_allowed_chat_ids=("oc_allowed",))
+    feishu = dispatcher.feishu
+
+    dispatcher.on_message(make_message_event(chat_id="oc_other", open_id="ou_stranger"))
+
+    assert dispatcher.queue.qsize() == 0
+    assert dispatcher.stats["rejected_not_allowed"] == 1
+    # 不回执是有意的：回一句"无权使用"等于对外暴露机器人存在
+    assert feishu.replies == [] and feishu.sent == []
+
+
+def test_白名单外的卡片回调同样被拒(config, session, db):
+    """否则被移出名单的群仍能靠点旧卡片上的按钮继续提问。"""
+    dispatcher = _dispatcher_with_whitelist(
+        config, session, db, feishu_allowed_open_ids=("ou_vip",))
+
+    result = dispatcher.on_card_action(make_card_event(
+        value={"action": "ask"}, open_id="ou_stranger"))
+
+    assert result is None
+    assert dispatcher.queue.qsize() == 0
+    assert dispatcher.stats["rejected_not_allowed"] == 1
+
+
+# ---- 队列上限（第 12 轮审查 P2-5）----
+
+
+def test_队列有上限且满时快速拒绝(config, session, db):
+    """队列原先无上限，突发消息会一路吃内存直到进程被 OOM 杀掉。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=2), session, db)
+
+    for i in range(2):
+        dispatcher.on_message(make_message_event(event_id=f"ev{i}", message_id=f"om{i}"))
+
+    assert dispatcher.queue.qsize() == 2
+    # 第 3 条：快速拒绝，不阻塞（这里能返回就说明没阻塞）
+    dispatcher.on_message(make_message_event(event_id="ev2", message_id="om2"))
+
+    assert dispatcher.queue.qsize() == 2
+    assert dispatcher.stats["rejected_full"] == 1
+    assert dispatcher.stats["enqueued"] == 2
+
+
+def test_队列满时回一条繁忙提示(config, session, db):
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=1), session, db)
+    feishu = dispatcher.feishu
+
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    dispatcher.on_message(make_message_event(event_id="ev1", message_id="om1"))
+    _wait_until(lambda: len(feishu.replies) >= 1)
+
+    assert feishu.replies, "队列满时应回一条提示"
+    _, card = feishu.replies[0]
+    assert "排队已满" in str(card)
+
+
+def test_繁忙提示按会话冷却(config, session, db):
+    """连点猛发时不能把提示刷满屏幕——提示本身也会变成消息风暴。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(
+        replace(config, queue_max_size=1, busy_notice_cooldown_seconds=60.0), session, db)
+
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    for i in range(1, 5):
+        dispatcher.on_message(make_message_event(event_id=f"ev{i}", message_id=f"om{i}"))
+    _wait_until(lambda: len(dispatcher.feishu.replies) >= 1)
+    # 冷却窗口内后续几次不再提示
+    time.sleep(0.1)
+
+    assert len(dispatcher.feishu.replies) == 1
+    assert dispatcher.stats["rejected_full"] == 4
+
+
+def test_繁忙提示可关闭(config, session, db):
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(
+        replace(config, queue_max_size=1, busy_notice_enabled=False), session, db)
+
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    dispatcher.on_message(make_message_event(event_id="ev1", message_id="om1"))
+    time.sleep(0.1)
+
+    assert dispatcher.feishu.replies == []
+    assert dispatcher.stats["rejected_full"] == 1
+
+
+# ---- 第 13 轮整改：停机不死锁 + 队列满不丢消息 ----
+
+
+def _event_status(db, event_id: str) -> str | None:
+    row = db.query_one("SELECT status FROM processed_events WHERE event_id = ?", (event_id,))
+    return row["status"] if row is not None else None
+
+
+def test_停机时队列满也不会阻塞(config, session, db):
+    """原先 `stop()` 用 `queue.put(None)` 唤醒 worker：队列满时会永久阻塞。
+
+    这里刻意**不启动 worker**（没人从队列取任务，等价于"worker 正卡在长任务上"），
+    把队列填满后调 stop——改造前这一步会永远回不来。
+    """
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=1), session, db)
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    assert dispatcher.queue.full()
+
+    done = threading.Event()
+
+    def _stop():
+        dispatcher.stop(timeout=0.2)
+        done.set()
+
+    threading.Thread(target=_stop, daemon=True).start()
+    assert done.wait(timeout=3.0), "stop() 被队列满阻塞了（停机死锁复现）"
+    assert dispatcher._stop.is_set()
+
+
+def test_队列满被拒的事件不算已处理_飞书重投仍能进来(config, session, db):
+    """队列满时"先落库去重再入队"会让消息永久消失：重投被自己的记录挡掉。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=1), session, db)
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    dispatcher.on_message(make_message_event(event_id="ev1", message_id="om1"))
+
+    assert dispatcher.stats["rejected_full"] == 1
+    # 被拒的事件必须留下"没做成"的痕迹，而不是 accepted
+    assert _event_status(db, "ev1") == "rejected_busy"
+
+    # 让出队列空间，飞书重投同一事件：必须能进来
+    dispatcher.queue.get_nowait()
+    dispatcher.queue.task_done()
+    dispatcher.on_message(make_message_event(event_id="ev1", message_id="om1"))
+
+    assert dispatcher.stats["enqueued"] == 2
+    assert _event_status(db, "ev1") == "accepted"
+
+
+def test_入队成功的事件重投仍被去重(config, session, db):
+    """撤销机制不能把幂等性一起削掉：已坐实的认领照旧挡重投。"""
+    dispatcher = make_dispatcher(config, session, db)
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+
+    assert dispatcher.stats["duplicate"] == 1
+    assert dispatcher.stats["enqueued"] == 1
+
+
+def test_worker_把事件推进到_done(config, session, db):
+    dispatcher = make_dispatcher(config, session, db)
+    dispatcher.start()
+    try:
+        dispatcher.on_message(make_message_event(event_id="ev-done"))
+        _wait_until(lambda: _event_status(db, "ev-done") == "done")
+    finally:
+        dispatcher.stop()
+
+    assert _event_status(db, "ev-done") == "done"
+
+
+def test_worker_处理异常时事件标成_failed(config, session, db):
+    """异常也要留痕：否则"这条消息到底处理到哪一步了"无从查起。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=8), session, db)
+
+    def _boom(_payload):
+        raise RuntimeError("处理炸了")
+
+    dispatcher.handle_message = _boom          # type: ignore[method-assign]
+    dispatcher.start()
+    try:
+        dispatcher.on_message(make_message_event(event_id="ev-fail"))
+        _wait_until(lambda: _event_status(db, "ev-fail") == "failed")
+    finally:
+        dispatcher.stop()
+
+    assert dispatcher.stats["failed"] == 1
+    assert _event_status(db, "ev-fail") == "failed"
+
+
+def test_卡片回调队列满时回真实繁忙状态(config, session, db):
+    """队列满却回"正在查询…"是假承诺：用户以为已受理，实际没入队。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=1), session, db)
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+
+    data = make_card_event(value={"action": "ask"}, event_id="cev-full")
+    ack = dispatcher.on_card_action(data)
+
+    assert ack["toast"]["type"] == "warning"
+    assert "排队已满" in ack["toast"]["content"]
+
+
+def test_卡片回调入队失败不占用退化去重窗口(config, session, db):
+    """没有 event_id 的卡片回调走内存窗口：入队失败必须把窗口键放掉。"""
+    from dataclasses import replace
+
+    dispatcher = make_dispatcher(replace(config, queue_max_size=1), session, db)
+    dispatcher.on_message(make_message_event(event_id="ev0", message_id="om0"))
+
+    no_id = make_card_event(value={"action": "ask"}, event_id="")
+    assert dispatcher.on_card_action(no_id)["toast"]["type"] == "warning"
+
+    dispatcher.queue.get_nowait()
+    dispatcher.queue.task_done()
+    ack = dispatcher.on_card_action(no_id)
+
+    assert ack["toast"]["type"] == "info", "入队失败后重投应被重新受理"
+
+
+def test_老库补列迁移把既有事件视为已处理(tmp_path):
+    """CREATE TABLE IF NOT EXISTS 不会给老库补列，升级必须就地带上 status。"""
+    import sqlite3
+
+    from bot.db import Database
+
+    path = tmp_path / "old.db"
+    conn = sqlite3.connect(str(path))
+    conn.executescript(
+        "CREATE TABLE processed_events ("
+        "  event_id TEXT PRIMARY KEY, event_type TEXT, received_at INTEGER NOT NULL);"
+        "INSERT INTO processed_events VALUES ('old-ev', 'im.message.receive_v1', 1);"
+    )
+    conn.commit()
+    conn.close()
+
+    database = Database(path)
+    database.connect()
+    try:
+        row = database.query_one("SELECT status FROM processed_events WHERE event_id = 'old-ev'")
+        assert row["status"] == "accepted"
+    finally:
+        database.close()

@@ -35,6 +35,65 @@ log = logging.getLogger(__name__)
 TASK_MESSAGE = "message"
 TASK_CARD_ACTION = "card_action"
 
+# 队列满时的提示文案。说明"稍后再试"而不是含糊的"出错了"：用户能据此决定自己的动作。
+QUEUE_BUSY_TEXT = "当前提问较多，排队已满，请稍后再试。"
+
+# ---- 事件状态机（第 13 轮整改）----
+#
+# 一个事件从收到到有结论，中间要经过"认领 → 入队 → 处理"三步，每一步都可能中途
+# 掉队。把状态记下来是为了让"掉在哪一步"可查，而不是只留一个 received 计数。
+STATUS_RECEIVED = "received"                # 已认领，尚未确认入队
+STATUS_ACCEPTED = "accepted"                # 已入队，等 worker 取
+STATUS_PROCESSING = "processing"            # worker 正在处理
+STATUS_DONE = "done"                        # 处理完成
+STATUS_REJECTED_BUSY = "rejected_busy"      # 队列满，本次未能入队
+STATUS_FAILED = "failed"                    # 处理中抛异常
+
+# 处于这些状态的事件"已经有结论"，飞书重投一律按重复丢弃：
+# - accepted / processing / done：正常路径的三档；
+# - failed：处理中抛异常。**故意不让它参与重投重试**——异常很可能发生在
+#   "回答已经发出去"之后（PATCH 失败、落库失败），重投会给用户再发一条回答，
+#   比静默丢掉一条更难解释。
+#
+# 不在表里的（received 半路卡住、rejected_busy）都表示"上一轮没做成"，
+# 重投可以再认领一次——这正是"队列满时消息永久消失"的修法。
+_CLAIMED_STATUSES = (STATUS_ACCEPTED, STATUS_PROCESSING, STATUS_DONE, STATUS_FAILED)
+
+
+@dataclass(frozen=True)
+class Claim:
+    """一次事件认领的凭据。
+
+    认领与入队之间必须能"回退"（第 13 轮整改）：队列满时若认领留在库里，飞书重投
+    同一 event_id 会撞上自己的去重记录被判成重复——事件已被标记处理，消息就此永久
+    消失。因此认领要等到入队成功才由 `commit()` 坐实，入队失败由 `release()` 撤销。
+
+    `window` 为 None 表示**落库档**（processed_events 里的一行）；否则是**内存窗口档**
+    （卡片回调拿不到 event_id 时的退化去重，键只活 `window` 秒）。
+    """
+
+    key: str
+    window: float | None = None
+
+    @property
+    def durable(self) -> bool:
+        return self.window is None
+
+
+def _durable_event_key(kind: str, payload: Any) -> str | None:
+    """任务在 `processed_events` 里的键；退化档（无 event_id）返回 None。
+
+    返回 None 的任务不写状态：内存窗口档的语义是"窗口内同一次点击的重投"，
+    落库就等于把一次点击永久锁死，用户再点同一个按钮会被误判成重复。
+    卡片回调用 `dedupe_key()` 当**内存**键，与这里返回 None 是同一件事的两面。
+    """
+    if kind == TASK_MESSAGE:
+        # 与 on_message 的认领键必须逐字一致，否则状态更新会打到不存在的行上
+        return payload.event_id or f"msg:{payload.message_id}"
+    if kind == TASK_CARD_ACTION:
+        return payload.event_id or None
+    return None
+
 
 @dataclass
 class MessageEvent:
@@ -233,6 +292,13 @@ def mentioned_bot(event: MessageEvent, bot_open_id: str | None) -> bool:
 class Dispatcher:
     """事件接入与 worker。"""
 
+    # worker 取任务的轮询间隔（秒）。取值只影响"停机最多慢多久"：
+    # 0.5s 意味着 `stop()` 最坏多等半秒，换来的是"停机不依赖往队列里塞哨兵消息"。
+    _POLL_SECONDS = 0.5
+
+    # 队列观测的打印间隔（秒）。太长看不到积压的实时变化，太短会把日志淹掉。
+    _MONITOR_SECONDS = 60.0
+
     def __init__(self, *, db: Database, session: SessionStore, skills: list,
                  feishu, config, clock: Callable[[], float] = time.time):
         self.db = db
@@ -242,15 +308,23 @@ class Dispatcher:
         self.feishu = feishu
         self.config = config
         self.clock = clock
-        self.queue: queue.Queue = queue.Queue()
+        # 有界队列（第 12 轮审查 P2-5）：原先是无界 queue.Queue()，消息突发时会一路吃内存，
+        # 直到进程被 OOM 杀掉——而触发条件是外部的，运维看不到任何预兆。
+        # 上限与拒绝行为见 _enqueue。
+        self.queue: queue.Queue = queue.Queue(maxsize=max(1, int(config.queue_max_size)))
         self._worker: threading.Thread | None = None
         self._stop = threading.Event()
         self.command_bot_open_id: str | None = None
         # 卡片回调的退化去重窗口：{dedupe_key: 上次处理时刻}
         self._card_seen: dict[str, float] = {}
+        # 繁忙提示的冷却记录：{session_key: 上次提示时刻}，避免同一会话被提示刷屏
+        self._busy_notified: dict[str, float] = {}
         # 观测计数（日志与测试断言共用）
         self.stats = {"received": 0, "duplicate": 0, "enqueued": 0, "handled": 0,
-                      "failed": 0, "send_failed": 0}
+                      "failed": 0, "send_failed": 0, "rejected_full": 0,
+                      "rejected_not_allowed": 0}
+        # 上次打印队列观测的时刻（monotonic 秒），见 _log_queue_stats_periodically
+        self._last_stats_log = 0.0
 
     # ---- 生命周期 ----
     def start(self) -> None:
@@ -265,35 +339,75 @@ class Dispatcher:
     def stop(self, timeout: float = 5.0) -> None:
         """停止 worker；`timeout` 为等待在途任务收尾的秒数。
 
+        **不再用哨兵消息唤醒 worker**（第 13 轮整改）。原先的 `queue.put(None)`
+        在队列已满时会阻塞，而 worker 此刻可能正卡在一次长 RAG 查询上——
+        于是 `stop()` 永久阻塞，`main.py` 的停机流程再也走不到 `close()`，
+        表现为"按了 Ctrl-C、日志说正在停止、进程却退不出来"（本地诊断结果：
+        `stop_thread_alive_with_full_queue = True`）。
+        worker 改成 `get(timeout=...)` 轮询 `_stop`，停机就只依赖一个 Event。
+
         默认 5s 只够等短任务；在途的 RAG 查询最长要 `RAG_QUERY_TIMEOUT`，
         所以 `main.py` 的停机路径传的是 RAG 预算——否则 `app.close()` 会先把
         httpx/SQLite 关掉，在途任务抛异常（进程即将退出、无实害，但日志有吓人堆栈）。
         第二下 Ctrl-C 的 `os._exit(0)` 仍是"等太久"时的逃生口。
         """
         self._stop.set()
-        self.queue.put(None)          # 唤醒 worker 让它退出
         if self._worker is not None:
             self._worker.join(timeout=timeout)
-            self._worker = None
+            if self._worker.is_alive():
+                # 超时不是错误：在途任务还在跑，进程退出时它会随守护线程一起结束。
+                # 记一条 WARNING 是为了让"停机用了多久、丢了几条"在日志里可见。
+                log.warning("worker 未在 %.1fs 内退出（在途任务仍在跑）；队列剩余 %d 条，"
+                            "将随进程退出丢弃", timeout, self.queue.qsize())
+            else:
+                self._worker = None
+        log.info("worker 已停止")
 
     # ---- 去重（开发文档 5.1 / 风险 4）----
-    def _claim_event(self, event_id: str, event_type: str) -> bool:
-        """认领一个事件；已被处理过返回 False（幂等，静默丢弃重投）。
+    #
+    # 认领（claim）→ 入队（enqueue）→ 坐实（commit）是三步，中间留了 release() 这个
+    # 回退口：把"认领"和"最终处理"压成一步，队列满时被拒的消息会被自己的去重记录
+    # 永久挡在门外（第 13 轮整改修正的正是这一点）。
 
-        `INSERT OR IGNORE` 的 rowcount 就是"是否首次"：检查与写入在同一条语句里完成，
-        不存在"先查后写"的竞态窗口（飞书的重投可能落在不同线程）。
+    def _set_event_status(self, event_id: str, status: str) -> None:
+        """更新事件状态；事件不在表里就静默跳过（UPDATE 命中 0 行不是错误）。"""
+        if not event_id:
+            return
+        with self.db.transaction() as conn:
+            conn.execute("UPDATE processed_events SET status = ? WHERE event_id = ?",
+                         (status, event_id))
+
+    def _claim_event(self, event_id: str, event_type: str) -> Claim | None:
+        """认领一个事件；已有结论（见 _CLAIMED_STATUSES）时返回 None。
+
+        读取与写入在同一事务里，不存在"先查后写"的竞态窗口（飞书的重投可能落在
+        不同线程）。上一轮没做成的行（received 卡住 / rejected_busy）会被改回
+        received，让重投还能再试一次；`received_at` 同时刷新，否则 TTL 清理会先把
+        它删掉，"重投仍可进入"就无从谈起。
         """
         if not event_id:
-            return True               # 调用方负责给退化键
+            return Claim(key="")
+        now = now_ts()
         with self.db.transaction() as conn:
-            cur = conn.execute(
-                "INSERT OR IGNORE INTO processed_events (event_id, event_type, received_at) "
-                "VALUES (?, ?, ?)", (event_id, event_type, now_ts()),
-            )
-            return cur.rowcount == 1
+            row = conn.execute("SELECT status FROM processed_events WHERE event_id = ?",
+                               (event_id,)).fetchone()
+            if row is not None and row["status"] in _CLAIMED_STATUSES:
+                return None
+            if row is None:
+                conn.execute(
+                    "INSERT INTO processed_events (event_id, event_type, status, received_at) "
+                    "VALUES (?, ?, ?, ?)",
+                    (event_id, event_type, STATUS_RECEIVED, now),
+                )
+            else:
+                conn.execute(
+                    "UPDATE processed_events SET status = ?, received_at = ? WHERE event_id = ?",
+                    (STATUS_RECEIVED, now, event_id),
+                )
+        return Claim(key=event_id)
 
-    def _claim_card_action(self, action: CardAction) -> bool:
-        """卡片回调去重：优先 event_id（长期）；缺失时退化为动作身份 + 短时间窗。"""
+    def _claim_card_action(self, action: CardAction) -> Claim | None:
+        """卡片回调去重：优先 event_id（落库、长期）；缺失时退化为动作身份 + 短时间窗。"""
         if action.event_id:
             return self._claim_event(action.event_id, "card.action.trigger")
         key = action.dedupe_key()
@@ -301,13 +415,141 @@ class Dispatcher:
         window = self.config.card_dedupe_window_seconds
         last = self._card_seen.get(key)
         if last is not None and now - last < window:
-            return False
+            return None
         self._card_seen[key] = now
         # 顺手清理过期键，避免长跑进程里字典无限增长
         if len(self._card_seen) > 512:
             self._card_seen = {k: t for k, t in self._card_seen.items()
                                if now - t < window}
+        return Claim(key=key, window=window)
+
+    def _commit_claim(self, claim: Claim) -> None:
+        """入队成功 → 坐实认领。"""
+        if not claim.durable:
+            return      # 内存档：认领时已记录时刻，窗口本身就是它的全部状态
+        self._set_event_status(claim.key, STATUS_ACCEPTED)
+
+    def _release_claim(self, claim: Claim) -> None:
+        """入队失败 → 撤销认领（第 13 轮整改）。
+
+        队列满不等于"这条消息不该被处理"：飞书对未及时应答的事件会重投，用户也可能
+        自己再发一次。若认领留在库里，重投会撞上自己的去重记录被静默丢弃——这就是
+        "队列满后消息永久丢失"的成因。两档撤销方式不同：
+        - 落库档：改成 rejected_busy（不在 _CLAIMED_STATUSES 里，重投可再认领）；
+        - 内存档：删掉窗口键，下一次同样的点击仍然算数。
+        """
+        if not claim.key:
+            return
+        if not claim.durable:
+            self._card_seen.pop(claim.key, None)
+            return
+        self._set_event_status(claim.key, STATUS_REJECTED_BUSY)
+
+    # ---- 使用范围白名单（第 12 轮审查 P2-5）----
+    def is_allowed(self, chat_id: str, open_id: str) -> bool:
+        """该会话是否在允许范围内。
+
+        两个白名单都为空 = 不限（内网默认，行为与改造前完全一致）；
+        任一非空时**命中任一即可放行**；都非空则"在群名单里"或"在用户名单里"均通过。
+        判定放在服务端：界面藏入口只是体验，判断必须在收到消息的这一刻做。
+        """
+        allowed_chats = tuple(getattr(self.config, "feishu_allowed_chat_ids", ()) or ())
+        allowed_users = tuple(getattr(self.config, "feishu_allowed_open_ids", ()) or ())
+        if not allowed_chats and not allowed_users:
+            return True
+        return chat_id in allowed_chats or open_id in allowed_users
+
+    def _reject_not_allowed(self, chat_id: str, open_id: str) -> None:
+        """不在白名单内：不回消息、只记日志与计数。
+
+        为什么不回一句"无权使用"：那等于把一个能探测机器人存在性的接口开放给任何人，
+        而且白名单本来就是"不想让这些人用"，回执只会让他们继续试。
+        """
+        self.stats["rejected_not_allowed"] += 1
+        log.warning("会话不在白名单内，已忽略：chat_id=%s open_id=%s", chat_id, open_id)
+
+    # ---- 观测 ----
+    def queue_snapshot(self) -> dict:
+        """队列与处理计数的快照（日志、健康检查、诊断脚本共用）。
+
+        为什么要专门提供它：故障现象是"机器人不回话了"，而运维在日志里只看到
+        "队列已满，本次消息已丢弃"的单行记录，拼不出"现在积压多少、丢了多少"的全貌。
+        一个可打印、可断言的快照能让这件事一眼可见。
+        """
+        return {
+            "queue_size": self.queue.qsize(),
+            "queue_max": self.queue.maxsize,
+            "in_flight": self.queue.unfinished_tasks,
+            "worker_alive": bool(self._worker is not None and self._worker.is_alive()),
+            **self.stats,
+        }
+
+    def _log_queue_stats_periodically(self) -> None:
+        """每 `_MONITOR_SECONDS` 打一条队列观测；无异常且空闲时降为 DEBUG。
+
+        用 `time.monotonic` 而不是注入的 `clock`：后者是秒级时间戳，供业务断言使用，
+        观测节流不该被用例替换的时钟影响。
+        """
+        now = time.monotonic()
+        if now - self._last_stats_log < self._MONITOR_SECONDS:
+            return
+        self._last_stats_log = now
+        snapshot = self.queue_snapshot()
+        if snapshot["queue_size"] or snapshot["rejected_full"]:
+            log.warning("队列观测：%s", snapshot)
+        else:
+            log.debug("队列观测：%s", snapshot)
+
+    # ---- 入队（带容量上限）----
+    def _enqueue(self, item, *, session_key: str, chat_id: str, reply_to: str | None) -> bool:
+        """非阻塞入队；队列满时快速拒绝并（可选）提示，返回是否入队成功。
+
+        必须非阻塞：本方法跑在飞书 SDK 的 ws 事件循环线程里，`put()` 阻塞会把
+        ping/重连一起卡住，触发飞书判定"未应答"而重投——比丢消息更糟。
+        """
+        try:
+            self.queue.put_nowait(item)
+        except queue.Full:
+            self.stats["rejected_full"] += 1
+            log.error("队列已满（上限 %s），本次消息已丢弃：session=%s",
+                      self.queue.maxsize, session_key)
+            self._notify_busy(session_key, chat_id, reply_to)
+            return False
+        self.stats["enqueued"] += 1
         return True
+
+    def _notify_busy(self, session_key: str, chat_id: str, reply_to: str | None) -> None:
+        """在后台线程发一条"当前繁忙"，不阻塞回调线程。
+
+        - 用独立线程：发消息是 HTTP 调用（几百毫秒），在回调线程里做会把 ws 心跳拖住；
+        - 按会话冷却：连点/猛发时只提示一次，否则提示本身就成了新的消息风暴；
+        - 失败只记日志：这是尽力而为的提示，不能因为提示发不出去而影响主流程。
+        """
+        if not getattr(self.config, "busy_notice_enabled", True):
+            return
+        now = self.clock()
+        cooldown = float(getattr(self.config, "busy_notice_cooldown_seconds", 30.0))
+        last = self._busy_notified.get(session_key)
+        if last is not None and now - last < cooldown:
+            return
+        self._busy_notified[session_key] = now
+        # 顺手清理过期键，避免长跑进程里字典无限增长
+        if len(self._busy_notified) > 512:
+            self._busy_notified = {k: t for k, t in self._busy_notified.items()
+                                   if now - t < cooldown}
+
+        card = build_notice_card(QUEUE_BUSY_TEXT)
+
+        def _send() -> None:
+            try:
+                if reply_to:
+                    self.feishu.reply_card(reply_to, card)
+                else:
+                    self.feishu.send_card(chat_id, card)
+            except Exception as e:  # noqa: BLE001 - 提示失败不影响任何主流程
+                log.warning("繁忙提示发送失败：chat_id=%s err=%s", chat_id, e)
+
+        threading.Thread(target=_send, name="busy-notice", daemon=True).start()
 
     # ---- SDK 回调入口（只做去重 + 入队）----
     def on_message(self, data: Any) -> None:
@@ -316,18 +558,27 @@ class Dispatcher:
         if event is None:
             return
         self.stats["received"] += 1
+        if not self.is_allowed(event.chat_id, event.open_id):
+            self._reject_not_allowed(event.chat_id, event.open_id)
+            return
 
         # 消息事件的退化去重键用 message_id：同一条消息的重投 message_id 必然相同，
         # 且用户不可能"再发一条 message_id 相同的新消息"，因此不需要时间窗。
         key = event.event_id or f"msg:{event.message_id}"
-        if not self._claim_event(key, "im.message.receive_v1"):
+        claim = self._claim_event(key, "im.message.receive_v1")
+        if claim is None:
             self.stats["duplicate"] += 1
             log.info("duplicate 事件已丢弃：event_id=%s message_id=%s",
                      event.event_id, event.message_id)
             return
 
-        self.queue.put((TASK_MESSAGE, event))
-        self.stats["enqueued"] += 1
+        if not self._enqueue((TASK_MESSAGE, event), session_key=event.session_key,
+                            chat_id=event.chat_id, reply_to=event.message_id):
+            # 队列满：必须撤销认领，否则飞书重投会被刚写下的去重记录挡掉，
+            # 这条消息就再也进不来了（见 _release_claim）。
+            self._release_claim(claim)
+            return
+        self._commit_claim(claim)
 
     def on_card_action(self, data: Any) -> dict | None:
         """card.action.trigger 回调。
@@ -339,17 +590,29 @@ class Dispatcher:
         if action is None:
             return None
         self.stats["received"] += 1
+        if not self.is_allowed(action.chat_id, action.open_id):
+            # 卡片回调同样过白名单：否则被移出名单的群仍能通过点按钮继续提问
+            self._reject_not_allowed(action.chat_id, action.open_id)
+            return None
         if not action.action:
             log.warning("卡片回调缺少 value.action，已忽略：value=%r", action.value)
             return None
-        if not self._claim_card_action(action):
+        claim = self._claim_card_action(action)
+        if claim is None:
             self.stats["duplicate"] += 1
             log.info("duplicate 卡片回调已丢弃：event_id=%s action=%s message_id=%s",
                      action.event_id, action.action, action.message_id)
             return None
 
-        self.queue.put((TASK_CARD_ACTION, action))
-        self.stats["enqueued"] += 1
+        enqueued = self._enqueue((TASK_CARD_ACTION, action), session_key=session_key(
+            action.open_id, action.chat_id), chat_id=action.chat_id,
+            reply_to=action.message_id)
+        if not enqueued:
+            self._release_claim(claim)
+            # 队列满时如实回"繁忙"，不要回"正在查询…"：后者是承诺已开始受理，
+            # 而这次点击其实没被受理（第 13 轮整改）。
+            return {"toast": {"type": "warning", "content": QUEUE_BUSY_TEXT}}
+        self._commit_claim(claim)
         # 立即回执：toast 只是"已收到"，不承诺处理结果（处理结果由 worker 发卡片）
         toast = {
             "ask": "正在查询…",
@@ -361,18 +624,32 @@ class Dispatcher:
     def worker_loop(self) -> None:
         log.info("worker 开始取任务")
         while not self._stop.is_set():
-            item = self.queue.get()
+            # 轮询式取任务（第 13 轮整改）：不再靠哨兵消息唤醒，停机只依赖 _stop。
+            # 哨兵路径的问题见 `stop()`——队列满时 `put(None)` 会阻塞在那里。
             try:
-                if item is None:                    # 停机信号
-                    break
-                kind, payload = item
+                item = self.queue.get(timeout=self._POLL_SECONDS)
+            except queue.Empty:
+                self._log_queue_stats_periodically()
+                continue
+            kind, payload = item
+            key = _durable_event_key(kind, payload)
+            try:
+                if key:
+                    self._set_event_status(key, STATUS_PROCESSING)
                 if kind == TASK_MESSAGE:
                     self.handle_message(payload)
                 elif kind == TASK_CARD_ACTION:
                     self.handle_card_action(payload)
+                else:
+                    log.warning("未知任务类型，已忽略：%r", kind)
             except Exception as e:  # noqa: BLE001 - worker 绝不能静默死掉
                 self.stats["failed"] += 1
+                if key:
+                    self._set_event_status(key, STATUS_FAILED)
                 log.exception("任务处理失败：%s", e)
+            else:
+                if key:
+                    self._set_event_status(key, STATUS_DONE)
             finally:
                 self.queue.task_done()
         log.info("worker 已退出")
