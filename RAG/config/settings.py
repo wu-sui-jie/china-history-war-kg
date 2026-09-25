@@ -350,6 +350,20 @@ class Settings:
                 "请把与旧后端 backend/.env 相同的 JWT_SECRET 值配到本服务，"
                 "或改用 RAG_AUTH_MODE=nginx 由 nginx 把关。"
             )
+        # P2-7：新老开关**语义冲突**时拒绝启动。
+        # `RAG_REQUIRE_AUTH=true` 说的是"本服务自己验签"，而 `RAG_AUTH_MODE=nginx`
+        # 说的是"验签交给网关"——原实现让新模式静默覆盖旧开关（require_auth=False），
+        # 于是"两边都不拦"：nginx 那边若没配 auth_basic，就没有任何人在把关，
+        # 而配置看起来是写了的（这正是本项目反复出现的那类缺陷）。
+        require_auth_env = (os.environ.get("RAG_REQUIRE_AUTH") or "").strip().lower()
+        if mode != "jwt" and require_auth_env in ("1", "true", "yes", "on"):
+            return (
+                f"配置自相矛盾：RAG_REQUIRE_AUTH=true（要求本服务验签）"
+                f"与 RAG_AUTH_MODE={mode}（不验签）同时存在。"
+                "RAG_AUTH_MODE 是新的分档开关，它会覆盖旧开关——两个都留着会让"
+                "「到底谁在把关」变成一件只能靠读代码才知道的事。"
+                "请二选一：删掉 RAG_REQUIRE_AUTH，或把 RAG_AUTH_MODE 改成 jwt"
+            )
         if mode == "disabled" and self.is_explicit_production:
             return (
                 "生产模式（显式设置 RAG_REQUIRE_ACTIVE_VERSION=true）下 RAG_AUTH_MODE 仍是 "
@@ -900,7 +914,8 @@ def get_settings() -> Settings:
         # 真正决定行为的是"撤销查询能不能用"，而不是运维写了哪个开关名。
         allow_delayed_revocation=_bool_env("RAG_ALLOW_DELAYED_REVOCATION",
                                             defaults.ALLOW_DELAYED_REVOCATION),
-        require_revocation_check=_bool_env("RAG_REQUIRE_REVOCATION_CHECK", False),
+        require_revocation_check=_bool_env("RAG_REQUIRE_REVOCATION_CHECK",
+                                          defaults.REQUIRE_REVOCATION_CHECK),
         allow_delayed_revocation_explicit=(
             os.environ.get("RAG_ALLOW_DELAYED_REVOCATION") is not None
         ),

@@ -429,11 +429,15 @@ def test_未配置撤销查询时不额外拦截(auth_client, monkeypatch):
     assert calls == []
 
 
-def test_后端不可用时按_fail_closed_拒绝(auth_client, monkeypatch):
+def test_后端不可用时按_fail_closed_拒绝_并回_503(auth_client, monkeypatch):
     """默认策略：无法确认凭证状态时拒绝。
 
     理由写在 introspection.py 里——这是一条安全查询，"把后端打挂"不该成为一种
     绕过撤销的手段。要放行必须显式把失败策略改成 open。
+
+    **回 503 而不是 401**（第 14 轮审计 P2-1）：两者都是拒绝，但含义完全不同——
+    401 让用户去重新登录（而新 token 同样会被拒），503 告诉他"稍后重试"。
+    旧实现把"问不到后端"当成"凭证已失效"，后端抖一下就把全体用户"登出"了。
     """
     client, settings = auth_client
     settings.require_auth = True
@@ -442,7 +446,22 @@ def test_后端不可用时按_fail_closed_拒绝(auth_client, monkeypatch):
 
     resp = client.post("/api/query", json=BODY, headers={"Token": valid_token()})
 
+    assert resp.status_code == 503
+    assert resp.json()["error_code"] == "server_busy"
+    assert "稍后重试" in resp.json()["message"]
+
+
+def test_明确撤销时仍回_401(auth_client, monkeypatch):
+    """对照组：后端**明确**说这张凭证不算了 → 401（用户该重新登录，而不是重试）。"""
+    client, settings = auth_client
+    settings.require_auth = True
+    settings.jwt_secret = SECRET
+    _stub_introspector(monkeypatch, active=False)
+
+    resp = client.post("/api/query", json=BODY, headers={"Token": valid_token()})
+
     assert resp.status_code == 401
+    assert resp.json()["error_code"] == "unauthorized"
 
 
 def test_后端不可用时可按_fail_open_放行(auth_client, monkeypatch):
@@ -901,3 +920,43 @@ def test_非_jwt_档不提示_Bot_Key(auth_client, monkeypatch):
     payload = client.get("/api/health").json()
 
     assert not any("RAG_BOT_API_KEY" in w for w in payload.get("warnings", []))
+
+
+# ---------------------------------------- 配置自相矛盾与重复账号（第 14 轮审计 P2-6 / P2-7）
+
+
+def test_鉴权模式与旧开关冲突时拒绝启动(monkeypatch):
+    """P2-7：`RAG_REQUIRE_AUTH=true` 说"本服务验签"，`RAG_AUTH_MODE=nginx` 说"交给网关"。
+
+    原实现让新模式静默覆盖旧开关，于是"两边都不拦"——而配置看起来是写了的。
+    """
+    from config.settings import get_settings
+
+    monkeypatch.setenv("RAG_AUTH_MODE", "nginx")
+    monkeypatch.setenv("RAG_REQUIRE_AUTH", "true")
+
+    problem = get_settings().auth_startup_problem()
+
+    assert problem and "自相矛盾" in problem
+
+
+def test_鉴权模式为_jwt_时旧开关不冲突(monkeypatch):
+    """两者语义一致（都说要本服务验签）时不该拦——否则升级配置的人会被误拒。"""
+    from config.settings import get_settings
+
+    monkeypatch.setenv("RAG_AUTH_MODE", "jwt")
+    monkeypatch.setenv("RAG_REQUIRE_AUTH", "true")
+    monkeypatch.setenv("RAG_JWT_SECRET", "x" * 40)
+
+    assert get_settings().auth_startup_problem() is None
+
+
+def test_只有旧开关时不冲突(monkeypatch):
+    """改造前写的配置（只有 RAG_REQUIRE_AUTH）必须继续可用。"""
+    from config.settings import get_settings
+
+    monkeypatch.delenv("RAG_AUTH_MODE", raising=False)
+    monkeypatch.setenv("RAG_REQUIRE_AUTH", "true")
+    monkeypatch.setenv("RAG_JWT_SECRET", "x" * 40)
+
+    assert get_settings().auth_startup_problem() is None

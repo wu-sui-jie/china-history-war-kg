@@ -74,7 +74,13 @@ def build_collection(index_dir: Path, ids: List[str], embeddings,
 
 
 def load_collection(index_dir: Path, collection_name: str):
-    """加载集合（不可用时返回 None，由调用方降级关键词）。"""
+    """加载集合（不可用时返回 None，由调用方降级关键词）。
+
+    **客户端会被登记下来**（第 14 轮审计 P2-13）：原实现只把 collection 返回出去、
+    把 `PersistentClient` 丢掉，而 chromadb 内部按路径缓存客户端——那个对象连同
+    `chroma.sqlite3` 的连接与文件锁会一直留到进程退出，同进程的热重载或重复构建
+    就会撞上锁冲突。登记之后由 `release_clients()` 在停机统一释放。
+    """
     try:
         import chromadb
         from chromadb.config import Settings as ChromaSettings
@@ -84,6 +90,59 @@ def load_collection(index_dir: Path, collection_name: str):
             return None
         client = chromadb.PersistentClient(
             path=str(path), settings=ChromaSettings(anonymized_telemetry=False))
+        _CLIENTS[str(path)] = client
         return client.get_collection(name=collection_name, embedding_function=None)
     except Exception:  # noqa: BLE001
         return None
+
+
+# 本进程创建的 chromadb 客户端（按路径去重；第 14 轮审计 P2-13）
+_CLIENTS: dict = {}
+
+
+def client_count() -> int:
+    """当前登记的客户端数（health 用：只是个整数，不含路径）。"""
+    return len(_CLIENTS)
+
+
+def release_clients() -> int:
+    """释放本进程创建的 chromadb 客户端，返回释放个数。
+
+    **这一版 chromadb 没有 per-client 的 `close()`**（1.3.4 实测：PersistentClient
+    上只有 get/create/delete 那一套）。能做的两件事都做掉：
+
+    1. `Client.clear_system_cache()`——chromadb 把客户端按路径缓存在一个进程级
+       "system" 里，这个调用清掉那份缓存，是这一版提供的唯一释放手段；
+    2. 丢掉我们自己的引用，让对象可被回收（只清缓存而不丢引用的话，
+       我们手里那个仍持有连接）。
+
+    将来升级 chromadb 时请重新确认有没有真正的 `close()`：有就优先用它，
+    并把这里换掉——这句话是留给下一个升级的人看的。
+    """
+    released = len(_CLIENTS)
+    _CLIENTS.clear()
+    if not released:
+        return 0
+    try:
+        import chromadb
+
+        clear = getattr(getattr(chromadb, "api", None), "client", None)
+        clear = getattr(getattr(clear, "Client", None), "clear_system_cache", None)
+        if callable(clear):
+            clear()
+    except Exception:  # noqa: BLE001 - 释放失败不该影响停机
+        pass
+    return released
+
+
+class ChromaClients:
+    """把"释放 chromadb 客户端"包装成 `Runtime.resources()` 认得的形态。
+
+    Runtime 的收尾协议是"有 `aclose` 或 `close` 就调用它"，所以这里只提供一个
+    `close()`。放在本模块而不是 Runtime 里，是为了让"谁创建客户端、谁负责登记"
+    留在创建处附近。
+    """
+
+    @staticmethod
+    def close() -> int:
+        return release_clients()

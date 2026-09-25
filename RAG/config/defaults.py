@@ -177,6 +177,10 @@ INTROSPECT_FAIL_MODE = "closed"
 #   RAG_ALLOW_DELAYED_REVOCATION=true   显式接受"停用/改密码后到 token 过期前仍可用"
 # 两者都不做则拒绝启动——那条边界不能靠"两个值都不填"隐式接受。
 ALLOW_DELAYED_REVOCATION = False
+# 要求撤销查询**必须**配齐（与是否生产档无关）：配不齐就拒绝启动。
+# 同批新增的 ALLOW_DELAYED_REVOCATION 有常量而它没有，是"默认值单点声明"这条约定的
+# 破口（第 14 轮审计 P2-25），这里补齐。
+REQUIRE_REVOCATION_CHECK = False
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
 # 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。

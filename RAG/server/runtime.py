@@ -21,7 +21,14 @@ from pathlib import Path
 from typing import Optional
 
 from config.settings import Settings
+from data.index.chroma_store import ChromaClients
 from lib import release_info, versions
+
+# 交给 Runtime.resources() 统一释放的 chromadb 客户端代理（第 14 轮审计 P2-13）。
+# 客户端本身在 `chroma_store.load_collection` 时按路径登记，这里只提供一个
+# "带 close() 的对象"，好让 Runtime 的收尾协议认得它。
+chroma_clients = ChromaClients()
+
 
 # 允许运行期覆盖的版本（测试用）
 @dataclass
@@ -51,6 +58,9 @@ class Runtime:
             ("embedding_client", self.embedding_client),
             ("text.embed_fn", getattr(self.text, "embed_fn", None)
              if getattr(self.text, "embed_fn", None) is not self.embedding_client else None),
+            # chromadb 的 PersistentClient（第 14 轮审计 P2-13）：它按路径缓存在进程里，
+            # 不释放就会把 chroma.sqlite3 的连接与文件锁留到进程退出。
+            ("text.chroma_clients", chroma_clients),
         ]
 
     async def shutdown(self, drain_seconds: Optional[float] = None) -> None:
