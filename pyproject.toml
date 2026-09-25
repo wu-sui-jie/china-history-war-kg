@@ -1,0 +1,138 @@
+# 全仓库统一依赖声明（文档第十四节第 5 条）。
+#
+# ## 这个文件是什么
+#
+# 四个模块（backend / RAG / feishu-bot / 抽取包 war_extraction）此前各有自己的
+# requirements：根 requirements.txt 写 "Python 3.8"、RAG/requirements.txt 写 3.11、
+# feishu-bot 写 3.11——同一份代码库要装两个 Python 版本，而"哪个模块该用哪个环境"
+# 只存在于各文件的注释里。这里把它们收敛成一处**按模块分组的声明**，
+# 并统一 Python 版本与几个关键库的主版本。
+#
+# ## 这个文件不是什么（请勿误读）
+#
+# **它还不是一份经过验证的锁文件**。文档第十四节的迁移分七个阶段，当前只完成了
+# 阶段 1（声明目标）。以下事项**尚未完成验证**，所以本文件声明的是**目标**而不是现状：
+#
+#   - backend 目前在本机以 Python 3.8 + SQLAlchemy 1.4 跑通 101 项测试；
+#     装到 3.11 + SQLAlchemy 2.0 上能否全绿**未经实测**（`Query.get()` 这类
+#     1.x 用法会产生 LegacyAPIWarning，2.0 下部分已废弃接口的行为需要逐条确认）；
+#   - py2neo 尚未替换成 Neo4j 官方 driver（文档第十三节）：py2neo 只发布过到
+#     2021.2.4，且没有声明支持 3.12+，它是"统一到 3.11 就够、不要跳到 3.12"的主因；
+#   - 可复现 lock（阶段 5）要在全部测试通过之后才生成，见文件末尾说明。
+#
+# ## 用法
+#
+#   pip install -e ".[dev]"          # 只装开发与测试工具
+#   pip install -e ".[backend]"      # 旧后端
+#   pip install -e ".[rag]"          # RAG 子系统（需要 >=3.11：chromadb 要求）
+#   pip install -e ".[bot]"          # 飞书机器人
+#   pip install -e ".[extract]"      # 离线抽取链
+#   pip install -e ".[all]"          # 本机统一开发环境（推荐）
+#
+# 四个模块仍然是**四个独立进程**，不是合并成一个程序——分组只是依赖声明，
+# 不改变部署形态（文档第十四节第 4 条）。
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "china-war"
+version = "0.1.0"
+description = "干戈纪略 · 中国战争史知识库（旧后端 + RAG 问答 + 飞书机器人 + 离线抽取）"
+readme = "README.md"
+# 统一到 3.11（文档第十四节第 1 条）。上限留在 <3.13：
+#   - chromadb 的原生依赖在 3.13 上尚未验证；
+#   - lark-oapi 与 py2neo 的兼容性同样只验证到 3.11。
+# 3.12/3.13 的验证是文档第十四节第 3 条说的"另建实验矩阵"，不在这里声明。
+requires-python = ">=3.11,<3.13"
+
+# 刻意不给顶层 dependencies：四个模块的运行依赖差异很大（RAG 要 chromadb 与
+# fastapi，backend 要 Flask 与 py2neo），把它们全塞进顶层会让"最小可用安装"
+# 变成一个几百 MB 的怪物。要全套就装 [all]，那是显式的选择。
+dependencies = []
+
+[project.optional-dependencies]
+
+# ---- 旧后端（Flask :5000）----
+# SQLAlchemy 2 与 Flask-SQLAlchemy 3 是**统一目标**：backend 当前在本机以
+# SQLAlchemy 1.4 验证过，升到 2.0 需要先跑通那 101 项测试（见文件头说明）。
+# 旧版 `Query.get()` 等用法在 2.0 下仍可用但会产生 LegacyAPIWarning，属已知项。
+backend = [
+    "Flask>=2.3,<4",
+    "Flask-Cors>=5.0,<7",
+    "Flask-SQLAlchemy>=3.0,<4",
+    "SQLAlchemy>=2.0,<3",
+    "Werkzeug>=3.0,<4",
+    "PyJWT>=2.4,<3",
+    # py2neo 是唯一的"必须留着的旧依赖"：替换成官方 driver 属文档第十三节的
+    # 独立改造（新增 neo4j 依赖 + 适配层 + 真实 Neo4j 集成验证），不在这里顺手换。
+    "py2neo>=2021.2.4,<2022",
+    "ollama>=0.5,<1",
+    "jieba>=0.42,<1",
+    "python-dotenv>=0.21",
+]
+
+# ---- 离线抽取链的三方依赖（backend 的 /api/extract/* 与 entity-event-relation 共用）----
+extract = [
+    "openai>=1.0,<3",
+    "pydantic>=2.0,<3",
+    "Jinja2>=3.0",
+    "fuzzywuzzy>=0.18",
+    "python-Levenshtein>=0.20",
+    "tqdm>=4.60",
+    "pandas>=1.3",
+    "openpyxl>=3.0",
+]
+
+# ---- RAG 子系统（FastAPI :8000）----
+# 版本下界刻意写得宽：RAG 的依赖由 RAG/requirements.txt 逐条审计并带哈希锁定
+# （CI 用 `--require-hashes` 安装），这里只声明"装哪些包、主版本是多少"，
+# 精确版本仍以 RAG 侧的锁文件为准，避免两处锁文件互相打架。
+rag = [
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+    "httpx>=0.27,<1.0",
+    "chromadb>=0.5",
+    "pydantic>=2.0,<3",
+    "numpy>=1.26,<3",
+    "python-dotenv>=0.21",
+]
+
+# ---- 飞书机器人 ----
+# lark-oapi **锁精确版本**（与 feishu-bot/requirements.txt 一致）：长连接客户端对
+# 卡片回调帧的分发是 SDK 内部实现细节，升级可能静默改变行为，升级前必须回归按钮回调。
+bot = [
+    "lark-oapi==1.7.3",
+    "httpx>=0.27,<1.0",
+    "python-dotenv>=0.21",
+]
+
+# ---- 开发与测试工具 ----
+# pytest / ruff 的版本钉死：门禁口径不该因为某次 `pip install -U` 而漂移
+# （CI 里同样钉死，见 .github/workflows/ci.yml 的注释）。
+dev = [
+    "pytest>=8.0,<10",
+    "ruff==0.16.8",
+    "flask>=2.3,<4",          # 后端测试需要（conftest 会在导入前替换 SQLite 路径）
+]
+
+all = [
+    "china-war[backend]",
+    "china-war[extract]",
+    "china-war[rag]",
+    "china-war[bot]",
+    "china-war[dev]",
+]
+
+# ## 关于可复现 lock（文档第十四节第 5 条 / 迁移阶段 5）
+#
+# 这里**不**提供 requirements.lock。原因是顺序：lock 必须在六个模块的测试全部
+# 通过之后才生成，否则锁定的是"还没验证过的组合"，看起来可复现、实际不可信。
+# 生成时的做法（届时另起一次改动）：
+#
+#   pip install -e ".[all]"
+#   pytest backend/tests RAG/tests feishu-bot/tests entity-event-relation/tests
+#   pip freeze > requirements.lock.txt        # 或 pip-compile --generate-hashes
+#
+# 注意 RAG 已有自己的带哈希锁文件，生成全仓 lock 时要与它对齐而不是覆盖它。
