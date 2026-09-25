@@ -1,0 +1,2041 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "岳州",
+        "modern_name": "岳阳市",
+        "DynastyName": "清",
+        "Province": "湖南省",
+        "City": "岳阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "尼即趁机率水陆军进取岳州"
+      },
+      {
+        "geo_name": "辰龙关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻克辰龙关"
+      },
+      {
+        "geo_name": "长沙",
+        "modern_name": "长沙市",
+        "DynastyName": "清",
+        "Province": "湖南省",
+        "City": "长沙市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "岳乐率师深入湖南，复长沙"
+      },
+      {
+        "geo_name": "武冈",
+        "modern_name": "武冈市",
+        "DynastyName": "清",
+        "Province": "湖南省",
+        "City": "邵阳市",
+        "District_County": "武冈市",
+        "Specific_location": null,
+        "source_text": "克武冈"
+      },
+      {
+        "geo_name": "沅州",
+        "modern_name": "芷江侗族自治县",
+        "DynastyName": "清",
+        "Province": "湖南省",
+        "City": "怀化市",
+        "District_County": "芷江侗族自治县",
+        "Specific_location": null,
+        "source_text": "占沅州（芷江）"
+      },
+      {
+        "geo_name": "衡州",
+        "modern_name": "衡阳市",
+        "DynastyName": "清",
+        "Province": "湖南省",
+        "City": "衡阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "喇布率师复衡州"
+      },
+      {
+        "geo_name": "桂林",
+        "modern_name": "桂林市",
+        "DynastyName": "清",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清将傅宏烈等部，在广东清军支援下收复桂林"
+      },
+      {
+        "geo_name": "汉中",
+        "modern_name": "汉中市",
+        "DynastyName": "清",
+        "Province": "陕西省",
+        "City": "汉中市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "陕、甘清军分路南下，收复汉中"
+      },
+      {
+        "geo_name": "重庆",
+        "modern_name": "重庆市",
+        "DynastyName": "清",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "收复汉中、重庆、成都"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": "成都市",
+        "DynastyName": "清",
+        "Province": "四川省",
+        "City": "成都市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "收复汉中、重庆、成都"
+      },
+      {
+        "geo_name": "云南",
+        "modern_name": "云南省",
+        "DynastyName": "清",
+        "Province": "云南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从蜀、黔、桂三路挺进云南"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": "昆明市",
+        "DynastyName": "清",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻破昆明"
+      },
+      {
+        "geo_name": "台湾",
+        "modern_name": "台湾省",
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清廷即乘势举兵进攻台湾郑氏割据政权"
+      },
+      {
+        "geo_name": "厦门",
+        "modern_name": "厦门市",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "厦门市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进军厦门后"
+      },
+      {
+        "geo_name": "泉州",
+        "modern_name": "泉州市",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "泉州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "geo_name": "漳州",
+        "modern_name": "漳州市",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "geo_name": "潮州",
+        "modern_name": "潮州市",
+        "DynastyName": "清",
+        "Province": "广东省",
+        "City": "潮州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "geo_name": "海坛",
+        "modern_name": "平潭县",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "福州市",
+        "District_County": "平潭县",
+        "Specific_location": null,
+        "source_text": "便令水师提督万正色率主力进攻海坛（福建平坛）"
+      },
+      {
+        "geo_name": "湄州",
+        "modern_name": "湄洲岛",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "geo_name": "南日",
+        "modern_name": "南日岛",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "geo_name": "平海",
+        "modern_name": "平海镇",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": "秀屿区",
+        "Specific_location": null,
+        "source_text": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "geo_name": "崇武",
+        "modern_name": "崇武镇",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "泉州市",
+        "District_County": "惠安县",
+        "Specific_location": null,
+        "source_text": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "geo_name": "海澄",
+        "modern_name": "海澄镇",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "龙海区",
+        "Specific_location": null,
+        "source_text": "厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚"
+      },
+      {
+        "geo_name": "钢山",
+        "modern_name": "东山岛",
+        "DynastyName": "清",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "东山县",
+        "Specific_location": null,
+        "source_text": "厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚"
+      },
+      {
+        "geo_name": "八罩水道",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "geo_name": "虎井",
+        "modern_name": "虎井屿",
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "geo_name": "桶盘",
+        "modern_name": "桶盘屿",
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "geo_name": "牛心湾",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军"
+      },
+      {
+        "geo_name": "鸡笼屿",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以一部兵力乘船50艘由右翼进入鸡笼屿、四角山"
+      },
+      {
+        "geo_name": "四角山",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以一部兵力乘船50艘由右翼进入鸡笼屿、四角山"
+      },
+      {
+        "geo_name": "澎湖",
+        "modern_name": "澎湖县",
+        "DynastyName": "清",
+        "Province": "台湾省",
+        "City": "澎湖县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队"
+      },
+      {
+        "geo_name": "伊犁河流域",
+        "modern_name": "伊犁河",
+        "DynastyName": "清",
+        "Province": "新疆维吾尔自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "游牧在伊犁河流域的准噶尔部"
+      },
+      {
+        "geo_name": "天山",
+        "modern_name": "天山山脉",
+        "DynastyName": "清",
+        "Province": "新疆维吾尔自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "势力扩至天山南北和青海"
+      },
+      {
+        "geo_name": "青海",
+        "modern_name": "青海省",
+        "DynastyName": "清",
+        "Province": "青海省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "势力扩至天山南北和青海"
+      },
+      {
+        "geo_name": "喀尔喀蒙古",
+        "modern_name": "蒙古国",
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "他又率军进攻漠北的喀尔喀蒙古"
+      },
+      {
+        "geo_name": "漠南",
+        "modern_name": "内蒙古自治区",
+        "DynastyName": "清",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "迫使该部迁往漠南"
+      },
+      {
+        "geo_name": "乌尔匝河",
+        "modern_name": "乌勒吉河",
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "率军3万渡过乌尔匝河"
+      },
+      {
+        "geo_name": "古北口",
+        "modern_name": "古北口镇",
+        "DynastyName": "清",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "密云区",
+        "Specific_location": null,
+        "source_text": "由古北口（北京密云北）北上进击"
+      },
+      {
+        "geo_name": "喜峰口",
+        "modern_name": "喜峰口长城",
+        "DynastyName": "清",
+        "Province": "河北省",
+        "City": "唐山市",
+        "District_County": "迁西县",
+        "Specific_location": null,
+        "source_text": "由喜峰口北上进击"
+      },
+      {
+        "geo_name": "西辽河",
+        "modern_name": "西辽河",
+        "DynastyName": "清",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从西北至西辽河、洮河协同主力作战"
+      },
+      {
+        "geo_name": "洮河",
+        "modern_name": "洮河",
+        "DynastyName": "清",
+        "Province": "甘肃省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从西北至西辽河、洮河协同主力作战"
+      },
+      {
+        "geo_name": "热河",
+        "modern_name": "承德市",
+        "DynastyName": "清",
+        "Province": "河北省",
+        "City": "承德市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "康熙亲至热河节制左右两翼军"
+      },
+      {
+        "geo_name": "乌兰布通",
+        "modern_name": "乌兰布统",
+        "DynastyName": "清",
+        "Province": "内蒙古自治区",
+        "City": "赤峰市",
+        "District_County": "克什克腾旗",
+        "Specific_location": null,
+        "source_text": "在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军"
+      },
+      {
+        "geo_name": "昭莫多",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众"
+      },
+      {
+        "geo_name": "塔米尔河",
+        "modern_name": "塔米尔河",
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "迫使流窜于塔米尔河流域的噶尔丹残部投降"
+      },
+      {
+        "geo_name": "西藏",
+        "modern_name": "西藏自治区",
+        "DynastyName": "清",
+        "Province": "西藏自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "策妄阿拉布坦率兵攻入西藏"
+      },
+      {
+        "geo_name": "拉萨",
+        "modern_name": "拉萨市",
+        "DynastyName": "清",
+        "Province": "西藏自治区",
+        "City": "拉萨市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "杀死拉藏汗，占据拉萨"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": "四川省",
+        "DynastyName": "清",
+        "Province": "四川省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清廷遣军从四川、青海两路入藏"
+      },
+      {
+        "geo_name": "光显寺",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "将其大部歼灭于光显寺"
+      },
+      {
+        "geo_name": "伊犁",
+        "modern_name": "伊犁哈萨克自治州",
+        "DynastyName": "清",
+        "Province": "新疆维吾尔自治区",
+        "City": "伊犁哈萨克自治州",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清廷发兵5万，直捣伊犁"
+      },
+      {
+        "geo_name": "巴里坤",
+        "modern_name": "巴里坤哈萨克自治县",
+        "DynastyName": "清",
+        "Province": "新疆维吾尔自治区",
+        "City": "哈密市",
+        "District_County": "巴里坤哈萨克自治县",
+        "Specific_location": null,
+        "source_text": "清廷遣军从巴里坤（属新疆）等地，分路进击"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "清军",
+        "OrgType": "中央政权",
+        "DynastyName": "清",
+        "source_text": "清将傅宏烈等部，在广东清军支援下收复桂林"
+      },
+      {
+        "OrgName": "郑氏割据政权",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "清廷即乘势举兵进攻台湾郑氏割据政权"
+      },
+      {
+        "OrgName": "郑军",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "大败郑军水师副总督失天贵"
+      },
+      {
+        "OrgName": "准噶尔部",
+        "OrgType": "部落",
+        "DynastyName": "清",
+        "source_text": "游牧在伊犁河流域的准噶尔部"
+      },
+      {
+        "OrgName": "喀尔喀蒙古",
+        "OrgType": "部落",
+        "DynastyName": "清",
+        "source_text": "他又率军进攻漠北的喀尔喀蒙古"
+      },
+      {
+        "OrgName": "厄鲁特蒙古",
+        "OrgType": "部落",
+        "DynastyName": "清",
+        "source_text": "是西北地区厄鲁特蒙古四部中最强的一部"
+      },
+      {
+        "OrgName": "噶尔丹军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "OrgName": "噶尔丹残部",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "OrgName": "准噶尔军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "OrgName": "噶尔丹策零军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "OrgName": "达瓦齐军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "OrgName": "阿睦尔撒纳叛军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "尼",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "率水陆军进取岳州，攻克辰龙关",
+        "source_text": "尼即趁机率水陆军进取岳州，攻克辰龙关"
+      },
+      {
+        "PersonName": "岳乐",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "率师深入湖南，复长沙，克武冈，占沅州",
+        "source_text": "岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）"
+      },
+      {
+        "PersonName": "喇布",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "率师复衡州",
+        "source_text": "喇布率师复衡州"
+      },
+      {
+        "PersonName": "傅宏烈",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "率部收复桂林",
+        "source_text": "清将傅宏烈等部，在广东清军支援下收复桂林"
+      },
+      {
+        "PersonName": "赵良栋",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "将军，率军从蜀、黔、桂三路挺进云南",
+        "source_text": "将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南"
+      },
+      {
+        "PersonName": "彰泰",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "大将军，率军从蜀、黔、桂三路挺进云南",
+        "source_text": "将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南"
+      },
+      {
+        "PersonName": "赖塔",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "大将军，率军从蜀、黔、桂三路挺进云南",
+        "source_text": "将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南"
+      },
+      {
+        "PersonName": "吴世璠",
+        "DynastyName": "清",
+        "OrgName": "三藩",
+        "Role": "君主",
+        "Note": "逃往昆明，兵败自杀",
+        "source_text": "追击逃往昆明的吴世璠"
+      },
+      {
+        "PersonName": "吴三桂",
+        "DynastyName": "清",
+        "OrgName": "三藩",
+        "Role": "君主",
+        "Note": "写信约郑经会师，企图利用郑军从海上北进长江",
+        "source_text": "吴三桂、耿精忠看到郑经在台湾休整10年"
+      },
+      {
+        "PersonName": "耿精忠",
+        "DynastyName": "清",
+        "OrgName": "三藩",
+        "Role": "君主",
+        "Note": "写信约郑经会师，企图利用郑军从海上北进长江",
+        "source_text": "吴三桂、耿精忠看到郑经在台湾休整10年"
+      },
+      {
+        "PersonName": "郑经",
+        "DynastyName": "清",
+        "OrgName": "郑氏割据政权",
+        "Role": "君主",
+        "Note": "放弃抗清复明，扩大个人实力，进军厦门，占领泉州、漳州、潮州，后败逃台湾",
+        "source_text": "郑经这时已放弃了抗清复明的政治目的"
+      },
+      {
+        "PersonName": "万正色",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "水师提督，率主力进攻海坛，大败郑军",
+        "source_text": "便令水师提督万正色率主力进攻海坛（福建平坛）"
+      },
+      {
+        "PersonName": "失天贵",
+        "DynastyName": "清",
+        "OrgName": "郑军",
+        "Role": "将领",
+        "Note": "郑军水师副总督，被大败",
+        "source_text": "大败郑军水师副总督失天贵"
+      },
+      {
+        "PersonName": "郑克填",
+        "DynastyName": "清",
+        "OrgName": "郑氏割据政权",
+        "Role": "君主",
+        "Note": "郑经次子，继位后归顺清廷",
+        "source_text": "次年1月，郑经病死，其次子克填继位"
+      },
+      {
+        "PersonName": "施琅",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "水师提督，率舰队攻占澎湖，迫使郑克填归顺",
+        "source_text": "清水师提督施琅率舰队由钢山开航"
+      },
+      {
+        "PersonName": "噶尔丹",
+        "DynastyName": "清",
+        "OrgName": "准噶尔部",
+        "Role": "君主",
+        "Note": "准噶尔部汗，进攻喀尔喀蒙古，南下威胁北京，被康熙击败，后自杀",
+        "source_text": "其汗噶尔丹相继出兵兼并邻部后"
+      },
+      {
+        "PersonName": "康熙帝",
+        "DynastyName": "清",
+        "OrgName": "清廷",
+        "Role": "君主",
+        "Note": "三次亲征漠北，击败噶尔丹",
+        "source_text": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北"
+      },
+      {
+        "PersonName": "福全",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "裕亲王，抚远大将军，率左翼军由古北口北上",
+        "source_text": "命裕亲王福全为抚远大将军，率大军主力为左翼军"
+      },
+      {
+        "PersonName": "常宁",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "恭亲王，安北大将军，率右翼军由喜峰口北上",
+        "source_text": "恭亲王常宁为安北大将军，率军为右翼军"
+      },
+      {
+        "PersonName": "策妄阿拉布坦",
+        "DynastyName": "清",
+        "OrgName": "准噶尔部",
+        "Role": "君主",
+        "Note": "噶尔丹之侄，取得汗位，攻入西藏，后被清军击败",
+        "source_text": "其侄策妄阿拉布坦取得汗位"
+      },
+      {
+        "PersonName": "拉藏汗",
+        "DynastyName": "清",
+        "OrgName": "西藏",
+        "Role": "君主",
+        "Note": "被策妄阿拉布坦杀死",
+        "source_text": "杀死拉藏汗"
+      },
+      {
+        "PersonName": "噶尔丹策零",
+        "DynastyName": "清",
+        "OrgName": "准噶尔部",
+        "Role": "君主",
+        "Note": "继承汗位，袭击清军，后被歼灭大部，降附",
+        "source_text": "噶尔丹策零继承其父策妄阿拉布坦之汗位后"
+      },
+      {
+        "PersonName": "达瓦齐",
+        "DynastyName": "清",
+        "OrgName": "准噶尔部",
+        "Role": "君主",
+        "Note": "夺得汗位，后被清军俘获",
+        "source_text": "达瓦齐趁机夺得汗位"
+      },
+      {
+        "PersonName": "阿睦尔撒纳",
+        "DynastyName": "清",
+        "OrgName": "准噶尔部",
+        "Role": "将领",
+        "Note": "归降清廷后叛乱，败逃沙俄病死",
+        "source_text": "归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "清军平定三藩之乱",
+        "EventType": "镇压叛乱",
+        "StartDate": "1673年",
+        "EndDate": "1681年",
+        "DynastyName": "清",
+        "Place": "岳州、辰龙关、长沙、武冈、沅州、衡州、桂林、汉中、重庆、成都、云南、昆明",
+        "Aggressor": "清军",
+        "Defender": "吴三桂等三藩势力",
+        "Allies": null,
+        "Result": "清军获胜，吴世璠兵败自杀，三藩之乱平定",
+        "Commanders": "岳乐、喇布、傅宏烈、赵良栋、彰泰、赖塔、吴世璠、吴三桂、耿精忠",
+        "KeyPersons": null,
+        "Action": "攻伐、追击、投降",
+        "TroopSize": "不详",
+        "Duration": "持续8年",
+        "GeographicScope": "波及湖南、广东、广西、陕西、甘肃、四川、云南等地",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清廷巩固了在汉族地区的统治，为后续收台湾、征准噶尔奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军收复台湾之战",
+            "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。"
+          }
+        ],
+        "source_text": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "EventType": "统一战争",
+        "StartDate": "1683年",
+        "EndDate": "1683年",
+        "DynastyName": "清",
+        "Place": "厦门、泉州、漳州、潮州、海坛、湄州、南日、平海、崇武、海澄、钢山、八罩水道、虎井、桶盘、牛心湾、鸡笼屿、四角山、澎湖、台湾",
+        "Aggressor": "清军",
+        "Defender": "郑氏割据政权",
+        "Allies": null,
+        "Result": "清军获胜，郑克塽归顺，台湾重新归入清朝版图",
+        "Commanders": "万正色、施琅、郑经、郑克塽、失天贵",
+        "KeyPersons": null,
+        "Action": "水战、攻伐、投降",
+        "TroopSize": "施琅舰队战船百余艘",
+        "Duration": "持续数月",
+        "GeographicScope": "福建沿海、澎湖、台湾",
+        "Casualties": "郑军被歼灭",
+        "source": "《中国历代战争简史》",
+        "Impact": "台湾重新归属中国，清朝统一东南沿海，巩固海防",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "乌兰布通之战",
+            "evidence": "清廷经过平定三藩，收归台湾，在汉族地区的统治日益稳定。随后便开始向边疆发展，连续向西北等地用兵。"
+          }
+        ],
+        "source_text": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "EventType": "边境防御",
+        "StartDate": "1690年",
+        "EndDate": "1690年",
+        "DynastyName": "清",
+        "Place": "乌兰布通、乌尔匝河、古北口、喜峰口、西辽河、洮河、热河",
+        "Aggressor": "噶尔丹军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "清军获胜，噶尔丹败退",
+        "Commanders": "福全、常宁、康熙帝、噶尔丹",
+        "KeyPersons": null,
+        "Action": "交战、追击",
+        "TroopSize": "噶尔丹军3万，清军数万",
+        "Duration": "持续数月",
+        "GeographicScope": "漠南、乌兰布通一带",
+        "Casualties": "噶尔丹军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "阻止了噶尔丹东进，维护了北部边疆的稳定",
+        "Remark": "",
+        "relations": [],
+        "source_text": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "EventType": "统一战争",
+        "StartDate": "1696年",
+        "EndDate": "1696年",
+        "DynastyName": "清",
+        "Place": "昭莫多",
+        "Aggressor": "清军",
+        "Defender": "噶尔丹军",
+        "Allies": null,
+        "Result": "清军大败噶尔丹军",
+        "Commanders": "康熙帝、噶尔丹",
+        "KeyPersons": null,
+        "Action": "伏击",
+        "TroopSize": "清军9万，噶尔丹军3万",
+        "Duration": "不详",
+        "GeographicScope": "昭莫多（乌兰巴托南）",
+        "Casualties": "噶尔丹军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军重创噶尔丹主力，为最终平定噶尔丹奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军追击噶尔丹残部之战",
+            "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河流域的噶尔丹残部投降"
+          }
+        ],
+        "source_text": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "EventType": "统一战争",
+        "StartDate": "1697年",
+        "EndDate": "1697年",
+        "DynastyName": "清",
+        "Place": "塔米尔河",
+        "Aggressor": "清军",
+        "Defender": "噶尔丹残部",
+        "Allies": null,
+        "Result": "噶尔丹残部投降，噶尔丹自杀（一说病死）",
+        "Commanders": "康熙帝、噶尔丹",
+        "KeyPersons": null,
+        "Action": "追击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "塔米尔河流域",
+        "Casualties": "噶尔丹残部投降",
+        "source": "《中国历代战争简史》",
+        "Impact": "彻底消灭噶尔丹势力，巩固清朝对喀尔喀蒙古的控制",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "清军平定策妄阿拉布坦入侵西藏之战",
+            "evidence": "噶尔丹败亡不久，其侄策妄阿拉布坦取得汗位，继续在北疆纠集准噶尔部与清为敌"
+          }
+        ],
+        "source_text": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "EventType": "统一战争",
+        "StartDate": "1717年",
+        "EndDate": "1720年",
+        "DynastyName": "清",
+        "Place": "西藏、拉萨、四川、青海",
+        "Aggressor": "清军",
+        "Defender": "准噶尔军",
+        "Allies": null,
+        "Result": "清军击败准噶尔军，迫其撤出西藏",
+        "Commanders": "策妄阿拉布坦、拉藏汗",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "持续三年",
+        "GeographicScope": "西藏、四川、青海",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "恢复西藏秩序，加强清朝对西藏的控制",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "光显寺之战",
+        "EventType": "边境防御",
+        "StartDate": "1732年",
+        "EndDate": "1732年",
+        "DynastyName": "清",
+        "Place": "光显寺",
+        "Aggressor": "噶尔丹策零军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "清军获胜，噶尔丹策零降附",
+        "Commanders": "噶尔丹策零",
+        "KeyPersons": null,
+        "Action": "夜袭、追击",
+        "TroopSize": "清军精兵3万",
+        "Duration": "不详",
+        "GeographicScope": "光显寺（蒙古人民共和国鄂尔浑河上游）",
+        "Casualties": "大部歼灭",
+        "source": "《中国历代战争简史》",
+        "Impact": "迫使噶尔丹策零降附，巩固了清廷在西北的统治",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1755年",
+        "EndDate": "1755年",
+        "DynastyName": "清",
+        "Place": "伊犁",
+        "Aggressor": "清军",
+        "Defender": "达瓦齐军",
+        "Allies": null,
+        "Result": "清军获胜，达瓦齐兵败被俘",
+        "Commanders": "达瓦齐",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "清军5万",
+        "Duration": "不详",
+        "GeographicScope": "伊犁",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消除了准噶尔部的割据势力，维护了国家统一",
+        "Remark": "",
+        "relations": [],
+        "source_text": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1757年",
+        "EndDate": "1757年",
+        "DynastyName": "清",
+        "Place": "巴里坤",
+        "Aggressor": "清军",
+        "Defender": "阿睦尔撒纳叛军",
+        "Allies": null,
+        "Result": "清军获胜，阿睦尔撒纳叛逃沙俄后病死",
+        "Commanders": "阿睦尔撒纳",
+        "KeyPersons": null,
+        "Action": "进击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "巴里坤（属新疆）等地",
+        "Casualties": "叛军溃败",
+        "source": "《中国历代战争简史》",
+        "Impact": "彻底消除了准噶尔割据势力，巩固了清廷在西北的统治",
+        "Remark": "",
+        "relations": [],
+        "source_text": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "岳州",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "辰龙关",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "长沙",
+        "evidence": "岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "武冈",
+        "evidence": "岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "沅州",
+        "evidence": "岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "衡州",
+        "evidence": "喇布率师复衡州"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "桂林",
+        "evidence": "清将傅宏烈等部，在广东清军支援下收复桂林"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "汉中",
+        "evidence": "陕、甘清军分路南下，收复汉中、重庆、成都"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "重庆",
+        "evidence": "陕、甘清军分路南下，收复汉中、重庆、成都"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "成都",
+        "evidence": "陕、甘清军分路南下，收复汉中、重庆、成都"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "云南",
+        "evidence": "将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "主战场",
+        "modern_name": "昆明",
+        "evidence": "次年10月，攻破昆明"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "厦门",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "泉州",
+        "evidence": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "漳州",
+        "evidence": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "潮州",
+        "evidence": "先后占领了泉州、漳州、潮州等地"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "海坛",
+        "evidence": "便令水师提督万正色率主力进攻海坛（福建平坛）"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "湄州",
+        "evidence": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "南日",
+        "evidence": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "平海",
+        "evidence": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "崇武",
+        "evidence": "乘胜连下湄州、南日、平海、崇武诸岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "海澄",
+        "evidence": "厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "钢山",
+        "evidence": "厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "八罩水道",
+        "evidence": "17日，占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "虎井",
+        "evidence": "17日，占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "桶盘",
+        "evidence": "17日，占领八罩水道以南的虎井、桶盘等岛"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "牛心湾",
+        "evidence": "以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "鸡笼屿",
+        "evidence": "一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上）"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "四角山",
+        "evidence": "一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上）"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "澎湖",
+        "evidence": "自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "台湾",
+        "evidence": "台湾重新归还祖国"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "主战场",
+        "modern_name": "乌兰布通",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "途经地",
+        "modern_name": "乌尔匝河",
+        "evidence": "噶尔丹以追击喀尔喀部为名，率军3万渡过乌尔匝河"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "出发地",
+        "modern_name": "古北口",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "出发地",
+        "modern_name": "喜峰口",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "驻防地",
+        "modern_name": "西辽河",
+        "evidence": "盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "驻防地",
+        "modern_name": "洮河",
+        "evidence": "盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "指挥所",
+        "modern_name": "热河",
+        "evidence": "康熙亲至热河节制左右两翼军"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "主战场",
+        "modern_name": "昭莫多",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "主战场",
+        "modern_name": "塔米尔河",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "主战场",
+        "modern_name": "西藏",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "主战场",
+        "modern_name": "拉萨",
+        "evidence": "策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "出发地",
+        "modern_name": "四川",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "出发地",
+        "modern_name": "青海",
+        "evidence": "清廷遣军从四川、青海两路入藏"
+      },
+      {
+        "EventName": "光显寺之战",
+        "relation": "主战场",
+        "modern_name": "光显寺",
+        "evidence": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "主战场",
+        "modern_name": "伊犁",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "主战场",
+        "modern_name": "巴里坤",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "目的地",
+        "modern_name": "岳州",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "辰龙关",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "长沙",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "武冈",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "沅州",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "衡州",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "桂林",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "汉中",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "重庆",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "成都",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "云南",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "次要战场",
+        "modern_name": "昆明",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "泉州",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "漳州",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "潮州",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "海坛",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "目的地",
+        "modern_name": "海坛",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "湄州",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "南日",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "平海",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "崇武",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "海澄",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "钢山",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "出发地",
+        "modern_name": "钢山",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "八罩水道",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "虎井",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "桶盘",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "牛心湾",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "目的地",
+        "modern_name": "牛心湾",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "鸡笼屿",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "目的地",
+        "modern_name": "鸡笼屿",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "四角山",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "澎湖",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "目的地",
+        "modern_name": "澎湖",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "次要战场",
+        "modern_name": "台湾",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "目的地",
+        "modern_name": "台湾",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "乌尔匝河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "古北口",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "喜峰口",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "西辽河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "目的地",
+        "modern_name": "西辽河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "洮河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "次要战场",
+        "modern_name": "热河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "目的地",
+        "modern_name": "热河",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "目的地",
+        "modern_name": "西藏",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "次要战场",
+        "modern_name": "拉萨",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "驻防地",
+        "modern_name": "拉萨",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "次要战场",
+        "modern_name": "四川",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "次要战场",
+        "modern_name": "青海",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "出发地",
+        "modern_name": "巴里坤",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "防守方",
+        "OrgName": "吴三桂等三藩势力",
+        "evidence": "吴三桂、耿精忠看到郑经在台湾休整10年"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "防守方",
+        "OrgName": "郑氏割据政权",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "参战方",
+        "OrgName": "郑军",
+        "evidence": "大败郑军水师副总督失天贵"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "发起方",
+        "OrgName": "噶尔丹军",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "防守方",
+        "OrgName": "噶尔丹军",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "防守方",
+        "OrgName": "噶尔丹残部",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "防守方",
+        "OrgName": "准噶尔军",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "光显寺之战",
+        "relation": "发起方",
+        "OrgName": "噶尔丹策零军",
+        "evidence": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "EventName": "光显寺之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "防守方",
+        "OrgName": "达瓦齐军",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "防守方",
+        "OrgName": "阿睦尔撒纳叛军",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "投降方",
+        "OrgName": "清军",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "投降方",
+        "OrgName": "清军",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "投降方",
+        "OrgName": "噶尔丹残部",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "被俘方",
+        "OrgName": "清军",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "被俘方",
+        "OrgName": "达瓦齐军",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "投降方",
+        "OrgName": "清军",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "投降方",
+        "OrgName": "阿睦尔撒纳叛军",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "岳乐",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "喇布",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "将领",
+        "PersonName": "傅宏烈",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "赵良栋",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "彰泰",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "赖塔",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "君主",
+        "PersonName": "吴世璠",
+        "evidence": "昊世播兵败自杀"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "君主",
+        "PersonName": "吴三桂",
+        "evidence": "吴三桂、耿精忠看到郑经在台湾休整10年"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "君主",
+        "PersonName": "耿精忠",
+        "evidence": "吴三桂、耿精忠看到郑经在台湾休整10年"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "统帅",
+        "PersonName": "万正色",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "统帅",
+        "PersonName": "施琅",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "君主",
+        "PersonName": "郑经",
+        "evidence": "郑经仅率残部千余人逃回台湾"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "君主",
+        "PersonName": "郑克塽",
+        "evidence": "迫使郑克塽归顺清廷"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "将领",
+        "PersonName": "失天贵",
+        "evidence": "大败郑军水师副总督失天贵"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "统帅",
+        "PersonName": "福全",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "统帅",
+        "PersonName": "常宁",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "君主",
+        "PersonName": "康熙帝",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "统帅",
+        "PersonName": "噶尔丹",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "君主",
+        "PersonName": "康熙帝",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "统帅",
+        "PersonName": "噶尔丹",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "君主",
+        "PersonName": "康熙帝",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "统帅",
+        "PersonName": "噶尔丹",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "统帅",
+        "PersonName": "策妄阿拉布坦",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "君主",
+        "PersonName": "拉藏汗",
+        "evidence": "杀死拉藏汗"
+      },
+      {
+        "EventName": "光显寺之战",
+        "relation": "统帅",
+        "PersonName": "噶尔丹策零",
+        "evidence": "1727年，噶尔丹策零继承其父策妄阿拉布坦之汗位后，常煽动西北各地反清。1732年7月，率军袭击驻守在塔米尔河的清军。8月初，清军以精兵3万夜袭其营，并乘胜追击，将其大部歼灭于光显寺（蒙古人民共和国鄂尔浑河上游），迫使噶尔丹策零降附。"
+      },
+      {
+        "EventName": "清军平定达瓦齐之战",
+        "relation": "统帅",
+        "PersonName": "达瓦齐",
+        "evidence": "乾隆时，准噶尔部在西藏、青海、喀尔喀蒙占等地的势力，相继为清廷肃清。1745年，噶尔丹策零死后，其部长期内乱，达瓦齐趁机夺得汗位。1755年2月，清廷发兵5万，直捣伊型。达瓦齐猝不及防，兵败被俘。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "统帅",
+        "PersonName": "阿睦尔撒纳",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "傅宏烈",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "吴世璠",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "吴三桂",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军平定三藩之乱",
+        "relation": "统帅",
+        "PersonName": "耿精忠",
+        "evidence": "尼即趁机率水陆军进取岳州，攻克辰龙关；岳乐率师深入湖南，复长沙，克武冈，占沅州（芷江）；喇布率师复衡州。同时，清将傅宏烈等部，在广东清军支援下收复桂林；陕、甘清军分路南下，收复汉中、重庆、成都。1680年10月，将军赵良栋、大将军彰泰和赖塔率领清军，从蜀、黔、桂三路挺进云南，追击逃往昆明的吴世璠。次年10月，攻破昆明，昊世播兵败自杀，残部6700余人投降。至此，延续8年之久的藩乱结束。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "统帅",
+        "PersonName": "郑经",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "清军收复台湾之战",
+        "relation": "统帅",
+        "PersonName": "失天贵",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。“三藩”叛乱之初，吴三桂、耿精忠看到郑经在台湾休整10年，兵精船多，其军兼有舟师及陆上作战部队，便写信约郑经会师，企图利用郑军从海上北进长江，切断清军南北联系。但郑经这时已放弃了抗清复明的政治目的，更无意为吴三桂等火中取栗，深入北方作战，而采取“得尺即尺，时不可失”的方针，扩大个人实力。进军厦门后，不断向耿精忠控制区扩张，先后占领了泉州、漳州、潮州等地。当时，清廷为收归台湾，在军事上加紧建造战船，训练水军；经济上加强封锁；政治上“广行招抚，以散其党，而孤其势”。平乱即将结束时，便令水师提督万正色率主力进攻海坛（福建平坛），大败郑军水师副总督失天贵，乘胜连下湄州、南日、平海、崇武诸岛。随之，厦门、海澄、钢山（东山岛）等岛之郑军相继献岛投诚，郑经仅率残部千余人逃回台湾。次年1月，郑经病死，其次子克填继位。1683年6月，清水师提督施琅率舰队由钢山开航。17日，占领八罩水道以南的虎井、桶盘等岛。22日，以一部兵力乘船50艘由左翼驶入牛心湾牵制郑军：一部兵力乘船50艘由右翼进入鸡笼屿、四角山（在澎湖本岛上），协同正面主力夹击郑军；自率主力乘大战船56艘由中央进攻澎湖海面的郑军舰队。激战竞日，将郑军全部歼灭，占领了澎湖所有36岛，迫使郑克填归顺清廷，台湾重新归还祖国。"
+      },
+      {
+        "EventName": "乌兰布通之战",
+        "relation": "统帅",
+        "PersonName": "康熙帝",
+        "evidence": "康熙帝为了击败噶尔丹的进攻，维护国家的统一，便三次率军亲征漠北。这年7月初，命裕亲王福全为抚远大将军，率大军主力为左翼军，由古北口（北京密云北）北上进击；恭亲王常宁为安北大将军，率军为右翼军，由喜峰口北上进击；盛京将军、吉林将军各率所部主力，从西北至西辽河、洮河协同主力作战；康熙亲至热河节制左右两翼军。8月初，在乌兰布通（内蒙古克什克腾旗南）大败噶尔丹军。"
+      },
+      {
+        "EventName": "昭莫多之战",
+        "relation": "统帅",
+        "PersonName": "康熙帝",
+        "evidence": "1696年5月，又统兵9万，在昭莫多（乌兰巴托南）林中，以伏击战大败噶尔丹所率3万之众。"
+      },
+      {
+        "EventName": "清军追击噶尔丹残部之战",
+        "relation": "统帅",
+        "PersonName": "康熙帝",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河（在蒙古人民共和国境）流域的噶尔丹残部投降，噶尔丹自杀（一说病死）。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "将领",
+        "PersonName": "策妄阿拉布坦",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "统帅",
+        "PersonName": "拉藏汗",
+        "evidence": "1717年，策妄阿拉布坦率兵攻入西藏，杀死拉藏汗，占据拉萨，纵兵在西藏各地大肆驿扰。为了恢复西藏的秩序，清廷遣军从四川、青海两路入藏，击败准噶尔军，迫其撤出西藏。"
+      },
+      {
+        "EventName": "清军平定阿睦尔撒纳叛乱之战",
+        "relation": "叛变",
+        "PersonName": "阿睦尔撒纳",
+        "evidence": "不久，归降清廷的阿睦尔撒纳，因统治厄鲁特蒙古四部的野心未能得逞，聚众叛乱。1757年春，清廷遣军从巴里坤（属新疆）等地，分路进击。叛军溃败，阿睦尔撒纳叛逃沙俄后病死。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "清军平定三藩之乱",
+        "relation": "顺承关系",
+        "EventName_B": "清军收复台湾之战",
+        "evidence": "在平定藩乱的当年，清廷即乘势举兵进攻台湾郑氏割据政权。"
+      },
+      {
+        "EventName_A": "乌兰布通之战",
+        "relation": "顺承关系",
+        "EventName_B": "昭莫多之战",
+        "evidence": "1696年5月，又统兵9万，在昭莫多林中"
+      },
+      {
+        "EventName_A": "昭莫多之战",
+        "relation": "顺承关系",
+        "EventName_B": "清军追击噶尔丹残部之战",
+        "evidence": "次年2月，再次乘胜出兵，迫使流窜于塔米尔河流域的噶尔丹残部投降"
+      },
+      {
+        "EventName_A": "乌兰布通之战",
+        "relation": "顺承关系",
+        "EventName_B": "清军收复台湾之战",
+        "evidence": "清廷经过平定三藩，收归台湾，在汉族地区的统治日益稳定。随后便开始向边疆发展，连续向西北等地用兵。"
+      },
+      {
+        "EventName_A": "清军平定策妄阿拉布坦入侵西藏之战",
+        "relation": "顺承关系",
+        "EventName_B": "清军追击噶尔丹残部之战",
+        "evidence": "噶尔丹败亡不久，其侄策妄阿拉布坦取得汗位，继续在北疆纠集准噶尔部与清为敌"
+      }
+    ]
+  }
+}

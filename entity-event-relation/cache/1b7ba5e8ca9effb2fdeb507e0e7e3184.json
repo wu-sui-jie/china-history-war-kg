@@ -1,0 +1,2119 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "潼关",
+        "modern_name": "潼关县",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "潼关县",
+        "Specific_location": null,
+        "source_text": "李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "geo_name": "商州",
+        "modern_name": "商洛市",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "商洛市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "其左路刘希尧军攻占商州。"
+      },
+      {
+        "geo_name": "酉安",
+        "modern_name": "西安",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "geo_name": "延安",
+        "modern_name": "延安市",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "延安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "geo_name": "汉中",
+        "modern_name": "汉中市",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "汉中市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "geo_name": "固原",
+        "modern_name": "固原市",
+        "DynastyName": "明末",
+        "Province": "宁夏回族自治区",
+        "City": "固原市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "geo_name": "榆林",
+        "modern_name": "榆林市",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "榆林市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "11月，攻占榆林。"
+      },
+      {
+        "geo_name": "兰州",
+        "modern_name": "兰州市",
+        "DynastyName": "明末",
+        "Province": "甘肃省",
+        "City": "兰州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，连取兰州、甘州、西宁等地。"
+      },
+      {
+        "geo_name": "甘州",
+        "modern_name": "张掖市",
+        "DynastyName": "明末",
+        "Province": "甘肃省",
+        "City": "张掖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，连取兰州、甘州、西宁等地。"
+      },
+      {
+        "geo_name": "西宁",
+        "modern_name": "西宁市",
+        "DynastyName": "明末",
+        "Province": "青海省",
+        "City": "西宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，连取兰州、甘州、西宁等地。"
+      },
+      {
+        "geo_name": "平阳",
+        "modern_name": "临汾市",
+        "DynastyName": "明末",
+        "Province": "山西省",
+        "City": "临汾市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "并派兵一部进入山西，占领平阳（山西临汾）等城。"
+      },
+      {
+        "geo_name": "武昌",
+        "modern_name": "武汉市武昌区",
+        "DynastyName": "明末",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": "武昌区",
+        "Specific_location": null,
+        "source_text": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "geo_name": "岳州",
+        "modern_name": "岳阳市",
+        "DynastyName": "明末",
+        "Province": "湖南省",
+        "City": "岳阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": "四川省",
+        "DynastyName": "明末",
+        "Province": "四川省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "geo_name": "西安",
+        "modern_name": "西安市",
+        "DynastyName": "明末",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": "北京市",
+        "DynastyName": "明末",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。"
+      },
+      {
+        "geo_name": "太行山",
+        "modern_name": "太行山脉",
+        "DynastyName": "明末",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由刘芳亮率左营大军经平阳东越太行山进出豫北。"
+      },
+      {
+        "geo_name": "真定",
+        "modern_name": "正定县",
+        "DynastyName": "明末",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "正定县",
+        "Specific_location": null,
+        "source_text": "经真定（河北正定）以南进攻北京。"
+      },
+      {
+        "geo_name": "龙门",
+        "modern_name": "河津市",
+        "DynastyName": "明末",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": "河津市",
+        "Specific_location": null,
+        "source_text": "自率主力部队10余万，山龙门东渡黄河。"
+      },
+      {
+        "geo_name": "黄河",
+        "modern_name": "黄河",
+        "DynastyName": "明末",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自率主力部队10余万，山龙门东渡黄河。"
+      },
+      {
+        "geo_name": "太原",
+        "modern_name": "太原市",
+        "DynastyName": "明末",
+        "Province": "山西省",
+        "City": "太原市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "北趋太原，尔后经大同、宣化进攻北京。"
+      },
+      {
+        "geo_name": "大同",
+        "modern_name": "大同市",
+        "DynastyName": "明末",
+        "Province": "山西省",
+        "City": "大同市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "北趋太原，尔后经大同、宣化进攻北京。"
+      },
+      {
+        "geo_name": "宣化",
+        "modern_name": "张家口市宣化区",
+        "DynastyName": "明末",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "宣化区",
+        "Specific_location": null,
+        "source_text": "北趋太原，尔后经大同、宣化进攻北京。"
+      },
+      {
+        "geo_name": "昌平",
+        "modern_name": "北京市昌平区",
+        "DynastyName": "明末",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "昌平区",
+        "Specific_location": null,
+        "source_text": "3月16日，大顺军主力占领昌平，逼近北京。"
+      },
+      {
+        "geo_name": "彰仪门",
+        "modern_name": null,
+        "DynastyName": "明末",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城。"
+      },
+      {
+        "geo_name": "景山",
+        "modern_name": "北京市景山公园",
+        "DynastyName": "明末",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱由检自缢于景山。"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": "南京市",
+        "DynastyName": "南明",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "江南明军拥福王朱由崧为帝，在南京建立弘光政权。"
+      },
+      {
+        "geo_name": "宁远",
+        "modern_name": "兴城市",
+        "DynastyName": "明末",
+        "Province": "辽宁省",
+        "City": "葫芦岛市",
+        "District_County": "兴城市",
+        "Specific_location": null,
+        "source_text": "奉命驰援北京的吴三桂所部已放弃宁远，越过山海关。"
+      },
+      {
+        "geo_name": "山海关",
+        "modern_name": "秦皇岛市山海关区",
+        "DynastyName": "明末",
+        "Province": "河北省",
+        "City": "秦皇岛市",
+        "District_County": "山海关区",
+        "Specific_location": null,
+        "source_text": "奉命驰援北京的吴三桂所部已放弃宁远，越过山海关。"
+      },
+      {
+        "geo_name": "重庆",
+        "modern_name": "重庆市",
+        "DynastyName": "明末",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城。"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": "成都市",
+        "DynastyName": "明末",
+        "Province": "四川省",
+        "City": "成都市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城。"
+      },
+      {
+        "geo_name": "石河",
+        "modern_name": null,
+        "DynastyName": "明末",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大顺军在石河地区受清军与吴军夹击，溃退永平。"
+      },
+      {
+        "geo_name": "永平",
+        "modern_name": "卢龙县",
+        "DynastyName": "明末",
+        "Province": "河北省",
+        "City": "秦皇岛市",
+        "District_County": "卢龙县",
+        "Specific_location": null,
+        "source_text": "大顺军在石河地区受清军与吴军夹击，溃退永平。"
+      },
+      {
+        "geo_name": "武英殿",
+        "modern_name": "故宫武英殿",
+        "DynastyName": "明末",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "29日，在武英殿补即帝位。"
+      },
+      {
+        "geo_name": "辽西",
+        "modern_name": "辽西地区",
+        "DynastyName": "清初",
+        "Province": "辽宁省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "争夺辽西战略要点、入关夺取全国政权和维护国家统一战争。"
+      },
+      {
+        "geo_name": "台湾",
+        "modern_name": "台湾省",
+        "DynastyName": "清初",
+        "Province": "台湾省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘势消灭郑氏割据政权，重新收归台湾。"
+      },
+      {
+        "geo_name": "准噶尔",
+        "modern_name": "准噶尔盆地",
+        "DynastyName": "清初",
+        "Province": "新疆维吾尔自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进而征讨准噶尔部。"
+      },
+      {
+        "geo_name": "大小金川",
+        "modern_name": "金川县、小金县",
+        "DynastyName": "清初",
+        "Province": "四川省",
+        "City": "阿坝藏族羌族自治州",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经大小金川之战，击败了封建割据势力。"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": "辽东地区",
+        "DynastyName": "清初",
+        "Province": "辽宁省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "后金与明朝争夺辽东之战。"
+      },
+      {
+        "geo_name": "朝鲜",
+        "modern_name": "朝鲜半岛",
+        "DynastyName": "清初",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以武力强迫朝鲜结盟，切断明王朝的右臂。"
+      },
+      {
+        "geo_name": "察哈尔",
+        "modern_name": "察哈尔地区",
+        "DynastyName": "清初",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "利用矛盾，征抚兼施，消灭察哈尔部。"
+      },
+      {
+        "geo_name": "潼关",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "geo_name": "商州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "geo_name": "西安",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "延安",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "汉中",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "固原",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "榆林",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "兰州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "甘州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "西宁",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "平阳",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "geo_name": "重庆",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "geo_name": "山海关",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "geo_name": "石河",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "geo_name": "永平",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "geo_name": "山海关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "陕西",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "河南等地",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "江南",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "西南等地",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "geo_name": "台湾",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "geo_name": "准噶尔",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "geo_name": "大小金川",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "大顺军",
+        "OrgType": "起义军",
+        "DynastyName": "明末",
+        "source_text": "李自成率大顺军攻破潼关，孙传庭战死。\n10月，李自成率大顺军攻破潼关，孙传庭战死。\n当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "OrgName": "明军",
+        "OrgType": "国家",
+        "DynastyName": "明末",
+        "source_text": "城外明军三大营首先投诚。\n10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "OrgName": "大顺",
+        "OrgType": "国家",
+        "DynastyName": "明末",
+        "source_text": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。"
+      },
+      {
+        "OrgName": "大西军",
+        "OrgType": "起义军",
+        "DynastyName": "明末",
+        "source_text": "张献忠正率大西军在四川顺利发展。\n这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "OrgName": "大西",
+        "OrgType": "国家",
+        "DynastyName": "明末",
+        "source_text": "11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "OrgName": "南明军",
+        "OrgType": "国家",
+        "DynastyName": "南明",
+        "source_text": "派人持书往江南招降左良玉、刘清泽等南明军。\n北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "OrgName": "清军",
+        "OrgType": "国家",
+        "DynastyName": "清初",
+        "source_text": "大顺军在石河地区受清军与吴军夹击。\n4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。\n当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "OrgName": "吴军",
+        "OrgType": "地方势力",
+        "DynastyName": "明末",
+        "source_text": "大顺军在石河地区受清军与吴军夹击。"
+      },
+      {
+        "OrgName": "清政权",
+        "OrgType": "国家",
+        "DynastyName": "清初",
+        "source_text": "辽东的清政权，也准备进关与大顺军争夺全国统治权。"
+      },
+      {
+        "OrgName": "弘光政权",
+        "OrgType": "国家",
+        "DynastyName": "南明",
+        "source_text": "江南明军拥福王朱由崧为帝，在南京建立弘光政权。"
+      },
+      {
+        "OrgName": "蒙古八旗",
+        "OrgType": "国家",
+        "DynastyName": "清初",
+        "source_text": "扩大兵源，增设汉军及蒙古八旗。"
+      },
+      {
+        "OrgName": "汉军",
+        "OrgType": "国家",
+        "DynastyName": "清初",
+        "source_text": "扩大兵源，增设汉军及蒙古八旗。"
+      },
+      {
+        "OrgName": "三藩",
+        "OrgType": "地方势力",
+        "DynastyName": "清初",
+        "source_text": "平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”。"
+      },
+      {
+        "OrgName": "郑氏割据政权",
+        "OrgType": "地方势力",
+        "DynastyName": "清初",
+        "source_text": "乘势消灭郑氏割据政权，重新收归台湾。\n建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "OrgName": "准噶尔部",
+        "OrgType": "部落",
+        "DynastyName": "清初",
+        "source_text": "进而征讨准噶尔部。\n建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "OrgName": "察哈尔部",
+        "OrgType": "部落",
+        "DynastyName": "清初",
+        "source_text": "利用矛盾，征抚兼施，消灭察哈尔部。"
+      },
+      {
+        "OrgName": "吴三桂军",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。\n当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "OrgName": "郑成功军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "李自成",
+        "DynastyName": "明末",
+        "OrgName": "大顺",
+        "Role": "统帅",
+        "Note": "大顺政权建立者，率军攻破潼关、进占西安、攻克北京，推翻明朝。",
+        "source_text": "李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "PersonName": "孙传庭",
+        "DynastyName": "明末",
+        "OrgName": "明朝",
+        "Role": "统帅",
+        "Note": "明朝将领，在潼关之战中战死。",
+        "source_text": "李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "PersonName": "刘希尧",
+        "DynastyName": "明末",
+        "OrgName": "大顺",
+        "Role": "将领",
+        "Note": "大顺军左路将领，攻占商州。",
+        "source_text": "其左路刘希尧军攻占商州。"
+      },
+      {
+        "PersonName": "张献忠",
+        "DynastyName": "明末",
+        "OrgName": "大西",
+        "Role": "统帅",
+        "Note": "大西政权建立者，率军进入四川，攻破重庆、成都，在成都称帝。",
+        "source_text": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "PersonName": "刘芳亮",
+        "DynastyName": "明末",
+        "OrgName": "大顺",
+        "Role": "将领",
+        "Note": "大顺军左营将领，率军经平阳东越太行山进攻北京。",
+        "source_text": "由刘芳亮率左营大军经平阳东越太行山进出豫北。"
+      },
+      {
+        "PersonName": "朱由检",
+        "DynastyName": "明末",
+        "OrgName": "明朝",
+        "Role": "君主",
+        "Note": "明朝崇祯皇帝，李自成攻破北京后自缢于景山。",
+        "source_text": "19日晨，攻破皇城，朱由检自缢于景山。"
+      },
+      {
+        "PersonName": "朱由崧",
+        "DynastyName": "南明",
+        "OrgName": "弘光政权",
+        "Role": "君主",
+        "Note": "福王，南明弘光政权皇帝。",
+        "source_text": "江南明军拥福王朱由崧为帝，在南京建立弘光政权。"
+      },
+      {
+        "PersonName": "吴三桂",
+        "DynastyName": "明末",
+        "OrgName": "明朝/清",
+        "Role": "统帅",
+        "Note": "明朝总兵，后降清，联合清军击败大顺军。",
+        "source_text": "奉命驰援北京的吴三桂所部已放弃宁远，越过山海关。"
+      },
+      {
+        "PersonName": "唐通",
+        "DynastyName": "明末",
+        "OrgName": "大顺",
+        "Role": "将领",
+        "Note": "原明将，投降李自成，率军守山海关，被吴三桂击败。",
+        "source_text": "即派居庸关投诚的明将唐通率所部8000人及左懋泰部，前去接代明总兵高第守山海关。"
+      },
+      {
+        "PersonName": "左懋泰",
+        "DynastyName": "明末",
+        "OrgName": "大顺",
+        "Role": "将领",
+        "Note": "与唐通一同守山海关。",
+        "source_text": "即派居庸关投诚的明将唐通率所部8000人及左懋泰部，前去接代明总兵高第守山海关。"
+      },
+      {
+        "PersonName": "高第",
+        "DynastyName": "明末",
+        "OrgName": "明朝",
+        "Role": "将领",
+        "Note": "明总兵，被唐通接代守山海关。",
+        "source_text": "前去接代明总兵高第守山海关。"
+      },
+      {
+        "PersonName": "左良玉",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "将领",
+        "Note": "南明将领，李自成派人招降。",
+        "source_text": "派人持书往江南招降左良玉、刘清泽等南明军。"
+      },
+      {
+        "PersonName": "刘清泽",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "将领",
+        "Note": "南明将领，李自成派人招降。",
+        "source_text": "派人持书往江南招降左良玉、刘清泽等南明军。"
+      },
+      {
+        "PersonName": "多尔衮",
+        "DynastyName": "清初",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "清军统帅，与吴三桂会面，联合击败大顺军。",
+        "source_text": "吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。"
+      },
+      {
+        "PersonName": "皇太极",
+        "DynastyName": "清初",
+        "OrgName": "清",
+        "Role": "君主",
+        "Note": "清朝皇帝，率兵五次迂道入关作战，削弱明朝。",
+        "source_text": "皇太极率兵五次迁道入关作战，削弱明王朝的战争潜力。"
+      },
+      {
+        "PersonName": "努尔哈赤",
+        "DynastyName": "清初",
+        "OrgName": "后金",
+        "Role": "君主",
+        "Note": "后金建立者，与明朝争夺辽东，后病逝。",
+        "source_text": "后金与明朝争夺辽东之战，因努尔哈赤病逝而暂告结束。"
+      },
+      {
+        "PersonName": "昊三桂",
+        "DynastyName": "清初",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "平西王，参与三藩之乱。",
+        "source_text": "平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”。"
+      },
+      {
+        "PersonName": "尚可喜",
+        "DynastyName": "清初",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "平南王，参与三藩之乱。",
+        "source_text": "平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”。"
+      },
+      {
+        "PersonName": "耿精忠",
+        "DynastyName": "清初",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "靖南王，参与三藩之乱。",
+        "source_text": "平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”。"
+      },
+      {
+        "PersonName": "郑成功",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "统帅",
+        "Note": "率军驱逐荷兰殖民者，收复台湾。",
+        "source_text": "在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "EventType": "农民起义",
+        "StartDate": "1643年10月",
+        "EndDate": "1643年10月",
+        "DynastyName": "明",
+        "Place": "潼关",
+        "Aggressor": "大顺军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "大顺军获胜，孙传庭战死",
+        "Commanders": "李自成、孙传庭",
+        "KeyPersons": null,
+        "Action": "攻破",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "潼关",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "大顺军突破明军重要防线，为进军陕西奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "大顺军攻占商州之战",
+            "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+          }
+        ],
+        "source_text": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "EventType": "农民起义",
+        "StartDate": "1643年10月",
+        "EndDate": "1643年10月",
+        "DynastyName": "明",
+        "Place": "商州",
+        "Aggressor": "大顺军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "大顺军获胜，攻占商州",
+        "Commanders": "刘希尧",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "商州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "大顺军扩大战果，控制陕西东部地区",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "大顺军攻占陕西诸城之战",
+            "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+          }
+        ],
+        "source_text": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "EventType": "农民起义",
+        "StartDate": "1643年10月",
+        "EndDate": "1643年12月",
+        "DynastyName": "明",
+        "Place": "西安、延安、汉中、固原、榆林、兰州、甘州、西宁、平阳",
+        "Aggressor": "大顺军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "大顺军获胜，控制秦、陇全境及山西西南部地区",
+        "Commanders": "李自成",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "约三个月",
+        "GeographicScope": "陕西、甘肃、山西",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "大顺军基本控制陕西全境，为建立大顺政权奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "大顺军攻破潼关之战",
+            "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+          }
+        ],
+        "source_text": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "EventType": "农民起义",
+        "StartDate": "1643年",
+        "EndDate": "1643年",
+        "DynastyName": "明",
+        "Place": "四川",
+        "Aggressor": "大西军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "张献忠大西军进入四川，为建立基地奠定基础",
+        "Commanders": "张献忠",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "数十万",
+        "Duration": "不详",
+        "GeographicScope": "四川",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "张献忠大西军进入四川，为建立大西政权奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "张献忠攻占重庆成都之战",
+            "evidence": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州进入四川。1644年，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城。"
+          }
+        ],
+        "source_text": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1644年3月",
+        "EndDate": "1644年3月",
+        "DynastyName": "明",
+        "Place": "北京",
+        "Aggressor": "大顺军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "大顺军攻占北京，明朝灭亡",
+        "Commanders": "李自成、刘芳亮",
+        "KeyPersons": "朱由检、杜勋",
+        "Action": "攻占",
+        "TroopSize": "主力部队10余万",
+        "Duration": "数日",
+        "GeographicScope": "北京",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝灭亡，大顺军控制北京，但随后面临清军和吴三桂的联合进攻",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "张献忠入川之战",
+            "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京。"
+          }
+        ],
+        "source_text": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "EventType": "农民起义",
+        "StartDate": "1644年",
+        "EndDate": "1644年",
+        "DynastyName": "明",
+        "Place": "重庆、成都",
+        "Aggressor": "大西军",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "张献忠攻占重庆、成都，建立大西政权",
+        "Commanders": "张献忠",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "数十万",
+        "Duration": "不详",
+        "GeographicScope": "四川",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "张献忠在成都称帝，建立大西政权，与清军、南明形成多方对峙",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "张献忠入川之战",
+            "evidence": "张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+          }
+        ],
+        "source_text": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "EventType": "统一战争",
+        "StartDate": "1644年4月",
+        "EndDate": "1644年4月",
+        "DynastyName": "明",
+        "Place": "山海关、石河、永平",
+        "Aggressor": "大顺军",
+        "Defender": "吴三桂军、清军",
+        "Allies": null,
+        "Result": "大顺军战败，吴三桂与清军联合获胜",
+        "Commanders": "李自成、吴三桂、多尔衮",
+        "KeyPersons": null,
+        "Action": "交战、夹击、溃退",
+        "TroopSize": "李自成率精兵6万",
+        "Duration": "数日",
+        "GeographicScope": "山海关、石河、永平",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "大顺军主力受挫，清军入关，李自成被迫撤离北京",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军入关之战",
+            "evidence": "山海关之战后，清军入关，继而发生清军入关之战"
+          }
+        ],
+        "source_text": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "EventType": "统一战争",
+        "StartDate": "1644年",
+        "EndDate": "1644年",
+        "DynastyName": "清",
+        "Place": "山海关、北京",
+        "Aggressor": "清军",
+        "Defender": "大顺军",
+        "Allies": "吴三桂军",
+        "Result": "清军获胜，入主北京",
+        "Commanders": "多尔衮、吴三桂、李自成",
+        "KeyPersons": null,
+        "Action": "入关、进攻、追击",
+        "TroopSize": "不详",
+        "Duration": "数月",
+        "GeographicScope": "山海关至北京",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军入关，定都北京，开启清朝对全国的统治",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清灭大顺政权之战",
+            "evidence": "清军入关后，继而西灭大顺政权，发生清灭大顺政权之战"
+          }
+        ],
+        "source_text": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "EventType": "统一战争",
+        "StartDate": "1644年",
+        "EndDate": "1645年",
+        "DynastyName": "清",
+        "Place": "陕西、河南等地",
+        "Aggressor": "清军",
+        "Defender": "大顺军",
+        "Allies": null,
+        "Result": "清军获胜，大顺政权灭亡",
+        "Commanders": "多尔衮、李自成",
+        "KeyPersons": null,
+        "Action": "攻伐、追击",
+        "TroopSize": "不详",
+        "Duration": "约一年",
+        "GeographicScope": "陕西、河南等地",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "大顺政权覆灭，清朝统一北方",
+        "Remark": "",
+        "relations": [],
+        "source_text": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "EventType": "统一战争",
+        "StartDate": "1644年",
+        "EndDate": "1662年",
+        "DynastyName": "清",
+        "Place": "江南、西南等地",
+        "Aggressor": "清军",
+        "Defender": "南明军",
+        "Allies": null,
+        "Result": "清军获胜，南明政权覆灭",
+        "Commanders": "多尔衮、吴三桂",
+        "KeyPersons": "朱由崧、左良玉、刘清泽",
+        "Action": "攻伐、追击、投降",
+        "TroopSize": "不详",
+        "Duration": "持续十八年",
+        "GeographicScope": "江南、西南等地",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军消灭南明政权，统一全国，巩固清朝统治。",
+        "Remark": "南明政权包括弘光政权等，最终被清军逐一消灭。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清灭郑氏割据政权之战",
+            "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾"
+          }
+        ],
+        "source_text": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "EventType": "统一战争",
+        "StartDate": "1683年",
+        "EndDate": "1683年",
+        "DynastyName": "清",
+        "Place": "台湾",
+        "Aggressor": "清军",
+        "Defender": "郑氏割据政权",
+        "Allies": null,
+        "Result": "清军获胜，郑氏政权投降，台湾归入清朝版图",
+        "Commanders": "郑成功",
+        "KeyPersons": null,
+        "Action": "攻伐、投降",
+        "TroopSize": "不详",
+        "Duration": "持续一年",
+        "GeographicScope": "台湾",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清朝重新收归台湾，维护了国家统一。",
+        "Remark": "郑成功曾驱逐荷兰殖民者，收复台湾，其后代继续割据。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清征准噶尔之战",
+            "evidence": "乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部"
+          }
+        ],
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清征准噶尔之战",
+        "EventType": "统一战争",
+        "StartDate": "1690年",
+        "EndDate": "1757年",
+        "DynastyName": "清",
+        "Place": "准噶尔",
+        "Aggressor": "清军",
+        "Defender": "准噶尔部",
+        "Allies": null,
+        "Result": "清军获胜，准噶尔部被平定",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "征讨、攻伐",
+        "TroopSize": "不详",
+        "Duration": "持续六十七年",
+        "GeographicScope": "准噶尔地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清朝平定准噶尔部，维护了多民族国家的统一。",
+        "Remark": "战争历经康熙、雍正、乾隆三朝，最终彻底平定。",
+        "relations": [],
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "大小金川之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1747年",
+        "EndDate": "1776年",
+        "DynastyName": "清",
+        "Place": "大小金川",
+        "Aggressor": "清军",
+        "Defender": "金川土司",
+        "Allies": null,
+        "Result": "清军获胜，平定大小金川",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "持续二十九年",
+        "GeographicScope": "大小金川地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "维护了多民族国家的统一，打击了封建割据势力",
+        "Remark": "",
+        "relations": [],
+        "source_text": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "郑成功收复台湾之战",
+        "EventType": "开疆拓土",
+        "StartDate": "1661年",
+        "EndDate": "1662年",
+        "DynastyName": "清",
+        "Place": "台湾",
+        "Aggressor": "郑成功军",
+        "Defender": "荷兰殖民者",
+        "Allies": null,
+        "Result": "郑成功军获胜，收复台湾",
+        "Commanders": "郑成功",
+        "KeyPersons": null,
+        "Action": "渡海、登陆、交战",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "台湾沿海",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "捍卫了国家领土主权的完整，取得中国历史上大规模渡海登陆作战的胜利",
+        "Remark": "",
+        "relations": [],
+        "source_text": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "主战场",
+        "modern_name": "潼关",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "relation": "主战场",
+        "modern_name": "商州",
+        "evidence": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "主战场",
+        "modern_name": "西安",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "延安",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "汉中",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "固原",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "榆林",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "兰州",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "甘州",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "西宁",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "次要战场",
+        "modern_name": "平阳",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "主战场",
+        "modern_name": "四川",
+        "evidence": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "出发地",
+        "modern_name": "武昌",
+        "evidence": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "途经地",
+        "modern_name": "岳州",
+        "evidence": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "主战场",
+        "modern_name": "北京",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "途经地",
+        "modern_name": "昌平",
+        "evidence": "3月16日，大顺军主力占领昌平，逼近北京。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "次要战场",
+        "modern_name": "彰仪门",
+        "evidence": "18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "次要战场",
+        "modern_name": "景山",
+        "evidence": "19日晨，攻破皇城，朱由检自缢于景山。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "主战场",
+        "modern_name": "重庆",
+        "evidence": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "主战场",
+        "modern_name": "成都",
+        "evidence": "张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "主战场",
+        "modern_name": "山海关",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "次要战场",
+        "modern_name": "石河",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "次要战场",
+        "modern_name": "永平",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "主战场",
+        "modern_name": "山海关",
+        "evidence": "21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。\n当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "目的地",
+        "modern_name": "北京",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "主战场",
+        "modern_name": "陕西",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "次要战场",
+        "modern_name": "河南等地",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "主战场",
+        "modern_name": "江南",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "次要战场",
+        "modern_name": "西南等地",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "主战场",
+        "modern_name": "台湾",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清征准噶尔之战",
+        "relation": "主战场",
+        "modern_name": "准噶尔",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "大小金川之战",
+        "relation": "主战场",
+        "modern_name": "大小金川",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "郑成功收复台湾之战",
+        "relation": "主战场",
+        "modern_name": "台湾",
+        "evidence": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "目的地",
+        "modern_name": "兰州",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "目的地",
+        "modern_name": "四川",
+        "evidence": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "目的地",
+        "modern_name": "北京",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "次要战场",
+        "modern_name": "成都",
+        "evidence": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "次要战场",
+        "modern_name": "北京",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "大小金川之战",
+        "relation": "途经地",
+        "modern_name": "大小金川",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "发起方",
+        "OrgName": "大顺军",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "relation": "发起方",
+        "OrgName": "大顺军",
+        "evidence": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "发起方",
+        "OrgName": "大顺军",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "发起方",
+        "OrgName": "大西军",
+        "evidence": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "发起方",
+        "OrgName": "大顺军",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "发起方",
+        "OrgName": "大西军",
+        "evidence": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "发起方",
+        "OrgName": "大顺军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "防守方",
+        "OrgName": "吴三桂军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "防守方",
+        "OrgName": "大顺军",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "同盟方",
+        "OrgName": "吴三桂军",
+        "evidence": "21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "防守方",
+        "OrgName": "大顺军",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "防守方",
+        "OrgName": "南明军",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "防守方",
+        "OrgName": "郑氏割据政权",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清征准噶尔之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清征准噶尔之战",
+        "relation": "防守方",
+        "OrgName": "准噶尔部",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "大小金川之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "大小金川之战",
+        "relation": "防守方",
+        "OrgName": "金川土司",
+        "evidence": "经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "郑成功收复台湾之战",
+        "relation": "发起方",
+        "OrgName": "郑成功军",
+        "evidence": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      },
+      {
+        "EventName": "郑成功收复台湾之战",
+        "relation": "防守方",
+        "OrgName": "荷兰殖民者",
+        "evidence": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "投降方",
+        "OrgName": "大顺军",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "投降方",
+        "OrgName": "明军",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "投降方",
+        "OrgName": "大顺军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "投降方",
+        "OrgName": "吴三桂军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "投降方",
+        "OrgName": "清军",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "支援方",
+        "OrgName": "吴三桂军",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "投降方",
+        "OrgName": "清军",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "投降方",
+        "OrgName": "郑氏割据政权",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "将领",
+        "PersonName": "孙传庭",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "relation": "将领",
+        "PersonName": "刘希尧",
+        "evidence": "8日，其左路刘希尧军攻占商州。"
+      },
+      {
+        "EventName": "大顺军攻占陕西诸城之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。11月，攻占榆林。12月，连取兰州、甘州、西宁等地，并派兵一部进入山西，占领平阳（山西临汾）等城。至此，大顺军已控制秦、陇全境及山西西南部地区。"
+      },
+      {
+        "EventName": "张献忠入川之战",
+        "relation": "统帅",
+        "PersonName": "张献忠",
+        "evidence": "这时，张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "将领",
+        "PersonName": "刘芳亮",
+        "evidence": "随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "君主",
+        "PersonName": "朱由检",
+        "evidence": "李自成派投降太监杜勋等入城劝朱由检投降，但未成功。19日晨，攻破皇城，朱由检自缢于景山。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "使者",
+        "PersonName": "杜勋",
+        "evidence": "李自成派投降太监杜勋等入城劝朱由检投降，但未成功。"
+      },
+      {
+        "EventName": "张献忠攻占重庆成都之战",
+        "relation": "统帅",
+        "PersonName": "张献忠",
+        "evidence": "这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "统帅",
+        "PersonName": "吴三桂",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "山海关之战",
+        "relation": "统帅",
+        "PersonName": "多尔衮",
+        "evidence": "4月初，吴三桂误闻其父受刑将死，全家受辱，遂降而复叛，立即率军东退，击走唐通，占领山海关，并要求清统治集团出兵，联合进攻北京大顺军。13日，李自成率精兵6万，前往收复山海关。21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。23日，又战败于永平。李自成便率军退回北京。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "统帅",
+        "PersonName": "多尔衮",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "统帅",
+        "PersonName": "吴三桂",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清军入关之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "统帅",
+        "PersonName": "多尔衮",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭大顺政权之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "统帅",
+        "PersonName": "多尔衮",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "将领",
+        "PersonName": "吴三桂",
+        "evidence": "南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "君主",
+        "PersonName": "朱由崧",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "将领",
+        "PersonName": "左良玉",
+        "evidence": "派人持书往江南招降左良玉、刘清泽等南明军。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "将领",
+        "PersonName": "刘清泽",
+        "evidence": "派人持书往江南招降左良玉、刘清泽等南明军。"
+      },
+      {
+        "EventName": "清灭郑氏割据政权之战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName": "郑成功收复台湾之战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "南明时期，在东南沿海坚持抗清的郑成功，率军驱逐荷兰殖民者，收复台湾，取得了中国历史上大规模渡海登陆作战的胜利，捍卫了国家领土主权的完整。"
+      },
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "统帅",
+        "PersonName": "孙传庭",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻破潼关之战",
+        "relation": "阵亡",
+        "PersonName": "孙传庭",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。"
+      },
+      {
+        "EventName": "大顺军攻占商州之战",
+        "relation": "统帅",
+        "PersonName": "刘希尧",
+        "evidence": "8日，其左路刘希尧军攻占商州。继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "统帅",
+        "PersonName": "刘芳亮",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "参与者",
+        "PersonName": "朱由检",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "大顺军攻占北京之战",
+        "relation": "投降",
+        "PersonName": "朱由检",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京：由刘芳亮率左营大军经平阳东越太行山进出豫北，尔后转军北上，经真定（河北正定）以南进攻北京：自率主力部队10余万，山龙门东渡黄河，北趋太原，尔后经大同、宣化进攻北京。3月16日，大顺军主力占领昌平，逼近北京。17日，城外明军三大营首先投诚。李自成派投降太监杜勋等入城劝朱由检投降，但未成功。18日晚，预先潜入城内的大顺军人员策动防守彰仪门的太监开门献城，大顺军即占领京城。19日晨，攻破皇城，朱由检自缢于景山。明王朝的统治，终于被大顺军推翻。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "统帅",
+        "PersonName": "吴三桂",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "参与者",
+        "PersonName": "朱由崧",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "参与者",
+        "PersonName": "左良玉",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName": "清灭南明诸帝之战",
+        "relation": "参与者",
+        "PersonName": "刘清泽",
+        "evidence": "北京明廷被灭后，江南明军拥福王朱由崧为帝，在南京建立弘光政权，准备“悉简精兵，直指秦关”；辽东的清政权，也准备进关与大顺军争夺全国统治权；奉命驰援北京的吴三桂所部已放弃宁远，越过山海关，处于进退失据的境地。...继而西灭大顺政权，南伐南明诸帝。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "大顺军攻占商州之战",
+        "relation": "顺承关系",
+        "EventName_B": "大顺军攻破潼关之战",
+        "evidence": "10月，李自成率大顺军攻破潼关，孙传庭战死。8日，其左路刘希尧军攻占商州。\n继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName_A": "大顺军攻占商州之战",
+        "relation": "顺承关系",
+        "EventName_B": "大顺军攻占陕西诸城之战",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName_A": "大顺军攻占北京之战",
+        "relation": "顺承关系",
+        "EventName_B": "大顺军攻占陕西诸城之战",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京。"
+      },
+      {
+        "EventName_A": "张献忠入川之战",
+        "relation": "顺承关系",
+        "EventName_B": "张献忠攻占重庆成都之战",
+        "evidence": "张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州（河南岳阳县）进入四川。这时，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城。\n张献忠为建立基地，再次率领马步水军数十万，由武昌经岳州进入四川。1644年，张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城。\n张献忠正率大西军在四川顺利发展，攻破重庆、成都诸城，攻取未附州县。11月，在成都称帝，国号大西，改成都为西京。"
+      },
+      {
+        "EventName_A": "大顺军攻占北京之战",
+        "relation": "顺承关系",
+        "EventName_B": "清军入关之战",
+        "evidence": "当北京明朝被李自成的农民起义军推翻时，即举兵入关，攻取中原，进占北京。"
+      },
+      {
+        "EventName_A": "山海关之战",
+        "relation": "顺承关系",
+        "EventName_B": "清军入关之战",
+        "evidence": "21日夜，吴三桂出城与日夜兼程赶来的清军统帅多尔衮会面，剃发投降。次日，大顺军在石河地区受清军与吴军夹击，溃退永平。\n山海关之战后，清军入关，继而发生清军入关之战"
+      },
+      {
+        "EventName_A": "清军入关之战",
+        "relation": "顺承关系",
+        "EventName_B": "清灭大顺政权之战",
+        "evidence": "清军入关后，继而西灭大顺政权，发生清灭大顺政权之战"
+      },
+      {
+        "EventName_A": "清灭南明诸帝之战",
+        "relation": "顺承关系",
+        "EventName_B": "清灭大顺政权之战",
+        "evidence": "继而西灭大顺政权，南伐南明诸帝。"
+      },
+      {
+        "EventName_A": "清征准噶尔之战",
+        "relation": "顺承关系",
+        "EventName_B": "清灭郑氏割据政权之战",
+        "evidence": "乘势消灭郑氏割据政权，重新收归台湾；进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName_A": "大小金川之战",
+        "relation": "顺承关系",
+        "EventName_B": "清征准噶尔之战",
+        "evidence": "进而征讨准噶尔部，经大小金川之战，击败了封建割据势力，维护了多民族国家的统一。"
+      },
+      {
+        "EventName_A": "大顺军攻占陕西诸城之战",
+        "relation": "顺承关系",
+        "EventName_B": "大顺军攻破潼关之战",
+        "evidence": "继而大顺军遂以破竹之势，进占酉安、延安、汉中、固原等城。"
+      },
+      {
+        "EventName_A": "大顺军攻占北京之战",
+        "relation": "顺承关系",
+        "EventName_B": "张献忠入川之战",
+        "evidence": "1644年初，李自成改西安为西京，正式定国号为大顺，改元永昌。随即进军北京。"
+      },
+      {
+        "EventName_A": "清灭南明诸帝之战",
+        "relation": "顺承关系",
+        "EventName_B": "清灭郑氏割据政权之战",
+        "evidence": "建立全国政权后，平定了平西王昊三桂、平南王尚可喜、靖南王耿精忠“三藩之乱”：乘势消灭郑氏割据政权，重新收归台湾"
+      }
+    ]
+  }
+}

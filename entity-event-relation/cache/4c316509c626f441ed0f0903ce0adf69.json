@@ -1,0 +1,1260 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "临颖",
+        "modern_name": "临颍县",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "临颍县",
+        "Specific_location": null,
+        "source_text": "岳飞早已调整了部署，令统制张宪进驻临颖"
+      },
+      {
+        "geo_name": "颖昌",
+        "modern_name": "许昌市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "岳飞驰援颖昌"
+      },
+      {
+        "geo_name": "小商桥",
+        "modern_name": "小商桥",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "临颍县",
+        "Specific_location": null,
+        "source_text": "在临颖南的小商桥与金军遭遇"
+      },
+      {
+        "geo_name": "开封",
+        "modern_name": "开封市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "宗弼败回开封"
+      },
+      {
+        "geo_name": "淮河",
+        "modern_name": "淮河",
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "渡淮河"
+      },
+      {
+        "geo_name": "寿春",
+        "modern_name": "寿县",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "淮南市",
+        "District_County": "寿县",
+        "Specific_location": null,
+        "source_text": "破寿春"
+      },
+      {
+        "geo_name": "柘皋",
+        "modern_name": "柘皋镇",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": "巢湖市",
+        "Specific_location": null,
+        "source_text": "败退柘皋"
+      },
+      {
+        "geo_name": "石梁河",
+        "modern_name": "柘皋河",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": "巢湖市",
+        "Specific_location": null,
+        "source_text": "毁石梁河（柘皋河）桥"
+      },
+      {
+        "geo_name": "庐州",
+        "modern_name": "合肥市",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜收复庐州"
+      },
+      {
+        "geo_name": "濠州",
+        "modern_name": "凤阳县",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "滁州市",
+        "District_County": "凤阳县",
+        "Specific_location": null,
+        "source_text": "宗弼又挥军急攻濠州"
+      },
+      {
+        "geo_name": "采石",
+        "modern_name": "采石矶",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "雨山区",
+        "Specific_location": null,
+        "source_text": "兵败采石（马鞍山市西南）"
+      },
+      {
+        "geo_name": "宿州",
+        "modern_name": "宿州市",
+        "DynastyName": "南宋",
+        "Province": "安徽省",
+        "City": "宿州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "兵败宿州"
+      },
+      {
+        "geo_name": "额尔古纳河",
+        "modern_name": "额尔古纳河",
+        "DynastyName": "蒙古",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自也儿古纳河（额尔古纳河）流域"
+      },
+      {
+        "geo_name": "斡难河",
+        "modern_name": "鄂嫩河",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "沿斡难河（鄂嫩河）南岸"
+      },
+      {
+        "geo_name": "克鲁伦河",
+        "modern_name": "克鲁伦河",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "客鲁连河（克鲁伦河）北岸"
+      },
+      {
+        "geo_name": "不儿罕山",
+        "modern_name": "肯特山",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "来到不儿罕山（蒙古人民共和国肯特山东部一主峰）东南之阔阔海子"
+      },
+      {
+        "geo_name": "阔阔海子",
+        "modern_name": null,
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "来到不儿罕山（蒙古人民共和国肯特山东部一主峰）东南之阔阔海子"
+      },
+      {
+        "geo_name": "奎屯河",
+        "modern_name": "奎屯河",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进至奎屯河流域"
+      },
+      {
+        "geo_name": "里格尼志",
+        "modern_name": "莱格尼察",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进攻波兰的里格尼志一役"
+      },
+      {
+        "geo_name": "赛育河",
+        "modern_name": "赛约河",
+        "DynastyName": "蒙古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "征服匈牙利的赛育河战役"
+      },
+      {
+        "geo_name": "郾城",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "geo_name": "临颍",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "geo_name": "蒙古高原",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "geo_name": "奎屯河流域",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "金军",
+        "OrgType": "国家",
+        "DynastyName": "金",
+        "source_text": "杀金兵2000余\n先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "OrgName": "宋军",
+        "OrgType": "国家",
+        "DynastyName": "南宋",
+        "source_text": "宋军积薪为桥"
+      },
+      {
+        "OrgName": "金廷",
+        "OrgType": "中央政权",
+        "DynastyName": "金",
+        "source_text": "金廷承认金军已失去优势"
+      },
+      {
+        "OrgName": "蒙古",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "漠北蒙古族兴起"
+      },
+      {
+        "OrgName": "宏吉刺部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "东降宏吉刺部"
+      },
+      {
+        "OrgName": "克烈部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "西灭突厥克烈部"
+      },
+      {
+        "OrgName": "乃蛮部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "击破乃蛮大阳汗"
+      },
+      {
+        "OrgName": "西夏",
+        "OrgType": "国家",
+        "DynastyName": "西夏",
+        "source_text": "五次进兵西夏"
+      },
+      {
+        "OrgName": "花刺子模",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了花刺子模"
+      },
+      {
+        "OrgName": "俄罗斯",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了俄罗斯"
+      },
+      {
+        "OrgName": "匈牙利",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了匈牙利"
+      },
+      {
+        "OrgName": "波兰",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了波兰"
+      },
+      {
+        "OrgName": "木刺夷",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了木刺夷"
+      },
+      {
+        "OrgName": "叙利亚",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了叙利亚"
+      },
+      {
+        "OrgName": "报达",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了报达"
+      },
+      {
+        "OrgName": "布里阿耳",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了布里阿耳"
+      },
+      {
+        "OrgName": "奇卜察克",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "征服了奇卜察克"
+      },
+      {
+        "OrgName": "日尔曼",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "连败日尔曼、波希米亚、波兰三国联军"
+      },
+      {
+        "OrgName": "波希米亚",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "连败日尔曼、波希米亚、波兰三国联军"
+      },
+      {
+        "OrgName": "札只刺部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "与蒙古札只刺部长札木合发生冲突"
+      },
+      {
+        "OrgName": "塔塔儿部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "南邻东胡塔塔儿部"
+      },
+      {
+        "OrgName": "蔑儿乞部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "西北邻接突厥蔑儿乞各部"
+      },
+      {
+        "OrgName": "斡亦刺部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "还有斡亦刺部"
+      },
+      {
+        "OrgName": "翁吉刺部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "还有翁吉刺部"
+      },
+      {
+        "OrgName": "汪古部",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "还有汪古部"
+      },
+      {
+        "OrgName": "13个部落",
+        "OrgType": "联盟",
+        "DynastyName": "蒙古",
+        "source_text": "即结约13个部落"
+      },
+      {
+        "OrgName": "蒙古诸部",
+        "OrgType": "军事势力",
+        "DynastyName": "南宋",
+        "source_text": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "岳飞",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "统帅",
+        "Note": "抗金名将，参与郾城、颖昌等战役，后被害",
+        "source_text": "岳飞早已调整了部署"
+      },
+      {
+        "PersonName": "岳云",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "岳飞之子，率骑兵冲击金军",
+        "source_text": "先令其子岳云率骑兵冲击"
+      },
+      {
+        "PersonName": "宗弼",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金军统帅，多次与宋军交战",
+        "source_text": "宗弼被迫率余部撤退"
+      },
+      {
+        "PersonName": "张宪",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "岳飞部将，进驻临颖，后与岳飞一同被害",
+        "source_text": "令统制张宪进驻临颖"
+      },
+      {
+        "PersonName": "杨再兴",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "岳飞部将，小商桥之战英勇战死",
+        "source_text": "杨再兴等300余骑，在临颖南的小商桥与金军遭遇"
+      },
+      {
+        "PersonName": "王贵",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "驻守颖昌的统制，与岳飞会合决战",
+        "source_text": "驻守颖昌的统制王贵会同岳飞"
+      },
+      {
+        "PersonName": "宗强",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金军将领，率3万余骑进攻颖昌",
+        "source_text": "与进逼城下的宗强所率3万余骑展开决战"
+      },
+      {
+        "PersonName": "完颜亮",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "君主",
+        "Note": "金海陵王，南侵南宋，兵败采石",
+        "source_text": "金海陵王完颜亮南侵"
+      },
+      {
+        "PersonName": "宋高宗",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "君主",
+        "Note": "南宋皇帝，与秦桧议和，冤杀岳飞",
+        "source_text": "宋高宗和秦桧都感到岳飞、韩世忠等大将是讲和的障碍"
+      },
+      {
+        "PersonName": "秦桧",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "谋士",
+        "Note": "南宋宰相，主和派，以莫须有罪名害死岳飞",
+        "source_text": "秦检等以“菲须有”的罪名将岳飞投入狱中"
+      },
+      {
+        "PersonName": "韩世忠",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "统帅",
+        "Note": "抗金名将，被宋高宗和秦桧视为议和障碍",
+        "source_text": "宋高宗和秦桧都感到岳飞、韩世忠等大将是讲和的障碍"
+      },
+      {
+        "PersonName": "铁木真",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "君主",
+        "Note": "即成吉思汗，统一蒙古诸部，建立蒙古汗国",
+        "source_text": "铁木真自1179年自称为汗历经24年大小数十战"
+      },
+      {
+        "PersonName": "札木合",
+        "DynastyName": "蒙古",
+        "OrgName": "札只刺部",
+        "Role": "统帅",
+        "Note": "蒙古札只刺部长，与铁木真冲突，组织13部联军进攻",
+        "source_text": "与蒙古札只刺部长札木合发生冲突"
+      },
+      {
+        "PersonName": "王罕",
+        "DynastyName": "蒙古",
+        "OrgName": "克烈部",
+        "Role": "君主",
+        "Note": "突厥克烈部长，铁木真之父盟友",
+        "source_text": "依附于父亲之盟友突厥克烈部长王罕"
+      },
+      {
+        "PersonName": "也速该",
+        "DynastyName": "蒙古",
+        "OrgName": "孛儿只斤部",
+        "Role": "君主",
+        "Note": "铁木真之父，孛儿只斤部部长",
+        "source_text": "铁木真是蒙古孛儿只斤部部长也速该之子"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "郾城之战",
+        "EventType": "边境防御",
+        "StartDate": "1140年",
+        "EndDate": "1140年",
+        "DynastyName": "南宋",
+        "Place": "郾城",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "宋军获胜，金军撤退",
+        "Commanders": "岳飞、宗弼",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "郾城",
+        "Casualties": "金军死伤甚众",
+        "source": "《中国历代战争简史》",
+        "Impact": "宋军成功抵御金军进攻，但未能改变宋金对峙格局",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "临颍之战",
+            "evidence": "不久，宗弼又倾其全力进攻临颖。"
+          }
+        ],
+        "source_text": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "临颍之战",
+        "EventType": "边境防御",
+        "StartDate": "1140年",
+        "EndDate": "1140年",
+        "DynastyName": "南宋",
+        "Place": "临颍、小商桥",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "宋军获胜，金军撤退",
+        "Commanders": "岳飞、杨再兴、张宪、宗弼",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "杨再兴等300余骑",
+        "Duration": "不详",
+        "GeographicScope": "临颍、小商桥",
+        "Casualties": "杀金兵2000余，杨再兴等将英勇战死",
+        "source": "《中国历代战争简史》",
+        "Impact": "宋军再次击退金军，但损失骁将杨再兴",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "颖昌之战",
+            "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战。"
+          }
+        ],
+        "source_text": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "EventType": "边境防御",
+        "StartDate": "1140年",
+        "EndDate": "1140年",
+        "DynastyName": "南宋",
+        "Place": "颖昌",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "宋军获胜，金军败回开封",
+        "Commanders": "岳飞、王贵、宗强",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "金军3万余骑",
+        "Duration": "不详",
+        "GeographicScope": "颖昌",
+        "Casualties": "杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹",
+        "source": "《中国历代战争简史》",
+        "Impact": "宋军大胜，金军不敢再战，但宋廷强令撤军，所克州县复失",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "郾城之战",
+            "evidence": "不久，宗弼又倾其全力进攻临颖。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "临颍之战",
+            "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战。"
+          }
+        ],
+        "source_text": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "EventType": "边境防御",
+        "StartDate": "1141年",
+        "EndDate": "1141年",
+        "DynastyName": "南宋",
+        "Place": "柘皋、石梁河、庐州",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "宋军获胜，金军败退",
+        "Commanders": "宗弼、岳飞",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "金军9万",
+        "Duration": "不详",
+        "GeographicScope": "淮河、寿春、柘皋、庐州",
+        "Casualties": "杀金兵万余",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军失去优势，决意讲和",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "濠州之战",
+            "evidence": "3月，宗弼又挥军急攻濠州"
+          }
+        ],
+        "source_text": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "濠州之战",
+        "EventType": "边境防御",
+        "StartDate": "1141年",
+        "EndDate": "1141年",
+        "DynastyName": "南宋",
+        "Place": "濠州",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "金军获胜，宋军败退",
+        "Commanders": "宗弼",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "濠州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金廷承认金军已失去优势，决意讲和",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "柘皋之战",
+            "evidence": "3月，宗弼又挥军急攻濠州"
+          }
+        ],
+        "source_text": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "采石之战",
+        "EventType": "边境防御",
+        "StartDate": "1161年",
+        "EndDate": "1161年",
+        "DynastyName": "南宋",
+        "Place": "采石",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "宋军获胜，金军败退",
+        "Commanders": "完颜亮",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "采石",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "宋金国力逐渐衰弱",
+        "Remark": "",
+        "relations": [],
+        "source_text": "后来，金海陵王完颜亮南侵，兵败采石（马鞍山市西南）。"
+      },
+      {
+        "EventName": "宿州之战",
+        "EventType": "边境防御",
+        "StartDate": "1163年",
+        "EndDate": "1163年",
+        "DynastyName": "南宋",
+        "Place": "宿州",
+        "Aggressor": "宋军",
+        "Defender": "金军",
+        "Allies": null,
+        "Result": "宋军兵败",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "宿州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "宋、金的国力逐渐衰弱，双方都无大的战略企图",
+        "Remark": "",
+        "relations": [],
+        "source_text": "宋孝宗北伐，兵败宿州。自此，宋、金的国力逐渐衰弱，双方都无大的战略企图。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "EventType": "统一战争",
+        "StartDate": "1179年",
+        "EndDate": "1206年",
+        "DynastyName": "南宋",
+        "Place": "蒙古高原",
+        "Aggressor": "铁木真",
+        "Defender": "蒙古诸部",
+        "Allies": null,
+        "Result": "铁木真统一蒙古诸部，建立蒙古汗国",
+        "Commanders": "铁木真",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "持续24年",
+        "GeographicScope": "蒙古高原",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "建立蒙古大汗国，为后续扩张奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "十三翼之战",
+            "evidence": "铁木真统一蒙古之战包含十三翼之战等多次战役"
+          }
+        ],
+        "source_text": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "EventType": "统一战争",
+        "StartDate": "1189年",
+        "EndDate": "1189年",
+        "DynastyName": "南宋",
+        "Place": "奎屯河流域",
+        "Aggressor": "札木合",
+        "Defender": "铁木真",
+        "Allies": null,
+        "Result": "铁木真迎击札木合联军",
+        "Commanders": "铁木真、札木合",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "札木合联军3万，铁木真13翼军队（每翼千人）",
+        "Duration": "不详",
+        "GeographicScope": "奎屯河流域",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "铁木真与札木合冲突公开化，铁木真势力进一步巩固",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "铁木真统一蒙古之战",
+            "evidence": "十三翼之战是铁木真统一蒙古之战的一部分"
+          }
+        ],
+        "source_text": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "郾城之战",
+        "relation": "主战场",
+        "modern_name": "郾城",
+        "evidence": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "主战场",
+        "modern_name": "临颍",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "次要战场",
+        "modern_name": "小商桥",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "主战场",
+        "modern_name": "颖昌",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "主战场",
+        "modern_name": "柘皋",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "次要战场",
+        "modern_name": "石梁河",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "目的地",
+        "modern_name": "庐州",
+        "evidence": "乘胜收复庐州。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "主战场",
+        "modern_name": "濠州",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "采石之战",
+        "relation": "主战场",
+        "modern_name": "采石",
+        "evidence": "后来，金海陵王完颜亮南侵，兵败采石（马鞍山市西南）。"
+      },
+      {
+        "EventName": "宿州之战",
+        "relation": "主战场",
+        "modern_name": "宿州",
+        "evidence": "宋孝宗北伐，兵败宿州。自此，宋、金的国力逐渐衰弱，双方都无大的战略企图。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "主战场",
+        "modern_name": "蒙古高原",
+        "evidence": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "主战场",
+        "modern_name": "奎屯河流域",
+        "evidence": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "驻防地",
+        "modern_name": "颖昌",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "议和地点",
+        "modern_name": "颖昌",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "次要战场",
+        "modern_name": "庐州",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "目的地",
+        "modern_name": "濠州",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "宿州之战",
+        "relation": "战略要地",
+        "modern_name": "宿州",
+        "evidence": "宋孝宗北伐，兵败宿州。自此，宋、金的国力逐渐衰弱，双方都无大的战略企图。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "目的地",
+        "modern_name": "奎屯河流域",
+        "evidence": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "郾城之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "郾城之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "采石之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "后来，金海陵王完颜亮南侵，兵败采石（马鞍山市西南）。"
+      },
+      {
+        "EventName": "采石之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "后来，金海陵王完颜亮南侵，兵败采石（马鞍山市西南）。"
+      },
+      {
+        "EventName": "宿州之战",
+        "relation": "发起方",
+        "OrgName": "宋军",
+        "evidence": "宋孝宗北伐，兵败宿州。自此，宋、金的国力逐渐衰弱，双方都无大的战略企图。"
+      },
+      {
+        "EventName": "宿州之战",
+        "relation": "防守方",
+        "OrgName": "金军",
+        "evidence": "宋孝宗北伐，兵败宿州。自此，宋、金的国力逐渐衰弱，双方都无大的战略企图。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "防守方",
+        "OrgName": "蒙古诸部",
+        "evidence": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "同盟方",
+        "OrgName": "克烈部",
+        "evidence": "铁木真依附于父亲之盟友突厥克烈部长王罕。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "同盟方",
+        "OrgName": "札只刺部",
+        "evidence": "及蒙古札只刺部长札木合。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "发起方",
+        "OrgName": "札只刺部",
+        "evidence": "札木合对铁木真拆散其势力、诱致诸部豪强极为不满，但惧于王罕相助，不敢贸然用兵。1189年，即结约13个部落，起兵马3万，西征铁木真汗。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "防守方",
+        "OrgName": "蒙古",
+        "evidence": "铁木真已得密报，决定迎敌于境外，率领13翼军队。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "参战方",
+        "OrgName": "13个部落",
+        "evidence": "即结约13个部落，起兵马3万。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "议和方",
+        "OrgName": "金军",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "议和方",
+        "OrgName": "宋军",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "议和方",
+        "OrgName": "金军",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "议和方",
+        "OrgName": "宋军",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "郾城之战",
+        "relation": "统帅",
+        "PersonName": "岳飞",
+        "evidence": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "郾城之战",
+        "relation": "统帅",
+        "PersonName": "宗弼",
+        "evidence": "先令其子岳云率骑兵冲击，分割打乱金军阵势；继以步卒持麻扎刀、提刀、大斧从侧翼冲击，上砍人，下砍马，与金军骑兵展开格斗。激战竞日，金军死伤甚众，宗弼被迫率余部撤退。"
+      },
+      {
+        "EventName": "郾城之战",
+        "relation": "将领",
+        "PersonName": "岳云",
+        "evidence": "先令其子岳云率骑兵冲击。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "统帅",
+        "PersonName": "岳飞",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "统帅",
+        "PersonName": "宗弼",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "将领",
+        "PersonName": "张宪",
+        "evidence": "令统制张宪进驻临颖。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "将领",
+        "PersonName": "杨再兴",
+        "evidence": "岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "阵亡",
+        "PersonName": "杨再兴",
+        "evidence": "杨再兴等将英勇战死。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "统帅",
+        "PersonName": "岳飞",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "统帅",
+        "PersonName": "宗强",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "将领",
+        "PersonName": "王贵",
+        "evidence": "驻守颖昌的统制王贵会同岳飞。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "统帅",
+        "PersonName": "宗弼",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "柘皋之战",
+        "relation": "统帅",
+        "PersonName": "岳飞",
+        "evidence": "1141年初，完颜完弼集中9万大军，渡淮河，破寿春，长驱而南。2月，败退柘皋，毁石梁河（柘皋河）桥，以阻宋军进击。17日，宋军积薪为桥，向柘皋猛攻，杀金兵万余，乘胜收复庐州。"
+      },
+      {
+        "EventName": "濠州之战",
+        "relation": "统帅",
+        "PersonName": "宗弼",
+        "evidence": "3月，宗弼又挥军急攻濠州，击败援濠宋军。经过此战，金廷承认金军已失去优势，决意讲和。"
+      },
+      {
+        "EventName": "采石之战",
+        "relation": "统帅",
+        "PersonName": "完颜亮",
+        "evidence": "后来，金海陵王完颜亮南侵，兵败采石（马鞍山市西南）。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "统帅",
+        "PersonName": "铁木真",
+        "evidence": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立起蒙古大汗国，并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "君主",
+        "PersonName": "铁木真",
+        "evidence": "并于1206年被推举为全蒙古的大汗，即成吉思汗。"
+      },
+      {
+        "EventName": "铁木真统一蒙古之战",
+        "relation": "君主",
+        "PersonName": "也速该",
+        "evidence": "铁木真是蒙古孛儿只斤部部长也速该之子。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "统帅",
+        "PersonName": "铁木真",
+        "evidence": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "统帅",
+        "PersonName": "札木合",
+        "evidence": "1189年，即结约13个部落，起兵马3万，西征铁木真汗，企图一举击灭其属下全部人员，尽掠其马匹和资财。但事发前，铁木真已得密报，决定迎敌于境外，率领13翼军队（每翼千人），沿斡难河（鄂嫩河）南岸、客鲁连河（克鲁伦河）北岸，进至奎屯河流域，以迎击札合木之联军。"
+      },
+      {
+        "EventName": "十三翼之战",
+        "relation": "君主",
+        "PersonName": "札木合",
+        "evidence": "札木合对铁木真拆散其势力、诱致诸部豪强极为不满。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "统帅",
+        "PersonName": "杨再兴",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "临颍之战",
+        "relation": "统帅",
+        "PersonName": "张宪",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。岳飞早已调整了部署，令统制张宪进驻临颖，岳飞驰援颖昌。13日，岳飞派往临颖的杨再兴等300余骑，在临颖南的小商桥与金军遭遇，杀金兵2000余，杨再兴等将英勇战死。次日，张宪部赶到临颖，击退金军。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "统帅",
+        "PersonName": "王贵",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      },
+      {
+        "EventName": "颖昌之战",
+        "relation": "君主",
+        "PersonName": "王贵",
+        "evidence": "当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战，杀金军统军使以下将士5000余人，俘2000余人，获马3000余匹，宗弼败回开封，不敢再战。这时，岳飞建议乘势夺回开封，收复中原，但宋朝坚持与金议和，下诏强令回师。21日，岳飞被迫撤军，所克州县复失。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "临颍之战",
+        "relation": "顺承关系",
+        "EventName_B": "郾城之战",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。"
+      },
+      {
+        "EventName_A": "临颍之战",
+        "relation": "顺承关系",
+        "EventName_B": "颖昌之战",
+        "evidence": "次日，张宪部赶到临颖，击退金军。当日，驻守颖昌的统制王贵会同岳飞，与进逼城下的宗强所率3万余骑展开决战。"
+      },
+      {
+        "EventName_A": "柘皋之战",
+        "relation": "顺承关系",
+        "EventName_B": "濠州之战",
+        "evidence": "3月，宗弼又挥军急攻濠州。"
+      },
+      {
+        "EventName_A": "宿州之战",
+        "relation": "顺承关系",
+        "EventName_B": "采石之战",
+        "evidence": "后来，金海陵王完颜亮南侵，兵败采石。宋孝宗北伐，兵败宿州。"
+      },
+      {
+        "EventName_A": "铁木真统一蒙古之战",
+        "relation": "包含关系",
+        "EventName_B": "十三翼之战",
+        "evidence": "铁木真称汗后，便与蒙古札只刺部长札木合发生冲突。1189年，即结约13个部落，起兵马3万，西征铁木真汗。\n铁木真统一蒙古之战包含十三翼之战等多次战役"
+      },
+      {
+        "EventName_A": "郾城之战",
+        "relation": "顺承关系",
+        "EventName_B": "颖昌之战",
+        "evidence": "不久，宗弼又倾其全力进攻临颖。"
+      },
+      {
+        "EventName_A": "十三翼之战",
+        "relation": "包含关系",
+        "EventName_B": "铁木真统一蒙古之战",
+        "evidence": "十三翼之战是铁木真统一蒙古之战的一部分"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1816 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "成皋",
+        "modern_name": "河南荣阳汜水镇",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "荥阳市",
+        "Specific_location": null,
+        "source_text": "东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "geo_name": "荣阳",
+        "modern_name": "河南郑州西",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "geo_name": "河外",
+        "modern_name": "山西西南部、黄河以西以北地区",
+        "DynastyName": "战国",
+        "Province": "山西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。"
+      },
+      {
+        "geo_name": "函谷关",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "三门峡市",
+        "District_County": "灵宝市",
+        "Specific_location": null,
+        "source_text": "五国联军追击函谷关而还。"
+      },
+      {
+        "geo_name": "阙与",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "山西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "geo_name": "撩阳",
+        "modern_name": "山西左权",
+        "DynastyName": "战国",
+        "Province": "山西省",
+        "City": "晋中市",
+        "District_County": "左权县",
+        "Specific_location": null,
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "geo_name": "邺",
+        "modern_name": "河北磁县南邺镇",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "磁县",
+        "Specific_location": null,
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "geo_name": "安阳",
+        "modern_name": "河南安阳西南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "geo_name": "平阳",
+        "modern_name": "河北磁县东南",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "磁县",
+        "Specific_location": null,
+        "source_text": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。"
+      },
+      {
+        "geo_name": "上党",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "山西省",
+        "City": "长治市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "geo_name": "赤丽",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "geo_name": "宜安",
+        "modern_name": "河南城南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "geo_name": "肥",
+        "modern_name": "河北晋县西",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "晋州市",
+        "Specific_location": null,
+        "source_text": "双方在肥（河北晋县西）展开激战，秦军大败。"
+      },
+      {
+        "geo_name": "番吾",
+        "modern_name": "河北寿南",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击。"
+      },
+      {
+        "geo_name": "井陉",
+        "modern_name": "河北井陉西北",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "井陉县",
+        "Specific_location": null,
+        "source_text": "自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断。"
+      },
+      {
+        "geo_name": "邯郸",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "秦军攻占邯郸，俘赵王迁。"
+      },
+      {
+        "geo_name": "南阳郡",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。"
+      },
+      {
+        "geo_name": "南郑",
+        "modern_name": "韩都，河南新郑",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "新郑市",
+        "Specific_location": null,
+        "source_text": "内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "geo_name": "易水",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "秦灭赵后，兵临易水，将欲攻燕。"
+      },
+      {
+        "geo_name": "督元",
+        "modern_name": "河北来水、涿县、固安地区",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元（河北来水、涿县、固安地区）地图，以献地求和为名，行刺秦王，不遂被杀。"
+      },
+      {
+        "geo_name": "蓟城",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王翦率部继续北进，攻占燕都蓟城。"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "辽宁省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "燕王及太子丹率兵退至辽东。"
+      },
+      {
+        "geo_name": "大梁",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王贲围攻魏都大梁。"
+      },
+      {
+        "geo_name": "陈邑",
+        "modern_name": "河南淮阳县",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "淮阳区",
+        "Specific_location": null,
+        "source_text": "以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进。"
+      },
+      {
+        "geo_name": "商水",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "商水县",
+        "Specific_location": null,
+        "source_text": "以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进。"
+      },
+      {
+        "geo_name": "舞阳",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "舞阳县",
+        "Specific_location": null,
+        "source_text": "自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进。"
+      },
+      {
+        "geo_name": "平舆",
+        "modern_name": "河南汝南县",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "驻马店市",
+        "District_County": "汝南县",
+        "Specific_location": null,
+        "source_text": "自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进。"
+      },
+      {
+        "geo_name": "新蔡",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "驻马店市",
+        "District_County": "新蔡县",
+        "Specific_location": null,
+        "source_text": "自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进。"
+      },
+      {
+        "geo_name": "颖邑",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进。"
+      },
+      {
+        "geo_name": "城父",
+        "modern_name": "安徽太和县",
+        "DynastyName": "战国",
+        "Province": "安徽省",
+        "City": "阜阳市",
+        "District_County": "太和县",
+        "Specific_location": null,
+        "source_text": "期与蒙武军会师城父（安徽太和县）。"
+      },
+      {
+        "geo_name": "寿春",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": "安徽省",
+        "City": "淮南市",
+        "District_County": "寿县",
+        "Specific_location": null,
+        "source_text": "把主力荫蔽集中于寿春以北的淮河北岸地区。"
+      },
+      {
+        "geo_name": "淮河",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "北岸",
+        "source_text": "把主力荫蔽集中于寿春以北的淮河北岸地区。"
+      },
+      {
+        "geo_name": "阙",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "geo_name": "城父",
+        "modern_name": null,
+        "DynastyName": "秦",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "秦军",
+        "OrgType": "军队",
+        "DynastyName": "战国",
+        "source_text": "秦军寡不敌众，战败退走，五国联军追击函谷关而还。\n公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "OrgName": "五国联军",
+        "OrgType": "联盟",
+        "DynastyName": "战国",
+        "source_text": "在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。"
+      },
+      {
+        "OrgName": "魏",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏信陵君率领的魏、赵、韩、楚、燕五国联军"
+      },
+      {
+        "OrgName": "赵",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏信陵君率领的魏、赵、韩、楚、燕五国联军"
+      },
+      {
+        "OrgName": "韩",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏信陵君率领的魏、赵、韩、楚、燕五国联军"
+      },
+      {
+        "OrgName": "楚",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏信陵君率领的魏、赵、韩、楚、燕五国联军"
+      },
+      {
+        "OrgName": "燕",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏信陵君率领的魏、赵、韩、楚、燕五国联军"
+      },
+      {
+        "OrgName": "赵军",
+        "OrgType": "军队",
+        "DynastyName": "战国",
+        "source_text": "赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "OrgName": "匈奴",
+        "OrgType": "部落",
+        "DynastyName": "战国",
+        "source_text": "李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。"
+      },
+      {
+        "OrgName": "秦",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "秦在河外受挫，但主力并未受很大损伤，所以第二年即转入新的进攻。"
+      },
+      {
+        "OrgName": "齐",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "交好齐国，先灭韩、魏、赵，断山东六国合纵之脊。"
+      },
+      {
+        "OrgName": "山东六国",
+        "OrgType": "联盟",
+        "DynastyName": "战国",
+        "source_text": "断山东六国合纵之脊"
+      },
+      {
+        "OrgName": "韩国",
+        "OrgType": "军事势力",
+        "DynastyName": "战国",
+        "source_text": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "OrgName": "韩军",
+        "OrgType": "军事势力",
+        "DynastyName": "战国",
+        "source_text": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "OrgName": "燕军",
+        "OrgType": "军事势力",
+        "DynastyName": "战国",
+        "source_text": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "OrgName": "魏军",
+        "OrgType": "军事势力",
+        "DynastyName": "战国",
+        "source_text": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "OrgName": "楚军",
+        "OrgType": "军事势力",
+        "DynastyName": "秦",
+        "source_text": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "蒙恬",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "率兵东进，灭亡东周，攻占韩国成皋、荣阳。",
+        "source_text": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "PersonName": "信陵君",
+        "DynastyName": "战国",
+        "OrgName": "魏",
+        "Role": "统帅",
+        "Note": "率领五国联军在河外击败秦军。",
+        "source_text": "在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。"
+      },
+      {
+        "PersonName": "秦王赢政",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "君主",
+        "Note": "秦王政新政后，任用李斯为相，重用王翦父子和蒙武父子等将领，坚持远交近攻战略，推进统一战争。",
+        "source_text": "公元前238年秦王赢政新政后，任用李斯为相，重用王翦父子和蒙武父子等能征善战的将领，坚持“远交近攻”的战略。"
+      },
+      {
+        "PersonName": "李斯",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "谋士",
+        "Note": "被秦王政任用为相，参与统一战争谋划。",
+        "source_text": "公元前238年秦王赢政新政后，任用李斯为相。"
+      },
+      {
+        "PersonName": "王翦",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "统帅",
+        "Note": "率军攻赵、攻燕、攻楚，为秦统一六国的主要将领。",
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳等10余城。"
+      },
+      {
+        "PersonName": "桓",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "率军攻赵，在肥之战中战败，畏罪逃奔燕国。",
+        "source_text": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。"
+      },
+      {
+        "PersonName": "杨端和",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "率军攻赵，夺取赵阙与、撩阳等城。",
+        "source_text": "命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "PersonName": "扈辄",
+        "DynastyName": "战国",
+        "OrgName": "赵",
+        "Role": "将领",
+        "Note": "赵将，在平阳之战中被秦军杀死。",
+        "source_text": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。"
+      },
+      {
+        "PersonName": "李牧",
+        "DynastyName": "战国",
+        "OrgName": "赵",
+        "Role": "统帅",
+        "Note": "战国名将，曾歼灭匈奴10余万骑，多次击败秦军，后遭反间计被杀。",
+        "source_text": "李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。"
+      },
+      {
+        "PersonName": "赵王迁",
+        "DynastyName": "战国",
+        "OrgName": "赵",
+        "Role": "君主",
+        "Note": "赵王，被秦军俘虏，赵亡。",
+        "source_text": "10月，秦军攻占邯郸，俘赵王迁。"
+      },
+      {
+        "PersonName": "韩王安",
+        "DynastyName": "战国",
+        "OrgName": "韩",
+        "Role": "君主",
+        "Note": "韩王，向秦请降，后为秦所俘，韩国亡。",
+        "source_text": "韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。"
+      },
+      {
+        "PersonName": "内使腾",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "秦将，任南阳郡守，奉命攻韩，俘韩王安。",
+        "source_text": "内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "PersonName": "燕太子丹",
+        "DynastyName": "战国",
+        "OrgName": "燕",
+        "Role": "君主",
+        "Note": "燕太子，派荆轲刺秦王，后燕王杀其求和。",
+        "source_text": "燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。"
+      },
+      {
+        "PersonName": "荆轲",
+        "DynastyName": "战国",
+        "OrgName": "燕",
+        "Role": "使者",
+        "Note": "燕国使者，行刺秦王未遂被杀。",
+        "source_text": "燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。"
+      },
+      {
+        "PersonName": "王贲",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "统帅",
+        "Note": "王翦之子，率军灭魏。",
+        "source_text": "秦王命王翦之子王责率军灭魏。"
+      },
+      {
+        "PersonName": "魏王假",
+        "DynastyName": "战国",
+        "OrgName": "魏",
+        "Role": "君主",
+        "Note": "魏王，城破出降，被王贲斩杀。",
+        "source_text": "3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "PersonName": "李信",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "秦将，率军20万伐楚，被楚将项燕击败。",
+        "source_text": "遣李信、蒙武率军20万伐楚。"
+      },
+      {
+        "PersonName": "蒙武",
+        "DynastyName": "战国",
+        "OrgName": "秦",
+        "Role": "将领",
+        "Note": "秦将，率军伐楚，与李信分路进攻。",
+        "source_text": "遣李信、蒙武率军20万伐楚。"
+      },
+      {
+        "PersonName": "项燕",
+        "DynastyName": "战国",
+        "OrgName": "楚",
+        "Role": "统帅",
+        "Note": "楚将，采取大纵深机动防御战略，大破秦军。",
+        "source_text": "楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区。"
+      },
+      {
+        "PersonName": "燕王",
+        "DynastyName": "战国",
+        "OrgName": null,
+        "Role": "关键人物",
+        "Note": null,
+        "source_text": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "PersonName": "太子丹",
+        "DynastyName": "战国",
+        "OrgName": null,
+        "Role": "关键人物",
+        "Note": null,
+        "source_text": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "EventType": "统一战争",
+        "StartDate": "不详",
+        "EndDate": "不详",
+        "DynastyName": "战国",
+        "Place": "成皋、荣阳",
+        "Aggressor": "秦军",
+        "Defender": "东周、韩国",
+        "Allies": null,
+        "Result": "秦军获胜，灭亡东周，攻占韩国成皋、荣阳",
+        "Commanders": "蒙恬",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "成皋、荣阳地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦灭东周，削弱韩国，为统一战争奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "河外之战",
+            "evidence": "公元前247年，正当秦军继续向东扩张时，在河外遭到五国联军攻击"
+          }
+        ],
+        "source_text": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "EventType": "联军讨伐",
+        "StartDate": "前247年",
+        "EndDate": "前247年",
+        "DynastyName": "战国",
+        "Place": "河外、函谷关",
+        "Aggressor": "五国联军",
+        "Defender": "秦军",
+        "Allies": null,
+        "Result": "五国联军获胜，秦军败退，联军追击至函谷关而还",
+        "Commanders": "信陵君",
+        "KeyPersons": null,
+        "Action": "交战、追击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河外地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦军受挫，但主力未受大损，次年即转入新进攻",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "秦攻赵之战",
+            "evidence": "秦在河外受挫，但主力并未受很大损伤，所以第二年即转入新的进攻。相反这时赵国变弱而六国俱衰，故在此后的36年中，便一一为秦所吞灭。"
+          }
+        ],
+        "source_text": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "EventType": "统一战争",
+        "StartDate": "前236年",
+        "EndDate": "前236年",
+        "DynastyName": "战国",
+        "Place": "阙与、撩阳、邺、安阳",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "秦军攻占赵十余城，战事暂呈相持局面",
+        "Commanders": "王翦、桓、杨端和",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "赵国西部边境",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦夺取赵地十余城，削弱赵国，为后续灭赵奠定基础",
+        "Remark": "",
+        "relations": [],
+        "source_text": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "平阳之战",
+        "EventType": "统一战争",
+        "StartDate": "前234年",
+        "EndDate": "前234年",
+        "DynastyName": "战国",
+        "Place": "平阳",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "秦军获胜，赵军大败，赵将扈辄被杀",
+        "Commanders": "桓、扈辄",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "平阳",
+        "Casualties": "赵军10万",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦军歼灭赵军主力，为后续攻赵创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "肥之战",
+            "evidence": "接着，挥军出上党，越太行山占赵赤丽、宜安两地，双方在肥展开激战"
+          }
+        ],
+        "source_text": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "肥之战",
+        "EventType": "统一战争",
+        "StartDate": "前234年",
+        "EndDate": "前234年",
+        "DynastyName": "战国",
+        "Place": "肥",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "赵军获胜，秦军大败，桓龄畏罪逃奔燕国",
+        "Commanders": "李牧、桓",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "肥",
+        "Casualties": "秦军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "李牧击败秦军，暂时缓解了秦军对赵都邯郸的威胁",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "番吾之战",
+            "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾"
+          }
+        ],
+        "source_text": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "番吾之战",
+        "EventType": "统一战争",
+        "StartDate": "前233年",
+        "EndDate": "前233年",
+        "DynastyName": "战国",
+        "Place": "番吾",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "赵军获胜，秦军被李牧打败",
+        "Commanders": "李牧",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "番吾",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "李牧再次击败秦军，但赵军损失惨重，无力反击，只能退守邯郸自保",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平阳之战",
+            "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾"
+          }
+        ],
+        "source_text": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "井陉之战",
+        "EventType": "统一战争",
+        "StartDate": "前232年",
+        "EndDate": "前232年",
+        "DynastyName": "战国",
+        "Place": "井陉",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "秦军受阻还师",
+        "Commanders": "王翦、李牧",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "井陉地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦军未能突破井陉，赵军暂时保住邯郸",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "秦灭赵之战",
+            "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+          }
+        ],
+        "source_text": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "EventType": "统一战争",
+        "StartDate": "前229年",
+        "EndDate": "前228年",
+        "DynastyName": "战国",
+        "Place": "邯郸、井陉",
+        "Aggressor": "秦军",
+        "Defender": "赵军",
+        "Allies": null,
+        "Result": "秦军攻占邯郸，俘赵王迁，赵亡",
+        "Commanders": "王翦、李牧、赵葱、颜聚",
+        "KeyPersons": "郭开",
+        "Action": "攻伐、守御、反间",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "赵国全境",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "赵国灭亡，秦设邯郸郡",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "井陉之战",
+            "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。"
+          },
+          {
+            "type": "因果关系",
+            "to": "秦灭韩之战",
+            "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。"
+          }
+        ],
+        "source_text": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "EventType": "统一战争",
+        "StartDate": "前230年",
+        "EndDate": "前230年",
+        "DynastyName": "战国",
+        "Place": "南郑",
+        "Aggressor": "秦军",
+        "Defender": "韩军",
+        "Allies": null,
+        "Result": "秦军攻占南郑，俘韩王安，韩亡",
+        "Commanders": "内使腾",
+        "KeyPersons": "韩王安",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "韩国全境",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "韩国灭亡，秦占领全部韩国领土",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "秦灭赵之战",
+            "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+          }
+        ],
+        "source_text": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "EventType": "统一战争",
+        "StartDate": "前227年",
+        "EndDate": "前227年",
+        "DynastyName": "战国",
+        "Place": "易水",
+        "Aggressor": "秦军",
+        "Defender": "燕军",
+        "Allies": null,
+        "Result": "秦军大破燕军",
+        "Commanders": "王翦、辛胜",
+        "KeyPersons": "燕太子丹、荆轲",
+        "Action": "交战、迂回、包围",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "易水流域",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦军击败燕军主力，为攻占燕都蓟城奠定基础",
+        "Remark": "燕太子丹派荆轲行刺秦王未遂，秦军随即攻燕",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "秦灭燕之战",
+            "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城"
+          }
+        ],
+        "source_text": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "EventType": "统一战争",
+        "StartDate": "前226年",
+        "EndDate": "前226年",
+        "DynastyName": "战国",
+        "Place": "蓟城、辽东",
+        "Aggressor": "秦军",
+        "Defender": "燕军",
+        "Allies": null,
+        "Result": "秦军攻占燕都蓟城，燕王退至辽东",
+        "Commanders": "王翦",
+        "KeyPersons": "燕王、太子丹",
+        "Action": "攻占、追击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "燕国全境",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "燕国灭亡，秦统一北方",
+        "Remark": "燕王杀太子丹求和，秦军暂停进攻",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "秦灭魏之战",
+            "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。"
+          }
+        ],
+        "source_text": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "EventType": "统一战争",
+        "StartDate": "前225年",
+        "EndDate": "前225年",
+        "DynastyName": "战国",
+        "Place": "大梁",
+        "Aggressor": "秦军",
+        "Defender": "魏军",
+        "Allies": null,
+        "Result": "秦军攻占大梁，魏王假出降，魏国灭亡",
+        "Commanders": "王贲",
+        "KeyPersons": "魏王假",
+        "Action": "围攻、水攻",
+        "TroopSize": "不详",
+        "Duration": "3个月",
+        "GeographicScope": "魏国都城大梁",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国灭亡，秦统一中原",
+        "Remark": "王贲决黄河和大沟之水灌城",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "秦灭楚之战",
+            "evidence": "三晋既灭，中原北部局势全定，秦即展开灭楚之战。"
+          }
+        ],
+        "source_text": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "EventType": "统一战争",
+        "StartDate": "前225年",
+        "EndDate": "前225年",
+        "DynastyName": "秦",
+        "Place": "城父",
+        "Aggressor": "秦军",
+        "Defender": "楚军",
+        "Allies": null,
+        "Result": "楚军大破秦军",
+        "Commanders": "李信、蒙武、项燕",
+        "KeyPersons": null,
+        "Action": "攻伐、反攻",
+        "TroopSize": "秦军二十万",
+        "Duration": "不详",
+        "GeographicScope": "汝水、陈邑、商水、舞阳、平舆、新蔡、颖邑、城父、淮河",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "秦军首次攻楚失败，楚国暂时得以保全，但秦统一趋势未变。",
+        "Remark": "秦王不听王翦建议，以二十万军伐楚，遭项燕大破。",
+        "relations": [],
+        "source_text": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "主战场",
+        "modern_name": "成皋",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "主战场",
+        "modern_name": "荣阳",
+        "evidence": "东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "主战场",
+        "modern_name": "河外",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "目的地",
+        "modern_name": "函谷关",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "主战场",
+        "modern_name": "阙与",
+        "evidence": "夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "主战场",
+        "modern_name": "撩阳",
+        "evidence": "夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "主战场",
+        "modern_name": "邺",
+        "evidence": "夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "主战场",
+        "modern_name": "安阳",
+        "evidence": "夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "主战场",
+        "modern_name": "平阳",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "途经地",
+        "modern_name": "上党",
+        "evidence": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "主战场",
+        "modern_name": "赤丽",
+        "evidence": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "主战场",
+        "modern_name": "宜安",
+        "evidence": "接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "主战场",
+        "modern_name": "肥",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "主战场",
+        "modern_name": "番吾",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "主战场",
+        "modern_name": "井陉",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "主战场",
+        "modern_name": "邯郸",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "主战场",
+        "modern_name": "井陉",
+        "evidence": "自率主力出井陉。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "主战场",
+        "modern_name": "南郑",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "主战场",
+        "modern_name": "易水",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "主战场",
+        "modern_name": "蓟城",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "目的地",
+        "modern_name": "辽东",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "主战场",
+        "modern_name": "大梁",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "主战场",
+        "modern_name": "城父",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "次要战场",
+        "modern_name": "荣阳",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "次要战场",
+        "modern_name": "函谷关",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "主战场",
+        "modern_name": "阙",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "次要战场",
+        "modern_name": "撩阳",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "次要战场",
+        "modern_name": "邺",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "次要战场",
+        "modern_name": "安阳",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "目的地",
+        "modern_name": "平阳",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "目的地",
+        "modern_name": "番吾",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "目的地",
+        "modern_name": "邯郸",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "次要战场",
+        "modern_name": "井陉",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "目的地",
+        "modern_name": "南郑",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "出发地",
+        "modern_name": "易水",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "驻防地",
+        "modern_name": "易水",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "次要战场",
+        "modern_name": "辽东",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "战略要地",
+        "modern_name": "城父",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "防守方",
+        "OrgName": "韩国",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "发起方",
+        "OrgName": "五国联军",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "防守方",
+        "OrgName": "秦军",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "防守方",
+        "OrgName": "赵军",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "防守方",
+        "OrgName": "韩军",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "防守方",
+        "OrgName": "燕军",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "防守方",
+        "OrgName": "燕军",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "防守方",
+        "OrgName": "魏军",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "发起方",
+        "OrgName": "秦军",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "防守方",
+        "OrgName": "楚军",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "统帅",
+        "PersonName": "蒙恬",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "统帅",
+        "PersonName": "信陵君",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "统帅",
+        "PersonName": "王翦",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "将领",
+        "PersonName": "桓",
+        "evidence": "命王翦、桓、杨端和率大军分两路攻赵。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "将领",
+        "PersonName": "杨端和",
+        "evidence": "命王翦、桓、杨端和率大军分两路攻赵。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "统帅",
+        "PersonName": "桓",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "阵亡",
+        "PersonName": "扈辄",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "统帅",
+        "PersonName": "李牧",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "将领",
+        "PersonName": "桓",
+        "evidence": "秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "统帅",
+        "PersonName": "李牧",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "统帅",
+        "PersonName": "王翦",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "统帅",
+        "PersonName": "李牧",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "统帅",
+        "PersonName": "王翦",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "统帅",
+        "PersonName": "李牧",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "将领",
+        "PersonName": "赵葱",
+        "evidence": "用赵葱和颜聚代李牧、司马尚。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "将领",
+        "PersonName": "颜聚",
+        "evidence": "用赵葱和颜聚代李牧、司马尚。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "谋士",
+        "PersonName": "郭开",
+        "evidence": "乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "俘虏",
+        "PersonName": "赵王迁",
+        "evidence": "俘赵王迁。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "统帅",
+        "PersonName": "内使腾",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "俘虏",
+        "PersonName": "韩王安",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "统帅",
+        "PersonName": "王翦",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "将领",
+        "PersonName": "辛胜",
+        "evidence": "秦王派王剪，辛胜率军攻燕。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "使者",
+        "PersonName": "荆轲",
+        "evidence": "燕太子丹派荆轲为使者。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "参与者",
+        "PersonName": "燕太子丹",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "统帅",
+        "PersonName": "王翦",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "君主",
+        "PersonName": "燕王",
+        "evidence": "燕王及太子丹率兵退至辽东。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "参与者",
+        "PersonName": "太子丹",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "统帅",
+        "PersonName": "王贲",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "俘虏",
+        "PersonName": "魏王假",
+        "evidence": "魏王假出降，王责将其斩杀。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "统帅",
+        "PersonName": "李信",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "将领",
+        "PersonName": "蒙武",
+        "evidence": "李信、蒙武率军20万伐楚。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "统帅",
+        "PersonName": "项燕",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "EventName": "蒙恬东进灭东周攻韩",
+        "relation": "将领",
+        "PersonName": "蒙恬",
+        "evidence": "蒙恬率兵东进，灭亡东周，并攻占韩国成皋（河南荣阳汜水镇）、荣阳（河南郑州西）。"
+      },
+      {
+        "EventName": "河外之战",
+        "relation": "君主",
+        "PersonName": "信陵君",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外（山西西南部、黄河以西以北地区）遭到魏信陵君率领的魏、赵、韩、楚、燕五国联军的攻击。秦军寡不敌众，战败退走，五国联军追击函谷关而还。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "君主",
+        "PersonName": "王翦",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "统帅",
+        "PersonName": "桓",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "秦攻赵之战",
+        "relation": "统帅",
+        "PersonName": "杨端",
+        "evidence": "公元前236年，秦王政乘燕、赵交兵，赵后方空虚之际，命王翦、桓、杨端和率大军分两路攻赵，夺取赵阙与、撩阳（山西左权）、邺（河北磁县南邺镇）、安阳（河南安阳西南）等10余城。赵军守城据险，避免决战，战事暂呈相持局面。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "统帅",
+        "PersonName": "扈辄",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "平阳之战",
+        "relation": "将领",
+        "PersonName": "扈辄",
+        "evidence": "公元前234年，桓攻平阳（河北磁县东南），歼灭赵军10万，杀赵将扈辄。接着，挥军出上党，越太行山占赵赤丽、宜安（河南城南）两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "将领",
+        "PersonName": "李牧",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "肥之战",
+        "relation": "统帅",
+        "PersonName": "桓",
+        "evidence": "为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。李牧系战国名将，曾歼灭匈奴10余万骑，使匈奴十几年来不敢侵犯赵边。这次所率之军，均系边防精锐，当此生死存亡之际，赵军皆欲决一死战，双方在肥（河北晋县西）展开激战，秦军大败。桓龄不敢回秦，畏罪逃奔燕国。"
+      },
+      {
+        "EventName": "番吾之战",
+        "relation": "将领",
+        "PersonName": "李牧",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾（河北寿南），赵将李牧率军抗击，经过激战，秦军又被李牧打败。李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。"
+      },
+      {
+        "EventName": "井陉之战",
+        "relation": "君主",
+        "PersonName": "王翦",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "君主",
+        "PersonName": "王翦",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭赵之战",
+        "relation": "阵亡",
+        "PersonName": "李牧",
+        "evidence": "公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。秦军多次受挫于李牧，乃用重金买赵王宠臣郭开，造谣李牧与司马尚谋反。赵王中反间计，用赵葱和颜聚代李牧、司马尚，并杀李牧。次年3月，王翦开始进攻，大破赵军，杀赵葱，颜聚逃跑。10月，秦军攻占邯郸，俘赵王迁。秦在原赵地设邯郸郡，赵亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "使者",
+        "PersonName": "内使腾",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "秦灭韩之战",
+        "relation": "参与者",
+        "PersonName": "韩王安",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "君主",
+        "PersonName": "王翦",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "易水之战",
+        "relation": "参与者",
+        "PersonName": "荆轲",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。燕太子丹派荆轲为使者携带秦国逃将桓龄之首和燕国督元地图，以献地求和为名，行刺秦王，不遂被杀。公元前227年，秦王派王剪，辛胜率军攻燕。燕军防守易水正面，王翦以主力军从易水上游实施迂回，包围燕军右翼，战于易水之西，大破燕军。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "君主",
+        "PersonName": "王翦",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "参与者",
+        "PersonName": "燕王",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭燕之战",
+        "relation": "阵亡",
+        "PersonName": "太子丹",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。燕王及太子丹率兵退至辽东。秦军追击，燕王杀太子丹求和，秦军暂停进攻。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "君主",
+        "PersonName": "王贲",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦灭魏之战",
+        "relation": "参与者",
+        "PersonName": "魏王假",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。公元前225年，王贲围攻魏都大梁。魏军坚城固守，不易攻克，王贲决黄河和大沟之水灌城。3月，城破，魏王假出降，王责将其斩杀，魏国灭亡。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "统帅",
+        "PersonName": "蒙武",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      },
+      {
+        "EventName": "秦楚之战",
+        "relation": "将领",
+        "PersonName": "项燕",
+        "evidence": "公元前225年，秦王不听王剪以60万军全力攻楚的建议，遣李信、蒙武率军20万伐楚。是年春，李信采取两翼钳形攻势的战略，企图包围歼灭楚军。以蒙武率一部兵力沿汝水两岸向陈邑（河南淮阳县）、商水前进；自率主力军向汝水以南地区迂回，经舞阳、平舆（河南汝南县）新蔡之道向颖邑前进，期与蒙武军会师城父（安徽太和县）。此时，楚将项燕采取大纵深机动防御的战略，以少数兵力分散配置于边界各要点监视秦军，把主力荫蔽集中于寿春以北的淮河北岸地区，准备在秦军深入前进纷乱之际予以迎击。所以两路秦军前进后，均未遇楚军重大抵抗，乃轻兵东进，形成孤军深入，前后分离的状态。项燕适时抓住战机，以主力反攻，大破秦军。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "河外之战",
+        "relation": "并列关系",
+        "EventName_B": "秦攻赵之战",
+        "evidence": "秦在河外受挫，但主力并未受很大损伤，所以第二年即转入新的进攻。相反这时赵国变弱而六国俱衰，故在此后的36年中，便一一为秦所吞灭。"
+      },
+      {
+        "EventName_A": "平阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦攻赵之战",
+        "evidence": "赵军守城据险，避免决战，战事暂呈相持局面。公元前234年，桓攻平阳。"
+      },
+      {
+        "EventName_A": "平阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "肥之战",
+        "evidence": "接着，挥军出上党，越太行山占赵赤丽、宜安两地。此时秦军深人赵国后方，已形成包围赵都邯郸的局势。为此，赵王从北方边防调回防御匈奴的大将李牧以抗秦。\n接着，挥军出上党，越太行山占赵赤丽、宜安两地，双方在肥展开激战"
+      },
+      {
+        "EventName_A": "番吾之战",
+        "relation": "顺承关系",
+        "EventName_B": "肥之战",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾。"
+      },
+      {
+        "EventName_A": "井陉之战",
+        "relation": "顺承关系",
+        "EventName_B": "番吾之战",
+        "evidence": "李牧虽屡胜秦军，但经过多次交战，赵军损失惨重，实力已尽，无力反击，仅能退守邯郸，暂时自保。公元前232年，王剪改变战法。"
+      },
+      {
+        "EventName_A": "井陉之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭赵之战",
+        "evidence": "公元前232年，王剪改变战法，以一部兵力袭扰邯郸，自率主力由上党出井降（河北井陉西北），企图将赵拦腰截断，因李牧预有防备，受阻还师。\n公元前229年，王翦乘赵地饥荒，再次遣军围邯郸，自率主力出井陉。"
+      },
+      {
+        "EventName_A": "秦灭赵之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭韩之战",
+        "evidence": "在秦倾全力攻赵时，韩王安震于秦之威，于公元前233年纳地献玺向秦请降，称为藩臣。公元前230年，在秦军威逼下，韩被迫把南阳郡献给秦，秦国派内使腾为南阳郡守。次年，内使腾奉命攻韩，取南郑（韩都，河南新郑），俘韩王安，占领全部领土，韩国亡。"
+      },
+      {
+        "EventName_A": "易水之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭赵之战",
+        "evidence": "秦灭赵后，兵临易水，将欲攻燕。"
+      },
+      {
+        "EventName_A": "易水之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭燕之战",
+        "evidence": "次年10月，王翦率部继续北进，攻占燕都蓟城。"
+      },
+      {
+        "EventName_A": "秦灭燕之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭魏之战",
+        "evidence": "秦灭赵破燕后，转其兵锋伐楚。因赵地与中原之间尚有魏国相隔，为转用兵力之便，秦王命王翦之子王责率军灭魏。"
+      },
+      {
+        "EventName_A": "秦楚之战",
+        "relation": "顺承关系",
+        "EventName_B": "秦灭魏之战",
+        "evidence": "三晋既灭，中原北部局势全定，秦即展开灭楚之战。"
+      },
+      {
+        "EventName_A": "河外之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙恬东进灭东周攻韩",
+        "evidence": "公元前247年，正当秦军继续向东扩张时，在河外遭到五国联军攻击"
+      },
+      {
+        "EventName_A": "平阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "番吾之战",
+        "evidence": "秦军在肥战败后，次年，又派大军两路攻赵，进至番吾"
+      }
+    ]
+  }
+}

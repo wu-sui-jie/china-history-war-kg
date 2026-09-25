@@ -1,0 +1,1985 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "白石江",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "渡过白石江，俘获元军司徒平章达里麻以下2万人"
+      },
+      {
+        "geo_name": "曲靖",
+        "modern_name": "曲靖市",
+        "DynastyName": "明",
+        "Province": "云南省",
+        "City": "曲靖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领云南东部门户曲靖"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": "昆明市",
+        "DynastyName": "明",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "梁王逃离昆明自杀"
+      },
+      {
+        "geo_name": "板桥",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": "昆明东",
+        "source_text": "明军进抵板桥（昆明东）"
+      },
+      {
+        "geo_name": "赤水河",
+        "modern_name": "赤水河",
+        "DynastyName": "明",
+        "Province": "贵州省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "郭英率军到达赤水河"
+      },
+      {
+        "geo_name": "乌撒",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "贵州省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进占乌撒"
+      },
+      {
+        "geo_name": "七星关",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "贵州省",
+        "City": "毕节市",
+        "District_County": null,
+        "Specific_location": "毕节西南",
+        "source_text": "克七星关（毕节西南）"
+      },
+      {
+        "geo_name": "毕节",
+        "modern_name": "毕节市",
+        "DynastyName": "明",
+        "Province": "贵州省",
+        "City": "毕节市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直达毕节"
+      },
+      {
+        "geo_name": "大理",
+        "modern_name": "大理市",
+        "DynastyName": "明",
+        "Province": "云南省",
+        "City": "大理白族自治州",
+        "District_County": "大理市",
+        "Specific_location": null,
+        "source_text": "蓝玉、沐英率部攻占大理"
+      },
+      {
+        "geo_name": "大都",
+        "modern_name": "北京市",
+        "DynastyName": "明",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "明军攻占元京大都（北京市）"
+      },
+      {
+        "geo_name": "应昌",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "内蒙古克什克腾旗西达里诺尔",
+        "source_text": "元顺帝退至塞外应昌"
+      },
+      {
+        "geo_name": "捕鱼儿海",
+        "modern_name": "贝尔湖",
+        "DynastyName": "明",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "内蒙古贝尔湖",
+        "source_text": "明军击破北元主于捕鱼儿海"
+      },
+      {
+        "geo_name": "北平",
+        "modern_name": "北京市",
+        "DynastyName": "明",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱棣在北平（北京）援引“祖训”"
+      },
+      {
+        "geo_name": "居庸关",
+        "modern_name": "居庸关",
+        "DynastyName": "明",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "昌平区",
+        "Specific_location": null,
+        "source_text": "连取居庸关、怀来、遵化等地"
+      },
+      {
+        "geo_name": "怀来",
+        "modern_name": "怀来县",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "怀来县",
+        "Specific_location": null,
+        "source_text": "连取居庸关、怀来、遵化等地"
+      },
+      {
+        "geo_name": "遵化",
+        "modern_name": "遵化市",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "唐山市",
+        "District_County": "遵化市",
+        "Specific_location": null,
+        "source_text": "连取居庸关、怀来、遵化等地"
+      },
+      {
+        "geo_name": "真定",
+        "modern_name": "正定县",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "正定县",
+        "Specific_location": null,
+        "source_text": "主力进抵真定（河北正定）"
+      },
+      {
+        "geo_name": "雄县",
+        "modern_name": "雄县",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "雄县",
+        "Specific_location": null,
+        "source_text": "前锋据雄县（属河北）"
+      },
+      {
+        "geo_name": "河间",
+        "modern_name": "河间市",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "河间市",
+        "Specific_location": null,
+        "source_text": "领兵50万进驻河间"
+      },
+      {
+        "geo_name": "大宁",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "内蒙古自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "内蒙古宁城县境",
+        "source_text": "自率主力绕道袭取大宁"
+      },
+      {
+        "geo_name": "郑村坝",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": "北平东20里",
+        "source_text": "回师北平东20里郑村坝"
+      },
+      {
+        "geo_name": "白沟河",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "雄县境",
+        "source_text": "战于白沟河（雄县境）"
+      },
+      {
+        "geo_name": "济南",
+        "modern_name": "济南市",
+        "DynastyName": "明",
+        "Province": "山东省",
+        "City": "济南市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "追至山东济南，久围不克还师"
+      },
+      {
+        "geo_name": "沧州",
+        "modern_name": "沧州市",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在沧州等地，连败盛庸所率第三次北征军"
+      },
+      {
+        "geo_name": "东昌",
+        "modern_name": "聊城市",
+        "DynastyName": "明",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在东昌（山东聊城）遭盛军突袭"
+      },
+      {
+        "geo_name": "夹河",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "河北境内",
+        "source_text": "在夹河、滤沱河（河北境内）地区"
+      },
+      {
+        "geo_name": "滤沱河",
+        "modern_name": "滹沱河",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "河北境内",
+        "source_text": "在夹河、滤沱河（河北境内）地区"
+      },
+      {
+        "geo_name": "济宁",
+        "modern_name": "济宁市",
+        "DynastyName": "明",
+        "Province": "山东省",
+        "City": "济宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连袭济宁（属山东）、沛县（属江苏）"
+      },
+      {
+        "geo_name": "沛县",
+        "modern_name": "沛县",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "徐州市",
+        "District_County": "沛县",
+        "Specific_location": null,
+        "source_text": "连袭济宁（属山东）、沛县（属江苏）"
+      },
+      {
+        "geo_name": "徐州",
+        "modern_name": "徐州市",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "徐州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "绕过徐州"
+      },
+      {
+        "geo_name": "肥河",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "安徽境内",
+        "source_text": "在肥河（安徽境内）设伏"
+      },
+      {
+        "geo_name": "齐眉山",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "安徽灵壁县境",
+        "source_text": "与援盛军战于齐眉山（安徽灵壁县境）"
+      },
+      {
+        "geo_name": "灵壁",
+        "modern_name": "灵璧县",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "宿州市",
+        "District_County": "灵璧县",
+        "Specific_location": null,
+        "source_text": "攻克灵壁"
+      },
+      {
+        "geo_name": "淮河",
+        "modern_name": "淮河",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "挥师南渡淮河"
+      },
+      {
+        "geo_name": "肝眙",
+        "modern_name": "盱眙县",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "淮安市",
+        "District_County": "盱眙县",
+        "Specific_location": null,
+        "source_text": "克肝眙"
+      },
+      {
+        "geo_name": "凤阳",
+        "modern_name": "凤阳县",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "滁州市",
+        "District_County": "凤阳县",
+        "Specific_location": null,
+        "source_text": "避凤阳（属安徽）、淮安（属江苏）两座坚城"
+      },
+      {
+        "geo_name": "淮安",
+        "modern_name": "淮安市",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "淮安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "避凤阳（属安徽）、淮安（属江苏）两座坚城"
+      },
+      {
+        "geo_name": "场州",
+        "modern_name": "扬州市",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直抵场州"
+      },
+      {
+        "geo_name": "长江",
+        "modern_name": "长江",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "渡过长江，进逼京师"
+      },
+      {
+        "geo_name": "京师",
+        "modern_name": "南京市",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进逼京师"
+      },
+      {
+        "geo_name": "金山",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以金山、和林为战略基地"
+      },
+      {
+        "geo_name": "和林",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以金山、和林为战略基地"
+      },
+      {
+        "geo_name": "辽东半岛",
+        "modern_name": "辽东半岛",
+        "DynastyName": "明",
+        "Province": "辽宁省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "仍控制着辽东半岛、黑龙江流域、兴安岭内外"
+      },
+      {
+        "geo_name": "黑龙江流域",
+        "modern_name": "黑龙江流域",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "仍控制着辽东半岛、黑龙江流域、兴安岭内外"
+      },
+      {
+        "geo_name": "兴安岭",
+        "modern_name": "大兴安岭",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "仍控制着辽东半岛、黑龙江流域、兴安岭内外"
+      },
+      {
+        "geo_name": "蒙古高原",
+        "modern_name": "蒙古高原",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以至广表的蒙古高原和西域"
+      },
+      {
+        "geo_name": "西域",
+        "modern_name": "西域",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以至广表的蒙古高原和西域"
+      },
+      {
+        "geo_name": "宣府",
+        "modern_name": "宣化区",
+        "DynastyName": "明",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "宣化区",
+        "Specific_location": null,
+        "source_text": "谷王朱穗镇守宣府（河北宣化）"
+      },
+      {
+        "geo_name": "大同",
+        "modern_name": "大同市",
+        "DynastyName": "明",
+        "Province": "山西省",
+        "City": "大同市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "代王朱桂镇守大同"
+      },
+      {
+        "geo_name": "太原",
+        "modern_name": "太原市",
+        "DynastyName": "明",
+        "Province": "山西省",
+        "City": "太原市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋王朱枫镇守太原"
+      },
+      {
+        "geo_name": "塞北（鞑靼境内）",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "明军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "明军进抵板桥（昆明东）"
+      },
+      {
+        "OrgName": "元军",
+        "OrgType": "中央政权",
+        "DynastyName": "元",
+        "source_text": "俘获元军司徒平章达里麻以下2万人\n英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "OrgName": "北元",
+        "OrgType": "地方势力",
+        "DynastyName": "明",
+        "source_text": "退据和林，史称北元"
+      },
+      {
+        "OrgName": "鞑靼",
+        "OrgType": "部落",
+        "DynastyName": "明",
+        "source_text": "蒙古分裂为鞑靼、瓦刺、兀良哈等部"
+      },
+      {
+        "OrgName": "瓦刺",
+        "OrgType": "部落",
+        "DynastyName": "明",
+        "source_text": "蒙古分裂为鞑靼、瓦刺、兀良哈等部"
+      },
+      {
+        "OrgName": "兀良哈",
+        "OrgType": "部落",
+        "DynastyName": "明",
+        "source_text": "蒙古分裂为鞑靼、瓦刺、兀良哈等部"
+      },
+      {
+        "OrgName": "耿军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "朱棣即乘耿军新至未备，主动出击"
+      },
+      {
+        "OrgName": "李军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "大败李军"
+      },
+      {
+        "OrgName": "盛军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "连败盛庸所率第三次北征军"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "傅友德",
+        "DynastyName": "明",
+        "OrgName": "明军",
+        "Role": "统帅",
+        "Note": "率军进攻云南，与郭英合击元军",
+        "source_text": "与傅友德所率援军，合击元右丞实卜军"
+      },
+      {
+        "PersonName": "蓝玉",
+        "DynastyName": "明",
+        "OrgName": "明军",
+        "Role": "将领",
+        "Note": "率军进攻昆明、大理",
+        "source_text": "遣蓝玉、沐英率军进攻昆明"
+      },
+      {
+        "PersonName": "沐英",
+        "DynastyName": "明",
+        "OrgName": "明军",
+        "Role": "将领",
+        "Note": "率军进攻昆明、大理",
+        "source_text": "遣蓝玉、沐英率军进攻昆明"
+      },
+      {
+        "PersonName": "郭英",
+        "DynastyName": "明",
+        "OrgName": "明军",
+        "Role": "将领",
+        "Note": "率军到达赤水河，与傅友德合击元军",
+        "source_text": "郭英率军到达赤水河"
+      },
+      {
+        "PersonName": "梁王",
+        "DynastyName": "元",
+        "OrgName": "元",
+        "Role": "君主",
+        "Note": "元朝梁王，逃离昆明自杀",
+        "source_text": "梁王逃离昆明自杀\n英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "PersonName": "观音保",
+        "DynastyName": "元",
+        "OrgName": "元",
+        "Role": "将领",
+        "Note": "元右丞，出城投降",
+        "source_text": "元右丞观音保出城投降"
+      },
+      {
+        "PersonName": "实卜",
+        "DynastyName": "元",
+        "OrgName": "元",
+        "Role": "将领",
+        "Note": "元右丞，被明军合击",
+        "source_text": "合击元右丞实卜军"
+      },
+      {
+        "PersonName": "段明",
+        "DynastyName": "元",
+        "OrgName": "大理",
+        "Role": "君主",
+        "Note": "大理首领，其弟段世被俘",
+        "source_text": "俘获其首领段明之弟段世"
+      },
+      {
+        "PersonName": "段世",
+        "DynastyName": "元",
+        "OrgName": "大理",
+        "Role": "将领",
+        "Note": "段明之弟，被俘",
+        "source_text": "俘获其首领段明之弟段世"
+      },
+      {
+        "PersonName": "朱元璋",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "明太祖，统一中国",
+        "source_text": "朱元璋推翻了元朝的统治，统一了中国"
+      },
+      {
+        "PersonName": "朱棣",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "明成祖，发动靖难之役，五征塞北",
+        "source_text": "朱棣在靖难中夺取帝位后，即亲率明军五征塞北"
+      },
+      {
+        "PersonName": "元顺帝",
+        "DynastyName": "元",
+        "OrgName": "元",
+        "Role": "君主",
+        "Note": "元朝末帝，退至应昌",
+        "source_text": "元顺帝退至塞外应昌"
+      },
+      {
+        "PersonName": "爱猷识理达腊",
+        "DynastyName": "元",
+        "OrgName": "北元",
+        "Role": "君主",
+        "Note": "元顺帝之子，继位后退据和林",
+        "source_text": "其子爱猷识理达腊继位"
+      },
+      {
+        "PersonName": "鬼力赤",
+        "DynastyName": "明",
+        "OrgName": "蒙古",
+        "Role": "君主",
+        "Note": "蒙古贵族，杀死元主坤帖木儿，自称可汗",
+        "source_text": "蒙古贵族鬼力赤杀死元主坤帖木儿"
+      },
+      {
+        "PersonName": "坤帖木儿",
+        "DynastyName": "元",
+        "OrgName": "北元",
+        "Role": "君主",
+        "Note": "元主，被鬼力赤杀死",
+        "source_text": "蒙古贵族鬼力赤杀死元主坤帖木儿"
+      },
+      {
+        "PersonName": "朱权",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "宁王，镇守大宁",
+        "source_text": "宁王朱权镇守大宁"
+      },
+      {
+        "PersonName": "朱穗",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "谷王，镇守宣府，后献城投降",
+        "source_text": "谷王朱穗镇守宣府"
+      },
+      {
+        "PersonName": "朱桂",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "代王，镇守大同",
+        "source_text": "代王朱桂镇守大同"
+      },
+      {
+        "PersonName": "朱枫",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "晋王，镇守太原",
+        "source_text": "晋王朱枫镇守太原"
+      },
+      {
+        "PersonName": "朱允",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "建文帝，与朱棣争位",
+        "source_text": "太孙朱允继位"
+      },
+      {
+        "PersonName": "齐泰",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "谋士",
+        "Note": "朝臣，参与削藩",
+        "source_text": "与朝臣齐泰、黄子澄共谋削藩"
+      },
+      {
+        "PersonName": "黄子澄",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "谋士",
+        "Note": "朝臣，参与削藩",
+        "source_text": "与朝臣齐泰、黄子澄共谋削藩"
+      },
+      {
+        "PersonName": "耿炳文",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "长兴侯，征虏大将，率军北征",
+        "source_text": "急令长兴侯耿炳文为征虏大将"
+      },
+      {
+        "PersonName": "潘忠",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "都指挥，被俘",
+        "source_text": "俘都指挥潘忠、杨松"
+      },
+      {
+        "PersonName": "杨松",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "都指挥，被俘",
+        "source_text": "俘都指挥潘忠、杨松"
+      },
+      {
+        "PersonName": "李景隆",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "曹国公，率军北征，后献城投降",
+        "source_text": "命曹国公李景隆为大将"
+      },
+      {
+        "PersonName": "盛庸",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "率军北征，多次与朱棣交战",
+        "source_text": "连败盛庸所率第三次北征军"
+      },
+      {
+        "PersonName": "李远",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "朱棣部将，率骑兵南下袭扰",
+        "source_text": "遣部将李远率6000骑兵南下"
+      },
+      {
+        "PersonName": "丘福",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "淇国公，率军北征鞑靼，全军覆没",
+        "source_text": "命淇国公丘福等率军10万北征鞑靼"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "明军攻取云南之战",
+        "EventType": "统一战争",
+        "StartDate": "1381年",
+        "EndDate": "1382年",
+        "DynastyName": "明",
+        "Place": "白石江、曲靖、昆明、板桥、赤水河、乌撒、七星关、毕节、大理",
+        "Aggressor": "明军",
+        "Defender": "元军",
+        "Allies": null,
+        "Result": "明军获胜，云南全境归附明朝",
+        "Commanders": "傅友德、蓝玉、沐英、郭英",
+        "KeyPersons": "梁王、观音保、实卜、段明、段世",
+        "Action": "攻伐、投降",
+        "TroopSize": "不详",
+        "Duration": "持续约一年",
+        "GeographicScope": "云南地区",
+        "Casualties": "俘获元军2万余人",
+        "source": "《明史》",
+        "Impact": "明朝统一中国，云南纳入明朝版图",
+        "Remark": "",
+        "relations": [],
+        "source_text": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军击破北元于捕鱼儿海之战",
+        "EventType": "对外远征",
+        "StartDate": "1388年",
+        "EndDate": "1388年",
+        "DynastyName": "明",
+        "Place": "捕鱼儿海",
+        "Aggressor": "明军",
+        "Defender": "北元",
+        "Allies": null,
+        "Result": "明军获胜，北元势力渐衰",
+        "Commanders": "不详",
+        "KeyPersons": "脱古思帖木儿",
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "捕鱼儿海地区",
+        "Casualties": "俘其宗室、官属等7万人",
+        "source": "《明史》",
+        "Impact": "北元势力衰落，蒙古分裂为鞑靼、瓦剌、兀良哈等部",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "靖难之役",
+            "evidence": "1388年，明军击破北元主于捕鱼儿海...1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+          }
+        ],
+        "source_text": "1388年，明军击破北元主于捕鱼儿海（内蒙古贝尔湖），俘其宗室、官属等7万人，其势力渐衰。1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+      },
+      {
+        "EventName": "靖难之役",
+        "EventType": "皇位争夺",
+        "StartDate": "1399年",
+        "EndDate": "1402年",
+        "DynastyName": "明",
+        "Place": "北平、居庸关、怀来、遵化、真定、雄县、河间、大宁、郑村坝、白沟河、济南、沧州、东昌、夹河、滤沱河、济宁、沛县、徐州、肥河、齐眉山、灵壁、淮河、肝眙、凤阳、淮安、场州、长江、京师",
+        "Aggressor": "燕王朱棣",
+        "Defender": "建文帝朱允炆",
+        "Allies": null,
+        "Result": "朱棣获胜，即帝位",
+        "Commanders": "朱棣、耿炳文、李景隆、盛庸、李远、丘福",
+        "KeyPersons": "齐泰、黄子澄、朱权、朱穗、朱桂、朱枫、朱允",
+        "Action": "攻伐、守御、伏击、追击、投降",
+        "TroopSize": "双方兵力数十万",
+        "Duration": "持续三年",
+        "GeographicScope": "北平、山东、安徽、江苏等地",
+        "Casualties": "伤亡数万至十余万",
+        "source": "《明史》",
+        "Impact": "朱棣夺取帝位，改元永乐，明朝政治格局改变",
+        "Remark": "亦称靖乱之役",
+        "relations": [],
+        "source_text": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "丘福北征鞑靼之战",
+        "EventType": "对外远征",
+        "StartDate": "1409年7月",
+        "EndDate": "1409年7月",
+        "DynastyName": "明",
+        "Place": "塞北（鞑靼境内）",
+        "Aggressor": "明军",
+        "Defender": "鞑靼",
+        "Allies": null,
+        "Result": "明军全军覆没",
+        "Commanders": "丘福",
+        "KeyPersons": null,
+        "Action": "北征、轻敌冒进、全军覆没",
+        "TroopSize": "十万",
+        "Duration": "不详",
+        "GeographicScope": "塞北（鞑靼境内）",
+        "Casualties": "全军覆没",
+        "source": "《中国历代战争简史》",
+        "Impact": "明军北征鞑靼失败，促使朱棣决意亲征，改变对蒙古战略。",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "白石江",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "曲靖",
+        "evidence": "渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "昆明",
+        "evidence": "遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "板桥",
+        "evidence": "次日，明军进抵板桥（昆明东），元右丞观音保出城投降。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "赤水河",
+        "evidence": "这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "乌撒",
+        "evidence": "这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "七星关",
+        "evidence": "继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "毕节",
+        "evidence": "继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "主战场",
+        "modern_name": "大理",
+        "evidence": "次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。"
+      },
+      {
+        "EventName": "明军击破北元于捕鱼儿海之战",
+        "relation": "主战场",
+        "modern_name": "捕鱼儿海",
+        "evidence": "1388年，明军击破北元主于捕鱼儿海（内蒙古贝尔湖），俘其宗室、官属等7万人，其势力渐衰。1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "北平",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "居庸关",
+        "evidence": "朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "怀来",
+        "evidence": "朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "遵化",
+        "evidence": "朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "真定",
+        "evidence": "朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "雄县",
+        "evidence": "朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "河间",
+        "evidence": "月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "大宁",
+        "evidence": "朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "郑村坝",
+        "evidence": "待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "白沟河",
+        "evidence": "1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "济南",
+        "evidence": "1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "沧州",
+        "evidence": "10月，在沧州等地，连败盛庸所率第三次北征军。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "东昌",
+        "evidence": "12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "夹河",
+        "evidence": "次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "滤沱河",
+        "evidence": "次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "济宁",
+        "evidence": "6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "沛县",
+        "evidence": "6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "徐州",
+        "evidence": "1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "肥河",
+        "evidence": "1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "齐眉山",
+        "evidence": "4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "灵壁",
+        "evidence": "4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "淮河",
+        "evidence": "5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "肝眙",
+        "evidence": "5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "凤阳",
+        "evidence": "5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "淮安",
+        "evidence": "5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "场州",
+        "evidence": "5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "长江",
+        "evidence": "6月，拒绝与朱允炊议和，渡过长江，进逼京师。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "主战场",
+        "modern_name": "京师",
+        "evidence": "6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。"
+      },
+      {
+        "EventName": "丘福北征鞑靼之战",
+        "relation": "主战场",
+        "modern_name": "塞北（鞑靼境内）",
+        "evidence": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "途经地",
+        "modern_name": "白石江",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "曲靖",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "昆明",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "目的地",
+        "modern_name": "昆明",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "板桥",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "赤水河",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "乌撒",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "目的地",
+        "modern_name": "乌撒",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "七星关",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "毕节",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "次要战场",
+        "modern_name": "大理",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "目的地",
+        "modern_name": "北平",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "驻防地",
+        "modern_name": "北平",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "北平",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "居庸关",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "目的地",
+        "modern_name": "居庸关",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "居庸关",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "怀来",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "怀来",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "遵化",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "遵化",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "真定",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "目的地",
+        "modern_name": "真定",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "真定",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "雄县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "驻防地",
+        "modern_name": "雄县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "战略要地",
+        "modern_name": "雄县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "雄县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "河间",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "驻防地",
+        "modern_name": "河间",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "河间",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "大宁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "目的地",
+        "modern_name": "大宁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "大宁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "郑村坝",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "郑村坝",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "白沟河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "白沟河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "济南",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "济南",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "沧州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "沧州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "东昌",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "东昌",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "夹河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "夹河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "滤沱河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "滤沱河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "济宁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "济宁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "沛县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "沛县",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "徐州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "途经地",
+        "modern_name": "徐州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "徐州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "肥河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "肥河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "齐眉山",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "齐眉山",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "灵壁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "灵壁",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "淮河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "淮河",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "肝眙",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "肝眙",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "凤阳",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "凤阳",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "淮安",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "淮安",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "场州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "场州",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "长江",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "途经地",
+        "modern_name": "长江",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "长江",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "次要战场",
+        "modern_name": "京师",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "议和地点",
+        "modern_name": "京师",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "防守方",
+        "OrgName": "元军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军击破北元于捕鱼儿海之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1388年，明军击破北元主于捕鱼儿海（内蒙古贝尔湖），俘其宗室、官属等7万人，其势力渐衰。1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+      },
+      {
+        "EventName": "明军击破北元于捕鱼儿海之战",
+        "relation": "防守方",
+        "OrgName": "北元",
+        "evidence": "1388年，明军击破北元主于捕鱼儿海（内蒙古贝尔湖），俘其宗室、官属等7万人，其势力渐衰。1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "防守方",
+        "OrgName": "耿军",
+        "evidence": "朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "防守方",
+        "OrgName": "李军",
+        "evidence": "月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "防守方",
+        "OrgName": "盛军",
+        "evidence": "10月，在沧州等地，连败盛庸所率第三次北征军。"
+      },
+      {
+        "EventName": "丘福北征鞑靼之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      },
+      {
+        "EventName": "丘福北征鞑靼之战",
+        "relation": "防守方",
+        "OrgName": "鞑靼",
+        "evidence": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "投降方",
+        "OrgName": "明军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "被俘方",
+        "OrgName": "明军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "投降方",
+        "OrgName": "元军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "被俘方",
+        "OrgName": "元军",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "统帅",
+        "PersonName": "傅友德",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "将领",
+        "PersonName": "蓝玉",
+        "evidence": "遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "将领",
+        "PersonName": "沐英",
+        "evidence": "遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "将领",
+        "PersonName": "郭英",
+        "evidence": "这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "君主",
+        "PersonName": "梁王",
+        "evidence": "22日，梁王逃离昆明自杀。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "投降",
+        "PersonName": "观音保",
+        "evidence": "次日，明军进抵板桥（昆明东），元右丞观音保出城投降。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "将领",
+        "PersonName": "实卜",
+        "evidence": "这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "俘虏",
+        "PersonName": "段明",
+        "evidence": "次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "俘虏",
+        "PersonName": "段世",
+        "evidence": "次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。"
+      },
+      {
+        "EventName": "明军击破北元于捕鱼儿海之战",
+        "relation": "君主",
+        "PersonName": "脱古思帖木儿",
+        "evidence": "1388年，明军击破北元主于捕鱼儿海（内蒙古贝尔湖），俘其宗室、官属等7万人，其势力渐衰。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "朱棣",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "君主",
+        "PersonName": "朱允",
+        "evidence": "朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "将领",
+        "PersonName": "耿炳文",
+        "evidence": "朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "将领",
+        "PersonName": "李景隆",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "将领",
+        "PersonName": "盛庸",
+        "evidence": "10月，在沧州等地，连败盛庸所率第三次北征军。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "将领",
+        "PersonName": "李远",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "谋士",
+        "PersonName": "齐泰",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "谋士",
+        "PersonName": "黄子澄",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "君主",
+        "PersonName": "朱权",
+        "evidence": "分封诸子为王，各率重兵，镇守北方：燕王朱棣镇守北平；宁王朱权镇守大宁（内蒙古宁城西）；谷王朱穗镇守宣府（河北宣化）：代王朱桂镇守大同：晋王朱枫镇守太原，以防蒙古贵族势力卷土重来。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "君主",
+        "PersonName": "朱穗",
+        "evidence": "分封诸子为王，各率重兵，镇守北方：燕王朱棣镇守北平；宁王朱权镇守大宁（内蒙古宁城西）；谷王朱穗镇守宣府（河北宣化）：代王朱桂镇守大同：晋王朱枫镇守太原，以防蒙古贵族势力卷土重来。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "君主",
+        "PersonName": "朱桂",
+        "evidence": "分封诸子为王，各率重兵，镇守北方：燕王朱棣镇守北平；宁王朱权镇守大宁（内蒙古宁城西）；谷王朱穗镇守宣府（河北宣化）：代王朱桂镇守大同：晋王朱枫镇守太原，以防蒙古贵族势力卷土重来。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "君主",
+        "PersonName": "朱枫",
+        "evidence": "分封诸子为王，各率重兵，镇守北方：燕王朱棣镇守北平；宁王朱权镇守大宁（内蒙古宁城西）；谷王朱穗镇守宣府（河北宣化）：代王朱桂镇守大同：晋王朱枫镇守太原，以防蒙古贵族势力卷土重来。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "俘虏",
+        "PersonName": "潘忠",
+        "evidence": "继而伏击耿军援兵，俘都指挥潘忠、杨松。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "俘虏",
+        "PersonName": "杨松",
+        "evidence": "继而伏击耿军援兵，俘都指挥潘忠、杨松。"
+      },
+      {
+        "EventName": "丘福北征鞑靼之战",
+        "relation": "统帅",
+        "PersonName": "丘福",
+        "evidence": "1409年7月，朱棣以杀明使者为由，命淇国公丘福等率军10万北征鞑靼，因轻敌冒进，全军覆没。朱棣遂决意亲征。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "统帅",
+        "PersonName": "蓝玉",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "统帅",
+        "PersonName": "沐英",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "统帅",
+        "PersonName": "郭英",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "参与者",
+        "PersonName": "梁王",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "参与者",
+        "PersonName": "观音保",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "参与者",
+        "PersonName": "实卜",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "参与者",
+        "PersonName": "段明",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "明军攻取云南之战",
+        "relation": "参与者",
+        "PersonName": "段世",
+        "evidence": "英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。次年2月，蓝玉、沐英率部攻占大理，俘获其首领段明之弟段世。不久，分兵攻取云南全境。至此，朱元璋统一中国的大业宣告完成。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "耿炳文",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "李景隆",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "盛庸",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "李远",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "统帅",
+        "PersonName": "丘福",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "齐泰",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "黄子澄",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "朱权",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "朱穗",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "朱桂",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "朱枫",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      },
+      {
+        "EventName": "靖难之役",
+        "relation": "参与者",
+        "PersonName": "朱允",
+        "evidence": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“祖训”，以讨伐“奸恶”为名举兵，自称“靖难”之师，连取居庸关、怀来、遵化等地，巩固了北平基地。朱允炊在京师（南京）闻讯，急令长兴侯耿炳文为征虏大将，率军30万北征，主力进抵真定（河北正定），前锋据雄县（属河北）。朱棣即乘耿军新至未备，主动出击。8月，夜袭雄县城，全歼耿军前锋9000人。继而伏击耿军援兵，俘都指挥潘忠、杨松。随即，率师进至真定，再歼耿军3万余人。月底，朱允炆命曹国公李景隆为大将，领兵50万进驻河间，再次北征。朱棣为诱李军仓促来攻，只留少部分兵力守北平，自率主力绕道袭取大宁（内蒙古宁城县境）。待李景隆引军围攻北平时，即回师北平东20里郑村坝，与守城兵配合，大败李军。1340年4月，又率军10万与李军60万战于白沟河（雄县境），先遭李军地中火器袭击，损伤甚众；后乘风纵火，前后夹击，损伤李军10余万，追至山东济南，久围不克还师。10月，在沧州等地，连败盛庸所率第三次北征军。12月，因胜轻敌，在东昌（山东聊城）遭盛军突袭，死伤数万，被迫还师北平。次年春，朱棣再次率师南下，在夹河、滤沱河（河北境内）地区，两次乘大风冲杀，共歼灭盛军16万。6月，识破朱允诱惑之计，遣部将李远率6000骑兵南下，连袭济宁（属山东）、沛县（属江苏），焚盛军粮船数百艘。接着，朱棣乘京师空虚，率师疾速南进。1342年春，绕过徐州，在肥河（安徽境内）设伏，击败跟踪而至的盛军4万余骑。4月，与援盛军战于齐眉山（安徽灵壁县境），斩杀盛军护粮兵2万余，攻克灵壁，俘副总兵以下将士10余万，5月，见朱允炊在淮河以北的主力军被基本歼灭，即挥师南渡淮河，克肝眙，避凤阳（属安徽）、淮安（属江苏）两座坚城，直抵场州，准备渡江。6月，拒绝与朱允炊议和，渡过长江，进逼京师。13目，谷王朱穗及守将李景隆开门献城。朱允不知所终，朱棣即帝位。此为史上“燕王篡夺帝位之战”，亦称“靖乱之役”。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "明军击破北元于捕鱼儿海之战",
+        "relation": "顺承关系",
+        "EventName_B": "明军攻取云南之战",
+        "evidence": "明军攻取云南之战后，明军继续北征，最终在捕鱼儿海击破北元。"
+      },
+      {
+        "EventName_A": "丘福北征鞑靼之战",
+        "relation": "顺承关系",
+        "EventName_B": "靖难之役",
+        "evidence": "朱棣即位后，为巩固北方边防，发动对鞑靼的北征，丘福北征鞑靼之战是靖难之役后的军事行动。"
+      },
+      {
+        "EventName_A": "明军击破北元于捕鱼儿海之战",
+        "relation": "顺承关系",
+        "EventName_B": "靖难之役",
+        "evidence": "1388年，明军击破北元主于捕鱼儿海...1402年，蒙古贵族鬼力赤杀死元主坤帖木儿，自称可汗。从此，蒙古分裂为鞑靼、瓦刺、兀良哈等部。"
+      }
+    ]
+  }
+}

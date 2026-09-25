@@ -1,0 +1,2303 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "太平",
+        "modern_name": "当涂县",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "当涂县",
+        "Specific_location": null,
+        "source_text": "率舟师越过朱军所据的池州，攻占太平，夺取采石"
+      },
+      {
+        "geo_name": "采石",
+        "modern_name": "采石矶",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "雨山区",
+        "Specific_location": null,
+        "source_text": "攻占太平，夺取采石"
+      },
+      {
+        "geo_name": "应天",
+        "modern_name": "南京市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直逼应天"
+      },
+      {
+        "geo_name": "石灰山",
+        "modern_name": "幕府山",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命常遇春等率军3万设伏于石灰山"
+      },
+      {
+        "geo_name": "大胜港",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "南京西南",
+        "source_text": "杨璟屯兵在大胜港"
+      },
+      {
+        "geo_name": "龙江关",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "南京市狮子山南",
+        "source_text": "张德胜率水师出龙江关"
+      },
+      {
+        "geo_name": "卢龙山",
+        "modern_name": "狮子山",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "亲率大军屯于卢龙山"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以计将陈友谅军诱入江东桥后"
+      },
+      {
+        "geo_name": "安庆",
+        "modern_name": "安庆市",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "夺回太平、安庆"
+      },
+      {
+        "geo_name": "信州",
+        "modern_name": "上饶市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "上饶市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占信（江西上饶）、袁（江西宜春）二州"
+      },
+      {
+        "geo_name": "袁州",
+        "modern_name": "宜春市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "宜春市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占信（江西上饶）、袁（江西宜春）二州"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": "九江市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在安庆、江州连破陈军"
+      },
+      {
+        "geo_name": "蕲州",
+        "modern_name": "蕲春县",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "蕲春县",
+        "Specific_location": null,
+        "source_text": "进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地"
+      },
+      {
+        "geo_name": "黄州",
+        "modern_name": "黄冈市",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地"
+      },
+      {
+        "geo_name": "兴国",
+        "modern_name": "阳新县",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "黄石市",
+        "District_County": "阳新县",
+        "Specific_location": null,
+        "source_text": "进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地"
+      },
+      {
+        "geo_name": "黄梅",
+        "modern_name": "黄梅县",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "黄梅县",
+        "Specific_location": null,
+        "source_text": "进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地"
+      },
+      {
+        "geo_name": "广济",
+        "modern_name": "武穴市",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "武穴市",
+        "Specific_location": null,
+        "source_text": "进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地"
+      },
+      {
+        "geo_name": "南昌",
+        "modern_name": "南昌市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "南昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军"
+      },
+      {
+        "geo_name": "余干",
+        "modern_name": "余干县",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "上饶市",
+        "District_County": "余干县",
+        "Specific_location": null,
+        "source_text": "收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军"
+      },
+      {
+        "geo_name": "龙泉",
+        "modern_name": "遂川县",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "吉安市",
+        "District_County": "遂川县",
+        "Specific_location": null,
+        "source_text": "收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军"
+      },
+      {
+        "geo_name": "吉安",
+        "modern_name": "吉安市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "吉安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军"
+      },
+      {
+        "geo_name": "饶州",
+        "modern_name": "鄱阳县",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "上饶市",
+        "District_County": "鄱阳县",
+        "Specific_location": null,
+        "source_text": "继而攻克饶、抚（江西抚州市）二州"
+      },
+      {
+        "geo_name": "抚州",
+        "modern_name": "抚州市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "抚州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而攻克饶、抚（江西抚州市）二州"
+      },
+      {
+        "geo_name": "安丰",
+        "modern_name": "寿县",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "淮南市",
+        "District_County": "寿县",
+        "Specific_location": "西南",
+        "source_text": "张士诚遣军围攻北方红巾军的最后一个根据地安丰"
+      },
+      {
+        "geo_name": "滁州",
+        "modern_name": "滁州市",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "滁州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "遂将小明王移至滁州"
+      },
+      {
+        "geo_name": "临江",
+        "modern_name": "新余市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "新余市",
+        "District_County": null,
+        "Specific_location": "东北",
+        "source_text": "占领吉安、临江（江西新余东北）、无为（属安徽）等地"
+      },
+      {
+        "geo_name": "无为",
+        "modern_name": "无为市",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "芜湖市",
+        "District_County": "无为市",
+        "Specific_location": null,
+        "source_text": "占领吉安、临江（江西新余东北）、无为（属安徽）等地"
+      },
+      {
+        "geo_name": "洪都",
+        "modern_name": "南昌市",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "南昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "围攻洪都（南昌）"
+      },
+      {
+        "geo_name": "泾江口",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "宿松县",
+        "Specific_location": "南",
+        "source_text": "先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北）"
+      },
+      {
+        "geo_name": "南湖嘴",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": "东北",
+        "source_text": "先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北）"
+      },
+      {
+        "geo_name": "武阳渡",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "南昌市",
+        "District_County": null,
+        "Specific_location": "东",
+        "source_text": "又调信州（江西上饶）之兵守武阳渡（南昌东）"
+      },
+      {
+        "geo_name": "鄱阳湖",
+        "modern_name": "鄱阳湖",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "亲率主力进入鄱阳湖，与陈军决战"
+      },
+      {
+        "geo_name": "康郎山",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "两军在康郎山水城相遇"
+      },
+      {
+        "geo_name": "左蠡",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱元璋为控扼长江水道，乘夜移军左蠡"
+      },
+      {
+        "geo_name": "湖口",
+        "modern_name": "湖口县",
+        "DynastyName": "元末",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": "湖口县",
+        "Specific_location": null,
+        "source_text": "朱元璋令移军湖口"
+      },
+      {
+        "geo_name": "武昌",
+        "modern_name": "武汉市武昌区",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": "武昌区",
+        "Specific_location": null,
+        "source_text": "太尉张定边同陈友谅之子陈理逃回武昌"
+      },
+      {
+        "geo_name": "沔阳",
+        "modern_name": "仙桃市",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "仙桃市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻取沔阳、襄阳等汉水流域要点"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": "襄阳市",
+        "DynastyName": "元末",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻取沔阳、襄阳等汉水流域要点"
+      },
+      {
+        "geo_name": "济宁",
+        "modern_name": "济宁市",
+        "DynastyName": "元末",
+        "Province": "山东省",
+        "City": "济宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张士诚据有北到济宁"
+      },
+      {
+        "geo_name": "汝州",
+        "modern_name": "汝州市",
+        "DynastyName": "元末",
+        "Province": "河南省",
+        "City": "平顶山市",
+        "District_County": "汝州市",
+        "Specific_location": null,
+        "source_text": "西抵汝（河南临汝）、颖"
+      },
+      {
+        "geo_name": "颍州",
+        "modern_name": "阜阳市",
+        "DynastyName": "元末",
+        "Province": "安徽省",
+        "City": "阜阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "西抵汝（河南临汝）、颖"
+      },
+      {
+        "geo_name": "绍兴",
+        "modern_name": "绍兴市",
+        "DynastyName": "元末",
+        "Province": "浙江省",
+        "City": "绍兴市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "南到绍兴"
+      },
+      {
+        "geo_name": "泰州",
+        "modern_name": "泰州市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "泰州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进攻泰州、海安（属江苏）"
+      },
+      {
+        "geo_name": "海安",
+        "modern_name": "海安市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "南通市",
+        "District_County": "海安市",
+        "Specific_location": null,
+        "source_text": "进攻泰州、海安（属江苏）"
+      },
+      {
+        "geo_name": "高邮",
+        "modern_name": "高邮市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": "高邮市",
+        "Specific_location": null,
+        "source_text": "相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "geo_name": "淮安",
+        "modern_name": "淮安市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "淮安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "geo_name": "湖州",
+        "modern_name": "湖州市",
+        "DynastyName": "元末",
+        "Province": "浙江省",
+        "City": "湖州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再令徐达率军20万进围湖州（属浙江）"
+      },
+      {
+        "geo_name": "旧馆",
+        "modern_name": null,
+        "DynastyName": "元末",
+        "Province": "浙江省",
+        "City": "湖州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在旧馆一战，全歼张士诚所遣援军6万之众"
+      },
+      {
+        "geo_name": "杭州",
+        "modern_name": "杭州市",
+        "DynastyName": "元末",
+        "Province": "浙江省",
+        "City": "杭州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "湖州、杭州等地守军相继投降"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": "苏州市",
+        "DynastyName": "元末",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "徐达乘胜合围平江"
+      },
+      {
+        "geo_name": "应天",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "石灰山",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "大胜港",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "龙江关",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "卢龙山",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "geo_name": "安庆",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "蕲州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "黄州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "兴国",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "黄梅",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "广济",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "南昌",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "余干",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "龙泉",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "吉安",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "饶州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "抚州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "geo_name": "安丰",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "geo_name": "滁州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "geo_name": "洪都",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "geo_name": "鄱阳湖",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "geo_name": "康郎山",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "geo_name": "左蠡",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "geo_name": "湖口",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "geo_name": "泾江口",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "geo_name": "武昌",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "geo_name": "沔阳",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "geo_name": "泰州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "geo_name": "海安",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "geo_name": "高邮",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "geo_name": "淮安",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "geo_name": "湖州",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "geo_name": "旧馆",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "元朝",
+        "OrgType": "中央政权",
+        "DynastyName": "元",
+        "source_text": "元朝统治集团虽对北方红巾军作战取得了一些胜利"
+      },
+      {
+        "OrgName": "北方红巾军",
+        "OrgType": "起义军",
+        "DynastyName": "元末",
+        "source_text": "元朝统治集团虽对北方红巾军作战取得了一些胜利\n1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "OrgName": "汉",
+        "OrgType": "国家",
+        "DynastyName": "元末",
+        "source_text": "于军中仓促称帝，国号汉"
+      },
+      {
+        "OrgName": "陈军",
+        "OrgType": "起义军",
+        "DynastyName": "元末",
+        "source_text": "陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州"
+      },
+      {
+        "OrgName": "朱军",
+        "OrgType": "起义军",
+        "DynastyName": "元末",
+        "source_text": "陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州"
+      },
+      {
+        "OrgName": "张士诚军",
+        "OrgType": "起义军",
+        "DynastyName": "元末",
+        "source_text": "张士诚遣军围攻北方红巾军的最后一个根据地安丰\n1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "OrgName": "红巾军",
+        "OrgType": "起义军",
+        "DynastyName": "元末",
+        "source_text": "张士诚遣军围攻北方红巾军的最后一个根据地安丰"
+      },
+      {
+        "OrgName": "明玉珍",
+        "OrgType": "地方势力",
+        "DynastyName": "元末",
+        "source_text": "并派人与在四川自立的明玉珍修好"
+      },
+      {
+        "OrgName": "方国珍",
+        "OrgType": "地方势力",
+        "DynastyName": "元末",
+        "source_text": "盘踞浙东的方国珍投降"
+      },
+      {
+        "OrgName": "朱元璋军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "朱元璋",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "统帅",
+        "Note": "明朝开国皇帝，元末群雄之一，先后击败陈友谅、张士诚，为灭元建明奠定基础",
+        "source_text": "朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山"
+      },
+      {
+        "PersonName": "陈友谅",
+        "DynastyName": "元末",
+        "OrgName": "汉",
+        "Role": "君主",
+        "Note": "大汉政权建立者，与朱元璋争夺天下，鄱阳湖之战中中箭身亡",
+        "source_text": "陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州"
+      },
+      {
+        "PersonName": "张士诚",
+        "DynastyName": "元末",
+        "OrgName": "张士诚集团",
+        "Role": "君主",
+        "Note": "割据江南的军阀，被朱元璋击败并俘获",
+        "source_text": "张士诚遣军围攻北方红巾军的最后一个根据地安丰"
+      },
+      {
+        "PersonName": "常遇春",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "朱元璋麾下大将，参与石灰山伏击、鄱阳湖之战等",
+        "source_text": "命常遇春等率军3万设伏于石灰山"
+      },
+      {
+        "PersonName": "徐达",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "朱元璋麾下大将，参与南门布防、鄱阳湖之战、围攻平江等",
+        "source_text": "徐达陈兵南门外"
+      },
+      {
+        "PersonName": "杨璟",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "朱元璋麾下将领，屯兵大胜港",
+        "source_text": "杨璟屯兵在大胜港"
+      },
+      {
+        "PersonName": "张德胜",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "朱元璋麾下水师将领，出龙江关",
+        "source_text": "张德胜率水师出龙江关"
+      },
+      {
+        "PersonName": "小明王",
+        "DynastyName": "元末",
+        "OrgName": "红巾军",
+        "Role": "君主",
+        "Note": "红巾军首领，被朱元璋救出后安置于滁州",
+        "source_text": "小明王向朱元璋求援\n1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "PersonName": "刘基",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "谋士",
+        "Note": "朱元璋谋士，建议不要救援安丰",
+        "source_text": "刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”"
+      },
+      {
+        "PersonName": "朱文正",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "朱元璋之侄，坚守洪都",
+        "source_text": "令守将朱文正坚守"
+      },
+      {
+        "PersonName": "郭兴",
+        "DynastyName": "元末",
+        "OrgName": "朱军",
+        "Role": "将领",
+        "Note": "建议火攻陈军",
+        "source_text": "朱元璋即采纳部将郭兴的建议，改用火攻"
+      },
+      {
+        "PersonName": "陈荣",
+        "DynastyName": "元末",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "陈友谅部将，率残部投降",
+        "source_text": "平章陈荣于次日率残部5万余人投降"
+      },
+      {
+        "PersonName": "张定边",
+        "DynastyName": "元末",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "陈友谅太尉，逃回武昌",
+        "source_text": "太尉张定边同陈友谅之子陈理逃回武昌"
+      },
+      {
+        "PersonName": "陈理",
+        "DynastyName": "元末",
+        "OrgName": "汉",
+        "Role": "君主",
+        "Note": "陈友谅之子，逃回武昌",
+        "source_text": "太尉张定边同陈友谅之子陈理逃回武昌"
+      },
+      {
+        "PersonName": "明玉珍",
+        "DynastyName": "元末",
+        "OrgName": "明玉珍",
+        "Role": "君主",
+        "Note": "四川自立政权首领，与朱元璋修好",
+        "source_text": "并派人与在四川自立的明玉珍修好"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "应天之战",
+        "EventType": "统一战争",
+        "StartDate": "1360年夏",
+        "EndDate": "1360年夏",
+        "DynastyName": "元",
+        "Place": "应天、石灰山、大胜港、龙江关、卢龙山、江东桥",
+        "Aggressor": "陈友谅集团",
+        "Defender": "朱元璋军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，陈友谅军大败",
+        "Commanders": "朱元璋、常遇春、徐达、杨璟、张德胜、陈友谅",
+        "KeyPersons": "刘基",
+        "Action": "伏击、水战、火攻",
+        "TroopSize": "陈军十万，朱军三万",
+        "Duration": "不详",
+        "GeographicScope": "应天周边",
+        "Casualties": "生俘7000余人，大小战船各百余艘",
+        "source": "《中国历代战争简史》",
+        "Impact": "巩固了朱元璋在江南的根据地，削弱了陈友谅的势力",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "安庆江州之战",
+            "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军"
+          }
+        ],
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "EventType": "统一战争",
+        "StartDate": "1361年",
+        "EndDate": "1361年",
+        "DynastyName": "元",
+        "Place": "安庆、江州、蕲州、黄州、兴国、黄梅、广济、南昌、余干、龙泉、吉安、饶州、抚州",
+        "Aggressor": "朱元璋军",
+        "Defender": "陈友谅集团",
+        "Allies": null,
+        "Result": "朱元璋军获胜，攻占陈友谅多处领地",
+        "Commanders": "朱元璋、陈友谅",
+        "KeyPersons": null,
+        "Action": "攻伐、收降",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "长江中游地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "进一步削弱陈友谅势力，为后续鄱阳湖之战奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "应天之战",
+            "evidence": "次年，朱元璋又亲率舟师溯江西上"
+          },
+          {
+            "type": "顺承关系",
+            "to": "安丰之战",
+            "evidence": "1363年2月，张士诚遣军围攻安丰"
+          }
+        ],
+        "source_text": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安丰之战",
+        "EventType": "统一战争",
+        "StartDate": "1363年2月",
+        "EndDate": "1363年2月",
+        "DynastyName": "元",
+        "Place": "安丰、滁州",
+        "Aggressor": "张士诚军",
+        "Defender": "北方红巾军",
+        "Allies": "朱元璋军",
+        "Result": "朱元璋军获胜，救出小明王",
+        "Commanders": "朱元璋、张士诚",
+        "KeyPersons": "小明王、刘基",
+        "Action": "救援、交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "安丰地区",
+        "Casualties": "三战三胜",
+        "source": "《中国历代战争简史》",
+        "Impact": "朱元璋控制小明王，增强政治资本",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "安庆江州之战",
+            "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰"
+          }
+        ],
+        "source_text": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1363年4月",
+        "EndDate": "1363年7月",
+        "DynastyName": "元",
+        "Place": "洪都",
+        "Aggressor": "陈友谅集团",
+        "Defender": "朱元璋军",
+        "Allies": null,
+        "Result": "朱元璋军成功守卫洪都，陈友谅军撤围",
+        "Commanders": "朱文正、陈友谅",
+        "KeyPersons": null,
+        "Action": "守御、围攻",
+        "TroopSize": "陈军号称60万，朱军不详",
+        "Duration": "持续85天",
+        "GeographicScope": "洪都（今南昌）",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消耗陈友谅军实力，为鄱阳湖之战创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "鄱阳湖之战",
+            "evidence": "陈友谅围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+          }
+        ],
+        "source_text": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "EventType": "统一战争",
+        "StartDate": "1363年7月",
+        "EndDate": "1363年8月",
+        "DynastyName": "元",
+        "Place": "鄱阳湖、康郎山、左蠡、湖口、泾江口",
+        "Aggressor": "朱元璋军",
+        "Defender": "陈友谅集团",
+        "Allies": null,
+        "Result": "朱元璋军获胜，陈友谅中箭身亡，陈军残部投降",
+        "Commanders": "朱元璋、徐达、常遇春、郭兴、陈友谅、张定边",
+        "KeyPersons": "刘基",
+        "Action": "水战、火攻、伏击、突围",
+        "TroopSize": "朱军20万，陈军号称60万",
+        "Duration": "历时约一月",
+        "GeographicScope": "鄱阳湖水域",
+        "Casualties": "陈军死者过半，朱军伤亡不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "中国水战史上以少胜多的著名战例，基本消灭陈友谅主力，为统一江南奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "武昌之战",
+            "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点。"
+          }
+        ],
+        "source_text": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "武昌之战",
+        "EventType": "统一战争",
+        "StartDate": "1364年",
+        "EndDate": "1364年",
+        "DynastyName": "元",
+        "Place": "武昌、沔阳、襄阳",
+        "Aggressor": "朱元璋军",
+        "Defender": "陈理（陈友谅之子）",
+        "Allies": null,
+        "Result": "朱元璋军获胜，占领武昌，陈理势力灭亡",
+        "Commanders": "朱元璋、陈理",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "武昌及汉水流域",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "彻底消灭陈友谅残余势力，巩固长江中游形势",
+        "Remark": "",
+        "relations": [],
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "EventType": "统一战争",
+        "StartDate": "1365年10月",
+        "EndDate": "1365年10月",
+        "DynastyName": "元",
+        "Place": "泰州、海安",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，攻占泰州、海安",
+        "Commanders": "徐达、常遇春",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "泰州、海安一带",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "将张士诚拦腰截断，为后续攻取高邮、淮安创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "高邮淮安之战",
+            "evidence": "次年三四月间，相继攻占高邮、淮安"
+          }
+        ],
+        "source_text": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "EventType": "统一战争",
+        "StartDate": "1366年3月",
+        "EndDate": "1366年4月",
+        "DynastyName": "元",
+        "Place": "高邮、淮安",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，攻占高邮、淮安",
+        "Commanders": "徐达、常遇春",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "约两个月",
+        "GeographicScope": "高邮、淮安一带",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "巩固了淮东地区，为进攻湖州、平江扫清障碍",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "泰州海安之战",
+            "evidence": "次年三四月间，相继攻占高邮、淮安"
+          },
+          {
+            "type": "顺承关系",
+            "to": "湖州之战",
+            "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州"
+          }
+        ],
+        "source_text": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "湖州之战",
+        "EventType": "统一战争",
+        "StartDate": "1366年8月",
+        "EndDate": "1366年11月",
+        "DynastyName": "元",
+        "Place": "湖州、旧馆",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，湖州、杭州等地守军投降",
+        "Commanders": "徐达",
+        "KeyPersons": null,
+        "Action": "攻伐、围困、决战",
+        "TroopSize": "朱元璋军20万",
+        "Duration": "约四个月",
+        "GeographicScope": "湖州、旧馆一带",
+        "Casualties": "全歼张士诚援军6万",
+        "source": "《中国历代战争简史》",
+        "Impact": "消灭张士诚主力，为攻占平江、彻底消灭张士诚奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "高邮淮安之战",
+            "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州"
+          }
+        ],
+        "source_text": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "EventType": "统一战争",
+        "StartDate": "1366年11月",
+        "EndDate": "1367年9月",
+        "DynastyName": "元",
+        "Place": "平江",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，张士诚被俘",
+        "Commanders": "徐达、常遇春、张士诚",
+        "KeyPersons": null,
+        "Action": "围攻、攻城",
+        "TroopSize": "二十万",
+        "Duration": "持续约十一个月",
+        "GeographicScope": "平江及周边地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消灭张士诚集团，为朱元璋统一江南、进而北伐灭元奠定基础",
+        "Remark": "",
+        "relations": [],
+        "source_text": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "应天之战",
+        "relation": "主战场",
+        "modern_name": "应天",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "次要战场",
+        "modern_name": "石灰山",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "次要战场",
+        "modern_name": "大胜港",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "次要战场",
+        "modern_name": "龙江关",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "指挥所",
+        "modern_name": "卢龙山",
+        "evidence": "亲率大军屯于卢龙山（南京市狮子山）"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "次要战场",
+        "modern_name": "江东桥",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "主战场",
+        "modern_name": "安庆",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "主战场",
+        "modern_name": "江州",
+        "evidence": "在安庆、江州连破陈军"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "蕲州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "黄州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "兴国",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "黄梅",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "广济",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "南昌",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "余干",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "龙泉",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "吉安",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "饶州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "抚州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "主战场",
+        "modern_name": "安丰",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "目的地",
+        "modern_name": "滁州",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "主战场",
+        "modern_name": "洪都",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "主战场",
+        "modern_name": "鄱阳湖",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "次要战场",
+        "modern_name": "康郎山",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "驻防地",
+        "modern_name": "左蠡",
+        "evidence": "朱元璋为控扼长江水道，乘夜移军左蠡"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "驻防地",
+        "modern_name": "湖口",
+        "evidence": "随即，朱元璋令移军湖口"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "次要战场",
+        "modern_name": "泾江口",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "主战场",
+        "modern_name": "武昌",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "次要战场",
+        "modern_name": "沔阳",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "次要战场",
+        "modern_name": "襄阳",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "主战场",
+        "modern_name": "泰州",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "主战场",
+        "modern_name": "海安",
+        "evidence": "进攻泰州、海安（属江苏）"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "主战场",
+        "modern_name": "高邮",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "主战场",
+        "modern_name": "淮安",
+        "evidence": "相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "主战场",
+        "modern_name": "湖州",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "次要战场",
+        "modern_name": "旧馆",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "主战场",
+        "modern_name": "平江",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "次要战场",
+        "modern_name": "卢龙山",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "目的地",
+        "modern_name": "江东桥",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "安庆",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "次要战场",
+        "modern_name": "江州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "江州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "蕲州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "黄州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "兴国",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "黄梅",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "广济",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "南昌",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "余干",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "龙泉",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "吉安",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "饶州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "战略要地",
+        "modern_name": "抚州",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "次要战场",
+        "modern_name": "滁州",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "目的地",
+        "modern_name": "洪都",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "次要战场",
+        "modern_name": "左蠡",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "次要战场",
+        "modern_name": "湖口",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "目的地",
+        "modern_name": "沔阳",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "目的地",
+        "modern_name": "泰州",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "次要战场",
+        "modern_name": "海安",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "次要战场",
+        "modern_name": "淮安",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "目的地",
+        "modern_name": "湖州",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "目的地",
+        "modern_name": "平江",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "应天之战",
+        "relation": "发起方",
+        "OrgName": "陈友谅集团",
+        "evidence": "陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "防守方",
+        "OrgName": "朱元璋军",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "防守方",
+        "OrgName": "陈友谅集团",
+        "evidence": "在安庆、江州连破陈军"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "发起方",
+        "OrgName": "张士诚军",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "防守方",
+        "OrgName": "北方红巾军",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "支援方",
+        "OrgName": "朱元璋军",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "发起方",
+        "OrgName": "陈友谅集团",
+        "evidence": "陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江、无为等地，围攻洪都"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "防守方",
+        "OrgName": "朱元璋军",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "防守方",
+        "OrgName": "陈友谅集团",
+        "evidence": "陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师翻阳迎战"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "防守方",
+        "OrgName": "陈理",
+        "evidence": "太尉张定边同陈友谅之子陈理逃回武昌。次年，朱元璋率兵占领武昌"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "投降方",
+        "OrgName": "朱元璋军",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "投降方",
+        "OrgName": "朱元璋军",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "投降方",
+        "OrgName": "张士诚军",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "投降方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "被俘方",
+        "OrgName": "朱元璋军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "投降方",
+        "OrgName": "张士诚军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "被俘方",
+        "OrgName": "张士诚军",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "将领",
+        "PersonName": "常遇春",
+        "evidence": "命常遇春等率军3万设伏于石灰山"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "徐达陈兵南门外"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "将领",
+        "PersonName": "杨璟",
+        "evidence": "杨璟屯兵在大胜港"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "将领",
+        "PersonName": "张德胜",
+        "evidence": "张德胜率水师出龙江关"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "谋士",
+        "PersonName": "刘基",
+        "evidence": "刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安庆江州之战",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军，进占蕲、黄、兴国（湖北阳新）、黄梅、广济等沿江要地，收降陈军南昌守将及余干、龙泉、吉安（属江西）的陈军，继而攻克饶、抚（江西抚州市）二州。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "统帅",
+        "PersonName": "张士诚",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "君主",
+        "PersonName": "小明王",
+        "evidence": "小明王向朱元璋求援"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "谋士",
+        "PersonName": "刘基",
+        "evidence": "刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "统帅",
+        "PersonName": "朱文正",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "令右丞徐达、参政常遇春等分率舟师迫近陈军"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "将领",
+        "PersonName": "常遇春",
+        "evidence": "令右丞徐达、参政常遇春等分率舟师迫近陈军"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "将领",
+        "PersonName": "郭兴",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "将领",
+        "PersonName": "张定边",
+        "evidence": "太尉张定边同陈友谅之子陈理逃回武昌"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "阵亡",
+        "PersonName": "陈友谅",
+        "evidence": "陈友谅中箭身亡"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "统帅",
+        "PersonName": "陈理",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "命徐达、常遇春为帅，率水陆两军，进攻泰州、海安"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "将领",
+        "PersonName": "常遇春",
+        "evidence": "命徐达、常遇春为帅，率水陆两军，进攻泰州、海安"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "将领",
+        "PersonName": "常遇春",
+        "evidence": "相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "再令徐达率军20万进围湖州（属浙江）"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "徐达乘胜合围平江"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "将领",
+        "PersonName": "常遇春",
+        "evidence": "徐达、常遇春为帅"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "统帅",
+        "PersonName": "张士诚",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "常遇春",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "杨璟",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "统帅",
+        "PersonName": "张德胜",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "将领",
+        "PersonName": "陈友谅",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "应天之战",
+        "relation": "参与者",
+        "PersonName": "刘基",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。朱元璋以逸待劳，命常遇春等率军3万设伏于石灰山（南京市幕府山）：徐达陈兵南门外：杨璟屯兵在大胜港（南京西南）：张德胜率水师出龙江关（南京市狮子山南）：亲率大军屯于卢龙山（南京市狮子山）。以计将陈友谅军诱入江东桥后，乘潮落，陈军大船不得出江之机，内外、水陆并出，一举生俘7000余人，大小战船各百余艘，夺回太平、安庆，攻占信（江西上饶）、袁（江西宜春）二州。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "参与者",
+        "PersonName": "小明王",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "安丰之战",
+        "relation": "参与者",
+        "PersonName": "刘基",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰（安丰寿县西南），小明王向朱元璋求援。刘基从巩固江南着想，认为“汉、吴伺隙，未可动也。”朱元璋却认为，“安丰破，则士诚益张，不可不救。”乃亲率军渡江，救援安丰，三战三胜，遂将小明王移至滁州，表面尊宋，实则监视。"
+      },
+      {
+        "EventName": "洪都保卫战",
+        "relation": "将领",
+        "PersonName": "朱文正",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江（江西新余东北）、无为（属安徽）等地，围攻洪都（南昌）。朱元璋闻讯后，令守将朱文正坚守，以疲惫消耗陈军。7月6日，即亲率舟师20万救援洪都，先令一部扼守泾江口（安徽宿松南）和南湖嘴（九江东北），切断陈军归路；又调信州（江西上饶）之兵守武阳渡（南昌东），威胁陈军侧后；亲率主力进入鄱阳湖，与陈军决战。这时，陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "常遇春",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "郭兴",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "张定边",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "参与者",
+        "PersonName": "刘基",
+        "evidence": "7月20日，两军在康郎山水城相遇。次日，朱元璋见陈友谅联大型战船当前，令右丞徐达、参政常遇春等分率舟师迫近陈军，先发火炮，再用弓弩，继以短兵相搏，焚毁陈军大型战船20余艘，杀伤陈军数万人。22日，陈友谅率全部大型战船出战，朱军因舟小，仰攻不利。下午，东北风起。朱元璋即采纳部将郭兴的建议，改用火攻，命敢死士驾驶装满火具的小舟，偷袭陈军，焚其大型战船数百艘。陈军大败，死者过半，不敢再战。朱元璋为控扼长江水道，乘夜移军左蠡，与泊舟于诸矶的陈军相持三日。陈军左、右金吾将军见大势已去，相继投降。随即，朱元璋令移军湖口，遣常遇春等率舟师横截湖面，又令一部在长江两岸修筑寨栅，并置火筏于江中，以阻止陈军逃遁。8月26日，陈军因粮食奇缺，将士饥疲，遂冒险向湖口方向突围，受朱军四面猛攻，混乱溃逃，在泾江口复遭朱军伏兵截击，陈友谅中箭身亡。平章陈荣于次日率残部5万余人投降。太尉张定边同陈友谅之子陈理逃回武昌。"
+      },
+      {
+        "EventName": "武昌之战",
+        "relation": "将领",
+        "PersonName": "朱元璋",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "泰州海安之战",
+        "relation": "统帅",
+        "PersonName": "常遇春",
+        "evidence": "10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "高邮淮安之战",
+        "relation": "统帅",
+        "PersonName": "常遇春",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地。"
+      },
+      {
+        "EventName": "湖州之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "统帅",
+        "PersonName": "常遇春",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "将领",
+        "PersonName": "张士诚",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "俘虏",
+        "PersonName": "张士诚",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点，并派人与在四川自立的明玉珍修好，以巩固长江中游形势。1365年，决定举兵东击张士诚。当时，张士诚据有北到济宁，西抵汝（河南临汝）、颖，东接大海，南到绍兴的广大地盘。朱元璋针对其辖地南北狭长、中隔长江、兵力不便机动的弱点，采取先取江北，断其羽翼，再占浙西，后攻平江的方略。10月，命徐达、常遇春为帅，率水陆两军，进攻泰州、海安（属江苏），将张士诚拦腰截断，然后转兵北向。次年三四月间，相继攻占高邮、淮安（属江苏）等地。8月，乘淮东之胜利，再令徐达率军20万进围湖州（属浙江），并严令禁止杀掠，连张士诚母墓也不准毁坏。10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "安庆江州之战",
+        "relation": "顺承关系",
+        "EventName_B": "应天之战",
+        "evidence": "次年，朱元璋又亲率舟师溯江西上，在安庆、江州连破陈军"
+      },
+      {
+        "EventName_A": "安丰之战",
+        "relation": "顺承关系",
+        "EventName_B": "洪都保卫战",
+        "evidence": "当朱元璋率军北援安丰时，陈友谅即乘隙于4月率师号称60万，取道水路，占领吉安、临江、无为等地，围攻洪都"
+      },
+      {
+        "EventName_A": "洪都保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "陈友谅已围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师翻阳迎战\n陈友谅围攻洪都85天不克，惊闻朱元璋来救，遂撤围移师鄱阳迎战。"
+      },
+      {
+        "EventName_A": "武昌之战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "次年，朱元璋率兵占领武昌，攻取沔阳、襄阳等汉水流域要点。"
+      },
+      {
+        "EventName_A": "泰州海安之战",
+        "relation": "顺承关系",
+        "EventName_B": "高邮淮安之战",
+        "evidence": "次年三四月间，相继攻占高邮、淮安（属江苏）等地"
+      },
+      {
+        "EventName_A": "湖州之战",
+        "relation": "顺承关系",
+        "EventName_B": "高邮淮安之战",
+        "evidence": "8月，乘淮东之胜利，再令徐达率军20万进围湖州"
+      },
+      {
+        "EventName_A": "湖州之战",
+        "relation": "并列关系",
+        "EventName_B": "平江之战",
+        "evidence": "11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江"
+      },
+      {
+        "EventName_A": "安丰之战",
+        "relation": "顺承关系",
+        "EventName_B": "安庆江州之战",
+        "evidence": "1363年2月，张士诚遣军围攻北方红巾军的最后一个根据地安丰\n1363年2月，张士诚遣军围攻安丰"
+      }
+    ]
+  }
+}

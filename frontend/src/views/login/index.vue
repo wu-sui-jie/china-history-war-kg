@@ -157,6 +157,8 @@ export default defineComponent({
         layer.msg('请输入用户名', {icon: 2})
         return null
       }
+      // 与后端 `db_utils.MIN_ACCOUNT_LENGTH / MAX_ACCOUNT_LENGTH / MAX_NAME_LENGTH` 同值：
+      // 前端这份的作用只是"本地先拦一次、少一次往返"，事实源在后端（第 14 轮审计 P3-10）
       if (account.length < 3 || account.length > 20) {
         layer.msg('用户名长度需为 3-20 位', {icon: 2})
         return null

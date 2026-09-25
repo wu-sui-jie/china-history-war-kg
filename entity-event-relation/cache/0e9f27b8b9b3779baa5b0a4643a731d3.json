@@ -1,0 +1,1800 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "长垣",
+        "modern_name": "长垣市",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "新乡市",
+        "District_County": "长垣市",
+        "Specific_location": null,
+        "source_text": "濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。"
+      },
+      {
+        "geo_name": "濮州",
+        "modern_name": "鄄城县",
+        "DynastyName": "唐",
+        "Province": "山东省",
+        "City": "菏泽市",
+        "District_County": "鄄城县",
+        "Specific_location": null,
+        "source_text": "6月，克濮州、曹州（山东曹县）。"
+      },
+      {
+        "geo_name": "曹州",
+        "modern_name": "曹县",
+        "DynastyName": "唐",
+        "Province": "山东省",
+        "City": "菏泽市",
+        "District_County": "曹县",
+        "Specific_location": null,
+        "source_text": "6月，克濮州、曹州（山东曹县）。"
+      },
+      {
+        "geo_name": "冤句",
+        "modern_name": "菏泽市",
+        "DynastyName": "唐",
+        "Province": "山东省",
+        "City": "菏泽市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。"
+      },
+      {
+        "geo_name": "沂州",
+        "modern_name": "临沂市",
+        "DynastyName": "唐",
+        "Province": "山东省",
+        "City": "临沂市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，起义军进攻沂州（山东临沂）。"
+      },
+      {
+        "geo_name": "阳翟",
+        "modern_name": "禹州市",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "禹州市",
+        "Specific_location": null,
+        "source_text": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。"
+      },
+      {
+        "geo_name": "郏城",
+        "modern_name": "郏县",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "平顶山市",
+        "District_County": "郏县",
+        "Specific_location": null,
+        "source_text": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。"
+      },
+      {
+        "geo_name": "郑州",
+        "modern_name": "郑州市",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "geo_name": "申州",
+        "modern_name": "信阳市",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "信阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "光州",
+        "modern_name": "潢川县",
+        "DynastyName": "唐",
+        "Province": "河南省",
+        "City": "信阳市",
+        "District_County": "潢川县",
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "复州",
+        "modern_name": "仙桃市",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "仙桃市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "郢州",
+        "modern_name": "京山市",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "荆门市",
+        "District_County": "京山市",
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "庐州",
+        "modern_name": "合肥市",
+        "DynastyName": "唐",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "寿州",
+        "modern_name": "寿县",
+        "DynastyName": "唐",
+        "Province": "安徽省",
+        "City": "淮南市",
+        "District_County": "寿县",
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "舒州",
+        "modern_name": "潜山市",
+        "DynastyName": "唐",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "潜山市",
+        "Specific_location": null,
+        "source_text": "连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州"
+      },
+      {
+        "geo_name": "蕲州",
+        "modern_name": "蕲春县",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "蕲春县",
+        "Specific_location": null,
+        "source_text": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "geo_name": "鄂州",
+        "modern_name": "武昌区",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": "武昌区",
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "geo_name": "隋州",
+        "modern_name": "随县",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "随州市",
+        "District_County": "随县",
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "geo_name": "洪州",
+        "modern_name": "南昌市",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "南昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": "九江市",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "geo_name": "黄梅",
+        "modern_name": "黄梅县",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "黄梅县",
+        "Specific_location": null,
+        "source_text": "最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "geo_name": "毫州",
+        "modern_name": "亳州市",
+        "DynastyName": "唐",
+        "Province": "安徽省",
+        "City": "亳州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "geo_name": "虔州",
+        "modern_name": "赣州市",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "赣州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克江西虔（赣县）、吉（吉安）、饶（鄱阳）、信（上饶）等州。"
+      },
+      {
+        "geo_name": "吉州",
+        "modern_name": "吉安市",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "吉安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克江西虔（赣县）、吉（吉安）、饶（鄱阳）、信（上饶）等州。"
+      },
+      {
+        "geo_name": "饶州",
+        "modern_name": "鄱阳县",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "上饶市",
+        "District_County": "鄱阳县",
+        "Specific_location": null,
+        "source_text": "连克江西虔（赣县）、吉（吉安）、饶（鄱阳）、信（上饶）等州。"
+      },
+      {
+        "geo_name": "信州",
+        "modern_name": "上饶市",
+        "DynastyName": "唐",
+        "Province": "江西省",
+        "City": "上饶市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克江西虔（赣县）、吉（吉安）、饶（鄱阳）、信（上饶）等州。"
+      },
+      {
+        "geo_name": "宣州",
+        "modern_name": "宣城市",
+        "DynastyName": "唐",
+        "Province": "安徽省",
+        "City": "宣城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "geo_name": "杭州",
+        "modern_name": "杭州市",
+        "DynastyName": "唐",
+        "Province": "浙江省",
+        "City": "杭州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "geo_name": "越州",
+        "modern_name": "绍兴市",
+        "DynastyName": "唐",
+        "Province": "浙江省",
+        "City": "绍兴市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "geo_name": "福州",
+        "modern_name": "福州市",
+        "DynastyName": "唐",
+        "Province": "福建省",
+        "City": "福州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，攻占福州及福建全境。"
+      },
+      {
+        "geo_name": "广州",
+        "modern_name": "广州市",
+        "DynastyName": "唐",
+        "Province": "广东省",
+        "City": "广州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "geo_name": "潭州",
+        "modern_name": "长沙市",
+        "DynastyName": "唐",
+        "Province": "湖南省",
+        "City": "长沙市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "geo_name": "桂州",
+        "modern_name": "桂林市",
+        "DynastyName": "唐",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。"
+      },
+      {
+        "geo_name": "朗州",
+        "modern_name": "常德市",
+        "DynastyName": "唐",
+        "Province": "湖南省",
+        "City": "常德市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "geo_name": "江陵",
+        "modern_name": "荆州市",
+        "DynastyName": "唐",
+        "Province": "湖北省",
+        "City": "荆州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以宰相王铎坐镇江陵，以李系（李晟曾孙）副之，率精兵守潭州（长沙），阻止义军沿潭、荆、襄、东都方向北上；"
+      },
+      {
+        "geo_name": "扬州",
+        "modern_name": "扬州市",
+        "DynastyName": "唐",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "调高骈为淮南节度使，驻屯扬州，以阻止义军由江南、淮南、河南方向西进两京。"
+      },
+      {
+        "geo_name": "荆",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "geo_name": "襄地区",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "geo_name": "鲁西",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "geo_name": "河南",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "geo_name": "湖南",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "geo_name": "安徽",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "geo_name": "苏南",
+        "modern_name": null,
+        "DynastyName": "唐",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "唐廷",
+        "OrgType": "中央政权",
+        "DynastyName": "唐",
+        "source_text": "唐廷平定诸藩镇后，又对南诏（云南一带）、吐蕃连年用兵，军资浩繁。"
+      },
+      {
+        "OrgName": "南诏",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐廷平定诸藩镇后，又对南诏（云南一带）、吐蕃连年用兵，军资浩繁。"
+      },
+      {
+        "OrgName": "吐蕃",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐廷平定诸藩镇后，又对南诏（云南一带）、吐蕃连年用兵，军资浩繁。"
+      },
+      {
+        "OrgName": "浙东裘甫起义",
+        "OrgType": "起义军",
+        "DynastyName": "唐",
+        "source_text": "自公元859年爆发的浙东裘甫起义，公元863年爆发的庞勋桂林戌卒起义之后，终于爆发了王仙芝黄巢所领导的农民大起义。"
+      },
+      {
+        "OrgName": "庞勋桂林戌卒起义",
+        "OrgType": "起义军",
+        "DynastyName": "唐",
+        "source_text": "自公元859年爆发的浙东裘甫起义，公元863年爆发的庞勋桂林戌卒起义之后，终于爆发了王仙芝黄巢所领导的农民大起义。"
+      },
+      {
+        "OrgName": "王仙芝黄巢起义军",
+        "OrgType": "起义军",
+        "DynastyName": "唐",
+        "source_text": "终于爆发了王仙芝黄巢所领导的农民大起义。义旗一举，八方响应，迅猛发展成百万大军。"
+      },
+      {
+        "OrgName": "平卢节度使",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。"
+      },
+      {
+        "OrgName": "昭义",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。"
+      },
+      {
+        "OrgName": "襄州",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。"
+      },
+      {
+        "OrgName": "凤翔",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。"
+      },
+      {
+        "OrgName": "镇海节度使",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "此时，唐僖宗将其王牌镇海节度使高骄率军追剿。"
+      },
+      {
+        "OrgName": "淮南节度使",
+        "OrgType": "地方势力",
+        "DynastyName": "唐",
+        "source_text": "调高骈为淮南节度使，驻屯扬州，以阻止义军由江南、淮南、河南方向西进两京。"
+      },
+      {
+        "OrgName": "起义军",
+        "OrgType": "军事势力",
+        "DynastyName": "唐",
+        "source_text": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "OrgName": "黄巢起义军",
+        "OrgType": "军事势力",
+        "DynastyName": "唐",
+        "source_text": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "OrgName": "王仙芝起义军",
+        "OrgType": "军事势力",
+        "DynastyName": "唐",
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "唐宪宗",
+        "DynastyName": "唐",
+        "OrgName": "唐廷",
+        "Role": "君主",
+        "Note": "平定藩镇后骄侈，未彻底消灭藩镇割据",
+        "source_text": "但唐宪宗以为大功告成，收刮钱财，恣意骄侈，不再进一步采取收回节度使财、兵、任免等权的措施，以彻底消灭藩镇割据。"
+      },
+      {
+        "PersonName": "王仙芝",
+        "DynastyName": "唐",
+        "OrgName": "王仙芝黄巢起义军",
+        "Role": "统帅",
+        "Note": "起义军领袖，后战死",
+        "source_text": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。"
+      },
+      {
+        "PersonName": "黄巢",
+        "DynastyName": "唐",
+        "OrgName": "王仙芝黄巢起义军",
+        "Role": "统帅",
+        "Note": "起义军领袖，后称冲天大将军",
+        "source_text": "冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。"
+      },
+      {
+        "PersonName": "唐僖宗",
+        "DynastyName": "唐",
+        "OrgName": "唐廷",
+        "Role": "君主",
+        "Note": "镇压起义军的唐朝皇帝",
+        "source_text": "唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。"
+      },
+      {
+        "PersonName": "宋威",
+        "DynastyName": "唐",
+        "OrgName": "平卢节度使",
+        "Role": "统帅",
+        "Note": "行营招讨使，镇压起义军",
+        "source_text": "唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。"
+      },
+      {
+        "PersonName": "尚让",
+        "DynastyName": "唐",
+        "OrgName": "王仙芝黄巢起义军",
+        "Role": "将领",
+        "Note": "王仙芝余部将领，后与黄巢会合",
+        "source_text": "余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "PersonName": "高骈",
+        "DynastyName": "唐",
+        "OrgName": "镇海节度使",
+        "Role": "统帅",
+        "Note": "镇海节度使，后为淮南节度使，追剿起义军",
+        "source_text": "此时，唐僖宗将其王牌镇海节度使高骄率军追剿。"
+      },
+      {
+        "PersonName": "李超",
+        "DynastyName": "唐",
+        "OrgName": "岭南东道",
+        "Role": "将领",
+        "Note": "岭南东道节度使，被黄巢俘获",
+        "source_text": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "PersonName": "王铎",
+        "DynastyName": "唐",
+        "OrgName": "唐廷",
+        "Role": "统帅",
+        "Note": "宰相，坐镇江陵，阻止义军北上",
+        "source_text": "以宰相王铎坐镇江陵，以李系（李晟曾孙）副之，率精兵守潭州（长沙），阻止义军沿潭、荆、襄、东都方向北上；"
+      },
+      {
+        "PersonName": "李系",
+        "DynastyName": "唐",
+        "OrgName": "唐廷",
+        "Role": "将领",
+        "Note": "李晟曾孙，守潭州，战败逃往朗州",
+        "source_text": "李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "起义军进攻沂州",
+        "EventType": "农民起义",
+        "StartDate": "875年12月",
+        "EndDate": "875年12月",
+        "DynastyName": "唐",
+        "Place": "沂州",
+        "Aggressor": "王仙芝黄巢起义军",
+        "Defender": "唐廷",
+        "Allies": null,
+        "Result": "起义军受挫，王仙芝采取撤退、分散、隐蔽等措施，避免了围歼",
+        "Commanders": "王仙芝、黄巢、宋威",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "沂州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军首次进攻沂州，虽受挫但成功避免围歼，为后续流动作战奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "起义军进攻阳翟、郏城",
+            "evidence": "公元876年8月，起义军一举攻占阳翟、郏城"
+          }
+        ],
+        "source_text": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "EventType": "农民起义",
+        "StartDate": "876年8月",
+        "EndDate": "876年8月",
+        "DynastyName": "唐",
+        "Place": "阳翟、郏城",
+        "Aggressor": "王仙芝黄巢起义军",
+        "Defender": "唐廷",
+        "Allies": null,
+        "Result": "起义军攻占阳翟、郏城，但随后在郑州受挫，转锋南向",
+        "Commanders": "王仙芝、黄巢",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "阳翟、郏城",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军跳出山东，进攻河南，威胁唐朝心腹重地，开始了流动作战",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "起义军进攻郑州",
+            "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向"
+          }
+        ],
+        "source_text": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "EventType": "农民起义",
+        "StartDate": "876年",
+        "EndDate": "876年",
+        "DynastyName": "唐",
+        "Place": "郑州",
+        "Aggressor": "王仙芝黄巢起义军",
+        "Defender": "唐廷",
+        "Allies": null,
+        "Result": "起义军在郑州受挫，转锋南向荆、襄地区",
+        "Commanders": "王仙芝、黄巢",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "郑州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军在郑州受挫后，转向南方，开辟了新的战场",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "起义军进攻阳翟、郏城",
+            "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向"
+          }
+        ],
+        "source_text": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "EventType": "农民起义",
+        "StartDate": "876年",
+        "EndDate": "876年",
+        "DynastyName": "唐",
+        "Place": "荆、襄地区",
+        "Aggressor": "起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "起义军成功转战至荆襄地区",
+        "Commanders": "王仙芝、黄巢",
+        "KeyPersons": null,
+        "Action": "转战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "荆、襄地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军避开唐军主力，开辟新战场",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "起义军进攻蕲州",
+            "evidence": "起义军进入湖北后，发展极为顺利，连克申、光、复、郢、庐、寿、舒等州，12月，进攻蕲州"
+          }
+        ],
+        "source_text": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "EventType": "农民起义",
+        "StartDate": "876年12月",
+        "EndDate": "876年12月",
+        "DynastyName": "唐",
+        "Place": "蕲州",
+        "Aggressor": "起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "王仙芝受唐廷诱降，黄巢反对，黄、王分手",
+        "Commanders": "王仙芝、黄巢",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "蕲州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军内部发生分裂，黄巢与王仙芝分道扬镳",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄巢北上鲁西、河南流动作战",
+            "evidence": "黄、王分手后，黄巢北上鲁西、河南流动作战"
+          }
+        ],
+        "source_text": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "EventType": "农民起义",
+        "StartDate": "876年",
+        "EndDate": "876年",
+        "DynastyName": "唐",
+        "Place": "鲁西、河南",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢在鲁西、河南地区流动作战，后转战各地",
+        "Commanders": "黄巢",
+        "KeyPersons": null,
+        "Action": "流动作战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "鲁西、河南",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "黄巢起义军转战各地，扩大影响",
+        "Remark": "",
+        "relations": [],
+        "source_text": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "EventType": "农民起义",
+        "StartDate": "876年",
+        "EndDate": "878年",
+        "DynastyName": "唐",
+        "Place": "鄂州、隋州、洪州、江州、湖南、安徽、苏南",
+        "Aggressor": "王仙芝起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "王仙芝战死，余部由尚让率领与黄巢会合",
+        "Commanders": "王仙芝、尚让",
+        "KeyPersons": null,
+        "Action": "转战、攻破",
+        "TroopSize": "不详",
+        "Duration": "持续约两年",
+        "GeographicScope": "湖北、江西、湖南、安徽、苏南",
+        "Casualties": "5万人壮烈牺牲",
+        "source": "《中国历代战争简史》",
+        "Impact": "王仙芝起义军转战多地，牵制唐军，为黄巢起义军发展创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄梅之战",
+            "evidence": "最终于公元878年2月在黄梅战死"
+          },
+          {
+            "type": "因果关系",
+            "to": "黄巢攻克沂、濮二州",
+            "evidence": "余部由尚让率领至毫州与黄巢会合"
+          }
+        ],
+        "source_text": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "EventType": "农民起义",
+        "StartDate": "878年2月",
+        "EndDate": "878年2月",
+        "DynastyName": "唐",
+        "Place": "黄梅",
+        "Aggressor": "唐朝",
+        "Defender": "王仙芝起义军",
+        "Allies": null,
+        "Result": "王仙芝战死，起义军损失5万人",
+        "Commanders": "王仙芝",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "黄梅",
+        "Casualties": "5万人壮烈牺牲",
+        "source": "《中国历代战争简史》",
+        "Impact": "王仙芝起义军主力被消灭，余部与黄巢会合，起义重心转移",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "黄巢攻克沂、濮二州",
+            "evidence": "余部由尚让率领至毫州与黄巢会合"
+          }
+        ],
+        "source_text": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "EventType": "农民起义",
+        "StartDate": "878年3月",
+        "EndDate": "878年3月",
+        "DynastyName": "唐",
+        "Place": "沂州、濮州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢起义军攻克沂、濮二州",
+        "Commanders": "黄巢",
+        "KeyPersons": null,
+        "Action": "攻克",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "沂州、濮州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "黄巢起义军重新在山东地区取得主动，为后续南下发展奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "王仙芝转战鄂、隋、洪、江等地",
+            "evidence": "黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+          }
+        ],
+        "source_text": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州后，又举兵入豫威胁东都。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "EventType": "农民起义",
+        "StartDate": "878年8月",
+        "EndDate": "878年8月",
+        "DynastyName": "唐",
+        "Place": "宣州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢进攻宣州不克",
+        "Commanders": "黄巢",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "宣州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "黄巢起义军转战浙东，继续流动作战",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄巢攻克杭州、越州",
+            "evidence": "8月，黄巢进攻宣州不克，转入浙东，攻克杭、越二州。"
+          }
+        ],
+        "source_text": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "EventType": "农民起义",
+        "StartDate": "878年",
+        "EndDate": "878年",
+        "DynastyName": "唐",
+        "Place": "杭州、越州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢攻克杭州、越州",
+        "Commanders": "黄巢",
+        "KeyPersons": null,
+        "Action": "攻克",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "浙东",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "黄巢起义军占领浙东，为进入福建创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄巢攻占福州",
+            "evidence": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+          }
+        ],
+        "source_text": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。此时，唐僖宗将其王牌镇海节度使高骄率军追剿。为保存实力，黄巢遂率军开山路700里，由浙东进入福建。"
+      },
+      {
+        "EventName": "黄巢攻占福州",
+        "EventType": "农民起义",
+        "StartDate": "878年12月",
+        "EndDate": "878年12月",
+        "DynastyName": "唐",
+        "Place": "福州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢攻占福州及福建全境",
+        "Commanders": "黄巢",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "福建",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "黄巢起义军控制福建，为南下广州奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄巢进攻宣州",
+            "evidence": "12月，攻占福州及福建全境。"
+          }
+        ],
+        "source_text": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "EventType": "农民起义",
+        "StartDate": "879年9月",
+        "EndDate": "879年9月",
+        "DynastyName": "唐",
+        "Place": "广州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢起义军攻克广州，俘获岭南东道节度使李超，控制两广",
+        "Commanders": "黄巢",
+        "KeyPersons": "李超",
+        "Action": "攻克",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "两广地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军占领广州，控制两广，为北伐奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "潭州之战",
+            "evidence": "公元879年9月，黄巢率军攻克广州...公元879年10月，义军开始北伐"
+          }
+        ],
+        "source_text": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "EventName": "潭州之战",
+        "EventType": "农民起义",
+        "StartDate": "879年10月",
+        "EndDate": "879年10月",
+        "DynastyName": "唐",
+        "Place": "潭州",
+        "Aggressor": "黄巢起义军",
+        "Defender": "唐朝",
+        "Allies": null,
+        "Result": "黄巢起义军攻克潭州，全歼守敌10万余人，李系逃往朗州",
+        "Commanders": "黄巢、李系",
+        "KeyPersons": null,
+        "Action": "攻克",
+        "TroopSize": "不详",
+        "Duration": "一日",
+        "GeographicScope": "潭州",
+        "Casualties": "全歼守敌10万余人",
+        "source": "《中国历代战争简史》",
+        "Impact": "起义军突破唐军防线，为北伐打开通道",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄巢攻克广州",
+            "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭"
+          }
+        ],
+        "source_text": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "主战场",
+        "modern_name": "沂州",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "主战场",
+        "modern_name": "阳翟",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "主战场",
+        "modern_name": "郏城",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "主战场",
+        "modern_name": "郑州",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "主战场",
+        "modern_name": "荆、襄地区",
+        "evidence": "转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "主战场",
+        "modern_name": "蕲州",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "主战场",
+        "modern_name": "鲁西",
+        "evidence": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "主战场",
+        "modern_name": "河南",
+        "evidence": "黄巢北上鲁西、河南流动作战。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "鄂州",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "隋州",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "洪州",
+        "evidence": "并分兵渡江攻破洪州（江西南昌）、江州（九江）。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "江州",
+        "evidence": "并分兵渡江攻破洪州（江西南昌）、江州（九江）。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "湖南",
+        "evidence": "转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "安徽",
+        "evidence": "转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "主战场",
+        "modern_name": "苏南",
+        "evidence": "转战于湖南、安徽、苏南一带。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "主战场",
+        "modern_name": "黄梅",
+        "evidence": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "主战场",
+        "modern_name": "沂州",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州后，又举兵入豫威胁东都。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "主战场",
+        "modern_name": "濮州",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "relation": "主战场",
+        "modern_name": "宣州",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "主战场",
+        "modern_name": "杭州",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。此时，唐僖宗将其王牌镇海节度使高骄率军追剿。为保存实力，黄巢遂率军开山路700里，由浙东进入福建。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "主战场",
+        "modern_name": "越州",
+        "evidence": "转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻占福州",
+        "relation": "主战场",
+        "modern_name": "福州",
+        "evidence": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "主战场",
+        "modern_name": "广州",
+        "evidence": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "主战场",
+        "modern_name": "潭州",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "目的地",
+        "modern_name": "沂州",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "战略要地",
+        "modern_name": "阳翟",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "次要战场",
+        "modern_name": "郏城",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "战略要地",
+        "modern_name": "郏城",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "战略要地",
+        "modern_name": "郑州",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "主战场",
+        "modern_name": "荆",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "目的地",
+        "modern_name": "荆",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "次要战场",
+        "modern_name": "襄地区",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "目的地",
+        "modern_name": "蕲州",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "次要战场",
+        "modern_name": "河南",
+        "evidence": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "隋州",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "洪州",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "江州",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "湖南",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "安徽",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "次要战场",
+        "modern_name": "苏南",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "次要战场",
+        "modern_name": "濮州",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州后，又举兵入豫威胁东都。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "relation": "目的地",
+        "modern_name": "宣州",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "次要战场",
+        "modern_name": "越州",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。此时，唐僖宗将其王牌镇海节度使高骄率军追剿。为保存实力，黄巢遂率军开山路700里，由浙东进入福建。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "驻防地",
+        "modern_name": "潭州",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "战略要地",
+        "modern_name": "潭州",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "发起方",
+        "OrgName": "王仙芝黄巢起义军",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "防守方",
+        "OrgName": "唐廷",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "发起方",
+        "OrgName": "王仙芝黄巢起义军",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "防守方",
+        "OrgName": "唐廷",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "发起方",
+        "OrgName": "王仙芝黄巢起义军",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "防守方",
+        "OrgName": "唐廷",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "发起方",
+        "OrgName": "起义军",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "发起方",
+        "OrgName": "起义军",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "王仙芝受唐廷诱降。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "黄巢北上鲁西、河南流动作战。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "发起方",
+        "OrgName": "王仙芝起义军",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "发起方",
+        "OrgName": "唐朝",
+        "evidence": "最终于公元878年2月在黄梅（湖南黄梅）战死。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "防守方",
+        "OrgName": "王仙芝起义军",
+        "evidence": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州后，又举兵入豫威胁东都。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。此时，唐僖宗将其王牌镇海节度使高骄率军追剿。为保存实力，黄巢遂率军开山路700里，由浙东进入福建。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻占福州",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName": "黄巢攻占福州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "公元879年9月，黄巢率军攻克广州。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "发起方",
+        "OrgName": "黄巢起义军",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "防守方",
+        "OrgName": "唐朝",
+        "evidence": "李系坐守潭州孤城。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "被俘方",
+        "OrgName": "黄巢起义军",
+        "evidence": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "将领",
+        "PersonName": "宋威",
+        "evidence": "唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "黄巢北上鲁西、河南流动作战",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "黄、王分手后，黄巢北上鲁西、河南流动作战。黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "将领",
+        "PersonName": "尚让",
+        "evidence": "余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "统帅",
+        "PersonName": "王仙芝",
+        "evidence": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克沂、濮二州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元878年3月，黄巢率军自毫州北上攻克沂、濮二州后，又举兵入豫威胁东都。"
+      },
+      {
+        "EventName": "黄巢进攻宣州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。"
+      },
+      {
+        "EventName": "黄巢攻克杭州、越州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "8月，黄巢进攻宣州（安徽宣城）不克，转入浙东，攻克杭（杭州）、越（绍兴）二州。此时，唐僖宗将其王牌镇海节度使高骄率军追剿。为保存实力，黄巢遂率军开山路700里，由浙东进入福建。"
+      },
+      {
+        "EventName": "黄巢攻占福州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "俘虏",
+        "PersonName": "李超",
+        "evidence": "俘获了岭南东道节度使李超。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "统帅",
+        "PersonName": "黄巢",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "将领",
+        "PersonName": "李系",
+        "evidence": "李系坐守潭州孤城。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻沂州",
+        "relation": "统帅",
+        "PersonName": "宋威",
+        "evidence": "公元875年正月，濮州（山东鄄城）人王仙芝领导数千人在长垣（河南长垣）起义。他以“天补平均大将军兼海内诸豪都统”的旗号，反唐朝，均贫富，深得人民拥护，迅速发展到数万人。6月，克濮州、曹州（山东曹县）。冤句（山东荷泽）人黄巢率领数千人响应王仙芝起义。12月，起义军进攻沂州（山东临沂）。唐僖宗李镜急忙以平卢节度使（山东益都一带）宋威为行营招讨使，指挥河南、淮南、山东等地区诸道兵镇压起义军。翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。"
+      },
+      {
+        "EventName": "起义军进攻阳翟、郏城",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军进攻郑州",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "公元876年8月，起义军一举攻占阳翟（河南禹县）、郏城（河南郏县）。唐朝慌忙调兵围剿，同时调昭义（山西长治）、襄州（湖北襄阳）、凤翔（陕西凤翔）等镇兵守卫东都、陕州、潼关等要地，阻止义军西进。当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName": "起义军转战荆襄",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。起义军进入湖北后，发展极为顺利，连克申（河南信阳）、光（河南洪川）、复（湖北沔阳）、郢（湖北京山）、庐（安徽合肥）、寿（安徽寿县）、舒（安徽潜山）等州。"
+      },
+      {
+        "EventName": "起义军进攻蕲州",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "12月，进攻蕲州（湖北蕲春南）时，王仙芝受唐廷诱降，黄巢等广大将士极力反对，黄、王就此分手。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "阵亡",
+        "PersonName": "王仙芝",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "统帅",
+        "PersonName": "尚让",
+        "evidence": "王仙芝则仍在湖北转战于鄂州（武昌）、隋州（隋县）诸地，并分兵渡江攻破洪州（江西南昌）、江州（九江），转战于湖南、安徽、苏南一带。但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "君主",
+        "PersonName": "王仙芝",
+        "evidence": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄梅之战",
+        "relation": "阵亡",
+        "PersonName": "王仙芝",
+        "evidence": "但王仙芝多次派人洽降，最终于公元878年2月在黄梅（湖南黄梅）战死，5万人壮烈牺牲，余部由尚让率领至毫州（安徽毫县）与黄巢会合。"
+      },
+      {
+        "EventName": "黄巢攻克广州",
+        "relation": "参与者",
+        "PersonName": "李超",
+        "evidence": "公元879年9月，黄巢率军攻克广州，俘获了岭南东道节度使李超，进而控制了两广全部。"
+      },
+      {
+        "EventName": "潭州之战",
+        "relation": "统帅",
+        "PersonName": "李系",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭，自桂州（广西桂林）编大筏数千，乘暴水沿湘江而下，于当月29日到达潭州城下。李系坐守潭州孤城，外围未曾布兵，义军只一日即攻克潭州，全歼守敌10万余人，流尸蔽江；李系仅以身免，逃往朗州（湖南常德）。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "起义军进攻沂州",
+        "relation": "顺承关系",
+        "EventName_B": "起义军进攻阳翟、郏城",
+        "evidence": "翌年7月，起义军受挫，王仙芝及时采取撤退、分散、隐蔽等措施，避免了围歼。公元876年8月，起义军一举攻占阳翟、郏城。"
+      },
+      {
+        "EventName_A": "起义军进攻郑州",
+        "relation": "顺承关系",
+        "EventName_B": "起义军进攻阳翟、郏城",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向"
+      },
+      {
+        "EventName_A": "起义军转战荆襄",
+        "relation": "顺承关系",
+        "EventName_B": "起义军进攻郑州",
+        "evidence": "当起义军在郑州受挫时，立即摆脱重兵追堵的不利形势，转锋南向唐军事力量较薄弱的荆、襄地区。"
+      },
+      {
+        "EventName_A": "起义军转战荆襄",
+        "relation": "顺承关系",
+        "EventName_B": "起义军进攻蕲州",
+        "evidence": "起义军进入湖北后，发展极为顺利，连克申、光、复、郢、庐、寿、舒等州12月，进攻蕲州。\n起义军进入湖北后，发展极为顺利，连克申、光、复、郢、庐、寿、舒等州，12月，进攻蕲州"
+      },
+      {
+        "EventName_A": "起义军进攻蕲州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢北上鲁西、河南流动作战",
+        "evidence": "黄、王就此分手。黄巢北上鲁西、河南流动作战。\n黄、王分手后，黄巢北上鲁西、河南流动作战"
+      },
+      {
+        "EventName_A": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "顺承关系",
+        "EventName_B": "起义军进攻蕲州",
+        "evidence": "黄、王就此分手。王仙芝则仍在湖北转战于鄂州、隋州诸地。"
+      },
+      {
+        "EventName_A": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "顺承关系",
+        "EventName_B": "黄梅之战",
+        "evidence": "最终于公元878年2月在黄梅战死。"
+      },
+      {
+        "EventName_A": "黄巢北上鲁西、河南流动作战",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢攻克沂、濮二州",
+        "evidence": "黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。公元878年3月，黄巢率军自毫州北上攻克沂、濮二州。"
+      },
+      {
+        "EventName_A": "黄巢攻克沂、濮二州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢进攻宣州",
+        "evidence": "又举兵入豫威胁东都。待唐廷把荆、襄部队调回洛阳时，黄巢则率大军挥师南下，直插淮南，渡过长江，利用王仙芝余部在江南的战果，乘虚猛进，连克江西虔、吉、饶、信等州。8月，黄巢进攻宣州。"
+      },
+      {
+        "EventName_A": "黄巢攻克杭州、越州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢进攻宣州",
+        "evidence": "8月，黄巢进攻宣州不克，转入浙东，攻克杭、越二州。"
+      },
+      {
+        "EventName_A": "黄巢攻克杭州、越州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢攻占福州",
+        "evidence": "为保存实力，黄巢遂率军开山路700里，由浙东进入福建。12月，攻占福州及福建全境。"
+      },
+      {
+        "EventName_A": "黄巢攻克广州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢攻占福州",
+        "evidence": "公元879年9月，黄巢率军攻克广州。"
+      },
+      {
+        "EventName_A": "潭州之战",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢攻克广州",
+        "evidence": "公元879年10月，义军开始北伐，沿潭、荆战略方向直指两京。首先对潭州实施远程奔袭。\n公元879年9月，黄巢率军攻克广州...公元879年10月，义军开始北伐"
+      },
+      {
+        "EventName_A": "王仙芝转战鄂、隋、洪、江等地",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢攻克沂、濮二州",
+        "evidence": "黄巢跳出鄂东后，在鲁西一举攻克军州、沂州，再次转战豫、鄂；继而又入山东，南下毫州。\n余部由尚让率领至毫州与黄巢会合"
+      },
+      {
+        "EventName_A": "黄巢攻克沂、濮二州",
+        "relation": "顺承关系",
+        "EventName_B": "黄梅之战",
+        "evidence": "余部由尚让率领至毫州与黄巢会合"
+      },
+      {
+        "EventName_A": "黄巢攻占福州",
+        "relation": "顺承关系",
+        "EventName_B": "黄巢进攻宣州",
+        "evidence": "12月，攻占福州及福建全境。"
+      }
+    ]
+  }
+}

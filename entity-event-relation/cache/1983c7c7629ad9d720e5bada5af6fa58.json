@@ -1,0 +1,457 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "涿鹿",
+        "modern_name": "涿鹿县",
+        "DynastyName": "上古",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "涿鹿县",
+        "Specific_location": "之野",
+        "source_text": "与蚩尤战于涿鹿之野"
+      },
+      {
+        "geo_name": "阪泉",
+        "modern_name": null,
+        "DynastyName": "上古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "之野",
+        "source_text": "黄帝与炎帝战于阪泉之野"
+      },
+      {
+        "geo_name": "丹水",
+        "modern_name": null,
+        "DynastyName": "上古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "尧攻丹水之战"
+      },
+      {
+        "geo_name": "鸣条",
+        "modern_name": null,
+        "DynastyName": "夏",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在鸣条决战中，将夏推翻"
+      },
+      {
+        "geo_name": "牧野",
+        "modern_name": null,
+        "DynastyName": "商",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在牧野一战中，周武王灭商纣而建立了西周王朝"
+      },
+      {
+        "geo_name": "洛邑",
+        "modern_name": "洛阳市",
+        "DynastyName": "周",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "周平王将国都东迁洛邑"
+      },
+      {
+        "geo_name": "涂山",
+        "modern_name": null,
+        "DynastyName": "夏",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在涂山召开上万名部落首领参加的大会"
+      },
+      {
+        "geo_name": "斧隧",
+        "modern_name": null,
+        "DynastyName": "上古",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "夏",
+        "OrgType": "国家",
+        "DynastyName": "夏",
+        "source_text": "商汤针对“桀不务德而武伤百姓”的状况，乃内修“德政”，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，“十一征而无敌于天下”，最后在鸣条决战中，将夏推翻"
+      },
+      {
+        "OrgName": "商",
+        "OrgType": "国家",
+        "DynastyName": "商",
+        "source_text": "商汤针对“桀不务德而武伤百姓”的状况，乃内修“德政”，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，“十一征而无敌于天下”，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝一商"
+      },
+      {
+        "OrgName": "周",
+        "OrgType": "国家",
+        "DynastyName": "周",
+        "source_text": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝"
+      },
+      {
+        "OrgName": "三苗",
+        "OrgType": "部落",
+        "DynastyName": "上古",
+        "source_text": "舜禹对三苗之战"
+      },
+      {
+        "OrgName": "犬戎",
+        "OrgType": "部落",
+        "DynastyName": "周",
+        "source_text": "在犬戎侵扰下，周平王将国都东迁洛邑"
+      },
+      {
+        "OrgName": "夏夷",
+        "OrgType": "部落",
+        "DynastyName": "上古",
+        "source_text": "夏、夷、黎苗三个宗族集团之间的部落成员，为争取生存或血缘复仇，使用生产工具进行着连绵不断的原始战争"
+      },
+      {
+        "OrgName": "黎苗",
+        "OrgType": "部落",
+        "DynastyName": "上古",
+        "source_text": "夏、夷、黎苗三个宗族集团之间的部落成员，为争取生存或血缘复仇，使用生产工具进行着连绵不断的原始战争"
+      },
+      {
+        "OrgName": "斧隧部落",
+        "OrgType": "军事势力",
+        "DynastyName": "上古",
+        "source_text": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "神农",
+        "DynastyName": "上古",
+        "OrgName": null,
+        "Role": "君主",
+        "Note": "神农斧隧之战的参与者",
+        "source_text": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战"
+      },
+      {
+        "PersonName": "黄帝",
+        "DynastyName": "上古",
+        "OrgName": "黄帝部落",
+        "Role": "统帅",
+        "Note": "参与阪泉之战、涿鹿之战，均为己方统帅",
+        "source_text": "黄帝与炎帝战于阪泉之野，后与蚩尤战于涿鹿"
+      },
+      {
+        "PersonName": "炎帝",
+        "DynastyName": "上古",
+        "OrgName": "炎帝部落",
+        "Role": "统帅",
+        "Note": "阪泉之战敌方统帅",
+        "source_text": "黄帝与炎帝战于阪泉之野"
+      },
+      {
+        "PersonName": "蚩尤",
+        "DynastyName": "上古",
+        "OrgName": null,
+        "Role": "统帅",
+        "Note": "涿鹿之战敌方统帅",
+        "source_text": "与蚩尤战于涿鹿之野"
+      },
+      {
+        "PersonName": "尧",
+        "DynastyName": "上古",
+        "OrgName": null,
+        "Role": "君主",
+        "Note": "发动尧攻丹水之战",
+        "source_text": "尧攻丹水之战"
+      },
+      {
+        "PersonName": "舜",
+        "DynastyName": "上古",
+        "OrgName": null,
+        "Role": "君主",
+        "Note": "参与舜禹对三苗之战",
+        "source_text": "舜禹对三苗之战"
+      },
+      {
+        "PersonName": "禹",
+        "DynastyName": "上古",
+        "OrgName": null,
+        "Role": "统帅",
+        "Note": "参与舜禹对三苗之战，战胜三苗后成为军事盟主",
+        "source_text": "舜禹对三苗之战"
+      },
+      {
+        "PersonName": "启",
+        "DynastyName": "夏",
+        "OrgName": "夏",
+        "Role": "君主",
+        "Note": "杀益夺位，建立夏王朝",
+        "source_text": "禹死后，其子启破坏禅让制，杀益夺位，建立了中国最早的奴隶制国家一夏王朝"
+      },
+      {
+        "PersonName": "益",
+        "DynastyName": "夏",
+        "OrgName": null,
+        "Role": "君主",
+        "Note": "被启杀夺位",
+        "source_text": "禹死后，其子启破坏禅让制，杀益夺位"
+      },
+      {
+        "PersonName": "桀",
+        "DynastyName": "夏",
+        "OrgName": "夏",
+        "Role": "君主",
+        "Note": "夏朝末代君主，被商汤推翻",
+        "source_text": "传至第17君夏桀时，内部矛盾日益激化。商汤针对“桀不务德而武伤百姓”的状况，乃内修“德政”，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，“十一征而无敌于天下”，最后在鸣条决战中，将夏推翻"
+      },
+      {
+        "PersonName": "商汤",
+        "DynastyName": "商",
+        "OrgName": "商",
+        "Role": "君主",
+        "Note": "商朝开国君主，发动鸣条之战灭夏",
+        "source_text": "商汤针对“桀不务德而武伤百姓”的状况，乃内修“德政”，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，“十一征而无敌于天下”，最后在鸣条决战中，将夏推翻\n商汤针对'桀不务德而武伤百姓'的状况，乃内修'德政'，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，'十一征而无敌于天下'，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝——商。"
+      },
+      {
+        "PersonName": "纣王",
+        "DynastyName": "商",
+        "OrgName": "商",
+        "Role": "君主",
+        "Note": "商朝末代君主，牧野之战被周武王击败",
+        "source_text": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝"
+      },
+      {
+        "PersonName": "周武王",
+        "DynastyName": "周",
+        "OrgName": "周",
+        "Role": "统帅",
+        "Note": "牧野之战己方统帅，灭商建立西周",
+        "source_text": "于是在牧野一战中，周武王灭商纣而建立了西周王朝\n殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      },
+      {
+        "PersonName": "周平王",
+        "DynastyName": "周",
+        "OrgName": "周",
+        "Role": "君主",
+        "Note": "东迁洛邑，开启东周",
+        "source_text": "在犬戎侵扰下，周平王将国都东迁洛邑"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "神农斧隧之战",
+        "EventType": "战争",
+        "StartDate": "不详",
+        "EndDate": "不详",
+        "DynastyName": "上古",
+        "Place": "斧隧",
+        "Aggressor": "神农氏",
+        "Defender": "斧隧部落",
+        "Allies": null,
+        "Result": "不详",
+        "Commanders": "神农",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "不详",
+        "Casualties": "不详",
+        "source": "先秦古籍",
+        "Impact": "据传为最早的一次战争",
+        "Remark": "原文记载为'神农伐斧隧之战'",
+        "relations": [],
+        "source_text": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "EventType": "统一战争",
+        "StartDate": "夏朝末年",
+        "EndDate": "夏朝末年",
+        "DynastyName": "夏",
+        "Place": "鸣条",
+        "Aggressor": "商汤",
+        "Defender": "夏桀",
+        "Allies": "诸侯",
+        "Result": "商汤获胜，夏朝灭亡",
+        "Commanders": "商汤、夏桀",
+        "KeyPersons": null,
+        "Action": "决战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "鸣条",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "商灭夏，建立商朝",
+        "Remark": "商汤采取逐个翦除夏羽翼的方略",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "周武王灭商牧野之战",
+            "evidence": "商汤灭夏后，商朝建立，后纣王失政，周武王灭商"
+          }
+        ],
+        "source_text": "商汤针对'桀不务德而武伤百姓'的状况，乃内修'德政'，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，'十一征而无敌于天下'，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝——商。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "EventType": "统一战争",
+        "StartDate": "商朝末年",
+        "EndDate": "商朝末年",
+        "DynastyName": "商",
+        "Place": "牧野",
+        "Aggressor": "周武王",
+        "Defender": "商纣王",
+        "Allies": null,
+        "Result": "周武王获胜，商朝灭亡",
+        "Commanders": "周武王、纣王",
+        "KeyPersons": null,
+        "Action": "决战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "牧野",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "周武王灭商，建立西周",
+        "Remark": "周武王乘机剪商羽翼，出现三分天下周有其二的局面",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "鸣条之战",
+            "evidence": "商汤灭夏后，商朝建立，后纣王失政，周武王灭商"
+          }
+        ],
+        "source_text": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "神农斧隧之战",
+        "relation": "主战场",
+        "modern_name": "斧隧",
+        "evidence": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "主战场",
+        "modern_name": "鸣条",
+        "evidence": "商汤针对'桀不务德而武伤百姓'的状况，乃内修'德政'，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，'十一征而无敌于天下'，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝——商。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "主战场",
+        "modern_name": "牧野",
+        "evidence": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "神农斧隧之战",
+        "relation": "发起方",
+        "OrgName": "神农",
+        "evidence": "神农斧隧之战"
+      },
+      {
+        "EventName": "神农斧隧之战",
+        "relation": "防守方",
+        "OrgName": "斧隧部落",
+        "evidence": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "发起方",
+        "OrgName": "商",
+        "evidence": "商汤针对“桀不务德而武伤百姓”的状况，乃内修“德政”，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，“十一征而无敌于天下”，最后在鸣条决战中，将夏推翻。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "防守方",
+        "OrgName": "夏",
+        "evidence": "最后在鸣条决战中，将夏推翻。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "同盟方",
+        "OrgName": "诸侯",
+        "evidence": "外结诸侯，争取与国"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "发起方",
+        "OrgName": "周",
+        "evidence": "周武王灭商纣而建立了西周王朝。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "防守方",
+        "OrgName": "商",
+        "evidence": "周武王灭商纣而建立了西周王朝。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "神农斧隧之战",
+        "relation": "统帅",
+        "PersonName": "神农",
+        "evidence": "先秦古籍中根据传说记载的最早一次战争是神农斧隧之战。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "统帅",
+        "PersonName": "商汤",
+        "evidence": "商汤针对'桀不务德而武伤百姓'的状况，乃内修'德政'，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，'十一征而无敌于天下'，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝——商。"
+      },
+      {
+        "EventName": "鸣条之战",
+        "relation": "统帅",
+        "PersonName": "桀",
+        "evidence": "商汤针对'桀不务德而武伤百姓'的状况，乃内修'德政'，外结诸侯，争取与国，采取逐个翦除夏羽翼的方略，'十一征而无敌于天下'，最后在鸣条决战中，将夏推翻，建立了第二个奴隶制王朝——商。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "统帅",
+        "PersonName": "周武王",
+        "evidence": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "统帅",
+        "PersonName": "纣王",
+        "evidence": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "君主",
+        "PersonName": "周武王",
+        "evidence": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      },
+      {
+        "EventName": "周武王灭商牧野之战",
+        "relation": "君主",
+        "PersonName": "纣王",
+        "evidence": "殷商统治之末期，纣王失政，长期屈从于商的周，此时崛起于戎狄之间，乘机剪商羽翼，出现了三分天下周人有其二的局面。于是在牧野一战中，周武王灭商纣而建立了西周王朝。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "周武王灭商牧野之战",
+        "relation": "顺承关系",
+        "EventName_B": "鸣条之战",
+        "evidence": "商汤灭夏后，商朝建立，后纣王失政，周武王灭商"
+      }
+    ]
+  }
+}

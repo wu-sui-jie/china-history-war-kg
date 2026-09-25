@@ -1,0 +1,1898 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "武宣县",
+        "modern_name": "武宣县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "来宾市",
+        "District_County": "武宣县",
+        "Specific_location": null,
+        "source_text": "太平军向东南方向发展的企图受阻后，即转兵武宣县，在东乡西面之东岭村击败清军。"
+      },
+      {
+        "geo_name": "东乡",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "西面之东岭村",
+        "source_text": "太平军向东南方向发展的企图受阻后，即转兵武宣县，在东乡西面之东岭村击败清军。"
+      },
+      {
+        "geo_name": "东岭村",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "太平军向东南方向发展的企图受阻后，即转兵武宣县，在东乡西面之东岭村击败清军。"
+      },
+      {
+        "geo_name": "桂平",
+        "modern_name": "桂平市",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "贵港市",
+        "District_County": "桂平市",
+        "Specific_location": null,
+        "source_text": "随后，他们率领太平军在桂平、武宣、象州等地与清军转战大半年之久。"
+      },
+      {
+        "geo_name": "象州",
+        "modern_name": "象州县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "来宾市",
+        "District_County": "象州县",
+        "Specific_location": null,
+        "source_text": "随后，他们率领太平军在桂平、武宣、象州等地与清军转战大半年之久。"
+      },
+      {
+        "geo_name": "平南",
+        "modern_name": "平南县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "贵港市",
+        "District_County": "平南县",
+        "Specific_location": null,
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "geo_name": "官村",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "geo_name": "永安州",
+        "modern_name": "蒙山县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "梧州市",
+        "District_County": "蒙山县",
+        "Specific_location": null,
+        "source_text": "乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "geo_name": "古苏冲",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "蒙山县东",
+        "source_text": "在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。"
+      },
+      {
+        "geo_name": "昭平县",
+        "modern_name": "昭平县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "贺州市",
+        "District_County": "昭平县",
+        "Specific_location": null,
+        "source_text": "在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。"
+      },
+      {
+        "geo_name": "桂林",
+        "modern_name": "桂林市",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻桂林不克，改攻全州。"
+      },
+      {
+        "geo_name": "全州",
+        "modern_name": "全州县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": "全州县",
+        "Specific_location": null,
+        "source_text": "攻桂林不克，改攻全州。"
+      },
+      {
+        "geo_name": "蓑衣渡",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。"
+      },
+      {
+        "geo_name": "道州",
+        "modern_name": "道县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "永州市",
+        "District_County": "道县",
+        "Specific_location": null,
+        "source_text": "6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "geo_name": "灌阳",
+        "modern_name": "灌阳县",
+        "DynastyName": "清朝",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": "灌阳县",
+        "Specific_location": null,
+        "source_text": "要求由灌阳南归广西，把反清斗争局限于狭隘的乡土地域里。"
+      },
+      {
+        "geo_name": "江华",
+        "modern_name": "江华瑶族自治县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "永州市",
+        "District_County": "江华瑶族自治县",
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "永明",
+        "modern_name": "江永县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "永州市",
+        "District_County": "江永县",
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "嘉禾",
+        "modern_name": "嘉禾县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "郴州市",
+        "District_County": "嘉禾县",
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "兰山",
+        "modern_name": "蓝山县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "永州市",
+        "District_County": "蓝山县",
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "桂阳",
+        "modern_name": "桂阳县",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "郴州市",
+        "District_County": "桂阳县",
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "郴州",
+        "modern_name": "郴州市",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "郴州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "长沙",
+        "modern_name": "长沙市",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "长沙市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月，太平军放弃道州，向东挺进，先后攻克江华、永明、嘉禾、兰山、桂阳、郴州，夺取湖南省会长沙。"
+      },
+      {
+        "geo_name": "宁乡",
+        "modern_name": "宁乡市",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "长沙市",
+        "District_County": "宁乡市",
+        "Specific_location": null,
+        "source_text": "11月底，撒兵过湘水西上，克宁乡，取益阳，攻占岳州。"
+      },
+      {
+        "geo_name": "益阳",
+        "modern_name": "益阳市",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "益阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "11月底，撒兵过湘水西上，克宁乡，取益阳，攻占岳州。"
+      },
+      {
+        "geo_name": "岳州",
+        "modern_name": "岳阳市",
+        "DynastyName": "清朝",
+        "Province": "湖南省",
+        "City": "岳阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "11月底，撒兵过湘水西上，克宁乡，取益阳，攻占岳州。"
+      },
+      {
+        "geo_name": "武昌",
+        "modern_name": "武昌区",
+        "DynastyName": "清朝",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": "武昌区",
+        "Specific_location": null,
+        "source_text": "分水陆两路直取湖北省城武昌。"
+      },
+      {
+        "geo_name": "咸宁",
+        "modern_name": "咸宁市",
+        "DynastyName": "清朝",
+        "Province": "湖北省",
+        "City": "咸宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "陆路由咸宁北上，抵达武昌东门。"
+      },
+      {
+        "geo_name": "汉阳",
+        "modern_name": "汉阳区",
+        "DynastyName": "清朝",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": "汉阳区",
+        "Specific_location": null,
+        "source_text": "切断武昌与汉阳清军的联军。"
+      },
+      {
+        "geo_name": "文昌门",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。"
+      },
+      {
+        "geo_name": "九江",
+        "modern_name": "九江市",
+        "DynastyName": "清朝",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克九江、安庆、芜湖，向南京胜利进军。"
+      },
+      {
+        "geo_name": "安庆",
+        "modern_name": "安庆市",
+        "DynastyName": "清朝",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克九江、安庆、芜湖，向南京胜利进军。"
+      },
+      {
+        "geo_name": "芜湖",
+        "modern_name": "芜湖市",
+        "DynastyName": "清朝",
+        "Province": "安徽省",
+        "City": "芜湖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "连克九江、安庆、芜湖，向南京胜利进军。"
+      },
+      {
+        "geo_name": "金陵",
+        "modern_name": "南京市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "3月8日，前锋抵达金陵城下。"
+      },
+      {
+        "geo_name": "仪凤门",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": "南京市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "geo_name": "天京",
+        "modern_name": "南京市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "旋定都南京，改名天京。"
+      },
+      {
+        "geo_name": "镇江",
+        "modern_name": "镇江市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "一支由指挥罗大纲、总制吴如孝率领，攻占镇江。"
+      },
+      {
+        "geo_name": "江浦",
+        "modern_name": "浦口区",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "浦口区",
+        "Specific_location": null,
+        "source_text": "一支由地官正丞相李开芳、天官副丞相林凤祥、春官副丞相吉文元率领，克江浦，取仪征，占领扬州。"
+      },
+      {
+        "geo_name": "仪征",
+        "modern_name": "仪征市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": "仪征市",
+        "Specific_location": null,
+        "source_text": "一支由地官正丞相李开芳、天官副丞相林凤祥、春官副丞相吉文元率领，克江浦，取仪征，占领扬州。"
+      },
+      {
+        "geo_name": "扬州",
+        "modern_name": "扬州市",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "一支由地官正丞相李开芳、天官副丞相林凤祥、春官副丞相吉文元率领，克江浦，取仪征，占领扬州。"
+      },
+      {
+        "geo_name": "浦口",
+        "modern_name": "浦口区",
+        "DynastyName": "清朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "浦口区",
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）。"
+      },
+      {
+        "geo_name": "蒙城",
+        "modern_name": "蒙城县",
+        "DynastyName": "清朝",
+        "Province": "安徽省",
+        "City": "亳州市",
+        "District_County": "蒙城县",
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）。"
+      },
+      {
+        "geo_name": "毫州",
+        "modern_name": "亳州市",
+        "DynastyName": "清朝",
+        "Province": "安徽省",
+        "City": "亳州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）。"
+      },
+      {
+        "geo_name": "归德",
+        "modern_name": "商丘市",
+        "DynastyName": "清朝",
+        "Province": "河南省",
+        "City": "商丘市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）。"
+      },
+      {
+        "geo_name": "汜水",
+        "modern_name": "汜水镇",
+        "DynastyName": "清朝",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "荥阳市",
+        "Specific_location": null,
+        "source_text": "趋汜水，渡黄河，占温县。"
+      },
+      {
+        "geo_name": "温县",
+        "modern_name": "温县",
+        "DynastyName": "清朝",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "温县",
+        "Specific_location": null,
+        "source_text": "趋汜水，渡黄河，占温县。"
+      },
+      {
+        "geo_name": "怀州",
+        "modern_name": "沁阳市",
+        "DynastyName": "清朝",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "沁阳市",
+        "Specific_location": null,
+        "source_text": "围怀州（沁阳），与城内城外清军相持两个月。"
+      },
+      {
+        "geo_name": "垣曲",
+        "modern_name": "垣曲县",
+        "DynastyName": "清朝",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": "垣曲县",
+        "Specific_location": null,
+        "source_text": "7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶。"
+      },
+      {
+        "geo_name": "平阳",
+        "modern_name": "临汾市",
+        "DynastyName": "清朝",
+        "Province": "山西省",
+        "City": "临汾市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶。"
+      },
+      {
+        "geo_name": "洪洞",
+        "modern_name": "洪洞县",
+        "DynastyName": "清朝",
+        "Province": "山西省",
+        "City": "临汾市",
+        "District_County": "洪洞县",
+        "Specific_location": null,
+        "source_text": "7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶。"
+      },
+      {
+        "geo_name": "黎城",
+        "modern_name": "黎城县",
+        "DynastyName": "清朝",
+        "Province": "山西省",
+        "City": "长治市",
+        "District_County": "黎城县",
+        "Specific_location": null,
+        "source_text": "7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶。"
+      },
+      {
+        "geo_name": "临洛关",
+        "modern_name": "临洺关镇",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "永年区",
+        "Specific_location": null,
+        "source_text": "东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。"
+      },
+      {
+        "geo_name": "邢台",
+        "modern_name": "邢台市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。"
+      },
+      {
+        "geo_name": "深州",
+        "modern_name": "深州市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "衡水市",
+        "District_County": "深州市",
+        "Specific_location": null,
+        "source_text": "东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。"
+      },
+      {
+        "geo_name": "保定",
+        "modern_name": "保定市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "原拟经保定，进攻北京。"
+      },
+      {
+        "geo_name": "献县",
+        "modern_name": "献县",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "献县",
+        "Specific_location": null,
+        "source_text": "受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。"
+      },
+      {
+        "geo_name": "交河",
+        "modern_name": "交河镇",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "泊头市",
+        "Specific_location": null,
+        "source_text": "受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。"
+      },
+      {
+        "geo_name": "沧州",
+        "modern_name": "沧州市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。"
+      },
+      {
+        "geo_name": "青县",
+        "modern_name": "青县",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "青县",
+        "Specific_location": null,
+        "source_text": "受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。"
+      },
+      {
+        "geo_name": "静海",
+        "modern_name": "静海区",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "静海区",
+        "Specific_location": null,
+        "source_text": "9月，占领静海、独流，进逼天津。"
+      },
+      {
+        "geo_name": "独流",
+        "modern_name": "独流镇",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "静海区",
+        "Specific_location": null,
+        "source_text": "9月，占领静海、独流，进逼天津。"
+      },
+      {
+        "geo_name": "天津",
+        "modern_name": "天津市",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "9月，占领静海、独流，进逼天津。"
+      },
+      {
+        "geo_name": "良王庄",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "分设大营于良王庄、王庆坨，进行围堵。"
+      },
+      {
+        "geo_name": "王庆坨",
+        "modern_name": "王庆坨镇",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "武清区",
+        "Specific_location": null,
+        "source_text": "分设大营于良王庄、王庆坨，进行围堵。"
+      },
+      {
+        "geo_name": "河间县",
+        "modern_name": "河间市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "河间市",
+        "Specific_location": null,
+        "source_text": "1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "束城镇",
+        "modern_name": "束城镇",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "河间市",
+        "Specific_location": null,
+        "source_text": "1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "阜城",
+        "modern_name": "阜城县",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "衡水市",
+        "District_County": "阜城县",
+        "Specific_location": null,
+        "source_text": "继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "官村",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "geo_name": "永安州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "geo_name": "古苏冲",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "geo_name": "昭平县",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "geo_name": "蓑衣渡",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "geo_name": "武昌",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "geo_name": "浦口",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "蒙城",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "毫州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "归德",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "汜水",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "温县",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "怀州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "垣曲",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "平阳",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "洪洞",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "黎城",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "临洛关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "邢台",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "深州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "保定",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "献县",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "交河",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "沧州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "青县",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "静海",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "独流",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "天津",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "良王庄",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "王庆坨",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "河间县",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "束城镇",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "geo_name": "阜城",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "太平军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "OrgName": "清军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      }
+    ],
+    "persons": []
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "官村之战",
+        "EventType": "农民起义",
+        "StartDate": "1851年9月",
+        "EndDate": "1851年9月",
+        "DynastyName": "清",
+        "Place": "官村",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军获胜",
+        "Commanders": "洪秀全、杨秀清",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "官村",
+        "Casualties": "不详",
+        "source": "中国近代史资料",
+        "Impact": "太平军取得重大胜利，为攻克永安州创造了条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "攻克永安",
+            "evidence": "乘胜于25日一举攻克永安州"
+          }
+        ],
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "攻克永安",
+        "EventType": "农民起义",
+        "StartDate": "1851年9月25日",
+        "EndDate": "1851年9月25日",
+        "DynastyName": "清",
+        "Place": "永安州",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军获胜，占领永安州",
+        "Commanders": "洪秀全、杨秀清",
+        "KeyPersons": null,
+        "Action": "攻克",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "永安州",
+        "Casualties": "不详",
+        "source": "中国近代史资料",
+        "Impact": "太平军在永安封王建制，初步建立政权",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "永安突围战",
+            "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出"
+          }
+        ],
+        "source_text": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "永安突围战",
+        "EventType": "农民起义",
+        "StartDate": "1852年4月",
+        "EndDate": "1852年4月",
+        "DynastyName": "清",
+        "Place": "古苏冲、昭平县",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军突围成功",
+        "Commanders": "洪秀全、杨秀清",
+        "KeyPersons": null,
+        "Action": "突围、伏击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "古苏冲至昭平县",
+        "Casualties": "歼灭清兵1000多人",
+        "source": "中国近代史资料",
+        "Impact": "突围成功为太平军北上发展创造了条件",
+        "Remark": "",
+        "relations": [],
+        "source_text": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "蓑衣渡之战",
+        "EventType": "农民起义",
+        "StartDate": "1852年6月",
+        "EndDate": "1852年6月",
+        "DynastyName": "清",
+        "Place": "蓑衣渡",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军获胜，但冯云山牺牲",
+        "Commanders": "冯云山",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "蓑衣渡",
+        "Casualties": "不详",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "太平军损失重要领袖冯云山，但成功突破清军封锁，继续北上",
+        "Remark": "冯云山在此战中中炮牺牲",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "攻克武昌",
+            "evidence": "随后太平军继续北上，攻克武昌"
+          }
+        ],
+        "source_text": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "EventType": "农民起义",
+        "StartDate": "1853年1月",
+        "EndDate": "1853年1月",
+        "DynastyName": "清",
+        "Place": "武昌",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军获胜，占领武昌",
+        "Commanders": "洪秀全、杨秀清",
+        "KeyPersons": null,
+        "Action": "攻城",
+        "TroopSize": "水陆军50万人",
+        "Duration": "不详",
+        "GeographicScope": "武昌",
+        "Casualties": "不详",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "太平军占领武昌，为东下南京奠定基础",
+        "Remark": "太平军掘开文昌门地道，炸毁城墙攻入城内",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "攻克南京",
+            "evidence": "随后太平军撤出武昌，东下攻克南京"
+          }
+        ],
+        "source_text": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克南京",
+        "EventType": "农民起义",
+        "StartDate": "1853年3月",
+        "EndDate": "1853年3月",
+        "DynastyName": "清",
+        "Place": "南京",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军获胜，定都南京，改名天京",
+        "Commanders": "洪秀全、杨秀清",
+        "KeyPersons": "陆建瀛",
+        "Action": "攻城",
+        "TroopSize": "号称百万之众",
+        "Duration": "不详",
+        "GeographicScope": "南京",
+        "Casualties": "不详",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "太平天国定都南京，建立与清政府对峙的政权",
+        "Remark": "太平军轰塌仪凤门城墙入城，杀死两江总督陆建瀛",
+        "relations": [],
+        "source_text": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "EventType": "农民起义",
+        "StartDate": "1853年5月",
+        "EndDate": "1854年5月",
+        "DynastyName": "清",
+        "Place": "浦口、蒙城、毫州、归德、汜水、温县、怀州、垣曲、平阳、洪洞、黎城、临洛关、邢台、深州、保定、献县、交河、沧州、青县、静海、独流、天津、良王庄、王庆坨、河间县、束城镇、阜城",
+        "Aggressor": "太平军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "太平军北伐失败，被清军围困",
+        "Commanders": "林凤祥、李开芳、吉文元、胜保、僧格林沁",
+        "KeyPersons": "洪秀全、杨秀清",
+        "Action": "攻伐、守御、突围",
+        "TroopSize": "2万余人",
+        "Duration": "约一年",
+        "GeographicScope": "安徽、河南、山西、直隶",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "太平军北伐牵制清军，但最终失败，未能攻取北京，对太平天国后期战略产生重大影响。",
+        "Remark": "北伐军由浦口出发，意图直取北京，但最终被清军围困于阜城。",
+        "relations": [],
+        "source_text": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "官村之战",
+        "relation": "主战场",
+        "modern_name": "官村",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "攻克永安",
+        "relation": "主战场",
+        "modern_name": "永安州",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "主战场",
+        "modern_name": "古苏冲",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "次要战场",
+        "modern_name": "昭平县",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "蓑衣渡之战",
+        "relation": "主战场",
+        "modern_name": "蓑衣渡",
+        "evidence": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "relation": "主战场",
+        "modern_name": "武昌",
+        "evidence": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "主战场",
+        "modern_name": "南京",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "出发地",
+        "modern_name": "浦口",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "蒙城",
+        "evidence": "经安徽蒙城、毫州（亳县）入河南"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "毫州",
+        "evidence": "经安徽蒙城、毫州（亳县）入河南"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "归德",
+        "evidence": "克归德（商丘）"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "汜水",
+        "evidence": "趋汜水，渡黄河"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "温县",
+        "evidence": "占温县"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "怀州",
+        "evidence": "围怀州（沁阳），与城内外清军相持两个月"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "垣曲",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "平阳",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "洪洞",
+        "evidence": "过平阳（临汾）、洪洞、黎城"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "黎城",
+        "evidence": "过平阳（临汾）、洪洞、黎城"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "临洛关",
+        "evidence": "东入直隶，克临洛关（河北永年）"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "邢台",
+        "evidence": "克临洛关（河北永年）、邢台"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "深州",
+        "evidence": "北上城，东占深州（深县）"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "目的地",
+        "modern_name": "保定",
+        "evidence": "原拟经保定，进攻北京"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "献县",
+        "evidence": "连下献县、交河"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "交河",
+        "evidence": "连下献县、交河"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "沧州",
+        "evidence": "攻克沧州、青县"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "青县",
+        "evidence": "攻克沧州、青县"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "静海",
+        "evidence": "9月，占领静海、独流，进逼天津"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "独流",
+        "evidence": "9月，占领静海、独流，进逼天津"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "目的地",
+        "modern_name": "天津",
+        "evidence": "进逼天津"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "驻防地",
+        "modern_name": "良王庄",
+        "evidence": "分设大营于良王庄、王庆坨，进行围堵"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "驻防地",
+        "modern_name": "王庆坨",
+        "evidence": "分设大营于良王庄、王庆坨，进行围堵"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "河间县",
+        "evidence": "突围南走河间县束城镇"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "束城镇",
+        "evidence": "突围南走河间县束城镇"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "阜城",
+        "evidence": "继而突围撤至阜城，再度被围"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "补给地",
+        "modern_name": "古苏冲",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "目的地",
+        "modern_name": "昭平县",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "补给地",
+        "modern_name": "昭平县",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "主战场",
+        "modern_name": "浦口",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "蒙城",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "毫州",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "归德",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "汜水",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "目的地",
+        "modern_name": "汜水",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "温县",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "怀州",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "目的地",
+        "modern_name": "怀州",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "垣曲",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "平阳",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "洪洞",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "黎城",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "临洛关",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "邢台",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "深州",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "保定",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "途经地",
+        "modern_name": "保定",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "献县",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "交河",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "沧州",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "青县",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "静海",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "独流",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "天津",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "良王庄",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "指挥所",
+        "modern_name": "良王庄",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "王庆坨",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "河间县",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "束城镇",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "次要战场",
+        "modern_name": "阜城",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "目的地",
+        "modern_name": "阜城",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "官村之战",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "官村之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "攻克永安",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "攻克永安",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "蓑衣渡之战",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "EventName": "蓑衣渡之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "官村之战",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "官村之战",
+        "relation": "统帅",
+        "PersonName": "杨秀清",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。"
+      },
+      {
+        "EventName": "攻克永安",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "攻克永安",
+        "relation": "统帅",
+        "PersonName": "杨秀清",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州（广西蒙山县）。在这里，洪秀全制订了官制，颁布了军律，分封杨秀清为东王，箫朝贵为西王，冯云山为南王，韦昌辉为北王，石达开为翼王；西王以下各王均受东王节制。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "永安突围战",
+        "relation": "统帅",
+        "PersonName": "杨秀清",
+        "evidence": "次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出，在古苏冲（蒙山县东）至昭平县间的峡谷伏击清军，杀清将4个总兵和歼灭兵丁1000多人。这次突围的成功，为以后的胜利发展创造了条件，是太平天国前期战争中具有重要意义的一战。"
+      },
+      {
+        "EventName": "蓑衣渡之战",
+        "relation": "统帅",
+        "PersonName": "冯云山",
+        "evidence": "在蓑衣渡，冯云山身先士卒，不幸中炮牺牲。6月，占领湖南道州（道县），开始进入迅速发展壮大时期。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克武昌",
+        "relation": "统帅",
+        "PersonName": "杨秀清",
+        "evidence": "1853年1月，掘开文昌门地道，炸毁城墙20多丈，攻入城内，占领武昌。在武汉休兵20多天，补充军实，扩充军队，水师的战船增至万只，水陆军发展到50万人。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "统帅",
+        "PersonName": "杨秀清",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "阵亡",
+        "PersonName": "陆建瀛",
+        "evidence": "19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "统帅",
+        "PersonName": "林凤祥",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "统帅",
+        "PersonName": "李开芳",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "统帅",
+        "PersonName": "吉文元",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "统帅",
+        "PersonName": "胜保",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "统帅",
+        "PersonName": "僧格林沁",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "君主",
+        "PersonName": "洪秀全",
+        "evidence": "洪秀全还给北伐军指示：“师行间道，疾趋燕都，毋贪攻城夺地靡进日。”"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "谋士",
+        "PersonName": "杨秀清",
+        "evidence": "4月，东王杨秀清即令林凤祥、李开芳、吉文元等率军2万余人北伐"
+      },
+      {
+        "EventName": "攻克南京",
+        "relation": "参与者",
+        "PersonName": "陆建瀛",
+        "evidence": "3月8日，前锋抵达金陵城下。19日，轰塌北城仪凤门城墙入城，杀死两江总督陆建瀛。20日，全部肃清南京清军。旋定都南京，改名天京。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "参与者",
+        "PersonName": "洪秀全",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      },
+      {
+        "EventName": "太平军北伐",
+        "relation": "参与者",
+        "PersonName": "杨秀清",
+        "evidence": "5月，北伐军由浦口出发，经安徽蒙城、毫州（亳县）入河南，克归德（商丘）；趋汜水，渡黄河，占温县；围怀州（沁阳），与城内外清军相持两个月。7月28日，撤围西进，经垣曲入山西，过平阳（临汾）、洪洞、黎城，东入直隶，克临洛关（河北永年）、邢台，北上城，东占深州（深县）。原拟经保定，进攻北京。受阻后，即改向天津进攻，连下献县、交河，继沿运河北上，攻克沧州、青县。9月，占领静海、独流，进逼天津。这时，清钦差大臣胜保率军由南而北和大将军绵愉、参赞大臣僧格林沁率军由北而南相继赶到，分设大营于良王庄、王庆坨，进行围堵。太平军陷入清军重围后，处境日益艰难。1854年1月，突围南走河间县束城镇，继而突围撤至阜城，再度被围。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "官村之战",
+        "relation": "顺承关系",
+        "EventName_B": "攻克永安",
+        "evidence": "9月，在平南（广西平南）官村大败清军，乘胜于25日一举攻克永安州"
+      },
+      {
+        "EventName_A": "攻克永安",
+        "relation": "顺承关系",
+        "EventName_B": "永安突围战",
+        "evidence": "围困永安，并以南北两路清军日夜轮番进攻。太平军顽强抵抗，与敌战数月。次年4月，因粮草缺乏，遂乘雨夜奋勇突围东出"
+      },
+      {
+        "EventName_A": "永安突围战",
+        "relation": "顺承关系",
+        "EventName_B": "蓑衣渡之战",
+        "evidence": "太平军从永安一突围即挥师北上。攻桂林不克，改攻全州。在蓑衣渡，冯云山身先士卒，不幸中炮牺牲"
+      },
+      {
+        "EventName_A": "攻克武昌",
+        "relation": "顺承关系",
+        "EventName_B": "蓑衣渡之战",
+        "evidence": "6月，占领湖南道州（道县），开始进入迅速发展壮大时期。……8月，太平军放弃道州，向东挺进……攻占岳州。经4天休整后，分水陆两路直取湖北省城武昌\n随后太平军继续北上，攻克武昌"
+      },
+      {
+        "EventName_A": "攻克南京",
+        "relation": "顺承关系",
+        "EventName_B": "攻克武昌",
+        "evidence": "2月，太平军撤出武昌，以号称百万之众，分水陆两路东下，连克九江、安庆、芜湖，向南京胜利进军。3月8日，前锋抵达金陵城下\n随后太平军撤出武昌，东下攻克南京"
+      }
+    ]
+  }
+}

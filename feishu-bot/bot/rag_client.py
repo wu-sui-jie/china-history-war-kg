@@ -21,9 +21,15 @@ import httpx
 
 log = logging.getLogger(__name__)
 
-# 触发降级卡片的错误码（开发文档 5.3）
+# 触发降级卡片的错误码（开发文档 5.3）。
+#
+# 第 14 轮审计 P3-6：这个集合原先**没有任何引用**，真正决定降级文案的是
+# `knowledge_qa._degraded_reply` 里一句硬编码判断，于是「往集合里加错误码」会静默无效。
+# 现在它就是判定集（timeout 另走一档文案），并补上此前漏掉的 `rate_limited`：
+# 429 在机器人看来同样是「服务暂不可用、稍后再试」，不是内部故障。
 DEGRADED_CODES = frozenset({"timeout", "server_busy", "internal", "llm_timeout",
-                            "llm_unavailable", "bad_response", "transport"})
+                            "llm_unavailable", "bad_response", "transport",
+                            "rate_limited"})
 # 只有用户侧参数错误才提示"问题过长或不支持"
 USER_FACING_CODES = frozenset({"invalid_request"})
 
@@ -155,6 +161,14 @@ class RagClient:
             return False
         if resp.status_code in (400, 413, 422, 429):
             return True
+        if resp.status_code in (401, 403):
+            # 第 14 轮审计 P3-7：401/403 说明**路由存在、身份被拒**——最常见的原因是
+            # 机器人侧没配 / 配错 X-Bot-Key（RAG 在 jwt 档下要求它，见 P2-20）。
+            # 原先把 401 归到下面那条"该地址可能不是 RAG 服务"，运维会朝反方向修。
+            log.error("探测 /api/query/json 被拒（HTTP %s）：这是身份问题，不是地址问题——"
+                      "请检查 feishu-bot/.env 的 RAG_BOT_API_KEY 与 RAG 侧 "
+                      "RAG_BOT_API_KEY 是否同值（jwt 档下必须配）", resp.status_code)
+            return False
         if resp.status_code in (404, 405):
             log.warning("该 RAG 未提供 /api/query/json（HTTP %s）：很可能是改动前启动的"
                         "旧实例，请用当前代码重启 RAG 服务", resp.status_code)

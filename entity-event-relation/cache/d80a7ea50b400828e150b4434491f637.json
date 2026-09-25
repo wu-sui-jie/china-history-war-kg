@@ -1,0 +1,2121 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "中都",
+        "modern_name": "北京",
+        "DynastyName": "金",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "geo_name": "长安",
+        "modern_name": "西安",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "木华黎率军进攻长安（西安）、凤翔（属陕西）未克。"
+      },
+      {
+        "geo_name": "凤翔",
+        "modern_name": "凤翔县",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": "宝鸡市",
+        "District_County": "凤翔县",
+        "Specific_location": null,
+        "source_text": "木华黎率军进攻长安（西安）、凤翔（属陕西）未克。"
+      },
+      {
+        "geo_name": "兴庆城",
+        "modern_name": "银川",
+        "DynastyName": "西夏",
+        "Province": "宁夏回族自治区",
+        "City": "银川市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "亲率大军进攻夏都兴庆城，20余日不克"
+      },
+      {
+        "geo_name": "黑水",
+        "modern_name": null,
+        "DynastyName": "西夏",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。"
+      },
+      {
+        "geo_name": "甘州",
+        "modern_name": "张掖",
+        "DynastyName": "西夏",
+        "Province": "甘肃省",
+        "City": "张掖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。"
+      },
+      {
+        "geo_name": "肃州",
+        "modern_name": "酒泉",
+        "DynastyName": "西夏",
+        "Province": "甘肃省",
+        "City": "酒泉市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。"
+      },
+      {
+        "geo_name": "西凉",
+        "modern_name": "武威",
+        "DynastyName": "西夏",
+        "Province": "甘肃省",
+        "City": "武威市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。"
+      },
+      {
+        "geo_name": "兀刺海",
+        "modern_name": null,
+        "DynastyName": "西夏",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。"
+      },
+      {
+        "geo_name": "贺兰山",
+        "modern_name": "贺兰山",
+        "DynastyName": "西夏",
+        "Province": "宁夏回族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大破夏军于贺兰山"
+      },
+      {
+        "geo_name": "灵州",
+        "modern_name": "灵武",
+        "DynastyName": "西夏",
+        "Province": "宁夏回族自治区",
+        "City": "灵武市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻陷灵州（宁夏灵武县）。"
+      },
+      {
+        "geo_name": "潼关",
+        "modern_name": "潼关",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "潼关县",
+        "Specific_location": null,
+        "source_text": "精兵在潼关，南据连山，北限大河，艰以遽破"
+      },
+      {
+        "geo_name": "唐",
+        "modern_name": "唐河",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "唐河县",
+        "Specific_location": null,
+        "source_text": "则下兵唐、邓（河南唐河、邓县），直捣大梁（开封）。"
+      },
+      {
+        "geo_name": "邓",
+        "modern_name": "邓州",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "邓州市",
+        "Specific_location": null,
+        "source_text": "则下兵唐、邓（河南唐河、邓县），直捣大梁（开封）。"
+      },
+      {
+        "geo_name": "大梁",
+        "modern_name": "开封",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直捣大梁（开封）。"
+      },
+      {
+        "geo_name": "官山",
+        "modern_name": null,
+        "DynastyName": "蒙古",
+        "Province": "内蒙古自治区",
+        "City": "乌兰察布市",
+        "District_County": "卓资县",
+        "Specific_location": null,
+        "source_text": "窝阔台在官山（内蒙古卓资北）召开诸王百官大会"
+      },
+      {
+        "geo_name": "白坡",
+        "modern_name": null,
+        "DynastyName": "蒙古",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "孟津县",
+        "Specific_location": null,
+        "source_text": "中路，由窝阔台亲率，从白坡（河南孟津东北）南渡黄河"
+      },
+      {
+        "geo_name": "金州",
+        "modern_name": "安康",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": "安康市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由金州（陕西安康）沿汉水东进。"
+      },
+      {
+        "geo_name": "邓州",
+        "modern_name": "邓州",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "邓州市",
+        "Specific_location": null,
+        "source_text": "至邓州禹山地区阻击蒙古西路军。"
+      },
+      {
+        "geo_name": "禹山",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "邓州市",
+        "Specific_location": null,
+        "source_text": "至邓州禹山地区阻击蒙古西路军。"
+      },
+      {
+        "geo_name": "钧州",
+        "modern_name": "禹州",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "禹州市",
+        "Specific_location": null,
+        "source_text": "拖雷便置主力于钧州（河南禹县）三峰山附近待机"
+      },
+      {
+        "geo_name": "三峰山",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "禹州市",
+        "Specific_location": null,
+        "source_text": "拖雷便置主力于钧州（河南禹县）三峰山附近待机"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": "开封",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "窝阔台遣大将速不台率军3万围攻南京"
+      },
+      {
+        "geo_name": "郑州",
+        "modern_name": "郑州",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "蒙古军在郑州附近击败金援军10余万"
+      },
+      {
+        "geo_name": "归德",
+        "modern_name": "商丘",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "商丘市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。"
+      },
+      {
+        "geo_name": "蔡州",
+        "modern_name": "汝南",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "驻马店市",
+        "District_County": "汝南县",
+        "Specific_location": null,
+        "source_text": "进围蔡州。"
+      },
+      {
+        "geo_name": "光化",
+        "modern_name": "老河口",
+        "DynastyName": "南宋",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": "老河口市",
+        "Specific_location": null,
+        "source_text": "金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。"
+      },
+      {
+        "geo_name": "辽西",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "geo_name": "河北",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "geo_name": "山东",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "geo_name": "山西",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "geo_name": "山东益都",
+        "modern_name": null,
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "geo_name": "夏都",
+        "modern_name": null,
+        "DynastyName": "西夏",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "蒙古",
+        "OrgType": "国家",
+        "DynastyName": "蒙古",
+        "source_text": "封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。"
+      },
+      {
+        "OrgName": "金",
+        "OrgType": "国家",
+        "DynastyName": "金",
+        "source_text": "终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "OrgName": "汪古",
+        "OrgType": "部落",
+        "DynastyName": "蒙古",
+        "source_text": "统率蒙古兵1.3万、汪古骑兵1万"
+      },
+      {
+        "OrgName": "汉军",
+        "OrgType": "军队",
+        "DynastyName": "蒙古",
+        "source_text": "以及降蒙的乱、汉诸军第三次南下攻金。\n1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "OrgName": "清乐军",
+        "OrgType": "军队",
+        "DynastyName": "蒙古",
+        "source_text": "首先重用早降蒙古的河北清乐军首领史天倪"
+      },
+      {
+        "OrgName": "南宋",
+        "OrgType": "国家",
+        "DynastyName": "南宋",
+        "source_text": "宋济南治中严实，以其控制的8州之30万户降蒙古"
+      },
+      {
+        "OrgName": "红袄军",
+        "OrgType": "起义军",
+        "DynastyName": "金",
+        "source_text": "史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "OrgName": "西夏",
+        "OrgType": "国家",
+        "DynastyName": "西夏",
+        "source_text": "成吉思汗又先后两次率军征夏。"
+      },
+      {
+        "OrgName": "义军",
+        "OrgType": "军事势力",
+        "DynastyName": "金",
+        "source_text": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "成吉思汗",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "君主",
+        "Note": "蒙古帝国大汗，发动对金、西夏的战争，临终前指示伐金方略",
+        "source_text": "成吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师"
+      },
+      {
+        "PersonName": "木华黎",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "统帅",
+        "Note": "蒙军副统帅，封太师，统兵攻金，改变策略招降汉族地主武装",
+        "source_text": "封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万"
+      },
+      {
+        "PersonName": "史天倪",
+        "DynastyName": "蒙古",
+        "OrgName": "清乐军",
+        "Role": "将领",
+        "Note": "河北清乐军首领，早降蒙古，被重用攻取辽西、河北等地",
+        "source_text": "首先重用早降蒙古的河北清乐军首领史天倪"
+      },
+      {
+        "PersonName": "刘伯林",
+        "DynastyName": "蒙古",
+        "OrgName": null,
+        "Role": "将领",
+        "Note": "地主武装首领，被木华黎重用",
+        "source_text": "地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。"
+      },
+      {
+        "PersonName": "张柔",
+        "DynastyName": "蒙古",
+        "OrgName": null,
+        "Role": "将领",
+        "Note": "地主武装首领，被木华黎重用",
+        "source_text": "地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。"
+      },
+      {
+        "PersonName": "严实",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "宋济南治中，以8州30万户降蒙古",
+        "source_text": "宋济南治中严实，以其控制的8州之30万户降蒙古"
+      },
+      {
+        "PersonName": "武贵",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金境抗蒙武装首领，后归附蒙古",
+        "source_text": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。"
+      },
+      {
+        "PersonName": "张琳",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金境抗蒙武装首领，后归附蒙古",
+        "source_text": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。"
+      },
+      {
+        "PersonName": "董俊",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金境抗蒙武装首领，后归附蒙古",
+        "source_text": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。"
+      },
+      {
+        "PersonName": "王福",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金朝封九公之一，为金守城夺地",
+        "source_text": "封王福、张甫等九人为九公，令其为金守城夺地。"
+      },
+      {
+        "PersonName": "张甫",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "金朝封九公之一，为金守城夺地",
+        "source_text": "封王福、张甫等九人为九公，令其为金守城夺地。"
+      },
+      {
+        "PersonName": "孛鲁",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "统帅",
+        "Note": "木华黎之子，袭职继续攻金，力排众议重用李全",
+        "source_text": "其子孛鲁袭职，继续指挥攻金"
+      },
+      {
+        "PersonName": "史天泽",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "将领",
+        "Note": "汉将，率军击败叛将武仙，消灭红袄军",
+        "source_text": "命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "PersonName": "武仙",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "叛将，被史天泽击败",
+        "source_text": "命汉将史天泽率军击败叛将武仙"
+      },
+      {
+        "PersonName": "彭义斌",
+        "DynastyName": "金",
+        "OrgName": "红袄军",
+        "Role": "将领",
+        "Note": "抗蒙红袄军首领，被史天泽消灭",
+        "source_text": "史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "PersonName": "李全",
+        "DynastyName": "金",
+        "OrgName": "红袄军",
+        "Role": "将领",
+        "Note": "义军首领，投降蒙古，被孛鲁委以重任",
+        "source_text": "迫使义军首领李全投降。"
+      },
+      {
+        "PersonName": "金哀宗",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "君主",
+        "Note": "金朝皇帝完颜守绪，抗蒙，后逃往归德，蔡州城破自杀",
+        "source_text": "金哀宗完颜守绪为集中力量抗蒙，便与南宋休战"
+      },
+      {
+        "PersonName": "窝阔台",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "君主",
+        "Note": "成吉思汗之子，即蒙古大汗位，率军攻金，分三路进攻南京",
+        "source_text": "窝阔台即蒙古大汗位。次年，率军攻金。"
+      },
+      {
+        "PersonName": "拖雷",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "统帅",
+        "Note": "成吉思汗之子，西路主力统帅，指挥三峰山之战全歼金军",
+        "source_text": "西路，由拖雷率领，为三路之主力"
+      },
+      {
+        "PersonName": "斡陈那颜",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "将领",
+        "Note": "东路统帅，出山东济南",
+        "source_text": "东路，由斡陈那颜率领，出山东济南"
+      },
+      {
+        "PersonName": "完颜合达",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金帅，在三峰山之战被俘杀",
+        "source_text": "俘杀金帅完颜合达、移刺蒲阿。"
+      },
+      {
+        "PersonName": "移刺蒲阿",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金帅，在三峰山之战被俘杀",
+        "source_text": "俘杀金帅完颜合达、移刺蒲阿。"
+      },
+      {
+        "PersonName": "李平",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "潼关金军守将，献关投降蒙古",
+        "source_text": "潼关金军守将李平献关投降蒙古"
+      },
+      {
+        "PersonName": "速不台",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "统帅",
+        "Note": "蒙古大将，率军围攻南京",
+        "source_text": "窝阔台遣大将速不台率军3万围攻南京"
+      },
+      {
+        "PersonName": "崔立",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "南京守将，献城投降蒙古",
+        "source_text": "南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "PersonName": "塔察儿",
+        "DynastyName": "蒙古",
+        "OrgName": "蒙古",
+        "Role": "将领",
+        "Note": "蒙古大将，率部追击哀宗，进围蔡州",
+        "source_text": "蒙古军大将塔察儿率部追击哀宗，进围蔡州。"
+      },
+      {
+        "PersonName": "孟琪",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "南宋京西路兵马钤辖，击破金军，与蒙古会师蔡州",
+        "source_text": "南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "蒙古攻金中都之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1215年",
+        "EndDate": "1215年",
+        "DynastyName": "金",
+        "Place": "中都",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军夺取中都，金朝实力削弱",
+        "Commanders": "成吉思汗",
+        "KeyPersons": null,
+        "Action": "攻伐、夺取",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "中都",
+        "Casualties": "掳获无数战利品",
+        "source": "原始文本",
+        "Impact": "削弱了金朝的实力",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "木华黎第三次攻金",
+            "evidence": "1217年8月，成吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。"
+          }
+        ],
+        "source_text": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "EventType": "对外远征",
+        "StartDate": "1217年8月",
+        "EndDate": "1223年3月",
+        "DynastyName": "金",
+        "Place": "辽西、河北、山东、山西",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": "汪古、汉军",
+        "Result": "蒙古军攻取数十城，势力扩至陕西，进一步削弱金朝",
+        "Commanders": "木华黎、史天倪、刘伯林、张柔、严实、武贵、张琳、董俊、孛鲁、史天泽",
+        "KeyPersons": "成吉思汗",
+        "Action": "攻伐、招降",
+        "TroopSize": "蒙古兵1.3万、汪古骑兵1万",
+        "Duration": "持续约6年",
+        "GeographicScope": "辽西、河北、山东、山西、陕西",
+        "Casualties": "不详",
+        "source": "原始文本",
+        "Impact": "蒙古势力范围扩大，金朝力量进一步削弱",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "木华黎攻长安、凤翔之战",
+            "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。"
+          }
+        ],
+        "source_text": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1222年秋",
+        "EndDate": "1222年秋",
+        "DynastyName": "金",
+        "Place": "长安、凤翔",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军未克，木华黎病死",
+        "Commanders": "木华黎",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "长安、凤翔",
+        "Casualties": "不详",
+        "source": "原始文本",
+        "Impact": "未克，木华黎病死，其子孛鲁袭职",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1223年",
+        "EndDate": "1223年",
+        "DynastyName": "金",
+        "Place": "河北",
+        "Aggressor": "蒙古",
+        "Defender": "武仙",
+        "Allies": null,
+        "Result": "蒙古军获胜，武仙被击败",
+        "Commanders": "史天泽、武仙",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河北地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "巩固了蒙古在河北的统治",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古军消灭彭义斌红袄军之战",
+            "evidence": "次年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+          }
+        ],
+        "source_text": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1225年",
+        "EndDate": "1225年",
+        "DynastyName": "金",
+        "Place": "河北",
+        "Aggressor": "蒙古",
+        "Defender": "红袄军",
+        "Allies": null,
+        "Result": "蒙古军获胜，红袄军被消灭",
+        "Commanders": "史天泽、彭义斌",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河北地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消除了抗蒙武装，巩固了蒙古在河北的统治",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古军围攻山东益都之战",
+            "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。"
+          }
+        ],
+        "source_text": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "1226年",
+        "EndDate": "1226年",
+        "DynastyName": "金",
+        "Place": "山东益都",
+        "Aggressor": "蒙古",
+        "Defender": "义军",
+        "Allies": null,
+        "Result": "蒙古军获胜，李全投降",
+        "Commanders": "孛鲁、李全",
+        "KeyPersons": null,
+        "Action": "围攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "山东益都",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "迫使李全投降，许多州县闻风归附，扩大了蒙古在山东的控制",
+        "Remark": "",
+        "relations": [],
+        "source_text": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "成吉思汗第一次征西夏",
+        "EventType": "对外远征",
+        "StartDate": "不详",
+        "EndDate": "不详",
+        "DynastyName": "西夏",
+        "Place": "兴庆城",
+        "Aggressor": "蒙古",
+        "Defender": "西夏",
+        "Allies": null,
+        "Result": "未克，成吉思汗撤军西征",
+        "Commanders": "成吉思汗",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "20余日",
+        "GeographicScope": "西夏都兴庆城",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "为西征解除后顾之忧，但未征服西夏",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "成吉思汗第二次征西夏",
+            "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏"
+          }
+        ],
+        "source_text": "当时，蒙古军准备西征，夏主拒命出兵随同。成吉思汗闻之大怒，亲率大军进攻夏都兴庆城，20余日不克，见夏主率精兵乘夜突出重围，遂整军西征。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "EventType": "对外远征",
+        "StartDate": "不详",
+        "EndDate": "1227年",
+        "DynastyName": "西夏",
+        "Place": "黑水、甘州、肃州、西凉、兀刺海、贺兰山、灵州、夏都",
+        "Aggressor": "蒙古",
+        "Defender": "西夏",
+        "Allies": null,
+        "Result": "西夏灭亡",
+        "Commanders": "成吉思汗",
+        "KeyPersons": null,
+        "Action": "攻伐、围城",
+        "TroopSize": "不详",
+        "Duration": "持续数年",
+        "GeographicScope": "西夏全境",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "西夏国亡，蒙古解除了西征的后顾之忧",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "窝阔台攻金凤翔之战",
+            "evidence": "1227年4月，成吉思汗从西夏挥师南下，企图一举攻灭金朝"
+          }
+        ],
+        "source_text": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1231年2月",
+        "EndDate": "1231年2月",
+        "DynastyName": "金",
+        "Place": "凤翔",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军攻克凤翔",
+        "Commanders": "窝阔台",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "凤翔",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "为实现远程迂回方略创造了条件",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1232年1月",
+        "EndDate": "1232年1月",
+        "DynastyName": "金",
+        "Place": "钧州、三峰山",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军获胜，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿",
+        "Commanders": "拖雷、完颜合达、移刺蒲阿",
+        "KeyPersons": null,
+        "Action": "伏击、交战",
+        "TroopSize": "金军15万",
+        "Duration": "不详",
+        "GeographicScope": "钧州三峰山地区",
+        "Casualties": "金军15万被歼",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军精锐尽失，河南10余州被蒙古占领，金朝灭亡加速",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古围攻南京之战",
+            "evidence": "随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。3月，窝阔台遣大将速不台率军3万围攻南京"
+          },
+          {
+            "type": "顺承关系",
+            "to": "蒙古军击败金援军之战",
+            "evidence": "8月，蒙古军在郑州附近击败金援军10余万"
+          }
+        ],
+        "source_text": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1232年3月",
+        "EndDate": "1232年3月",
+        "DynastyName": "金",
+        "Place": "南京",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军未能攻下，双方伤亡惨重",
+        "Commanders": "速不台、金哀宗",
+        "KeyPersons": null,
+        "Action": "围攻、守御",
+        "TroopSize": "蒙古军3万",
+        "Duration": "激战16昼夜",
+        "GeographicScope": "南京城",
+        "Casualties": "双方伤亡惨重",
+        "source": "《中国历代战争简史》",
+        "Impact": "金朝都城坚守，但金军主力损失殆尽，南京城内粮尽援绝",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古军击败金援军之战",
+            "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。"
+          }
+        ],
+        "source_text": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1232年8月",
+        "EndDate": "1232年8月",
+        "DynastyName": "金",
+        "Place": "郑州",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "蒙古军获胜，金援军10余万被击败",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "金援军10余万",
+        "Duration": "不详",
+        "GeographicScope": "郑州附近",
+        "Casualties": "金军10余万被击败",
+        "source": "《中国历代战争简史》",
+        "Impact": "金之主力所剩无几，南京城内粮尽援绝，加速金朝灭亡",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古围攻南京之战",
+            "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。"
+          }
+        ],
+        "source_text": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1233年6月",
+        "EndDate": "1234年1月",
+        "DynastyName": "金",
+        "Place": "蔡州",
+        "Aggressor": "蒙古",
+        "Defender": "金",
+        "Allies": "南宋",
+        "Result": "蒙古军与南宋联军攻破蔡州，金朝灭亡",
+        "Commanders": "塔察儿、孟琪",
+        "KeyPersons": "金哀宗",
+        "Action": "围攻、攻伐",
+        "TroopSize": "蒙古军不详，南宋军2万",
+        "Duration": "持续约7个月",
+        "GeographicScope": "蔡州城",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金朝灭亡，蒙古统一北方，南宋与蒙古直接对峙",
+        "Remark": "此战为蒙金战争最终决战，宋蒙联军攻破蔡州，金哀宗自杀。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宋军击破金军光化之战",
+            "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化，企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "宋蒙联军攻破蔡州之战",
+            "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+          }
+        ],
+        "source_text": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "EventType": "边境防御",
+        "StartDate": "1233年",
+        "EndDate": "1233年",
+        "DynastyName": "南宋",
+        "Place": "光化",
+        "Aggressor": "金",
+        "Defender": "南宋",
+        "Allies": null,
+        "Result": "南宋军击败金军，俘降金兵7万",
+        "Commanders": "孟琪",
+        "KeyPersons": null,
+        "Action": "击破、俘降",
+        "TroopSize": "金军不详，南宋军不详",
+        "Duration": "不详",
+        "GeographicScope": "光化地区",
+        "Casualties": "俘降金兵7万",
+        "source": "《中国历代战争简史》",
+        "Impact": "阻止金军入蜀，巩固南宋西部防线，为宋蒙联军攻蔡州创造条件",
+        "Remark": "此战为南宋与蒙古联合灭金的前奏。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古军围攻蔡州之战",
+            "evidence": "这时，金军自唐河、邓县攻光化，企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "宋蒙联军攻破蔡州之战",
+            "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。"
+          }
+        ],
+        "source_text": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1234年1月",
+        "EndDate": "1234年1月",
+        "DynastyName": "金",
+        "Place": "蔡州",
+        "Aggressor": "南宋、蒙古",
+        "Defender": "金",
+        "Allies": null,
+        "Result": "宋蒙联军攻破蔡州，金哀宗自杀，金朝灭亡",
+        "Commanders": "塔察儿、孟琪",
+        "KeyPersons": "金哀宗",
+        "Action": "攻入、灭亡",
+        "TroopSize": "南宋军2万，蒙古军不详",
+        "Duration": "不详",
+        "GeographicScope": "蔡州城",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金朝灭亡，蒙古统一北方，南宋与蒙古直接对峙，为日后宋蒙战争埋下伏笔",
+        "Remark": "此战为蒙金战争最终决战，宋蒙联军攻破蔡州，金哀宗自杀。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "蒙古军围攻蔡州之战",
+            "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "宋军击破金军光化之战",
+            "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。"
+          }
+        ],
+        "source_text": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "蒙古攻金中都之战",
+        "relation": "主战场",
+        "modern_name": "中都",
+        "evidence": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "主战场",
+        "modern_name": "辽西",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "主战场",
+        "modern_name": "河北",
+        "evidence": "攻取辽西、河北、山东、山西各地数十城"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "主战场",
+        "modern_name": "山东",
+        "evidence": "攻取辽西、河北、山东、山西各地数十城"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "主战场",
+        "modern_name": "山西",
+        "evidence": "攻取辽西、河北、山东、山西各地数十城"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "主战场",
+        "modern_name": "长安",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "主战场",
+        "modern_name": "凤翔",
+        "evidence": "木华黎率军进攻长安（西安）、凤翔（属陕西）未克"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "主战场",
+        "modern_name": "河北",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "主战场",
+        "modern_name": "河北",
+        "evidence": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "主战场",
+        "modern_name": "山东益都",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "成吉思汗第一次征西夏",
+        "relation": "主战场",
+        "modern_name": "兴庆城",
+        "evidence": "当时，蒙古军准备西征，夏主拒命出兵随同。成吉思汗闻之大怒，亲率大军进攻夏都兴庆城，20余日不克，见夏主率精兵乘夜突出重围，遂整军西征。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "黑水",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "甘州",
+        "evidence": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "肃州",
+        "evidence": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "西凉",
+        "evidence": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "兀刺海",
+        "evidence": "先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "贺兰山",
+        "evidence": "大破夏军于贺兰山"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "灵州",
+        "evidence": "攻陷灵州（宁夏灵武县）"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "主战场",
+        "modern_name": "夏都",
+        "evidence": "次年春，转兵围攻夏都"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "relation": "主战场",
+        "modern_name": "凤翔",
+        "evidence": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "主战场",
+        "modern_name": "钧州",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "主战场",
+        "modern_name": "三峰山",
+        "evidence": "拖雷便置主力于钧州（河南禹县）三峰山附近待机"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "主战场",
+        "modern_name": "南京",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "主战场",
+        "modern_name": "郑州",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "主战场",
+        "modern_name": "蔡州",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "relation": "主战场",
+        "modern_name": "光化",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "主战场",
+        "modern_name": "蔡州",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古攻金中都之战",
+        "relation": "目的地",
+        "modern_name": "中都",
+        "evidence": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "目的地",
+        "modern_name": "辽西",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "次要战场",
+        "modern_name": "河北",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "出发地",
+        "modern_name": "河北",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "次要战场",
+        "modern_name": "山东",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "目的地",
+        "modern_name": "山东",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "次要战场",
+        "modern_name": "山西",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "目的地",
+        "modern_name": "长安",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "次要战场",
+        "modern_name": "凤翔",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "目的地",
+        "modern_name": "山东益都",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "甘州",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "肃州",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "西凉",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "兀刺海",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "贺兰山",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "灵州",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "次要战场",
+        "modern_name": "夏都",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "目的地",
+        "modern_name": "夏都",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "relation": "战略要地",
+        "modern_name": "凤翔",
+        "evidence": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "次要战场",
+        "modern_name": "三峰山",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "目的地",
+        "modern_name": "南京",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "战略要地",
+        "modern_name": "南京",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "目的地",
+        "modern_name": "蔡州",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "战略要地",
+        "modern_name": "蔡州",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "relation": "目的地",
+        "modern_name": "光化",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "战略要地",
+        "modern_name": "蔡州",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "蒙古攻金中都之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "蒙古攻金中都之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "同盟方",
+        "OrgName": "汪古",
+        "evidence": "统率蒙古兵1.3万、汪古骑兵1万"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "同盟方",
+        "OrgName": "汉军",
+        "evidence": "以及降蒙的乱、汉诸军"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "击败叛将武仙，夺占河北大片地区"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "防守方",
+        "OrgName": "红袄军",
+        "evidence": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "防守方",
+        "OrgName": "义军",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "成吉思汗第一次征西夏",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "当时，蒙古军准备西征，夏主拒命出兵随同。成吉思汗闻之大怒，亲率大军进攻夏都兴庆城，20余日不克，见夏主率精兵乘夜突出重围，遂整军西征。"
+      },
+      {
+        "EventName": "成吉思汗第一次征西夏",
+        "relation": "防守方",
+        "OrgName": "西夏",
+        "evidence": "当时，蒙古军准备西征，夏主拒命出兵随同。成吉思汗闻之大怒，亲率大军进攻夏都兴庆城，20余日不克，见夏主率精兵乘夜突出重围，遂整军西征。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "防守方",
+        "OrgName": "西夏",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "同盟方",
+        "OrgName": "南宋",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "relation": "发起方",
+        "OrgName": "金",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "relation": "防守方",
+        "OrgName": "南宋",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "发起方",
+        "OrgName": "南宋",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "发起方",
+        "OrgName": "蒙古",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "防守方",
+        "OrgName": "金",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "投降方",
+        "OrgName": "蒙古",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "投降方",
+        "OrgName": "金",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "支援方",
+        "OrgName": "汪古",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "投降方",
+        "OrgName": "汪古",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "支援方",
+        "OrgName": "汉军",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "投降方",
+        "OrgName": "汉军",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "投降方",
+        "OrgName": "蒙古",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "投降方",
+        "OrgName": "义军",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "投降方",
+        "OrgName": "蒙古",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "投降方",
+        "OrgName": "金",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "投降方",
+        "OrgName": "蒙古",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "投降方",
+        "OrgName": "金",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "投降方",
+        "OrgName": "蒙古",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "投降方",
+        "OrgName": "金",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "支援方",
+        "OrgName": "南宋",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "蒙古攻金中都之战",
+        "relation": "统帅",
+        "PersonName": "成吉思汗",
+        "evidence": "，掳获无数战利品，终于夺取了中都，箫弱了金朝的实力。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "木华黎",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "史天倪",
+        "evidence": "重用早降蒙古的河北清乐军首领史天倪"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "刘伯林",
+        "evidence": "地主武装首领刘伯林"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "张柔",
+        "evidence": "张柔等"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "严实",
+        "evidence": "宋济南治中严实，以其控制的8州之30万户降蒙古"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "武贵",
+        "evidence": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "张琳",
+        "evidence": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "董俊",
+        "evidence": "迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "孛鲁",
+        "evidence": "其子孛鲁袭职，继续指挥攻金"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "将领",
+        "PersonName": "史天泽",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "君主",
+        "PersonName": "成吉思汗",
+        "evidence": "成吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师"
+      },
+      {
+        "EventName": "木华黎攻长安、凤翔之战",
+        "relation": "统帅",
+        "PersonName": "木华黎",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "统帅",
+        "PersonName": "史天泽",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "将领",
+        "PersonName": "武仙",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "统帅",
+        "PersonName": "史天泽",
+        "evidence": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "将领",
+        "PersonName": "彭义斌",
+        "evidence": "彭义斌领导的抗蒙红袄军"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "统帅",
+        "PersonName": "孛鲁",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "将领",
+        "PersonName": "李全",
+        "evidence": "迫使义军首领李全投降"
+      },
+      {
+        "EventName": "成吉思汗第一次征西夏",
+        "relation": "统帅",
+        "PersonName": "成吉思汗",
+        "evidence": "当时，蒙古军准备西征，夏主拒命出兵随同。成吉思汗闻之大怒，亲率大军进攻夏都兴庆城，20余日不克，见夏主率精兵乘夜突出重围，遂整军西征。"
+      },
+      {
+        "EventName": "成吉思汗第二次征西夏",
+        "relation": "统帅",
+        "PersonName": "成吉思汗",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏。先分军连破黑水、甘州（甘肃张掖县）、肃州（酒泉县）、西凉（武威县）、兀刺海等城。这年秋，即率兵亲征，途中坠马受伤回军，遣使前往诘责夏主。闻夏主答词不逊，乃扶疾进兵，大破夏军于贺兰山，攻陷灵州（宁夏灵武县）。次年春，转兵围攻夏都。5月，夏主献城乞降，夏国遂亡。"
+      },
+      {
+        "EventName": "窝阔台攻金凤翔之战",
+        "relation": "统帅",
+        "PersonName": "窝阔台",
+        "evidence": "1229年8月，窝阔台即蒙古大汗位。次年，率军攻金。1231年2月，攻克军事要地凤翔，为实现远程迂回方略创造了条件。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "统帅",
+        "PersonName": "拖雷",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "将领",
+        "PersonName": "完颜合达",
+        "evidence": "俘杀金帅完颜合达、移刺蒲阿"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "将领",
+        "PersonName": "移刺蒲阿",
+        "evidence": "俘杀金帅完颜合达、移刺蒲阿"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "统帅",
+        "PersonName": "速不台",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "君主",
+        "PersonName": "金哀宗",
+        "evidence": "金哀宗带着少数臣僚和将士辗转逃往归德"
+      },
+      {
+        "EventName": "蒙古军击败金援军之战",
+        "relation": "参与者",
+        "PersonName": "金哀宗",
+        "evidence": "金哀宗闻讯，急调黄河沿岸守军20万"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "统帅",
+        "PersonName": "塔察儿",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "将领",
+        "PersonName": "孟琪",
+        "evidence": "南宋京西路兵马钤辖孟琪率军将其击破"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "君主",
+        "PersonName": "金哀宗",
+        "evidence": "金哀宗自杀，金亡"
+      },
+      {
+        "EventName": "宋军击破金军光化之战",
+        "relation": "统帅",
+        "PersonName": "孟琪",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "统帅",
+        "PersonName": "塔察儿",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "将领",
+        "PersonName": "孟琪",
+        "evidence": "宋军，蒙军相继攻入城内"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "君主",
+        "PersonName": "金哀宗",
+        "evidence": "金哀宗自杀，金亡"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "史天倪",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "刘伯林",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "张柔",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "严实",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "武贵",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "张琳",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "董俊",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "孛鲁",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "统帅",
+        "PersonName": "史天泽",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "木华黎第三次攻金",
+        "relation": "参与者",
+        "PersonName": "成吉思汗",
+        "evidence": "1217年8月，成吉吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。这次，木华黎改变以前那种肆意杀掠和夺地不守的做法，招降和重用汉族地主武装首领为其争城夺地。首先重用早降蒙古的河北清乐军首领史天倪、地主武装首领刘伯林、张柔等，攻取辽西、河北、山东、山西各地数十城。1220年秋，宋济南治中严实，以其控制的8州之30万户降蒙古，使蒙古军不战而获取大片土地。木华黎还以招抚配合军事进攻，迫使金境的抗蒙武装首领武贵、张琳、董俊等纷纷归附。金朝也有高爵收买山东、河北、山西等地主土豪，封王福、张甫等九人为九公，令其为金守城夺地。这时，蒙金战争呈现拉据态势。1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。经过8年多的时间，木华黎父子广用汉人武装，把势力范围由河北、山东、山西扩至陕西，进一步削弱了金朝的力量。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "将领",
+        "PersonName": "史天泽",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "史天泽击败武仙之战",
+        "relation": "统帅",
+        "PersonName": "武仙",
+        "evidence": "次年3月，病死，其子孛鲁袭职，继续指挥攻金，命汉将史天泽率军击败叛将武仙，夺占河北大片地区。"
+      },
+      {
+        "EventName": "蒙古军消灭彭义斌红袄军之战",
+        "relation": "统帅",
+        "PersonName": "彭义斌",
+        "evidence": "1225年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "统帅",
+        "PersonName": "李全",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "蒙古军围攻山东益都之战",
+        "relation": "投降",
+        "PersonName": "李全",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。孛鲁力排众将处死李全的主张，且委以重任，使许多州县闻风归附。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "统帅",
+        "PersonName": "完颜合达",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "三峰山之战",
+        "relation": "统帅",
+        "PersonName": "移刺蒲阿",
+        "evidence": "拖雷避开金军主力，兵分多路北上。金军又勿忙由邓州驰援南京。拖雷便置主力于钧州（河南禹县）三峰山附近待机，另派3000轻骑袭扰金军。次年1月，见金军主力且战且行，又逢连降大雪，将士精疲力竭，便发起三峰之战，全歼金军精锐15万，俘杀金帅完颜合达、移刺蒲阿。随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "将领",
+        "PersonName": "速不台",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古围攻南京之战",
+        "relation": "统帅",
+        "PersonName": "金哀宗",
+        "evidence": "3月，窝阔台遣大将速不台率军3万围攻南京，遭守城军民使用震天雷、飞火枪等奋勇抗击，激战16昼夜未能攻下，双方伤亡惨重。8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。12月，金哀宗带着少数臣僚和将士辗转逃往归德（河南商兵）。1233年1月，南京守将崔立向蒙古军献城投降。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "将领",
+        "PersonName": "塔察儿",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "统帅",
+        "PersonName": "孟琪",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "蒙古军围攻蔡州之战",
+        "relation": "参与者",
+        "PersonName": "金哀宗",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化（湖北老河口市西北），企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "统帅",
+        "PersonName": "孟琪",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      },
+      {
+        "EventName": "宋蒙联军攻破蔡州之战",
+        "relation": "参与者",
+        "PersonName": "金哀宗",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "成吉思汗第一次征西夏",
+        "relation": "顺承关系",
+        "EventName_B": "成吉思汗第二次征西夏",
+        "evidence": "蒙古军第一次西征返回漠北不久，成吉思汗又举兵征西夏"
+      },
+      {
+        "EventName_A": "蒙古军击败金援军之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古围攻南京之战",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万，使金之主力所剩无几，南京城内粮尽援绝。"
+      },
+      {
+        "EventName_A": "蒙古军击败金援军之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军围攻蔡州之战",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州"
+      },
+      {
+        "EventName_A": "宋军击破金军光化之战",
+        "relation": "顺承关系",
+        "EventName_B": "宋蒙联军攻破蔡州之战",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内"
+      },
+      {
+        "EventName_A": "蒙古攻金中都之战",
+        "relation": "并列关系",
+        "EventName_B": "木华黎第三次攻金",
+        "evidence": "1217年8月，成吉思汗在准备西征的同时，封蒙军副统帅木华黎为太师，统率蒙古兵1.3万、汪古骑兵1万，以及降蒙的乱、汉诸军第三次南下攻金。"
+      },
+      {
+        "EventName_A": "木华黎攻长安、凤翔之战",
+        "relation": "顺承关系",
+        "EventName_B": "木华黎第三次攻金",
+        "evidence": "1222年秋，木华黎率军进攻长安（西安）、凤翔（属陕西）未克。"
+      },
+      {
+        "EventName_A": "史天泽击败武仙之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军消灭彭义斌红袄军之战",
+        "evidence": "次年，史天泽配合蒙古军消灭彭义斌领导的抗蒙红袄军。"
+      },
+      {
+        "EventName_A": "蒙古军围攻山东益都之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军消灭彭义斌红袄军之战",
+        "evidence": "次年，蒙古军围攻山东益都，迫使义军首领李全投降。"
+      },
+      {
+        "EventName_A": "成吉思汗第二次征西夏",
+        "relation": "顺承关系",
+        "EventName_B": "窝阔台攻金凤翔之战",
+        "evidence": "1227年4月，成吉思汗从西夏挥师南下，企图一举攻灭金朝"
+      },
+      {
+        "EventName_A": "三峰山之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古围攻南京之战",
+        "evidence": "随之，潼关金军守将李平献关投降蒙古，河南10余州即被蒙古占领。3月，窝阔台遣大将速不台率军3万围攻南京"
+      },
+      {
+        "EventName_A": "三峰山之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军击败金援军之战",
+        "evidence": "8月，蒙古军在郑州附近击败金援军10余万"
+      },
+      {
+        "EventName_A": "宋军击破金军光化之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军围攻蔡州之战",
+        "evidence": "6月，蒙古军大将塔察儿率部追击哀宗，进围蔡州。这时，金军自唐河、邓县攻光化，企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破。\n这时，金军自唐河、邓县攻光化，企图迎哀宗入蜀。南宋京西路兵马钤辖孟琪率军将其击破，俘降金兵7万。"
+      },
+      {
+        "EventName_A": "宋蒙联军攻破蔡州之战",
+        "relation": "顺承关系",
+        "EventName_B": "蒙古军围攻蔡州之战",
+        "evidence": "11月，又奉命率军2万，运米30万石，与蒙古军会师蔡州城下。次年1月，宋军，蒙军相继攻入城内，金哀宗自杀，金亡。"
+      }
+    ]
+  }
+}

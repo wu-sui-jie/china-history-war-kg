@@ -13,6 +13,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import inspect
 import json
 import logging
@@ -229,8 +230,20 @@ def build_runtime(settings: Settings, version: Optional[str] = None) -> Runtime:
                 closer = getattr(owner, "close", None) or getattr(owner, "aclose", None)
                 if callable(closer):
                     result = closer()
-                    if inspect.isawaitable(result):   # 同步路径下不应出现，防御性处理
-                        result.close()
+                    if inspect.isawaitable(result):
+                        # 第 14 轮审计 P3-4：对**从未 await** 的协程调 `.close()` 只是把它标记为
+                        # 已关闭——协程体一行都不会执行，于是 AsyncOpenAI 客户端其实没关，
+                        # 只留下一条 "coroutine was never awaited"。而本函数由 lifespan 调用，
+                        # 此时事件循环正在运行，可以把协程真的排上去执行。
+                        try:
+                            asyncio.get_running_loop()
+                        except RuntimeError:
+                            # 没有事件循环（脚本/测试里同步调用）：关不掉协程，至少要报出来
+                            logging.getLogger("rag.runtime").warning(
+                                "构建失败后回收 %s：没有事件循环，协程无法执行（资源可能未释放）", name)
+                            result.close()
+                        else:
+                            asyncio.ensure_future(result)
         except Exception as exc:  # noqa: BLE001
             logging.getLogger("rag.runtime").warning("构建失败后回收资源时出错：%s", exc)
         raise

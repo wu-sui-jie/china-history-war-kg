@@ -1,0 +1,1531 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "滁州",
+        "modern_name": "滁州市",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "滁州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "geo_name": "朱仙镇",
+        "modern_name": "朱仙镇",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": "祥符区",
+        "Specific_location": null,
+        "source_text": "高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "geo_name": "裕州",
+        "modern_name": "方城县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "方城县",
+        "Specific_location": null,
+        "source_text": "高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "geo_name": "盖屋",
+        "modern_name": "周至县",
+        "DynastyName": "明",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": "周至县",
+        "Specific_location": null,
+        "source_text": "在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲"
+      },
+      {
+        "geo_name": "汉中",
+        "modern_name": "汉中市",
+        "DynastyName": "明",
+        "Province": "陕西省",
+        "City": "汉中市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "残部进入陕西汉中地区"
+      },
+      {
+        "geo_name": "湖广",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "会师进入湖广，联合罗汝才部等20余万人"
+      },
+      {
+        "geo_name": "蕲州",
+        "modern_name": "蕲春县",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "蕲春县",
+        "Specific_location": null,
+        "source_text": "分散活动于蕲州（湖北蕲春西南）、太湖、潜山、霍山一带"
+      },
+      {
+        "geo_name": "太湖",
+        "modern_name": "太湖县",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "太湖县",
+        "Specific_location": null,
+        "source_text": "分散活动于蕲州（湖北蕲春西南）、太湖、潜山、霍山一带"
+      },
+      {
+        "geo_name": "潜山",
+        "modern_name": "潜山市",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "潜山市",
+        "Specific_location": null,
+        "source_text": "分散活动于蕲州（湖北蕲春西南）、太湖、潜山、霍山一带"
+      },
+      {
+        "geo_name": "霍山",
+        "modern_name": "霍山县",
+        "DynastyName": "明",
+        "Province": "安徽省",
+        "City": "六安市",
+        "District_County": "霍山县",
+        "Specific_location": null,
+        "source_text": "分散活动于蕲州（湖北蕲春西南）、太湖、潜山、霍山一带"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": "四川省",
+        "DynastyName": "明",
+        "Province": "四川省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李自成率部由陕西进军四川，攻破县城10余座"
+      },
+      {
+        "geo_name": "洮河",
+        "modern_name": "洮河",
+        "DynastyName": "明",
+        "Province": "甘肃省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在洮河一带遭洪承畴、孙传庭军袭击"
+      },
+      {
+        "geo_name": "岷州",
+        "modern_name": "岷县",
+        "DynastyName": "明",
+        "Province": "甘肃省",
+        "City": "定西市",
+        "District_County": "岷县",
+        "Specific_location": null,
+        "source_text": "败走岷州（甘肃岷县）、礼县（甘肃礼县）"
+      },
+      {
+        "geo_name": "礼县",
+        "modern_name": "礼县",
+        "DynastyName": "明",
+        "Province": "甘肃省",
+        "City": "陇南市",
+        "District_County": "礼县",
+        "Specific_location": null,
+        "source_text": "败走岷州（甘肃岷县）、礼县（甘肃礼县）"
+      },
+      {
+        "geo_name": "谷城",
+        "modern_name": "谷城县",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": "谷城县",
+        "Specific_location": null,
+        "source_text": "张献忠、罗汝才等伪降就抚，分别在谷城、房山休整"
+      },
+      {
+        "geo_name": "房山",
+        "modern_name": "房县",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "十堰市",
+        "District_County": "房县",
+        "Specific_location": null,
+        "source_text": "张献忠、罗汝才等伪降就抚，分别在谷城、房山休整"
+      },
+      {
+        "geo_name": "巫山",
+        "modern_name": "巫山县",
+        "DynastyName": "明",
+        "Province": "重庆市",
+        "City": null,
+        "District_County": "巫山县",
+        "Specific_location": null,
+        "source_text": "会师巫山、挺进四川的张献忠、罗汝才部"
+      },
+      {
+        "geo_name": "泸州",
+        "modern_name": "泸州市",
+        "DynastyName": "明",
+        "Province": "四川省",
+        "City": "泸州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，至泸州，突然挥师向东"
+      },
+      {
+        "geo_name": "兴山",
+        "modern_name": "兴山县",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": "兴山县",
+        "Specific_location": null,
+        "source_text": "越巫山，进入兴山（属湖北）、房县境内"
+      },
+      {
+        "geo_name": "房县",
+        "modern_name": "房县",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "十堰市",
+        "District_County": "房县",
+        "Specific_location": null,
+        "source_text": "越巫山，进入兴山（属湖北）、房县境内"
+      },
+      {
+        "geo_name": "当阳",
+        "modern_name": "当阳市",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": "当阳市",
+        "Specific_location": null,
+        "source_text": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": "襄阳市",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "于次日凌晨攻占襄阳，杀襄王朱翊铭"
+      },
+      {
+        "geo_name": "郧阳",
+        "modern_name": "郧阳区",
+        "DynastyName": "明",
+        "Province": "湖北省",
+        "City": "十堰市",
+        "District_County": "郧阳区",
+        "Specific_location": null,
+        "source_text": "率部由郧阳（湖北郧县）迂回进入河南"
+      },
+      {
+        "geo_name": "永宁",
+        "modern_name": "洛宁县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "洛宁县",
+        "Specific_location": null,
+        "source_text": "连克永宁（洛宁）、宜阳、新安等10余城"
+      },
+      {
+        "geo_name": "宜阳",
+        "modern_name": "宜阳县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "宜阳县",
+        "Specific_location": null,
+        "source_text": "连克永宁（洛宁）、宜阳、新安等10余城"
+      },
+      {
+        "geo_name": "新安",
+        "modern_name": "新安县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "新安县",
+        "Specific_location": null,
+        "source_text": "连克永宁（洛宁）、宜阳、新安等10余城"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "洛阳市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城"
+      },
+      {
+        "geo_name": "开封",
+        "modern_name": "开封市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李自成率部攻下洛阳后，三次围攻开封"
+      },
+      {
+        "geo_name": "归德",
+        "modern_name": "商丘市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "商丘市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "遂东破归德（河南商邱）"
+      },
+      {
+        "geo_name": "浙川",
+        "modern_name": "淅川县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "淅川县",
+        "Specific_location": null,
+        "source_text": "7月，攻左良玉部于浙川"
+      },
+      {
+        "geo_name": "邓州",
+        "modern_name": "邓州市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "邓州市",
+        "Specific_location": null,
+        "source_text": "李、罗联军进逼邓州（河南邓县）"
+      },
+      {
+        "geo_name": "湍河",
+        "modern_name": "湍河",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在湍河北岸为保定总督杨文岳所率援军击败"
+      },
+      {
+        "geo_name": "项城",
+        "modern_name": "项城市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "项城市",
+        "Specific_location": null,
+        "source_text": "转至项城（河南项城南）附近地区。9月，设伏于孟家庄（汝南东）两侧森林中"
+      },
+      {
+        "geo_name": "孟家庄",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "驻马店市",
+        "District_County": "汝南县",
+        "Specific_location": "汝南东",
+        "source_text": "设伏于孟家庄（汝南东）两侧森林中"
+      },
+      {
+        "geo_name": "商水",
+        "modern_name": "商水县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "商水县",
+        "Specific_location": null,
+        "source_text": "乘势连下商水、南阳、禹州等地"
+      },
+      {
+        "geo_name": "南阳",
+        "modern_name": "南阳市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘势连下商水、南阳、禹州等地"
+      },
+      {
+        "geo_name": "禹州",
+        "modern_name": "禹州市",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "禹州市",
+        "Specific_location": null,
+        "source_text": "乘势连下商水、南阳、禹州等地"
+      },
+      {
+        "geo_name": "卧城",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1642年初，将左良玉军包围于卧城"
+      },
+      {
+        "geo_name": "襄城",
+        "modern_name": "襄城县",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "襄城县",
+        "Specific_location": null,
+        "source_text": "直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。...17日，攻破襄城"
+      },
+      {
+        "geo_name": "郾城",
+        "modern_name": "郾城区",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "郾城区",
+        "Specific_location": null,
+        "source_text": "夹击李自成军于郾城以北地区"
+      },
+      {
+        "geo_name": "汝河",
+        "modern_name": "汝河",
+        "DynastyName": "明",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自率主力连夜北上，进至汝河，突袭汪乔年部"
+      },
+      {
+        "geo_name": "黄河",
+        "modern_name": "黄河",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘夜掘开黄河大堤，水淹李自成军"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "明军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南"
+      },
+      {
+        "OrgName": "农民起义军",
+        "OrgType": "起义军",
+        "DynastyName": "明",
+        "source_text": "农民起义军经过长期的反围剿斗争，逐渐向集中流动作战发展"
+      },
+      {
+        "OrgName": "关、辽兵",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "统关、辽兵，赐上方剑，专制中原"
+      },
+      {
+        "OrgName": "高迎祥部",
+        "OrgType": "起义军",
+        "DynastyName": "明",
+        "source_text": "高迎祥率部向西安进逼"
+      },
+      {
+        "OrgName": "张献忠部",
+        "OrgType": "起义军",
+        "DynastyName": "明",
+        "source_text": "张献忠、罗汝才等伪降就抚"
+      },
+      {
+        "OrgName": "罗汝才部",
+        "OrgType": "起义军",
+        "DynastyName": "明",
+        "source_text": "联合罗汝才部等20余万人"
+      },
+      {
+        "OrgName": "李自成部",
+        "OrgType": "起义军",
+        "DynastyName": "明",
+        "source_text": "李自成率部由陕西进军四川"
+      },
+      {
+        "OrgName": "左良玉部",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "OrgName": "孙传庭军",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "在盖屋（陕西周至）为孙传庭军包围"
+      },
+      {
+        "OrgName": "洪承畴军",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "在洮河一带遭洪承畴、孙传庭军袭击"
+      },
+      {
+        "OrgName": "杨嗣昌军",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "明督师杨嗣昌率军10万入蜀"
+      },
+      {
+        "OrgName": "汪乔年部",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "突袭汪乔年部"
+      },
+      {
+        "OrgName": "丁启睿部",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达朱仙镇"
+      },
+      {
+        "OrgName": "杨文岳部",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "在湍河北岸为保定总督杨文岳所率援军击败"
+      },
+      {
+        "OrgName": "傅宗龙部",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "大破陕西总督傅宗龙与杨文岳所率4万之众的合击"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "卢象升",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "五省总理，统关辽兵，镇压农民起义",
+        "source_text": "命卢象升为直隶、山东、河南、湖广、四川五省总理，统关、辽兵，赐上方剑，专制中原"
+      },
+      {
+        "PersonName": "洪承畴",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "专治西北，后与孙传庭袭击李自成",
+        "source_text": "洪承畴专治西北。各自负责，协同作战。"
+      },
+      {
+        "PersonName": "高迎祥",
+        "DynastyName": "明",
+        "OrgName": "农民起义军",
+        "Role": "统帅",
+        "Note": "闯王，被俘牺牲",
+        "source_text": "高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲"
+      },
+      {
+        "PersonName": "张献忠",
+        "DynastyName": "明",
+        "OrgName": "农民起义军",
+        "Role": "统帅",
+        "Note": "农民军领袖，后伪降，攻占襄阳",
+        "source_text": "张献忠率军攻城，里应外合，于次日凌晨攻占襄阳"
+      },
+      {
+        "PersonName": "李自成",
+        "DynastyName": "明",
+        "OrgName": "农民起义军",
+        "Role": "统帅",
+        "Note": "闯王，多次攻城略地，大败明军",
+        "source_text": "李自成率部由陕西进军四川，攻破县城10余座"
+      },
+      {
+        "PersonName": "罗汝才",
+        "DynastyName": "明",
+        "OrgName": "农民起义军",
+        "Role": "统帅",
+        "Note": "农民军领袖，后归附李自成",
+        "source_text": "罗汝才因与张献忠有矛盾，率部前来归附"
+      },
+      {
+        "PersonName": "左良玉",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "明总兵，多次与农民军作战",
+        "source_text": "连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "PersonName": "孙传庭",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "明军将领，包围高迎祥",
+        "source_text": "在盖屋（陕西周至）为孙传庭军包围"
+      },
+      {
+        "PersonName": "杨嗣昌",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "明督师，率军入蜀，后闻襄阳失守自杀",
+        "source_text": "明督师杨嗣昌率军10万入蜀，企图一举歼灭农民军"
+      },
+      {
+        "PersonName": "襄王朱翊铭",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "襄王，被张献忠军杀死",
+        "source_text": "杀襄王朱翊铭"
+      },
+      {
+        "PersonName": "王绍禹",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "总兵，部下起义，开北门迎农民军",
+        "source_text": "总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城"
+      },
+      {
+        "PersonName": "王胤昌",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "参战者",
+        "Note": "参政，被起义士卒绑缚",
+        "source_text": "绑缚参政王胤昌"
+      },
+      {
+        "PersonName": "福王朱常询",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "福王，被擒杀",
+        "source_text": "福王朱常询被擒杀"
+      },
+      {
+        "PersonName": "杨文岳",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "保定总督，率援军与李自成作战",
+        "source_text": "在湍河北岸为保定总督杨文岳所率援军击败"
+      },
+      {
+        "PersonName": "傅宗龙",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "陕西总督，被俘杀",
+        "source_text": "俘杀傅宗龙"
+      },
+      {
+        "PersonName": "唐王朱聿镇",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "唐王，被杀",
+        "source_text": "杀唐王朱聿镇、延津王朱常浪等"
+      },
+      {
+        "PersonName": "延津王朱常浪",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "君主",
+        "Note": "延津王，被杀",
+        "source_text": "杀唐王朱聿镇、延津王朱常浪等"
+      },
+      {
+        "PersonName": "汪乔年",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "陕西三边总督，被俘杀",
+        "source_text": "俘杀汪乔年"
+      },
+      {
+        "PersonName": "丁启睿",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "督师，率援军至朱仙镇",
+        "source_text": "李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达朱仙镇"
+      },
+      {
+        "PersonName": "黄澍",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "谋士",
+        "Note": "推官，献计掘黄河堤",
+        "source_text": "乃用推官黄澍之谋"
+      },
+      {
+        "PersonName": "严云京",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "巡按，参与掘堤",
+        "source_text": "约黄河北岸巡按严云京，乘夜掘开黄河大堤"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "EventType": "农民起义",
+        "StartDate": "1636年",
+        "EndDate": "1636年",
+        "DynastyName": "明",
+        "Place": "滁州、朱仙镇、裕州",
+        "Aggressor": "明军",
+        "Defender": "农民起义军",
+        "Allies": null,
+        "Result": "农民起义军兵力损失过半，残部进入陕西汉中地区",
+        "Commanders": "卢象升、左良玉、高迎祥、张献忠",
+        "KeyPersons": null,
+        "Action": "追击、阻击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "滁州、朱仙镇、裕州等地",
+        "Casualties": "兵力损失过半",
+        "source": "《中国历代战争简史》",
+        "Impact": "农民起义军遭受重大损失，被迫转移至陕西汉中地区",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "盖屋之战",
+            "evidence": "7月，高迎祥率部向西安进逼，在盖屋为孙传庭军包围"
+          }
+        ],
+        "source_text": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "EventType": "农民起义",
+        "StartDate": "1636年7月",
+        "EndDate": "1636年7月",
+        "DynastyName": "明",
+        "Place": "盖屋",
+        "Aggressor": "明军",
+        "Defender": "高迎祥部",
+        "Allies": null,
+        "Result": "高迎祥兵败被俘牺牲，其余部共推李自成继为闯王",
+        "Commanders": "孙传庭、高迎祥",
+        "KeyPersons": null,
+        "Action": "包围、苦战",
+        "TroopSize": "不详",
+        "Duration": "苦战4日",
+        "GeographicScope": "盖屋（陕西周至）",
+        "Casualties": "高迎祥部被俘牺牲",
+        "source": "《中国历代战争简史》",
+        "Impact": "高迎祥牺牲，李自成继任闯王，农民起义军领导层更迭",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "洮河之战",
+            "evidence": "次年，李自成率部由陕西进军四川，1638年春，在洮河一带遭洪承畴、孙传庭军袭击"
+          }
+        ],
+        "source_text": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "洮河之战",
+        "EventType": "农民起义",
+        "StartDate": "1638年春",
+        "EndDate": "1638年春",
+        "DynastyName": "明",
+        "Place": "洮河",
+        "Aggressor": "明军",
+        "Defender": "李自成部",
+        "Allies": null,
+        "Result": "李自成部败走岷州、礼县，残余部队活动于川陕边境山区",
+        "Commanders": "洪承畴、孙传庭、李自成",
+        "KeyPersons": null,
+        "Action": "袭击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "洮河一带",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "李自成部受挫，农民起义陷入低潮",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "EventType": "农民起义",
+        "StartDate": "1641年",
+        "EndDate": "1641年",
+        "DynastyName": "明",
+        "Place": "襄阳",
+        "Aggressor": "张献忠部",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "张献忠攻占襄阳，杀襄王朱翊铭，杨嗣昌自杀",
+        "Commanders": "张献忠、杨嗣昌",
+        "KeyPersons": "襄王朱翊铭",
+        "Action": "攻城、伏击",
+        "TroopSize": "张献忠率2000精骑",
+        "Duration": "一昼夜",
+        "GeographicScope": "襄阳",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "张献忠农民军取得重大胜利，明军督师杨嗣昌自杀，明廷震动",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "洛阳之战",
+            "evidence": "在明军主力被张献忠农民军钳制在四川、湖广地区的那年冬，李自成开始进攻洛阳"
+          }
+        ],
+        "source_text": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "EventType": "农民起义",
+        "StartDate": "1641年1月",
+        "EndDate": "1641年1月",
+        "DynastyName": "明",
+        "Place": "洛阳",
+        "Aggressor": "李自成部",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "李自成攻占洛阳，杀福王朱常询",
+        "Commanders": "李自成、王绍禹",
+        "KeyPersons": "福王朱常询、王胤昌",
+        "Action": "攻城",
+        "TroopSize": "数十万大军",
+        "Duration": "不详",
+        "GeographicScope": "洛阳",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "李自成农民军攻占洛阳，处死福王，明廷震动",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "项城之战",
+            "evidence": "李自成率部攻下洛阳后，三次围攻开封...转至项城附近地区"
+          }
+        ],
+        "source_text": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "项城之战",
+        "EventType": "农民起义",
+        "StartDate": "1641年9月",
+        "EndDate": "1641年9月",
+        "DynastyName": "明",
+        "Place": "项城",
+        "Aggressor": "李自成部",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "李自成大败明军，俘杀傅宗龙",
+        "Commanders": "李自成、傅宗龙、杨文岳",
+        "KeyPersons": null,
+        "Action": "伏击、追击",
+        "TroopSize": "明军4万之众",
+        "Duration": "不详",
+        "GeographicScope": "项城、孟家庄",
+        "Casualties": "全歼其残部6000余人",
+        "source": "《中国历代战争简史》",
+        "Impact": "李自成农民军歼灭明军主力，俘杀陕西总督傅宗龙，进一步壮大",
+        "Remark": "",
+        "relations": [],
+        "source_text": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "襄城之战",
+        "EventType": "农民起义",
+        "StartDate": "1642年2月",
+        "EndDate": "1642年2月17日",
+        "DynastyName": "明",
+        "Place": "襄城",
+        "Aggressor": "李自成部",
+        "Defender": "汪乔年部",
+        "Allies": null,
+        "Result": "李自成获胜，俘杀汪乔年，全歼城内明军",
+        "Commanders": "李自成、汪乔年",
+        "KeyPersons": null,
+        "Action": "突袭、攻破",
+        "TroopSize": "不详",
+        "Duration": "数日",
+        "GeographicScope": "襄城",
+        "Casualties": "全歼城内明军",
+        "source": "《中国历代战争简史》",
+        "Impact": "李自成军消灭了明军陕西三边总督汪乔年部，进一步削弱了明朝在河南的军事力量。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "朱仙镇之战",
+            "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。"
+          }
+        ],
+        "source_text": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "EventType": "农民起义",
+        "StartDate": "1642年6月下旬",
+        "EndDate": "1642年6月下旬",
+        "DynastyName": "明",
+        "Place": "朱仙镇",
+        "Aggressor": "李自成部",
+        "Defender": "丁启睿、杨文岳、左良玉部",
+        "Allies": null,
+        "Result": "李自成获胜，歼敌10万，获战马2万匹，明军主力被摧毁",
+        "Commanders": "李自成、丁启睿、杨文岳、左良玉",
+        "KeyPersons": null,
+        "Action": "伏击、追击",
+        "TroopSize": "明军约20万，李自成军不详",
+        "Duration": "数日",
+        "GeographicScope": "朱仙镇及周边",
+        "Casualties": "歼敌10万",
+        "source": "《中国历代战争简史》",
+        "Impact": "基本上摧毁了明军在河南东部战场的主力集团，为李自成攻破开封创造了条件。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "开封之战",
+            "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。"
+          }
+        ],
+        "source_text": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "开封之战",
+        "EventType": "农民起义",
+        "StartDate": "1642年9月15日",
+        "EndDate": "1642年9月15日",
+        "DynastyName": "明",
+        "Place": "开封",
+        "Aggressor": "李自成部",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "明军掘黄河堤水淹李自成军，李自成军溺死万人，被迫撤退",
+        "Commanders": "李自成、黄澍、严云京",
+        "KeyPersons": "黄澍、严云京",
+        "Action": "围攻、水淹",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "开封",
+        "Casualties": "李自成军溺死万人",
+        "source": "《中国历代战争简史》",
+        "Impact": "李自成军受挫，但明军也因决河导致开封被淹，损失惨重。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "朱仙镇之战",
+            "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。"
+          }
+        ],
+        "source_text": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "主战场",
+        "modern_name": "滁州",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "主战场",
+        "modern_name": "朱仙镇",
+        "evidence": "高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "主战场",
+        "modern_name": "裕州",
+        "evidence": "高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "主战场",
+        "modern_name": "盖屋",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "主战场",
+        "modern_name": "洮河",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "主战场",
+        "modern_name": "襄阳",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "主战场",
+        "modern_name": "洛阳",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "主战场",
+        "modern_name": "项城",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "主战场",
+        "modern_name": "襄城",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "主战场",
+        "modern_name": "朱仙镇",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "主战场",
+        "modern_name": "开封",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "次要战场",
+        "modern_name": "朱仙镇",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "次要战场",
+        "modern_name": "裕州",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "战略要地",
+        "modern_name": "襄阳",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "目的地",
+        "modern_name": "洛阳",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "战略要地",
+        "modern_name": "洛阳",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "目的地",
+        "modern_name": "项城",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "目的地",
+        "modern_name": "襄城",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "防守方",
+        "OrgName": "农民起义军",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "发起方",
+        "OrgName": "孙传庭军",
+        "evidence": "在盖屋（陕西周至）为孙传庭军包围"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "防守方",
+        "OrgName": "高迎祥部",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "发起方",
+        "OrgName": "洪承畴军",
+        "evidence": "在洮河一带遭洪承畴、孙传庭军袭击"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "发起方",
+        "OrgName": "孙传庭军",
+        "evidence": "在洮河一带遭洪承畴、孙传庭军袭击"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "防守方",
+        "OrgName": "李自成部",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "发起方",
+        "OrgName": "张献忠部",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "发起方",
+        "OrgName": "李自成部",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "发起方",
+        "OrgName": "李自成部",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "防守方",
+        "OrgName": "傅宗龙部",
+        "evidence": "大破陕西总督傅宗龙与杨文岳所率4万之众的合击"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "防守方",
+        "OrgName": "杨文岳部",
+        "evidence": "大破陕西总督傅宗龙与杨文岳所率4万之众的合击"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "发起方",
+        "OrgName": "李自成部",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "防守方",
+        "OrgName": "汪乔年部",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "发起方",
+        "OrgName": "李自成部",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "防守方",
+        "OrgName": "丁启睿部",
+        "evidence": "李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "防守方",
+        "OrgName": "杨文岳部",
+        "evidence": "李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "防守方",
+        "OrgName": "左良玉部",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "发起方",
+        "OrgName": "李自成部",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "被俘方",
+        "OrgName": "明军",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "被俘方",
+        "OrgName": "高迎祥部",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "统帅",
+        "PersonName": "卢象升",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "将领",
+        "PersonName": "左良玉",
+        "evidence": "连遭卢象升、左良玉部追击和阻击"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "统帅",
+        "PersonName": "高迎祥",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "统帅",
+        "PersonName": "张献忠",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "统帅",
+        "PersonName": "孙传庭",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "盖屋之战",
+        "relation": "统帅",
+        "PersonName": "高迎祥",
+        "evidence": "7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围，苦战4日，兵败被俘牺牲，其余部共推李自成继高迎祥为闯王。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "统帅",
+        "PersonName": "洪承畴",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "统帅",
+        "PersonName": "孙传庭",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "洮河之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击，败走岷州（甘肃岷县）、礼县（甘肃礼县）。随后，率残余部队活动于川陕边境山区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "统帅",
+        "PersonName": "张献忠",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "统帅",
+        "PersonName": "杨嗣昌",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "俘虏",
+        "PersonName": "襄王朱翊铭",
+        "evidence": "杀襄王朱翊铭"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "将领",
+        "PersonName": "王绍禹",
+        "evidence": "总兵王绍禹所部数百名士卒起义"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "俘虏",
+        "PersonName": "福王朱常询",
+        "evidence": "福王朱常询被擒杀"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "俘虏",
+        "PersonName": "王胤昌",
+        "evidence": "绑缚参政王胤昌"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "统帅",
+        "PersonName": "傅宗龙",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "统帅",
+        "PersonName": "杨文岳",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "统帅",
+        "PersonName": "汪乔年",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "统帅",
+        "PersonName": "丁启睿",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "统帅",
+        "PersonName": "杨文岳",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "将领",
+        "PersonName": "左良玉",
+        "evidence": "左良玉部乘夜刚退走80里，被李自成部前堵后追"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "谋士",
+        "PersonName": "黄澍",
+        "evidence": "乃用推官黄澍之谋"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "参与者",
+        "PersonName": "严云京",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "滁州、朱仙镇、裕州之战",
+        "relation": "统帅",
+        "PersonName": "左良玉",
+        "evidence": "1636年，高迎祥、张献忠在滁州（安徽滁县）、朱仙镇、裕州（河南方城）等地，连遭卢象升、左良玉部追击和阻击，兵力损失过半，残部进入陕西汉中地区。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "参与者",
+        "PersonName": "襄王朱翊铭",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "襄阳之战",
+        "relation": "阵亡",
+        "PersonName": "襄王朱翊铭",
+        "evidence": "抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳，杀襄王朱翊铭，缴获大量军资、器械、饷银。杨嗣昌闻变自杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "统帅",
+        "PersonName": "王绍禹",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "君主",
+        "PersonName": "王绍禹",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "参与者",
+        "PersonName": "福王朱常询",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "阵亡",
+        "PersonName": "福王朱常询",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "洛阳之战",
+        "relation": "参与者",
+        "PersonName": "王胤昌",
+        "evidence": "乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城，后又集中兵力猛攻城西北角。守军不支，总兵王绍禹所部数百名士卒起义，绑缚参政王胤昌，开北门迎农民军入城。福王朱常询被擒杀。"
+      },
+      {
+        "EventName": "项城之战",
+        "relation": "阵亡",
+        "PersonName": "傅宗龙",
+        "evidence": "9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙，全歼其残部6000余人，乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。"
+      },
+      {
+        "EventName": "襄城之战",
+        "relation": "阵亡",
+        "PersonName": "汪乔年",
+        "evidence": "1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年，全歼城内明军。"
+      },
+      {
+        "EventName": "朱仙镇之战",
+        "relation": "统帅",
+        "PersonName": "左良玉",
+        "evidence": "4月，第三次围攻开封。6月下旬，李自成闻督师丁启睿、总督杨文岳及总兵左良玉等所率约20万援军到达开封西南45里的朱仙镇，即以小部兵力继续攻城，钳制城内明军；自率主力占领朱仙镇西面有利地形，打击明援军。激战数日，各路明军见农民军势盛，相继溃退。左良玉部乘夜刚退走80里，被李自成部前堵后追，阵势大乱，纷纷坠人起义军事先挖掘的深沟，相互践踏，死伤惨重。在这次决战中，李自成歼敌10万，获战马2万匹，基本上摧毁了明军在河南东部战场的主力集团。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "统帅",
+        "PersonName": "黄澍",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "统帅",
+        "PersonName": "严云京",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      },
+      {
+        "EventName": "开封之战",
+        "relation": "参与者",
+        "PersonName": "黄澍",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军。营于城东北的李军迁移不及，溺死万人。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "滁州、朱仙镇、裕州之战",
+        "relation": "顺承关系",
+        "EventName_B": "盖屋之战",
+        "evidence": "兵力损失过半，残部进入陕西汉中地区。7月，高迎祥率部向西安进逼，在盖屋（陕西周至）为孙传庭军包围\n7月，高迎祥率部向西安进逼，在盖屋为孙传庭军包围"
+      },
+      {
+        "EventName_A": "洮河之战",
+        "relation": "顺承关系",
+        "EventName_B": "盖屋之战",
+        "evidence": "其余部共推李自成继高迎祥为闯王。这时，在河南地区的马光玉部和汉中的张献忠部，乘明军北调抗清之机复起，会师进入湖广，联合罗汝才部等20余万人，沿江东进，分散活动于蕲州（湖北蕲春西南）、太湖、潜山、霍山一带。次年，李自成率部由陕西进军四川，攻破县城10余座。1638年春，由川返陕，在洮河一带遭洪承畴、孙传庭军袭击\n次年，李自成率部由陕西进军四川，1638年春，在洮河一带遭洪承畴、孙传庭军袭击"
+      },
+      {
+        "EventName_A": "洮河之战",
+        "relation": "顺承关系",
+        "EventName_B": "襄阳之战",
+        "evidence": "随后，率残余部队活动于川陕边境山区。张献忠、罗汝才等伪降就抚，分别在谷城、房山休整。农民起义一时陷入低潮。农民起义军经过长期的反围剿斗争，逐渐向集中流动作战发展。到1640年，原来的72营等百多支部队，汇合为李自成、张献忠、罗汝才等为首的几支强大的农民武装。这年8月，明督师杨嗣昌率军10万入蜀，企图一举歼灭农民军。会师巫山、挺进四川的张献忠、罗汝才部，见杨嗣昌尾追不舍，便果断采取以走致敌的策略，率军南进。12月，至泸州，突然挥师向东，摆脱尾追的明军。两个月后，越巫山，进入兴山（属湖北）、房县境内，跳出包围圈。沿途焚驿舍，杀守卒，隔断四川与湖广明军的联络。抵当阳（属湖北）时，张献忠探知杨嗣昌大营所在地襄阳城防空虚，便遣军一部阻截尾追的明军，自率2000精骑，一昼夜急行300里，进抵襄阳境。随即派200余骑乔装明军，持缴获杨嗣昌的军符、令箭入城。当晚，城中内应纵火，张献忠率军攻城，里应外合，于次日凌晨攻占襄阳"
+      },
+      {
+        "EventName_A": "洛阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "襄阳之战",
+        "evidence": "杨嗣昌闻变自杀。在明军主力被张献忠农民军钳制在四川、湖广地区的那年冬，李自成按照“行仁义，收人心”，“据洛河，取天下”的战略方针，开始向明军主力部队和战略要点进行机动性进攻。乘中原明军兵力空虚之机，率部由郧阳（湖北郧县）迂回进入河南，连克永宁（洛宁）、宜阳、新安等10余城，对洛阳形成包围之势。次年1月，指挥数十万大军环攻洛阳城\n在明军主力被张献忠农民军钳制在四川、湖广地区的那年冬，李自成开始进攻洛阳"
+      },
+      {
+        "EventName_A": "洛阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "项城之战",
+        "evidence": "李自成率部攻下洛阳后，三次围攻开封。是月，围攻开封7昼夜未克，遂东破归德（河南商邱），再转进豫西地区。7月，攻左良玉部于浙川。这时，罗汝才因与张献忠有矛盾，率部前来归附。随即，李、罗联军进逼邓州（河南邓县），在湍河北岸为保定总督杨文岳所率援军击败，转至项城（河南项城南）附近地区。9月，设伏于孟家庄（汝南东）两侧森林中，大破陕西总督傅宗龙与杨文岳所率4万之众的合击。18日，李自成率部追至项城，俘杀傅宗龙\n李自成率部攻下洛阳后，三次围攻开封...转至项城附近地区"
+      },
+      {
+        "EventName_A": "襄城之战",
+        "relation": "顺承关系",
+        "EventName_B": "项城之战",
+        "evidence": "乘势连下商水、南阳、禹州等地，杀唐王朱聿镇、延津王朱常浪等。12月，再度围攻开封，久攻不克，移军南下。1642年初，将左良玉军包围于卧城。2月，陕西三边总督汪乔年奉旨率部出潼关，直趋襄城，企图与左良玉部协同，夹击李自成军于郾城以北地区。李自成认为不能“纵之深入，使两军得合”，即留一部监视左良玉部，自率主力连夜北上，进至汝河，突袭汪乔年部。17日，攻破襄城，俘杀汪乔年"
+      },
+      {
+        "EventName_A": "朱仙镇之战",
+        "relation": "顺承关系",
+        "EventName_B": "襄城之战",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。"
+      },
+      {
+        "EventName_A": "开封之战",
+        "relation": "顺承关系",
+        "EventName_B": "朱仙镇之战",
+        "evidence": "随后，李自成乘朱仙镇大捷，攻破开封。9月15日，开封守军恐城破有罪，乃用推官黄澍之谋，约黄河北岸巡按严云京，乘夜掘开黄河大堤，水淹李自成军"
+      }
+    ]
+  }
+}

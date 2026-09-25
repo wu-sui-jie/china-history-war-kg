@@ -1,0 +1,2012 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "河内",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "使河内（河南黄河北岸及其附近一带地区）富庶。"
+      },
+      {
+        "geo_name": "河西",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "拓河西之地千里（陕西华阴以北，黄龙以南、洛河以东、黄河以西地区）。"
+      },
+      {
+        "geo_name": "繁庞",
+        "modern_name": "陕西韩城东南",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": "韩城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后占领秦的繁庞（陕西韩城东南）"
+      },
+      {
+        "geo_name": "监晋",
+        "modern_name": "陕西大荔东南",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": "大荔县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "监晋（陕西大荔东南）"
+      },
+      {
+        "geo_name": "元里",
+        "modern_name": "陕西西澄城南",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": "西澄县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "元里（陕西西澄城南）"
+      },
+      {
+        "geo_name": "洛阴",
+        "modern_name": "大荔西南",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": "大荔县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "洛阴（大荔西南）"
+      },
+      {
+        "geo_name": "郤阳",
+        "modern_name": "陕西邻阳东南",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": "邻阳县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "郤阳（陕西邻阳东南）"
+      },
+      {
+        "geo_name": "洛水",
+        "modern_name": "陕西北部",
+        "DynastyName": "战国",
+        "Province": "陕西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "geo_name": "中山国",
+        "modern_name": "河北西部完县、定县、灵寿、石家庄、高邑一带地区",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "越过赵国灭了中山国（河北西部完县、定县、灵寿、石家庄、高邑一带地区）。"
+      },
+      {
+        "geo_name": "去城",
+        "modern_name": "山东平阴东北至琅琊一带",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻入齐国去城（山东平阴东北至琅琊一带）"
+      },
+      {
+        "geo_name": "桑丘",
+        "modern_name": "山东济宁市北",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "济宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻齐至桑丘（山东济宁市北）"
+      },
+      {
+        "geo_name": "灵丘",
+        "modern_name": "山东高唐南",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "高唐县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻齐至灵丘（山东高唐南）"
+      },
+      {
+        "geo_name": "博陵",
+        "modern_name": "山东在平西北",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "在平县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "伐齐至博陵（山东在平西北）"
+      },
+      {
+        "geo_name": "乘丘",
+        "modern_name": "山东巨野西南",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "巨野县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "伐楚到乘丘（山东巨野西南）"
+      },
+      {
+        "geo_name": "榆关",
+        "modern_name": "河南中牟南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "中牟县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "伐楚至榆关（河南中牟南）"
+      },
+      {
+        "geo_name": "鲁阳",
+        "modern_name": "河南鲁山附近",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "鲁山县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占了楚的鲁阳（河南鲁山附近）"
+      },
+      {
+        "geo_name": "邯郸",
+        "modern_name": "河北邯郸",
+        "DynastyName": "战国",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "围攻赵都邯郸"
+      },
+      {
+        "geo_name": "濮阳",
+        "modern_name": "河南濮阳西南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "濮阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "卫都濮阳，今河南濮阳西南"
+      },
+      {
+        "geo_name": "刚平",
+        "modern_name": "河南清丰西南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "清丰县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领赵国刚平（河南清丰西南）"
+      },
+      {
+        "geo_name": "中牟",
+        "modern_name": "河南鹤壁市西",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "鹤壁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进攻中牟（河南鹤壁市西）"
+      },
+      {
+        "geo_name": "蔺",
+        "modern_name": "山西离石西",
+        "DynastyName": "战国",
+        "Province": "山西省",
+        "City": "离石区",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "败赵于蔺（山西离石西）"
+      },
+      {
+        "geo_name": "独泽",
+        "modern_name": "河南白沙水库东",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在独泽（河南白沙水库东）大败魏军"
+      },
+      {
+        "geo_name": "马陵",
+        "modern_name": "河南新郑东南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "新郑市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "败韩于马陵（不是齐魏相争的马陵，河南新郑东南）"
+      },
+      {
+        "geo_name": "怀",
+        "modern_name": "河南武陵西南",
+        "DynastyName": "战国",
+        "Province": "河南省",
+        "City": "武陵县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "败赵于怀（河南武陵西南）"
+      },
+      {
+        "geo_name": "南城",
+        "modern_name": "山东费县西南",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "费县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以檀子守南城（山东费县西南）"
+      },
+      {
+        "geo_name": "高唐",
+        "modern_name": "山东禹城西南",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "禹城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "使盼子守高唐（山东禹城西南）"
+      },
+      {
+        "geo_name": "徐州",
+        "modern_name": "山东滕县南",
+        "DynastyName": "战国",
+        "Province": "山东省",
+        "City": "滕州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "使黔夫守徐州（即“薛”，山东滕县南）"
+      },
+      {
+        "geo_name": "观津",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "齐伐魏，战于观津"
+      },
+      {
+        "geo_name": "齐长城",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "geo_name": "赵国境内",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "geo_name": "黄河边",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "geo_name": "卫国",
+        "modern_name": null,
+        "DynastyName": "战国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "魏国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。"
+      },
+      {
+        "OrgName": "秦国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "曾率魏军一举攻占秦国的5座城池"
+      },
+      {
+        "OrgName": "赵国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "越过赵国灭了中山国"
+      },
+      {
+        "OrgName": "中山国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "越过赵国灭了中山国"
+      },
+      {
+        "OrgName": "韩国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "同韩、赵联合，于公元前404年攻入齐国去城"
+      },
+      {
+        "OrgName": "齐国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "攻入齐国去城"
+      },
+      {
+        "OrgName": "楚国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "伐楚到乘丘"
+      },
+      {
+        "OrgName": "卫国",
+        "OrgType": "国家",
+        "DynastyName": "战国",
+        "source_text": "赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）"
+      },
+      {
+        "OrgName": "三晋",
+        "OrgType": "联盟",
+        "DynastyName": "战国",
+        "source_text": "借三晋联合之力，连年征战"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "魏武侯",
+        "DynastyName": "战国",
+        "OrgName": "魏国",
+        "Role": "君主",
+        "Note": "魏国国君，出兵助公子朝袭击赵都邯郸，被赵击退；出兵援卫攻赵，大败赵军。",
+        "source_text": "魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "PersonName": "赵烈侯",
+        "DynastyName": "战国",
+        "OrgName": "赵国",
+        "Role": "君主",
+        "Note": "赵国国君，公元前386年死。",
+        "source_text": "公元前386年，赵烈侯死，敬侯即位"
+      },
+      {
+        "PersonName": "赵敬侯",
+        "DynastyName": "战国",
+        "OrgName": "赵国",
+        "Role": "君主",
+        "Note": "赵国国君，出兵攻卫，被魏国援卫攻赵大败。",
+        "source_text": "赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）"
+      },
+      {
+        "PersonName": "公子朝",
+        "DynastyName": "战国",
+        "OrgName": "赵国",
+        "Role": "参战者",
+        "Note": "赵国公子，争夺王位失败后奔魏，魏武侯助其袭击赵都邯郸。",
+        "source_text": "公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸"
+      },
+      {
+        "PersonName": "楚悼王",
+        "DynastyName": "战国",
+        "OrgName": "楚国",
+        "Role": "君主",
+        "Note": "楚国国君，趁赵战败向楚求助时，从南方攻魏，一直打到黄河边。",
+        "source_text": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "PersonName": "赵成侯",
+        "DynastyName": "战国",
+        "OrgName": "赵国",
+        "Role": "君主",
+        "Note": "赵国国君，出兵攻卫，占领70多个乡邑。",
+        "source_text": "赵成侯出兵攻卫，占领70多个乡邑。"
+      },
+      {
+        "PersonName": "魏惠王",
+        "DynastyName": "战国",
+        "OrgName": "魏国",
+        "Role": "君主",
+        "Note": "魏国国君，即位后因公中缓争夺王位引起内讧，被赵韩联军包围，后反攻杀公中缓，败赵军，又败韩于马陵，败赵于怀。",
+        "source_text": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。"
+      },
+      {
+        "PersonName": "公中缓",
+        "DynastyName": "战国",
+        "OrgName": "魏国",
+        "Role": "参战者",
+        "Note": "魏国公子，争夺王位，被魏惠王反攻杀死。",
+        "source_text": "因公中缓争夺王位引起内讧"
+      },
+      {
+        "PersonName": "赵乱侯",
+        "DynastyName": "战国",
+        "OrgName": "赵国",
+        "Role": "君主",
+        "Note": "赵国国君，主张除掉魏惠王而立公中缓，割取魏地后撤军。",
+        "source_text": "赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。"
+      },
+      {
+        "PersonName": "齐威王",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "君主",
+        "Note": "齐国国君，任用邹忌为相，孙膑为军师，命田忌为主将救赵。",
+        "source_text": "至公元前357年齐威王时，任用邹忌为相，主持变法"
+      },
+      {
+        "PersonName": "邹忌",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "谋士",
+        "Note": "齐相，主持变法，广开言路，赏罚分明。",
+        "source_text": "任用邹忌为相，主持变法"
+      },
+      {
+        "PersonName": "檀子",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "将领",
+        "Note": "守南城，楚人不敢东逼。",
+        "source_text": "以檀子守南城（山东费县西南），楚人不敢东逼"
+      },
+      {
+        "PersonName": "盼子",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "将领",
+        "Note": "守高唐，赵人不敢东至黄河。",
+        "source_text": "使盼子守高唐（山东禹城西南），赵人不敢东至黄河"
+      },
+      {
+        "PersonName": "黔夫",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "将领",
+        "Note": "守徐州，燕、赵震惧。",
+        "source_text": "使黔夫守徐州（即“薛”，山东滕县南），燕，赵震惧。"
+      },
+      {
+        "PersonName": "庞涓",
+        "DynastyName": "战国",
+        "OrgName": "魏国",
+        "Role": "统帅",
+        "Note": "魏国将军，率兵8万伐赵，围攻赵都邯郸。",
+        "source_text": "于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。"
+      },
+      {
+        "PersonName": "田忌",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "统帅",
+        "Note": "齐将，为主将率兵8万救赵。",
+        "source_text": "齐威王才命田忌为主将，孙膑为军师，领兵8万救赵"
+      },
+      {
+        "PersonName": "孙膑",
+        "DynastyName": "战国",
+        "OrgName": "齐国",
+        "Role": "谋士",
+        "Note": "齐军师，辅佐田忌救赵。",
+        "source_text": "孙膑为军师，领兵8万救赵"
+      },
+      {
+        "PersonName": "韩哀侯",
+        "DynastyName": "战国",
+        "OrgName": null,
+        "Role": "统帅",
+        "Note": null,
+        "source_text": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "魏攻秦河西之战",
+        "EventType": "开疆拓土",
+        "StartDate": "前413年",
+        "EndDate": "前408年",
+        "DynastyName": "战国",
+        "Place": "河西、繁庞、监晋、元里、洛阴、郤阳、洛水",
+        "Aggressor": "魏国",
+        "Defender": "秦国",
+        "Allies": null,
+        "Result": "魏国获胜，夺取秦国河西之地",
+        "Commanders": "吴起",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "持续六年",
+        "GeographicScope": "河西地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国占领河西之地，秦国退守洛水，魏国声威大振",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏灭中山国",
+            "evidence": "魏国得变法强盛后，连年征战，向西攻秦，向北灭中山国"
+          }
+        ],
+        "source_text": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏灭中山国",
+        "EventType": "开疆拓土",
+        "StartDate": "前408年",
+        "EndDate": "前406年",
+        "DynastyName": "战国",
+        "Place": "中山国",
+        "Aggressor": "魏国",
+        "Defender": "中山国",
+        "Allies": null,
+        "Result": "魏国获胜，灭亡中山国",
+        "Commanders": "吴起",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "持续三年",
+        "GeographicScope": "中山国地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国领土扩张，中山国灭亡",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏攻秦河西之战",
+            "evidence": "向北，魏于公元前408年至前406年，越过赵国灭了中山国"
+          }
+        ],
+        "source_text": "向北，魏于公元前408年至前406年，越过赵国灭了中山国（河北西部完县、定县、灵寿、石家庄、高邑一带地区）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "EventType": "联军讨伐",
+        "StartDate": "前404年",
+        "EndDate": "前404年",
+        "DynastyName": "战国",
+        "Place": "齐长城、去城",
+        "Aggressor": "魏国、韩国、赵国",
+        "Defender": "齐国",
+        "Allies": null,
+        "Result": "三晋获胜，攻入齐国",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "齐长城一带",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "齐国被迫屈服于魏国",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏攻秦河西之战",
+            "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城"
+          }
+        ],
+        "source_text": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "魏攻齐桑丘之战",
+        "EventType": "边境防御",
+        "StartDate": "前380年",
+        "EndDate": "前380年",
+        "DynastyName": "战国",
+        "Place": "桑丘",
+        "Aggressor": "魏国",
+        "Defender": "齐国",
+        "Allies": null,
+        "Result": "魏国获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "桑丘地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国向东扩张，齐国受挫",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏攻齐灵丘之战",
+            "evidence": "公元前378年攻齐至灵丘"
+          }
+        ],
+        "source_text": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带），公元前380年攻齐至桑丘（山东济宁市北）。"
+      },
+      {
+        "EventName": "魏攻齐灵丘之战",
+        "EventType": "边境防御",
+        "StartDate": "前378年",
+        "EndDate": "前378年",
+        "DynastyName": "战国",
+        "Place": "灵丘",
+        "Aggressor": "魏国",
+        "Defender": "齐国",
+        "Allies": null,
+        "Result": "魏国获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "灵丘地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国继续东侵，齐国压力增大",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏伐齐博陵之战",
+            "evidence": "并于公元前373年独立伐齐至博陵"
+          }
+        ],
+        "source_text": "公元前378年攻齐至灵丘（山东高唐南），并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐齐博陵之战",
+        "EventType": "边境防御",
+        "StartDate": "前373年",
+        "EndDate": "前373年",
+        "DynastyName": "战国",
+        "Place": "博陵",
+        "Aggressor": "魏国",
+        "Defender": "齐国",
+        "Allies": null,
+        "Result": "魏国获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "博陵地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国进一步削弱齐国，巩固东方霸权",
+        "Remark": "",
+        "relations": [],
+        "source_text": "并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "EventType": "联军讨伐",
+        "StartDate": "前400年",
+        "EndDate": "前400年",
+        "DynastyName": "战国",
+        "Place": "乘丘",
+        "Aggressor": "魏国、韩国、赵国",
+        "Defender": "楚国",
+        "Allies": null,
+        "Result": "魏、韩、赵联军获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "乘丘（山东巨野西南）",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国向南扩张，楚国受挫",
+        "Remark": "",
+        "relations": [],
+        "source_text": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "魏伐楚榆关之战",
+        "EventType": "对外远征",
+        "StartDate": "前375年",
+        "EndDate": "前375年",
+        "DynastyName": "战国",
+        "Place": "榆关",
+        "Aggressor": "魏国",
+        "Defender": "楚国",
+        "Allies": null,
+        "Result": "魏国获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "榆关（河南中牟南）",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国继续向南扩张，楚国进一步受挫",
+        "Remark": "",
+        "relations": [],
+        "source_text": "并于公元前375年独立伐楚至榆关（河南中牟南）："
+      },
+      {
+        "EventName": "魏攻楚鲁阳之战",
+        "EventType": "对外远征",
+        "StartDate": "前371年",
+        "EndDate": "前371年",
+        "DynastyName": "战国",
+        "Place": "鲁阳",
+        "Aggressor": "魏国",
+        "Defender": "楚国",
+        "Allies": null,
+        "Result": "魏国获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "鲁阳（河南鲁山附近）",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国攻占楚国鲁阳，进一步扩张领土",
+        "Remark": "",
+        "relations": [],
+        "source_text": "公元前371年攻占了楚的鲁阳（河南鲁山附近）。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "EventType": "贵族叛乱",
+        "StartDate": "前386年",
+        "EndDate": "前386年",
+        "DynastyName": "战国",
+        "Place": "邯郸",
+        "Aggressor": "魏国",
+        "Defender": "赵国",
+        "Allies": null,
+        "Result": "赵击退魏军",
+        "Commanders": "公子朝",
+        "KeyPersons": "魏武侯、赵敬侯",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "邯郸",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国企图控制赵国未果，加剧魏赵矛盾",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏援卫攻赵之战",
+            "evidence": "公元前383年，赵敬侯出兵攻卫，卫国向魏国求援，魏武侯出兵援卫攻赵"
+          }
+        ],
+        "source_text": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "EventType": "边境防御",
+        "StartDate": "前383年",
+        "EndDate": "前383年",
+        "DynastyName": "战国",
+        "Place": "赵国境内",
+        "Aggressor": "魏国、卫国",
+        "Defender": "赵国",
+        "Allies": null,
+        "Result": "魏卫联军大败赵军",
+        "Commanders": "不详",
+        "KeyPersons": "赵敬侯、魏武侯",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "赵国境内",
+        "Casualties": "大败赵军",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国进一步控制卫国，加深魏赵矛盾",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "卫攻赵刚平、中牟之战",
+            "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平"
+          }
+        ],
+        "source_text": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "EventType": "边境防御",
+        "StartDate": "前382年",
+        "EndDate": "前382年",
+        "DynastyName": "战国",
+        "Place": "刚平、中牟",
+        "Aggressor": "卫国",
+        "Defender": "赵国",
+        "Allies": "魏国",
+        "Result": "卫国占领刚平，继而进攻中牟",
+        "Commanders": "不详",
+        "KeyPersons": "赵敬侯",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "刚平、中牟",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "赵国战败后向楚求助，引发楚国攻魏，三晋矛盾加剧",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "魏助公子朝袭邯郸之战",
+            "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏"
+          }
+        ],
+        "source_text": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "EventType": "边境防御",
+        "StartDate": "前381年",
+        "EndDate": "前381年",
+        "DynastyName": "战国",
+        "Place": "黄河边",
+        "Aggressor": "楚国",
+        "Defender": "魏国",
+        "Allies": null,
+        "Result": "楚国攻至黄河边，魏国被迫应对",
+        "Commanders": "楚悼王",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "黄河边",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "楚国趁魏国与赵国交战之际，从南方攻魏，迫使魏国分兵应对，加剧了魏国与赵国的矛盾。",
+        "Remark": "此战发生于赵国向楚国求助之后，楚国为削弱魏国而发动。",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "魏败赵于蔺之战",
+            "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+          }
+        ],
+        "source_text": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "EventType": "开疆拓土",
+        "StartDate": "前372年",
+        "EndDate": "前372年",
+        "DynastyName": "战国",
+        "Place": "卫国",
+        "Aggressor": "赵国",
+        "Defender": "卫国",
+        "Allies": null,
+        "Result": "赵国占领卫国70多个乡邑",
+        "Commanders": "赵成侯",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "卫国",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "赵国攻占卫国大量领土，加剧了魏赵之间的矛盾，导致魏国出兵攻赵。",
+        "Remark": "此战发生于公元前372年，赵成侯出兵攻卫。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏败赵于蔺之战",
+            "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+          }
+        ],
+        "source_text": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "EventType": "边境防御",
+        "StartDate": "前372年",
+        "EndDate": "前372年",
+        "DynastyName": "战国",
+        "Place": "蔺",
+        "Aggressor": "魏国",
+        "Defender": "赵国",
+        "Allies": null,
+        "Result": "魏国击败赵国",
+        "Commanders": "魏惠王",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "蔺",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏国击败赵国，加深了魏赵矛盾，为后续三晋分裂埋下伏笔。",
+        "Remark": "此战发生于公元前372年，魏国因赵国攻卫而出兵攻赵。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "赵攻卫之战",
+            "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+          }
+        ],
+        "source_text": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "EventType": "诸侯联盟",
+        "StartDate": "前369年",
+        "EndDate": "前369年",
+        "DynastyName": "战国",
+        "Place": "独泽",
+        "Aggressor": "韩国、赵国",
+        "Defender": "魏国",
+        "Allies": null,
+        "Result": "韩赵联军大败魏军，但随后因韩撤军，魏惠王反攻，杀公中缓，打败赵军",
+        "Commanders": "赵乱侯、韩哀侯",
+        "KeyPersons": "公中缓、魏惠王",
+        "Action": "攻伐、包围",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "独泽地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "三晋联盟彻底破裂，魏国与韩、赵矛盾加深",
+        "Remark": "韩赵联军因意见不合，韩国撤军，导致赵军孤弱，魏惠王反攻获胜",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏败韩于马陵之战",
+            "evidence": "次年，魏国又败韩于马陵"
+          },
+          {
+            "type": "顺承关系",
+            "to": "魏败赵于怀之战",
+            "evidence": "次年，魏国又败赵于怀"
+          }
+        ],
+        "source_text": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "EventType": "战争",
+        "StartDate": "前368年",
+        "EndDate": "前368年",
+        "DynastyName": "战国",
+        "Place": "马陵",
+        "Aggressor": "魏国",
+        "Defender": "韩国",
+        "Allies": null,
+        "Result": "魏国获胜，韩国战败",
+        "Commanders": "魏惠王",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "马陵地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "进一步加剧三晋分裂，魏国与韩国关系恶化",
+        "Remark": "此马陵非齐魏马陵之战",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "韩赵联兵攻魏独泽之战",
+            "evidence": "次年，魏国又败韩于马陵"
+          }
+        ],
+        "source_text": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "EventType": "战争",
+        "StartDate": "前368年",
+        "EndDate": "前368年",
+        "DynastyName": "战国",
+        "Place": "怀",
+        "Aggressor": "魏国",
+        "Defender": "赵国",
+        "Allies": null,
+        "Result": "魏国获胜，赵国战败",
+        "Commanders": "魏惠王",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "怀地",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "三晋彻底分裂，魏赵矛盾加深",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "韩赵联兵攻魏独泽之战",
+            "evidence": "次年，魏国又败赵于怀"
+          }
+        ],
+        "source_text": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "齐伐魏观津之战",
+        "EventType": "诸侯联盟",
+        "StartDate": "前368年",
+        "EndDate": "前368年",
+        "DynastyName": "战国",
+        "Place": "观津",
+        "Aggressor": "齐国",
+        "Defender": "魏国",
+        "Allies": null,
+        "Result": "不详",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "观津",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "齐魏争霸的开端，魏国东线压力增大",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "魏围赵邯郸之战",
+            "evidence": "三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡。"
+          }
+        ],
+        "source_text": "在齐国强盛时，魏国正处于衰退时期。当时，魏国西扰于秦（在魏惠王初期的15年中，秦6次进攻河西疆城），东战于齐（三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡），中与赵、韩屡相攻伐，处于四面皆敌，极为不利的形势。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "前354年",
+        "EndDate": "前353年",
+        "DynastyName": "战国",
+        "Place": "邯郸",
+        "Aggressor": "魏国",
+        "Defender": "赵国",
+        "Allies": null,
+        "Result": "魏国攻破邯郸，但最终齐国救赵，魏国退兵",
+        "Commanders": "庞涓",
+        "KeyPersons": null,
+        "Action": "围攻",
+        "TroopSize": "八万",
+        "Duration": "持续一年",
+        "GeographicScope": "邯郸",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "魏赵矛盾加深，齐国趁机崛起，围魏救赵战术的运用",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "齐救赵攻魏之战",
+            "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵。"
+          }
+        ],
+        "source_text": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "EventType": "联军讨伐",
+        "StartDate": "前353年",
+        "EndDate": "前353年",
+        "DynastyName": "战国",
+        "Place": "赵国境内",
+        "Aggressor": "齐国",
+        "Defender": "魏国",
+        "Allies": "赵国",
+        "Result": "齐国获胜，魏国退兵，赵国之围解除",
+        "Commanders": "田忌、孙膑、庞涓",
+        "KeyPersons": null,
+        "Action": "救援、攻伐",
+        "TroopSize": "八万",
+        "Duration": "不详",
+        "GeographicScope": "赵国境内",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "围魏救赵的经典战例，齐国称霸中原，魏国霸权衰落",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "魏围赵邯郸之战",
+            "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵。"
+          }
+        ],
+        "source_text": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "主战场",
+        "modern_name": "河西",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "繁庞",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "监晋",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "元里",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "洛阴",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "郤阳",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "战略要地",
+        "modern_name": "洛水",
+        "evidence": "逼迫秦国退守洛水（陕西北部）"
+      },
+      {
+        "EventName": "魏灭中山国",
+        "relation": "主战场",
+        "modern_name": "中山国",
+        "evidence": "向北，魏于公元前408年至前406年，越过赵国灭了中山国（河北西部完县、定县、灵寿、石家庄、高邑一带地区）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "主战场",
+        "modern_name": "去城",
+        "evidence": "于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "战略要地",
+        "modern_name": "齐长城",
+        "evidence": "攻入齐国去城（山东平阴东北至琅琊一带）"
+      },
+      {
+        "EventName": "魏攻齐桑丘之战",
+        "relation": "主战场",
+        "modern_name": "桑丘",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带），公元前380年攻齐至桑丘（山东济宁市北）。"
+      },
+      {
+        "EventName": "魏攻齐灵丘之战",
+        "relation": "主战场",
+        "modern_name": "灵丘",
+        "evidence": "公元前378年攻齐至灵丘（山东高唐南），并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐齐博陵之战",
+        "relation": "主战场",
+        "modern_name": "博陵",
+        "evidence": "并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "relation": "主战场",
+        "modern_name": "乘丘",
+        "evidence": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "魏伐楚榆关之战",
+        "relation": "主战场",
+        "modern_name": "榆关",
+        "evidence": "并于公元前375年独立伐楚至榆关（河南中牟南）："
+      },
+      {
+        "EventName": "魏攻楚鲁阳之战",
+        "relation": "主战场",
+        "modern_name": "鲁阳",
+        "evidence": "公元前371年攻占了楚的鲁阳（河南鲁山附近）。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "主战场",
+        "modern_name": "邯郸",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "主战场",
+        "modern_name": "赵国境内",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "主战场",
+        "modern_name": "刚平",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "次要战场",
+        "modern_name": "中牟",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "主战场",
+        "modern_name": "黄河边",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "relation": "主战场",
+        "modern_name": "卫国",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "relation": "主战场",
+        "modern_name": "蔺",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "主战场",
+        "modern_name": "独泽",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "relation": "主战场",
+        "modern_name": "马陵",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "relation": "主战场",
+        "modern_name": "怀",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "齐伐魏观津之战",
+        "relation": "主战场",
+        "modern_name": "观津",
+        "evidence": "在齐国强盛时，魏国正处于衰退时期。当时，魏国西扰于秦（在魏惠王初期的15年中，秦6次进攻河西疆城），东战于齐（三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡），中与赵、韩屡相攻伐，处于四面皆敌，极为不利的形势。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "relation": "主战场",
+        "modern_name": "邯郸",
+        "evidence": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "主战场",
+        "modern_name": "赵国境内",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "次要战场",
+        "modern_name": "洛水",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "驻防地",
+        "modern_name": "洛水",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "主战场",
+        "modern_name": "齐长城",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "次要战场",
+        "modern_name": "去城",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "魏攻齐桑丘之战",
+        "relation": "目的地",
+        "modern_name": "桑丘",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带），公元前380年攻齐至桑丘（山东济宁市北）。"
+      },
+      {
+        "EventName": "魏攻齐灵丘之战",
+        "relation": "目的地",
+        "modern_name": "灵丘",
+        "evidence": "公元前378年攻齐至灵丘（山东高唐南），并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐齐博陵之战",
+        "relation": "目的地",
+        "modern_name": "博陵",
+        "evidence": "并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐楚榆关之战",
+        "relation": "目的地",
+        "modern_name": "榆关",
+        "evidence": "并于公元前375年独立伐楚至榆关（河南中牟南）："
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "目的地",
+        "modern_name": "中牟",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "目的地",
+        "modern_name": "黄河边",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "relation": "战略要地",
+        "modern_name": "邯郸",
+        "evidence": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "防守方",
+        "OrgName": "秦国",
+        "evidence": "魏国得变法强盛后，借三晋联合之力，连年征战，四向扩张。向西，魏国自公元前413年至408年，不断攻秦，先后占领秦的繁庞（陕西韩城东南）、监晋（陕西大荔东南）、元里（陕西西澄城南）、洛阴（大荔西南）、郤阳（陕西邻阳东南），全部夺取了秦的河西（陕西河套南部黄河以西地区）之地，逼迫秦国退守洛水（陕西北部）。"
+      },
+      {
+        "EventName": "魏灭中山国",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "向北，魏于公元前408年至前406年，越过赵国灭了中山国（河北西部完县、定县、灵寿、石家庄、高邑一带地区）。"
+      },
+      {
+        "EventName": "魏灭中山国",
+        "relation": "防守方",
+        "OrgName": "中山国",
+        "evidence": "向北，魏于公元前408年至前406年，越过赵国灭了中山国（河北西部完县、定县、灵寿、石家庄、高邑一带地区）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "发起方",
+        "OrgName": "韩国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "发起方",
+        "OrgName": "赵国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "三晋攻齐之战",
+        "relation": "防守方",
+        "OrgName": "齐国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带）。"
+      },
+      {
+        "EventName": "魏攻齐桑丘之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带），公元前380年攻齐至桑丘（山东济宁市北）。"
+      },
+      {
+        "EventName": "魏攻齐桑丘之战",
+        "relation": "防守方",
+        "OrgName": "齐国",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城（山东平阴东北至琅琊一带），公元前380年攻齐至桑丘（山东济宁市北）。"
+      },
+      {
+        "EventName": "魏攻齐灵丘之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "公元前378年攻齐至灵丘（山东高唐南），并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏攻齐灵丘之战",
+        "relation": "防守方",
+        "OrgName": "齐国",
+        "evidence": "公元前378年攻齐至灵丘（山东高唐南），并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐齐博陵之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "魏伐齐博陵之战",
+        "relation": "防守方",
+        "OrgName": "齐国",
+        "evidence": "并于公元前373年独立伐齐至博陵（山东在平西北）。"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "relation": "发起方",
+        "OrgName": "韩国",
+        "evidence": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "relation": "发起方",
+        "OrgName": "赵国",
+        "evidence": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "三晋伐楚乘丘之战",
+        "relation": "防守方",
+        "OrgName": "楚国",
+        "evidence": "向南，于公元前400年与韩、赵联合伐楚到乘丘（山东巨野西南）；"
+      },
+      {
+        "EventName": "魏伐楚榆关之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "并于公元前375年独立伐楚至榆关（河南中牟南）："
+      },
+      {
+        "EventName": "魏伐楚榆关之战",
+        "relation": "防守方",
+        "OrgName": "楚国",
+        "evidence": "并于公元前375年独立伐楚至榆关（河南中牟南）："
+      },
+      {
+        "EventName": "魏攻楚鲁阳之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "公元前371年攻占了楚的鲁阳（河南鲁山附近）。"
+      },
+      {
+        "EventName": "魏攻楚鲁阳之战",
+        "relation": "防守方",
+        "OrgName": "楚国",
+        "evidence": "公元前371年攻占了楚的鲁阳（河南鲁山附近）。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "支援方",
+        "OrgName": "卫国",
+        "evidence": "卫国向魏国求援，魏武侯出兵援卫攻赵"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "发起方",
+        "OrgName": "卫国",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "支援方",
+        "OrgName": "魏国",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "发起方",
+        "OrgName": "楚国",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "防守方",
+        "OrgName": "魏国",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "relation": "发起方",
+        "OrgName": "赵国",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "relation": "防守方",
+        "OrgName": "卫国",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "发起方",
+        "OrgName": "韩国",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "发起方",
+        "OrgName": "赵国",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "防守方",
+        "OrgName": "魏国",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "relation": "防守方",
+        "OrgName": "韩国",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "齐伐魏观津之战",
+        "relation": "发起方",
+        "OrgName": "齐国",
+        "evidence": "在齐国强盛时，魏国正处于衰退时期。当时，魏国西扰于秦（在魏惠王初期的15年中，秦6次进攻河西疆城），东战于齐（三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡），中与赵、韩屡相攻伐，处于四面皆敌，极为不利的形势。"
+      },
+      {
+        "EventName": "齐伐魏观津之战",
+        "relation": "防守方",
+        "OrgName": "魏国",
+        "evidence": "在齐国强盛时，魏国正处于衰退时期。当时，魏国西扰于秦（在魏惠王初期的15年中，秦6次进攻河西疆城），东战于齐（三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡），中与赵、韩屡相攻伐，处于四面皆敌，极为不利的形势。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "relation": "发起方",
+        "OrgName": "魏国",
+        "evidence": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "relation": "防守方",
+        "OrgName": "赵国",
+        "evidence": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "发起方",
+        "OrgName": "齐国",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "防守方",
+        "OrgName": "魏国",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "同盟方",
+        "OrgName": "赵国",
+        "evidence": "救赵"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "发起方",
+        "OrgName": "卫国",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "支援方",
+        "OrgName": "赵国",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "魏攻秦河西之战",
+        "relation": "统帅",
+        "PersonName": "吴起",
+        "evidence": "任用军事家吴起为大将军"
+      },
+      {
+        "EventName": "魏灭中山国",
+        "relation": "统帅",
+        "PersonName": "吴起",
+        "evidence": "吴起与诸侯大战76次，全胜64次"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "统帅",
+        "PersonName": "公子朝",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "君主",
+        "PersonName": "魏武侯",
+        "evidence": "魏武侯企图乘机控制赵国"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "君主",
+        "PersonName": "赵敬侯",
+        "evidence": "被赵击退"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "君主",
+        "PersonName": "魏武侯",
+        "evidence": "魏武侯出兵援卫攻赵"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "君主",
+        "PersonName": "赵敬侯",
+        "evidence": "大败赵军"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "君主",
+        "PersonName": "赵敬侯",
+        "evidence": "占领赵国刚平"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "统帅",
+        "PersonName": "楚悼王",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "relation": "统帅",
+        "PersonName": "赵成侯",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "relation": "统帅",
+        "PersonName": "魏惠王",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "统帅",
+        "PersonName": "赵乱侯",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "统帅",
+        "PersonName": "韩哀侯",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "君主",
+        "PersonName": "魏惠王",
+        "evidence": "并包围了魏惠王"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "参与者",
+        "PersonName": "公中缓",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "relation": "统帅",
+        "PersonName": "魏惠王",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "relation": "统帅",
+        "PersonName": "魏惠王",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏围赵邯郸之战",
+        "relation": "统帅",
+        "PersonName": "庞涓",
+        "evidence": "魏惠王为了抑赵挫韩，改变不利的战略形势，于公元前354年令将军庞涓举兵8万伐赵，围攻赵都邯郸。次年，赵派使者赴齐国求救，齐威王答应救赵，但并不马上出兵，他采纳大臣们的意见，要在魏国攻下邯郸，赵魏两国都战至精疲力尽时，再用其主力攻魏。赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "统帅",
+        "PersonName": "田忌",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "谋士",
+        "PersonName": "孙膑",
+        "evidence": "孙膑为军师"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "将领",
+        "PersonName": "庞涓",
+        "evidence": "进攻魏军主力"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "君主",
+        "PersonName": "公子朝",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "参与者",
+        "PersonName": "魏武侯",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏助公子朝袭邯郸之战",
+        "relation": "参与者",
+        "PersonName": "赵敬侯",
+        "evidence": "公元前386年，赵烈侯死，敬侯即位，公子朝争夺王位失败后奔魏。魏武侯企图乘机控制赵国，出兵助公子朝袭击越都邯郸，被赵击退。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "参与者",
+        "PersonName": "赵敬侯",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "魏援卫攻赵之战",
+        "relation": "参与者",
+        "PersonName": "魏武侯",
+        "evidence": "公元前383年，赵敬侯出兵攻卫（卫都濮阳，今河南濮阳西南）卫国向魏国求援，魏武侯出兵援卫攻赵，大败赵军。"
+      },
+      {
+        "EventName": "卫攻赵刚平、中牟之战",
+        "relation": "参与者",
+        "PersonName": "赵敬侯",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平（河南清丰西南），继而进攻中牟（河南鹤壁市西）。赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "楚攻魏至黄河之战",
+        "relation": "君主",
+        "PersonName": "楚悼王",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName": "赵攻卫之战",
+        "relation": "君主",
+        "PersonName": "赵成侯",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "魏败赵于蔺之战",
+        "relation": "君主",
+        "PersonName": "魏惠王",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "君主",
+        "PersonName": "赵乱侯",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "君主",
+        "PersonName": "韩哀侯",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "阵亡",
+        "PersonName": "公中缓",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "韩赵联兵攻魏独泽之战",
+        "relation": "参与者",
+        "PersonName": "魏惠王",
+        "evidence": "公元前369年，魏武侯死，惠王即位，因公中缓争夺王位引起内讧。赵、魏两国便联兵攻魏，在独泽（河南白沙水库东）大败魏军，并包围了魏惠王。因魏的强大，是对韩、赵两国的威胁，所以赵乱侯主张除掉魏惠王而立公中缓，割取魏的土地后撤军。韩则主张使魏惠王与公中缓分魏而治，以削弱魏力量而免除其威胁。两国意见不一，韩国撤军而去，使赵陷于孤弱。魏惠王反攻，杀公中缓，打败赵军。"
+      },
+      {
+        "EventName": "魏败韩于马陵之战",
+        "relation": "君主",
+        "PersonName": "魏惠王",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "魏败赵于怀之战",
+        "relation": "君主",
+        "PersonName": "魏惠王",
+        "evidence": "次年，魏国又败韩于马陵（不是齐魏相争的马陵，河南新郑东南），败赵于怀（河南武陵西南）。自此，三晋走向彻底分裂。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "统帅",
+        "PersonName": "孙膑",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      },
+      {
+        "EventName": "齐救赵攻魏之战",
+        "relation": "统帅",
+        "PersonName": "庞涓",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵，田忌企图率军赴赵进攻魏军主力，以解赵围。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "魏围赵邯郸之战",
+        "relation": "顺承关系",
+        "EventName_B": "齐救赵攻魏之战",
+        "evidence": "赵都邯郸被攻破后，魏、赵两国都拖到了疲敝的地步，齐威王才命田忌为主将，孙膑为军师，领兵8万救赵。"
+      },
+      {
+        "EventName_A": "卫攻赵刚平、中牟之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏援卫攻赵之战",
+        "evidence": "次年，卫国任借魏国的力量乘胜反攻，占领赵国刚平"
+      },
+      {
+        "EventName_A": "魏助公子朝袭邯郸之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏援卫攻赵之战",
+        "evidence": "公元前383年，赵敬侯出兵攻卫，卫国向魏国求援，魏武侯出兵援卫攻赵"
+      },
+      {
+        "EventName_A": "魏攻秦河西之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏灭中山国",
+        "evidence": "向北，魏于公元前408年至前406年，越过赵国灭了中山国\n魏国得变法强盛后，连年征战，向西攻秦，向北灭中山国"
+      },
+      {
+        "EventName_A": "三晋攻齐之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏攻秦河西之战",
+        "evidence": "向东，同韩、赵联合，于公元前404年攻入齐国去城"
+      },
+      {
+        "EventName_A": "魏攻齐桑丘之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏攻齐灵丘之战",
+        "evidence": "公元前378年攻齐至灵丘"
+      },
+      {
+        "EventName_A": "魏攻齐灵丘之战",
+        "relation": "并列关系",
+        "EventName_B": "魏伐齐博陵之战",
+        "evidence": "并于公元前373年独立伐齐至博陵"
+      },
+      {
+        "EventName_A": "卫攻赵刚平、中牟之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏助公子朝袭邯郸之战",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏"
+      },
+      {
+        "EventName_A": "楚攻魏至黄河之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏败赵于蔺之战",
+        "evidence": "赵战败后向楚求助，楚悼王欲乘机削弱魏国，乃从南方攻魏，一直打到黄河边。"
+      },
+      {
+        "EventName_A": "赵攻卫之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏败赵于蔺之战",
+        "evidence": "公元前372年，赵成侯出兵攻卫，占领70多个乡邑。魏便出兵攻赵，败赵于蔺。"
+      },
+      {
+        "EventName_A": "韩赵联兵攻魏独泽之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏败韩于马陵之战",
+        "evidence": "次年，魏国又败韩于马陵"
+      },
+      {
+        "EventName_A": "韩赵联兵攻魏独泽之战",
+        "relation": "顺承关系",
+        "EventName_B": "魏败赵于怀之战",
+        "evidence": "次年，魏国又败赵于怀"
+      },
+      {
+        "EventName_A": "魏围赵邯郸之战",
+        "relation": "顺承关系",
+        "EventName_B": "齐伐魏观津之战",
+        "evidence": "三晋破裂的第二年，齐伐魏，战于观津。后又迫使原来向魏进贡的泗上小诸侯向齐纳贡。"
+      }
+    ]
+  }
+}

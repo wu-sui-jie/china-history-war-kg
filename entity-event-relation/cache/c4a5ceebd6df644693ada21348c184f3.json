@@ -1,0 +1,1269 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "诏安",
+        "modern_name": "诏安县",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "诏安县",
+        "Specific_location": null,
+        "source_text": "1549年3月，倭寇劫掠至诏安。"
+      },
+      {
+        "geo_name": "拓林",
+        "modern_name": "柘林镇",
+        "DynastyName": "明",
+        "Province": "上海市",
+        "City": "上海市",
+        "District_County": "奉贤区",
+        "Specific_location": null,
+        "source_text": "他们以上海附近的拓林镇、浙江的乍浦为根据地"
+      },
+      {
+        "geo_name": "乍浦",
+        "modern_name": "乍浦镇",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "嘉兴市",
+        "District_County": "平湖市",
+        "Specific_location": null,
+        "source_text": "他们以上海附近的拓林镇、浙江的乍浦为根据地"
+      },
+      {
+        "geo_name": "普陀山",
+        "modern_name": "普陀山",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "舟山市",
+        "District_County": "普陀区",
+        "Specific_location": null,
+        "source_text": "俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境）"
+      },
+      {
+        "geo_name": "定海",
+        "modern_name": "定海区",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "舟山市",
+        "District_County": "定海区",
+        "Specific_location": null,
+        "source_text": "定海（属浙江）金家番乡民杨一率众，在海涂将登陆倭寇击败。"
+      },
+      {
+        "geo_name": "嘉兴",
+        "modern_name": "嘉兴市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "嘉兴市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。"
+      },
+      {
+        "geo_name": "王江泾",
+        "modern_name": "王江泾镇",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "嘉兴市",
+        "District_County": "秀洲区",
+        "Specific_location": null,
+        "source_text": "倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击"
+      },
+      {
+        "geo_name": "苏州平望",
+        "modern_name": "平望镇",
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": "吴江区",
+        "Specific_location": null,
+        "source_text": "追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "geo_name": "陆泾坝",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "geo_name": "平湖",
+        "modern_name": "平湖市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "嘉兴市",
+        "District_County": "平湖市",
+        "Specific_location": null,
+        "source_text": "即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "geo_name": "义乌",
+        "modern_name": "义乌市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "金华市",
+        "District_County": "义乌市",
+        "Specific_location": null,
+        "source_text": "参将戚继光在胡宗宪支持下，亲去义乌等招募矿夫、农民4000多人"
+      },
+      {
+        "geo_name": "松门",
+        "modern_name": "松门镇",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "台州市",
+        "District_County": "温岭市",
+        "Specific_location": null,
+        "source_text": "布于浙江沿海的松门（温岭东），海门（椒江市）二卫"
+      },
+      {
+        "geo_name": "海门",
+        "modern_name": "海门街道",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "台州市",
+        "District_County": "椒江区",
+        "Specific_location": null,
+        "source_text": "布于浙江沿海的松门（温岭东），海门（椒江市）二卫"
+      },
+      {
+        "geo_name": "台州",
+        "modern_name": "台州市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "台州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "大举入侵台州（浙江临海）。戚继光率军九战皆捷"
+      },
+      {
+        "geo_name": "宁波",
+        "modern_name": "宁波市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "宁波市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "geo_name": "温州",
+        "modern_name": "温州市",
+        "DynastyName": "明",
+        "Province": "浙江省",
+        "City": "温州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "geo_name": "横屿岛",
+        "modern_name": "横屿岛",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "宁德市",
+        "District_County": "蕉城区",
+        "Specific_location": null,
+        "source_text": "尤其是横屿岛（宁德东），地势险要，倭寇结寨为营"
+      },
+      {
+        "geo_name": "牛田",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "福州市",
+        "District_County": "福清市",
+        "Specific_location": null,
+        "source_text": "与牛田（福清南）、林墩（莆田南）倭巢互为特角"
+      },
+      {
+        "geo_name": "林墩",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": "城厢区",
+        "Specific_location": null,
+        "source_text": "与牛田（福清南）、林墩（莆田南）倭巢互为特角"
+      },
+      {
+        "geo_name": "平海卫",
+        "modern_name": "平海镇",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": "秀屿区",
+        "Specific_location": null,
+        "source_text": "谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。"
+      },
+      {
+        "geo_name": "兴化城",
+        "modern_name": "莆田市",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜收复兴化城（莆田）。"
+      },
+      {
+        "geo_name": "仙游",
+        "modern_name": "仙游县",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "莆田市",
+        "District_County": "仙游县",
+        "Specific_location": null,
+        "source_text": "这年冬，倭寇万余人围攻仙游。"
+      },
+      {
+        "geo_name": "同安",
+        "modern_name": "同安区",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "厦门市",
+        "District_County": "同安区",
+        "Specific_location": null,
+        "source_text": "戚家军追击，在同安、漳浦斩倭数千人"
+      },
+      {
+        "geo_name": "漳浦",
+        "modern_name": "漳浦县",
+        "DynastyName": "明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "漳浦县",
+        "Specific_location": null,
+        "source_text": "戚家军追击，在同安、漳浦斩倭数千人"
+      },
+      {
+        "geo_name": "广东",
+        "modern_name": "广东省",
+        "DynastyName": "明",
+        "Province": "广东省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "俞大猷、戚继光分别率军横扫广东沿海的残倭。"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": "辽宁省",
+        "DynastyName": "明",
+        "Province": "辽宁省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "抵御后金的南侵，与努尔哈赤在辽东展开了近9年的争夺战争。"
+      },
+      {
+        "geo_name": "朝鲜",
+        "modern_name": "朝鲜半岛",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜"
+      },
+      {
+        "geo_name": "釜山",
+        "modern_name": "釜山",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由对马岛渡海，于釜山登陆"
+      },
+      {
+        "geo_name": "东莱",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "相继攻陷釜山、东莱、梁山等地。"
+      },
+      {
+        "geo_name": "梁山",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "相继攻陷釜山、东莱、梁山等地。"
+      },
+      {
+        "geo_name": "汉城",
+        "modern_name": "首尔",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一、二军经汉城，侵占平壤。"
+      },
+      {
+        "geo_name": "平壤",
+        "modern_name": "平壤",
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一、二军经汉城，侵占平壤。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "倭寇",
+        "OrgType": "地方势力",
+        "DynastyName": "明",
+        "source_text": "斩杀和溺死海盗数百人，擒获勾结倭寇的海盗首领许栋。"
+      },
+      {
+        "OrgName": "明军",
+        "OrgType": "中央政权",
+        "DynastyName": "明",
+        "source_text": "明廷为缓和倭患，在恢复市舶司的同时，不得不加强海防。"
+      },
+      {
+        "OrgName": "戚家军",
+        "OrgType": "军队",
+        "DynastyName": "明",
+        "source_text": "训练成为闻名的“戚家军”。"
+      },
+      {
+        "OrgName": "日本",
+        "OrgType": "国家",
+        "DynastyName": "明",
+        "source_text": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜"
+      },
+      {
+        "OrgName": "朝鲜",
+        "OrgType": "国家",
+        "DynastyName": "明",
+        "source_text": "明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。"
+      },
+      {
+        "OrgName": "中朝联军",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "OrgName": "日军",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "朱执",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "巡抚浙、闽期间，力挫倭寇，后遭诬陷罢职，忧愤自杀。",
+        "source_text": "朱执在巡抚浙、闽期间，虽力挫倭寇，但因打击了勾结倭寇的官僚、地主、商人，被诬陷罢职，忧愤自杀"
+      },
+      {
+        "PersonName": "柯乔",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "任副使，捕获通倭豪门、土劣96人。",
+        "source_text": "朱执派副使柯乔等捕获通倭豪门、土劣96人，并立即处决。"
+      },
+      {
+        "PersonName": "卢镗",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "抗倭名将，曾被陷入狱，后释放，参与王江泾等战役。",
+        "source_text": "卢镗也被陷入狱。"
+      },
+      {
+        "PersonName": "王予",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "1552年命总督浙、闽军务。",
+        "source_text": "相继命王予和张经总督浙、闽军务。"
+      },
+      {
+        "PersonName": "张经",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "总督浙、闽军务，重用俞大猷等，指挥王江泾之战。",
+        "source_text": "相继命王予和张经总督浙、闽军务。"
+      },
+      {
+        "PersonName": "俞大猷",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "抗倭名将，任参将、总兵，参与普陀山、王江泾、平海卫等战役。",
+        "source_text": "他们重用参将俞大猷、汤克宽，释放卢镗等抗倭名将"
+      },
+      {
+        "PersonName": "汤克宽",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "参将，参与普陀山、王江泾等战役。",
+        "source_text": "他们重用参将俞大猷、汤克宽"
+      },
+      {
+        "PersonName": "杨一",
+        "DynastyName": "明",
+        "OrgName": null,
+        "Role": "参战者",
+        "Note": "定海金家番乡民，率众击败登陆倭寇。",
+        "source_text": "定海（属浙江）金家番乡民杨一率众，在海涂将登陆倭寇击败。"
+      },
+      {
+        "PersonName": "胡宗宪",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "浙江总督，剿抚兼施，计杀徐海，诱降汪直，支持戚继光练兵。",
+        "source_text": "时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。"
+      },
+      {
+        "PersonName": "徐海",
+        "DynastyName": "明",
+        "OrgName": "海盗",
+        "Role": "参战者",
+        "Note": "勾结倭寇的海盗首领，被胡宗宪计杀。",
+        "source_text": "计杀勾结倭寇的海盗首领徐海"
+      },
+      {
+        "PersonName": "汪直",
+        "DynastyName": "明",
+        "OrgName": "海盗",
+        "Role": "参战者",
+        "Note": "勾结倭寇的海盗巨贼，被胡宗宪诱降。",
+        "source_text": "诱降勾结倭寇的海盗巨贼汪直。"
+      },
+      {
+        "PersonName": "戚继光",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "抗倭名将，组建戚家军，创造鸳鸯阵，参与台州、横屿、平海卫等战役。",
+        "source_text": "参将戚继光在胡宗宪支持下，亲去义乌等招募矿夫、农民4000多人，训练成为闻名的“戚家军”。"
+      },
+      {
+        "PersonName": "卢锁",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "总兵，在宁波、温州等地与倭寇交战。",
+        "source_text": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "PersonName": "牛天锡",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "参将，在宁波、温州等地与倭寇交战。",
+        "source_text": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "PersonName": "谭纶",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "福建巡抚，总督福建军务，指挥平海卫之战。",
+        "source_text": "明廷命谭纶为福建巡抚，总督福建军务"
+      },
+      {
+        "PersonName": "刘显",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "将领",
+        "Note": "广东总兵，率军援闽，参与平海卫之战。",
+        "source_text": "还令广东总兵刘显率军援闽。"
+      },
+      {
+        "PersonName": "丰臣秀吉",
+        "DynastyName": "明",
+        "OrgName": "日本",
+        "Role": "君主",
+        "Note": "日本太政大臣，发兵袭击朝鲜，企图西征中国。",
+        "source_text": "日本太政大臣丰臣秀吉发兵袭击朝鲜"
+      },
+      {
+        "PersonName": "小西行长",
+        "DynastyName": "明",
+        "OrgName": "日本",
+        "Role": "将领",
+        "Note": "日军第一军将领，率军攻陷朝鲜多地，后守平壤。",
+        "source_text": "小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆"
+      },
+      {
+        "PersonName": "李如松",
+        "DynastyName": "明",
+        "OrgName": "明",
+        "Role": "统帅",
+        "Note": "提督，率兵4万余援朝抗日，围攻平壤。",
+        "source_text": "命李如松为提督，率兵4万余援朝抗日。"
+      },
+      {
+        "PersonName": "李公",
+        "DynastyName": "明",
+        "OrgName": "朝鲜",
+        "Role": "君主",
+        "Note": "朝鲜国王，请求明朝援助。",
+        "source_text": "明廷应朝鲜国王李公的请求"
+      },
+      {
+        "PersonName": "努尔哈赤",
+        "DynastyName": "明",
+        "OrgName": "后金",
+        "Role": "君主",
+        "Note": "后金首领，与明军在辽东争夺。",
+        "source_text": "与努尔哈赤在辽东展开了近9年的争夺战争。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "普陀山夜袭",
+        "EventType": "边境防御",
+        "StartDate": "1553年",
+        "EndDate": "1553年",
+        "DynastyName": "明",
+        "Place": "普陀山",
+        "Aggressor": "明军",
+        "Defender": "倭寇",
+        "Allies": null,
+        "Result": "明军获胜，俘斩倭寇数百人",
+        "Commanders": "俞大猷、汤克宽",
+        "KeyPersons": null,
+        "Action": "夜袭、火攻、肉搏",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "普陀山",
+        "Casualties": "俘斩倭寇数百人",
+        "source": "《中国历代战争简史》",
+        "Impact": "打击了倭寇的嚣张气焰，为后续抗倭斗争积累了经验",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "王江泾之战",
+            "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+          }
+        ],
+        "source_text": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "EventType": "边境防御",
+        "StartDate": "1555年",
+        "EndDate": "1555年",
+        "DynastyName": "明",
+        "Place": "王江泾",
+        "Aggressor": "明军",
+        "Defender": "倭寇",
+        "Allies": null,
+        "Result": "明军获胜，斩倭寇1980余名",
+        "Commanders": "张经、俞大猷、卢镗、汤克宽",
+        "KeyPersons": null,
+        "Action": "夹击、水师出击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "王江泾",
+        "Casualties": "斩倭寇1980余名",
+        "source": "《中国历代战争简史》",
+        "Impact": "打击了倭寇的气焰，迫其向浙、闽沿海转移，缩短了抗倭战线",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平湖之战",
+            "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+          }
+        ],
+        "source_text": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "平湖之战",
+        "EventType": "边境防御",
+        "StartDate": "1556年",
+        "EndDate": "1556年",
+        "DynastyName": "明",
+        "Place": "平湖",
+        "Aggressor": "明军",
+        "Defender": "倭寇",
+        "Allies": null,
+        "Result": "明军获胜，歼倭1600余人",
+        "Commanders": "俞大猷",
+        "KeyPersons": "胡宗宪",
+        "Action": "进剿",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "平湖",
+        "Casualties": "歼倭1600余人",
+        "source": "《中国历代战争简史》",
+        "Impact": "进一步削弱了浙江倭寇势力",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "台州之战",
+        "EventType": "边境防御",
+        "StartDate": "1561年4月",
+        "EndDate": "1561年4月",
+        "DynastyName": "明",
+        "Place": "台州",
+        "Aggressor": "倭寇",
+        "Defender": "戚家军",
+        "Allies": null,
+        "Result": "戚家军获胜，全歼倭寇",
+        "Commanders": "戚继光",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "倭寇万余，戚家军不详",
+        "Duration": "不详",
+        "GeographicScope": "台州",
+        "Casualties": "全歼倭寇",
+        "source": "《中国历代战争简史》",
+        "Impact": "基本荡平窜犯浙江的倭寇",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宁波温州之战",
+            "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+          }
+        ],
+        "source_text": "1561年4月，倭寇万余，战船数百艘，大举入侵台州（浙江临海）。戚继光率军九战皆捷，全歼倭寇。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "EventType": "边境防御",
+        "StartDate": "1561年9月",
+        "EndDate": "1561年9月",
+        "DynastyName": "明",
+        "Place": "宁波、温州",
+        "Aggressor": "倭寇",
+        "Defender": "明军",
+        "Allies": null,
+        "Result": "明军获胜，杀敌1400余人",
+        "Commanders": "卢锁、牛天锡",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "宁波、温州",
+        "Casualties": "杀敌1400余人，焚死、溺死者甚众",
+        "source": "《中国历代战争简史》",
+        "Impact": "至此，窜犯浙江的倭寇基本荡平",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "台州之战",
+            "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+          }
+        ],
+        "source_text": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "横屿之战",
+        "EventType": "边境防御",
+        "StartDate": "1562年7月",
+        "EndDate": "1562年7月",
+        "DynastyName": "明",
+        "Place": "横屿岛",
+        "Aggressor": "倭寇",
+        "Defender": "戚家军",
+        "Allies": null,
+        "Result": "戚家军获胜，斩倭2600余人",
+        "Commanders": "戚继光",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "戚家军6000精兵",
+        "Duration": "不详",
+        "GeographicScope": "横屿岛",
+        "Casualties": "斩倭2600余人",
+        "source": "《中国历代战争简史》",
+        "Impact": "攻克横屿，继而攻克牛田、林墩",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1562年，福建沿海倭患严重，尤其是横屿岛（宁德东），地势险要，倭寇结寨为营，与牛田（福清南）、林墩（莆田南）倭巢互为特角，四出焚掠。7月，戚继光奉命率领6000精兵，由浙江入闽剿倭。他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "EventType": "边境防御",
+        "StartDate": "1563年",
+        "EndDate": "1563年",
+        "DynastyName": "明",
+        "Place": "平海卫",
+        "Aggressor": "明军",
+        "Defender": "倭寇",
+        "Allies": null,
+        "Result": "明军获胜，攻克平海卫，斩倭2200余人",
+        "Commanders": "戚继光、刘显、俞大猷",
+        "KeyPersons": "谭纶",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "平海卫",
+        "Casualties": "斩倭2200余人",
+        "source": "《中国历代战争简史》",
+        "Impact": "打击了福建倭寇势力，为收复兴化城奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "仙游之战",
+            "evidence": "这年冬，倭寇万余人围攻仙游。"
+          }
+        ],
+        "source_text": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "仙游之战",
+        "EventType": "边境防御",
+        "StartDate": "1564年",
+        "EndDate": "1564年",
+        "DynastyName": "明",
+        "Place": "仙游",
+        "Aggressor": "倭寇",
+        "Defender": "戚家军",
+        "Allies": null,
+        "Result": "戚家军获胜，倭寇败逃",
+        "Commanders": "戚继光",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "倭寇万余人",
+        "Duration": "不详",
+        "GeographicScope": "仙游",
+        "Casualties": "倭寇败逃，斩倭数千人",
+        "source": "《中国历代战争简史》",
+        "Impact": "基本荡平福建倭寇",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平海卫之战",
+            "evidence": "这年冬，倭寇万余人围攻仙游。"
+          }
+        ],
+        "source_text": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "EventType": "对外远征",
+        "StartDate": "1593年",
+        "EndDate": "1593年",
+        "DynastyName": "明",
+        "Place": "平壤",
+        "Aggressor": "中朝联军",
+        "Defender": "日军",
+        "Allies": "朝鲜",
+        "Result": "中朝联军获胜，围攻平壤",
+        "Commanders": "李如松、小西行长",
+        "KeyPersons": "李公",
+        "Action": "攻伐",
+        "TroopSize": "中朝联军5万余，日军2.4万余",
+        "Duration": "不详",
+        "GeographicScope": "平壤",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "援朝抗日的重要战役，保卫了朝鲜",
+        "Remark": "",
+        "relations": [],
+        "source_text": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "主战场",
+        "modern_name": "普陀山",
+        "evidence": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "主战场",
+        "modern_name": "王江泾",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "次要战场",
+        "modern_name": "苏州平望",
+        "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "次要战场",
+        "modern_name": "陆泾坝",
+        "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "主战场",
+        "modern_name": "平湖",
+        "evidence": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "台州之战",
+        "relation": "主战场",
+        "modern_name": "台州",
+        "evidence": "1561年4月，倭寇万余，战船数百艘，大举入侵台州（浙江临海）。戚继光率军九战皆捷，全歼倭寇。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "主战场",
+        "modern_name": "宁波",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "主战场",
+        "modern_name": "温州",
+        "evidence": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "EventName": "横屿之战",
+        "relation": "主战场",
+        "modern_name": "横屿岛",
+        "evidence": "1562年，福建沿海倭患严重，尤其是横屿岛（宁德东），地势险要，倭寇结寨为营，与牛田（福清南）、林墩（莆田南）倭巢互为特角，四出焚掠。7月，戚继光奉命率领6000精兵，由浙江入闽剿倭。他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "主战场",
+        "modern_name": "平海卫",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "次要战场",
+        "modern_name": "兴化城",
+        "evidence": "乘胜收复兴化城（莆田）"
+      },
+      {
+        "EventName": "仙游之战",
+        "relation": "主战场",
+        "modern_name": "仙游",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "主战场",
+        "modern_name": "平壤",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "目的地",
+        "modern_name": "王江泾",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "次要战场",
+        "modern_name": "温州",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "仙游之战",
+        "relation": "目的地",
+        "modern_name": "仙游",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "目的地",
+        "modern_name": "平壤",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "防守方",
+        "OrgName": "倭寇",
+        "evidence": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "防守方",
+        "OrgName": "倭寇",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "防守方",
+        "OrgName": "倭寇",
+        "evidence": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "台州之战",
+        "relation": "发起方",
+        "OrgName": "倭寇",
+        "evidence": "1561年4月，倭寇万余，战船数百艘，大举入侵台州（浙江临海）。戚继光率军九战皆捷，全歼倭寇。"
+      },
+      {
+        "EventName": "台州之战",
+        "relation": "防守方",
+        "OrgName": "戚家军",
+        "evidence": "1561年4月，倭寇万余，战船数百艘，大举入侵台州（浙江临海）。戚继光率军九战皆捷，全歼倭寇。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "发起方",
+        "OrgName": "倭寇",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "防守方",
+        "OrgName": "明军",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "横屿之战",
+        "relation": "发起方",
+        "OrgName": "倭寇",
+        "evidence": "1562年，福建沿海倭患严重，尤其是横屿岛（宁德东），地势险要，倭寇结寨为营，与牛田（福清南）、林墩（莆田南）倭巢互为特角，四出焚掠。7月，戚继光奉命率领6000精兵，由浙江入闽剿倭。他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。"
+      },
+      {
+        "EventName": "横屿之战",
+        "relation": "防守方",
+        "OrgName": "戚家军",
+        "evidence": "1562年，福建沿海倭患严重，尤其是横屿岛（宁德东），地势险要，倭寇结寨为营，与牛田（福清南）、林墩（莆田南）倭巢互为特角，四出焚掠。7月，戚继光奉命率领6000精兵，由浙江入闽剿倭。他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "防守方",
+        "OrgName": "倭寇",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "仙游之战",
+        "relation": "发起方",
+        "OrgName": "倭寇",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "仙游之战",
+        "relation": "防守方",
+        "OrgName": "戚家军",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "发起方",
+        "OrgName": "中朝联军",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "防守方",
+        "OrgName": "日军",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "同盟方",
+        "OrgName": "朝鲜",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "支援方",
+        "OrgName": "朝鲜",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "将领",
+        "PersonName": "俞大猷",
+        "evidence": "俞大猷、汤克宽等奉命率舟师夜袭普陀山"
+      },
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "将领",
+        "PersonName": "汤克宽",
+        "evidence": "俞大猷、汤克宽等奉命率舟师夜袭普陀山"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "统帅",
+        "PersonName": "张经",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "将领",
+        "PersonName": "俞大猷",
+        "evidence": "俞大猷、卢镗率军前后夹击"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "将领",
+        "PersonName": "卢镗",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "将领",
+        "PersonName": "汤克宽",
+        "evidence": "汤克宽率水师由中间出击"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "将领",
+        "PersonName": "俞大猷",
+        "evidence": "即令浙江总兵俞大猷率军进剿平湖"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "谋士",
+        "PersonName": "胡宗宪",
+        "evidence": "时任浙江总督的胡宗宪，剿抚兼施"
+      },
+      {
+        "EventName": "台州之战",
+        "relation": "统帅",
+        "PersonName": "戚继光",
+        "evidence": "1561年4月，倭寇万余，战船数百艘，大举入侵台州（浙江临海）。戚继光率军九战皆捷，全歼倭寇。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "将领",
+        "PersonName": "卢锁",
+        "evidence": "总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "将领",
+        "PersonName": "牛天锡",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "横屿之战",
+        "relation": "统帅",
+        "PersonName": "戚继光",
+        "evidence": "1562年，福建沿海倭患严重，尤其是横屿岛（宁德东），地势险要，倭寇结寨为营，与牛田（福清南）、林墩（莆田南）倭巢互为特角，四出焚掠。7月，戚继光奉命率领6000精兵，由浙江入闽剿倭。他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "统帅",
+        "PersonName": "谭纶",
+        "evidence": "谭纶决定进攻倭寇据为巢穴的平海卫"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "将领",
+        "PersonName": "戚继光",
+        "evidence": "令戚继光率中军"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "将领",
+        "PersonName": "刘显",
+        "evidence": "刘显率左军"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "将领",
+        "PersonName": "俞大猷",
+        "evidence": "俞大猷率右军"
+      },
+      {
+        "EventName": "仙游之战",
+        "relation": "统帅",
+        "PersonName": "戚继光",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援，大战城下，倭寇败逃。戚家军追击，在同安、漳浦斩倭数千人，溺死焚死数千人，逃走者仅千人。至此，入侵福建的倭寇基本荡平。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "统帅",
+        "PersonName": "李如松",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "将领",
+        "PersonName": "小西行长",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "君主",
+        "PersonName": "李公",
+        "evidence": "明廷应朝鲜国王李公的请求"
+      },
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "统帅",
+        "PersonName": "俞大猷",
+        "evidence": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "普陀山夜袭",
+        "relation": "统帅",
+        "PersonName": "汤克宽",
+        "evidence": "翌年3月，俞大猷、汤克宽等奉命率舟师夜袭普陀山（浙江普陀县境），先火攻，后肉搏，俘斩倭寇数百人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "统帅",
+        "PersonName": "俞大猷",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "统帅",
+        "PersonName": "卢镗",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "王江泾之战",
+        "relation": "统帅",
+        "PersonName": "汤克宽",
+        "evidence": "次年4月底，倭寇4000余人，从拓林（上海奉贤南）突袭嘉兴（属浙江）。张经遣副总兵俞大猷和参将卢镗、汤克宽等，率水陆军联合抗击。5月初，倭寇进至王江泾（嘉兴北），汤克宽率水师由中间出击，俞大猷、卢镗率军前后夹击，斩倭寇1980余名。随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "统帅",
+        "PersonName": "俞大猷",
+        "evidence": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "平湖之战",
+        "relation": "参与者",
+        "PersonName": "胡宗宪",
+        "evidence": "1556年，倭寇猖狂入侵浙江沿海。时任浙江总督的胡宗宪，剿抚兼施，计杀勾结倭寇的海盗首领徐海，诱降勾结倭寇的海盗巨贼汪直。这年秋，即令浙江总兵俞大猷率军进剿平湖，歼倭1600余人。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "统帅",
+        "PersonName": "卢锁",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "宁波温州之战",
+        "relation": "统帅",
+        "PersonName": "牛天锡",
+        "evidence": "9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次，杀敌1400余人，焚死、溺死者甚众。至此，窜犯浙江的倭寇基本荡平。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "统帅",
+        "PersonName": "戚继光",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "统帅",
+        "PersonName": "刘显",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "统帅",
+        "PersonName": "俞大猷",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "平海卫之战",
+        "relation": "参与者",
+        "PersonName": "谭纶",
+        "evidence": "次年4月，谭纶决定进攻倭寇据为巢穴的平海卫（莆田东南）。他针对该地三面环海，易守难攻的特点，令戚继光率中军，刘显率左军，俞大猷率右军，采用水陆配合、中间突破、左右夹击的战法，一举攻克平海卫，斩倭2200余人，乘胜收复兴化城（莆田）。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "统帅",
+        "PersonName": "小西行长",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      },
+      {
+        "EventName": "援朝抗日平壤之战",
+        "relation": "参与者",
+        "PersonName": "李公",
+        "evidence": "1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝鲜，西征中国”。4月，小西行长率第一军，乘大小舰艇700余艘，由对马岛渡海，于釜山登陆，未出4日，相继攻陷釜山、东莱、梁山等地。5月，第一、二军经汉城，侵占平壤。明廷应朝鲜国王李公的请求，命李如松为提督，率兵4万余援朝抗日。次年1月6日，中、朝联军5万余进围平壤。日将小西行长率军2.4万余凭坚据守。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "普陀山夜袭",
+        "relation": "顺承关系",
+        "EventName_B": "王江泾之战",
+        "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人。这一战的胜利，打击了倭寇的气焰，迫其不得不向浙、闽沿海转移，从而缩短了抗倭战线。"
+      },
+      {
+        "EventName_A": "台州之战",
+        "relation": "顺承关系",
+        "EventName_B": "宁波温州之战",
+        "evidence": "1561年4月，倭寇万余，战船数百艘，大举入侵台州。戚继光率军九战皆捷，全歼倭寇。9月，总兵卢锁、参将牛天锡分别率军在宁波、温州等地与倭寇交战十余次"
+      },
+      {
+        "EventName_A": "平海卫之战",
+        "relation": "顺承关系",
+        "EventName_B": "横屿之战",
+        "evidence": "他利用退潮之机，涉海进攻横屿，斩倭2600余人。继而攻克牛田、林墩。10月，班师回浙。不久，福建沿海倭寇更趋猖狮。明廷命谭纶为福建巡抚，总督福建军务；俞大献为福建总兵，戚继光为副总兵，率军进剿。还令广东总兵刘显率军援闽。次年4月，谭纶决定进攻倭寇据为巢穴的平海卫"
+      },
+      {
+        "EventName_A": "仙游之战",
+        "relation": "顺承关系",
+        "EventName_B": "平海卫之战",
+        "evidence": "这年冬，倭寇万余人围攻仙游。1564年2月，戚继光率军驰援"
+      },
+      {
+        "EventName_A": "平湖之战",
+        "relation": "顺承关系",
+        "EventName_B": "王江泾之战",
+        "evidence": "随后，追至苏州平望、陆泾坝，又歼逃倭千人。"
+      }
+    ]
+  }
+}

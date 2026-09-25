@@ -1,0 +1,1871 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "南中",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "诸葛亮遂决定对南中用兵"
+      },
+      {
+        "geo_name": "永昌",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "除永昌、平夷仍为吕凯、李恢据守外"
+      },
+      {
+        "geo_name": "平夷",
+        "modern_name": "云南陆良",
+        "DynastyName": "蜀汉",
+        "Province": "云南省",
+        "City": "曲靖市",
+        "District_County": "陆良县",
+        "Specific_location": null,
+        "source_text": "除永昌、平夷仍为吕凯、李恢据守外"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": "成都市",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": "成都市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "他自率主力由成都南下至金沙江北岸"
+      },
+      {
+        "geo_name": "金沙江",
+        "modern_name": "金沙江",
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "北岸",
+        "source_text": "他自率主力由成都南下至金沙江北岸"
+      },
+      {
+        "geo_name": "越西",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从西路进击越西的高定"
+      },
+      {
+        "geo_name": "道",
+        "modern_name": "四川宜宾",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": "宜宾市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命马忠由道（四川宜宾）向东南进击牂菏朱褒"
+      },
+      {
+        "geo_name": "牂菏",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命马忠由道（四川宜宾）向东南进击牂菏朱褒"
+      },
+      {
+        "geo_name": "益州郡",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李恢自平夷向益州郡方向进攻"
+      },
+      {
+        "geo_name": "安上",
+        "modern_name": "四川屏山",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": "宜宾市",
+        "District_County": "屏山县",
+        "Specific_location": null,
+        "source_text": "即经安上（四川屏山），沿江西上"
+      },
+      {
+        "geo_name": "旄牛",
+        "modern_name": "四川汉原",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "向集结在旄牛（四川汉原）"
+      },
+      {
+        "geo_name": "卑水",
+        "modern_name": "四川昭觉附近",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": "凉山彝族自治州",
+        "District_County": "昭觉县",
+        "Specific_location": null,
+        "source_text": "卑水（四川昭觉附近）"
+      },
+      {
+        "geo_name": "定管",
+        "modern_name": "四川盐源",
+        "DynastyName": "蜀汉",
+        "Province": "四川省",
+        "City": "凉山彝族自治州",
+        "District_County": "盐源县",
+        "Specific_location": null,
+        "source_text": "定管（四川盐源）"
+      },
+      {
+        "geo_name": "泸水",
+        "modern_name": "金沙江",
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "以南",
+        "source_text": "继续在泸水（金沙江）以南抗击蜀军"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": "昆明市",
+        "DynastyName": "蜀汉",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李恢部由平夷进至昆明时"
+      },
+      {
+        "geo_name": "滇池",
+        "modern_name": "云南晋宁东",
+        "DynastyName": "蜀汉",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": "晋宁区",
+        "Specific_location": "东",
+        "source_text": "在滇池（云南晋宁东）胜利会师"
+      },
+      {
+        "geo_name": "汉中",
+        "modern_name": "汉中市",
+        "DynastyName": "蜀汉",
+        "Province": "陕西省",
+        "City": "汉中市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "诸葛亮率军进驻汉中"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": "四川重庆",
+        "DynastyName": "蜀汉",
+        "Province": "重庆市",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命前将军李严驻江州（四川重庆）"
+      },
+      {
+        "geo_name": "永安",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命护军陈列驻扎永安以防东吴"
+      },
+      {
+        "geo_name": "南阳",
+        "modern_name": "南阳市",
+        "DynastyName": "蜀汉",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "威胁南阳，牵制魏军"
+      },
+      {
+        "geo_name": "子午道",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "军出子午道袭长安"
+      },
+      {
+        "geo_name": "陇右",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先夺取陇右"
+      },
+      {
+        "geo_name": "关中",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再相机进图关中"
+      },
+      {
+        "geo_name": "斜谷",
+        "modern_name": "陕西眉城北",
+        "DynastyName": "蜀汉",
+        "Province": "陕西省",
+        "City": "宝鸡市",
+        "District_County": "眉县",
+        "Specific_location": "北",
+        "source_text": "派赵云、邓芝率一支部队作为疑兵，进驻斜谷"
+      },
+      {
+        "geo_name": "郿城",
+        "modern_name": "陕西眉县北",
+        "DynastyName": "蜀汉",
+        "Province": "陕西省",
+        "City": "宝鸡市",
+        "District_County": "眉县",
+        "Specific_location": "北",
+        "source_text": "诸葛亮扬言要由斜谷攻取郿城"
+      },
+      {
+        "geo_name": "祁山",
+        "modern_name": "甘肃东南部西汉水北岸地区",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": "北岸",
+        "source_text": "自率主力10万出祁山"
+      },
+      {
+        "geo_name": "天水",
+        "modern_name": "天水市",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "天水市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天水、南安、安定三郡背魏归蜀"
+      },
+      {
+        "geo_name": "南安",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天水、南安、安定三郡背魏归蜀"
+      },
+      {
+        "geo_name": "安定",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天水、南安、安定三郡背魏归蜀"
+      },
+      {
+        "geo_name": "街亭",
+        "modern_name": "甘肃天水东南，一说张家川北",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "天水市",
+        "District_County": null,
+        "Specific_location": "东南",
+        "source_text": "失要地街亭"
+      },
+      {
+        "geo_name": "石亭",
+        "modern_name": "安徽怀宁、桐城之间",
+        "DynastyName": "蜀汉",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "魏将曹休被东吴大都督陆逊击败于石亭"
+      },
+      {
+        "geo_name": "陈仓",
+        "modern_name": "陕西宝鸡境",
+        "DynastyName": "蜀汉",
+        "Province": "陕西省",
+        "City": "宝鸡市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "围陈仓（陕西宝鸡境）"
+      },
+      {
+        "geo_name": "武都",
+        "modern_name": "甘肃成县西北",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "陇南市",
+        "District_County": "成县",
+        "Specific_location": "西北",
+        "source_text": "派陈式攻取武都"
+      },
+      {
+        "geo_name": "阴平",
+        "modern_name": "甘肃文县西北",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "陇南市",
+        "District_County": "文县",
+        "Specific_location": "西北",
+        "source_text": "阴平（甘肃文县西北）二郡"
+      },
+      {
+        "geo_name": "羌地",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "西入羌地"
+      },
+      {
+        "geo_name": "逃水",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "之西",
+        "source_text": "在逃水之西招兵买马"
+      },
+      {
+        "geo_name": "首阳",
+        "modern_name": "甘肃首阳镇南",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "定西市",
+        "District_County": "陇西县",
+        "Specific_location": "南",
+        "source_text": "与魏将费瑶、郭淮战于首阳"
+      },
+      {
+        "geo_name": "狄道",
+        "modern_name": null,
+        "DynastyName": "蜀汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "迫使魏军退守狄道待援"
+      },
+      {
+        "geo_name": "潼关",
+        "modern_name": "潼关县",
+        "DynastyName": "蜀汉",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "潼关县",
+        "Specific_location": null,
+        "source_text": "约期会师潼关"
+      },
+      {
+        "geo_name": "上邦",
+        "modern_name": "甘肃天水",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "天水市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "诸葛亮先于上邦（甘肃天水）击败魏军"
+      },
+      {
+        "geo_name": "木门",
+        "modern_name": "甘肃天水南",
+        "DynastyName": "蜀汉",
+        "Province": "甘肃省",
+        "City": "天水市",
+        "District_County": null,
+        "Specific_location": "南",
+        "source_text": "于木门（甘肃天水南）设伏杀张部"
+      },
+      {
+        "geo_name": "南中",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "越西",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "牂牁",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "益州郡",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "永昌",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "平夷",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "金沙江",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "泸水",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "滇池",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "geo_name": "祁山",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "街亭",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "斜谷",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "天水",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "南安",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "安定",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "geo_name": "陈仓",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "geo_name": "武都",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "geo_name": "阴平",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "geo_name": "首阳",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "geo_name": "上邦",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "geo_name": "木门",
+        "modern_name": null,
+        "DynastyName": "三国",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "蜀汉",
+        "OrgType": "国家",
+        "DynastyName": "蜀汉",
+        "source_text": "同蜀汉再结盟好"
+      },
+      {
+        "OrgName": "东吴",
+        "OrgType": "国家",
+        "DynastyName": "三国",
+        "source_text": "说服孙权与魏国断绝关系，同蜀汉再结盟好"
+      },
+      {
+        "OrgName": "魏国",
+        "OrgType": "国家",
+        "DynastyName": "三国",
+        "source_text": "说服孙权与魏国断绝关系"
+      },
+      {
+        "OrgName": "南中叛军",
+        "OrgType": "地方势力",
+        "DynastyName": "蜀汉",
+        "source_text": "广大南中地区，除永昌、平夷仍为吕凯、李恢据守外，其他地区已整个卷入叛乱\n公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "OrgName": "高定军",
+        "OrgType": "地方势力",
+        "DynastyName": "蜀汉",
+        "source_text": "向集结在旄牛、卑水、定管等地筑垒防守的高定军突然发起进攻"
+      },
+      {
+        "OrgName": "蜀军",
+        "OrgType": "军队",
+        "DynastyName": "蜀汉",
+        "source_text": "继续在泸水以南抗击蜀军"
+      },
+      {
+        "OrgName": "南人",
+        "OrgType": "地方势力",
+        "DynastyName": "蜀汉",
+        "source_text": "南人松懈戒备，李恢乘机出击"
+      },
+      {
+        "OrgName": "曹魏",
+        "OrgType": "国家",
+        "DynastyName": "三国",
+        "source_text": "诸葛亮准备北攻曹魏"
+      },
+      {
+        "OrgName": "魏军",
+        "OrgType": "军队",
+        "DynastyName": "三国",
+        "source_text": "派人劝说魏国新城太守孟达归蜀，威胁南阳，牵制魏军"
+      },
+      {
+        "OrgName": "蜀汉军",
+        "OrgType": "军队",
+        "DynastyName": "蜀汉",
+        "source_text": "蜀汉军在第一次出师前"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "朱褒",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "叛将，据地反蜀，响应雍闿，后被马忠击败",
+        "source_text": "近）太守朱褒也先后据地反蜀，响应雍闿"
+      },
+      {
+        "PersonName": "雍闿",
+        "DynastyName": "蜀汉",
+        "OrgName": "南中叛军",
+        "Role": "统帅",
+        "Note": "反蜀首领，后被高定部下擒杀",
+        "source_text": "响应雍闿"
+      },
+      {
+        "PersonName": "吕凯",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "据守永昌，抵抗叛军",
+        "source_text": "除永昌、平夷仍为吕凯、李恢据守外"
+      },
+      {
+        "PersonName": "李恢",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "据守平夷，后率军进攻益州郡，在昆明被围，后击破南人",
+        "source_text": "除永昌、平夷仍为吕凯、李恢据守外"
+      },
+      {
+        "PersonName": "诸葛亮",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "统帅",
+        "Note": "蜀汉丞相，南征统帅，北伐曹魏",
+        "source_text": "诸葛亮遂决定对南中用兵"
+      },
+      {
+        "PersonName": "刘禅",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "君主",
+        "Note": "蜀汉后主，辅佐幼主",
+        "source_text": "辅佐幼主刘禅"
+      },
+      {
+        "PersonName": "邓芝",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "使者",
+        "Note": "出使东吴，说服孙权与魏绝交",
+        "source_text": "遣尚书邓芝出使东吴"
+      },
+      {
+        "PersonName": "孙权",
+        "DynastyName": "东吴",
+        "OrgName": "东吴",
+        "Role": "君主",
+        "Note": "东吴君主，与蜀汉结盟",
+        "source_text": "说服孙权与魏国断绝关系"
+      },
+      {
+        "PersonName": "高定",
+        "DynastyName": "蜀汉",
+        "OrgName": "南中叛军",
+        "Role": "统帅",
+        "Note": "反蜀首领，被诸葛亮斩杀",
+        "source_text": "从西路进击越西的高定"
+      },
+      {
+        "PersonName": "马忠",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "东路军统帅，击败朱褒",
+        "source_text": "命马忠由道向东南进击牂菏朱褒"
+      },
+      {
+        "PersonName": "孟获",
+        "DynastyName": "蜀汉",
+        "OrgName": "南中叛军",
+        "Role": "统帅",
+        "Note": "反蜀首领，被诸葛亮七擒七纵后投降",
+        "source_text": "孟获代领其众，继续在泸水以南抗击蜀军"
+      },
+      {
+        "PersonName": "马谬",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "谋士",
+        "Note": "提出攻心为上建议",
+        "source_text": "诸葛亮采纳马谬“攻心为上”的建议"
+      },
+      {
+        "PersonName": "曹丕",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "君主",
+        "Note": "魏文帝，病死",
+        "source_text": "公元226年，曹丕病死"
+      },
+      {
+        "PersonName": "曹睿",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "君主",
+        "Note": "魏明帝，曹丕之子",
+        "source_text": "其子曹睿即位"
+      },
+      {
+        "PersonName": "李严",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "前将军，驻江州，后假传撤军圣旨",
+        "source_text": "命前将军李严驻江州"
+      },
+      {
+        "PersonName": "陈列",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "护军，驻扎永安",
+        "source_text": "命护军陈列驻扎永安以防东吴"
+      },
+      {
+        "PersonName": "张裔",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "长史，总理国内行政事务",
+        "source_text": "命长史张裔、参军蒋琬总理国内行政事务"
+      },
+      {
+        "PersonName": "蒋琬",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "参军，总理国内行政事务",
+        "source_text": "命长史张裔、参军蒋琬总理国内行政事务"
+      },
+      {
+        "PersonName": "孟达",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "魏国新城太守，阴许归蜀，事泄被司马懿袭杀",
+        "source_text": "派人劝说魏国新城太守孟达归蜀"
+      },
+      {
+        "PersonName": "司马懿",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "统帅",
+        "Note": "魏国大将军，袭杀孟达，后督军迎战诸葛亮",
+        "source_text": "被司马懿袭杀"
+      },
+      {
+        "PersonName": "魏延",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "丞相司马，提出子午道奇袭建议，后与吴壹西入羌地",
+        "source_text": "丞相司马魏延提出了军出子午道袭长安的建议"
+      },
+      {
+        "PersonName": "夏侯琳",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "安西将军，都督关中，镇守长安",
+        "source_text": "命安西将军夏侯琳都督关中"
+      },
+      {
+        "PersonName": "曹真",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "统帅",
+        "Note": "大将军，督关右诸军，后统军守郿城",
+        "source_text": "命大将军曹真督关右诸军"
+      },
+      {
+        "PersonName": "赵云",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "率疑兵进驻斜谷",
+        "source_text": "派赵云、邓芝率一支部队作为疑兵"
+      },
+      {
+        "PersonName": "马谡",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "前锋，擅自改变部署，失街亭，被斩",
+        "source_text": "前锋马谡擅自改变部署"
+      },
+      {
+        "PersonName": "曹休",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "魏将，被陆逊击败于石亭",
+        "source_text": "魏将曹休被东吴大都督陆逊击败于石亭"
+      },
+      {
+        "PersonName": "陆逊",
+        "DynastyName": "东吴",
+        "OrgName": "东吴",
+        "Role": "统帅",
+        "Note": "东吴大都督，击败曹休",
+        "source_text": "魏将曹休被东吴大都督陆逊击败于石亭"
+      },
+      {
+        "PersonName": "郝昭",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "魏将，筑城固守陈仓",
+        "source_text": "魏将郝昭筑城固守"
+      },
+      {
+        "PersonName": "陈式",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "攻取武都、阴平二郡",
+        "source_text": "派陈式攻取武都、阴平二郡"
+      },
+      {
+        "PersonName": "吴壹",
+        "DynastyName": "蜀汉",
+        "OrgName": "蜀汉",
+        "Role": "将领",
+        "Note": "与魏延西入羌地，与魏军战于首阳",
+        "source_text": "派魏延、吴壹西入羌地"
+      },
+      {
+        "PersonName": "费瑶",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "魏将，与魏延、吴壹战于首阳",
+        "source_text": "与魏将费瑶、郭淮战于首阳"
+      },
+      {
+        "PersonName": "郭淮",
+        "DynastyName": "曹魏",
+        "OrgName": "曹魏",
+        "Role": "将领",
+        "Note": "魏将，与魏延、吴壹战于首阳",
+        "source_text": "与魏将费瑶、郭淮战于首阳"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "南中平叛",
+        "EventType": "镇压叛乱",
+        "StartDate": "225年3月",
+        "EndDate": "225年",
+        "DynastyName": "三国",
+        "Place": "南中、越西、牂牁、益州郡、永昌、平夷、金沙江、泸水、昆明、滇池",
+        "Aggressor": "蜀汉",
+        "Defender": "南中叛军",
+        "Allies": null,
+        "Result": "蜀汉获胜，南中叛乱平定",
+        "Commanders": "诸葛亮、马忠、李恢、高定、雍闿、朱褒、孟获",
+        "KeyPersons": "吕凯、马谡",
+        "Action": "征讨、攻伐、招降",
+        "TroopSize": "不详",
+        "Duration": "持续数月",
+        "GeographicScope": "南中地区",
+        "Casualties": "不详",
+        "source": "《三国志》",
+        "Impact": "平定南中，稳定蜀汉后方，为北伐提供条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "诸葛亮第一次北伐",
+            "evidence": "南中安定后，诸葛亮准备北攻曹魏"
+          }
+        ],
+        "source_text": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "EventType": "对外远征",
+        "StartDate": "228年2月",
+        "EndDate": "228年",
+        "DynastyName": "三国",
+        "Place": "祁山、街亭、斜谷、天水、南安、安定",
+        "Aggressor": "蜀汉",
+        "Defender": "曹魏",
+        "Allies": null,
+        "Result": "蜀汉战败，退回汉中",
+        "Commanders": "诸葛亮、赵云、马谡、曹真、张郃",
+        "KeyPersons": "魏延、邓芝",
+        "Action": "攻伐、守御、败退",
+        "TroopSize": "蜀汉十万，魏军五万",
+        "Duration": "持续数月",
+        "GeographicScope": "陇右地区",
+        "Casualties": "蜀汉损失惨重，马谡被斩",
+        "source": "《三国志》",
+        "Impact": "北伐失利，但陇右三郡曾归蜀，后失",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "陈仓之战",
+            "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭，魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓"
+          }
+        ],
+        "source_text": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "228年12月",
+        "EndDate": "228年12月",
+        "DynastyName": "三国",
+        "Place": "陈仓",
+        "Aggressor": "蜀汉",
+        "Defender": "曹魏",
+        "Allies": null,
+        "Result": "蜀汉粮尽退兵，曹魏守住陈仓",
+        "Commanders": "诸葛亮、郝昭",
+        "KeyPersons": null,
+        "Action": "围攻、守御",
+        "TroopSize": "蜀汉数万，魏军不详",
+        "Duration": "持续二十余日",
+        "GeographicScope": "陈仓一地",
+        "Casualties": "不详",
+        "source": "《三国志》",
+        "Impact": "诸葛亮第二次北伐失败，未能攻取陈仓",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "诸葛亮第一次北伐",
+            "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭，魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓"
+          }
+        ],
+        "source_text": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "EventType": "开疆拓土",
+        "StartDate": "229年",
+        "EndDate": "229年",
+        "DynastyName": "三国",
+        "Place": "武都、阴平",
+        "Aggressor": "蜀汉",
+        "Defender": "曹魏",
+        "Allies": null,
+        "Result": "蜀汉攻取武都、阴平二郡",
+        "Commanders": "陈式",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "武都、阴平二郡",
+        "Casualties": "不详",
+        "source": "《三国志》",
+        "Impact": "为蜀汉开辟军资来源，孤立祁山魏军",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "首阳之战",
+            "evidence": "后又派魏延、吴壹西入羌地"
+          }
+        ],
+        "source_text": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "首阳之战",
+        "EventType": "边境防御",
+        "StartDate": "229年11月",
+        "EndDate": "229年11月",
+        "DynastyName": "三国",
+        "Place": "首阳",
+        "Aggressor": "蜀汉",
+        "Defender": "曹魏",
+        "Allies": null,
+        "Result": "蜀汉获胜，魏军退守狄道",
+        "Commanders": "魏延、吴壹、费瑶、郭淮",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "万骑",
+        "Duration": "不详",
+        "GeographicScope": "首阳",
+        "Casualties": "不详",
+        "source": "《三国志》",
+        "Impact": "蜀汉深入魏军后方活动，迫使魏军退守狄道",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "诸葛亮第四次北伐",
+            "evidence": "及张邵率援军至，诸葛亮拒绝魏延建议，率军还汉中。公元231年春，诸葛亮第四次率军出祁山"
+          }
+        ],
+        "source_text": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "EventType": "对外远征",
+        "StartDate": "231年春",
+        "EndDate": "231年",
+        "DynastyName": "三国",
+        "Place": "祁山、上邦、木门",
+        "Aggressor": "蜀汉",
+        "Defender": "曹魏",
+        "Allies": null,
+        "Result": "蜀汉退军，但设伏杀张郃",
+        "Commanders": "诸葛亮、司马懿、张郃",
+        "KeyPersons": "李严",
+        "Action": "攻伐、伏击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "祁山、上邦、木门",
+        "Casualties": "不详",
+        "source": "《三国志》",
+        "Impact": "蜀汉抢收小麦，充实军粮，但因李严假传撤军圣旨而退军",
+        "Remark": "",
+        "relations": [],
+        "source_text": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "南中",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "越西",
+        "evidence": "他自率主力由成都南下至金沙江北岸，从西路进击越西的高定。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "牂牁",
+        "evidence": "命马忠由道（四川宜宾）向东南进击牂牁朱褒。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "益州郡",
+        "evidence": "李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "驻防地",
+        "modern_name": "永昌",
+        "evidence": "广大南中地区，除永昌、平夷仍为吕凯、李恢据守外，其他地区已整个卷入叛乱。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "驻防地",
+        "modern_name": "平夷",
+        "evidence": "广大南中地区，除永昌、平夷仍为吕凯、李恢据守外，其他地区已整个卷入叛乱。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "途经地",
+        "modern_name": "金沙江",
+        "evidence": "他自率主力由成都南下至金沙江北岸，从西路进击越西的高定。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "泸水",
+        "evidence": "孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "主战场",
+        "modern_name": "昆明",
+        "evidence": "李恢部由平夷进至昆明时，被当地少数部族包围。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "会师地点",
+        "modern_name": "滇池",
+        "evidence": "三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "主战场",
+        "modern_name": "祁山",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "主战场",
+        "modern_name": "街亭",
+        "evidence": "前锋马谡擅自改变部署，弃城守山，被张郃乘势困败，失要地街亭。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "次要战场",
+        "modern_name": "斜谷",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "天水",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "南安",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "安定",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "主战场",
+        "modern_name": "陈仓",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "主战场",
+        "modern_name": "武都",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "主战场",
+        "modern_name": "阴平",
+        "evidence": "派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "主战场",
+        "modern_name": "首阳",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "主战场",
+        "modern_name": "祁山",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "主战场",
+        "modern_name": "上邦",
+        "evidence": "诸葛亮先于上邦（甘肃天水）击败魏军。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "主战场",
+        "modern_name": "木门",
+        "evidence": "于木门（甘肃天水南）设伏杀张郃后，还师汉中。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "越西",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "牂牁",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "益州郡",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "永昌",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "平夷",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "出发地",
+        "modern_name": "平夷",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "金沙江",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "目的地",
+        "modern_name": "金沙江",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "泸水",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "昆明",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "目的地",
+        "modern_name": "昆明",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "次要战场",
+        "modern_name": "滇池",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "祁山",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "次要战场",
+        "modern_name": "街亭",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "街亭",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "出发地",
+        "modern_name": "斜谷",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "驻防地",
+        "modern_name": "斜谷",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "战略要地",
+        "modern_name": "斜谷",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "次要战场",
+        "modern_name": "天水",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "次要战场",
+        "modern_name": "南安",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "次要战场",
+        "modern_name": "安定",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "目的地",
+        "modern_name": "陈仓",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "目的地",
+        "modern_name": "武都",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "次要战场",
+        "modern_name": "阴平",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "次要战场",
+        "modern_name": "上邦",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "次要战场",
+        "modern_name": "木门",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "南中平叛",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "防守方",
+        "OrgName": "南中叛军",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "参战方",
+        "OrgName": "高定军",
+        "evidence": "向集结在旄牛、卑水、定管等地筑垒防守的高定军突然发起进攻。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "参战方",
+        "OrgName": "蜀军",
+        "evidence": "孟获代领其众，继续在泸水以南抗击蜀军。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "参战方",
+        "OrgName": "南人",
+        "evidence": "李恢扬言愿与南人合作。南人松懈戒备，李恢乘机出击。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "防守方",
+        "OrgName": "曹魏",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "参战方",
+        "OrgName": "魏军",
+        "evidence": "派左将军张郃督步骑5万西拒诸葛亮。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "防守方",
+        "OrgName": "曹魏",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "防守方",
+        "OrgName": "曹魏",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "防守方",
+        "OrgName": "曹魏",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "发起方",
+        "OrgName": "蜀汉",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "防守方",
+        "OrgName": "曹魏",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "参战方",
+        "OrgName": "魏军",
+        "evidence": "诸葛亮先于上邦击败魏军。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "投降方",
+        "OrgName": "蜀汉",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "投降方",
+        "OrgName": "南中叛军",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "诸葛亮",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "马忠",
+        "evidence": "命马忠由道向东南进击牂牁朱褒。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "李恢",
+        "evidence": "李恢自平夷向益州郡方向进攻。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "高定",
+        "evidence": "从西路进击越西的高定。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "雍闿",
+        "evidence": "雍闿为高定的部下擒杀。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "朱褒",
+        "evidence": "命马忠由道向东南进击牂牁朱褒。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "将领",
+        "PersonName": "孟获",
+        "evidence": "孟获代领其众，继续在泸水以南抗击蜀军。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "谋士",
+        "PersonName": "马谡",
+        "evidence": "诸葛亮采纳马谡“攻心为上”的建议。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "参与者",
+        "PersonName": "吕凯",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "统帅",
+        "PersonName": "诸葛亮",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "将领",
+        "PersonName": "赵云",
+        "evidence": "派赵云、邓芝率一支部队作为疑兵。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "将领",
+        "PersonName": "马谡",
+        "evidence": "前锋马谡擅自改变部署。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "将领",
+        "PersonName": "曹真",
+        "evidence": "令大将军曹真统军守郿城。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "将领",
+        "PersonName": "张郃",
+        "evidence": "派左将军张郃督步骑5万西拒诸葛亮。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "谋士",
+        "PersonName": "魏延",
+        "evidence": "丞相司马魏延提出了军出子午道袭长安的建议。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "使者",
+        "PersonName": "邓芝",
+        "evidence": "派赵云、邓芝率一支部队作为疑兵。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "统帅",
+        "PersonName": "诸葛亮",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "将领",
+        "PersonName": "郝昭",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "将领",
+        "PersonName": "陈式",
+        "evidence": "派陈式攻取武都、阴平二郡。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "将领",
+        "PersonName": "魏延",
+        "evidence": "魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "将领",
+        "PersonName": "吴壹",
+        "evidence": "魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "将领",
+        "PersonName": "费瑶",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "将领",
+        "PersonName": "郭淮",
+        "evidence": "魏将费瑶、郭淮战于首阳。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "统帅",
+        "PersonName": "诸葛亮",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "将领",
+        "PersonName": "司马懿",
+        "evidence": "魏大将军司马懿督军迎战。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "将领",
+        "PersonName": "张郃",
+        "evidence": "于木门设伏杀张郃。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "谋士",
+        "PersonName": "李严",
+        "evidence": "中都护李严假传撤军圣旨。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "马忠",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "李恢",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "高定",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "阵亡",
+        "PersonName": "高定",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "雍闿",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "朱褒",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "统帅",
+        "PersonName": "孟获",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "南中平叛",
+        "relation": "参与者",
+        "PersonName": "马谡",
+        "evidence": "公元225年3月，蜀汉经过两年的整顿，稳定了内部，恢复了吴蜀联盟，断绝了雍闯的外援后，诸葛亮遂决定对南中用兵。他自率主力由成都南下至金沙江北岸，从西路进击越西的高定；命马忠由道（四川宜宾）向东南进击牂牁朱褒；李恢自平夷向益州郡方向进攻，以吸引和牵制反蜀首领雍闿的叛军，等待主力军的到达。诸葛亮所率主力到达金沙江北岸后，即经安上（四川屏山），沿江西上，向集结在旄牛（四川汉原），卑水（四川昭觉附近）、定管（四川盐源）等地筑垒防守的高定军突然发起进攻，斩杀高定，占领越西郡。此时，雍阁为高定的部下擒杀，孟获代领其众，继续在泸水（金沙江）以南抗击蜀军。与此同时，东路的马忠击败朱褒，占领了牂郡。李恢部由平夷进至昆明时，被当地少数部族包围。5月，诸葛亮采纳马谬“攻心为上”的建议，渡泸水，深入人烟稀少的南中山区，俘虏率军抵抗的孟获，使其参观蜀军营阵后，给以释放，让其整军再战。经过七擒七纵，孟获才心悦诚服地投降蜀军。这时被包围丁昆明的李恢，扬言愿与南人合作。南人松懈戒备，李恢乘机出击，击破了南人的包围。至此，三路大军消灭了南中地区的叛乱势力，在滇池（云南晋宁东）胜利会师，结束了对南中的用兵。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "统帅",
+        "PersonName": "赵云",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "统帅",
+        "PersonName": "马谡",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "统帅",
+        "PersonName": "曹真",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "参与者",
+        "PersonName": "魏延",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "诸葛亮第一次北伐",
+        "relation": "参与者",
+        "PersonName": "邓芝",
+        "evidence": "公元228年初，蜀汉军在第一次出师前，丞相司马魏延提出了军出子午道袭长安的建议，诸葛亮未纳其议，而坚持“稳扎稳打，先夺取陇右，再相机进图关中”的战略方针。魏明帝曹睿得悉诸葛亮进驻汉中，准备用兵，乃采纳孙资的建议，策定了分兵守险坚壁不出，以待国力强大，寻衅灭蜀的基本方针。命安西将军夏侯琳都督关中，镇守长安；命大将军曹真督关右诸军，驻扎斜谷北面郿县，防御赵云；派名将张部率军5万驻防陇右一线，西拒诸葛亮，归曹真指挥；命司马懿都督荆、豫两州军事，镇守宛城；曹睿亲自到长安坐镇，张大声势。2月，诸葛亮扬言要由斜谷攻取郿城（陕西眉县北），派赵云、邓芝率一支部队作为疑兵，进驻斜谷（陕西眉城北），吸引魏军；自率主力10万出祁山（甘肃东南部西汉水北岸地区）。天水、南安、安定三郡（今甘肃东南部、宁夏一部）背魏归蜀。魏明帝震恐，令大将军曹真统军守郿城，拒赵云；派左将军张邵督步骑5万西拒诸葛亮。当蜀军锐气正盛之时，前锋马谡擅自改变部署，弃城守山，被张部乘势困败，失要地街亭（甘肃天水东南，一说张家川北）。诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。"
+      },
+      {
+        "EventName": "陈仓之战",
+        "relation": "统帅",
+        "PersonName": "郝昭",
+        "evidence": "同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭（安徽怀宁、桐城之间），魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓（陕西宝鸡境）。魏将郝昭筑城固守，双方相持20余日，蜀军粮尽还师。"
+      },
+      {
+        "EventName": "武都阴平之战",
+        "relation": "统帅",
+        "PersonName": "陈式",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都（甘肃成县西北）、阴平（甘肃文县西北）二郡。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "统帅",
+        "PersonName": "魏延",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "统帅",
+        "PersonName": "吴壹",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "统帅",
+        "PersonName": "费瑶",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "首阳之战",
+        "relation": "统帅",
+        "PersonName": "郭淮",
+        "evidence": "是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳（甘肃首阳镇南），在诸葛亮率主力接应下，内外夹击，迫使魏军退守狄道待援。及张邵率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "统帅",
+        "PersonName": "司马懿",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      },
+      {
+        "EventName": "诸葛亮第四次北伐",
+        "relation": "参与者",
+        "PersonName": "李严",
+        "evidence": "公元231年春，诸葛亮第四次率军出祁山，魏大将军司马懿督军迎战。诸葛亮先于上邦（甘肃天水）击败魏军，抢收小麦，充实军粮后东进，寻机与司马懿决战。司马懿据险坚守，诸葛亮退兵引诱。魏将急躁，率军出击，被诸葛亮战败。诸葛亮欲乘胜进击，中都护李严假传撤军圣旨，只得退军，于木门（甘肃天水南）设伏杀张部后，还师汉中。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "南中平叛",
+        "relation": "顺承关系",
+        "EventName_B": "诸葛亮第一次北伐",
+        "evidence": "南中安定后，诸葛亮准备北攻曹魏。"
+      },
+      {
+        "EventName_A": "诸葛亮第一次北伐",
+        "relation": "顺承关系",
+        "EventName_B": "陈仓之战",
+        "evidence": "诸葛亮初战受挫，失去前进依托，乃退兵汉中，斩马谡，整饬蜀军。同年11月，诸葛亮探知魏将曹休被东吴大都督陆逊击败于石亭，魏军东调，关中空虚，遂于12月统军数万北出散关，围陈仓。"
+      },
+      {
+        "EventName_A": "武都阴平之战",
+        "relation": "顺承关系",
+        "EventName_B": "陈仓之战",
+        "evidence": "公元229年春，诸葛亮为孤立祁山魏军，开辟军资来源，派陈式攻取武都、阴平二郡。"
+      },
+      {
+        "EventName_A": "武都阴平之战",
+        "relation": "顺承关系",
+        "EventName_B": "首阳之战",
+        "evidence": "后又派魏延、吴壹西入羌地，和抚羌族，在逃水之西招兵买马，组成一支劲旅，深入魏军后方活动。是年11月，魏延、吴壹率万骑与魏将费瑶、郭淮战于首阳。"
+      },
+      {
+        "EventName_A": "诸葛亮第四次北伐",
+        "relation": "顺承关系",
+        "EventName_B": "首阳之战",
+        "evidence": "及张郃率援军至，诸葛亮拒绝魏延“异道出征，约期会师潼关”的建议，率军还汉中。公元231年春，诸葛亮第四次率军出祁山。\n及张邵率援军至，诸葛亮拒绝魏延建议，率军还汉中。公元231年春，诸葛亮第四次率军出祁山"
+      }
+    ]
+  }
+}

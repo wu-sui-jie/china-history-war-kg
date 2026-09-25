@@ -168,6 +168,11 @@ def get_node_detail():
         node_id = request.args.get('id')
         node_type = request.args.get('type')
 
+        # 非数字 id 原先由 `int(node_id)` 抛 ValueError，被兜底 except 收成
+        # 500「操作失败」（第 14 轮审计 P3-1）——一次参数错误被说成服务器故障。
+        if node_id and not str(node_id).strip().lstrip("-").isdigit():
+            return jsonify(error_payload(400, "节点ID必须是数字")), 400
+
         if not node_id:
             return jsonify(error_payload(400, "节点ID不能为空")), 400
 

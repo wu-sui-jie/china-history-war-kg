@@ -1,0 +1,532 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "燕云16州",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "燕云16州的奉送，使中原北部无天然国防屏障"
+      },
+      {
+        "geo_name": "广晋",
+        "modern_name": "大名",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "大名县",
+        "Specific_location": null,
+        "source_text": "后晋高祖石敬塘，受契丹驱使招纳吐谷浑，于公元942年6月死于广晋（魏州）"
+      },
+      {
+        "geo_name": "幽州",
+        "modern_name": "北京",
+        "DynastyName": "五代",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "契丹于公元937年在幽州建都为南京，国号为大辽"
+      },
+      {
+        "geo_name": "恒州",
+        "modern_name": "正定",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "正定县",
+        "Specific_location": null,
+        "source_text": "契丹主乃大举入寇，自易州趋恒州（正定县），连败后晋军"
+      },
+      {
+        "geo_name": "定州",
+        "modern_name": "定县",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "定州市",
+        "Specific_location": null,
+        "source_text": "以恒、定、魏、博一带（河北正定、定县、大名、聊城南黄河沿岸），为主要作战地区"
+      },
+      {
+        "geo_name": "魏州",
+        "modern_name": "大名",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "大名县",
+        "Specific_location": null,
+        "source_text": "以恒、定、魏、博一带（河北正定、定县、大名、聊城南黄河沿岸），为主要作战地区"
+      },
+      {
+        "geo_name": "博州",
+        "modern_name": "聊城",
+        "DynastyName": "五代",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以恒、定、魏、博一带（河北正定、定县、大名、聊城南黄河沿岸），为主要作战地区"
+      },
+      {
+        "geo_name": "贝州",
+        "modern_name": "清河",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": "清河县",
+        "Specific_location": null,
+        "source_text": "次年正月，契丹攻陷贝州（河北清河）"
+      },
+      {
+        "geo_name": "雁门",
+        "modern_name": "雁门关",
+        "DynastyName": "五代",
+        "Province": "山西省",
+        "City": "忻州市",
+        "District_County": "代县",
+        "Specific_location": null,
+        "source_text": "契丹伟王经雁门攻太原"
+      },
+      {
+        "geo_name": "太原",
+        "modern_name": "太原",
+        "DynastyName": "五代",
+        "Province": "山西省",
+        "City": "太原市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "契丹伟王经雁门攻太原，被河东节度使刘知远、吐谷浑酋长白承福合兵两万击败于秀容"
+      },
+      {
+        "geo_name": "秀容",
+        "modern_name": "忻州",
+        "DynastyName": "五代",
+        "Province": "山西省",
+        "City": "忻州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "被河东节度使刘知远、吐谷浑酋长白承福合兵两万击败于秀容（山西忻县西北）"
+      },
+      {
+        "geo_name": "马家口",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "博州刺史周儒降契丹，并与杨光远勾结，攻占马家口（山东聊城境）"
+      },
+      {
+        "geo_name": "麻家口",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "濮阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋主令石赞守麻家口（河南濮阳）"
+      },
+      {
+        "geo_name": "杨刘",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": "东阿县",
+        "Specific_location": null,
+        "source_text": "何重建守杨刘（山东东阿北）"
+      },
+      {
+        "geo_name": "河阳",
+        "modern_name": "孟州",
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "孟州市",
+        "Specific_location": null,
+        "source_text": "又以安彦威守河阳（河南孟县）"
+      },
+      {
+        "geo_name": "戚城",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋主率兵击败围攻戚城（山东聊城）之契丹军"
+      },
+      {
+        "geo_name": "泰州",
+        "modern_name": "清苑",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "清苑区",
+        "Specific_location": null,
+        "source_text": "晋乘势收复泰州（河北清苑）、贝州等地"
+      },
+      {
+        "geo_name": "青州",
+        "modern_name": "青州",
+        "DynastyName": "五代",
+        "Province": "山东省",
+        "City": "潍坊市",
+        "District_County": "青州市",
+        "Specific_location": null,
+        "source_text": "并派李守贞讨杨光远于青州，围数月而破之"
+      },
+      {
+        "geo_name": "邢州",
+        "modern_name": "邢台",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "仍以赵延寿为前军直趋邢州（河北邢台）"
+      },
+      {
+        "geo_name": "元氏",
+        "modern_name": "元氏",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "元氏县",
+        "Specific_location": null,
+        "source_text": "契丹主率大军继后，建牙帐于元氏（河北元氏）"
+      },
+      {
+        "geo_name": "洺州",
+        "modern_name": "永年",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "永年区",
+        "Specific_location": null,
+        "source_text": "契丹分兵占领邢、洺（河北永年）、磁（磁县）三州"
+      },
+      {
+        "geo_name": "磁州",
+        "modern_name": "磁县",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "磁县",
+        "Specific_location": null,
+        "source_text": "契丹分兵占领邢、洺（河北永年）、磁（磁县）三州"
+      },
+      {
+        "geo_name": "邺都",
+        "modern_name": "大名",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "大名县",
+        "Specific_location": null,
+        "source_text": "并入邺都（大名）境"
+      },
+      {
+        "geo_name": "漳河",
+        "modern_name": "漳河",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋张从恩、马全节、安因琦等率兵数万在漳河南列阵抵御"
+      },
+      {
+        "geo_name": "安阳",
+        "modern_name": "安阳",
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋军引兵入安阳、黎阳（河南滑县）守备"
+      },
+      {
+        "geo_name": "黎阳",
+        "modern_name": "浚县",
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "鹤壁市",
+        "District_County": "浚县",
+        "Specific_location": null,
+        "source_text": "晋军引兵入安阳、黎阳（河南滑县）守备"
+      },
+      {
+        "geo_name": "大梁",
+        "modern_name": "开封",
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "晋主于公元945年正月25日下诏自大梁亲征"
+      },
+      {
+        "geo_name": "清苑",
+        "modern_name": "清苑",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "清苑区",
+        "Specific_location": null,
+        "source_text": "相继攻取河北保定地区的清苑、满城、遂城"
+      },
+      {
+        "geo_name": "满城",
+        "modern_name": "满城",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "满城区",
+        "Specific_location": null,
+        "source_text": "相继攻取河北保定地区的清苑、满城、遂城"
+      },
+      {
+        "geo_name": "遂城",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "相继攻取河北保定地区的清苑、满城、遂城"
+      },
+      {
+        "geo_name": "白团卫村",
+        "modern_name": null,
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "顺平县",
+        "Specific_location": null,
+        "source_text": "于27日退至白团卫村（河北完县），埋鹿角为行寨以御契丹"
+      },
+      {
+        "geo_name": "易州",
+        "modern_name": "易县",
+        "DynastyName": "五代",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "易县",
+        "Specific_location": null,
+        "source_text": "契丹主乃大举入寇，自易州趋恒州（正定县）"
+      },
+      {
+        "geo_name": "汴京",
+        "modern_name": "开封",
+        "DynastyName": "五代",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张彦泽倍道疾驰而进，斩关而人汴京，纵兵大掠"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "契丹",
+        "OrgType": "国家",
+        "DynastyName": "五代",
+        "source_text": "契丹灭后晋之战遂起"
+      },
+      {
+        "OrgName": "吐谷浑",
+        "OrgType": "部落",
+        "DynastyName": "五代",
+        "source_text": "后晋高祖石敬塘，受契丹驱使招纳吐谷浑"
+      },
+      {
+        "OrgName": "卢龙兵",
+        "OrgType": "地方势力",
+        "DynastyName": "五代",
+        "source_text": "集契丹军及卢龙兵5万人，由赵延寿率领南下攻晋"
+      },
+      {
+        "OrgName": "契丹军",
+        "OrgType": "国家",
+        "DynastyName": "五代",
+        "source_text": "集契丹军及卢龙兵5万人，由赵延寿率领南下攻晋"
+      },
+      {
+        "OrgName": "晋军",
+        "OrgType": "国家",
+        "DynastyName": "五代",
+        "source_text": "晋军乃且战且退"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "石敬塘",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "君主",
+        "Note": "后晋高祖，受契丹驱使",
+        "source_text": "后晋高祖石敬塘，受契丹驱使招纳吐谷浑，于公元942年6月死于广晋（魏州）"
+      },
+      {
+        "PersonName": "桑维翰",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "谋士",
+        "Note": "为后晋出策，内抚藩镇，外卑奉契丹",
+        "source_text": "其间，用桑维翰之策，内则安抚藩镇，外则卑奉契丹"
+      },
+      {
+        "PersonName": "石重贵",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "君主",
+        "Note": "石敬塘兄子，即帝位，对契丹称孙不称臣",
+        "source_text": "石重贵（石敬塘兄子）即帝位后，被景延广左右，对契丹称孙而不称臣"
+      },
+      {
+        "PersonName": "景延广",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "左右石重贵，对契丹强硬",
+        "source_text": "景延广还大言不愧地说：“翁怒则来战，孙有十万横磨剑，足以相待”"
+      },
+      {
+        "PersonName": "杨光远",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "青州节度使，密告契丹，后叛晋",
+        "source_text": "青州节度使杨光远密告契丹说晋主负德违盟，境内大饥，攻之一举可取"
+      },
+      {
+        "PersonName": "赵延寿",
+        "DynastyName": "五代",
+        "OrgName": "契丹",
+        "Role": "将领",
+        "Note": "契丹枢密使兼政事令，屡劝契丹南征，率军南下",
+        "source_text": "契丹枢密使兼政事令赵延寿，企图代晋占中国，也屡劝契丹南征"
+      },
+      {
+        "PersonName": "刘知远",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "河东节度使，后称帝，击败契丹于秀容",
+        "source_text": "被河东节度使刘知远、吐谷浑酋长白承福合兵两万击败于秀容"
+      },
+      {
+        "PersonName": "白承福",
+        "DynastyName": "五代",
+        "OrgName": "吐谷浑",
+        "Role": "将领",
+        "Note": "吐谷浑酋长，与刘知远合兵击败契丹",
+        "source_text": "被河东节度使刘知远、吐谷浑酋长白承福合兵两万击败于秀容"
+      },
+      {
+        "PersonName": "周儒",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "博州刺史，降契丹，勾结杨光远",
+        "source_text": "博州刺史周儒降契丹，并与杨光远勾结，攻占马家口"
+      },
+      {
+        "PersonName": "石赞",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "守麻家口",
+        "source_text": "晋主令石赞守麻家口（河南濮阳）"
+      },
+      {
+        "PersonName": "何重建",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "守杨刘",
+        "source_text": "何重建守杨刘（山东东阿北）"
+      },
+      {
+        "PersonName": "白再荣",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "增援马家口",
+        "source_text": "白再荣增援马家口"
+      },
+      {
+        "PersonName": "安彦威",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "守河阳",
+        "source_text": "又以安彦威守河阳（河南孟县）"
+      },
+      {
+        "PersonName": "李守贞",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "率军大败契丹于马家口，后讨杨光远，后降契丹",
+        "source_text": "李守贞等率万人水陆俱进，大败契丹军于马家口"
+      },
+      {
+        "PersonName": "张从恩",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "率兵在漳河南列阵抵御契丹",
+        "source_text": "晋张从恩、马全节、安因琦等率兵数万在漳河南列阵抵御"
+      },
+      {
+        "PersonName": "马全节",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "北面副招讨使，提议北伐",
+        "source_text": "北面副招讨使马全节提议：宜乘其散归，大举进袭幽州"
+      },
+      {
+        "PersonName": "安因琦",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "率兵在漳河南列阵抵御契丹",
+        "source_text": "晋张从恩、马全节、安因琦等率兵数万在漳河南列阵抵御"
+      },
+      {
+        "PersonName": "杜重威",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "北伐统帅，后降契丹",
+        "source_text": "杜重威说：“俟风稍缓，徐观可否。”"
+      },
+      {
+        "PersonName": "张彦泽",
+        "DynastyName": "五代",
+        "OrgName": "后晋",
+        "Role": "将领",
+        "Note": "前锋，率6000骑先取大梁",
+        "source_text": "杜遣张彦泽为前锋率6000骑先取大梁"
+      }
+    ]
+  },
+  "events": {
+    "events": [],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [],
+    "event_organization_relations": [],
+    "event_person_relations": [],
+    "event_event_relations": []
+  }
+}

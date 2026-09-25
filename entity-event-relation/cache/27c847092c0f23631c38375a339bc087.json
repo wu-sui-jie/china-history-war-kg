@@ -1,0 +1,1585 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "长安",
+        "modern_name": "西安",
+        "DynastyName": "西汉",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，五将军自长安出发，各向预定作战目标进攻。"
+      },
+      {
+        "geo_name": "右谷蠡王庭",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭，斩获单于骑将以下4万人。"
+      },
+      {
+        "geo_name": "车师",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "geo_name": "莎车",
+        "modern_name": "莎车县",
+        "DynastyName": "西汉",
+        "Province": "新疆维吾尔自治区",
+        "City": "喀什地区",
+        "District_County": "莎车县",
+        "Specific_location": null,
+        "source_text": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "geo_name": "金城",
+        "modern_name": "兰州",
+        "DynastyName": "西汉",
+        "Province": "甘肃省",
+        "City": "兰州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "geo_name": "康居",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "东部",
+        "source_text": "郅支单于西迁至康居东部筑城而居。"
+      },
+      {
+        "geo_name": "郅支城",
+        "modern_name": "江布尔",
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。"
+      },
+      {
+        "geo_name": "葱岭",
+        "modern_name": "帕米尔高原",
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城。"
+      },
+      {
+        "geo_name": "大宛",
+        "modern_name": "费尔干纳盆地",
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城。"
+      },
+      {
+        "geo_name": "温宿",
+        "modern_name": "乌什县",
+        "DynastyName": "西汉",
+        "Province": "新疆维吾尔自治区",
+        "City": "阿克苏地区",
+        "District_County": "乌什县",
+        "Specific_location": null,
+        "source_text": "北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城。"
+      },
+      {
+        "geo_name": "乌孙",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭。"
+      },
+      {
+        "geo_name": "荆州",
+        "modern_name": null,
+        "DynastyName": "新莽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元17年，荆州地区（湖南、湖北及河南南阳一带）发生大饥荒。"
+      },
+      {
+        "geo_name": "绿林山",
+        "modern_name": "大洪山",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "随州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "选择绿林山（湖北当阳北大洪山）为根据地，故称绿林军。"
+      },
+      {
+        "geo_name": "云杜",
+        "modern_name": "京山市",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "荆门市",
+        "District_County": "京山市",
+        "Specific_location": null,
+        "source_text": "在云杜（湖北京山）附近设伏击溃王莽军。"
+      },
+      {
+        "geo_name": "竟陵",
+        "modern_name": "潜江市",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "潜江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆。"
+      },
+      {
+        "geo_name": "安陆",
+        "modern_name": "安陆市",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "孝感市",
+        "District_County": "安陆市",
+        "Specific_location": null,
+        "source_text": "乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆。"
+      },
+      {
+        "geo_name": "南郡",
+        "modern_name": "江陵",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "荆州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "西入南郡（治所湖北江陵），吸引王莽军的注意力。"
+      },
+      {
+        "geo_name": "随县",
+        "modern_name": "随州市",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "随州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月，新市军攻随县，平林人陈牧、廖湛率众响应。"
+      },
+      {
+        "geo_name": "春陵",
+        "modern_name": "枣阳市",
+        "DynastyName": "新莽",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": "枣阳市",
+        "Specific_location": null,
+        "source_text": "同年冬，春陵（湖北枣阳南）的大地主刘寅、刘秀兄弟，聚集宾客、子弟七八千人，称“春陵军”。"
+      },
+      {
+        "geo_name": "东莞",
+        "modern_name": "沂水县",
+        "DynastyName": "新莽",
+        "Province": "山东省",
+        "City": "临沂市",
+        "District_County": "沂水县",
+        "Specific_location": null,
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "geo_name": "东海",
+        "modern_name": "郯城县",
+        "DynastyName": "新莽",
+        "Province": "山东省",
+        "City": "临沂市",
+        "District_County": "郯城县",
+        "Specific_location": null,
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "geo_name": "彭城",
+        "modern_name": "徐州市",
+        "DynastyName": "新莽",
+        "Province": "江苏省",
+        "City": "徐州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县）。"
+      },
+      {
+        "geo_name": "汝南",
+        "modern_name": "息县",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "信阳市",
+        "District_County": "息县",
+        "Specific_location": null,
+        "source_text": "赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县）。"
+      },
+      {
+        "geo_name": "比水",
+        "modern_name": "泌阳河",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "驻马店市",
+        "District_County": "泌阳县",
+        "Specific_location": null,
+        "source_text": "在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部。"
+      },
+      {
+        "geo_name": "滇阳",
+        "modern_name": "新野县",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": "新野县",
+        "Specific_location": null,
+        "source_text": "继又在滇阳（河南新野东北）击溃严尤、陈茂军。"
+      },
+      {
+        "geo_name": "宛城",
+        "modern_name": "南阳市",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "南阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "保障主力夺取战略要地宛城（河南南阳）。"
+      },
+      {
+        "geo_name": "昆阳",
+        "modern_name": "叶县",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "平顶山市",
+        "District_County": "叶县",
+        "Specific_location": null,
+        "source_text": "派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。"
+      },
+      {
+        "geo_name": "定陵",
+        "modern_name": "舞阳县",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "舞阳县",
+        "Specific_location": null,
+        "source_text": "派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。"
+      },
+      {
+        "geo_name": "郾县",
+        "modern_name": "郾城区",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "漯河市",
+        "District_County": "郾城区",
+        "Specific_location": null,
+        "source_text": "派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。"
+      },
+      {
+        "geo_name": "颖川",
+        "modern_name": "禹州市",
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": "禹州市",
+        "Specific_location": null,
+        "source_text": "5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。"
+      },
+      {
+        "geo_name": "阳关",
+        "modern_name": null,
+        "DynastyName": "新莽",
+        "Province": "河南省",
+        "City": "禹州市",
+        "District_County": null,
+        "Specific_location": "西北",
+        "source_text": "迫使进至阳关（禹县西北）的刘秀部撤回昆阳。"
+      },
+      {
+        "geo_name": "匈奴西部",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "geo_name": "匈奴境内",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "匈奴",
+        "OrgType": "国家",
+        "DynastyName": "西汉",
+        "source_text": "匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁。"
+      },
+      {
+        "OrgName": "乌孙",
+        "OrgType": "国家",
+        "DynastyName": "西汉",
+        "source_text": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭。"
+      },
+      {
+        "OrgName": "汉军",
+        "OrgType": "军队",
+        "DynastyName": "西汉",
+        "source_text": "故汉五路大军只略有所获。\n公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "OrgName": "车师",
+        "OrgType": "国家",
+        "DynastyName": "西汉",
+        "source_text": "汉军击降车师，莎车，威震西域。"
+      },
+      {
+        "OrgName": "莎车",
+        "OrgType": "国家",
+        "DynastyName": "西汉",
+        "source_text": "汉军击降车师，莎车，威震西域。"
+      },
+      {
+        "OrgName": "羌",
+        "OrgType": "部落",
+        "DynastyName": "西汉",
+        "source_text": "赵充国屯田金城平定羌乱。"
+      },
+      {
+        "OrgName": "西域都护",
+        "OrgType": "中央政权",
+        "DynastyName": "西汉",
+        "source_text": "汉宣帝以郑吉为西域都护，西域36国均听汉号令。"
+      },
+      {
+        "OrgName": "西域36国",
+        "OrgType": "联盟",
+        "DynastyName": "西汉",
+        "source_text": "西域36国均听汉号令。"
+      },
+      {
+        "OrgName": "西域诸国",
+        "OrgType": "联盟",
+        "DynastyName": "西汉",
+        "source_text": "矫诏发西域诸国兵4万人。"
+      },
+      {
+        "OrgName": "新莽",
+        "OrgType": "国家",
+        "DynastyName": "新莽",
+        "source_text": "王莽废西汉刘氏皇朝，建立起国号“新莽”的王氏皇朝。"
+      },
+      {
+        "OrgName": "绿林军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "选择绿林山为根据地，故称绿林军。"
+      },
+      {
+        "OrgName": "下江军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "一部由王常和成丹率领，为南路，称“下江军”。"
+      },
+      {
+        "OrgName": "新市军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "主力由王匡、王凤、马武和朱鲔等率领为北路，称“新市军”。"
+      },
+      {
+        "OrgName": "平林军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "平林人陈牧、廖湛率众响应。"
+      },
+      {
+        "OrgName": "春陵军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "称“春陵军”，加人新市、平林的起义队伍。"
+      },
+      {
+        "OrgName": "赤眉军",
+        "OrgType": "起义军",
+        "DynastyName": "新莽",
+        "source_text": "全军用朱红涂眉，故称“赤眉军”。"
+      },
+      {
+        "OrgName": "王莽军",
+        "OrgType": "军队",
+        "DynastyName": "新莽",
+        "source_text": "王莽派遣荆州牧率精兵2万围攻绿林军。"
+      },
+      {
+        "OrgName": "汉五将军",
+        "OrgType": "军事势力",
+        "DynastyName": "西汉",
+        "source_text": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "OrgName": "赵充国",
+        "OrgType": "军事势力",
+        "DynastyName": "西汉",
+        "source_text": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "OrgName": "羌人",
+        "OrgType": "军事势力",
+        "DynastyName": "西汉",
+        "source_text": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "常惠",
+        "DynastyName": "西汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "校尉，与乌孙兵夹击匈奴，攻占右谷蠡王庭",
+        "source_text": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭。"
+      },
+      {
+        "PersonName": "郑吉",
+        "DynastyName": "西汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "西域都护，管理西域36国",
+        "source_text": "汉宣帝以郑吉为西域都护，西域36国均听汉号令。"
+      },
+      {
+        "PersonName": "陈汤",
+        "DynastyName": "西汉",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "西域副校尉，矫诏发兵攻灭郅支单于",
+        "source_text": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城。"
+      },
+      {
+        "PersonName": "呼韩邪单于",
+        "DynastyName": "西汉",
+        "OrgName": "匈奴",
+        "Role": "君主",
+        "Note": "降汉，娶汉女王昭君，维持和平",
+        "source_text": "呼韩邪单于降汉，郅支单于西迁至康居东部筑城而居。"
+      },
+      {
+        "PersonName": "郅支单于",
+        "DynastyName": "西汉",
+        "OrgName": "匈奴",
+        "Role": "君主",
+        "Note": "与呼韩邪单于对立，西迁康居，后被陈汤攻灭",
+        "source_text": "郅支单于西迁至康居东部筑城而居。"
+      },
+      {
+        "PersonName": "王昭君",
+        "DynastyName": "西汉",
+        "OrgName": "汉",
+        "Role": "参战者",
+        "Note": "宫女王昭君赐配单于，封为胡阙氏",
+        "source_text": "宫女王昭君赐配单于，封为胡阙氏。"
+      },
+      {
+        "PersonName": "王莽",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "君主",
+        "Note": "建立新莽政权，被农民起义推翻",
+        "source_text": "公元8年，大司马王莽废西汉刘氏皇朝，建立起国号“新莽”的王氏皇朝。"
+      },
+      {
+        "PersonName": "刘秀",
+        "DynastyName": "新莽",
+        "OrgName": "春陵军",
+        "Role": "统帅",
+        "Note": "春陵军首领，后建立东汉",
+        "source_text": "同年冬，春陵（湖北枣阳南）的大地主刘寅、刘秀兄弟，聚集宾客、子弟七八千人，称“春陵军”。"
+      },
+      {
+        "PersonName": "王匡",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "统帅",
+        "Note": "绿林军首领，与王凤领导起义",
+        "source_text": "新市（湖北当阳东北）的农民数百人在王匡、王凤的领导下，起兵反对王莽政权。"
+      },
+      {
+        "PersonName": "王凤",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "统帅",
+        "Note": "绿林军首领，与王匡领导起义",
+        "source_text": "新市（湖北当阳东北）的农民数百人在王匡、王凤的领导下，起兵反对王莽政权。"
+      },
+      {
+        "PersonName": "马武",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "南阳人，率起义队伍加入绿林军",
+        "source_text": "会合南阳人马武、颖川人王常和成丹领导的起义队伍。"
+      },
+      {
+        "PersonName": "王常",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "颖川人，率起义队伍加入绿林军，后为下江军首领",
+        "source_text": "会合南阳人马武、颖川人王常和成丹领导的起义队伍。"
+      },
+      {
+        "PersonName": "成丹",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "率起义队伍加入绿林军，后为下江军首领",
+        "source_text": "会合南阳人马武、颖川人王常和成丹领导的起义队伍。"
+      },
+      {
+        "PersonName": "朱鲔",
+        "DynastyName": "新莽",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林军将领，随主力北进",
+        "source_text": "主力由王匡、王凤、马武和朱鲔等率领为北路。"
+      },
+      {
+        "PersonName": "陈牧",
+        "DynastyName": "新莽",
+        "OrgName": "平林军",
+        "Role": "将领",
+        "Note": "平林人，率众响应新市军",
+        "source_text": "平林人陈牧、廖湛率众响应。"
+      },
+      {
+        "PersonName": "廖湛",
+        "DynastyName": "新莽",
+        "OrgName": "平林军",
+        "Role": "将领",
+        "Note": "平林人，率众响应新市军",
+        "source_text": "平林人陈牧、廖湛率众响应。"
+      },
+      {
+        "PersonName": "刘玄",
+        "DynastyName": "新莽",
+        "OrgName": "平林军",
+        "Role": "君主",
+        "Note": "西汉宗室，投身平林军，后被拥立为帝",
+        "source_text": "西汉宗室刘玄，这时也投身于平林军中。"
+      },
+      {
+        "PersonName": "刘寅",
+        "DynastyName": "新莽",
+        "OrgName": "春陵军",
+        "Role": "统帅",
+        "Note": "春陵军首领，与刘秀共同起兵",
+        "source_text": "春陵（湖北枣阳南）的大地主刘寅、刘秀兄弟，聚集宾客、子弟七八千人，称“春陵军”。"
+      },
+      {
+        "PersonName": "樊崇",
+        "DynastyName": "新莽",
+        "OrgName": "赤眉军",
+        "Role": "统帅",
+        "Note": "赤眉军领袖，领导青州农民起义",
+        "source_text": "琅琊人樊崇领导青州农民起义。"
+      },
+      {
+        "PersonName": "逢安",
+        "DynastyName": "新莽",
+        "OrgName": "赤眉军",
+        "Role": "将领",
+        "Note": "东莞人，聚众参加赤眉军",
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "PersonName": "徐宣",
+        "DynastyName": "新莽",
+        "OrgName": "赤眉军",
+        "Role": "将领",
+        "Note": "东海人，聚众参加赤眉军",
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "PersonName": "谢禄",
+        "DynastyName": "新莽",
+        "OrgName": "赤眉军",
+        "Role": "将领",
+        "Note": "东海人，聚众参加赤眉军",
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "PersonName": "杨音",
+        "DynastyName": "新莽",
+        "OrgName": "赤眉军",
+        "Role": "将领",
+        "Note": "东海人，聚众参加赤眉军",
+        "source_text": "东莞（山东沂水）人逢安、东海（治所山东郊城西北）人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "PersonName": "景尚",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽将军，被赤眉军击败",
+        "source_text": "赤眉军击败王莽的将军景尚和王党的进攻。"
+      },
+      {
+        "PersonName": "王党",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽将军，被赤眉军击败",
+        "source_text": "赤眉军击败王莽的将军景尚和王党的进攻。"
+      },
+      {
+        "PersonName": "廉丹",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "更始将军，被赤眉军全歼",
+        "source_text": "次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。"
+      },
+      {
+        "PersonName": "甄阜",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽军将领，在比水被击灭",
+        "source_text": "在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部。"
+      },
+      {
+        "PersonName": "梁丘赐",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽军将领，在比水被击灭",
+        "source_text": "在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部。"
+      },
+      {
+        "PersonName": "严尤",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽军将领，在滇阳被击溃",
+        "source_text": "继又在滇阳（河南新野东北）击溃严尤、陈茂军。"
+      },
+      {
+        "PersonName": "陈茂",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "将领",
+        "Note": "王莽军将领，在滇阳被击溃",
+        "source_text": "继又在滇阳（河南新野东北）击溃严尤、陈茂军。"
+      },
+      {
+        "PersonName": "王邑",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "统帅",
+        "Note": "大司空，率42万大军进攻昆阳",
+        "source_text": "王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进。"
+      },
+      {
+        "PersonName": "王寻",
+        "DynastyName": "新莽",
+        "OrgName": "新莽",
+        "Role": "统帅",
+        "Note": "大司徒，与王邑共同率军进攻昆阳",
+        "source_text": "王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进。"
+      },
+      {
+        "PersonName": "五将军",
+        "DynastyName": "西汉",
+        "OrgName": null,
+        "Role": "统帅",
+        "Note": null,
+        "source_text": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "汉击匈奴之战",
+        "EventType": "对外远征",
+        "StartDate": "前71年",
+        "EndDate": "前71年",
+        "DynastyName": "西汉",
+        "Place": "匈奴西部",
+        "Aggressor": "汉军、乌孙兵",
+        "Defender": "匈奴",
+        "Allies": null,
+        "Result": "汉军获胜，匈奴远遁",
+        "Commanders": "常惠",
+        "KeyPersons": null,
+        "Action": "夹击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "匈奴西部",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "匈奴知汉军复振，避战远遁，并开始走向分化瓦解",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "汉攻匈奴五路之战",
+            "evidence": "次年春，五将军自长安出发"
+          }
+        ],
+        "source_text": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "EventType": "对外远征",
+        "StartDate": "前70年",
+        "EndDate": "前70年",
+        "DynastyName": "西汉",
+        "Place": "匈奴境内",
+        "Aggressor": "汉五将军",
+        "Defender": "匈奴",
+        "Allies": "乌孙兵",
+        "Result": "汉军略有所获，匈奴远遁",
+        "Commanders": "五将军（不详）",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "五路大军",
+        "Duration": "不详",
+        "GeographicScope": "匈奴境内",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "匈奴知汉军复振，避战远遁，并开始走向分化瓦解",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "常惠攻占右谷蠡王庭之战",
+            "evidence": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭"
+          }
+        ],
+        "source_text": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "EventType": "对外远征",
+        "StartDate": "前70年",
+        "EndDate": "前70年",
+        "DynastyName": "西汉",
+        "Place": "右谷蠡王庭",
+        "Aggressor": "校尉常惠与乌孙兵",
+        "Defender": "匈奴",
+        "Allies": null,
+        "Result": "汉军获胜，斩获单于骑将以下4万人，得牲畜70余万头",
+        "Commanders": "常惠",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "右谷蠡王庭",
+        "Casualties": "斩获4万人",
+        "source": "《中国历代战争简史》",
+        "Impact": "匈奴知汉军复振，避战远遁，并开始走向分化瓦解",
+        "Remark": "",
+        "relations": [],
+        "source_text": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭，斩获单于骑将以下4万人，得牲畜70余万头。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "EventType": "开疆拓土",
+        "StartDate": "前68年",
+        "EndDate": "前65年",
+        "DynastyName": "西汉",
+        "Place": "车师、莎车",
+        "Aggressor": "汉军",
+        "Defender": "车师、莎车",
+        "Allies": null,
+        "Result": "汉军获胜，车师、莎车降服，汉朝威震西域",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "攻伐、降服",
+        "TroopSize": "不详",
+        "Duration": "持续三年",
+        "GeographicScope": "西域车师、莎车地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "汉朝威震西域，为设置西域都护奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "赵充国平定羌乱之战",
+            "evidence": "公元前68年至前65年，汉军击降车师，莎车，威震西域。公元前61年，赵充国屯田金城平定羌乱"
+          }
+        ],
+        "source_text": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "赵充国平定羌乱之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "前61年",
+        "EndDate": "前61年",
+        "DynastyName": "西汉",
+        "Place": "金城",
+        "Aggressor": "赵充国",
+        "Defender": "羌人",
+        "Allies": null,
+        "Result": "赵充国获胜，羌乱平定，河西巩固",
+        "Commanders": "赵充国",
+        "KeyPersons": null,
+        "Action": "屯田、攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "金城及河西地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "巩固了河西，加强了汉朝对西域的控制",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "陈汤击郅支单于之战",
+            "evidence": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。次年，匈奴虚间权渠单于死后，日逐王降汉，汉宣帝以郑吉为西域都护，西域36国均听汉号令。"
+          }
+        ],
+        "source_text": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "EventType": "对外远征",
+        "StartDate": "前36年",
+        "EndDate": "前36年",
+        "DynastyName": "西汉",
+        "Place": "郅支城、葱岭、大宛、温宿、乌孙",
+        "Aggressor": "汉西域副校尉陈汤",
+        "Defender": "郅支单于",
+        "Allies": "西域诸国",
+        "Result": "汉军获胜，郅支单于被杀，首级传至京师",
+        "Commanders": "陈汤",
+        "KeyPersons": "郅支单于",
+        "Action": "攻伐、合击",
+        "TroopSize": "四万",
+        "Duration": "不详",
+        "GeographicScope": "西域至中亚地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消除了匈奴在西域的威胁，加强了汉朝对西域的控制，此后边郡安宁",
+        "Remark": "陈汤矫诏发兵",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "汉击降车师、莎车之战",
+            "evidence": "公元前68年至前65年，汉军击降车师，莎车，威震西域。公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+          }
+        ],
+        "source_text": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "EventType": "农民起义",
+        "StartDate": "公元21年",
+        "EndDate": "公元21年",
+        "DynastyName": "新莽",
+        "Place": "云杜",
+        "Aggressor": "绿林军",
+        "Defender": "王莽军",
+        "Allies": null,
+        "Result": "绿林军获胜，击溃王莽军",
+        "Commanders": "王匡、王凤",
+        "KeyPersons": null,
+        "Action": "伏击",
+        "TroopSize": "王莽军2万，绿林军不详",
+        "Duration": "不详",
+        "GeographicScope": "云杜附近",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "绿林军击溃王莽军，乘胜攻占竟陵、安陆等地，部众增至5万余人，为绿林军进一步发展奠定基础。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "赤眉军击败王莽军之战",
+            "evidence": "绿林军起义的次年，琅琊人樊崇领导青州农民起义。"
+          }
+        ],
+        "source_text": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "EventType": "农民起义",
+        "StartDate": "公元21年",
+        "EndDate": "公元22年",
+        "DynastyName": "新莽",
+        "Place": "东海、彭城、汝南",
+        "Aggressor": "赤眉军",
+        "Defender": "王莽军",
+        "Allies": null,
+        "Result": "赤眉军获胜，全歼王莽军10万",
+        "Commanders": "樊崇、逢安、徐宣、谢禄、杨音",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "赤眉军10余万，王莽军10万",
+        "Duration": "不详",
+        "GeographicScope": "黄淮大平原",
+        "Casualties": "王莽军10万被全歼",
+        "source": "《中国历代战争简史》",
+        "Impact": "赤眉军兵力达30余万，威胁王莽在关东的战略要地洛阳，沉重打击王莽政权。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "昆阳之战",
+            "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水击灭王莽军甄阜、梁丘赐部。"
+          }
+        ],
+        "source_text": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "公元23年",
+        "EndDate": "公元23年",
+        "DynastyName": "新莽",
+        "Place": "昆阳",
+        "Aggressor": "王莽军",
+        "Defender": "汉军（绿林军）",
+        "Allies": null,
+        "Result": "汉军获胜，王莽军大败",
+        "Commanders": "王邑、王寻、刘秀、王凤、王常",
+        "KeyPersons": null,
+        "Action": "守御、交战",
+        "TroopSize": "王莽军42万，汉军约2万（昆阳守军八九千）",
+        "Duration": "不详",
+        "GeographicScope": "昆阳及周边地区",
+        "Casualties": "王莽军大败，伤亡惨重",
+        "source": "《中国历代战争简史》",
+        "Impact": "昆阳之战是东汉统一战争的关键战役，刘秀以少胜多，为推翻王莽政权奠定基础。",
+        "Remark": "",
+        "relations": [],
+        "source_text": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "汉击匈奴之战",
+        "relation": "主战场",
+        "modern_name": "匈奴西部",
+        "evidence": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "出发地",
+        "modern_name": "长安",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "主战场",
+        "modern_name": "匈奴境内",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "relation": "主战场",
+        "modern_name": "右谷蠡王庭",
+        "evidence": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭，斩获单于骑将以下4万人，得牲畜70余万头。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "主战场",
+        "modern_name": "车师",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "主战场",
+        "modern_name": "莎车",
+        "evidence": "汉军击降车师，莎车，威震西域。"
+      },
+      {
+        "EventName": "赵充国平定羌乱之战",
+        "relation": "主战场",
+        "modern_name": "金城",
+        "evidence": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "主战场",
+        "modern_name": "郅支城",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "途经地",
+        "modern_name": "葱岭",
+        "evidence": "南路越葱岭，经大宛。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "途经地",
+        "modern_name": "大宛",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "出发地",
+        "modern_name": "温宿",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "途经地",
+        "modern_name": "乌孙",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "主战场",
+        "modern_name": "云杜",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "主战场",
+        "modern_name": "东海",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "主战场",
+        "modern_name": "彭城",
+        "evidence": "挺进彭城（江苏徐州）。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "主战场",
+        "modern_name": "汝南",
+        "evidence": "汝南（郡治河南息县）。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "主战场",
+        "modern_name": "昆阳",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "次要战场",
+        "modern_name": "莎车",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "目的地",
+        "modern_name": "郅支城",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "次要战场",
+        "modern_name": "葱岭",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "次要战场",
+        "modern_name": "大宛",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "次要战场",
+        "modern_name": "温宿",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "次要战场",
+        "modern_name": "乌孙",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "战略要地",
+        "modern_name": "东海",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "次要战场",
+        "modern_name": "彭城",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "战略要地",
+        "modern_name": "彭城",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "次要战场",
+        "modern_name": "汝南",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "战略要地",
+        "modern_name": "汝南",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "驻防地",
+        "modern_name": "昆阳",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "战略要地",
+        "modern_name": "昆阳",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "汉击匈奴之战",
+        "relation": "发起方",
+        "OrgName": "汉军",
+        "evidence": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "EventName": "汉击匈奴之战",
+        "relation": "同盟方",
+        "OrgName": "乌孙",
+        "evidence": "惠持节监护乌孙兵夹击西部匈奴。"
+      },
+      {
+        "EventName": "汉击匈奴之战",
+        "relation": "防守方",
+        "OrgName": "匈奴",
+        "evidence": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "发起方",
+        "OrgName": "汉五将军",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "防守方",
+        "OrgName": "匈奴",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "同盟方",
+        "OrgName": "乌孙",
+        "evidence": "校尉常惠与乌孙等兵。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "relation": "发起方",
+        "OrgName": "汉军",
+        "evidence": "校尉常惠与乌孙等兵。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "relation": "同盟方",
+        "OrgName": "乌孙",
+        "evidence": "校尉常惠与乌孙等兵。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "relation": "防守方",
+        "OrgName": "匈奴",
+        "evidence": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭，斩获单于骑将以下4万人，得牲畜70余万头。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "发起方",
+        "OrgName": "汉军",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "投降方",
+        "OrgName": "车师",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "投降方",
+        "OrgName": "莎车",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "赵充国平定羌乱之战",
+        "relation": "发起方",
+        "OrgName": "赵充国",
+        "evidence": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "EventName": "赵充国平定羌乱之战",
+        "relation": "防守方",
+        "OrgName": "羌人",
+        "evidence": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "发起方",
+        "OrgName": "汉军",
+        "evidence": "汉西域副校尉陈汤，矫诏发西域诸国兵4万人。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "同盟方",
+        "OrgName": "西域诸国",
+        "evidence": "矫诏发西域诸国兵4万人。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "防守方",
+        "OrgName": "匈奴",
+        "evidence": "杀死郅支单于。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "发起方",
+        "OrgName": "绿林军",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "防守方",
+        "OrgName": "王莽军",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "发起方",
+        "OrgName": "赤眉军",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "防守方",
+        "OrgName": "王莽军",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "发起方",
+        "OrgName": "王莽军",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "防守方",
+        "OrgName": "汉军",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "投降方",
+        "OrgName": "汉军",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "防守方",
+        "OrgName": "车师",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "汉击降车师、莎车之战",
+        "relation": "防守方",
+        "OrgName": "莎车",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车（今新疆莎车附近），威震西域。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "支援方",
+        "OrgName": "西域诸国",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "汉击匈奴之战",
+        "relation": "统帅",
+        "PersonName": "常惠",
+        "evidence": "惠持节监护乌孙兵夹击西部匈奴。各路大军均出塞2000里。"
+      },
+      {
+        "EventName": "汉攻匈奴五路之战",
+        "relation": "统帅",
+        "PersonName": "五将军",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。"
+      },
+      {
+        "EventName": "常惠攻占右谷蠡王庭之战",
+        "relation": "统帅",
+        "PersonName": "常惠",
+        "evidence": "校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭，斩获单于骑将以下4万人，得牲畜70余万头。"
+      },
+      {
+        "EventName": "赵充国平定羌乱之战",
+        "relation": "统帅",
+        "PersonName": "赵充国",
+        "evidence": "赵充国屯田金城平定羌乱。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "统帅",
+        "PersonName": "陈汤",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "君主",
+        "PersonName": "郅支单于",
+        "evidence": "杀死郅支单于。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "统帅",
+        "PersonName": "王匡",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "统帅",
+        "PersonName": "王凤",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "统帅",
+        "PersonName": "樊崇",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "将领",
+        "PersonName": "逢安",
+        "evidence": "东莞人逢安、东海人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "将领",
+        "PersonName": "徐宣",
+        "evidence": "东莞人逢安、东海人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "将领",
+        "PersonName": "谢禄",
+        "evidence": "东莞人逢安、东海人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "将领",
+        "PersonName": "杨音",
+        "evidence": "东莞人逢安、东海人徐宣、谢禄和杨音也聚众参加。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "统帅",
+        "PersonName": "王邑",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "统帅",
+        "PersonName": "王寻",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "将领",
+        "PersonName": "刘秀",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "将领",
+        "PersonName": "王凤",
+        "evidence": "派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "将领",
+        "PersonName": "王常",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "参与者",
+        "PersonName": "郅支单于",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "陈汤击郅支单于之战",
+        "relation": "阵亡",
+        "PersonName": "郅支单于",
+        "evidence": "公元前36年，汉西域副校尉陈汤，矫诏发西域诸国兵4万人，分南北两路攻郅支城（前苏联塔什干东北的江布尔）。南路越葱岭，经大宛；北路由温宿（今新疆乌什）经乌孙分进合击，攻破到支城，杀死郅支单于，传首京师。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "君主",
+        "PersonName": "王匡",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "绿林军云杜之战",
+        "relation": "君主",
+        "PersonName": "王凤",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜（湖北京山）附近设伏击溃王莽军，乘胜攻占竟陵（湖北潜江西北）回师进占云杜、安陆（今湖北安陆北），部众增至5万余人。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "统帅",
+        "PersonName": "逢安",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "统帅",
+        "PersonName": "徐宣",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "统帅",
+        "PersonName": "谢禄",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "赤眉军击败王莽军之战",
+        "relation": "统帅",
+        "PersonName": "杨音",
+        "evidence": "公元21年，赤眉军击败王莽的将军景尚和王党的进攻后，次年又全歼王莽的太师王匡（与绿林军首领王匡同名）和更始将军廉丹率领的10万大军。赤眉军乘胜转战东海，挺进彭城（江苏徐州）、汝南（郡治河南息县），活动于黄淮大平原，兵力达30余万人，威胁着王莽在关东的战略要地洛阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "君主",
+        "PersonName": "王邑",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "君主",
+        "PersonName": "王寻",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "统帅",
+        "PersonName": "王凤",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "君主",
+        "PersonName": "王凤",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "统帅",
+        "PersonName": "王常",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      },
+      {
+        "EventName": "昆阳之战",
+        "relation": "君主",
+        "PersonName": "王常",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水（河南泌阳境）击灭王莽军甄阜、梁丘赐部，继又在滇阳（河南新野东北）击溃严尤、陈茂军。刘玄为阻止王莽军南下，保障主力夺取战略要地宛城（河南南阳），派上公王凤、大将王常、偏将刘秀等率约2万人攻下昆阳、定陵（河南偃城西）、郾县（卧城南）。王莽派大司空王邑急赴洛阳，与大司徒王寻调集各州郡兵42万南进，企图一举扑灭汉军。5月，王莽军进抵颖川（河南禹县），迫使进至阳关（禹县西北）的刘秀部撤回昆阳。当时昆阳汉军仅八九千人，一些将领见王莽军声势浩大，欲弃城退守荆州故地。刘秀以合兵尚能取胜，分散势难保全的道理，说服诸将固守昆阳。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "常惠攻占右谷蠡王庭之战",
+        "relation": "顺承关系",
+        "EventName_B": "汉攻匈奴五路之战",
+        "evidence": "次年春，五将军自长安出发，各向预定作战目标进攻。匈奴得知汉军大出，老弱奔走，尽驱牲畜远遁，故汉五路大军只略有所获。校尉常惠与乌孙等兵，自西向东进击，攻占右谷蠡王庭。"
+      },
+      {
+        "EventName_A": "汉击降车师、莎车之战",
+        "relation": "顺承关系",
+        "EventName_B": "赵充国平定羌乱之战",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车，威震西域。公元前61年，赵充国屯田金城平定羌乱。"
+      },
+      {
+        "EventName_A": "昆阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "绿林军云杜之战",
+        "evidence": "公元21年，王莽派遣荆州牧率精兵2万围攻绿林军。绿林军主动出去，在云杜附近设伏击溃王莽军。……公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。……5月，王莽军进抵颖川，迫使进至阳关的刘秀部撤回昆阳。"
+      },
+      {
+        "EventName_A": "汉击匈奴之战",
+        "relation": "顺承关系",
+        "EventName_B": "汉攻匈奴五路之战",
+        "evidence": "次年春，五将军自长安出发"
+      },
+      {
+        "EventName_A": "赵充国平定羌乱之战",
+        "relation": "顺承关系",
+        "EventName_B": "陈汤击郅支单于之战",
+        "evidence": "公元前61年，赵充国屯田金城平定羌乱，巩固了河西。次年，匈奴虚间权渠单于死后，日逐王降汉，汉宣帝以郑吉为西域都护，西域36国均听汉号令。"
+      },
+      {
+        "EventName_A": "汉击降车师、莎车之战",
+        "relation": "顺承关系",
+        "EventName_B": "陈汤击郅支单于之战",
+        "evidence": "公元前68年至前65年，汉军击降车师，莎车，威震西域。公元前61年，赵充国屯田金城平定羌乱，巩固了河西。"
+      },
+      {
+        "EventName_A": "绿林军云杜之战",
+        "relation": "顺承关系",
+        "EventName_B": "赤眉军击败王莽军之战",
+        "evidence": "绿林军起义的次年，琅琊人樊崇领导青州农民起义。"
+      },
+      {
+        "EventName_A": "昆阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "赤眉军击败王莽军之战",
+        "evidence": "公元23年，绿林军拥立刘玄为皇帝，恢复汉的国号。乘王莽主力东攻赤眉军之机，在比水击灭王莽军甄阜、梁丘赐部。"
+      }
+    ]
+  }
+}

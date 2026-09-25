@@ -1,0 +1,2358 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "江阴",
+        "modern_name": "江阴市",
+        "DynastyName": "南明",
+        "Province": "江苏省",
+        "City": "无锡市",
+        "District_County": "江阴市",
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城"
+      },
+      {
+        "geo_name": "花家坝",
+        "modern_name": null,
+        "DynastyName": "南明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月20日，清军在城外花家坝集中200门大炮，专轰城东北角"
+      },
+      {
+        "geo_name": "江苏",
+        "modern_name": "江苏省",
+        "DynastyName": "南明",
+        "Province": "江苏省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城"
+      },
+      {
+        "geo_name": "江西",
+        "modern_name": "江西省",
+        "DynastyName": "南明",
+        "Province": "江西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城"
+      },
+      {
+        "geo_name": "浙江",
+        "modern_name": "浙江省",
+        "DynastyName": "南明",
+        "Province": "浙江省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而转兵进攻浙江、福建"
+      },
+      {
+        "geo_name": "福建",
+        "modern_name": "福建省",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而转兵进攻浙江、福建"
+      },
+      {
+        "geo_name": "汀州",
+        "modern_name": "长汀县",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "龙岩市",
+        "District_County": "长汀县",
+        "Specific_location": null,
+        "source_text": "隆武帝逃至汀州，被清军追及执获"
+      },
+      {
+        "geo_name": "福州",
+        "modern_name": "福州市",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "福州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "隆武帝逃至汀州，被清军追及执获，死于福州"
+      },
+      {
+        "geo_name": "南澳",
+        "modern_name": "南澳县",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "汕头市",
+        "District_County": "南澳县",
+        "Specific_location": null,
+        "source_text": "率90余人至南澳（广东南澳岛）起兵"
+      },
+      {
+        "geo_name": "金门",
+        "modern_name": "金门县",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "泉州市",
+        "District_County": "金门县",
+        "Specific_location": null,
+        "source_text": "即以金门、厦门两岛为核心"
+      },
+      {
+        "geo_name": "厦门",
+        "modern_name": "厦门市",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "厦门市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "即以金门、厦门两岛为核心"
+      },
+      {
+        "geo_name": "漳州",
+        "modern_name": "漳州市",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以漳、泉二州为屏障"
+      },
+      {
+        "geo_name": "泉州",
+        "modern_name": "泉州市",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "泉州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以漳、泉二州为屏障"
+      },
+      {
+        "geo_name": "广州",
+        "modern_name": "广州市",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "广州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这年冬，隆武帝之弟绍武帝又在广州被清军所俘而死"
+      },
+      {
+        "geo_name": "广西",
+        "modern_name": "广西壮族自治区",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永明王朱由榔于广西桂林改监国为帝号"
+      },
+      {
+        "geo_name": "桂林",
+        "modern_name": "桂林市",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永明王朱由榔于广西桂林改监国为帝号"
+      },
+      {
+        "geo_name": "云南",
+        "modern_name": "云南省",
+        "DynastyName": "南明",
+        "Province": "云南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永历帝号令所及，复达云南、贵州、广东、广西、湖南、江西及四川"
+      },
+      {
+        "geo_name": "贵州",
+        "modern_name": "贵州省",
+        "DynastyName": "南明",
+        "Province": "贵州省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永历帝号令所及，复达云南、贵州、广东、广西、湖南、江西及四川"
+      },
+      {
+        "geo_name": "湖南",
+        "modern_name": "湖南省",
+        "DynastyName": "南明",
+        "Province": "湖南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永历帝号令所及，复达云南、贵州、广东、广西、湖南、江西及四川"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": "四川省",
+        "DynastyName": "南明",
+        "Province": "四川省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "永历帝号令所及，复达云南、贵州、广东、广西、湖南、江西及四川"
+      },
+      {
+        "geo_name": "南雄",
+        "modern_name": "南雄市",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "韶关市",
+        "District_County": "南雄市",
+        "Specific_location": null,
+        "source_text": "尚可喜、耿继茂以潜师袭取南雄"
+      },
+      {
+        "geo_name": "韶州",
+        "modern_name": "韶关市",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "韶关市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进兵韶州（广东曲江）"
+      },
+      {
+        "geo_name": "全州",
+        "modern_name": "全州县",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": "桂林市",
+        "District_County": "全州县",
+        "Specific_location": null,
+        "source_text": "孔有德也连克全州、桂林"
+      },
+      {
+        "geo_name": "安隆所",
+        "modern_name": "西隆县",
+        "DynastyName": "南明",
+        "Province": "贵州省",
+        "City": null,
+        "District_County": "西隆县",
+        "Specific_location": null,
+        "source_text": "被张献忠之部将孙可望劫持移居安隆所（贵州西隆县）"
+      },
+      {
+        "geo_name": "磁灶",
+        "modern_name": "磁灶镇",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "泉州市",
+        "District_County": "晋江市",
+        "Specific_location": null,
+        "source_text": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "geo_name": "漳浦",
+        "modern_name": "漳浦县",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "漳浦县",
+        "Specific_location": null,
+        "source_text": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "geo_name": "小盈岭",
+        "modern_name": null,
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "geo_name": "海澄",
+        "modern_name": "龙海区",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "龙海区",
+        "Specific_location": null,
+        "source_text": "连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县"
+      },
+      {
+        "geo_name": "诏安",
+        "modern_name": "诏安县",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "诏安县",
+        "Specific_location": null,
+        "source_text": "连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县"
+      },
+      {
+        "geo_name": "平和",
+        "modern_name": "平和县",
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": "漳州市",
+        "District_County": "平和县",
+        "Specific_location": null,
+        "source_text": "连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "南明",
+        "Province": "福建省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在江东桥全歼清浙闽总督陈锦所率入闽援军"
+      },
+      {
+        "geo_name": "衡州",
+        "modern_name": "衡阳市",
+        "DynastyName": "南明",
+        "Province": "湖南省",
+        "City": "衡阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪"
+      },
+      {
+        "geo_name": "柳州",
+        "modern_name": "柳州市",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": "柳州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李定国率军由柳州东进广东"
+      },
+      {
+        "geo_name": "高州",
+        "modern_name": "高州市",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "茂名市",
+        "District_County": "高州市",
+        "Specific_location": null,
+        "source_text": "连破高州、廉州、雷州三府"
+      },
+      {
+        "geo_name": "廉州",
+        "modern_name": "合浦县",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": "北海市",
+        "District_County": "合浦县",
+        "Specific_location": null,
+        "source_text": "连破高州、廉州、雷州三府"
+      },
+      {
+        "geo_name": "雷州",
+        "modern_name": "雷州市",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "湛江市",
+        "District_County": "雷州市",
+        "Specific_location": null,
+        "source_text": "连破高州、廉州、雷州三府"
+      },
+      {
+        "geo_name": "新会",
+        "modern_name": "新会区",
+        "DynastyName": "南明",
+        "Province": "广东省",
+        "City": "江门市",
+        "District_County": "新会区",
+        "Specific_location": null,
+        "source_text": "包围广州的门户新会，久攻不克"
+      },
+      {
+        "geo_name": "南宁",
+        "modern_name": "南宁市",
+        "DynastyName": "南明",
+        "Province": "广西壮族自治区",
+        "City": "南宁市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李定国败退南宁"
+      },
+      {
+        "geo_name": "江阴",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "geo_name": "浙江",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "geo_name": "福建",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "geo_name": "汀州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "geo_name": "福州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "geo_name": "南澳",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "geo_name": "金门",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "geo_name": "厦门",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "geo_name": "漳州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "geo_name": "泉州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "geo_name": "湖南",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "geo_name": "广东",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "geo_name": "南雄",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "geo_name": "韶州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "geo_name": "广州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "geo_name": "全州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "geo_name": "桂林",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "geo_name": "磁灶",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "geo_name": "漳浦",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "geo_name": "小盈岭",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "geo_name": "海澄",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "geo_name": "广西",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "geo_name": "衡州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "geo_name": "高州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "geo_name": "廉州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "geo_name": "雷州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "geo_name": "新会",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "清军",
+        "OrgType": "国家",
+        "DynastyName": "清",
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城"
+      },
+      {
+        "OrgName": "义军",
+        "OrgType": "起义军",
+        "DynastyName": "南明",
+        "source_text": "阎、陈等率义军奋勇巷战\n0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "OrgName": "南明",
+        "OrgType": "国家",
+        "DynastyName": "南明",
+        "source_text": "均遭南明各守将悉力拒战"
+      },
+      {
+        "OrgName": "大西军",
+        "OrgType": "起义军",
+        "DynastyName": "南明",
+        "source_text": "李定国原是大西军的安西将军"
+      },
+      {
+        "OrgName": "八旗军",
+        "OrgType": "国家",
+        "DynastyName": "清",
+        "source_text": "在海澄首次大败金砺所率援闽八旗军的进攻"
+      },
+      {
+        "OrgName": "南明军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "OrgName": "李定国",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "阎应元",
+        "DynastyName": "南明",
+        "OrgName": "义军",
+        "Role": "统帅",
+        "Note": "江阴守卫战义军统帅，率军民抵抗清军，城破后壮烈牺牲",
+        "source_text": "阎、陈等率义军奋勇巷战"
+      },
+      {
+        "PersonName": "陈明遇",
+        "DynastyName": "南明",
+        "OrgName": "义军",
+        "Role": "统帅",
+        "Note": "江阴守卫战义军统帅，与阎应元共同率军抵抗，城破后壮烈牺牲",
+        "source_text": "阎、陈等率义军奋勇巷战"
+      },
+      {
+        "PersonName": "多尔衮",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "君主",
+        "Note": "摄政王，传书劝降江阴义军",
+        "source_text": "摄政王多尔衮和豫王多铎，传书劝降"
+      },
+      {
+        "PersonName": "多铎",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "豫王，与多尔衮共同劝降江阴义军",
+        "source_text": "摄政王多尔衮和豫王多铎，传书劝降"
+      },
+      {
+        "PersonName": "博洛",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "清军将领，下令屠城",
+        "source_text": "博洛下令屠城"
+      },
+      {
+        "PersonName": "隆武帝",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "君主",
+        "Note": "南明皇帝，企图统一闽、浙诸军抗清，后逃至汀州被俘，死于福州",
+        "source_text": "隆武帝企图统一闽、浙诸军以对抗清军\n清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "PersonName": "郑芝龙",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "将领",
+        "Note": "郑成功之父，后降清，敦促郑成功妥协投诚",
+        "source_text": "郑芝龙降清"
+      },
+      {
+        "PersonName": "郑成功",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "统帅",
+        "Note": "抗清名将，以金门、厦门为基地，多次击败清军，拒绝父亲劝降",
+        "source_text": "郑成功则复信其父亲说“盖自古大义灭亲，从治命不从乱命”"
+      },
+      {
+        "PersonName": "绍武帝",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "君主",
+        "Note": "隆武帝之弟，在广州被清军所俘而死",
+        "source_text": "隆武帝之弟绍武帝又在广州被清军所俘而死"
+      },
+      {
+        "PersonName": "朱由榔",
+        "DynastyName": "南明",
+        "OrgName": "南明",
+        "Role": "君主",
+        "Note": "即永历帝，在桂林称帝，后西走苗人土司地区，被孙可望劫持",
+        "source_text": "永明王朱由榔于广西桂林改监国为帝号"
+      },
+      {
+        "PersonName": "济尔哈朗",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "郑亲王，定远大将军，率军进攻湖南",
+        "source_text": "令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南"
+      },
+      {
+        "PersonName": "孔有德",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "恭顺王，后改封定南王，率军进攻广西，兵败自楚",
+        "source_text": "改封孔有德为定南王，率所部2万人，携家驻防广西"
+      },
+      {
+        "PersonName": "尚可喜",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "智顺王，后改封平南王，率军进攻广东",
+        "source_text": "改封尚可喜、耿仲明分别为平南王、靖南王"
+      },
+      {
+        "PersonName": "耿仲明",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "靖南王，后惧罪而死",
+        "source_text": "改封尚可喜、耿仲明分别为平南王、靖南王"
+      },
+      {
+        "PersonName": "耿继茂",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "将领",
+        "Note": "耿仲明之子，袭职靖南王，与尚可喜攻取南雄、韶州",
+        "source_text": "其子耿继茂袭职"
+      },
+      {
+        "PersonName": "孙可望",
+        "DynastyName": "南明",
+        "OrgName": "大西军",
+        "Role": "将领",
+        "Note": "张献忠部将，劫持永历帝移居安隆所",
+        "source_text": "被张献忠之部将孙可望劫持移居安隆所"
+      },
+      {
+        "PersonName": "王邦俊",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "将领",
+        "Note": "漳州总兵，被郑成功伏击大败",
+        "source_text": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "PersonName": "杨名高",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "将领",
+        "Note": "福建陆路提督，被郑成功伏击大败",
+        "source_text": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "PersonName": "陈锦",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "将领",
+        "Note": "浙闽总督，所率援军在江东桥被郑成功全歼",
+        "source_text": "在江东桥全歼清浙闽总督陈锦所率入闽援军"
+      },
+      {
+        "PersonName": "金砺",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "将领",
+        "Note": "清军将领，率援闽八旗军进攻海澄，被郑成功击败",
+        "source_text": "在海澄首次大败金砺所率援闽八旗军的进攻"
+      },
+      {
+        "PersonName": "张献忠",
+        "DynastyName": "明",
+        "OrgName": "大西军",
+        "Role": "统帅",
+        "Note": "大西军首领，已牺牲，其部将孙可望、李定国等继续抗清",
+        "source_text": "张献忠牺牲后"
+      },
+      {
+        "PersonName": "尼堪",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "敬谨亲王，在衡州被李定国设伏斩杀",
+        "source_text": "斩清帅敬谨亲王尼堪"
+      },
+      {
+        "PersonName": "济度",
+        "DynastyName": "清",
+        "OrgName": "清",
+        "Role": "统帅",
+        "Note": "定远大将，率兵约3万入闽，企图消灭郑军",
+        "source_text": "清即命定远大将济度率兵约3万入闽"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "江阴城守卫战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1645年",
+        "EndDate": "1645年",
+        "DynastyName": "清",
+        "Place": "江阴",
+        "Aggressor": "清军",
+        "Defender": "义军",
+        "Allies": null,
+        "Result": "清军获胜，江阴城破，义军全部牺牲",
+        "Commanders": "阎应元、陈明遇、多尔衮、多铎",
+        "KeyPersons": null,
+        "Action": "守卫、炮击、巷战",
+        "TroopSize": "不详",
+        "Duration": "持续81天",
+        "GeographicScope": "江阴城",
+        "Casualties": "清军斩杀9.7万余人，义军全部牺牲",
+        "source": "中国历代战争简史",
+        "Impact": "江阴城守卫战是南明抗清的重要战役，展现了军民抵抗意志，但最终失败，清军屠城。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军攻占浙江、福建",
+            "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。"
+          }
+        ],
+        "source_text": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "EventType": "统一战争",
+        "StartDate": "1646年",
+        "EndDate": "1646年",
+        "DynastyName": "清",
+        "Place": "浙江、福建、汀州、福州",
+        "Aggressor": "清军",
+        "Defender": "南明",
+        "Allies": null,
+        "Result": "清军获胜，浙江、福建失陷，隆武帝被俘死，郑芝龙降清",
+        "Commanders": "博洛、隆武帝、鲁监国、郑芝龙",
+        "KeyPersons": "郑成功",
+        "Action": "攻占、追击、执获",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "浙江、福建",
+        "Casualties": "不详",
+        "source": "中国历代战争简史",
+        "Impact": "清军占领浙江、福建，南明隆武政权覆灭，郑芝龙降清，郑成功起兵抗清。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "郑成功起兵抗清",
+            "evidence": "郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳起兵。"
+          }
+        ],
+        "source_text": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "EventType": "割据政权建立",
+        "StartDate": "1646年",
+        "EndDate": "1646年",
+        "DynastyName": "清",
+        "Place": "南澳、金门、厦门、漳州、泉州",
+        "Aggressor": "郑成功",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "郑成功建立抗清根据地，开始长期抗清",
+        "Commanders": "郑成功",
+        "KeyPersons": "郑芝龙",
+        "Action": "起兵、建立根据地",
+        "TroopSize": "90余人",
+        "Duration": "不详",
+        "GeographicScope": "东南沿海",
+        "Casualties": "不详",
+        "source": "中国历代战争简史",
+        "Impact": "郑成功起兵抗清，建立海上抗清根据地，成为东南抗清主力。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军攻占浙江、福建",
+            "evidence": "郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳起兵。"
+          }
+        ],
+        "source_text": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "EventType": "镇压叛乱",
+        "StartDate": "1649年2月",
+        "EndDate": "1649年5月",
+        "DynastyName": "清",
+        "Place": "湖南、广东",
+        "Aggressor": "清军",
+        "Defender": "南明",
+        "Allies": null,
+        "Result": "无进展，清军变更进攻政策",
+        "Commanders": "济尔哈朗、孔有德、尚可喜",
+        "KeyPersons": null,
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "约3个月",
+        "GeographicScope": "湖南、广东",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军进攻受阻，促使清廷调整战略，改封孔有德、尚可喜等为藩王，驻防广西、广东。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军攻取南雄、韶州、广州",
+            "evidence": "5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。不久，耿仲明惧罪而死，其子耿继茂袭职。12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "孔有德攻取全州、桂林",
+            "evidence": "与此同时，孔有德也连克全州、桂林。"
+          }
+        ],
+        "source_text": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "EventType": "镇压叛乱",
+        "StartDate": "1649年12月",
+        "EndDate": "1650年",
+        "DynastyName": "清",
+        "Place": "南雄、韶州、广州",
+        "Aggressor": "清军",
+        "Defender": "南明军",
+        "Allies": null,
+        "Result": "清军获胜，攻取南雄、韶州、广州",
+        "Commanders": "尚可喜、耿继茂",
+        "KeyPersons": null,
+        "Action": "攻伐、袭取",
+        "TroopSize": "不详",
+        "Duration": "约1年",
+        "GeographicScope": "广东地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军占领广东大部，南明永历帝西走。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军进攻湖南、广东",
+            "evidence": "5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。不久，耿仲明惧罪而死，其子耿继茂袭职。12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。"
+          },
+          {
+            "type": "并列关系",
+            "to": "孔有德攻取全州、桂林",
+            "evidence": "与此同时，孔有德也连克全州、桂林。"
+          }
+        ],
+        "source_text": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "EventType": "镇压叛乱",
+        "StartDate": "1650年",
+        "EndDate": "1650年",
+        "DynastyName": "清",
+        "Place": "全州、桂林",
+        "Aggressor": "清军",
+        "Defender": "南明军",
+        "Allies": null,
+        "Result": "清军获胜，攻取全州、桂林",
+        "Commanders": "孔有德",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "广西地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军占领广西，南明永历帝西走。",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "清军进攻湖南、广东",
+            "evidence": "与此同时，孔有德也连克全州、桂林。"
+          },
+          {
+            "type": "并列关系",
+            "to": "清军攻取南雄、韶州、广州",
+            "evidence": "与此同时，孔有德也连克全州、桂林。"
+          }
+        ],
+        "source_text": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "EventType": "军阀割据",
+        "StartDate": "1647年",
+        "EndDate": "1656年",
+        "DynastyName": "清",
+        "Place": "漳州、泉州",
+        "Aggressor": "郑成功",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "郑成功多次进攻，时得时失，但掌握作战主动权",
+        "Commanders": "郑成功",
+        "KeyPersons": null,
+        "Action": "进攻",
+        "TroopSize": "不详",
+        "Duration": "持续9年",
+        "GeographicScope": "漳州、泉州一带",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "开辟了东南沿海地区抗清战争的新局面",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "磁灶、漳浦伏击战",
+            "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+          },
+          {
+            "type": "包含关系",
+            "to": "小盈岭伏击战",
+            "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+          }
+        ],
+        "source_text": "自1647年后的9年当中，曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。虽然时得时失，但始终掌握着作战主动权，“指挥”清军往返应援，顾此失彼，疲于奔命。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "EventType": "战争",
+        "StartDate": "1651年夏秋",
+        "EndDate": "1651年",
+        "DynastyName": "清",
+        "Place": "磁灶、漳浦",
+        "Aggressor": "郑成功",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "郑成功获胜，大败清漳州总兵王邦俊",
+        "Commanders": "郑成功、王邦俊",
+        "KeyPersons": null,
+        "Action": "伏击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "磁灶、漳浦",
+        "Casualties": "大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "郑成功在漳泉地区取得优势",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "郑成功进攻漳泉地区",
+            "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+          }
+        ],
+        "source_text": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "EventType": "战争",
+        "StartDate": "1651年",
+        "EndDate": "1651年",
+        "DynastyName": "清",
+        "Place": "小盈岭",
+        "Aggressor": "郑成功",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "郑成功获胜，大败清福建陆路提督杨名高",
+        "Commanders": "郑成功、杨名高",
+        "KeyPersons": null,
+        "Action": "伏击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "小盈岭",
+        "Casualties": "大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "郑成功连下海澄、漳浦、诏安、平和等县",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "郑成功进攻漳泉地区",
+            "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+          }
+        ],
+        "source_text": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1652年3月",
+        "EndDate": "1652年3月",
+        "DynastyName": "清",
+        "Place": "江东桥",
+        "Aggressor": "郑成功",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "郑成功获胜，全歼清浙闽总督陈锦所率援军",
+        "Commanders": "郑成功、陈锦",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "江东桥",
+        "Casualties": "全歼陈锦所部",
+        "source": "《中国历代战争简史》",
+        "Impact": "郑成功首次与清军主力交战并获胜，巩固了东南沿海抗清根据地",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "海澄之战",
+            "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻"
+          }
+        ],
+        "source_text": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "海澄之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1653年5月",
+        "EndDate": "1653年5月",
+        "DynastyName": "清",
+        "Place": "海澄",
+        "Aggressor": "清军",
+        "Defender": "郑成功",
+        "Allies": null,
+        "Result": "郑成功获胜，固守厦门门户",
+        "Commanders": "郑成功、金砺",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "海澄",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "郑成功首次大败八旗军，巩固了厦门门户",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "江东桥之战",
+            "evidence": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻"
+          }
+        ],
+        "source_text": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "EventName": "李定国东征",
+        "EventType": "对外远征",
+        "StartDate": "1652年",
+        "EndDate": "1654年",
+        "DynastyName": "清",
+        "Place": "湖南、广西、广东",
+        "Aggressor": "李定国（大西军）",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "李定国先胜后败，最终败退南宁",
+        "Commanders": "李定国、孔有德、尼堪",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "十万",
+        "Duration": "持续三年",
+        "GeographicScope": "湖南、广西、广东",
+        "Casualties": "歼灭清军八万余，后败退",
+        "source": "《中国历代战争简史》",
+        "Impact": "李定国东征一度收复广西大部，但最终失败，西南抗清势力衰落",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "并列关系",
+            "to": "江东桥之战",
+            "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清"
+          }
+        ],
+        "source_text": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "衡州之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1652年",
+        "EndDate": "1652年",
+        "DynastyName": "清",
+        "Place": "衡州",
+        "Aggressor": "清军",
+        "Defender": "李定国",
+        "Allies": null,
+        "Result": "李定国获胜，斩杀尼堪",
+        "Commanders": "李定国、尼堪",
+        "KeyPersons": null,
+        "Action": "设伏、交战",
+        "TroopSize": "李定国率军10万",
+        "Duration": "不详",
+        "GeographicScope": "衡州",
+        "Casualties": "清军主帅尼堪被斩",
+        "source": "《中国历代战争简史》",
+        "Impact": "李定国在西南战场取得重大胜利，迫使清军无法抽调主力对付东南",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "李定国进攻广东",
+            "evidence": "1654年，李定国率军由柳州东进广东"
+          }
+        ],
+        "source_text": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "EventType": "对外远征",
+        "StartDate": "1654年",
+        "EndDate": "1654年",
+        "DynastyName": "清",
+        "Place": "高州、廉州、雷州、新会",
+        "Aggressor": "李定国",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "李定国败退南宁",
+        "Commanders": "李定国",
+        "KeyPersons": null,
+        "Action": "进攻、包围",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "广东、广西",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "李定国进攻广东失败，西南之业衰矣",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "衡州之战",
+            "evidence": "1654年，李定国率军由柳州东进广东"
+          },
+          {
+            "type": "因果关系",
+            "to": "清军进攻福建",
+            "evidence": "随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。次年，清与郑和谈破裂。"
+          }
+        ],
+        "source_text": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "EventType": "镇压叛乱",
+        "StartDate": "1656年",
+        "EndDate": "1656年",
+        "DynastyName": "清",
+        "Place": "福建",
+        "Aggressor": "清军",
+        "Defender": "郑成功",
+        "Allies": null,
+        "Result": "郑成功集兵金门、厦门，诱敌出海作战",
+        "Commanders": "济度、郑成功",
+        "KeyPersons": null,
+        "Action": "进攻、防御",
+        "TroopSize": "清军约3万",
+        "Duration": "不详",
+        "GeographicScope": "福建",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "清军企图以武力消灭或迫降郑军，郑成功利用清军不习水战之弱点，诱其出海作战",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "李定国进攻广东",
+            "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。"
+          }
+        ],
+        "source_text": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "主战场",
+        "modern_name": "江阴",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "次要战场",
+        "modern_name": "花家坝",
+        "evidence": "8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "主战场",
+        "modern_name": "浙江",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "主战场",
+        "modern_name": "福建",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "途经地",
+        "modern_name": "汀州",
+        "evidence": "隆武帝逃至汀州，被清军追及执获，死于福州。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "目的地",
+        "modern_name": "福州",
+        "evidence": "隆武帝逃至汀州，被清军追及执获，死于福州。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "出发地",
+        "modern_name": "南澳",
+        "evidence": "率90余人至南澳（广东南澳岛）起兵"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "战略要地",
+        "modern_name": "金门",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "战略要地",
+        "modern_name": "厦门",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "战略要地",
+        "modern_name": "漳州",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "战略要地",
+        "modern_name": "泉州",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "主战场",
+        "modern_name": "湖南",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "主战场",
+        "modern_name": "广东",
+        "evidence": "智顺王尚可喜率军进攻广东"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "主战场",
+        "modern_name": "南雄",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "主战场",
+        "modern_name": "韶州",
+        "evidence": "进兵韶州（广东曲江）"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "主战场",
+        "modern_name": "广州",
+        "evidence": "次年，又陷广州。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "主战场",
+        "modern_name": "全州",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "主战场",
+        "modern_name": "桂林",
+        "evidence": "孔有德也连克全州、桂林。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "主战场",
+        "modern_name": "漳州",
+        "evidence": "自1647年后的9年当中，曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。虽然时得时失，但始终掌握着作战主动权，“指挥”清军往返应援，顾此失彼，疲于奔命。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "主战场",
+        "modern_name": "泉州",
+        "evidence": "曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "主战场",
+        "modern_name": "磁灶",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "主战场",
+        "modern_name": "漳浦",
+        "evidence": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "主战场",
+        "modern_name": "小盈岭",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "主战场",
+        "modern_name": "江东桥",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "主战场",
+        "modern_name": "海澄",
+        "evidence": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "主战场",
+        "modern_name": "湖南",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "主战场",
+        "modern_name": "广西",
+        "evidence": "继克桂林，迫使孔有德兵败自楚，攻取广西大部。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "主战场",
+        "modern_name": "广东",
+        "evidence": "1654年，李定国率军由柳州东进广东"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "主战场",
+        "modern_name": "衡州",
+        "evidence": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "主战场",
+        "modern_name": "高州",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "主战场",
+        "modern_name": "廉州",
+        "evidence": "连破高州、廉州、雷州三府"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "主战场",
+        "modern_name": "雷州",
+        "evidence": "连破高州、廉州、雷州三府"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "主战场",
+        "modern_name": "新会",
+        "evidence": "包围广州的门户新会，久攻不克。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "主战场",
+        "modern_name": "福建",
+        "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "战略要地",
+        "modern_name": "江阴",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "目的地",
+        "modern_name": "浙江",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "战略要地",
+        "modern_name": "浙江",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "次要战场",
+        "modern_name": "福建",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "战略要地",
+        "modern_name": "福建",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "次要战场",
+        "modern_name": "汀州",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "目的地",
+        "modern_name": "汀州",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "战略要地",
+        "modern_name": "汀州",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "次要战场",
+        "modern_name": "福州",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "战略要地",
+        "modern_name": "福州",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "主战场",
+        "modern_name": "南澳",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "目的地",
+        "modern_name": "南澳",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "战略要地",
+        "modern_name": "南澳",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "次要战场",
+        "modern_name": "金门",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "次要战场",
+        "modern_name": "厦门",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "次要战场",
+        "modern_name": "漳州",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "次要战场",
+        "modern_name": "泉州",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "目的地",
+        "modern_name": "湖南",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "次要战场",
+        "modern_name": "广东",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "目的地",
+        "modern_name": "广东",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "目的地",
+        "modern_name": "南雄",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "次要战场",
+        "modern_name": "韶州",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "次要战场",
+        "modern_name": "广州",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "目的地",
+        "modern_name": "全州",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "次要战场",
+        "modern_name": "桂林",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "次要战场",
+        "modern_name": "泉州",
+        "evidence": "自1647年后的9年当中，曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。虽然时得时失，但始终掌握着作战主动权，“指挥”清军往返应援，顾此失彼，疲于奔命。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "次要战场",
+        "modern_name": "漳浦",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "次要战场",
+        "modern_name": "广西",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "目的地",
+        "modern_name": "广西",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "次要战场",
+        "modern_name": "广东",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "次要战场",
+        "modern_name": "廉州",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "次要战场",
+        "modern_name": "雷州",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "次要战场",
+        "modern_name": "新会",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "防守方",
+        "OrgName": "义军",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "防守方",
+        "OrgName": "南明",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "发起方",
+        "OrgName": "郑成功",
+        "evidence": "率90余人至南澳（广东南澳岛）起兵"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "防守方",
+        "OrgName": "南明",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "防守方",
+        "OrgName": "南明军",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "防守方",
+        "OrgName": "南明军",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "发起方",
+        "OrgName": "郑成功",
+        "evidence": "郑成功则采取以战求存，以攻为守的积极作战指导"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "自1647年后的9年当中，曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。虽然时得时失，但始终掌握着作战主动权，“指挥”清军往返应援，顾此失彼，疲于奔命。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "发起方",
+        "OrgName": "郑成功",
+        "evidence": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "发起方",
+        "OrgName": "郑成功",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "发起方",
+        "OrgName": "郑成功",
+        "evidence": "在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "防守方",
+        "OrgName": "郑成功",
+        "evidence": "固守了厦门之门户。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "发起方",
+        "OrgName": "李定国",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "防守方",
+        "OrgName": "李定国",
+        "evidence": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "发起方",
+        "OrgName": "李定国",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。因此，第一次写信约郑成功率军南下，共取广州。但郑成功错误地判断了当时的情况，对南下会师不够积极，9月间就接到李定国的信，11月初才派兵南下，终于始误了战机，李定国败退南宁。随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "发起方",
+        "OrgName": "清军",
+        "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "防守方",
+        "OrgName": "郑成功",
+        "evidence": "郑成功则决定集兵于金门、厦门"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "被俘方",
+        "OrgName": "清军",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "被俘方",
+        "OrgName": "南明",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "统帅",
+        "PersonName": "阎应元",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "统帅",
+        "PersonName": "陈明遇",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "统帅",
+        "PersonName": "多尔衮",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "江阴城守卫战",
+        "relation": "统帅",
+        "PersonName": "多铎",
+        "evidence": "0日起，对江阴城连续炮击10余日，城垣多处崩裂。阁、陈率军民边修城，边作战。摄政王多尔衮和豫王多铎，传书劝降，义军则在书后写上“愿受炮打，宁死不降”射还。8月20日，清军在城外花家坝集中200门大炮，专轰城东北角。次日，以狼烟和炮火掩护，蜂拥入城，阎、陈等率义军奋勇巷战，斩杀清兵数千，最后全部壮烈牺牲，坚持81天的城邑守卫战结束。博洛下令屠城，斩杀9.7万余人，幸存者仅有老小53口。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "统帅",
+        "PersonName": "博洛",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "君主",
+        "PersonName": "隆武帝",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "君主",
+        "PersonName": "鲁监国",
+        "evidence": "鲁监国拒不采纳"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "参与者",
+        "PersonName": "郑芝龙",
+        "evidence": "这时，郑芝龙降清。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "参与者",
+        "PersonName": "郑成功",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "郑成功起兵抗清",
+        "relation": "参与者",
+        "PersonName": "郑芝龙",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。同时，利用东南沿海地区的人力、物力资源及海上贸易的财力资源，建立一支以水师为主的两栖作战部队，等待时机，以图进取。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "统帅",
+        "PersonName": "济尔哈朗",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "统帅",
+        "PersonName": "孔有德",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军进攻湖南、广东",
+        "relation": "统帅",
+        "PersonName": "尚可喜",
+        "evidence": "1649年2月，令定远大将军郑亲王济尔哈朗和恭顺王孔有德率军进攻湖南，智顺王尚可喜率军进攻广东，均遭南明各守将悉力拒战，无进展。5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "统帅",
+        "PersonName": "尚可喜",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "清军攻取南雄、韶州、广州",
+        "relation": "统帅",
+        "PersonName": "耿继茂",
+        "evidence": "12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "孔有德攻取全州、桂林",
+        "relation": "统帅",
+        "PersonName": "孔有德",
+        "evidence": "与此同时，孔有德也连克全州、桂林。明永历帝乃西走苗人土司地区。"
+      },
+      {
+        "EventName": "郑成功进攻漳泉地区",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "自1647年后的9年当中，曾在金、厦外围之漳、泉一带及其两侧滨海县城，先后向清军发起进攻35次。虽然时得时失，但始终掌握着作战主动权，“指挥”清军往返应援，顾此失彼，疲于奔命。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "将领",
+        "PersonName": "王邦俊",
+        "evidence": "两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "将领",
+        "PersonName": "杨名高",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "将领",
+        "PersonName": "陈锦",
+        "evidence": "在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "将领",
+        "PersonName": "金砺",
+        "evidence": "又在海澄首次大败金砺所率援闽八旗军的进攻"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "统帅",
+        "PersonName": "李定国",
+        "evidence": "李定国率军10万东征"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "将领",
+        "PersonName": "孔有德",
+        "evidence": "迫使孔有德兵败自楚"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "将领",
+        "PersonName": "尼堪",
+        "evidence": "斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "统帅",
+        "PersonName": "李定国",
+        "evidence": "在衡州（衡阳）设伏"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "将领",
+        "PersonName": "尼堪",
+        "evidence": "斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "李定国进攻广东",
+        "relation": "统帅",
+        "PersonName": "李定国",
+        "evidence": "李定国率军由柳州东进广东"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "统帅",
+        "PersonName": "济度",
+        "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "统帅",
+        "PersonName": "郑成功",
+        "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "统帅",
+        "PersonName": "隆武帝",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "俘虏",
+        "PersonName": "隆武帝",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "清军攻占浙江、福建",
+        "relation": "统帅",
+        "PersonName": "郑芝龙",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。隆武帝企图统一闽、浙诸军以对抗清军，但鲁监国拒不采纳。次年6月，浙江、福建相继失陷。鲁王浮海转赴广东；隆武帝逃至汀州，被清军追及执获，死于福州。这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵，确定了固本蓄锐的战略方针，即以金门、厦门两岛为核心，以漳、泉二州为屏障，建立海上抗清根据地。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "统帅",
+        "PersonName": "王邦俊",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "磁灶、漳浦伏击战",
+        "relation": "君主",
+        "PersonName": "王邦俊",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦。"
+      },
+      {
+        "EventName": "小盈岭伏击战",
+        "relation": "统帅",
+        "PersonName": "杨名高",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭，连下海澄（龙海）、漳浦、诏安、平和（均在漳以南）等县。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "统帅",
+        "PersonName": "陈锦",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName": "海澄之战",
+        "relation": "统帅",
+        "PersonName": "金砺",
+        "evidence": "1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻，固守了厦门之门户。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "统帅",
+        "PersonName": "孔有德",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "李定国东征",
+        "relation": "统帅",
+        "PersonName": "尼堪",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清。李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。...1654年，李定国率军由柳州东进广东，连破高州、廉州、雷州三府，包围广州的门户新会，久攻不克。...终于始误了战机，李定国败退南宁。"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "统帅",
+        "PersonName": "尼堪",
+        "evidence": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "衡州之战",
+        "relation": "阵亡",
+        "PersonName": "尼堪",
+        "evidence": "李定国率军10万东征，在湖南与广西交界歼灭清军8万余。继克桂林，迫使孔有德兵败自楚，攻取广西大部。旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName": "清军进攻福建",
+        "relation": "将领",
+        "PersonName": "济度",
+        "evidence": "次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。郑成功则决定集兵于金门、厦门，利用清军不习水战之弱点，诱其出海作战。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "江阴城守卫战",
+        "relation": "顺承关系",
+        "EventName_B": "清军攻占浙江、福建",
+        "evidence": "清军在进攻江阴的同时，分兵相继攻下江苏、江西两省各城，继而转兵进攻浙江、福建。"
+      },
+      {
+        "EventName_A": "清军攻占浙江、福建",
+        "relation": "顺承关系",
+        "EventName_B": "郑成功起兵抗清",
+        "evidence": "这时，郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳（广东南澳岛）起兵\n郑芝龙降清。其子郑成功泣劝无效，便与父决裂，率90余人至南澳起兵。"
+      },
+      {
+        "EventName_A": "清军攻取南雄、韶州、广州",
+        "relation": "顺承关系",
+        "EventName_B": "清军进攻湖南、广东",
+        "evidence": "5月，即变更进攻政策。改封孔有德为定南王，率所部2万人，携家驻防广西；改封尚可喜、耿仲明分别为平南王、靖南王，各率所部1万人，亦携家驻防广东。不久，耿仲明惧罪而死，其子耿继茂袭职。12月，尚可喜、耿继茂以潜师袭取南雄，进兵韶州（广东曲江）。次年，又陷广州。"
+      },
+      {
+        "EventName_A": "清军攻取南雄、韶州、广州",
+        "relation": "并列关系",
+        "EventName_B": "孔有德攻取全州、桂林",
+        "evidence": "与此同时，孔有德也连克全州、桂林。"
+      },
+      {
+        "EventName_A": "磁灶、漳浦伏击战",
+        "relation": "顺承关系",
+        "EventName_B": "郑成功进攻漳泉地区",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "EventName_A": "小盈岭伏击战",
+        "relation": "顺承关系",
+        "EventName_B": "磁灶、漳浦伏击战",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "EventName_A": "小盈岭伏击战",
+        "relation": "顺承关系",
+        "EventName_B": "江东桥之战",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。"
+      },
+      {
+        "EventName_A": "江东桥之战",
+        "relation": "顺承关系",
+        "EventName_B": "海澄之战",
+        "evidence": "次年3月，第一次与清军主力交战，在江东桥全歼清浙闽总督陈锦所率入闽援军。1653年5月，又在海澄首次大败金砺所率援闽八旗军的进攻"
+      },
+      {
+        "EventName_A": "李定国东征",
+        "relation": "顺承关系",
+        "EventName_B": "衡州之战",
+        "evidence": "旋进军湖南，在衡州（衡阳）设伏，斩清帅敬谨亲王尼堪。"
+      },
+      {
+        "EventName_A": "李定国东征",
+        "relation": "顺承关系",
+        "EventName_B": "李定国进攻广东",
+        "evidence": "1654年，李定国率军由柳州东进广东"
+      },
+      {
+        "EventName_A": "清军进攻湖南、广东",
+        "relation": "并列关系",
+        "EventName_B": "孔有德攻取全州、桂林",
+        "evidence": "与此同时，孔有德也连克全州、桂林。"
+      },
+      {
+        "EventName_A": "郑成功进攻漳泉地区",
+        "relation": "包含关系",
+        "EventName_B": "磁灶、漳浦伏击战",
+        "evidence": "1651年夏秋，两次以伏击战大败清漳州总兵王邦俊于磁灶、漳浦"
+      },
+      {
+        "EventName_A": "郑成功进攻漳泉地区",
+        "relation": "包含关系",
+        "EventName_B": "小盈岭伏击战",
+        "evidence": "再以伏击战大败清福建陆路提督杨名高于小盈岭"
+      },
+      {
+        "EventName_A": "李定国东征",
+        "relation": "并列关系",
+        "EventName_B": "江东桥之战",
+        "evidence": "在郑成功全歼陈锦所率援闽军于江东桥那年，大西军余部联合南明军分路出征抗清"
+      },
+      {
+        "EventName_A": "李定国进攻广东",
+        "relation": "顺承关系",
+        "EventName_B": "衡州之战",
+        "evidence": "1654年，李定国率军由柳州东进广东"
+      },
+      {
+        "EventName_A": "李定国进攻广东",
+        "relation": "顺承关系",
+        "EventName_B": "清军进攻福建",
+        "evidence": "随后，广东、广西42县的广大地区复为清军占领，李定国也“力屈不能复出，西南之业衰矣”。次年，清与郑和谈破裂。\n次年，清与郑和谈破裂。清即命定远大将济度率兵约3万入闽，会同驻闽清军，企图以武力消灭或迫降郑军。"
+      }
+    ]
+  }
+}

@@ -8,6 +8,11 @@ name: release
 # - smoke 失败不再被 `|| true` 吞掉：任一门禁失败都阻断发布；
 # - 数据制品必须带预期 sha256 才允许解包（可再加 gpg 签名），并做 zip-slip 与范围检查；
 # - release 包补齐源码、dist、数据、eval/demo、证据与 SBOM。
+#
+# **只支持 workflow_dispatch**（第 14 轮审计 P3-16）：原先还挂了 `push: tags: v*`，
+# 但 tag 推送下 inputs 的 data_artifact_url / sha256 全为空，只有事先配了对应 Secret 才能跑
+# ——也就是看起来有两个入口、实际只有一个，而且没配 Secret 时它会每次 tag 都失败一次。
+# 与其留一个必挂的触发器，不如让入口只有一处：要按 tag 发布就用 dispatch 指定版本号。
 on:
   workflow_dispatch:
     inputs:
@@ -30,8 +35,6 @@ on:
         description: "数据版本（如 20260915_v1）"
         required: true
         default: "20260915_v1"
-  push:
-    tags: ["v*"]
 
 jobs:
   release-gate:

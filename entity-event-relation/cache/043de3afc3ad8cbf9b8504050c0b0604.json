@@ -1,0 +1,1493 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "鄱阳",
+        "modern_name": "鄱阳湖",
+        "DynastyName": "明朝",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "首先率兵决胜鄱阳，全歼陈友谅军"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再战平江，消灭张士诚部"
+      },
+      {
+        "geo_name": "采石",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "率军渡江，攻占采石、太平（安徽当涂）"
+      },
+      {
+        "geo_name": "太平",
+        "modern_name": "当涂",
+        "DynastyName": "明朝",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "当涂县",
+        "Specific_location": null,
+        "source_text": "率军渡江，攻占采石、太平（安徽当涂）"
+      },
+      {
+        "geo_name": "建康",
+        "modern_name": "南京",
+        "DynastyName": "明朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "水陆配合，攻破建康（南京），获兵民50万"
+      },
+      {
+        "geo_name": "集庆路",
+        "modern_name": "南京",
+        "DynastyName": "明朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "改集庆路为应天府"
+      },
+      {
+        "geo_name": "应天府",
+        "modern_name": "南京",
+        "DynastyName": "明朝",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "改集庆路为应天府"
+      },
+      {
+        "geo_name": "濠州",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "率兵从濠州南下略定远"
+      },
+      {
+        "geo_name": "定远",
+        "modern_name": "定远县",
+        "DynastyName": "明朝",
+        "Province": "安徽省",
+        "City": "滁州市",
+        "District_County": "定远县",
+        "Specific_location": null,
+        "source_text": "率兵从濠州南下略定远"
+      },
+      {
+        "geo_name": "横涧山",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "又袭击横涧山“义军”缪大亨部"
+      },
+      {
+        "geo_name": "池州",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "率舟师越过朱军所据的池州"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "统舟师10万，由江州东下"
+      },
+      {
+        "geo_name": "汴梁",
+        "modern_name": "开封",
+        "DynastyName": "明朝",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "北方红巾军政权所在地汴梁被元军攻破"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "与后金在辽东展开了近九年的争夺战争"
+      },
+      {
+        "geo_name": "萨尔浒",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先败于萨尔浒、广宁等诸役"
+      },
+      {
+        "geo_name": "广宁",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先败于萨尔浒、广宁等诸役"
+      },
+      {
+        "geo_name": "宁远",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "geo_name": "松山",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "geo_name": "锦州",
+        "modern_name": "锦州市",
+        "DynastyName": "明朝",
+        "Province": "辽宁省",
+        "City": "锦州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "洛阳市",
+        "DynastyName": "明朝",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在洛阳、襄阳、朱仙镇、汝州等重大战役中"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": "襄阳市",
+        "DynastyName": "明朝",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在洛阳、襄阳、朱仙镇、汝州等重大战役中"
+      },
+      {
+        "geo_name": "朱仙镇",
+        "modern_name": null,
+        "DynastyName": "明朝",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在洛阳、襄阳、朱仙镇、汝州等重大战役中"
+      },
+      {
+        "geo_name": "汝州",
+        "modern_name": "汝州市",
+        "DynastyName": "明朝",
+        "Province": "河南省",
+        "City": "平顶山市",
+        "District_County": "汝州市",
+        "Specific_location": null,
+        "source_text": "在洛阳、襄阳、朱仙镇、汝州等重大战役中"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": "北京市",
+        "DynastyName": "明朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "其在北京的朝廷被起义军推翻"
+      },
+      {
+        "geo_name": "鄱阳",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "geo_name": "元朝境内",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "geo_name": "塞北",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "随后，为保边安境，明成祖朱棣五次亲征塞北，进击蒙古复元势力；东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "东南沿海",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "萨尔浒",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "广宁",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "宁远",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "松山",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "锦州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "geo_name": "朱仙镇",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "geo_name": "汝州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "geo_name": "建康",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "geo_name": "应天",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "红巾军",
+        "OrgType": "起义军",
+        "DynastyName": "明朝",
+        "source_text": "朱元璋趁红巾军与元军两败俱伤之势"
+      },
+      {
+        "OrgName": "元军",
+        "OrgType": "国家",
+        "DynastyName": "明朝",
+        "source_text": "朱元璋趁红巾军与元军两败俱伤之势\n翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "OrgName": "陈友谅军",
+        "OrgType": "地方势力",
+        "DynastyName": "明朝",
+        "source_text": "首先率兵决胜鄱阳，全歼陈友谅军\n1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "OrgName": "张士诚部",
+        "OrgType": "地方势力",
+        "DynastyName": "明朝",
+        "source_text": "再战平江，消灭张士诚部"
+      },
+      {
+        "OrgName": "倭寇",
+        "OrgType": "地方势力",
+        "DynastyName": "明朝",
+        "source_text": "东南沿海军民，自北到南，进剿倭寇"
+      },
+      {
+        "OrgName": "李自成等领导的农民起义",
+        "OrgType": "起义军",
+        "DynastyName": "明朝",
+        "source_text": "集中兵力镇压李自成等领导的农民起义"
+      },
+      {
+        "OrgName": "起义军",
+        "OrgType": "起义军",
+        "DynastyName": "明朝",
+        "source_text": "其在北京的朝廷被起义军推翻"
+      },
+      {
+        "OrgName": "大宋政权",
+        "OrgType": "中央政权",
+        "DynastyName": "明朝",
+        "source_text": "朱元璋接受了大宋政权左副元帅的任命"
+      },
+      {
+        "OrgName": "驴牌寨民兵",
+        "OrgType": "地方势力",
+        "DynastyName": "明朝",
+        "source_text": "计降驴牌寨民兵3000人"
+      },
+      {
+        "OrgName": "义军",
+        "OrgType": "起义军",
+        "DynastyName": "明朝",
+        "source_text": "又袭击横涧山“义军”缪大亨部"
+      },
+      {
+        "OrgName": "江南元军残部",
+        "OrgType": "国家",
+        "DynastyName": "明朝",
+        "source_text": "向江南元军残部和地主武装发动进攻"
+      },
+      {
+        "OrgName": "地主武装",
+        "OrgType": "地方势力",
+        "DynastyName": "明朝",
+        "source_text": "向江南元军残部和地主武装发动进攻"
+      },
+      {
+        "OrgName": "北方红巾军",
+        "OrgType": "起义军",
+        "DynastyName": "明朝",
+        "source_text": "北方红巾军政权所在地汴梁被元军攻破"
+      },
+      {
+        "OrgName": "元朝",
+        "OrgType": "国家",
+        "DynastyName": "明朝",
+        "source_text": "元朝统治集团虽对北方红巾军作战取得了一些胜利"
+      },
+      {
+        "OrgName": "汉",
+        "OrgType": "国家",
+        "DynastyName": "明朝",
+        "source_text": "国号汉"
+      },
+      {
+        "OrgName": "明朝军民",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "OrgName": "明朝军队",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "OrgName": "李自成等农民起义军",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "朱元璋",
+        "DynastyName": "明朝",
+        "OrgName": "明朝",
+        "Role": "统帅",
+        "Note": "明朝开国皇帝，北伐灭元，统一中国",
+        "source_text": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针"
+      },
+      {
+        "PersonName": "朱棣",
+        "DynastyName": "明朝",
+        "OrgName": "明朝",
+        "Role": "君主",
+        "Note": "明成祖，五次亲征塞北",
+        "source_text": "明成祖朱棣五次亲征塞北"
+      },
+      {
+        "PersonName": "陈友谅",
+        "DynastyName": "明朝",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "陈友谅军首领，鄱阳湖之战敌方统帅",
+        "source_text": "首先率兵决胜鄱阳，全歼陈友谅军"
+      },
+      {
+        "PersonName": "张士诚",
+        "DynastyName": "明朝",
+        "OrgName": "吴",
+        "Role": "统帅",
+        "Note": "张士诚部首领，平江之战敌方统帅",
+        "source_text": "再战平江，消灭张士诚部"
+      },
+      {
+        "PersonName": "李自成",
+        "DynastyName": "明朝",
+        "OrgName": "起义军",
+        "Role": "统帅",
+        "Note": "农民起义领袖，推翻明朝",
+        "source_text": "集中兵力镇压李自成等领导的农民起义"
+      },
+      {
+        "PersonName": "郭子兴",
+        "DynastyName": "明朝",
+        "OrgName": "红巾军",
+        "Role": "统帅",
+        "Note": "北方红巾军首领，朱元璋的上级",
+        "source_text": "朱元璋原是北方红巾军郭子兴部的镇抚"
+      },
+      {
+        "PersonName": "徐达",
+        "DynastyName": "明朝",
+        "OrgName": "明朝",
+        "Role": "将领",
+        "Note": "朱元璋麾下大将，参与南下略定远",
+        "source_text": "与徐达、汤和等24人，率兵从濠州南下略定远"
+      },
+      {
+        "PersonName": "汤和",
+        "DynastyName": "明朝",
+        "OrgName": "明朝",
+        "Role": "将领",
+        "Note": "朱元璋麾下大将，参与南下略定远",
+        "source_text": "与徐达、汤和等24人，率兵从濠州南下略定远"
+      },
+      {
+        "PersonName": "缪大亨",
+        "DynastyName": "明朝",
+        "OrgName": "义军",
+        "Role": "统帅",
+        "Note": "横涧山义军首领，被朱元璋袭击",
+        "source_text": "又袭击横涧山“义军”缪大亨部"
+      },
+      {
+        "PersonName": "朱升",
+        "DynastyName": "明朝",
+        "OrgName": null,
+        "Role": "谋士",
+        "Note": "提出“高筑墙，广积粮，缓称王”建议",
+        "source_text": "安徽休宁儒生朱升来见朱元璋，提出了“高筑墙，广积粮，缓称王”的著名建议"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "鄱阳湖之战",
+        "EventType": "统一战争",
+        "StartDate": "1363年",
+        "EndDate": "1363年",
+        "DynastyName": "元",
+        "Place": "鄱阳",
+        "Aggressor": "朱元璋",
+        "Defender": "陈友谅",
+        "Allies": null,
+        "Result": "朱元璋获胜，陈友谅军被全歼",
+        "Commanders": "朱元璋、陈友谅",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "鄱阳湖",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "朱元璋消灭陈友谅，为统一江南奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平江之战",
+            "evidence": "再战平江，消灭张士诚部"
+          }
+        ],
+        "source_text": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "平江之战",
+        "EventType": "统一战争",
+        "StartDate": "1366年",
+        "EndDate": "1367年",
+        "DynastyName": "元",
+        "Place": "平江",
+        "Aggressor": "朱元璋",
+        "Defender": "张士诚",
+        "Allies": null,
+        "Result": "朱元璋获胜，张士诚部被消灭",
+        "Commanders": "朱元璋、张士诚",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "平江",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消灭张士诚，统一江南",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "朱元璋北伐灭元",
+            "evidence": "继而水陆齐进，北伐灭元"
+          }
+        ],
+        "source_text": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "EventType": "统一战争",
+        "StartDate": "1367年",
+        "EndDate": "1368年",
+        "DynastyName": "元",
+        "Place": "元朝境内",
+        "Aggressor": "朱元璋",
+        "Defender": "元朝",
+        "Allies": null,
+        "Result": "朱元璋获胜，元朝灭亡，明朝建立",
+        "Commanders": "朱元璋、徐达",
+        "KeyPersons": "朱升",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "元朝境内",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "推翻元朝，建立明朝，统一中国",
+        "Remark": "",
+        "relations": [],
+        "source_text": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "明成祖五次亲征塞北",
+        "EventType": "对外远征",
+        "StartDate": "1410年",
+        "EndDate": "1424年",
+        "DynastyName": "明",
+        "Place": "塞北",
+        "Aggressor": "明成祖",
+        "Defender": "蒙古复元势力",
+        "Allies": null,
+        "Result": "明军获胜，打击了蒙古复元势力",
+        "Commanders": "朱棣",
+        "KeyPersons": null,
+        "Action": "征伐",
+        "TroopSize": "不详",
+        "Duration": "持续约十四年",
+        "GeographicScope": "塞北地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "巩固了明朝北部边防，削弱了蒙古复元势力",
+        "Remark": "",
+        "relations": [],
+        "source_text": "随后，为保边安境，明成祖朱棣五次亲征塞北，进击蒙古复元势力；东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "抗倭战争",
+        "EventType": "边境防御",
+        "StartDate": "明朝中期",
+        "EndDate": "不详",
+        "DynastyName": "明",
+        "Place": "东南沿海",
+        "Aggressor": "倭寇",
+        "Defender": "明朝军民",
+        "Allies": null,
+        "Result": "明朝军民获胜，取得重大胜利",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "进剿",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "东南沿海",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "抗击外来侵略、保卫祖国海疆的著名范例",
+        "Remark": "",
+        "relations": [],
+        "source_text": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "EventType": "边境防御",
+        "StartDate": "1618年",
+        "EndDate": "1626年",
+        "DynastyName": "明",
+        "Place": "辽东、萨尔浒、广宁、宁远、松山、锦州",
+        "Aggressor": "后金",
+        "Defender": "明朝",
+        "Allies": null,
+        "Result": "明军先败后胜，最终获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "争夺",
+        "TroopSize": "不详",
+        "Duration": "持续约九年",
+        "GeographicScope": "辽东地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝巩固了辽东防线，后金未能突破",
+        "Remark": "",
+        "relations": [],
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "EventType": "边境防御",
+        "StartDate": "1619年",
+        "EndDate": "1619年",
+        "DynastyName": "明",
+        "Place": "萨尔浒",
+        "Aggressor": "后金",
+        "Defender": "明朝",
+        "Allies": null,
+        "Result": "后金获胜，明朝大败",
+        "Commanders": "努尔哈赤、杨镐",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "辽东",
+        "Casualties": "明军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝在辽东的防御体系遭到严重破坏，后金势力大增",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宁远之战",
+            "evidence": "先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战"
+          }
+        ],
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "宁远之战",
+        "EventType": "边境防御",
+        "StartDate": "1626年",
+        "EndDate": "1626年",
+        "DynastyName": "明",
+        "Place": "宁远",
+        "Aggressor": "后金",
+        "Defender": "明朝",
+        "Allies": null,
+        "Result": "明朝获胜，后金败退",
+        "Commanders": "袁崇焕、努尔哈赤",
+        "KeyPersons": null,
+        "Action": "守御",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "辽东",
+        "Casualties": "后金伤亡惨重",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝取得对后金作战的首次重大胜利，延缓了后金的进攻",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "萨尔浒之战",
+            "evidence": "先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战"
+          }
+        ],
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "松山之战",
+        "EventType": "边境防御",
+        "StartDate": "1640年",
+        "EndDate": "1642年",
+        "DynastyName": "明",
+        "Place": "松山",
+        "Aggressor": "清朝",
+        "Defender": "明朝",
+        "Allies": null,
+        "Result": "清朝获胜，明朝大败",
+        "Commanders": "洪承畴、皇太极",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "辽东",
+        "Casualties": "明军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝在辽东的防线崩溃，清朝入主中原的关键战役",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宁远之战",
+            "evidence": "先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战"
+          }
+        ],
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "锦州之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1641年",
+        "EndDate": "1642年",
+        "DynastyName": "明",
+        "Place": "锦州",
+        "Aggressor": "清朝",
+        "Defender": "明朝",
+        "Allies": null,
+        "Result": "明朝获胜",
+        "Commanders": "不详",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "持续两年",
+        "GeographicScope": "锦州地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝在辽东战场取得胜利，暂时缓解了辽东压力",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "镇压农民起义",
+            "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义"
+          }
+        ],
+        "source_text": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "EventType": "镇压叛乱",
+        "StartDate": "明朝末年",
+        "EndDate": "不详",
+        "DynastyName": "明",
+        "Place": "洛阳、襄阳、朱仙镇、汝州",
+        "Aggressor": "明朝军队",
+        "Defender": "李自成等农民起义军",
+        "Allies": null,
+        "Result": "明朝军队遭到起义军重创",
+        "Commanders": "李自成",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河南等地",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "明朝未能镇压起义，起义军力量壮大，最终推翻明朝",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "锦州之战",
+            "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义"
+          }
+        ],
+        "source_text": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "EventType": "统一战争",
+        "StartDate": "1356年",
+        "EndDate": "1356年",
+        "DynastyName": "元",
+        "Place": "建康",
+        "Aggressor": "朱元璋",
+        "Defender": "元军",
+        "Allies": null,
+        "Result": "朱元璋获胜，攻占建康",
+        "Commanders": "朱元璋、徐达、汤和",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "建康地区",
+        "Casualties": "获兵民50万",
+        "source": "《中国历代战争简史》",
+        "Impact": "朱元璋建立江南根据地，为统一全国奠定基础",
+        "Remark": "",
+        "relations": [],
+        "source_text": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "EventType": "军阀割据",
+        "StartDate": "1360年",
+        "EndDate": "1360年",
+        "DynastyName": "元",
+        "Place": "应天",
+        "Aggressor": "陈友谅军",
+        "Defender": "朱元璋",
+        "Allies": null,
+        "Result": "不详",
+        "Commanders": "陈友谅、朱元璋",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "舟师10万",
+        "Duration": "不详",
+        "GeographicScope": "长江中下游",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "陈友谅率舟师东下，直逼应天，威胁朱元璋的根据地。",
+        "Remark": "事件为陈友谅进攻应天，但原文未提及结果。",
+        "relations": [],
+        "source_text": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "主战场",
+        "modern_name": "鄱阳",
+        "evidence": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "主战场",
+        "modern_name": "平江",
+        "evidence": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "主战场",
+        "modern_name": "元朝境内",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "明成祖五次亲征塞北",
+        "relation": "主战场",
+        "modern_name": "塞北",
+        "evidence": "随后，为保边安境，明成祖朱棣五次亲征塞北，进击蒙古复元势力；东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "抗倭战争",
+        "relation": "主战场",
+        "modern_name": "东南沿海",
+        "evidence": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "主战场",
+        "modern_name": "辽东",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "relation": "主战场",
+        "modern_name": "萨尔浒",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "宁远之战",
+        "relation": "主战场",
+        "modern_name": "宁远",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "松山之战",
+        "relation": "主战场",
+        "modern_name": "松山",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "锦州之战",
+        "relation": "主战场",
+        "modern_name": "锦州",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "主战场",
+        "modern_name": "洛阳",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "次要战场",
+        "modern_name": "襄阳",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "次要战场",
+        "modern_name": "朱仙镇",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "次要战场",
+        "modern_name": "汝州",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "主战场",
+        "modern_name": "建康",
+        "evidence": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "relation": "主战场",
+        "modern_name": "应天",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "战略要地",
+        "modern_name": "鄱阳",
+        "evidence": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "战略要地",
+        "modern_name": "元朝境内",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "次要战场",
+        "modern_name": "萨尔浒",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "次要战场",
+        "modern_name": "广宁",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "次要战场",
+        "modern_name": "宁远",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "次要战场",
+        "modern_name": "松山",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "次要战场",
+        "modern_name": "锦州",
+        "evidence": "复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋",
+        "evidence": "首先率兵决胜鄱阳，全歼陈友谅军"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "防守方",
+        "OrgName": "陈友谅军",
+        "evidence": "首先率兵决胜鄱阳，全歼陈友谅军"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋",
+        "evidence": "再战平江，消灭张士诚部"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "防守方",
+        "OrgName": "张士诚部",
+        "evidence": "再战平江，消灭张士诚部"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "发起方",
+        "OrgName": "朱元璋",
+        "evidence": "继而率领水陆两军北上，一举灭元建明"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "防守方",
+        "OrgName": "元朝",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "明成祖五次亲征塞北",
+        "relation": "发起方",
+        "OrgName": "明成祖",
+        "evidence": "明成祖朱棣五次亲征塞北"
+      },
+      {
+        "EventName": "明成祖五次亲征塞北",
+        "relation": "防守方",
+        "OrgName": "蒙古复元势力",
+        "evidence": "进击蒙古复元势力"
+      },
+      {
+        "EventName": "抗倭战争",
+        "relation": "防守方",
+        "OrgName": "明朝军民",
+        "evidence": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "EventName": "抗倭战争",
+        "relation": "发起方",
+        "OrgName": "倭寇",
+        "evidence": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "发起方",
+        "OrgName": "后金",
+        "evidence": "与后金在辽东展开了近九年的争夺战争"
+      },
+      {
+        "EventName": "明后金辽东争夺战",
+        "relation": "防守方",
+        "OrgName": "明朝",
+        "evidence": "与后金在辽东展开了近九年的争夺战争"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "relation": "发起方",
+        "OrgName": "后金",
+        "evidence": "先败于萨尔浒、广宁等诸役"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "relation": "防守方",
+        "OrgName": "明朝",
+        "evidence": "先败于萨尔浒、广宁等诸役"
+      },
+      {
+        "EventName": "宁远之战",
+        "relation": "发起方",
+        "OrgName": "后金",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "宁远之战",
+        "relation": "防守方",
+        "OrgName": "明朝",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "松山之战",
+        "relation": "发起方",
+        "OrgName": "清朝",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "松山之战",
+        "relation": "防守方",
+        "OrgName": "明朝",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "锦州之战",
+        "relation": "发起方",
+        "OrgName": "清朝",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "锦州之战",
+        "relation": "防守方",
+        "OrgName": "明朝",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "发起方",
+        "OrgName": "明朝军队",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "防守方",
+        "OrgName": "李自成等农民起义军",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "发起方",
+        "OrgName": "朱元璋",
+        "evidence": "攻破建康（南京）"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "防守方",
+        "OrgName": "元军",
+        "evidence": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "relation": "发起方",
+        "OrgName": "陈友谅军",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "relation": "防守方",
+        "OrgName": "朱元璋",
+        "evidence": "直逼应天"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "朱元璋趁红巾军与元军两败俱伤之势，采取先南后北的战略方针，首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "统帅",
+        "PersonName": "张士诚",
+        "evidence": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元，并乘胜西征南伐，平定各地割据势力，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "指挥官: 朱元璋、徐达"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "谋士",
+        "PersonName": "朱升",
+        "evidence": "关键人物: 朱升"
+      },
+      {
+        "EventName": "明成祖五次亲征塞北",
+        "relation": "统帅",
+        "PersonName": "朱棣",
+        "evidence": "随后，为保边安境，明成祖朱棣五次亲征塞北，进击蒙古复元势力；东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；复转兵北部边境，与后金在辽东展开了近九年的争夺战争，先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战。"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "relation": "统帅",
+        "PersonName": "努尔哈赤",
+        "evidence": "指挥官: 努尔哈赤、杨镐"
+      },
+      {
+        "EventName": "萨尔浒之战",
+        "relation": "统帅",
+        "PersonName": "杨镐",
+        "evidence": "指挥官: 努尔哈赤、杨镐"
+      },
+      {
+        "EventName": "宁远之战",
+        "relation": "统帅",
+        "PersonName": "袁崇焕",
+        "evidence": "指挥官: 袁崇焕、努尔哈赤"
+      },
+      {
+        "EventName": "宁远之战",
+        "relation": "统帅",
+        "PersonName": "努尔哈赤",
+        "evidence": "指挥官: 袁崇焕、努尔哈赤"
+      },
+      {
+        "EventName": "松山之战",
+        "relation": "统帅",
+        "PersonName": "洪承畴",
+        "evidence": "指挥官: 洪承畴、皇太极"
+      },
+      {
+        "EventName": "松山之战",
+        "relation": "统帅",
+        "PersonName": "皇太极",
+        "evidence": "指挥官: 洪承畴、皇太极"
+      },
+      {
+        "EventName": "镇压农民起义",
+        "relation": "统帅",
+        "PersonName": "李自成",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义，在洛阳、襄阳、朱仙镇、汝州等重大战役中，都遭到起义军的重创。最后，其在北京的朝廷被起义军推翻。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "将领",
+        "PersonName": "徐达",
+        "evidence": "指挥官: 朱元璋、徐达、汤和"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "将领",
+        "PersonName": "汤和",
+        "evidence": "指挥官: 朱元璋、徐达、汤和"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "relation": "统帅",
+        "PersonName": "陈友谅",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "EventName": "陈友谅攻应天",
+        "relation": "统帅",
+        "PersonName": "朱元璋",
+        "evidence": "1360年夏，陈友谅不待朱元璋进攻，率舟师越过朱军所据的池州，攻占太平，夺取采石，于军中仓促称帝，国号汉。稍加整备，即统舟师10万，由江州东下，直逼应天。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋北伐灭元",
+        "relation": "参与者",
+        "PersonName": "朱升",
+        "evidence": "在红巾军根本动摇元朝统治的基础上，朱元璋以江南为根据地，采取先南后北，各个击破的战略方针，首先决胜于长江中下游，继而率领水陆两军北上，一举灭元建明，统一了中国。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "统帅",
+        "PersonName": "徐达",
+        "evidence": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      },
+      {
+        "EventName": "朱元璋攻占建康",
+        "relation": "统帅",
+        "PersonName": "汤",
+        "evidence": "翌年3月，水陆配合，攻破建康（南京），获兵民50万，改集庆路为应天府。随后，利用北方红巾军不断发展，元军无力南顾之机。向江南元军残部和地主武装发动进攻，占领苏南西部、两浙及皖南广大地区，建立起以建康为政治中心的江南根据地。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "平江之战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "首先率兵决胜鄱阳，全歼陈友谅军；再战平江，消灭张士诚部"
+      },
+      {
+        "EventName_A": "平江之战",
+        "relation": "顺承关系",
+        "EventName_B": "朱元璋北伐灭元",
+        "evidence": "再战平江，消灭张士诚部；继而水陆齐进，北伐灭元"
+      },
+      {
+        "EventName_A": "明成祖五次亲征塞北",
+        "relation": "顺承关系",
+        "EventName_B": "朱元璋北伐灭元",
+        "evidence": "统一了中国。随后，为保边安境，明成祖朱棣五次亲征塞北"
+      },
+      {
+        "EventName_A": "抗倭战争",
+        "relation": "顺承关系",
+        "EventName_B": "明成祖五次亲征塞北",
+        "evidence": "进击蒙古复元势力；东南沿海军民，自北到南，进剿倭寇"
+      },
+      {
+        "EventName_A": "抗倭战争",
+        "relation": "顺承关系",
+        "EventName_B": "明后金辽东争夺战",
+        "evidence": "取得了重大胜利；复转兵北部边境，与后金在辽东展开了近九年的争夺战争"
+      },
+      {
+        "EventName_A": "明后金辽东争夺战",
+        "relation": "包含关系",
+        "EventName_B": "萨尔浒之战",
+        "evidence": "先败于萨尔浒、广宁等诸役"
+      },
+      {
+        "EventName_A": "明后金辽东争夺战",
+        "relation": "包含关系",
+        "EventName_B": "宁远之战",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName_A": "明后金辽东争夺战",
+        "relation": "包含关系",
+        "EventName_B": "松山之战",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName_A": "明后金辽东争夺战",
+        "relation": "包含关系",
+        "EventName_B": "锦州之战",
+        "evidence": "后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName_A": "朱元璋攻占建康",
+        "relation": "顺承关系",
+        "EventName_B": "陈友谅攻应天",
+        "evidence": "攻破建康（南京）...1360年夏，陈友谅不待朱元璋进攻，率舟师...直逼应天"
+      },
+      {
+        "EventName_A": "宁远之战",
+        "relation": "顺承关系",
+        "EventName_B": "萨尔浒之战",
+        "evidence": "先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName_A": "宁远之战",
+        "relation": "顺承关系",
+        "EventName_B": "松山之战",
+        "evidence": "先败于萨尔浒、广宁等诸役，后胜于宁远、松山、锦州之战"
+      },
+      {
+        "EventName_A": "锦州之战",
+        "relation": "顺承关系",
+        "EventName_B": "镇压农民起义",
+        "evidence": "当辽东战局稍有缓和时，即集中兵力镇压李自成等领导的农民起义"
+      }
+    ]
+  }
+}

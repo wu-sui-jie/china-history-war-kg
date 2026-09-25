@@ -1,0 +1,1636 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "两河",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经略、控制两河，利用河、淮、江三大障碍而固守河南及江淮"
+      },
+      {
+        "geo_name": "河南",
+        "modern_name": "河南省",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经略、控制两河，利用河、淮、江三大障碍而固守河南及江淮"
+      },
+      {
+        "geo_name": "江淮",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经略、控制两河，利用河、淮、江三大障碍而固守河南及江淮"
+      },
+      {
+        "geo_name": "大名府",
+        "modern_name": "河北省邯郸市大名县",
+        "DynastyName": "南宋",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "大名县",
+        "Specific_location": null,
+        "source_text": "命张所为河北招抚使，在大名府置司"
+      },
+      {
+        "geo_name": "陕州",
+        "modern_name": "河南省三门峡市陕州区",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "三门峡市",
+        "District_County": "陕州区",
+        "Specific_location": null,
+        "source_text": "傅亮为河东经略副使，在陕州置司"
+      },
+      {
+        "geo_name": "东京",
+        "modern_name": "河南省开封市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命宗泽为东京（开封）留守，负责保卫开封"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": "河南省商丘市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "商丘市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "范讷为南京（商丘）留守"
+      },
+      {
+        "geo_name": "恩州",
+        "modern_name": "河北省邢台市清河县",
+        "DynastyName": "南宋",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": "清河县",
+        "Specific_location": null,
+        "source_text": "派遣统制官马忠和张换各率所部5000人自恩州（河北故城东南）北进"
+      },
+      {
+        "geo_name": "河间",
+        "modern_name": "河北省沧州市河间市",
+        "DynastyName": "南宋",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": "河间市",
+        "Specific_location": null,
+        "source_text": "袭击河间、雄州（河北雄县）的金军"
+      },
+      {
+        "geo_name": "雄州",
+        "modern_name": "河北省保定市雄县",
+        "DynastyName": "南宋",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "雄县",
+        "Specific_location": null,
+        "source_text": "袭击河间、雄州（河北雄县）的金军"
+      },
+      {
+        "geo_name": "内黄",
+        "modern_name": "河南省安阳市内黄县",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": "内黄县",
+        "Specific_location": null,
+        "source_text": "遣薛广率部3000人自内黄（河南内黄）过河"
+      },
+      {
+        "geo_name": "滋州",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "会合河北山寨义军，前往收复滋州、相州等地"
+      },
+      {
+        "geo_name": "相州",
+        "modern_name": "河南省安阳市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "会合河北山寨义军，前往收复滋州、相州等地"
+      },
+      {
+        "geo_name": "开州",
+        "modern_name": "河南省濮阳市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "濮阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "张琼率所部3000人自开州（河南濮阳）西渡河"
+      },
+      {
+        "geo_name": "扬州",
+        "modern_name": "江苏省扬州市",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "宋高宗罢免李纲不久，即实行其南逃计划，将朝廷移往扬州"
+      },
+      {
+        "geo_name": "燕京",
+        "modern_name": "北京市",
+        "DynastyName": "金",
+        "Province": "北京市",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "征集燕京八路民兵"
+      },
+      {
+        "geo_name": "陕西",
+        "modern_name": "陕西省",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从陕西、河南、山东分三道向南宋发动全面进攻"
+      },
+      {
+        "geo_name": "山东",
+        "modern_name": "山东省",
+        "DynastyName": "金",
+        "Province": "山东省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从陕西、河南、山东分三道向南宋发动全面进攻"
+      },
+      {
+        "geo_name": "沧州",
+        "modern_name": "河北省沧州市",
+        "DynastyName": "金",
+        "Province": "河北省",
+        "City": "沧州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自燕京经沧州（河北沧州市东南）渡河攻山东"
+      },
+      {
+        "geo_name": "云中",
+        "modern_name": "山西省大同市",
+        "DynastyName": "金",
+        "Province": "山西省",
+        "City": "大同市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自云中（山西大同）下太行"
+      },
+      {
+        "geo_name": "太行",
+        "modern_name": "太行山脉",
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自云中（山西大同）下太行"
+      },
+      {
+        "geo_name": "河阳",
+        "modern_name": "河南省焦作市孟州市",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "孟州市",
+        "Specific_location": null,
+        "source_text": "从河阳（河南孟县南）渡河攻河南"
+      },
+      {
+        "geo_name": "汉上",
+        "modern_name": "湖北省襄阳市",
+        "DynastyName": "金",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "分遣银可术等率军攻汉上（湖北襄樊市）"
+      },
+      {
+        "geo_name": "同州",
+        "modern_name": "陕西省渭南市大荔县",
+        "DynastyName": "金",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "大荔县",
+        "Specific_location": null,
+        "source_text": "渡河经同州（陕西大荔）攻陕西"
+      },
+      {
+        "geo_name": "汜水关",
+        "modern_name": "河南省郑州市荥阳市",
+        "DynastyName": "金",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "荥阳市",
+        "Specific_location": null,
+        "source_text": "中路军渡河攻占汜水关（河南荣阳东北）后"
+      },
+      {
+        "geo_name": "开封",
+        "modern_name": "河南省开封市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东京开封是抗金斗争的前哨"
+      },
+      {
+        "geo_name": "滑州",
+        "modern_name": "河南省安阳市滑县",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": "滑县",
+        "Specific_location": null,
+        "source_text": "分别赴滑州（河南滑县）、郑州，以分其势"
+      },
+      {
+        "geo_name": "郑州",
+        "modern_name": "河南省郑州市",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "分别赴滑州（河南滑县）、郑州，以分其势"
+      },
+      {
+        "geo_name": "白沙",
+        "modern_name": "河南省郑州市中牟县",
+        "DynastyName": "南宋",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "中牟县",
+        "Specific_location": null,
+        "source_text": "金军又以一部从白沙（河南中牟西）进攻东京"
+      },
+      {
+        "geo_name": "明州",
+        "modern_name": "浙江省宁波市",
+        "DynastyName": "南宋",
+        "Province": "浙江省",
+        "City": "宁波市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "闻知宋高宗自明州（宁波市）奔定海（镇海）"
+      },
+      {
+        "geo_name": "定海",
+        "modern_name": "浙江省舟山市定海区",
+        "DynastyName": "南宋",
+        "Province": "浙江省",
+        "City": "舟山市",
+        "District_County": "定海区",
+        "Specific_location": null,
+        "source_text": "闻知宋高宗自明州（宁波市）奔定海（镇海）"
+      },
+      {
+        "geo_name": "秀州",
+        "modern_name": "浙江省嘉兴市",
+        "DynastyName": "南宋",
+        "Province": "浙江省",
+        "City": "嘉兴市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "破秀州（嘉兴市）"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": "江苏省苏州市",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "陷平江（苏州市）"
+      },
+      {
+        "geo_name": "常州",
+        "modern_name": "江苏省常州市",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "常州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占常州（属江苏）"
+      },
+      {
+        "geo_name": "镇江",
+        "modern_name": "江苏省镇江市",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "镇江是千里江防的重要渡口和战略要地"
+      },
+      {
+        "geo_name": "瓜州",
+        "modern_name": "江苏省扬州市邗江区瓜洲镇",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": "邗江区",
+        "Specific_location": null,
+        "source_text": "准备渡江至瓜州北撒"
+      },
+      {
+        "geo_name": "江阴",
+        "modern_name": "江苏省无锡市江阴市",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "无锡市",
+        "District_County": "江阴市",
+        "Specific_location": null,
+        "source_text": "即率全军人马自镇江退往江阴（属江苏）"
+      },
+      {
+        "geo_name": "焦山",
+        "modern_name": "江苏省镇江市焦山",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "即将8000水军驻守在长江江心的焦山上"
+      },
+      {
+        "geo_name": "金山",
+        "modern_name": "江苏省镇江市金山",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "派兵控制金山、北固山等重要制高点"
+      },
+      {
+        "geo_name": "北固山",
+        "modern_name": "江苏省镇江市北固山",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "派兵控制金山、北固山等重要制高点"
+      },
+      {
+        "geo_name": "黄天荡",
+        "modern_name": "江苏省南京市东北",
+        "DynastyName": "南宋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "东北",
+        "source_text": "将金军逼进死水港黄天荡（江苏南京东北）"
+      },
+      {
+        "geo_name": "陕西",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "geo_name": "山东",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "geo_name": "东京开封",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "geo_name": "周边",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "geo_name": "长江下游",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "geo_name": "江南",
+        "modern_name": null,
+        "DynastyName": "南宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "南宋",
+        "OrgType": "国家",
+        "DynastyName": "南宋",
+        "source_text": "以巩固南宋的统治"
+      },
+      {
+        "OrgName": "金军",
+        "OrgType": "军队",
+        "DynastyName": "金",
+        "source_text": "袭击河间、雄州（河北雄县）的金军\n这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "OrgName": "河北山寨义军",
+        "OrgType": "起义军",
+        "DynastyName": "南宋",
+        "source_text": "会合河北山寨义军"
+      },
+      {
+        "OrgName": "水寨义军",
+        "OrgType": "起义军",
+        "DynastyName": "南宋",
+        "source_text": "会合水寨义军与薛广部互为声援"
+      },
+      {
+        "OrgName": "抗金义军",
+        "OrgType": "起义军",
+        "DynastyName": "南宋",
+        "source_text": "黄河南北抗金义军发展到百万"
+      },
+      {
+        "OrgName": "宋水师",
+        "OrgType": "军队",
+        "DynastyName": "南宋",
+        "source_text": "被宋水师的大船冲散"
+      },
+      {
+        "OrgName": "南宋宗泽部",
+        "OrgType": "军事势力",
+        "DynastyName": "南宋",
+        "source_text": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "OrgName": "韩世忠军",
+        "OrgType": "军事势力",
+        "DynastyName": "南宋",
+        "source_text": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "李纲",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "谋士",
+        "Note": "提出抗金措施，任相75天",
+        "source_text": "李纲制定的抗金措施全被废除"
+      },
+      {
+        "PersonName": "宋高宗",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "君主",
+        "Note": "南宋皇帝，南逃",
+        "source_text": "宋高宗罢免李纲不久，即实行其南逃计划"
+      },
+      {
+        "PersonName": "张所",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "河北招抚使",
+        "source_text": "命张所为河北招抚使，在大名府置司"
+      },
+      {
+        "PersonName": "傅亮",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "河东经略副使",
+        "source_text": "傅亮为河东经略副使，在陕州置司"
+      },
+      {
+        "PersonName": "宗泽",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "统帅",
+        "Note": "东京留守，抗金名臣",
+        "source_text": "命宗泽为东京（开封）留守，负责保卫开封"
+      },
+      {
+        "PersonName": "范讷",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "南京留守",
+        "source_text": "范讷为南京（商丘）留守"
+      },
+      {
+        "PersonName": "钱盖",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "陕西经抚使",
+        "source_text": "钱盖为陕西经抚使"
+      },
+      {
+        "PersonName": "马忠",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "统制官",
+        "source_text": "派遣统制官马忠和张换各率所部5000人自恩州北进"
+      },
+      {
+        "PersonName": "张换",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "统制官",
+        "source_text": "派遣统制官马忠和张换各率所部5000人自恩州北进"
+      },
+      {
+        "PersonName": "薛广",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "率部3000人",
+        "source_text": "遣薛广率部3000人自内黄过河"
+      },
+      {
+        "PersonName": "张琼",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "率所部3000人",
+        "source_text": "张琼率所部3000人自开州西渡河"
+      },
+      {
+        "PersonName": "完颜晟",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "君主",
+        "Note": "金太宗",
+        "source_text": "金太宗完颜晟即采取攻势"
+      },
+      {
+        "PersonName": "完颜宗翰",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "左副元帅，中路军统帅",
+        "source_text": "主力由左副元帅完颜宗翰统领"
+      },
+      {
+        "PersonName": "完颜宗辅",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "右副元帅，东路军统帅",
+        "source_text": "东路军由右副元帅完颜宗辅及其弟完颜宗弼（兀术）率领"
+      },
+      {
+        "PersonName": "完颜宗弼",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "兀术，东路军统帅，第三次南下统帅",
+        "source_text": "东路军由右副元帅完颜宗辅及其弟完颜宗弼（兀术）率领"
+      },
+      {
+        "PersonName": "阿里",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "分遣阿里，蒲卢浑率军进攻淮南",
+        "source_text": "分遣阿里，蒲卢浑率军进攻淮南"
+      },
+      {
+        "PersonName": "蒲卢浑",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "分遣阿里，蒲卢浑率军进攻淮南",
+        "source_text": "分遣阿里，蒲卢浑率军进攻淮南"
+      },
+      {
+        "PersonName": "银可术",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "分遣银可术等率军攻汉上",
+        "source_text": "分遣银可术等率军攻汉上"
+      },
+      {
+        "PersonName": "完颜娄室",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "陕西路都统",
+        "source_text": "西路军由陕西路都统完颜娄室、副都统撤离喝等率领"
+      },
+      {
+        "PersonName": "撤离喝",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "将领",
+        "Note": "副都统",
+        "source_text": "西路军由陕西路都统完颜娄室、副都统撤离喝等率领"
+      },
+      {
+        "PersonName": "刘衍",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "统制官",
+        "source_text": "宗泽先派统制官刘衍和刘达各率士兵2万"
+      },
+      {
+        "PersonName": "刘达",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "统制官",
+        "source_text": "宗泽先派统制官刘衍和刘达各率士兵2万"
+      },
+      {
+        "PersonName": "杜充",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "将领",
+        "Note": "执政大臣，负责长江防务",
+        "source_text": "命杜充为执政大臣，全权负责长江防务"
+      },
+      {
+        "PersonName": "完颜昌",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "东路军统帅",
+        "source_text": "在完颜昌率领东路军策应下"
+      },
+      {
+        "PersonName": "韩世忠",
+        "DynastyName": "南宋",
+        "OrgName": "南宋",
+        "Role": "统帅",
+        "Note": "浙西制置使，黄天荡之战己方统帅",
+        "source_text": "浙西制置使韩世忠，就断定金军不能久踞江南"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "金军第一次南下攻宋",
+        "EventType": "对外远征",
+        "StartDate": "1127年12月",
+        "EndDate": "1128年2月",
+        "DynastyName": "南宋",
+        "Place": "陕西、河南、山东",
+        "Aggressor": "金军",
+        "Defender": "南宋",
+        "Allies": null,
+        "Result": "金军撤退北归",
+        "Commanders": "完颜宗翰、完颜宗辅、完颜宗弼、完颜娄室、撤离喝、宗泽、刘衍、刘达",
+        "KeyPersons": "宋高宗、李纲",
+        "Action": "攻伐、守御",
+        "TroopSize": "不详",
+        "Duration": "约三个月",
+        "GeographicScope": "陕西、河南、山东",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "南宋朝廷南迁扬州，抗金措施被废除，东京保卫战胜利暂时稳定了局势。",
+        "Remark": "金军分三路进攻，东京保卫战是其中重要战斗。",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "东京保卫战",
+            "evidence": "金军主力会攻东京，引发东京保卫战。"
+          }
+        ],
+        "source_text": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "EventType": "首都保卫战",
+        "StartDate": "1128年1月",
+        "EndDate": "1128年2月",
+        "DynastyName": "南宋",
+        "Place": "东京开封及周边",
+        "Aggressor": "金军",
+        "Defender": "南宋宗泽部",
+        "Allies": "河北山寨义军、水寨义军",
+        "Result": "南宋获胜，金军撤退",
+        "Commanders": "宗泽、刘衍、刘达",
+        "KeyPersons": null,
+        "Action": "守御、伏击、夜袭",
+        "TroopSize": "宋军约4万，金军不详",
+        "Duration": "约两个月",
+        "GeographicScope": "东京开封及周边",
+        "Casualties": "金军伤亡数百人",
+        "source": "《中国历代战争简史》",
+        "Impact": "保卫了东京，支援了两河抗金斗争，但宗泽死后东京失守。",
+        "Remark": "宗泽经营东京防御体系，多次击退金军。",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "金军第一次南下攻宋",
+            "evidence": "金军第一次南下攻宋的一部分。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "金军第二次南下攻宋",
+            "evidence": "金军撤退后，于11月再次南下。"
+          }
+        ],
+        "source_text": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "EventType": "对外远征",
+        "StartDate": "1128年11月",
+        "EndDate": "1129年",
+        "DynastyName": "南宋",
+        "Place": "两河、陕西",
+        "Aggressor": "金军",
+        "Defender": "南宋",
+        "Allies": null,
+        "Result": "金军撤军北归",
+        "Commanders": "完颜宗弼、完颜昌",
+        "KeyPersons": "宋高宗、杜充",
+        "Action": "攻伐",
+        "TroopSize": "金军10余万",
+        "Duration": "约半年",
+        "GeographicScope": "两河、陕西",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "南宋弃守淮河，专守长江，为第三次南下埋下伏笔。",
+        "Remark": "金军东西并进，但战略上未取得成果。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "金军第一次南下攻宋",
+            "evidence": "金军第一次南下后，于11月再次南下。"
+          }
+        ],
+        "source_text": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "EventType": "对外远征",
+        "StartDate": "1129年10月",
+        "EndDate": "1130年3月",
+        "DynastyName": "南宋",
+        "Place": "长江下游、江南、明州、定海、秀州、平江、常州、镇江、瓜州",
+        "Aggressor": "金军",
+        "Defender": "南宋",
+        "Allies": null,
+        "Result": "金军未能灭宋，北撤途中遭韩世忠阻击",
+        "Commanders": "完颜宗弼、完颜昌、韩世忠",
+        "KeyPersons": "宋高宗",
+        "Action": "攻伐、追击、渡江、守御",
+        "TroopSize": "金军十余万，宋军八千水军",
+        "Duration": "持续约五个月",
+        "GeographicScope": "长江下游及江南地区",
+        "Casualties": "金军船翻人淹，溃不成军",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军南侵受挫，南宋得以暂时偏安；韩世忠黄天荡之战阻遏金军渡江，稳定了江南局势。",
+        "Remark": "金军第三次南下，宋高宗南逃海上，金军追击未果，后北撤。",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "黄天荡之战",
+            "evidence": "金军北撤至镇江，韩世忠率军截击，遂发生黄天荡之战。"
+          }
+        ],
+        "source_text": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1130年3月",
+        "EndDate": "1130年3月",
+        "DynastyName": "南宋",
+        "Place": "镇江、黄天荡、焦山、金山、北固山",
+        "Aggressor": "金军",
+        "Defender": "韩世忠军",
+        "Allies": null,
+        "Result": "韩世忠军大败金军，金军终不得渡，被逼入黄天荡",
+        "Commanders": "韩世忠、完颜宗弼",
+        "KeyPersons": null,
+        "Action": "截击、水战、堵截",
+        "TroopSize": "韩世忠军八千水军，金军千艘战船",
+        "Duration": "历时数日",
+        "GeographicScope": "长江江心及黄天荡水域",
+        "Casualties": "金军船翻人淹，溃不成军",
+        "source": "《中国历代战争简史》",
+        "Impact": "此战阻止了金军北撤，打击了金军气焰，保障了南宋江南地区的安全。",
+        "Remark": "韩世忠以少胜多，利用地形优势大败金军。",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "金军第三次南下攻宋",
+            "evidence": "金军第三次南下攻宋后北撤，韩世忠截击，导致黄天荡之战。"
+          }
+        ],
+        "source_text": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "陕西",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "河南",
+        "evidence": "主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "山东",
+        "evidence": "主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "途经地",
+        "modern_name": "沧州",
+        "evidence": "东路军由右副元帅完颜宗辅及其弟完颜宗弼（兀术）率领，自燕京经沧州（河北沧州市东南）渡河攻山东"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "途经地",
+        "modern_name": "云中",
+        "evidence": "中路军由左副元帅完颜宗翰率领，自云中（山西大同）下太行，从河阳（河南孟县南）渡河攻河南"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "途经地",
+        "modern_name": "太行",
+        "evidence": "中路军由左副元帅完颜宗翰率领，自云中（山西大同）下太行，从河阳（河南孟县南）渡河攻河南"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "途经地",
+        "modern_name": "河阳",
+        "evidence": "中路军由左副元帅完颜宗翰率领，自云中（山西大同）下太行，从河阳（河南孟县南）渡河攻河南"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "途经地",
+        "modern_name": "同州",
+        "evidence": "西路军由陕西路都统完颜娄室、副都统撤离喝等率领，渡河经同州（陕西大荔）攻陕西"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "东京",
+        "evidence": "中路军渡河攻占汜水关（河南荣阳东北）后，其主力即与东路军大将完颜宗弼部会攻东京"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "开封",
+        "evidence": "东京开封是抗金斗争的前哨"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "汜水关",
+        "evidence": "中路军渡河攻占汜水关（河南荣阳东北）后"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "滑州",
+        "evidence": "宗泽先派统制官刘衍和刘达各率士兵2万、战车200辆，分别赴滑州（河南滑县）、郑州，以分其势"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "郑州",
+        "evidence": "宗泽先派统制官刘衍和刘达各率士兵2万、战车200辆，分别赴滑州（河南滑县）、郑州，以分其势"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "白沙",
+        "evidence": "次年1月，金军又以一部从白沙（河南中牟西）进攻东京"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "主战场",
+        "modern_name": "东京开封",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "主战场",
+        "modern_name": "周边",
+        "evidence": "东京开封及周边"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "主战场",
+        "modern_name": "滑州",
+        "evidence": "2月，又败金军于滑州"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "主战场",
+        "modern_name": "郑州",
+        "evidence": "分别赴滑州（河南滑县）、郑州，以分其势"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "主战场",
+        "modern_name": "白沙",
+        "evidence": "金军又以一部从白沙（河南中牟西）进攻东京"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "两河",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "陕西",
+        "evidence": "西攻延安"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "长江下游",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "江南",
+        "evidence": "金军不能久踞江南"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "明州",
+        "evidence": "闻知宋高宗自明州（宁波市）奔定海（镇海），出海逃走，便急趋定海"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "定海",
+        "evidence": "闻知宋高宗自明州（宁波市）奔定海（镇海），出海逃走，便急趋定海"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "秀州",
+        "evidence": "破秀州（嘉兴市）"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "平江",
+        "evidence": "陷平江（苏州市）"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "常州",
+        "evidence": "占常州（属江苏）"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "镇江",
+        "evidence": "到达镇江，准备渡江至瓜州北撒"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "主战场",
+        "modern_name": "瓜州",
+        "evidence": "到达镇江，准备渡江至瓜州北撒"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "主战场",
+        "modern_name": "镇江",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "主战场",
+        "modern_name": "黄天荡",
+        "evidence": "将金军逼进死水港黄天荡（江苏南京东北）"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "主战场",
+        "modern_name": "焦山",
+        "evidence": "即将8000水军驻守在长江江心的焦山上"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "主战场",
+        "modern_name": "金山",
+        "evidence": "派兵控制金山、北固山等重要制高点"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "主战场",
+        "modern_name": "北固山",
+        "evidence": "派兵控制金山、北固山等重要制高点"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "出发地",
+        "modern_name": "陕西",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "河南",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "山东",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "次要战场",
+        "modern_name": "周边",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "战略要地",
+        "modern_name": "两河",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "陕西",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "战略要地",
+        "modern_name": "陕西",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "出发地",
+        "modern_name": "长江下游",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "江南",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "明州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "出发地",
+        "modern_name": "明州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "驻防地",
+        "modern_name": "明州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "定海",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "目的地",
+        "modern_name": "定海",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "秀州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "平江",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "常州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "镇江",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "次要战场",
+        "modern_name": "瓜州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "目的地",
+        "modern_name": "瓜州",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "出发地",
+        "modern_name": "镇江",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "战略要地",
+        "modern_name": "镇江",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "次要战场",
+        "modern_name": "黄天荡",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "目的地",
+        "modern_name": "黄天荡",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "战略要地",
+        "modern_name": "黄天荡",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "次要战场",
+        "modern_name": "焦山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "出发地",
+        "modern_name": "焦山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "战略要地",
+        "modern_name": "焦山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "次要战场",
+        "modern_name": "金山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "战略要地",
+        "modern_name": "金山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "次要战场",
+        "modern_name": "北固山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "战略要地",
+        "modern_name": "北固山",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "防守方",
+        "OrgName": "南宋",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "支援方",
+        "OrgName": "河北山寨义军",
+        "evidence": "遣薛广率部3000人自内黄（河南内黄）过河，会合河北山寨义军"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "支援方",
+        "OrgName": "水寨义军",
+        "evidence": "张琼率所部3000人自开州（河南濮阳）西渡河，会合水寨义军"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "防守方",
+        "OrgName": "南宋宗泽部",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "支援方",
+        "OrgName": "河北山寨义军",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "支援方",
+        "OrgName": "水寨义军",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "防守方",
+        "OrgName": "南宋",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "防守方",
+        "OrgName": "南宋",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "支援方",
+        "OrgName": "宋水师",
+        "evidence": "被宋水师的大船冲散"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "防守方",
+        "OrgName": "韩世忠军",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜宗翰",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜宗辅",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜宗弼",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜娄室",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "撤离喝",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "将领",
+        "PersonName": "宗泽",
+        "evidence": "命宗泽为东京（开封）留守，负责保卫开封"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "将领",
+        "PersonName": "刘衍",
+        "evidence": "宗泽先派统制官刘衍和刘达各率士兵2万"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "将领",
+        "PersonName": "刘达",
+        "evidence": "宗泽先派统制官刘衍和刘达各率士兵2万"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "君主",
+        "PersonName": "宋高宗",
+        "evidence": "宋高宗正需要有一支武装，以稳定自己的统治"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "谋士",
+        "PersonName": "李纲",
+        "evidence": "还采纳了李纲“寓兵于农”"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "统帅",
+        "PersonName": "宗泽",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "将领",
+        "PersonName": "刘衍",
+        "evidence": "令刘衍即率部正面接战"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "将领",
+        "PersonName": "刘达",
+        "evidence": "宗泽先派统制官刘衍和刘达各率士兵2万"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜宗弼",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜昌",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "君主",
+        "PersonName": "宋高宗",
+        "evidence": "东追赵构"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "将领",
+        "PersonName": "杜充",
+        "evidence": "命杜充为执政大臣，全权负责长江防务"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜宗弼",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "完颜昌",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "将领",
+        "PersonName": "韩世忠",
+        "evidence": "浙西制置使韩世忠"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "君主",
+        "PersonName": "宋高宗",
+        "evidence": "闻知宋高宗自明州（宁波市）奔定海"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "统帅",
+        "PersonName": "韩世忠",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "黄天荡之战",
+        "relation": "统帅",
+        "PersonName": "完颜宗弼",
+        "evidence": "镇江是千里江防的重要渡口和战略要地，形势险要，江中有岛，岛上有山，利于守备。早在金军渡江南下时，浙西制置使韩世忠，就断定金军不能久踞江南，即率全军人马自镇江退往江阴，大量制造海船，待机长江口，准备截击金军于归途。得知金军要从镇江撤，即将8000水军驻守在长江江心的焦山上，把住江口，派兵控制金山、北固山等重要制高点，监视金军行动。15日，韩世忠见金军分乘千艘轻快战船争先渡江，便亲率船队从焦山脚下迅猛出击，使金军船翻人淹，溃不成军，“终不得渡”。随后，堵截沿江西上之路，将金军逼进死水港黄天荡。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "宗泽",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "刘衍",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "刘达",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "参与者",
+        "PersonName": "宋高宗",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "金军第一次南下攻宋",
+        "relation": "参与者",
+        "PersonName": "李纲",
+        "evidence": "这年12月，征集燕京八路民兵，除一部分继续进攻两河地区抗金武装外，主力由左副元帅完颜宗翰统领，从陕西、河南、山东分三道向南宋发动全面进攻...金军见后方受到严重威胁，被迫撤退北归。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "统帅",
+        "PersonName": "刘衍",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "东京保卫战",
+        "relation": "统帅",
+        "PersonName": "刘达",
+        "evidence": "东京开封是抗金斗争的前哨...金军又以一部从白沙进攻东京，民众震恐。宗泽却一面下令照旧张灯，庆祝元霄，以安定人心；一面派精兵数千，绕至金军后方，截其归路。同时，令刘衍即率部正面接战，与赶来的增援兵前后夹击，大败金军。2月，又败金军于滑州，并乘机夜袭金营，斩杀数百人。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "参与者",
+        "PersonName": "宋高宗",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第二次南下攻宋",
+        "relation": "参与者",
+        "PersonName": "杜充",
+        "evidence": "11月，金军采取东西并进的方针，第二次大举南下。东追赵构，西攻延安，转战半年，两线在战略上均未取得成果而撤军北归。这时，宋高宗决定弃守淮河，专守长江，命杜充为执政大臣，全权负责长江防务。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "统帅",
+        "PersonName": "韩世忠",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      },
+      {
+        "EventName": "金军第三次南下攻宋",
+        "relation": "参与者",
+        "PersonName": "宋高宗",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下。11月，完颜宗弼所率中路军，在完颜昌率领东路军策应下，从长江下游突破南宋江防线，闻知宋高宗自明州奔定海，出海逃走，便急趋定海，舟师渡海南追，被宋水师的大船冲散，退据明州。次年3月，取道大运河，水陆并行，破秀州，陷平江，占常州，到达镇江，准备渡江至瓜州北撒。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "东京保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "金军第一次南下攻宋",
+        "evidence": "中路军渡河攻占汜水关后，其主力即与东路军大将完颜宗弼部会攻东京"
+      },
+      {
+        "EventName_A": "金军第一次南下攻宋",
+        "relation": "顺承关系",
+        "EventName_B": "金军第二次南下攻宋",
+        "evidence": "宋高宗罢免李纲不久，即实行其南逃计划，将朝廷移往扬州。金太宗完颜晟即采取攻势，接连三次发兵南下\n金军第一次南下后，于11月再次南下。"
+      },
+      {
+        "EventName_A": "金军第三次南下攻宋",
+        "relation": "顺承关系",
+        "EventName_B": "金军第二次南下攻宋",
+        "evidence": "1129年10月，金军乘南宋江防尚未巩固之际，命完颜宗弼为统帅，领民兵10余万，第三次大举南下"
+      },
+      {
+        "EventName_A": "金军第三次南下攻宋",
+        "relation": "因果关系",
+        "EventName_B": "黄天荡之战",
+        "evidence": "金军第三次南下攻宋后北撤，韩世忠截击，导致黄天荡之战。"
+      },
+      {
+        "EventName_A": "金军第一次南下攻宋",
+        "relation": "包含关系",
+        "EventName_B": "东京保卫战",
+        "evidence": "金军主力会攻东京，引发东京保卫战。"
+      },
+      {
+        "EventName_A": "东京保卫战",
+        "relation": "包含关系",
+        "EventName_B": "金军第一次南下攻宋",
+        "evidence": "金军第一次南下攻宋的一部分。"
+      },
+      {
+        "EventName_A": "东京保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "金军第二次南下攻宋",
+        "evidence": "金军撤退后，于11月再次南下。"
+      }
+    ]
+  }
+}

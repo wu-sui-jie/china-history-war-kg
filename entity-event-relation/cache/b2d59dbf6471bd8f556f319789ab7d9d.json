@@ -1,0 +1,1875 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "宁江州",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "geo_name": "混同江",
+        "modern_name": "松花江上游",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "geo_name": "出河店",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "geo_name": "宾州",
+        "modern_name": "农安东北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "geo_name": "祥州",
+        "modern_name": "农安境",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "geo_name": "咸州",
+        "modern_name": "辽宁开原北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "geo_name": "涞流河",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。"
+      },
+      {
+        "geo_name": "会宁",
+        "modern_name": "阿城南白城",
+        "DynastyName": "金",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。"
+      },
+      {
+        "geo_name": "黄龙府",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "geo_name": "沈州",
+        "modern_name": "沈阳",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "geo_name": "东京",
+        "modern_name": "辽阳",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "geo_name": "显州",
+        "modern_name": "辽宁北镇",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "geo_name": "蒺藜山",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "geo_name": "上京",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "geo_name": "中京",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "geo_name": "泽州",
+        "modern_name": "河北平泉西南",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "geo_name": "北安州",
+        "modern_name": "承德西",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "geo_name": "松亭关",
+        "modern_name": "迁西喜峰口",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "geo_name": "古北口",
+        "modern_name": "密云东北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "geo_name": "西京",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "geo_name": "大渔泊",
+        "modern_name": "大同北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "geo_name": "辇驿",
+        "modern_name": "在同西北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "geo_name": "南京",
+        "modern_name": "北京",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。"
+      },
+      {
+        "geo_name": "得胜口",
+        "modern_name": "昌平西北",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。"
+      },
+      {
+        "geo_name": "居庸关",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。"
+      },
+      {
+        "geo_name": "应州",
+        "modern_name": "山西应县",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "geo_name": "平州",
+        "modern_name": "河北卢龙",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在平定辽降将张觉据平州（河北卢龙）通宋复辽事变后，屯重兵于平州、营州（河北昌黎地区），作为战略开进地。"
+      },
+      {
+        "geo_name": "营州",
+        "modern_name": "河北昌黎地区",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在平定辽降将张觉据平州（河北卢龙）通宋复辽事变后，屯重兵于平州、营州（河北昌黎地区），作为战略开进地。"
+      },
+      {
+        "geo_name": "云州",
+        "modern_name": "山西大同",
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "并以云州（山西大同）和燕云山后大部州县，作为屯军及经略南侵的基地。"
+      },
+      {
+        "geo_name": "太原",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原。"
+      },
+      {
+        "geo_name": "燕山府",
+        "modern_name": "北京",
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。"
+      },
+      {
+        "geo_name": "朔州",
+        "modern_name": "山西朔县",
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原。"
+      },
+      {
+        "geo_name": "武州",
+        "modern_name": "神池",
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原。"
+      },
+      {
+        "geo_name": "代州",
+        "modern_name": "代县",
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原。"
+      },
+      {
+        "geo_name": "浚州",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1126年1月，金东路军迫近黄河，攻占浚州。"
+      },
+      {
+        "geo_name": "宣泽门",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "geo_name": "通天门",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "geo_name": "景阳门",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "geo_name": "卫州门",
+        "modern_name": null,
+        "DynastyName": "宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "geo_name": "辽东",
+        "modern_name": null,
+        "DynastyName": "辽",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "geo_name": "太原",
+        "modern_name": null,
+        "DynastyName": "北宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "geo_name": "燕山府",
+        "modern_name": null,
+        "DynastyName": "北宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "geo_name": "东京",
+        "modern_name": null,
+        "DynastyName": "北宋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "辽",
+        "OrgType": "国家",
+        "DynastyName": "辽",
+        "source_text": "途中与辽渤海军遭遇。"
+      },
+      {
+        "OrgName": "渤海军",
+        "OrgType": "军队",
+        "DynastyName": "辽",
+        "source_text": "途中与辽渤海军遭遇。"
+      },
+      {
+        "OrgName": "女真军",
+        "OrgType": "军队",
+        "DynastyName": "金",
+        "source_text": "女真军连战皆胜，兵力骤增至万人。\n9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "OrgName": "金朝",
+        "OrgType": "国家",
+        "DynastyName": "金",
+        "source_text": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。"
+      },
+      {
+        "OrgName": "辽军",
+        "OrgType": "军队",
+        "DynastyName": "辽",
+        "source_text": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。"
+      },
+      {
+        "OrgName": "怨军",
+        "OrgType": "军队",
+        "DynastyName": "辽",
+        "source_text": "击破都统耶律淳所率8营“怨军”之阻击。"
+      },
+      {
+        "OrgName": "北宋",
+        "OrgType": "国家",
+        "DynastyName": "宋",
+        "source_text": "与北宋始议夹攻辽之“海上盟约”。"
+      },
+      {
+        "OrgName": "金军",
+        "OrgType": "军队",
+        "DynastyName": "金",
+        "source_text": "金军轻取南京。\n次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。\n辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "OrgName": "西夏",
+        "OrgType": "国家",
+        "DynastyName": "西夏",
+        "source_text": "政治上收罗辽之勋贵，安抚占领地民心，以及联结西夏。"
+      },
+      {
+        "OrgName": "宋军",
+        "OrgType": "军队",
+        "DynastyName": "宋",
+        "source_text": "遭到宋军顽强抗击，遂改为长期围困。\n辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "OrgName": "西路军",
+        "OrgType": "军队",
+        "DynastyName": "金",
+        "source_text": "西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原。"
+      },
+      {
+        "OrgName": "东路军",
+        "OrgType": "军队",
+        "DynastyName": "金",
+        "source_text": "东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。"
+      },
+      {
+        "OrgName": "高永昌军",
+        "OrgType": "军事势力",
+        "DynastyName": "辽",
+        "source_text": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "阿骨打",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "君主",
+        "Note": "金朝开国皇帝，灭辽战争的主要统帅，后称帝建立金朝。",
+        "source_text": "阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "PersonName": "耶谢十",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽军骁将，被阿骨打射杀。",
+        "source_text": "射杀骁将耶谢十，致其余众败逃。"
+      },
+      {
+        "PersonName": "萧挞不野",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽将，被阿骨打击败。",
+        "source_text": "10月初，击败辽将萧挞不野，克宁江州。"
+      },
+      {
+        "PersonName": "萧嗣先",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽都统，率军7000被阿骨打击败。",
+        "source_text": "击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "PersonName": "天祚帝",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "君主",
+        "Note": "辽朝末代皇帝，被金军俘虏。",
+        "source_text": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "PersonName": "张琳",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽南府宰相，率10万大军分四路出击，后率兵攻讨渤海人高永昌。",
+        "source_text": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。"
+      },
+      {
+        "PersonName": "高永昌",
+        "DynastyName": "辽",
+        "OrgName": "渤海",
+        "Role": "君主",
+        "Note": "渤海人，起兵反辽，后被金军击灭。",
+        "source_text": "乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌。"
+      },
+      {
+        "PersonName": "耶律淳",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽都统，率8营怨军阻击金军，被击败。",
+        "source_text": "击破都统耶律淳所率8营“怨军”之阻击。"
+      },
+      {
+        "PersonName": "完颜果",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金内外诸军都统，率兵南下。",
+        "source_text": "命完颜果为内外诸军都统，率兵南下，转战西京。"
+      },
+      {
+        "PersonName": "耿守忠",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽将，率7000援军被金军歼灭。",
+        "source_text": "设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "PersonName": "完颜晟",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "君主",
+        "Note": "金太宗，阿骨打之弟，继位后下诏侵宋。",
+        "source_text": "1123年8月，金太祖病逝，其弟完颜晟继位（即金太宗）。"
+      },
+      {
+        "PersonName": "张觉",
+        "DynastyName": "辽",
+        "OrgName": "辽",
+        "Role": "将领",
+        "Note": "辽降将，据平州通宋复辽，被金平定。",
+        "source_text": "在平定辽降将张觉据平州（河北卢龙）通宋复辽事变后。"
+      },
+      {
+        "PersonName": "完颜宗翰",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金左副元帅，率西路军攻太原。",
+        "source_text": "西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原。"
+      },
+      {
+        "PersonName": "完颜宗望",
+        "DynastyName": "金",
+        "OrgName": "金",
+        "Role": "统帅",
+        "Note": "金南京路都统，率东路军攻燕山府。",
+        "source_text": "东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。"
+      },
+      {
+        "PersonName": "郭药师",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "宋守将，降金并为向导。",
+        "source_text": "东路军进抵燕山府，收降宋守将郭药师，并以其为向导。"
+      },
+      {
+        "PersonName": "赵佶",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "君主",
+        "Note": "宋徽宗，金军南下时传位给太子赵桓，南逃。",
+        "source_text": "宋徽宗赵佶闻讯南逃。"
+      },
+      {
+        "PersonName": "赵桓",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "君主",
+        "Note": "宋钦宗，继位后欲弃城西走，后决定留守东京。",
+        "source_text": "钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京。"
+      },
+      {
+        "PersonName": "李纲",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "兵部侍郎，升任尚书右丞、东京留守，率军民坚守东京。",
+        "source_text": "升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。"
+      },
+      {
+        "PersonName": "种师道",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "率泾原路、秦凤路军队入援东京。",
+        "source_text": "种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "PersonName": "姚平仲",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "率泾原路、秦凤路军队入援东京。",
+        "source_text": "种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "PersonName": "范琼",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "率万骑入援东京。",
+        "source_text": "种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "PersonName": "梁方平",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "宋军将领，其溃军被金军追击。",
+        "source_text": "尾追梁方平、何灌之溃军，迫进宋都东京。"
+      },
+      {
+        "PersonName": "何灌",
+        "DynastyName": "宋",
+        "OrgName": "宋",
+        "Role": "将领",
+        "Note": "宋军将领，其溃军被金军追击。",
+        "source_text": "尾追梁方平、何灌之溃军，迫进宋都东京。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "宁江州之战",
+        "EventType": "边境防御",
+        "StartDate": "1114年9月",
+        "EndDate": "1114年10月",
+        "DynastyName": "辽",
+        "Place": "宁江州",
+        "Aggressor": "女真军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "女真军获胜，攻克宁江州",
+        "Commanders": "阿骨打、耶谢十、萧挞不野",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "女真军3700人（后续），辽军不详",
+        "Duration": "约1个月",
+        "GeographicScope": "宁江州",
+        "Casualties": "辽军渤海军败逃，自相践踏死者十之七八",
+        "source": "《中国历代战争简史》",
+        "Impact": "女真军首次攻占辽城，增强了反辽信心",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "出河店之战",
+            "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江，击败都统萧嗣先等所率7000之众，攻占出河店"
+          }
+        ],
+        "source_text": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "出河店之战",
+        "EventType": "边境防御",
+        "StartDate": "1114年10月",
+        "EndDate": "1114年10月",
+        "DynastyName": "辽",
+        "Place": "出河店",
+        "Aggressor": "女真军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "女真军获胜，攻占出河店",
+        "Commanders": "阿骨打、萧嗣先",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "女真军3700人，辽军7000人",
+        "Duration": "不详",
+        "GeographicScope": "出河店",
+        "Casualties": "辽军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "女真军乘胜攻占宾州、祥州、咸州等地，势力扩大",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宁江州之战",
+            "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江，击败都统萧嗣先等所率7000之众，攻占出河店"
+          }
+        ],
+        "source_text": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "EventType": "边境防御",
+        "StartDate": "1114年",
+        "EndDate": "1114年",
+        "DynastyName": "辽",
+        "Place": "涞流河",
+        "Aggressor": "女真军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "女真军获胜，辽军其余三路不拒自退",
+        "Commanders": "阿骨打、张琳",
+        "KeyPersons": null,
+        "Action": "伏击",
+        "TroopSize": "辽军10万（分四路），女真军兵力骤增至万人",
+        "Duration": "不详",
+        "GeographicScope": "涞流河",
+        "Casualties": "辽军一路被歼灭",
+        "source": "《中国历代战争简史》",
+        "Impact": "女真军连战皆胜，兵力骤增至万人",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "出河店之战",
+            "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。"
+          }
+        ],
+        "source_text": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "黄龙府之战",
+        "EventType": "边境防御",
+        "StartDate": "1115年",
+        "EndDate": "1115年",
+        "DynastyName": "辽",
+        "Place": "黄龙府",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军获胜，占领黄龙府",
+        "Commanders": "阿骨打",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "黄龙府地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军取得战争主动地位",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "辽东之战",
+            "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁，年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东"
+          }
+        ],
+        "source_text": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "EventName": "辽东之战",
+        "EventType": "统一战争",
+        "StartDate": "1116年",
+        "EndDate": "1116年",
+        "DynastyName": "辽",
+        "Place": "辽东、沈州、东京",
+        "Aggressor": "金军",
+        "Defender": "辽军、高永昌军",
+        "Allies": null,
+        "Result": "金军获胜，占领东京",
+        "Commanders": "阿骨打、张琳、高永昌",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "辽东地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军占领辽东，扩大势力",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "显州之战",
+            "evidence": "翌年9月，西攻显州"
+          }
+        ],
+        "source_text": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "显州之战",
+        "EventType": "边境防御",
+        "StartDate": "1117年9月",
+        "EndDate": "1117年9月",
+        "DynastyName": "辽",
+        "Place": "显州、蒺藜山",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军获胜，占领显州",
+        "Commanders": "阿骨打、耶律淳",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "显州地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军进一步削弱辽军势力",
+        "Remark": "",
+        "relations": [],
+        "source_text": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "上京之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1120年5月",
+        "EndDate": "1120年5月",
+        "DynastyName": "辽",
+        "Place": "上京",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军攻占上京",
+        "Commanders": "阿骨打",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "上京",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军攻占辽上京，削弱辽朝统治",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "中京、西京之战",
+            "evidence": "次年春，相继攻占中京、泽州、北安州"
+          }
+        ],
+        "source_text": "1120年5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1122年",
+        "EndDate": "1122年",
+        "DynastyName": "辽",
+        "Place": "中京、泽州、北安州、西京",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军攻占中京、西京",
+        "Commanders": "完颜果、耿守忠",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "中京、西京一带",
+        "Casualties": "辽将耿守忠所率7000之援军被歼",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军占领辽中京、西京，进一步削弱辽朝",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "辇驿之战",
+            "evidence": "6月，阿骨打闻天祚帝逃在大渔泊，遂遣轻骑4000为先锋，追天祚帝于辇驿"
+          }
+        ],
+        "source_text": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "EventType": "追击战",
+        "StartDate": "1122年6月",
+        "EndDate": "1122年6月",
+        "DynastyName": "辽",
+        "Place": "辇驿",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军大败辽军，天祚帝弃军逃跑",
+        "Commanders": "阿骨打",
+        "KeyPersons": "天祚帝",
+        "Action": "追击",
+        "TroopSize": "金军轻骑4000，辽军2万余",
+        "Duration": "不详",
+        "GeographicScope": "辇驿",
+        "Casualties": "辽军大败",
+        "source": "《中国历代战争简史》",
+        "Impact": "辽天祚帝逃跑，辽朝灭亡在即",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "中京、西京之战",
+            "evidence": "6月，阿骨打闻天祚帝逃在大渔泊，遂遣轻骑4000为先锋，追天祚帝于辇驿"
+          }
+        ],
+        "source_text": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "南京之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1122年12月",
+        "EndDate": "1122年12月",
+        "DynastyName": "辽",
+        "Place": "南京",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军轻取南京，辽五京皆失",
+        "Commanders": "阿骨打",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "南京",
+        "Casualties": "辽军不战自溃",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军攻占辽南京，辽五京全部失陷，辽朝灭亡在即",
+        "Remark": "适遇地震，辽军不战自溃",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "应州之战",
+            "evidence": "1123年8月，金太祖病逝，其弟完颜晟继位。1125年2月，金军于应州境俘天祚帝，辽朝灭亡。"
+          }
+        ],
+        "source_text": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "应州之战",
+        "EventType": "边境防御",
+        "StartDate": "1125年2月",
+        "EndDate": "1125年2月",
+        "DynastyName": "辽",
+        "Place": "应州",
+        "Aggressor": "金军",
+        "Defender": "辽军",
+        "Allies": null,
+        "Result": "金军俘天祚帝，辽朝灭亡",
+        "Commanders": "完颜晟",
+        "KeyPersons": "天祚帝",
+        "Action": "俘获",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "应州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "辽朝灭亡，金朝完成灭辽战争",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "金灭北宋之战",
+            "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。"
+          }
+        ],
+        "source_text": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "EventType": "统一战争",
+        "StartDate": "1125年10月",
+        "EndDate": "1126年1月",
+        "DynastyName": "北宋",
+        "Place": "太原、燕山府、东京",
+        "Aggressor": "金军",
+        "Defender": "宋军",
+        "Allies": null,
+        "Result": "金军攻至东京城下，北宋危在旦夕",
+        "Commanders": "完颜宗翰、完颜宗望、李纲、种师道、姚平仲、范琼",
+        "KeyPersons": "郭药师、赵佶、赵桓、梁方平、何灌",
+        "Action": "攻伐、守御",
+        "TroopSize": "金军12万",
+        "Duration": "持续约3个月",
+        "GeographicScope": "河东、河北、东京",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "金军南下攻宋，北宋首都东京被围，北宋统治危机",
+        "Remark": "西路军围攻太原，东路军直逼东京",
+        "relations": [],
+        "source_text": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "宁江州之战",
+        "relation": "主战场",
+        "modern_name": "宁江州",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "主战场",
+        "modern_name": "出河店",
+        "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "途经地",
+        "modern_name": "混同江",
+        "evidence": "乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "主战场",
+        "modern_name": "涞流河",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "黄龙府之战",
+        "relation": "主战场",
+        "modern_name": "黄龙府",
+        "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "主战场",
+        "modern_name": "辽东",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "次要战场",
+        "modern_name": "沈州",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "目的地",
+        "modern_name": "东京",
+        "evidence": "后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "主战场",
+        "modern_name": "显州",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "次要战场",
+        "modern_name": "蒺藜山",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "上京之战",
+        "relation": "主战场",
+        "modern_name": "上京",
+        "evidence": "1120年5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "主战场",
+        "modern_name": "中京",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "次要战场",
+        "modern_name": "泽州",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "次要战场",
+        "modern_name": "北安州",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "主战场",
+        "modern_name": "西京",
+        "evidence": "以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "途经地",
+        "modern_name": "松亭关",
+        "evidence": "进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "途经地",
+        "modern_name": "古北口",
+        "evidence": "进至松亭关（迁西喜峰口）、古北口（密云东北）一带。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "主战场",
+        "modern_name": "辇驿",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "途经地",
+        "modern_name": "大渔泊",
+        "evidence": "阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "主战场",
+        "modern_name": "南京",
+        "evidence": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "次要战场",
+        "modern_name": "得胜口",
+        "evidence": "一路入得胜口（昌平西北）。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "次要战场",
+        "modern_name": "居庸关",
+        "evidence": "一路入居庸关。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "主战场",
+        "modern_name": "应州",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "主战场",
+        "modern_name": "太原",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "主战场",
+        "modern_name": "燕山府",
+        "evidence": "东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "目的地",
+        "modern_name": "东京",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "浚州",
+        "evidence": "1126年1月，金东路军迫近黄河，攻占浚州。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "宣泽门",
+        "evidence": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "通天门",
+        "evidence": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "景阳门",
+        "evidence": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "卫州门",
+        "evidence": "先后在宣泽门、通天门、景阳门、卫州门重创金军。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "次要战场",
+        "modern_name": "东京",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "目的地",
+        "modern_name": "显州",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "次要战场",
+        "modern_name": "西京",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "目的地",
+        "modern_name": "西京",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "目的地",
+        "modern_name": "南京",
+        "evidence": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "出发地",
+        "modern_name": "太原",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "目的地",
+        "modern_name": "太原",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "燕山府",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "目的地",
+        "modern_name": "燕山府",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "次要战场",
+        "modern_name": "东京",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "战略要地",
+        "modern_name": "东京",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "宁江州之战",
+        "relation": "发起方",
+        "OrgName": "女真军",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "参战方",
+        "OrgName": "渤海军",
+        "evidence": "途中与辽渤海军遭遇。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "发起方",
+        "OrgName": "女真军",
+        "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "发起方",
+        "OrgName": "女真军",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "黄龙府之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "EventName": "黄龙府之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "防守方",
+        "OrgName": "高永昌军",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "参战方",
+        "OrgName": "怨军",
+        "evidence": "击破都统耶律淳所率8营“怨军”之阻击。"
+      },
+      {
+        "EventName": "上京之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1120年5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName": "上京之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "1120年5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "防守方",
+        "OrgName": "辽军",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "发起方",
+        "OrgName": "金军",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "防守方",
+        "OrgName": "宋军",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参战方",
+        "OrgName": "西路军",
+        "evidence": "西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参战方",
+        "OrgName": "东路军",
+        "evidence": "东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "同盟方",
+        "OrgName": "西夏",
+        "evidence": "政治上收罗辽之勋贵，安抚占领地民心，以及联结西夏。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "宁江州之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "将领",
+        "PersonName": "耶谢十",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "将领",
+        "PersonName": "萧挞不野",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "将领",
+        "PersonName": "萧嗣先",
+        "evidence": "击败都统萧嗣先等所率7000之众。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "将领",
+        "PersonName": "张琳",
+        "evidence": "天祚帝令南府宰相张琳率10万大军分四路出击。"
+      },
+      {
+        "EventName": "黄龙府之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁（阿城南白城），年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "将领",
+        "PersonName": "张琳",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "将领",
+        "PersonName": "高永昌",
+        "evidence": "后又击灭高永昌。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "将领",
+        "PersonName": "耶律淳",
+        "evidence": "击破都统耶律淳所率8营“怨军”之阻击。"
+      },
+      {
+        "EventName": "上京之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "1120年5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "统帅",
+        "PersonName": "完颜果",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "将领",
+        "PersonName": "耿守忠",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "君主",
+        "PersonName": "天祚帝",
+        "evidence": "追天祚帝于辇驿。"
+      },
+      {
+        "EventName": "南京之战",
+        "relation": "统帅",
+        "PersonName": "阿骨打",
+        "evidence": "12月，分兵两路攻南京（北京），一路入得胜口（昌平西北），一路入居庸关。适遇地震，辽军不战自溃，金军轻取南京。至是辽的五京皆为金军攻占。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "统帅",
+        "PersonName": "完颜晟",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "君主",
+        "PersonName": "天祚帝",
+        "evidence": "俘天祚帝。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "完颜宗翰",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "完颜宗望",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "李纲",
+        "evidence": "升任李纲为尚书右丞、东京留守。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "种师道",
+        "evidence": "种师道、姚平仲率泾原路、秦风路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "姚平仲",
+        "evidence": "种师道、姚平仲率泾原路、秦风路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "范琼",
+        "evidence": "范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "叛变",
+        "PersonName": "郭药师",
+        "evidence": "收降宋守将郭药师，并以其为向导。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "君主",
+        "PersonName": "赵佶",
+        "evidence": "宋徽宗赵佶闻讯南逃。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "君主",
+        "PersonName": "赵桓",
+        "evidence": "传位于太子赵桓（即钦宗）。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "梁方平",
+        "evidence": "尾追梁方平、何灌之溃军。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "将领",
+        "PersonName": "何灌",
+        "evidence": "尾追梁方平、何灌之溃军。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "统帅",
+        "PersonName": "耶谢十",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "宁江州之战",
+        "relation": "统帅",
+        "PersonName": "萧挞不野",
+        "evidence": "9月，即誓师进攻宁江，途中与辽渤海军遭遇。为避其锋锐，便取佯退诱敌之战法，引渤海军出战，射杀骁将耶谢十，致其余众败逃，自相践踏死者十之七八。10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。"
+      },
+      {
+        "EventName": "出河店之战",
+        "relation": "统帅",
+        "PersonName": "萧嗣先",
+        "evidence": "随后，阿骨打又率3700人，乘夜渡过混同江（松花江上游），击败都统萧嗣先等所率7000之众，攻占出河店，继而分兵夺占宾州（农安东北）、祥州（农安境）、咸州（辽宁开原北）等地。"
+      },
+      {
+        "EventName": "涞流河之战",
+        "relation": "统帅",
+        "PersonName": "张琳",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。女真军连战皆胜，兵力骤增至万人。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "统帅",
+        "PersonName": "张琳",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "辽东之战",
+        "relation": "统帅",
+        "PersonName": "高永昌",
+        "evidence": "1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东，先于沈州（沈阳）击败张琳军，后又击灭高永昌，占领东京（辽阳）。"
+      },
+      {
+        "EventName": "显州之战",
+        "relation": "统帅",
+        "PersonName": "耶律淳",
+        "evidence": "翌年9月，西攻显州（辽宁北镇），击破都统耶律淳所率8营“怨军”之阻击，夺占蒺藜山，拔取显州。"
+      },
+      {
+        "EventName": "中京、西京之战",
+        "relation": "统帅",
+        "PersonName": "耿守忠",
+        "evidence": "1122年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。次年春，相继攻占中京、泽州（河北平泉西南）、北安州（承德西），进至松亭关（迁西喜峰口）、古北口（密云东北）一带。随即，分兵跟踪追击天祚帝；以主力回攻西京，设伏城东，一举歼灭辽将耿守忠所率7000之援军，攻破西京。"
+      },
+      {
+        "EventName": "辇驿之战",
+        "relation": "参与者",
+        "PersonName": "天祚帝",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊（大同北），遂遣轻骑4000为先锋，追天祚帝于辇驿（在同西北），大败辽军2万余，天祚帝弃军逃跑。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "参与者",
+        "PersonName": "天祚帝",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "应州之战",
+        "relation": "俘虏",
+        "PersonName": "天祚帝",
+        "evidence": "1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "李纲",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "种师道",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "姚平仲",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "统帅",
+        "PersonName": "范琼",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参与者",
+        "PersonName": "郭药师",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参与者",
+        "PersonName": "赵佶",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参与者",
+        "PersonName": "赵桓",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参与者",
+        "PersonName": "梁方平",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      },
+      {
+        "EventName": "金灭北宋之战",
+        "relation": "参与者",
+        "PersonName": "何灌",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。金军乘宋廷戒备松驰之机，突然兵分两路南下：西路由左副元帅完颜宗翰率领，统兵6万，自西京攻太原：东路由南京路都统完颜宗望率领，统兵6万，自南京（河北卢龙）攻燕山府（北京）。企图在掠夺大河以北的河东、河北广大地区后，西路军从太原下洛阳，绝宋西兵援路，且防宋徽宗奔蜀；东路军下燕山、真定，直趋东都（河南开封）。未几，西路军即轻取朔（山西朔县）、武（神池）、代（代县）等州，继而围攻太原，遭到宋军顽强抗击，遂改为长期围困。东路军进抵燕山府，收降宋守将郭药师，并以其为向导，移军直扑东京（开封）。这时，素无对金作战准备的宋朝君臣惊慌失措，战、守、逃争议不决。11月，宋徽宗赵佶见形势危急，才令各路军入援，并遣使向金求和。12月，便传位于太子赵桓（即钦宗）。1126年1月，金东路军迫近黄河，攻占浚州。因河桥为宋军焚毁，便以小船渡河，尾追梁方平、何灌之溃军，迫进宋都东京。宋徽宗赵佶闻讯南逃。钦宗也欲弃城西走，经兵部侍郎李纲等力谏，才决定留在东京，升任李纲为尚书右丞、东京留守，并遣使督催诸路勤王兵人援。李纲受命后，提出“今日之计，莫如整励士马，声言出战，团结民心，相与坚守，以待勤王之师。”同时，积极营造战具，整饬军备，抚励民心。7日，见金东路军进抵东京城下，即率领军民日夜坚守，先后在宣泽门、通天门、景阳门、卫州门重创金军。不久，种师道、姚平仲率泾原路、秦凤路及范琼率万骑陆续赶到。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "出河店之战",
+        "relation": "顺承关系",
+        "EventName_B": "宁江州之战",
+        "evidence": "10月初，击败辽将萧挞不野，克宁江州，掠其财物而归。随后，阿骨打又率3700人，乘夜渡过混同江，击败都统萧嗣先等所率7000之众，攻占出河店。"
+      },
+      {
+        "EventName_A": "出河店之战",
+        "relation": "顺承关系",
+        "EventName_B": "涞流河之战",
+        "evidence": "辽军连战受挫后，天祚帝令南府宰相张琳率10万大军分四路出击，企图夺回江州。阿骨打先集兵歼灭辽军突出的涞流河一路，其余三路不拒自退。"
+      },
+      {
+        "EventName_A": "涞流河之战",
+        "relation": "顺承关系",
+        "EventName_B": "黄龙府之战",
+        "evidence": "女真军连战皆胜，兵力骤增至万人。次年1月，阿骨打称帝，建立金朝，定都会宁，年号收国。不久，率兵三战黄龙府。"
+      },
+      {
+        "EventName_A": "辽东之战",
+        "relation": "顺承关系",
+        "EventName_B": "黄龙府之战",
+        "evidence": "次年1月，阿骨打称帝，建立金朝，定都会宁，年号收国。不久，率兵三战黄龙府，连创辽军主力，取得了战争主动地位。1116年，乘辽宰相张琳率兵攻讨渤海人高永昌之机，出兵击辽东"
+      },
+      {
+        "EventName_A": "显州之战",
+        "relation": "顺承关系",
+        "EventName_B": "辽东之战",
+        "evidence": "翌年9月，西攻显州。"
+      },
+      {
+        "EventName_A": "上京之战",
+        "relation": "顺承关系",
+        "EventName_B": "显州之战",
+        "evidence": "1119年，拒绝与辽议和后，即转入大举进攻。次年2月，与北宋始议夹攻辽之“海上盟约”。5月，不等辽军部署就绪，即三路出兵奔袭上京。"
+      },
+      {
+        "EventName_A": "上京之战",
+        "relation": "顺承关系",
+        "EventName_B": "中京、西京之战",
+        "evidence": "1121年，乘辽内部空虚，兵源枯竭，便命完颜果为内外诸军都统，率兵南下，转战西京。\n次年春，相继攻占中京、泽州、北安州"
+      },
+      {
+        "EventName_A": "中京、西京之战",
+        "relation": "顺承关系",
+        "EventName_B": "辇驿之战",
+        "evidence": "6月，阿骨打闻天祚帝逃在大渔泊，遂遣轻骑4000为先锋，追天祚帝于辇驿。"
+      },
+      {
+        "EventName_A": "南京之战",
+        "relation": "顺承关系",
+        "EventName_B": "辇驿之战",
+        "evidence": "12月，分兵两路攻南京（北京）。"
+      },
+      {
+        "EventName_A": "南京之战",
+        "relation": "顺承关系",
+        "EventName_B": "应州之战",
+        "evidence": "1123年8月，金太祖病逝，其弟完颜晟继位（即金太宗）。1125年2月，金军于应州（山西应县）境俘天祚帝，辽朝灭亡。\n1123年8月，金太祖病逝，其弟完颜晟继位。1125年2月，金军于应州境俘天祚帝，辽朝灭亡。"
+      },
+      {
+        "EventName_A": "应州之战",
+        "relation": "顺承关系",
+        "EventName_B": "金灭北宋之战",
+        "evidence": "辽亡的这年10月，完颜晟则下诏侵宋。"
+      }
+    ]
+  }
+}

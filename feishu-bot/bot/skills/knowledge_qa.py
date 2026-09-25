@@ -12,7 +12,7 @@ import logging
 
 from bot.cards.builder import (build_answer_reply, build_degraded_card,
                                build_too_long_card, build_turn)
-from bot.rag_client import RagError
+from bot.rag_client import DEGRADED_CODES, RagError
 from bot.session import as_rag_history
 from bot.skills.base import Reply, SkillContext
 
@@ -125,7 +125,13 @@ class KnowledgeQaSkill:
                      error.code, len(ctx.question))
             return Reply(kind="card", card=build_too_long_card())
 
-        reason = "timeout" if error.code == "timeout" else "unavailable"
+        # 降级原因分三档（第 14 轮审计 P3-6）：timeout 单独一档（文案说"稍后再试"），
+        # 集合里的可重试失败归 unavailable，其余才落到 internal。
+        # 判定依据取自 rag_client.DEGRADED_CODES —— 它原先是个**没有任何引用**的常量，
+        # 真正决定降级的是这里一句硬编码，于是"往集合里加错误码"会静默无效。
+        reason = ("timeout" if error.code == "timeout"
+                  else "unavailable" if error.code in DEGRADED_CODES
+                  else "internal")
         if error.is_payload_too_large:
             # 413 是机器人侧历史组装的问题（风险 8）：日志里必须留下请求规模，
             # 否则只能靠猜"是不是历史太长了"

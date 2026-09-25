@@ -1,0 +1,570 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "棘壁",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "永城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "破棘壁（河南永城西北，一说柘城西北），大败梁军"
+      },
+      {
+        "geo_name": "雎阳",
+        "modern_name": "商丘",
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "商丘市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜围攻梁国都城雎阳（河南商丘南）"
+      },
+      {
+        "geo_name": "临淄",
+        "modern_name": "淄博",
+        "DynastyName": "西汉",
+        "Province": "山东省",
+        "City": "淄博市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "胶西王刘印、胶东王刘雄渠、淄川王刘贤、济南王刘辟光亦起兵围攻齐国都城临淄（山东淄博东北）"
+      },
+      {
+        "geo_name": "昌邑",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": "山东省",
+        "City": "巨野县",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "率军直抵战略要地昌邑（山东巨野南），深沟高垒"
+      },
+      {
+        "geo_name": "淮泗口",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "淮水与泗水合流处",
+        "source_text": "派弓高侯韩颓当等率轻骑出淮泗口（淮水与泗水合流处，在今洪泽湖内），迂回吴、楚军侧后"
+      },
+      {
+        "geo_name": "下邑",
+        "modern_name": "砀山",
+        "DynastyName": "西汉",
+        "Province": "安徽省",
+        "City": "宿州市",
+        "District_County": "砀山县",
+        "Specific_location": null,
+        "source_text": "双方对阵于下邑（安微场山)"
+      },
+      {
+        "geo_name": "丹徒",
+        "modern_name": "丹徒区",
+        "DynastyName": "西汉",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": "丹徒区",
+        "Specific_location": null,
+        "source_text": "刘濞弃军逃至丹徒（今属江苏），被东越人所杀"
+      },
+      {
+        "geo_name": "函谷关",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "灵宝市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "企图经函谷关（河南灵宝东北）入长安"
+      },
+      {
+        "geo_name": "广陵",
+        "modern_name": "扬州",
+        "DynastyName": "西汉",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在广陵（江苏扬州）起兵"
+      },
+      {
+        "geo_name": "荣阳",
+        "modern_name": "荥阳",
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "荥阳市",
+        "Specific_location": null,
+        "source_text": "兵至荣阳，便派人联络齐王与诸侯"
+      },
+      {
+        "geo_name": "崤",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "避开吴军设有间谍的崤、渑（陕西潼关至河南渑池一带）"
+      },
+      {
+        "geo_name": "渑",
+        "modern_name": "渑池",
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "三门峡市",
+        "District_County": "渑池县",
+        "Specific_location": null,
+        "source_text": "避开吴军设有间谍的崤、渑（陕西潼关至河南渑池一带）"
+      },
+      {
+        "geo_name": "武关",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": "陕西省",
+        "City": "商洛市",
+        "District_County": "丹凤县",
+        "Specific_location": null,
+        "source_text": "绕道武关（陕西商南东南），直趋洛阳"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "洛阳",
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "绕道武关（陕西商南东南），直趋洛阳"
+      },
+      {
+        "geo_name": "淮阳",
+        "modern_name": "淮阳区",
+        "DynastyName": "西汉",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "淮阳区",
+        "Specific_location": null,
+        "source_text": "进至淮阳后，又依邓都尉计"
+      },
+      {
+        "geo_name": "齐国西部边境",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "geo_name": "荥阳",
+        "modern_name": null,
+        "DynastyName": "西汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "齐军",
+        "OrgType": "地方势力",
+        "DynastyName": "西汉",
+        "source_text": "齐王刘肥得知诸昌之谋后，即发兵西征"
+      },
+      {
+        "OrgName": "吕氏",
+        "OrgType": "地方势力",
+        "DynastyName": "西汉",
+        "source_text": "吕产、吕禄更加专权，欲作乱"
+      },
+      {
+        "OrgName": "南军",
+        "OrgType": "中央政权",
+        "DynastyName": "西汉",
+        "source_text": "以吕产为相国，领南军"
+      },
+      {
+        "OrgName": "北军",
+        "OrgType": "中央政权",
+        "DynastyName": "西汉",
+        "source_text": "吕禄为上将军，领北军"
+      },
+      {
+        "OrgName": "吴军",
+        "OrgType": "地方势力",
+        "DynastyName": "西汉",
+        "source_text": "吴、楚军攻梁不下，转攻周亚夫率领的汉军主力"
+      },
+      {
+        "OrgName": "楚军",
+        "OrgType": "地方势力",
+        "DynastyName": "西汉",
+        "source_text": "吴、楚军攻梁不下，转攻周亚夫率领的汉军主力"
+      },
+      {
+        "OrgName": "梁军",
+        "OrgType": "地方势力",
+        "DynastyName": "西汉",
+        "source_text": "破棘壁（河南永城西北，一说柘城西北），大败梁军"
+      },
+      {
+        "OrgName": "汉军",
+        "OrgType": "中央政权",
+        "DynastyName": "西汉",
+        "source_text": "吴、楚军攻梁不下，转攻周亚夫率领的汉军主力"
+      },
+      {
+        "OrgName": "东越人",
+        "OrgType": "部落",
+        "DynastyName": "西汉",
+        "source_text": "刘濞弃军逃至丹徒（今属江苏），被东越人所杀"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "刘邦",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "君主",
+        "Note": "汉高祖，分封同姓诸侯王",
+        "source_text": "大封同姓诸侯王以镇抚天下。刘邦有8个儿子"
+      },
+      {
+        "PersonName": "刘盈",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "君主",
+        "Note": "孝惠帝，刘邦之子，在位7年忧愤而死",
+        "source_text": "刘邦死后，孝惠帝刘盈即位"
+      },
+      {
+        "PersonName": "吕后",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "君主",
+        "Note": "刘邦之妻，操纵朝政，杀害赵王如意等",
+        "source_text": "惠帝年幼，朝政实际上为吕后操纵"
+      },
+      {
+        "PersonName": "刘如意",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "参战者",
+        "Note": "赵王，被吕后召入宫杀害",
+        "source_text": "吕后最恨戚姬及其子赵王刘如意，乃设计将赵王如意召人宫而杀害"
+      },
+      {
+        "PersonName": "刘友",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "参战者",
+        "Note": "赵王，被吕后计除",
+        "source_text": "在此期间，吕后还计除了赵王刘友和梁王刘恢（死为赵王）"
+      },
+      {
+        "PersonName": "刘恢",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "参战者",
+        "Note": "梁王，后为赵王，被吕后计除",
+        "source_text": "在此期间，吕后还计除了赵王刘友和梁王刘恢（死为赵王）"
+      },
+      {
+        "PersonName": "吕产",
+        "DynastyName": "西汉",
+        "OrgName": "吕氏",
+        "Role": "统帅",
+        "Note": "梁王，后为相国，领南军，吕后死后专权",
+        "source_text": "以吕产为梁王，吕泽之子吕禄为赵王"
+      },
+      {
+        "PersonName": "吕禄",
+        "DynastyName": "西汉",
+        "OrgName": "吕氏",
+        "Role": "统帅",
+        "Note": "赵王，后为上将军，领北军",
+        "source_text": "吕泽之子吕禄为赵王，吕台之子吕通为燕王"
+      },
+      {
+        "PersonName": "刘肥",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "统帅",
+        "Note": "齐王，发兵西征欲诛诸吕",
+        "source_text": "齐王刘肥得知诸昌之谋后，即发兵西征"
+      },
+      {
+        "PersonName": "灌婴",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "将领",
+        "Note": "颖阴侯，率兵迎击齐王，后联络齐王共灭诸吕",
+        "source_text": "吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击"
+      },
+      {
+        "PersonName": "周勃",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "统帅",
+        "Note": "太尉，设计夺取吕禄、吕产兵权，平定诸吕",
+        "source_text": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权"
+      },
+      {
+        "PersonName": "陈平",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "谋士",
+        "Note": "丞相，与周勃共谋平定诸吕",
+        "source_text": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权"
+      },
+      {
+        "PersonName": "刘垣",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "君主",
+        "Note": "代王，后为汉文帝",
+        "source_text": "诸昌平定后，丞相陈平，太尉周勃共谋，迎立代王刘垣为汉文帝"
+      },
+      {
+        "PersonName": "贾谊",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "谋士",
+        "Note": "提出“部分国策”",
+        "source_text": "汉文帝采纳贾谊的“部分国策”"
+      },
+      {
+        "PersonName": "刘武",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "君主",
+        "Note": "梁王，景帝之子，抵御吴楚军",
+        "source_text": "把自己的儿子刘武封为梁王（封地在河南东部）"
+      },
+      {
+        "PersonName": "晁错",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "谋士",
+        "Note": "提出“削藩之策”",
+        "source_text": "汉景帝即位后，采纳晁错的“削藩之策”"
+      },
+      {
+        "PersonName": "刘濞",
+        "DynastyName": "西汉",
+        "OrgName": "吴国",
+        "Role": "统帅",
+        "Note": "吴王，七国之乱首领，后被杀",
+        "source_text": "以吴王刘濞为首、联合楚王刘戊等7国，以“诛晁错，清君侧”为借口，在广陵（江苏扬州）起兵"
+      },
+      {
+        "PersonName": "刘戊",
+        "DynastyName": "西汉",
+        "OrgName": "楚国",
+        "Role": "统帅",
+        "Note": "楚王，参与七国之乱",
+        "source_text": "联合楚王刘戊等7国"
+      },
+      {
+        "PersonName": "周亚夫",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "统帅",
+        "Note": "太尉，率军平定七国之乱",
+        "source_text": "汉景帝得知诸王起兵，任周亚夫为太尉，率领36将军约30万兵力迎击吴、楚军"
+      },
+      {
+        "PersonName": "郦寄",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "将领",
+        "Note": "曲周侯，击赵军",
+        "source_text": "命曲周侯郦寄击赵军"
+      },
+      {
+        "PersonName": "栾布",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "将领",
+        "Note": "将军，击齐地诸叛国",
+        "source_text": "将军栾布击齐地诸叛国"
+      },
+      {
+        "PersonName": "窦婴",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "将领",
+        "Note": "外戚，大将军，屯守荣阳",
+        "source_text": "以外戚窦婴为大将军屯守荣阳"
+      },
+      {
+        "PersonName": "赵涉",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "谋士",
+        "Note": "建议周亚夫绕道武关",
+        "source_text": "周亚夫采纳赵涉建议"
+      },
+      {
+        "PersonName": "邓都尉",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "谋士",
+        "Note": "建议周亚夫直抵昌邑",
+        "source_text": "又依邓都尉计，率军直抵战略要地昌邑"
+      },
+      {
+        "PersonName": "韩颓当",
+        "DynastyName": "西汉",
+        "OrgName": "西汉",
+        "Role": "将领",
+        "Note": "弓高侯，率轻骑出淮泗口断敌粮道",
+        "source_text": "派弓高侯韩颓当等率轻骑出淮泗口"
+      },
+      {
+        "PersonName": "张羽",
+        "DynastyName": "西汉",
+        "OrgName": "梁国",
+        "Role": "将领",
+        "Note": "梁国大将，抵御吴楚军",
+        "source_text": "刘武亦命大将韩安国、张羽等全力抵御"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "EventType": "皇位争夺",
+        "StartDate": "前184年",
+        "EndDate": "前184年",
+        "DynastyName": "西汉",
+        "Place": "齐国西部边境、荥阳",
+        "Aggressor": "齐军",
+        "Defender": "吕氏",
+        "Allies": null,
+        "Result": "吕氏被诛，齐王罢兵",
+        "Commanders": "刘肥、灌婴、周勃、陈平",
+        "KeyPersons": null,
+        "Action": "征伐、迎击、联络、夺权",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "齐国西部边境、荥阳",
+        "Casualties": "不详",
+        "source": "《史记》",
+        "Impact": "吕氏势力被清除，汉文帝即位，西汉政权稳定",
+        "Remark": "灌婴与齐王联合，周勃陈平发动政变",
+        "relations": [],
+        "source_text": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "出发地",
+        "modern_name": "齐国西部边境",
+        "evidence": "齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "驻防地",
+        "modern_name": "荥阳",
+        "evidence": "灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "主战场",
+        "modern_name": "齐国西部边境",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "次要战场",
+        "modern_name": "荥阳",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "发起方",
+        "OrgName": "齐军",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "防守方",
+        "OrgName": "吕氏",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "参战方",
+        "OrgName": "南军",
+        "evidence": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "参战方",
+        "OrgName": "北军",
+        "evidence": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "统帅",
+        "PersonName": "刘肥",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "将领",
+        "PersonName": "灌婴",
+        "evidence": "吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "参与者",
+        "PersonName": "周勃",
+        "evidence": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "参与者",
+        "PersonName": "陈平",
+        "evidence": "身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "统帅",
+        "PersonName": "灌婴",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "统帅",
+        "PersonName": "周勃",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      },
+      {
+        "EventName": "齐王刘肥西征诛吕",
+        "relation": "统帅",
+        "PersonName": "陈平",
+        "evidence": "公元前184（吕后八年）年，吕后病死，吕产、吕禄更加专权，欲作乱。齐王刘肥得知诸昌之谋后，即发兵西征，企图诛杀诸吕，自立为帝。吕产闻齐王率兵西进，乃派颖阴侯灌婴统兵迎击。灌婴是刘邦老将，不愿与诸吕同谋，兵至荣阳，便派人联络齐王与诸侯，以待吕氏作乱时，共灭诸吕。齐王接受灌婴建议，遂将大军屯于齐国的西部边境，以观情况的变化。此时，身为太尉的周勃和丞相陈平，知齐王与灌婴连兵，乃设计夺取了吕禄、吕产的兵权，统率南、北军，将吕氏家族的大小人丁，一一斩首，齐王遂罢兵，从而避免了一场巨大的战乱。"
+      }
+    ],
+    "event_event_relations": []
+  }
+}

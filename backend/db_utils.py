@@ -84,6 +84,16 @@ def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
 #   - created_at：质检报表按它统计"最近新增"，可伪造即报表不可信。
 MANAGED_COLUMNS = frozenset({"id", "neo4j_id", "created_at"})
 
+# 账号与昵称的长度上限（第 14 轮审计 P3-10）。
+#
+# 前端登录/注册页要求账号 3-20、昵称 ≤20，而后端（含模型列的 String(255)）**只要求非空**：
+# 与刚统一的"口令 10-64 两边一份口径"同类——前端更严会凭空拦住人，而且没有共同事实源，
+# 改一边不会提醒另一边。这里把规则补到服务端（自注册路径），前端那份仍保留
+# （本地先拦一次，少一次往返），两者的数值在注释里互相指向。
+MIN_ACCOUNT_LENGTH = 3
+MAX_ACCOUNT_LENGTH = 20
+MAX_NAME_LENGTH = 20
+
 
 class DbUtil:
     @staticmethod
@@ -151,6 +161,12 @@ class DbUtil:
         name = (data.get("name") or "").strip()
         if not account or not password or not name:
             return {"code": 400, "msg": "用户名、昵称和密码不能为空"}
+        if not (MIN_ACCOUNT_LENGTH <= len(account) <= MAX_ACCOUNT_LENGTH):
+            return {"code": 400,
+                    "msg": f"账号长度需为 {MIN_ACCOUNT_LENGTH}-{MAX_ACCOUNT_LENGTH} 位"
+                           f"（当前 {len(account)} 位）"}
+        if len(name) > MAX_NAME_LENGTH:
+            return {"code": 400, "msg": f"昵称长度不能超过 {MAX_NAME_LENGTH} 位"}
         # 口令强度是注册路径也要过的门（第 13 轮整改）：只在改密码时管长度，等于
         # "弱口令只要一开始就设好，就永远不用改"。
         problem = self._password_policy_problem(password)
@@ -600,7 +616,16 @@ class DbUtil:
             for mapped_key, value in mapped_properties.items():
                 if mapped_key in updatable_fields and hasattr(node, mapped_key):
                     if mapped_key in {"longitude", "latitude"}:
-                        value = None if value in (None, "") else float(value)
+                        if value in (None, ""):
+                            value = None
+                        else:
+                            try:
+                                value = float(value)
+                            except (TypeError, ValueError):
+                                # 非法经纬度原先抛 ValueError → 兜底 except 收成 500
+                                # 「操作失败」（第 14 轮审计 P3-1）
+                                return {"code": 400,
+                                        "msg": f"{mapped_key} 必须是数字（当前 {value!r}）"}
                     setattr(node, mapped_key, value)
             job = _stage_sync_job(
                 node_type, node_id, OP_NODE_UPDATE, node.name, mapped_properties,

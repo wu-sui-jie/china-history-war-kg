@@ -1,0 +1,2419 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "渔阳",
+        "modern_name": "北京市密云区",
+        "DynastyName": "东汉",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "密云区",
+        "Specific_location": null,
+        "source_text": "渔阳、上谷太守，持节北发幽州10万突骑兵与自率邯郸主力进攻铜马义军。"
+      },
+      {
+        "geo_name": "上谷",
+        "modern_name": "河北省张家口市怀来县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "怀来县",
+        "Specific_location": null,
+        "source_text": "渔阳、上谷太守，持节北发幽州10万突骑兵与自率邯郸主力进攻铜马义军。"
+      },
+      {
+        "geo_name": "幽州",
+        "modern_name": "北京市",
+        "DynastyName": "东汉",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "持节北发幽州10万突骑兵"
+      },
+      {
+        "geo_name": "邯郸",
+        "modern_name": "河北省邯郸市",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自率邯郸主力进攻铜马义军"
+      },
+      {
+        "geo_name": "河",
+        "modern_name": "黄河",
+        "DynastyName": "东汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "以南",
+        "source_text": "铜马义军数十万驻屯于河以南、清河以北地区。"
+      },
+      {
+        "geo_name": "清河",
+        "modern_name": "河北省邢台市清河县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": "清河县",
+        "Specific_location": "以北",
+        "source_text": "铜马义军数十万驻屯于河以南、清河以北地区。"
+      },
+      {
+        "geo_name": "馆陶",
+        "modern_name": "河北省邯郸市馆陶县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "馆陶县",
+        "Specific_location": null,
+        "source_text": "刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之"
+      },
+      {
+        "geo_name": "蒲阳",
+        "modern_name": "河北省保定市定州市",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "定州市",
+        "Specific_location": "西北",
+        "source_text": "刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之"
+      },
+      {
+        "geo_name": "射犬",
+        "modern_name": "河南省焦作市武陟县",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "武陟县",
+        "Specific_location": "西南",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "geo_name": "河内",
+        "modern_name": "河南省焦作市沁阳市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "沁阳市",
+        "Specific_location": null,
+        "source_text": "接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "geo_name": "元氏",
+        "modern_name": "河北省石家庄市元氏县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "石家庄市",
+        "District_County": "元氏县",
+        "Specific_location": null,
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "geo_name": "北平",
+        "modern_name": "河北省保定市顺平县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "保定市",
+        "District_County": "顺平县",
+        "Specific_location": null,
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "geo_name": "安次",
+        "modern_name": "河北省廊坊市安次区",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "廊坊市",
+        "District_County": "安次区",
+        "Specific_location": null,
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "geo_name": "浚摩",
+        "modern_name": "河北省张家口市涿鹿县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "张家口市",
+        "District_County": "涿鹿县",
+        "Specific_location": "北",
+        "source_text": "吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "geo_name": "柏乡",
+        "modern_name": "河北省邢台市柏乡县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "邢台市",
+        "District_County": "柏乡县",
+        "Specific_location": "北",
+        "source_text": "刘秀回军至（河北柏乡县北），沿用汉的国号，称光武皇帝。"
+      },
+      {
+        "geo_name": "孟津",
+        "modern_name": "河南省洛阳市孟津区",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "孟津区",
+        "Specific_location": null,
+        "source_text": "冯异为孟津将军，率领魏郡，河内郡的部队，防守孟津渡□"
+      },
+      {
+        "geo_name": "魏郡",
+        "modern_name": "河北省邯郸市临漳县",
+        "DynastyName": "东汉",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "临漳县",
+        "Specific_location": null,
+        "source_text": "冯异为孟津将军，率领魏郡，河内郡的部队"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "河南省洛阳市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以防备洛阳的朱、李轶"
+      },
+      {
+        "geo_name": "野王",
+        "modern_name": "河南省焦作市沁阳市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "沁阳市",
+        "Specific_location": null,
+        "source_text": "邓禹率军由野王（河南沁阳）出发"
+      },
+      {
+        "geo_name": "箕关",
+        "modern_name": "河南省济源市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "济源市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经箕关（河南济源西王屋山）入河东"
+      },
+      {
+        "geo_name": "河东",
+        "modern_name": "山西省运城市",
+        "DynastyName": "东汉",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经箕关（河南济源西王屋山）入河东"
+      },
+      {
+        "geo_name": "安邑",
+        "modern_name": "山西省运城市夏县",
+        "DynastyName": "东汉",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": "夏县",
+        "Specific_location": "西北",
+        "source_text": "进围安邑（山西夏县西北）"
+      },
+      {
+        "geo_name": "解县",
+        "modern_name": "山西省运城市临猗县",
+        "DynastyName": "东汉",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": "临猗县",
+        "Specific_location": null,
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "geo_name": "夏阳",
+        "modern_name": "陕西省渭南市韩城市",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "韩城市",
+        "Specific_location": "西南",
+        "source_text": "继而西渡黄河入夏阳（陕西韩城西南）"
+      },
+      {
+        "geo_name": "衙县",
+        "modern_name": "陕西省渭南市白水县",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "白水县",
+        "Specific_location": "北",
+        "source_text": "在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "geo_name": "新丰",
+        "modern_name": "陕西省西安市临潼区",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": "临潼区",
+        "Specific_location": "东北",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "geo_name": "长安",
+        "modern_name": "陕西省西安市",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "geo_name": "恂邑",
+        "modern_name": "陕西省咸阳市旬邑县",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "咸阳市",
+        "District_County": "旬邑县",
+        "Specific_location": null,
+        "source_text": "邓禹见赤眉军已进占长安，乃引兵进占恂邑（陕西旬邑）"
+      },
+      {
+        "geo_name": "开井关",
+        "modern_name": "山西省晋城市",
+        "DynastyName": "东汉",
+        "Province": "山西省",
+        "City": "晋城市",
+        "District_County": null,
+        "Specific_location": "南",
+        "source_text": "北攻开井关（山西晋城南）"
+      },
+      {
+        "geo_name": "上党郡",
+        "modern_name": "山西省长治市",
+        "DynastyName": "东汉",
+        "Province": "山西省",
+        "City": "长治市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占据上党郡两城"
+      },
+      {
+        "geo_name": "成皋",
+        "modern_name": "河南省郑州市巩义市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "巩义市",
+        "Specific_location": "东北",
+        "source_text": "占领成皋（河南巩县东北）以东13县"
+      },
+      {
+        "geo_name": "士乡",
+        "modern_name": null,
+        "DynastyName": "东汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在士乡击杀了河内太守武勃。"
+      },
+      {
+        "geo_name": "河阳",
+        "modern_name": "河南省焦作市孟州市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "焦作市",
+        "District_County": "孟州市",
+        "Specific_location": "西",
+        "source_text": "亲自从镇河阳（河南孟县西）指挥。"
+      },
+      {
+        "geo_name": "陇西",
+        "modern_name": "甘肃省定西市陇西县",
+        "DynastyName": "东汉",
+        "Province": "甘肃省",
+        "City": "定西市",
+        "District_County": "陇西县",
+        "Specific_location": null,
+        "source_text": "赤眉以长安粮尽，引兵百万向陇西就食。"
+      },
+      {
+        "geo_name": "云阳",
+        "modern_name": "陕西省咸阳市泾阳县",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "咸阳市",
+        "District_County": "泾阳县",
+        "Specific_location": null,
+        "source_text": "被赤眉击败，退据云阳。"
+      },
+      {
+        "geo_name": "华阴",
+        "modern_name": "陕西省渭南市华阴市",
+        "DynastyName": "东汉",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "华阴市",
+        "Specific_location": null,
+        "source_text": "命冯异占领华阴"
+      },
+      {
+        "geo_name": "新安",
+        "modern_name": "河南省洛阳市新安县",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "新安县",
+        "Specific_location": "东",
+        "source_text": "侯进等屯兵新安（河南渑池东）"
+      },
+      {
+        "geo_name": "宜阳",
+        "modern_name": "河南省洛阳市宜阳县",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "宜阳县",
+        "Specific_location": null,
+        "source_text": "耿昇等屯兵宜阳"
+      },
+      {
+        "geo_name": "湖县",
+        "modern_name": "河南省三门峡市灵宝市",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "三门峡市",
+        "District_County": "灵宝市",
+        "Specific_location": "西",
+        "source_text": "邓禹率领车将军邓弘等由河西回到湖县（河南灵宝西）"
+      },
+      {
+        "geo_name": "崤底",
+        "modern_name": "河南省洛阳市洛宁县",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "洛宁县",
+        "Specific_location": "西北",
+        "source_text": "冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "geo_name": "崤山",
+        "modern_name": "河南省洛阳市洛宁县",
+        "DynastyName": "东汉",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "洛宁县",
+        "Specific_location": "西北",
+        "source_text": "冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "geo_name": "关中",
+        "modern_name": null,
+        "DynastyName": "东汉",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "铜马义军",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "铜马义军数十万驻屯于河以南、清河以北地区。"
+      },
+      {
+        "OrgName": "青犊",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "OrgName": "上江",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "OrgName": "大彤",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "OrgName": "银泾",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "OrgName": "五幅",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "OrgName": "尤来",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "OrgName": "太枪",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "OrgName": "五幡",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "OrgName": "汉",
+        "OrgType": "中央政权",
+        "DynastyName": "东汉",
+        "source_text": "沿用汉的国号，称光武皇帝。"
+      },
+      {
+        "OrgName": "绿林军",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "OrgName": "赤眉军",
+        "OrgType": "起义军",
+        "DynastyName": "东汉",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "OrgName": "更始政权",
+        "OrgType": "中央政权",
+        "DynastyName": "东汉",
+        "source_text": "攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "OrgName": "刘玄军",
+        "OrgType": "地方势力",
+        "DynastyName": "东汉",
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "OrgName": "南阳",
+        "OrgType": "地方势力",
+        "DynastyName": "东汉",
+        "source_text": "冯异利用李轶曾与刘秀在南阳共同起兵关系"
+      },
+      {
+        "OrgName": "汉中",
+        "OrgType": "地方势力",
+        "DynastyName": "东汉",
+        "source_text": "采用政治手段拉拢南阳王常、汉中的刘嘉、天水的隗嚣"
+      },
+      {
+        "OrgName": "天水",
+        "OrgType": "地方势力",
+        "DynastyName": "东汉",
+        "source_text": "采用政治手段拉拢南阳王常、汉中的刘嘉、天水的隗嚣"
+      },
+      {
+        "OrgName": "刘秀军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "OrgName": "五幅等义军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "OrgName": "五幡等部义军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "OrgName": "义军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "OrgName": "邓禹军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "OrgName": "刘玄左辅都尉公乘歙部",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "OrgName": "冯异军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "OrgName": "朱鲔军",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "OrgName": "任良等部",
+        "OrgType": "军事势力",
+        "DynastyName": "东汉",
+        "source_text": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "刘秀",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "东汉开国皇帝，光武帝，多次亲自率军征讨，如进攻铜马、尤来等，后称帝。",
+        "source_text": "刘秀即利用两河地势围困义军，绝其粮道。"
+      },
+      {
+        "PersonName": "韩歆",
+        "DynastyName": "东汉",
+        "OrgName": "河内",
+        "Role": "将领",
+        "Note": "河内太守，投降刘秀。",
+        "source_text": "太守韩歆投降。"
+      },
+      {
+        "PersonName": "吴汉",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "大司马，率军追击义军，后统兵围攻洛阳。",
+        "source_text": "后以吴汉等将军率部穷追，追歼义军1.3万人。"
+      },
+      {
+        "PersonName": "寇恂",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "河内太守，行大将军事，负责兵马粮械补给。",
+        "source_text": "以寇恂为河内太守，行大将军事，负责兵马粮械的补给"
+      },
+      {
+        "PersonName": "冯异",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "孟津将军，后为征西大将军，多次与赤眉军作战。",
+        "source_text": "冯异为孟津将军，率领魏郡，河内郡的部队，防守孟津渡□"
+      },
+      {
+        "PersonName": "邓禹",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "统帅",
+        "Note": "前将军，率兵西入河西，后与赤眉作战失利。",
+        "source_text": "邓禹为前将军，率兵2万，西入河西，乘衅夺取关中"
+      },
+      {
+        "PersonName": "朱鲔",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林将领，守洛阳，后投降刘秀。",
+        "source_text": "朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻"
+      },
+      {
+        "PersonName": "李轶",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林将领，与刘秀有旧，被朱鲔刺杀。",
+        "source_text": "冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动"
+      },
+      {
+        "PersonName": "武勃",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "河内太守，被冯异击杀。",
+        "source_text": "在士乡击杀了河内太守武勃。"
+      },
+      {
+        "PersonName": "朱佑",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "十一将军之一，参与围攻洛阳。",
+        "source_text": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军"
+      },
+      {
+        "PersonName": "岑彭",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "十一将军之一，参与围攻洛阳。",
+        "source_text": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军"
+      },
+      {
+        "PersonName": "贾复",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "十一将军之一，参与围攻洛阳。",
+        "source_text": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军"
+      },
+      {
+        "PersonName": "祭遵",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "十一将军之一，参与围攻洛阳。",
+        "source_text": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军"
+      },
+      {
+        "PersonName": "王常",
+        "DynastyName": "东汉",
+        "OrgName": "南阳",
+        "Role": "君主",
+        "Note": "南阳地方势力，被刘秀拉拢。",
+        "source_text": "采用政治手段拉拢南阳王常、汉中的刘嘉、天水的隗嚣"
+      },
+      {
+        "PersonName": "刘嘉",
+        "DynastyName": "东汉",
+        "OrgName": "汉中",
+        "Role": "君主",
+        "Note": "汉中地方势力，被刘秀拉拢。",
+        "source_text": "采用政治手段拉拢南阳王常、汉中的刘嘉、天水的隗嚣"
+      },
+      {
+        "PersonName": "隗嚣",
+        "DynastyName": "东汉",
+        "OrgName": "天水",
+        "Role": "君主",
+        "Note": "天水地方势力，被刘秀拉拢。",
+        "source_text": "采用政治手段拉拢南阳王常、汉中的刘嘉、天水的隗嚣"
+      },
+      {
+        "PersonName": "邓弘",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "车将军，随邓禹进攻赤眉，失利。",
+        "source_text": "邓禹率领车将军邓弘等由河西回到湖县"
+      },
+      {
+        "PersonName": "樊参",
+        "DynastyName": "东汉",
+        "OrgName": "刘玄军",
+        "Role": "将领",
+        "Note": "刘玄派遣的将领，被邓禹击败。",
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "PersonName": "王匡",
+        "DynastyName": "东汉",
+        "OrgName": "刘玄军",
+        "Role": "将领",
+        "Note": "刘玄派遣的将领，被邓禹击败。",
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "PersonName": "成丹",
+        "DynastyName": "东汉",
+        "OrgName": "刘玄军",
+        "Role": "将领",
+        "Note": "刘玄派遣的将领，被邓禹击败。",
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "PersonName": "刘均",
+        "DynastyName": "东汉",
+        "OrgName": "刘玄军",
+        "Role": "将领",
+        "Note": "刘玄派遣的将领，被邓禹击败。",
+        "source_text": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部"
+      },
+      {
+        "PersonName": "公乘歙",
+        "DynastyName": "东汉",
+        "OrgName": "刘玄军",
+        "Role": "将领",
+        "Note": "刘玄左辅都尉，被邓禹击败。",
+        "source_text": "在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "PersonName": "陈牧",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林军将领，被赤眉击败。",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "PersonName": "赵萌",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林军将领，被赤眉击败。",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "PersonName": "李松",
+        "DynastyName": "东汉",
+        "OrgName": "绿林军",
+        "Role": "将领",
+        "Note": "绿林军将领，被赤眉击败。",
+        "source_text": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部"
+      },
+      {
+        "PersonName": "刘玄",
+        "DynastyName": "东汉",
+        "OrgName": "更始政权",
+        "Role": "君主",
+        "Note": "更始帝，被赤眉军消灭。",
+        "source_text": "攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "PersonName": "侯进",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "屯兵新安，截断赤眉东归要道。",
+        "source_text": "侯进等屯兵新安（河南渑池东）"
+      },
+      {
+        "PersonName": "耿昇",
+        "DynastyName": "东汉",
+        "OrgName": "汉",
+        "Role": "将领",
+        "Note": "屯兵宜阳，截断赤眉东归要道。",
+        "source_text": "耿昇等屯兵宜阳"
+      },
+      {
+        "PersonName": "延岑",
+        "DynastyName": "东汉",
+        "OrgName": null,
+        "Role": "将领",
+        "Note": "被冯异击败。",
+        "source_text": "击败延岑、张邯、任良等部"
+      },
+      {
+        "PersonName": "张邯",
+        "DynastyName": "东汉",
+        "OrgName": null,
+        "Role": "将领",
+        "Note": "被冯异击败。",
+        "source_text": "击败延岑、张邯、任良等部"
+      },
+      {
+        "PersonName": "任良",
+        "DynastyName": "东汉",
+        "OrgName": null,
+        "Role": "将领",
+        "Note": "被冯异击败。",
+        "source_text": "击败延岑、张邯、任良等部"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "24年",
+        "EndDate": "24年",
+        "DynastyName": "东汉",
+        "Place": "河、清河、馆陶、蒲阳",
+        "Aggressor": "刘秀军",
+        "Defender": "铜马义军",
+        "Allies": null,
+        "Result": "刘秀军获胜，收降铜马义军10万余人",
+        "Commanders": "刘秀",
+        "KeyPersons": null,
+        "Action": "围困、追击、交战",
+        "TroopSize": "数十万（铜马义军）",
+        "Duration": "月余",
+        "GeographicScope": "河以南、清河以北地区",
+        "Casualties": "收降10万余人",
+        "source": "《后汉书》",
+        "Impact": "刘秀收编铜马义军，增强实力，为统一河北奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "射犬之战",
+            "evidence": "继而向南，在射犬又歼青犊等义军"
+          }
+        ],
+        "source_text": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "射犬之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "24年",
+        "EndDate": "24年",
+        "DynastyName": "东汉",
+        "Place": "射犬",
+        "Aggressor": "刘秀军",
+        "Defender": "青犊、上江、大彤、银泾、五幅等义军",
+        "Allies": null,
+        "Result": "刘秀军获胜，歼义军10余万",
+        "Commanders": "刘秀",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "10余万（义军）",
+        "Duration": "不详",
+        "GeographicScope": "射犬地区",
+        "Casualties": "歼10余万",
+        "source": "《后汉书》",
+        "Impact": "进一步削弱河北义军势力，巩固刘秀在河北的统治",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "刘秀围困铜马义军之战",
+            "evidence": "继而向南，在射犬又歼青犊等义军"
+          },
+          {
+            "type": "顺承关系",
+            "to": "元氏、北平、安次之战",
+            "evidence": "接着南略河内，太守韩歆投降。次年春，刘秀转军北上"
+          }
+        ],
+        "source_text": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "25年春",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "元氏、北平、安次",
+        "Aggressor": "刘秀军",
+        "Defender": "尤来、太枪、五幡等部义军",
+        "Allies": null,
+        "Result": "刘秀军获胜，义军溃散",
+        "Commanders": "刘秀、吴汉",
+        "KeyPersons": null,
+        "Action": "追击、交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河北地区",
+        "Casualties": "追歼义军1.3万人",
+        "source": "《后汉书》",
+        "Impact": "基本消灭河北农民军，为刘秀称帝扫清障碍",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "射犬之战",
+            "evidence": "次年春，刘秀转军北上，在元氏、北平、安次诸地连续击破尤来、太枪、五幡等部义军"
+          }
+        ],
+        "source_text": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "EventType": "镇压叛乱",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "渔阳、浚摩",
+        "Aggressor": "刘秀军",
+        "Defender": "义军",
+        "Allies": null,
+        "Result": "刘秀军获胜，义军溃散",
+        "Commanders": "吴汉",
+        "KeyPersons": null,
+        "Action": "追击",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "渔阳至浚摩",
+        "Casualties": "追歼义军1.3万人",
+        "source": "《后汉书》",
+        "Impact": "刘秀消灭河北地区农民军残余势力，巩固后方",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "邓禹攻取河东之战",
+            "evidence": "刘秀即位后，派邓禹西进，随后发生邓禹攻取河东之战"
+          }
+        ],
+        "source_text": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "EventType": "统一战争",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "河东、解县、安邑",
+        "Aggressor": "邓禹军",
+        "Defender": "刘玄军",
+        "Allies": null,
+        "Result": "邓禹军获胜，占据河东",
+        "Commanders": "邓禹、樊参、王匡、成丹、刘均",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "邓禹率兵2万",
+        "Duration": "不详",
+        "GeographicScope": "河东地区",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "邓禹占据河东，为刘秀西进关中奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "衙县之战",
+            "evidence": "占据河东后，继而西渡黄河入夏阳，在衙县击破公乘歙部"
+          }
+        ],
+        "source_text": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "衙县之战",
+        "EventType": "统一战争",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "衙县",
+        "Aggressor": "邓禹军",
+        "Defender": "刘玄左辅都尉公乘歙部",
+        "Allies": null,
+        "Result": "邓禹军获胜，击破公乘歙部",
+        "Commanders": "邓禹、公乘歙",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "公乘歙部10余万",
+        "Duration": "不详",
+        "GeographicScope": "衙县",
+        "Casualties": "击破公乘歙部10余万",
+        "source": "《后汉书》",
+        "Impact": "邓禹进一步削弱刘玄势力，为进占关中扫清障碍",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "邓禹攻取河东之战",
+            "evidence": "占据河东后，继而西渡黄河入夏阳，在衙县击破公乘歙部"
+          }
+        ],
+        "source_text": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "新丰之战",
+        "EventType": "军阀割据",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "新丰",
+        "Aggressor": "赤眉军",
+        "Defender": "绿林军",
+        "Allies": null,
+        "Result": "赤眉军获胜，绿林军败退，更始政权灭亡",
+        "Commanders": "王匡、陈牧、成丹、赵萌、李松",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "新丰地区",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "赤眉军攻入长安，消灭更始政权，改变关中局势",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "洛阳攻防战",
+            "evidence": "赤眉军攻入长安后，刘秀围攻洛阳"
+          }
+        ],
+        "source_text": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "开井关、上党郡、成皋、士乡",
+        "Aggressor": "冯异军",
+        "Defender": "绿林军",
+        "Allies": null,
+        "Result": "冯异军获胜，占据成皋以东13县，击杀武勃",
+        "Commanders": "冯异、武勃",
+        "KeyPersons": "李轶",
+        "Action": "攻伐、诱降、击杀",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "河内、洛阳周边",
+        "Casualties": "诱降绿林军10余万，击杀武勃",
+        "source": "《后汉书》",
+        "Impact": "削弱绿林军在洛阳周边的势力，为攻取洛阳创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "洛阳攻防战",
+            "evidence": "冯异北攻开井关、南渡黄河之战后，朱鲔分兵进攻河内，引发洛阳攻防战"
+          }
+        ],
+        "source_text": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "EventType": "首都保卫战",
+        "StartDate": "25年",
+        "EndDate": "25年",
+        "DynastyName": "东汉",
+        "Place": "洛阳、河内",
+        "Aggressor": "刘秀军",
+        "Defender": "朱鲔军",
+        "Allies": null,
+        "Result": "刘秀军获胜，朱鲔投降，刘秀定都洛阳",
+        "Commanders": "寇恂、冯异、吴汉、朱佑、岑彭、贾复、祭遵、朱鲔",
+        "KeyPersons": "李轶",
+        "Action": "攻防、反击、围攻、投降",
+        "TroopSize": "刘秀军10万，朱鲔军30万",
+        "Duration": "不详",
+        "GeographicScope": "洛阳、河内地区",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "刘秀攻占洛阳并定都，奠定东汉政权基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "冯异北攻开井关、南渡黄河之战",
+            "evidence": "冯异北攻开井关、南渡黄河之战后，朱鲔分兵进攻河内，引发洛阳攻防战"
+          }
+        ],
+        "source_text": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "邓禹袭长安之战",
+        "EventType": "军阀割据",
+        "StartDate": "26年",
+        "EndDate": "26年",
+        "DynastyName": "东汉",
+        "Place": "长安",
+        "Aggressor": "邓禹军",
+        "Defender": "赤眉军",
+        "Allies": null,
+        "Result": "邓禹军被赤眉军击败，退据云阳",
+        "Commanders": "邓禹",
+        "KeyPersons": null,
+        "Action": "袭攻",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "长安",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "邓禹袭长安失败，刘秀改派冯异为征西大将军，负责围困赤眉军",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "华阴相持战",
+            "evidence": "不久，刘秀派冯异为征西大将军，替换邓禹，担任围困赤眉的任务。"
+          }
+        ],
+        "source_text": "公元26年，赤眉以长安粮尽，引兵百万向陇西就食。据恂邑的邓禹乘机引兵袭长安，被赤眉击败，退据云阳。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "EventType": "军阀割据",
+        "StartDate": "26年",
+        "EndDate": "27年",
+        "DynastyName": "东汉",
+        "Place": "华阴",
+        "Aggressor": "冯异军",
+        "Defender": "赤眉军",
+        "Allies": null,
+        "Result": "双方相持60余日，未分胜负",
+        "Commanders": "冯异",
+        "KeyPersons": null,
+        "Action": "相持",
+        "TroopSize": "不详",
+        "Duration": "持续60余日",
+        "GeographicScope": "华阴",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "冯异军与赤眉军在华阴相持，为后续崤底之战创造了条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "崤底之战",
+            "evidence": "公元27年，邓禹率领车将军邓弘等由河西回到湖县，因西征无功，遂约冯异共击赤眉。"
+          }
+        ],
+        "source_text": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "崤底之战",
+        "EventType": "军阀割据",
+        "StartDate": "27年",
+        "EndDate": "27年",
+        "DynastyName": "东汉",
+        "Place": "崤底、崤山",
+        "Aggressor": "冯异军",
+        "Defender": "赤眉军",
+        "Allies": null,
+        "Result": "冯异军大败赤眉军，迫降8万余人",
+        "Commanders": "冯异、邓禹、邓弘",
+        "KeyPersons": null,
+        "Action": "伏击、迫降",
+        "TroopSize": "赤眉军10万余人",
+        "Duration": "不详",
+        "GeographicScope": "崤底",
+        "Casualties": "迫降赤眉军8万余人",
+        "source": "《后汉书》",
+        "Impact": "崤底之战重创赤眉军，加速了赤眉军的失败，为东汉统一关中奠定了基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "邓禹袭长安之战",
+            "evidence": "邓禹袭长安失败后，冯异接替邓禹，与赤眉军作战。"
+          },
+          {
+            "type": "顺承关系",
+            "to": "华阴相持战",
+            "evidence": "华阴相持战后，赤眉军继续东归，在崤底与冯异军决战。"
+          }
+        ],
+        "source_text": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "公元27年",
+        "EndDate": "公元27年",
+        "DynastyName": "东汉",
+        "Place": "宜阳",
+        "Aggressor": "刘秀军",
+        "Defender": "赤眉军",
+        "Allies": null,
+        "Result": "赤眉军投降，刘秀获胜",
+        "Commanders": "刘秀、耿昇",
+        "KeyPersons": null,
+        "Action": "包围、投降",
+        "TroopSize": "刘秀亲率重兵，赤眉余部10余万",
+        "Duration": "不详",
+        "GeographicScope": "宜阳地区",
+        "Casualties": "赤眉军投降，未详伤亡",
+        "source": "《后汉书》",
+        "Impact": "赤眉军主力被消灭，东汉政权巩固",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "冯异平定关中之战",
+            "evidence": "赤眉军投降后，冯异率军继续西进，平定关中"
+          }
+        ],
+        "source_text": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "公元27年",
+        "EndDate": "公元27年",
+        "DynastyName": "东汉",
+        "Place": "长安、关中",
+        "Aggressor": "冯异军",
+        "Defender": "延岑、张邯、任良等部",
+        "Allies": null,
+        "Result": "冯异获胜，攻克长安，平定关中",
+        "Commanders": "冯异、延岑、张邯、任良",
+        "KeyPersons": null,
+        "Action": "交战、攻克",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "关中地区",
+        "Casualties": "不详",
+        "source": "《后汉书》",
+        "Impact": "东汉政权完全控制关中地区",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "宜阳之战",
+            "evidence": "赤眉军投降后，冯异率军继续西进，击败延岑等部"
+          }
+        ],
+        "source_text": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "主战场",
+        "modern_name": "河",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "次要战场",
+        "modern_name": "清河",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "主战场",
+        "modern_name": "馆陶",
+        "evidence": "刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "主战场",
+        "modern_name": "蒲阳",
+        "evidence": "刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "主战场",
+        "modern_name": "射犬",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "主战场",
+        "modern_name": "元氏",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "主战场",
+        "modern_name": "北平",
+        "evidence": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "主战场",
+        "modern_name": "安次",
+        "evidence": "在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "主战场",
+        "modern_name": "渔阳",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "主战场",
+        "modern_name": "浚摩",
+        "evidence": "义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "主战场",
+        "modern_name": "河东",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "主战场",
+        "modern_name": "解县",
+        "evidence": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "主战场",
+        "modern_name": "安邑",
+        "evidence": "进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "主战场",
+        "modern_name": "衙县",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "主战场",
+        "modern_name": "新丰",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "主战场",
+        "modern_name": "开井关",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "主战场",
+        "modern_name": "上党郡",
+        "evidence": "北攻开井关（山西晋城南），占据上党郡两城。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "主战场",
+        "modern_name": "成皋",
+        "evidence": "随即南渡黄河，占领成皋（河南巩县东北）以东13县。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "主战场",
+        "modern_name": "士乡",
+        "evidence": "在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "主战场",
+        "modern_name": "洛阳",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "次要战场",
+        "modern_name": "河内",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "指挥所",
+        "modern_name": "河阳",
+        "evidence": "并亲自从镇河阳（河南孟县西）指挥。"
+      },
+      {
+        "EventName": "邓禹袭长安之战",
+        "relation": "主战场",
+        "modern_name": "长安",
+        "evidence": "公元26年，赤眉以长安粮尽，引兵百万向陇西就食。据恂邑的邓禹乘机引兵袭长安，被赤眉击败，退据云阳。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "relation": "主战场",
+        "modern_name": "华阴",
+        "evidence": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "主战场",
+        "modern_name": "崤底",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "主战场",
+        "modern_name": "崤山",
+        "evidence": "冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "主战场",
+        "modern_name": "宜阳",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "主战场",
+        "modern_name": "长安",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "主战场",
+        "modern_name": "关中",
+        "evidence": "冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "次要战场",
+        "modern_name": "馆陶",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "目的地",
+        "modern_name": "馆陶",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "次要战场",
+        "modern_name": "蒲阳",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "次要战场",
+        "modern_name": "北平",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "次要战场",
+        "modern_name": "安次",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "目的地",
+        "modern_name": "渔阳",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "次要战场",
+        "modern_name": "浚摩",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "目的地",
+        "modern_name": "浚摩",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "目的地",
+        "modern_name": "河东",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "驻防地",
+        "modern_name": "河东",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "次要战场",
+        "modern_name": "解县",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "次要战场",
+        "modern_name": "安邑",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "目的地",
+        "modern_name": "安邑",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "目的地",
+        "modern_name": "开井关",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "次要战场",
+        "modern_name": "上党郡",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "驻防地",
+        "modern_name": "上党郡",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "次要战场",
+        "modern_name": "成皋",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "驻防地",
+        "modern_name": "成皋",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "次要战场",
+        "modern_name": "士乡",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "目的地",
+        "modern_name": "洛阳",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "驻防地",
+        "modern_name": "洛阳",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "relation": "目的地",
+        "modern_name": "华阴",
+        "evidence": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "目的地",
+        "modern_name": "崤底",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "次要战场",
+        "modern_name": "崤山",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "次要战场",
+        "modern_name": "关中",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "防守方",
+        "OrgName": "铜马义军",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "青犊",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "上江",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "大彤",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "银泾",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "五幅",
+        "evidence": "又歼青犊、上江、大彤、银泾、五幅等义军10余万。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "防守方",
+        "OrgName": "尤来",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "防守方",
+        "OrgName": "太枪",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "防守方",
+        "OrgName": "五幡",
+        "evidence": "连续击破尤来、太枪、五幡等部义军。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "防守方",
+        "OrgName": "义军",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "发起方",
+        "OrgName": "邓禹军",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "防守方",
+        "OrgName": "刘玄军",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "发起方",
+        "OrgName": "邓禹军",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "防守方",
+        "OrgName": "刘玄左辅都尉公乘歙部",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "发起方",
+        "OrgName": "赤眉军",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "防守方",
+        "OrgName": "绿林军",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "发起方",
+        "OrgName": "冯异军",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "防守方",
+        "OrgName": "绿林军",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "防守方",
+        "OrgName": "朱鲔军",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "邓禹袭长安之战",
+        "relation": "发起方",
+        "OrgName": "邓禹军",
+        "evidence": "公元26年，赤眉以长安粮尽，引兵百万向陇西就食。据恂邑的邓禹乘机引兵袭长安，被赤眉击败，退据云阳。"
+      },
+      {
+        "EventName": "邓禹袭长安之战",
+        "relation": "防守方",
+        "OrgName": "赤眉军",
+        "evidence": "公元26年，赤眉以长安粮尽，引兵百万向陇西就食。据恂邑的邓禹乘机引兵袭长安，被赤眉击败，退据云阳。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "relation": "发起方",
+        "OrgName": "冯异军",
+        "evidence": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "relation": "防守方",
+        "OrgName": "赤眉军",
+        "evidence": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "发起方",
+        "OrgName": "冯异军",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "防守方",
+        "OrgName": "赤眉军",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "发起方",
+        "OrgName": "刘秀军",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "防守方",
+        "OrgName": "赤眉军",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "发起方",
+        "OrgName": "冯异军",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "防守方",
+        "OrgName": "任良等部",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "刘秀军",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "青犊",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "上江",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "大彤",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "银泾",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "防守方",
+        "OrgName": "五幅等义军",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "投降方",
+        "OrgName": "五幅等义军",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "防守方",
+        "OrgName": "五幡等部义军",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "投降方",
+        "OrgName": "刘秀军",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "投降方",
+        "OrgName": "朱鲔军",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "投降方",
+        "OrgName": "刘秀军",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "投降方",
+        "OrgName": "赤眉军",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "投降方",
+        "OrgName": "冯异军",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "投降方",
+        "OrgName": "任良等部",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "刘秀围困铜马义军之战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "当时，铜马义军数十万驻屯于河以南、清河以北地区。刘秀即利用两河地势围困义军，绝其粮道。铜马义军被围月余，粮尽南走，刘秀军追击至馆陶（山东临清西南）蒲阳（河北定县西北）大破之，收降义军10万余人。"
+      },
+      {
+        "EventName": "射犬之战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "继而向南，在射犬（河南武涉西南）又歼青犊、上江、大彤、银泾、五幅等义军10余万。接着南略河内（郡治河南沁阳），太守韩歆投降。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "将领",
+        "PersonName": "吴汉",
+        "evidence": "后以吴汉等将军率部穷追。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "将领",
+        "PersonName": "吴汉",
+        "evidence": "后以吴汉等将军率部穷追，追歼义军1.3万人。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "统帅",
+        "PersonName": "邓禹",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "将领",
+        "PersonName": "樊参",
+        "evidence": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "将领",
+        "PersonName": "王匡",
+        "evidence": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "将领",
+        "PersonName": "成丹",
+        "evidence": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "将领",
+        "PersonName": "刘均",
+        "evidence": "先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "统帅",
+        "PersonName": "邓禹",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "将领",
+        "PersonName": "公乘歙",
+        "evidence": "在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "将领",
+        "PersonName": "王匡",
+        "evidence": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "将领",
+        "PersonName": "陈牧",
+        "evidence": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "将领",
+        "PersonName": "成丹",
+        "evidence": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "将领",
+        "PersonName": "赵萌",
+        "evidence": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "将领",
+        "PersonName": "李松",
+        "evidence": "赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "统帅",
+        "PersonName": "冯异",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "将领",
+        "PersonName": "武勃",
+        "evidence": "在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "使者",
+        "PersonName": "李轶",
+        "evidence": "冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "寇恂",
+        "evidence": "朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "冯异",
+        "evidence": "冯异乘机反击，迫使朱鲔退守洛阳。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "吴汉",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "朱佑",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "岑彭",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "贾复",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "祭遵",
+        "evidence": "刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "将领",
+        "PersonName": "朱鲔",
+        "evidence": "朱鲔在外援断绝的情况下献城投降。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "使者",
+        "PersonName": "李轶",
+        "evidence": "冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动。"
+      },
+      {
+        "EventName": "邓禹袭长安之战",
+        "relation": "统帅",
+        "PersonName": "邓禹",
+        "evidence": "公元26年，赤眉以长安粮尽，引兵百万向陇西就食。据恂邑的邓禹乘机引兵袭长安，被赤眉击败，退据云阳。"
+      },
+      {
+        "EventName": "华阴相持战",
+        "relation": "统帅",
+        "PersonName": "冯异",
+        "evidence": "同年11月，赤眉军放弃长安东归，至华阴与冯异军遭遇，相持60余日。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "统帅",
+        "PersonName": "冯异",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "将领",
+        "PersonName": "邓禹",
+        "evidence": "邓禹与冯异合兵救援，又遭失败。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "将领",
+        "PersonName": "邓弘",
+        "evidence": "邓弘首先发起进攻，受到挫折。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "统帅",
+        "PersonName": "刘秀",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "将领",
+        "PersonName": "耿昇",
+        "evidence": "耿昇等屯兵宜阳，以截断赤眉东归的要道。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "统帅",
+        "PersonName": "冯异",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "将领",
+        "PersonName": "延岑",
+        "evidence": "击败延岑、张邯、任良等部。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "将领",
+        "PersonName": "张邯",
+        "evidence": "击败延岑、张邯、任良等部。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "将领",
+        "PersonName": "任良",
+        "evidence": "击败延岑、张邯、任良等部。"
+      },
+      {
+        "EventName": "元氏、北平、安次之战",
+        "relation": "统帅",
+        "PersonName": "吴汉",
+        "evidence": "次年春，刘秀转军北上，在元氏、北平、安次（均属河北）诸地连续击破尤来、太枪、五幡等部义军。义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "渔阳追击战",
+        "relation": "统帅",
+        "PersonName": "吴汉",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追，追歼义军1.3万人。义军溃散，吴汉追至浚摩（河北蓟县北）而还。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "统帅",
+        "PersonName": "樊参",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "统帅",
+        "PersonName": "王匡",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "君主",
+        "PersonName": "王匡",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "统帅",
+        "PersonName": "成丹",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "邓禹攻取河东之战",
+        "relation": "统帅",
+        "PersonName": "刘均",
+        "evidence": "公元25年，邓禹率军由野王（河南沁阳）出发，经箕关（河南济源西王屋山）入河东，进围安邑（山西夏县西北），先后在解县、安邑击败刘玄派遣的樊参、王匡、成丹和刘均诸部，占据了河东。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "统帅",
+        "PersonName": "公乘歙",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "衙县之战",
+        "relation": "君主",
+        "PersonName": "公乘歙",
+        "evidence": "继而西渡黄河入夏阳（陕西韩城西南），在衙县（陕西白水北）击破刘玄左辅都尉公乘歙部10余万。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "统帅",
+        "PersonName": "王匡",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "君主",
+        "PersonName": "王匡",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "统帅",
+        "PersonName": "陈牧",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "统帅",
+        "PersonName": "成丹",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "统帅",
+        "PersonName": "赵萌",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "新丰之战",
+        "relation": "统帅",
+        "PersonName": "李松",
+        "evidence": "此时，赤眉军在新丰（陕西临潼东北）击破绿林军王匡、陈牧、成丹、赵萌和李松诸部，乘绿林军内部分裂，自相残杀，攻入长安，消灭了刘玄的更始政权。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "统帅",
+        "PersonName": "武勃",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "阵亡",
+        "PersonName": "武勃",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "冯异北攻开井关、南渡黄河之战",
+        "relation": "参与者",
+        "PersonName": "李轶",
+        "evidence": "冯异屯兵孟津时，对洛阳采取守势。洛阳有绿林将领朱鲔、李轶和武勃统率的30万兵把守，城坚兵众，不易攻破。冯异利用李轶曾与刘秀在南阳共同起兵关系，争取李轶按兵不动，并乘机抽调兵力，北攻开井关（山西晋城南），占据上党郡两城，随即南渡黄河，占领成皋（河南巩县东北）以东13县，诱降了绿林军10余万人，在士乡击杀了河内太守武勃。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "寇恂",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "冯异",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "吴汉",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "朱佑",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "岑彭",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "贾复",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "祭遵",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "统帅",
+        "PersonName": "朱鲔",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "投降",
+        "PersonName": "朱鲔",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "洛阳攻防战",
+        "relation": "参与者",
+        "PersonName": "李轶",
+        "evidence": "此时，刘秀又故意将李轶的信件泄露给朱鲔。朱鲔得信，刺杀了李轶，分兵两路北渡黄河，向河内发动进攻，被寇恂击败。冯异乘机反击，迫使朱鲔退守洛阳。刘秀当即派大司马吴汉统率朱佑、岑彭、贾复和祭遵等11将军，发兵10万围攻洛阳，并亲自从镇河阳（河南孟县西）指挥。朱鲔在外援断绝的情况下献城投降，被刘秀封为平狄将军、扶沟侯。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "统帅",
+        "PersonName": "邓禹",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "崤底之战",
+        "relation": "统帅",
+        "PersonName": "邓弘",
+        "evidence": "赤眉军击败邓禹、冯异后，部队饥疲不堪，急欲东归就粮，冯异看清了赤眉的致命弱点，乃约赤眉会战。冯异先派出一支部队穿着赤眉军的服装，夜伏干道旁。次晨，赤眉军以万人进攻冯异的先头部队。冯异军示弱，以少数兵力赴援。赤眉中计，全力投入战斗，冯异也以主力抗击。双方相持半日，赤眉军攻势渐衰，冯异突出伏兵袭击，赤眉溃败。冯异追至崤底（即崤山，河南洛宁县西北）迫降赤眉军8万余人。"
+      },
+      {
+        "EventName": "宜阳之战",
+        "relation": "统帅",
+        "PersonName": "耿昇",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。赤眉军突围未成，投降刘秀。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "统帅",
+        "PersonName": "延岑",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "统帅",
+        "PersonName": "张邯",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      },
+      {
+        "EventName": "冯异平定关中之战",
+        "relation": "统帅",
+        "PersonName": "任良",
+        "evidence": "赤眉军投降后，冯异率军继续西进，于是年4月，击败延岑、张邯、任良等部，攻克长安，平定关中。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "刘秀围困铜马义军之战",
+        "relation": "顺承关系",
+        "EventName_B": "射犬之战",
+        "evidence": "铜马义军被围月余，粮尽南走，刘秀军追击至馆陶...继而向南，在射犬又歼青犊等义军。"
+      },
+      {
+        "EventName_A": "元氏、北平、安次之战",
+        "relation": "顺承关系",
+        "EventName_B": "射犬之战",
+        "evidence": "接着南略河内...次年春，刘秀转军北上，在元氏、北平、安次诸地连续击破尤来等部义军。\n接着南略河内，太守韩歆投降。次年春，刘秀转军北上\n次年春，刘秀转军北上，在元氏、北平、安次诸地连续击破尤来、太枪、五幡等部义军"
+      },
+      {
+        "EventName_A": "元氏、北平、安次之战",
+        "relation": "顺承关系",
+        "EventName_B": "渔阳追击战",
+        "evidence": "义军退至渔阳，刘秀派轻骑于前坚壁清野，后以吴汉等将军率部穷追。"
+      },
+      {
+        "EventName_A": "衙县之战",
+        "relation": "顺承关系",
+        "EventName_B": "邓禹攻取河东之战",
+        "evidence": "占据了河东，继而西渡黄河入夏阳，在衙县击破刘玄左辅都尉公乘歙部。\n占据河东后，继而西渡黄河入夏阳，在衙县击破公乘歙部"
+      },
+      {
+        "EventName_A": "新丰之战",
+        "relation": "顺承关系",
+        "EventName_B": "邓禹袭长安之战",
+        "evidence": "赤眉军在新丰击破绿林军...攻入长安，消灭了刘玄的更始政权。邓禹见赤眉军已进占长安，乃引兵进占恂邑...公元26年，据恂邑的邓禹乘机引兵袭长安。"
+      },
+      {
+        "EventName_A": "冯异北攻开井关、南渡黄河之战",
+        "relation": "因果关系",
+        "EventName_B": "洛阳攻防战",
+        "evidence": "冯异北攻开井关、南渡黄河之战后，朱鲔分兵进攻河内，引发洛阳攻防战"
+      },
+      {
+        "EventName_A": "华阴相持战",
+        "relation": "顺承关系",
+        "EventName_B": "崤底之战",
+        "evidence": "公元27年，邓禹率领车将军邓弘等由河西回到湖县，因西征无功，遂约冯异共击赤眉。\n华阴相持战后，赤眉军继续东归，在崤底与冯异军决战。"
+      },
+      {
+        "EventName_A": "宜阳之战",
+        "relation": "顺承关系",
+        "EventName_B": "崤底之战",
+        "evidence": "赤眉余部10万余人折向东南，又在宜阳遭到刘秀亲率的重兵包围。"
+      },
+      {
+        "EventName_A": "渔阳追击战",
+        "relation": "顺承关系",
+        "EventName_B": "邓禹攻取河东之战",
+        "evidence": "刘秀即位后，派邓禹西进，随后发生邓禹攻取河东之战"
+      },
+      {
+        "EventName_A": "新丰之战",
+        "relation": "顺承关系",
+        "EventName_B": "洛阳攻防战",
+        "evidence": "赤眉军攻入长安后，刘秀围攻洛阳"
+      },
+      {
+        "EventName_A": "华阴相持战",
+        "relation": "顺承关系",
+        "EventName_B": "邓禹袭长安之战",
+        "evidence": "不久，刘秀派冯异为征西大将军，替换邓禹，担任围困赤眉的任务。"
+      },
+      {
+        "EventName_A": "崤底之战",
+        "relation": "顺承关系",
+        "EventName_B": "邓禹袭长安之战",
+        "evidence": "邓禹袭长安失败后，冯异接替邓禹，与赤眉军作战。"
+      },
+      {
+        "EventName_A": "冯异平定关中之战",
+        "relation": "顺承关系",
+        "EventName_B": "宜阳之战",
+        "evidence": "赤眉军投降后，冯异率军继续西进，击败延岑等部\n赤眉军投降后，冯异率军继续西进，平定关中"
+      }
+    ]
+  }
+}

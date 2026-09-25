@@ -1,0 +1,1487 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "喜峰口",
+        "modern_name": "喜峰口",
+        "DynastyName": "隋",
+        "Province": "河北省",
+        "City": "承德市",
+        "District_County": "宽城满族自治县",
+        "Specific_location": null,
+        "source_text": "河北喜峰口一带）击败高宝宁"
+      },
+      {
+        "geo_name": "和龙",
+        "modern_name": "朝阳市",
+        "DynastyName": "隋",
+        "Province": "辽宁省",
+        "City": "朝阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "隋军占领和龙地区（辽宁朝阳）"
+      },
+      {
+        "geo_name": "凉州",
+        "modern_name": "武威市",
+        "DynastyName": "隋",
+        "Province": "甘肃省",
+        "City": "武威市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "秦州总管窦荣定率步骑3万出凉州（甘肃武威）"
+      },
+      {
+        "geo_name": "信州",
+        "modern_name": "奉节县",
+        "DynastyName": "隋",
+        "Province": "重庆市",
+        "City": null,
+        "District_County": "奉节县",
+        "Specific_location": null,
+        "source_text": "派杨素为信州（四川奉节）总管"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": "襄阳市",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "杨俊军出襄阳（属湖北）"
+      },
+      {
+        "geo_name": "永安",
+        "modern_name": "奉节县",
+        "DynastyName": "隋",
+        "Province": "重庆市",
+        "City": null,
+        "District_County": "奉节县",
+        "Specific_location": null,
+        "source_text": "杨素军出永安（四川奉节东）"
+      },
+      {
+        "geo_name": "江陵",
+        "modern_name": "荆州市",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "荆州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "荆州刺史刘仁恩出江陵（属湖北）"
+      },
+      {
+        "geo_name": "江夏",
+        "modern_name": "武汉市",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直指江夏（武昌）"
+      },
+      {
+        "geo_name": "六合",
+        "modern_name": "南京市六合区",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "六合区",
+        "Specific_location": null,
+        "source_text": "杨广军出六合（属江苏）"
+      },
+      {
+        "geo_name": "广陵",
+        "modern_name": "扬州市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "扬州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "贺若弼军出广陵（扬州）"
+      },
+      {
+        "geo_name": "庐江",
+        "modern_name": "合肥市",
+        "DynastyName": "隋",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "韩擒虎军出庐江（合肥）"
+      },
+      {
+        "geo_name": "蕲春",
+        "modern_name": "蕲春县",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "蕲春县",
+        "Specific_location": null,
+        "source_text": "蕲州刺史王世积军出蕲春（属湖北）"
+      },
+      {
+        "geo_name": "东海",
+        "modern_name": "连云港市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "连云港市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "青州总管燕荣军出东海（江苏连云港市西南）"
+      },
+      {
+        "geo_name": "建康",
+        "modern_name": "南京市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "指向陈都建康（南京）"
+      },
+      {
+        "geo_name": "江州",
+        "modern_name": "九江市",
+        "DynastyName": "隋",
+        "Province": "江西省",
+        "City": "九江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "竟命镇守江州（江西九江）、京口（江苏镇江）的两个儿子率战舰回建康"
+      },
+      {
+        "geo_name": "京口",
+        "modern_name": "镇江市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "贺若弼军于初六占领京口（镇江）"
+      },
+      {
+        "geo_name": "汉口",
+        "modern_name": "武汉市汉口",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "武汉市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "杨俊率水陆军10余万进屯汉口"
+      },
+      {
+        "geo_name": "狼尾滩",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": null,
+        "Specific_location": "宜昌西北",
+        "source_text": "两军配合袭占狼尾滩（湖北宜昌西北）"
+      },
+      {
+        "geo_name": "岐亭",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": null,
+        "Specific_location": "西陵峡口",
+        "source_text": "后又攻破西陵峡口岐亭和延洲（湖北宜昌西北）等要点"
+      },
+      {
+        "geo_name": "延洲",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": null,
+        "Specific_location": "宜昌西北",
+        "source_text": "后又攻破西陵峡口岐亭和延洲（湖北宜昌西北）等要点"
+      },
+      {
+        "geo_name": "公安",
+        "modern_name": "公安县",
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "荆州市",
+        "District_County": "公安县",
+        "Specific_location": null,
+        "source_text": "陈荆州刺史陈慧纪见势不利，率军从公安（湖北公安西北）东撤"
+      },
+      {
+        "geo_name": "横江",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "和县",
+        "Specific_location": "和县东南",
+        "source_text": "韩擒虎率军由横江（安徽和县东南）夜渡"
+      },
+      {
+        "geo_name": "采石",
+        "modern_name": "马鞍山市",
+        "DynastyName": "隋",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": null,
+        "Specific_location": "西南",
+        "source_text": "袭占采石（安徽马鞍山市西南）"
+      },
+      {
+        "geo_name": "桃叶山",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "六合南",
+        "source_text": "杨广此时率大军由寿春移屯六合南之桃叶山"
+      },
+      {
+        "geo_name": "白下",
+        "modern_name": "南京市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命樊猛率舟师出白下（江苏江宁）"
+      },
+      {
+        "geo_name": "南豫州",
+        "modern_name": "宣城市",
+        "DynastyName": "隋",
+        "Province": "安徽省",
+        "City": "宣城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "皋文奏将兵镇守南豫州（安徽宣城县）"
+      },
+      {
+        "geo_name": "曲阿",
+        "modern_name": "丹阳市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": "丹阳市",
+        "Specific_location": null,
+        "source_text": "以一部进至曲阿（江苏丹阳）"
+      },
+      {
+        "geo_name": "吴州",
+        "modern_name": "苏州市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "牵制吴州（苏州）的陈军"
+      },
+      {
+        "geo_name": "钟山",
+        "modern_name": "紫金山",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "亲率主力进据钟山（南京紫金山）"
+      },
+      {
+        "geo_name": "姑熟",
+        "modern_name": "当涂县",
+        "DynastyName": "隋",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "当涂县",
+        "Specific_location": null,
+        "source_text": "韩擒虎军于初七攻占姑熟（安徽当涂）后"
+      },
+      {
+        "geo_name": "新林",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "西南",
+        "source_text": "与总管杜彦合军2万进屯新林（南京西南）"
+      },
+      {
+        "geo_name": "石头",
+        "modern_name": "南京市",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": "城西",
+        "source_text": "隋行军总管宇文述也率军3万渡江，占据石头（南京城西）"
+      },
+      {
+        "geo_name": "蕲口",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "蕲春县",
+        "Specific_location": "西南",
+        "source_text": "大败陈将纪镇于蕲口（湖北蕲春西南）"
+      },
+      {
+        "geo_name": "太湖",
+        "modern_name": "太湖",
+        "DynastyName": "隋",
+        "Province": "江苏省",
+        "City": "无锡市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "燕荣军沿海南下，入太湖"
+      },
+      {
+        "geo_name": "龙",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "geo_name": "突厥境内",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "geo_name": "长江沿线",
+        "modern_name": null,
+        "DynastyName": "隋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "隋",
+        "OrgType": "国家",
+        "DynastyName": "隋",
+        "source_text": "隋军占领和龙地区"
+      },
+      {
+        "OrgName": "高宝宁军",
+        "OrgType": "地方势力",
+        "DynastyName": "隋",
+        "source_text": "击败高宝宁，高宝宁奔契丹"
+      },
+      {
+        "OrgName": "契丹",
+        "OrgType": "部落",
+        "DynastyName": "隋",
+        "source_text": "高宝宁奔契丹"
+      },
+      {
+        "OrgName": "突厥",
+        "OrgType": "国家",
+        "DynastyName": "隋",
+        "source_text": "多次击败突厥阿波可汗军"
+      },
+      {
+        "OrgName": "阿波军",
+        "OrgType": "地方势力",
+        "DynastyName": "隋",
+        "source_text": "多次击败突厥阿波可汗军"
+      },
+      {
+        "OrgName": "沙钵略军",
+        "OrgType": "地方势力",
+        "DynastyName": "隋",
+        "source_text": "沙钵略恨阿波降隋，袭其牙帐"
+      },
+      {
+        "OrgName": "达头军",
+        "OrgType": "地方势力",
+        "DynastyName": "隋",
+        "source_text": "阿波西奔联合达头可汗攻沙钵略可汗"
+      },
+      {
+        "OrgName": "陈",
+        "OrgType": "国家",
+        "DynastyName": "隋",
+        "source_text": "隋文帝反击突厥获胜后，即做灭陈准备"
+      },
+      {
+        "OrgName": "隋军",
+        "OrgType": "中央政权",
+        "DynastyName": "隋",
+        "source_text": "隋军占领和龙地区"
+      },
+      {
+        "OrgName": "陈军",
+        "OrgType": "国家",
+        "DynastyName": "隋",
+        "source_text": "陈军乃习以为常遂不惊不备"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "高宝宁",
+        "DynastyName": "隋",
+        "OrgName": "高宝宁军",
+        "Role": "统帅",
+        "Note": "隋朝地方势力首领，被隋军击败，奔契丹后为部下所杀",
+        "source_text": "击败高宝宁，高宝宁奔契丹，为部下所杀"
+      },
+      {
+        "PersonName": "窦荣定",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "秦州总管，率军出凉州击败突厥阿波可汗军",
+        "source_text": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军"
+      },
+      {
+        "PersonName": "长孙晟",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "谋士",
+        "Note": "说服阿波归附于隋，实施离间计",
+        "source_text": "长孙晟遂乘机说服阿波归附于隋"
+      },
+      {
+        "PersonName": "阿波可汗",
+        "DynastyName": "隋",
+        "OrgName": "突厥",
+        "Role": "统帅",
+        "Note": "突厥可汗，被窦荣定击败，后归附隋，又联合达头攻沙钵略",
+        "source_text": "多次击败突厥阿波可汗军"
+      },
+      {
+        "PersonName": "沙钵略可汗",
+        "DynastyName": "隋",
+        "OrgName": "突厥",
+        "Role": "统帅",
+        "Note": "突厥可汗，恨阿波降隋，袭其牙帐，后向隋投降称藩",
+        "source_text": "沙钵略恨阿波降隋，袭其牙帐"
+      },
+      {
+        "PersonName": "达头可汗",
+        "DynastyName": "隋",
+        "OrgName": "突厥",
+        "Role": "统帅",
+        "Note": "突厥可汗，与阿波联合攻沙钵略",
+        "source_text": "阿波西奔联合达头可汗攻沙钵略可汗"
+      },
+      {
+        "PersonName": "杨坚",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "君主",
+        "Note": "隋文帝，发动反击突厥和灭陈战争，制定战略方针",
+        "source_text": "杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军"
+      },
+      {
+        "PersonName": "杨广",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "晋王，灭陈行军元帅，率军出六合，后为隋炀帝",
+        "source_text": "杨坚遂派杨广击败阿波军"
+      },
+      {
+        "PersonName": "高颎",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "谋士",
+        "Note": "尚书左仆射，献灭陈之策，任长史",
+        "source_text": "杨坚采纳尚书左仆射高颎，虢州刺史崔仲方等灭陈之策"
+      },
+      {
+        "PersonName": "崔仲方",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "谋士",
+        "Note": "虢州刺史，献灭陈之策",
+        "source_text": "杨坚采纳尚书左仆射高颎，虢州刺史崔仲方等灭陈之策"
+      },
+      {
+        "PersonName": "杨素",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "信州总管，制作大舰，率舟师沿三峡东下，灭陈行军元帅",
+        "source_text": "派杨素为信州（四川奉节）总管，准备舟师"
+      },
+      {
+        "PersonName": "贺若弼",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "隋将，出广陵，渡江攻陈，占领京口",
+        "source_text": "隋将贺若弼又将军队中的老马卖到江南"
+      },
+      {
+        "PersonName": "杨俊",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "秦王，行军元帅，率军出襄阳，进屯汉口",
+        "source_text": "杨俊军出襄阳（属湖北）"
+      },
+      {
+        "PersonName": "刘仁恩",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "将领",
+        "Note": "荆州刺史，出江陵，与杨素配合袭占狼尾滩",
+        "source_text": "荆州刺史刘仁恩出江陵（属湖北）"
+      },
+      {
+        "PersonName": "韩擒虎",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "统帅",
+        "Note": "隋将，出庐江，夜渡横江，袭占采石，攻占姑熟",
+        "source_text": "韩擒虎军出庐江（合肥）"
+      },
+      {
+        "PersonName": "王世积",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "将领",
+        "Note": "蕲州刺史，出蕲春，大败陈将纪镇",
+        "source_text": "蕲州刺史王世积军出蕲春（属湖北）"
+      },
+      {
+        "PersonName": "燕荣",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "将领",
+        "Note": "青州总管，出东海，沿海南下入太湖",
+        "source_text": "青州总管燕荣军出东海（江苏连云港市西南）"
+      },
+      {
+        "PersonName": "宇文述",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "将领",
+        "Note": "行军总管，率军渡江占据石头",
+        "source_text": "隋行军总管宇文述也率军3万渡江，占据石头（南京城西）"
+      },
+      {
+        "PersonName": "杜彦",
+        "DynastyName": "隋",
+        "OrgName": "隋",
+        "Role": "将领",
+        "Note": "总管，与韩擒虎合军进屯新林",
+        "source_text": "与总管杜彦合军2万进屯新林（南京西南）"
+      },
+      {
+        "PersonName": "陈叔宝",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "君主",
+        "Note": "陈后主，荒淫误国，不纳良策，最终亡国",
+        "source_text": "陈后主却无所谓地说：“王气在此，齐兵来过三次，周兵来过两次，哪次没失败呢？隋军来又能怎么样？”"
+      },
+      {
+        "PersonName": "张丽华",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "参战者",
+        "Note": "陈后主贵妃，与陈后主纵酒赋诗，寻欢作乐",
+        "source_text": "照常拥贵妃张丽华于膝上，纵酒赋诗，寻欢作乐"
+      },
+      {
+        "PersonName": "周罗睺",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈将，率兵据江夏与杨俊相持",
+        "source_text": "陈将周罗喉等率兵数万据江夏与之相持"
+      },
+      {
+        "PersonName": "吕忠肃",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈将，被杨素击败",
+        "source_text": "击败陈将吕忠肃"
+      },
+      {
+        "PersonName": "陈慧纪",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈荆州刺史，率军东撤被阻",
+        "source_text": "陈荆州刺史陈慧纪见势不利，率军从公安（湖北公安西北）东撤"
+      },
+      {
+        "PersonName": "樊猛",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈将，率舟师出白下",
+        "source_text": "命樊猛率舟师出白下（江苏江宁）"
+      },
+      {
+        "PersonName": "皋文奏",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈将，镇守南豫州",
+        "source_text": "皋文奏将兵镇守南豫州（安徽宣城县）"
+      },
+      {
+        "PersonName": "纪镇",
+        "DynastyName": "隋",
+        "OrgName": "陈",
+        "Role": "将领",
+        "Note": "陈将，在蕲口被王世积大败",
+        "source_text": "大败陈将纪镇于蕲口（湖北蕲春西南）"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "隋击高宝宁之战",
+        "EventType": "镇压叛乱",
+        "StartDate": "583年",
+        "EndDate": "583年",
+        "DynastyName": "隋",
+        "Place": "喜峰口、和龙",
+        "Aggressor": "隋",
+        "Defender": "高宝宁军",
+        "Allies": null,
+        "Result": "隋军获胜，高宝宁奔契丹，为部下所杀，隋军占领和龙地区",
+        "Commanders": "高宝宁",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "喜峰口、和龙地区",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "隋朝平定北方残余势力，巩固边疆",
+        "Remark": "",
+        "relations": [],
+        "source_text": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "EventType": "边境防御",
+        "StartDate": "583年",
+        "EndDate": "583年",
+        "DynastyName": "隋",
+        "Place": "凉州",
+        "Aggressor": "隋",
+        "Defender": "突厥",
+        "Allies": null,
+        "Result": "隋军多次击败突厥阿波可汗军，阿波可汗归附隋朝",
+        "Commanders": "窦荣定、阿波可汗",
+        "KeyPersons": "长孙晟",
+        "Action": "攻伐",
+        "TroopSize": "三万",
+        "Duration": "不详",
+        "GeographicScope": "凉州",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "削弱突厥势力，为隋朝稳定北方边境创造条件",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "沙钵略攻阿波之战",
+            "evidence": "继而沙钵略恨阿波降隋，袭其牙帐"
+          }
+        ],
+        "source_text": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "EventType": "贵族叛乱",
+        "StartDate": "583年",
+        "EndDate": "583年",
+        "DynastyName": "隋",
+        "Place": "突厥境内",
+        "Aggressor": "沙钵略可汗",
+        "Defender": "阿波可汗",
+        "Allies": "达头可汗",
+        "Result": "双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩",
+        "Commanders": "沙钵略可汗、阿波可汗、达头可汗",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "突厥境内",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "突厥内乱削弱其力量，隋朝得以解除北方威胁",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "窦荣定击突厥之战",
+            "evidence": "继而沙钵略恨阿波降隋，袭其牙帐"
+          }
+        ],
+        "source_text": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "EventType": "边境防御",
+        "StartDate": "584年",
+        "EndDate": "584年",
+        "DynastyName": "隋",
+        "Place": "突厥境内",
+        "Aggressor": "隋军",
+        "Defender": "阿波军",
+        "Allies": null,
+        "Result": "隋军击败阿波军，阿波势力与沙钵略并存",
+        "Commanders": "杨广",
+        "KeyPersons": "长孙晟",
+        "Action": "攻伐",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "突厥境内",
+        "Casualties": "不详",
+        "source": "《资治通鉴》",
+        "Impact": "巩固隋朝北方边境，解除南下灭陈的后顾之忧",
+        "Remark": "此战为隋朝离间分化突厥策略的一部分",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "隋灭陈之战",
+            "evidence": "至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+          }
+        ],
+        "source_text": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "EventType": "统一战争",
+        "StartDate": "588年",
+        "EndDate": "589年",
+        "DynastyName": "隋",
+        "Place": "长江沿线、建康",
+        "Aggressor": "隋军",
+        "Defender": "陈军",
+        "Allies": null,
+        "Result": "隋军获胜，陈朝灭亡",
+        "Commanders": "杨广、杨俊、杨素、高颎、贺若弼、韩擒虎、王世积、燕荣、宇文述、杜彦",
+        "KeyPersons": "崔仲方、陈叔宝、张丽华、周罗睺、吕忠肃、陈慧纪、樊猛、皋文奏、纪镇",
+        "Action": "攻伐、渡江、包围",
+        "TroopSize": "51.8万",
+        "Duration": "持续数月",
+        "GeographicScope": "长江沿线、建康",
+        "Casualties": "不详",
+        "source": "《资治通鉴》",
+        "Impact": "隋朝统一南北，结束南北朝分裂局面",
+        "Remark": "隋军采用多路并进、突然袭击的战略",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "杨广击阿波之战",
+            "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。"
+          }
+        ],
+        "source_text": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "主战场",
+        "modern_name": "喜峰口",
+        "evidence": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "目的地",
+        "modern_name": "和龙",
+        "evidence": "隋军占领和龙地区（辽宁朝阳）"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "主战场",
+        "modern_name": "凉州",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "主战场",
+        "modern_name": "突厥境内",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "主战场",
+        "modern_name": "突厥境内",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "建康",
+        "evidence": "对建康形成包围态势"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "长江沿线",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "襄阳",
+        "evidence": "杨俊军出襄阳（属湖北）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "永安",
+        "evidence": "杨素军出永安（四川奉节东）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "江陵",
+        "evidence": "荆州刺史刘仁恩出江陵（属湖北）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "六合",
+        "evidence": "杨广军出六合（属江苏）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "广陵",
+        "evidence": "贺若弼军出广陵（扬州）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "庐江",
+        "evidence": "韩擒虎军出庐江（合肥）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "蕲春",
+        "evidence": "蕲州刺史王世积军出蕲春（属湖北）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "出发地",
+        "modern_name": "东海",
+        "evidence": "青州总管燕荣军出东海（江苏连云港市西南）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "目的地",
+        "modern_name": "江夏",
+        "evidence": "直指江夏（武昌）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "目的地",
+        "modern_name": "建康",
+        "evidence": "指向陈都建康（南京）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "驻防地",
+        "modern_name": "汉口",
+        "evidence": "杨俊率水陆军10余万进屯汉口"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "狼尾滩",
+        "evidence": "两军配合袭占狼尾滩（湖北宜昌西北）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "岐亭",
+        "evidence": "后又攻破西陵峡口岐亭和延洲（湖北宜昌西北）等要点"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "延洲",
+        "evidence": "后又攻破西陵峡口岐亭和延洲（湖北宜昌西北）等要点"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "途经地",
+        "modern_name": "公安",
+        "evidence": "陈荆州刺史陈慧纪见势不利，率军从公安（湖北公安西北）东撤"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "横江",
+        "evidence": "韩擒虎率军由横江（安徽和县东南）夜渡"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "采石",
+        "evidence": "袭占采石（安徽马鞍山市西南）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "驻防地",
+        "modern_name": "桃叶山",
+        "evidence": "杨广此时率大军由寿春移屯六合南之桃叶山"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "白下",
+        "evidence": "命樊猛率舟师出白下（江苏江宁）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "驻防地",
+        "modern_name": "南豫州",
+        "evidence": "皋文奏将兵镇守南豫州（安徽宣城县）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "京口",
+        "evidence": "贺若弼军于初六占领京口（镇江）后"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "途经地",
+        "modern_name": "曲阿",
+        "evidence": "以一部进至曲阿（江苏丹阳）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "目的地",
+        "modern_name": "吴州",
+        "evidence": "牵制吴州（苏州）的陈军"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "钟山",
+        "evidence": "亲率主力进据钟山（南京紫金山）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "姑熟",
+        "evidence": "韩擒虎军于初七攻占姑熟（安徽当涂）后"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "驻防地",
+        "modern_name": "新林",
+        "evidence": "与总管杜彦合军2万进屯新林（南京西南）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "石头",
+        "evidence": "隋行军总管宇文述也率军3万渡江，占据石头（南京城西）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "主战场",
+        "modern_name": "蕲口",
+        "evidence": "大败陈将纪镇于蕲口（湖北蕲春西南）"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "途经地",
+        "modern_name": "太湖",
+        "evidence": "燕荣军沿海南下，入太湖，拟攻吴州"
+      },
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "次要战场",
+        "modern_name": "龙",
+        "evidence": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "战略要地",
+        "modern_name": "长江沿线",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "次要战场",
+        "modern_name": "建康",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "战略要地",
+        "modern_name": "建康",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "发起方",
+        "OrgName": "隋",
+        "evidence": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "防守方",
+        "OrgName": "高宝宁军",
+        "evidence": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "发起方",
+        "OrgName": "隋",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "防守方",
+        "OrgName": "突厥",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "发起方",
+        "OrgName": "沙钵略军",
+        "evidence": "沙钵略恨阿波降隋，袭其牙帐"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "防守方",
+        "OrgName": "阿波军",
+        "evidence": "阿波西奔联合达头可汗攻沙钵略可汗"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "同盟方",
+        "OrgName": "达头军",
+        "evidence": "阿波西奔联合达头可汗攻沙钵略可汗"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "发起方",
+        "OrgName": "隋军",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "防守方",
+        "OrgName": "阿波军",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "发起方",
+        "OrgName": "隋军",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "防守方",
+        "OrgName": "陈军",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "投降方",
+        "OrgName": "隋军",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "投降方",
+        "OrgName": "阿波军",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "将领",
+        "PersonName": "高宝宁",
+        "evidence": "击败高宝宁"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "统帅",
+        "PersonName": "窦荣定",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "将领",
+        "PersonName": "阿波可汗",
+        "evidence": "多次击败突厥阿波可汗军"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "谋士",
+        "PersonName": "长孙晟",
+        "evidence": "长孙晟遂乘机说服阿波归附于隋"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "统帅",
+        "PersonName": "沙钵略可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "统帅",
+        "PersonName": "阿波可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "统帅",
+        "PersonName": "达头可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "统帅",
+        "PersonName": "杨广",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "谋士",
+        "PersonName": "长孙晟",
+        "evidence": "长孙晟遂乘机说服阿波归附于隋"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "杨广",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "杨俊",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "杨素",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "谋士",
+        "PersonName": "高颎",
+        "evidence": "高颖为长史"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "贺若弼",
+        "evidence": "贺若弼军出广陵"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "韩擒虎",
+        "evidence": "韩擒虎军出庐江"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "王世积",
+        "evidence": "蕲州刺史王世积军出蕲春"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "燕荣",
+        "evidence": "青州总管燕荣军出东海"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "宇文述",
+        "evidence": "隋行军总管宇文述也率军3万渡江"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "杜彦",
+        "evidence": "与总管杜彦合军2万进屯新林"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "君主",
+        "PersonName": "陈叔宝",
+        "evidence": "陈后主却无所谓地说"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "张丽华",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "周罗睺",
+        "evidence": "陈将周罗喉等率兵数万据江夏与之相持"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "吕忠肃",
+        "evidence": "击败陈将吕忠肃"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "陈慧纪",
+        "evidence": "陈荆州刺史陈慧纪见势不利"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "樊猛",
+        "evidence": "命樊猛率舟师出白下"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "皋文奏",
+        "evidence": "皋文奏将兵镇守南豫州"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "将领",
+        "PersonName": "纪镇",
+        "evidence": "大败陈将纪镇于蕲口"
+      },
+      {
+        "EventName": "隋击高宝宁之战",
+        "relation": "统帅",
+        "PersonName": "高宝宁",
+        "evidence": "河北喜峰口一带）击败高宝宁，高宝宁奔契丹，为部下所杀，隋军占领和龙地区（辽宁朝阳）。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "统帅",
+        "PersonName": "阿波可汗",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "君主",
+        "PersonName": "阿波可汗",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "可汗",
+        "PersonName": "阿波可汗",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "窦荣定击突厥之战",
+        "relation": "参与者",
+        "PersonName": "长孙晟",
+        "evidence": "秦州总管窦荣定率步骑3万出凉州（甘肃武威），多次击败突厥阿波可汗军。长孙晟遂乘机说服阿波归附于隋。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "君主",
+        "PersonName": "沙钵略可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "可汗",
+        "PersonName": "沙钵略可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "君主",
+        "PersonName": "阿波可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "可汗",
+        "PersonName": "阿波可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "君主",
+        "PersonName": "达头可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "沙钵略攻阿波之战",
+        "relation": "可汗",
+        "PersonName": "达头可汗",
+        "evidence": "继而沙钵略恨阿波降隋，袭其牙帐，杀阿波之母。阿波西奔联合达头可汗攻沙钵略可汗，双方连战不已，各遣使至长安求援，杨坚一概不允。公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。"
+      },
+      {
+        "EventName": "杨广击阿波之战",
+        "relation": "参与者",
+        "PersonName": "长孙晟",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军，却使之力量与沙钵略并存。至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "高颎",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "贺若弼",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "韩擒虎",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "王世积",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "君主",
+        "PersonName": "王世积",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "燕荣",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "宇文述",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "统帅",
+        "PersonName": "杜彦",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "崔仲方",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "陈叔宝",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "周罗睺",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "吕忠肃",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "陈慧纪",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "樊猛",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "皋文奏",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      },
+      {
+        "EventName": "隋灭陈之战",
+        "relation": "参与者",
+        "PersonName": "纪镇",
+        "evidence": "隋文帝反击突厥获胜后，即做灭陈准备。杨坚采纳尚书左仆射高颖，虢州刺史崔仲方等灭陈之策，奉行长期准备，多路并进，一举袭取的战略方针。...公元588年10月，杨坚命晋王杨广、秦王杨俊、清河公杨素为行军元帅，高颖为长史，发水陆军51.8万，统由杨广节度，分八路攻陈...次年正月初一，长江下游隋军利用陈军欢度元会之机，分路渡江。...隋军渡江后积极向前推进...对建康形成包围态势。...陈叔宝弃险不守，也不采纳部将抵御、反击隋军的建议，日唯啼泣。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "沙钵略攻阿波之战",
+        "relation": "顺承关系",
+        "EventName_B": "窦荣定击突厥之战",
+        "evidence": "长孙晟遂乘机说服阿波归附于隋。继而沙钵略恨阿波降隋，袭其牙帐"
+      },
+      {
+        "EventName_A": "杨广击阿波之战",
+        "relation": "顺承关系",
+        "EventName_B": "沙钵略攻阿波之战",
+        "evidence": "公元584年，沙钵略向隋投降称藩，杨坚遂派杨广击败阿波军"
+      },
+      {
+        "EventName_A": "窦荣定击突厥之战",
+        "relation": "顺承关系",
+        "EventName_B": "隋击高宝宁之战",
+        "evidence": "隋军占领和龙地区。秦州总管窦荣定率步骑3万出凉州"
+      },
+      {
+        "EventName_A": "杨广击阿波之战",
+        "relation": "顺承关系",
+        "EventName_B": "隋灭陈之战",
+        "evidence": "至此，以离间、分化的政治策略与军事打击相结合的手段，暂解除了南下灭陈的后顾之忧。\n隋文帝反击突厥获胜后，即做灭陈准备。"
+      }
+    ]
+  }
+}

@@ -1,0 +1,2060 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "桐城",
+        "modern_name": "桐城市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "桐城市",
+        "Specific_location": null,
+        "source_text": "驻扎桐城西南之挂车河、青草隔打援"
+      },
+      {
+        "geo_name": "挂车河",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "桐城市",
+        "Specific_location": null,
+        "source_text": "驻扎桐城西南之挂车河、青草隔打援"
+      },
+      {
+        "geo_name": "青草隔",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "桐城市",
+        "Specific_location": null,
+        "source_text": "驻扎桐城西南之挂车河、青草隔打援"
+      },
+      {
+        "geo_name": "安庆",
+        "modern_name": "安庆市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "以期安庆不救自救"
+      },
+      {
+        "geo_name": "集贤关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "陈玉成率主力万余人自湖北进入安庆城北的集贤关"
+      },
+      {
+        "geo_name": "练潭",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "被多隆阿部阻截于练潭、横山铺一带"
+      },
+      {
+        "geo_name": "横山铺",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "被多隆阿部阻截于练潭、横山铺一带"
+      },
+      {
+        "geo_name": "菱湖",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": "北岸",
+        "source_text": "仅留菱湖北岸13垒和赤岗岭4垒坚守待援"
+      },
+      {
+        "geo_name": "赤岗岭",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "仅留菱湖北岸13垒和赤岗岭4垒坚守待援"
+      },
+      {
+        "geo_name": "霍山",
+        "modern_name": "霍山县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "六安市",
+        "District_County": "霍山县",
+        "Specific_location": null,
+        "source_text": "绕道霍山、英山、宿松"
+      },
+      {
+        "geo_name": "英山",
+        "modern_name": "英山县",
+        "DynastyName": "清",
+        "Province": "湖北省",
+        "City": "黄冈市",
+        "District_County": "英山县",
+        "Specific_location": null,
+        "source_text": "绕道霍山、英山、宿松"
+      },
+      {
+        "geo_name": "宿松",
+        "modern_name": "宿松县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "宿松县",
+        "Specific_location": null,
+        "source_text": "绕道霍山、英山、宿松"
+      },
+      {
+        "geo_name": "太湖",
+        "modern_name": "太湖县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "安庆市",
+        "District_County": "太湖县",
+        "Specific_location": null,
+        "source_text": "攻太湖、挂车河又失利"
+      },
+      {
+        "geo_name": "金陵",
+        "modern_name": "南京市",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "自安庆沿长江北岸直趋金陵"
+      },
+      {
+        "geo_name": "池州",
+        "modern_name": "池州市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "池州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由池州沿长江南岸进攻芜湖"
+      },
+      {
+        "geo_name": "芜湖",
+        "modern_name": "芜湖市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "芜湖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由池州沿长江南岸进攻芜湖"
+      },
+      {
+        "geo_name": "青阳",
+        "modern_name": "青阳县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "池州市",
+        "District_County": "青阳县",
+        "Specific_location": null,
+        "source_text": "经青阳攻宁国府"
+      },
+      {
+        "geo_name": "宁国府",
+        "modern_name": "宣城市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "宣城市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "经青阳攻宁国府"
+      },
+      {
+        "geo_name": "颖州",
+        "modern_name": "阜阳市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "阜阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进援皖北颖州"
+      },
+      {
+        "geo_name": "庐州",
+        "modern_name": "合肥市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "围攻庐州"
+      },
+      {
+        "geo_name": "寿州",
+        "modern_name": "寿县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "淮南市",
+        "District_County": "寿县",
+        "Specific_location": null,
+        "source_text": "北走寿州被捕"
+      },
+      {
+        "geo_name": "河南延津",
+        "modern_name": "延津县",
+        "DynastyName": "清",
+        "Province": "河南省",
+        "City": "新乡市",
+        "District_County": "延津县",
+        "Specific_location": null,
+        "source_text": "在河南延津遇害"
+      },
+      {
+        "geo_name": "秣陵关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占秣陵关、大胜关、三汉河"
+      },
+      {
+        "geo_name": "大胜关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占秣陵关、大胜关、三汉河"
+      },
+      {
+        "geo_name": "三汉河",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占秣陵关、大胜关、三汉河"
+      },
+      {
+        "geo_name": "雨花台",
+        "modern_name": "雨花台区",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "雨花台区",
+        "Specific_location": null,
+        "source_text": "直逼雨花台"
+      },
+      {
+        "geo_name": "头关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领头关、江心州、蒲包州"
+      },
+      {
+        "geo_name": "江心州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领头关、江心州、蒲包州"
+      },
+      {
+        "geo_name": "蒲包州",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领头关、江心州、蒲包州"
+      },
+      {
+        "geo_name": "东坝",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "抵达东坝会师"
+      },
+      {
+        "geo_name": "方山",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "分路进扎方山、板桥一带"
+      },
+      {
+        "geo_name": "板桥",
+        "modern_name": "板桥街道",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "雨花台区",
+        "Specific_location": null,
+        "source_text": "分路进扎方山、板桥一带"
+      },
+      {
+        "geo_name": "安徽太平府",
+        "modern_name": "当涂县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": "当涂县",
+        "Specific_location": null,
+        "source_text": "进至安徽太平府"
+      },
+      {
+        "geo_name": "金柱关",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "马鞍山市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "拟攻金柱关"
+      },
+      {
+        "geo_name": "浦口",
+        "modern_name": "浦口区",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "浦口区",
+        "Specific_location": null,
+        "source_text": "相继攻占浦口、江浦等地"
+      },
+      {
+        "geo_name": "江浦",
+        "modern_name": "江浦街道",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "浦口区",
+        "Specific_location": null,
+        "source_text": "相继攻占浦口、江浦等地"
+      },
+      {
+        "geo_name": "庐江",
+        "modern_name": "庐江县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "合肥市",
+        "District_County": "庐江县",
+        "Specific_location": null,
+        "source_text": "进攻庐江、舒城、六安等城均不得手"
+      },
+      {
+        "geo_name": "舒城",
+        "modern_name": "舒城县",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "六安市",
+        "District_County": "舒城县",
+        "Specific_location": null,
+        "source_text": "进攻庐江、舒城、六安等城均不得手"
+      },
+      {
+        "geo_name": "六安",
+        "modern_name": "六安市",
+        "DynastyName": "清",
+        "Province": "安徽省",
+        "City": "六安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "进攻庐江、舒城、六安等城均不得手"
+      },
+      {
+        "geo_name": "常州",
+        "modern_name": "常州市",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "常州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "苏南的常州、太仓、苏州、无锡等地相继失守"
+      },
+      {
+        "geo_name": "太仓",
+        "modern_name": "太仓市",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": "太仓市",
+        "Specific_location": null,
+        "source_text": "苏南的常州、太仓、苏州、无锡等地相继失守"
+      },
+      {
+        "geo_name": "苏州",
+        "modern_name": "苏州市",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "苏南的常州、太仓、苏州、无锡等地相继失守"
+      },
+      {
+        "geo_name": "无锡",
+        "modern_name": "无锡市",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "无锡市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "苏南的常州、太仓、苏州、无锡等地相继失守"
+      },
+      {
+        "geo_name": "太平门",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天京城只有太平门、神策门尚与外界相通"
+      },
+      {
+        "geo_name": "神策门",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天京城只有太平门、神策门尚与外界相通"
+      },
+      {
+        "geo_name": "紫金山",
+        "modern_name": "紫金山",
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": "玄武区",
+        "Specific_location": "巅",
+        "source_text": "湘军攻占紫金山巅之天保城"
+      },
+      {
+        "geo_name": "天保城",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "湘军攻占紫金山巅之天保城"
+      },
+      {
+        "geo_name": "长江沿线",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "geo_name": "皖南",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "geo_name": "皖北",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "geo_name": "浙江",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "geo_name": "上海",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "geo_name": "天京外围（雨花台",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "geo_name": "宁国府等）",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "geo_name": "皖北（庐江",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "geo_name": "六安等）",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "geo_name": "天京",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "太平军",
+        "OrgType": "起义军",
+        "DynastyName": "清",
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "OrgName": "湘军",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "面临湘军水陆两路的进逼"
+      },
+      {
+        "OrgName": "天京当局",
+        "OrgType": "中央政权",
+        "DynastyName": "清",
+        "source_text": "天京当局决定再次采用“围魏救赵”之计"
+      },
+      {
+        "OrgName": "淮军",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "李鸿章率淮军6500人"
+      },
+      {
+        "OrgName": "鄂军",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "多隆阿率鄂军2万余人围攻庐州"
+      },
+      {
+        "OrgName": "湘、浙、赣军",
+        "OrgType": "地方势力",
+        "DynastyName": "清",
+        "source_text": "左宗棠率湘、浙、赣军2万余人全力进攻浙江"
+      },
+      {
+        "OrgName": "外国侵略军",
+        "OrgType": "联盟",
+        "DynastyName": "清",
+        "source_text": "会同外国侵略军进攻上海周围的李秀成部"
+      },
+      {
+        "OrgName": "英、法等国侵略军",
+        "OrgType": "联盟",
+        "DynastyName": "清",
+        "source_text": "受到淮军和英、法等国侵略军的阻击"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "谢天义",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "安庆保卫战太平军守将",
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "PersonName": "张朝爵",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "安庆保卫战太平军守将",
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "PersonName": "受天安",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "安庆保卫战太平军守将",
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "PersonName": "叶芸来",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "安庆保卫战太平军守将",
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "PersonName": "陈玉成",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "统帅",
+        "Note": "太平天国英王，安庆保卫战太平军统帅，后被捕遇害",
+        "source_text": "陈玉成率主力万余人自湖北进入安庆城北的集贤关"
+      },
+      {
+        "PersonName": "李秀成",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "统帅",
+        "Note": "太平天国忠王，天京保卫战太平军统帅，后被捕遇害",
+        "source_text": "李秀成督率十三王，领兵10余万"
+      },
+      {
+        "PersonName": "洪仁环",
+        "DynastyName": "清",
+        "OrgName": "太平天国",
+        "Role": "将领",
+        "Note": "太平天国干王，参与安庆解围",
+        "source_text": "洪仁环、林绍璋和定南主将黄文金率所部4万余人"
+      },
+      {
+        "PersonName": "林绍璋",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "太平天国将领，参与安庆解围和天京保卫战",
+        "source_text": "洪仁环、林绍璋和定南主将黄文金率所部4万余人"
+      },
+      {
+        "PersonName": "黄文金",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "定南主将，参与安庆解围",
+        "source_text": "洪仁环、林绍璋和定南主将黄文金率所部4万余人"
+      },
+      {
+        "PersonName": "多隆阿",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "统帅",
+        "Note": "荆州将军，清军统帅，阻截太平军援军",
+        "source_text": "被多隆阿部阻截于练潭、横山铺一带"
+      },
+      {
+        "PersonName": "鲍超",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "将领",
+        "Note": "湘军提督，攻陷菱湖、赤岗岭各垒",
+        "source_text": "先后被鲍超、成大吉部攻陷"
+      },
+      {
+        "PersonName": "成大吉",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "将领",
+        "Note": "湘军总兵，攻陷菱湖、赤岗岭各垒",
+        "source_text": "先后被鲍超、成大吉部攻陷"
+      },
+      {
+        "PersonName": "刘林",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "靖东主将，在赤岗岭战斗中牺牲",
+        "source_text": "靖东主将刘林以下数千精锐全部牺牲"
+      },
+      {
+        "PersonName": "杨辅清",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "太平天国辅王，率部增援安庆",
+        "source_text": "杨辅清奉命率部增援"
+      },
+      {
+        "PersonName": "曾贞干",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "将领",
+        "Note": "同知，率湘军进攻芜湖",
+        "source_text": "同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖"
+      },
+      {
+        "PersonName": "彭玉麟",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "将领",
+        "Note": "兵部侍郎，率湘军水师沿江而下",
+        "source_text": "兵部侍郎彭玉麟等率湘军水师沿江而下"
+      },
+      {
+        "PersonName": "李续宜",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "将领",
+        "Note": "安徽巡抚，率湘军进援皖北",
+        "source_text": "安徽巡抚李续宜率所部湘军万余人进援皖北颖州"
+      },
+      {
+        "PersonName": "左宗棠",
+        "DynastyName": "清",
+        "OrgName": "湘军",
+        "Role": "统帅",
+        "Note": "浙江巡抚，率湘、浙、赣军进攻浙江",
+        "source_text": "浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江"
+      },
+      {
+        "PersonName": "李鸿章",
+        "DynastyName": "清",
+        "OrgName": "淮军",
+        "Role": "统帅",
+        "Note": "署理江苏巡抚，率淮军进攻上海",
+        "source_text": "署理江苏巡抚李鸿章率淮军6500人"
+      },
+      {
+        "PersonName": "袁甲三",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "节制协攻庐州",
+        "source_text": "节制协攻庐州的袁甲三"
+      },
+      {
+        "PersonName": "李世忠",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "防守江浦",
+        "source_text": "防守江浦的李世忠"
+      },
+      {
+        "PersonName": "都兴阿",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "扬州守将",
+        "source_text": "扬州的都兴阿"
+      },
+      {
+        "PersonName": "冯子材",
+        "DynastyName": "清",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "镇江守将",
+        "source_text": "镇江的冯子材"
+      },
+      {
+        "PersonName": "洪秀全",
+        "DynastyName": "清",
+        "OrgName": "太平天国",
+        "Role": "君主",
+        "Note": "太平天国天王，病逝",
+        "source_text": "洪秀全一日三诏，催促李秀成迅速回援"
+      },
+      {
+        "PersonName": "陈坤书",
+        "DynastyName": "清",
+        "OrgName": "太平军",
+        "Role": "将领",
+        "Note": "率兵4万进至安徽太平府",
+        "source_text": "令陈坤书等率兵4万"
+      },
+      {
+        "PersonName": "洪天贵福",
+        "DynastyName": "清",
+        "OrgName": "太平天国",
+        "Role": "君主",
+        "Note": "幼主天王，洪秀全之子",
+        "source_text": "幼主天王洪天贵福即位"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "安庆保卫战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1861年",
+        "EndDate": "1861年8月1日",
+        "DynastyName": "清",
+        "Place": "安庆",
+        "Aggressor": "湘军",
+        "Defender": "太平军",
+        "Allies": null,
+        "Result": "湘军获胜，安庆陷落",
+        "Commanders": "谢天义、张朝爵、受天安、叶芸来、陈玉成、洪仁环、林绍璋、黄文金、杨辅清、多隆阿、鲍超、成大吉",
+        "KeyPersons": null,
+        "Action": "攻守、交战",
+        "TroopSize": "太平军万余人，湘军数万",
+        "Duration": "持续数月",
+        "GeographicScope": "安庆及周边地区",
+        "Casualties": "太平军数千精锐牺牲，守军万余人战殁或投江",
+        "source": "《中国近代史资料丛刊》",
+        "Impact": "安庆陷落，天京西线屏障丧失，太平天国局势恶化",
+        "Remark": "安庆保卫战是太平天国后期重要战役，最终失败",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "安庆解围战",
+            "evidence": "安庆保卫战期间，陈玉成等多次试图解围，发生安庆解围战"
+          },
+          {
+            "type": "因果关系",
+            "to": "安庆陷落",
+            "evidence": "安庆保卫战失败导致安庆陷落"
+          }
+        ],
+        "source_text": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1861年",
+        "EndDate": "1861年",
+        "DynastyName": "清",
+        "Place": "集贤关、挂车河、练潭、横山铺、菱湖、赤岗岭",
+        "Aggressor": "太平军",
+        "Defender": "湘军",
+        "Allies": null,
+        "Result": "太平军解围失败，安庆最终陷落",
+        "Commanders": "陈玉成、洪仁环、林绍璋、黄文金、杨辅清、多隆阿、鲍超、成大吉",
+        "KeyPersons": null,
+        "Action": "进攻、阻截、攻守",
+        "TroopSize": "太平军数万，湘军万余",
+        "Duration": "持续数月",
+        "GeographicScope": "安庆周边地区",
+        "Casualties": "太平军数千精锐牺牲",
+        "source": "《中国近代史资料丛刊》",
+        "Impact": "解围失败，安庆陷落，太平天国西线崩溃",
+        "Remark": "太平军多次尝试解围，均被湘军阻截",
+        "relations": [
+          {
+            "type": "包含关系",
+            "to": "安庆保卫战",
+            "evidence": "安庆解围战是安庆保卫战的一部分"
+          },
+          {
+            "type": "因果关系",
+            "to": "安庆陷落",
+            "evidence": "解围失败导致安庆陷落"
+          }
+        ],
+        "source_text": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "EventType": "战略要地守卫",
+        "StartDate": "1861年8月1日",
+        "EndDate": "1861年8月1日",
+        "DynastyName": "清",
+        "Place": "安庆",
+        "Aggressor": "湘军",
+        "Defender": "太平军",
+        "Allies": null,
+        "Result": "湘军获胜，安庆陷落",
+        "Commanders": "谢天义、张朝爵、受天安、叶芸来、多隆阿、鲍超、成大吉",
+        "KeyPersons": null,
+        "Action": "攻陷",
+        "TroopSize": "湘军水陆各军，太平军万余人",
+        "Duration": "一日",
+        "GeographicScope": "安庆城",
+        "Casualties": "太平军守军万余人战殁或投江",
+        "source": "《中国近代史资料丛刊》",
+        "Impact": "安庆陷落，天京西线屏障丧失，太平天国局势恶化",
+        "Remark": "安庆陷落标志着太平天国在安徽的统治结束",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "安庆保卫战",
+            "evidence": "安庆保卫战失败导致安庆陷落"
+          },
+          {
+            "type": "顺承关系",
+            "to": "安庆解围战",
+            "evidence": "安庆解围战失败后，安庆陷落"
+          }
+        ],
+        "source_text": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "EventType": "镇压叛乱",
+        "StartDate": "1862年1月",
+        "EndDate": "1862年3月",
+        "DynastyName": "清",
+        "Place": "长江沿线、皖南、皖北、浙江、上海",
+        "Aggressor": "湘军、淮军及外国侵略军",
+        "Defender": "太平军",
+        "Allies": null,
+        "Result": "清军分路进击，太平军节节败退",
+        "Commanders": "曾国藩、曾国基、曾贞干、彭玉麟、鲍超、李续宜、多隆阿、左宗棠、李鸿章、袁甲三、李世忠、都兴阿、冯子材",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "湘军2万、湘军4、5千、湘军水师、湘军数万、湘军万余人、鄂军2万余、湘浙赣军2万余、淮军6500人",
+        "Duration": "约三个月",
+        "GeographicScope": "长江中下游及东南沿海",
+        "Casualties": "不详",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "清军大举东犯，太平天国天京上游屏障尽失，战略态势恶化",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "天京外围攻守战",
+            "evidence": "随后天京外围攻守战开始"
+          }
+        ],
+        "source_text": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "EventType": "首都保卫战",
+        "StartDate": "1862年10月",
+        "EndDate": "1862年12月",
+        "DynastyName": "清",
+        "Place": "天京外围（雨花台、方山、板桥、金柱关、宁国府等）",
+        "Aggressor": "太平军",
+        "Defender": "湘军",
+        "Allies": null,
+        "Result": "太平军进攻失利，未能解围",
+        "Commanders": "李秀成、陈坤书、杨辅清、黄文金、林绍璋、曾国基、曾贞干、彭玉麟、鲍超",
+        "KeyPersons": "洪秀全",
+        "Action": "攻守",
+        "TroopSize": "太平军10余万、陈坤书4万；湘军不详",
+        "Duration": "约三个月",
+        "GeographicScope": "天京外围及周边地区",
+        "Casualties": "不详",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "太平军未能解天京之围，天京形势进一步恶化",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "进北救南",
+            "evidence": "随后李秀成奉命进兵北行，实施进北救南计划"
+          }
+        ],
+        "source_text": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "进北救南",
+        "EventType": "战略要地守卫",
+        "StartDate": "1863年",
+        "EndDate": "1863年",
+        "DynastyName": "清",
+        "Place": "皖北（庐江、舒城、六安等）",
+        "Aggressor": "太平军",
+        "Defender": "湘军",
+        "Allies": null,
+        "Result": "太平军进攻失利，计划落空",
+        "Commanders": "李秀成、林绍璋",
+        "KeyPersons": null,
+        "Action": "攻伐",
+        "TroopSize": "数万",
+        "Duration": "约一年",
+        "GeographicScope": "皖北地区",
+        "Casualties": "折兵1万余人",
+        "source": "《中国近代史资料丛刊·太平天国》",
+        "Impact": "太平军损失惨重，天京东南屏障丧失，军需断绝",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "因果关系",
+            "to": "天京外围攻守战",
+            "evidence": "因天京被围，李秀成奉命进兵北行，以解天京之围"
+          }
+        ],
+        "source_text": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "天京陷落",
+        "EventType": "首都保卫战",
+        "StartDate": "1864年7月",
+        "EndDate": "1864年7月",
+        "DynastyName": "清",
+        "Place": "天京",
+        "Aggressor": "湘军",
+        "Defender": "太平军",
+        "Allies": null,
+        "Result": "湘军获胜，天京陷落，太平天国失败",
+        "Commanders": "曾国藩、曾国基、李秀成、洪秀全",
+        "KeyPersons": "洪天贵福",
+        "Action": "攻陷",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "天京",
+        "Casualties": "太平军10余万人无一降者",
+        "source": "《中国历代战争简史》",
+        "Impact": "标志着太平天国的失败",
+        "Remark": "天京陷落是太平天国运动的终结标志",
+        "relations": [],
+        "source_text": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "安庆保卫战",
+        "relation": "主战场",
+        "modern_name": "安庆",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "次要战场",
+        "modern_name": "挂车河",
+        "evidence": "驻扎桐城西南之挂车河、青草隔打援。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "次要战场",
+        "modern_name": "青草隔",
+        "evidence": "驻扎桐城西南之挂车河、青草隔打援。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "主战场",
+        "modern_name": "集贤关",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "挂车河",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "练潭",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "横山铺",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "驻防地",
+        "modern_name": "菱湖",
+        "evidence": "仅留菱湖北岸13垒和赤岗岭4垒坚守待援。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "驻防地",
+        "modern_name": "赤岗岭",
+        "evidence": "仅留菱湖北岸13垒和赤岗岭4垒坚守待援。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "途经地",
+        "modern_name": "霍山",
+        "evidence": "6月，杨辅清奉命率部增援，会合陈玉成部绕道霍山、英山、宿松，攻太湖、挂车河又失利。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "途经地",
+        "modern_name": "英山",
+        "evidence": "6月，杨辅清奉命率部增援，会合陈玉成部绕道霍山、英山、宿松，攻太湖、挂车河又失利。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "途经地",
+        "modern_name": "宿松",
+        "evidence": "6月，杨辅清奉命率部增援，会合陈玉成部绕道霍山、英山、宿松，攻太湖、挂车河又失利。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "太湖",
+        "evidence": "6月，杨辅清奉命率部增援，会合陈玉成部绕道霍山、英山、宿松，攻太湖、挂车河又失利。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "主战场",
+        "modern_name": "安庆",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "出发地",
+        "modern_name": "安庆",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "金陵",
+        "evidence": "新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "途经地",
+        "modern_name": "池州",
+        "evidence": "同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "芜湖",
+        "evidence": "同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "途经地",
+        "modern_name": "青阳",
+        "evidence": "提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "宁国府",
+        "evidence": "提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "颖州",
+        "evidence": "安徽巡抚李续宜率所部湘军万余人进援皖北颖州"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "庐州",
+        "evidence": "荆州将军多隆阿率鄂军2万余人围攻庐州"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "浙江",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "目的地",
+        "modern_name": "上海",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "主战场",
+        "modern_name": "雨花台",
+        "evidence": "曾国基率军15营攻占秣陵关、大胜关、三汉河，直逼雨花台"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "次要战场",
+        "modern_name": "方山",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "次要战场",
+        "modern_name": "板桥",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "次要战场",
+        "modern_name": "金柱关",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "次要战场",
+        "modern_name": "宁国府",
+        "evidence": "杨辅清、黄文金等则分路进攻宁国府城，以牵制鲍超部。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "主战场",
+        "modern_name": "庐江",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "次要战场",
+        "modern_name": "舒城",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "次要战场",
+        "modern_name": "六安",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "主战场",
+        "modern_name": "天京",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "战略要地",
+        "modern_name": "紫金山",
+        "evidence": "1864年2月，湘军攻占紫金山巅之天保城。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "战略要地",
+        "modern_name": "天保城",
+        "evidence": "1864年2月，湘军攻占紫金山巅之天保城。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "目的地",
+        "modern_name": "集贤关",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "菱湖",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "次要战场",
+        "modern_name": "赤岗岭",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "主战场",
+        "modern_name": "长江沿线",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "次要战场",
+        "modern_name": "皖南",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "次要战场",
+        "modern_name": "皖北",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "次要战场",
+        "modern_name": "浙江",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "次要战场",
+        "modern_name": "上海",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "主战场",
+        "modern_name": "天京外围（雨花台",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "次要战场",
+        "modern_name": "宁国府等）",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "主战场",
+        "modern_name": "皖北（庐江",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "次要战场",
+        "modern_name": "六安等）",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "战略要地",
+        "modern_name": "天京",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "安庆保卫战",
+        "relation": "防守方",
+        "OrgName": "太平军",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "发起方",
+        "OrgName": "湘军",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "防守方",
+        "OrgName": "湘军",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "支援方",
+        "OrgName": "天京当局",
+        "evidence": "这年秋，天京当局决定再次采用“围魏救赵”之计"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "发起方",
+        "OrgName": "湘军",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "防守方",
+        "OrgName": "太平军",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "发起方",
+        "OrgName": "湘军",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "发起方",
+        "OrgName": "淮军",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "支援方",
+        "OrgName": "外国侵略军",
+        "evidence": "会同外国侵略军进攻上海周围的李秀成部"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "防守方",
+        "OrgName": "太平军",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "防守方",
+        "OrgName": "湘军",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "发起方",
+        "OrgName": "太平军",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "防守方",
+        "OrgName": "湘军",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "发起方",
+        "OrgName": "湘军",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "防守方",
+        "OrgName": "太平军",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "发起方",
+        "OrgName": "外国侵略军",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "被俘方",
+        "OrgName": "湘军",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "被俘方",
+        "OrgName": "太平军",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "安庆保卫战",
+        "relation": "将领",
+        "PersonName": "谢天义",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "将领",
+        "PersonName": "张朝爵",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "将领",
+        "PersonName": "受天安",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "将领",
+        "PersonName": "叶芸来",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "陈玉成",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "洪仁环",
+        "evidence": "洪仁环、林绍璋和定南主将黄文金率所部4万余人"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "林绍璋",
+        "evidence": "洪仁环、林绍璋和定南主将黄文金率所部4万余人"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "黄文金",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "杨辅清",
+        "evidence": "6月，杨辅清奉命率部增援"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "多隆阿",
+        "evidence": "但被多隆阿部阻截于练潭、横山铺一带"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "鲍超",
+        "evidence": "4月，陈玉成得知总兵鲍超、成大吉所率湘军万余人即至集贤关"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "将领",
+        "PersonName": "成大吉",
+        "evidence": "4月，陈玉成得知总兵鲍超、成大吉所率湘军万余人即至集贤关"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "将领",
+        "PersonName": "多隆阿",
+        "evidence": "8月1日，湘军水陆各军突入城内"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "将领",
+        "PersonName": "鲍超",
+        "evidence": "8月1日，湘军水陆各军突入城内"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "将领",
+        "PersonName": "成大吉",
+        "evidence": "8月1日，湘军水陆各军突入城内"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "曾国藩",
+        "evidence": "曾国藩分兵八路，大举东犯"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "曾国基",
+        "evidence": "新任江苏布政使曾国基率湘军2万"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "曾贞干",
+        "evidence": "同知曾贞干率湘军4、5千人"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "彭玉麟",
+        "evidence": "兵部侍郎彭玉麟等率湘军水师沿江而下"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "鲍超",
+        "evidence": "提督鲍超率所部湘军数万人"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "李续宜",
+        "evidence": "安徽巡抚李续宜率所部湘军万余人"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "多隆阿",
+        "evidence": "荆州将军多隆阿率鄂军2万余人围攻庐州"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "左宗棠",
+        "evidence": "浙江巡抚左宗棠率湘、浙、赣军2万余人"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "李鸿章",
+        "evidence": "署理江苏巡抚李鸿章率淮军6500人"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "袁甲三",
+        "evidence": "节制协攻庐州的袁甲三"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "李世忠",
+        "evidence": "防守江浦的李世忠"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "都兴阿",
+        "evidence": "扬州的都兴阿"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "将领",
+        "PersonName": "冯子材",
+        "evidence": "镇江的冯子材等部"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "李秀成",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "将领",
+        "PersonName": "陈坤书",
+        "evidence": "令陈坤书等率兵4万"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "将领",
+        "PersonName": "杨辅清",
+        "evidence": "杨辅清、黄文金等则分路进攻宁国府城"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "将领",
+        "PersonName": "黄文金",
+        "evidence": "杨辅清、黄文金等则分路进攻宁国府城"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "将领",
+        "PersonName": "林绍璋",
+        "evidence": "命林绍璋等率数万进军皖北"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "君主",
+        "PersonName": "洪秀全",
+        "evidence": "又遵照洪秀全“进兵北行”的指令"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "统帅",
+        "PersonName": "李秀成",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "将领",
+        "PersonName": "林绍璋",
+        "evidence": "命林绍璋等率数万进军皖北"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "统帅",
+        "PersonName": "曾国藩",
+        "evidence": "7月，湘军攻陷天京。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "将领",
+        "PersonName": "曾国基",
+        "evidence": "3月，曾国基部进驻太平门、神策门外"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "君主",
+        "PersonName": "洪秀全",
+        "evidence": "6月，洪秀全病逝（一说自杀）"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "君主",
+        "PersonName": "洪天贵福",
+        "evidence": "幼主天王洪天贵福即位。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "谢天义",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "张朝爵",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "受天安",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "叶芸来",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "陈玉成",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "洪仁环",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "林绍璋",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "黄文金",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "杨辅清",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "多隆阿",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "鲍超",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆保卫战",
+        "relation": "统帅",
+        "PersonName": "成大吉",
+        "evidence": "谢天义、张朝爵、受天安、叶芸来率领太平军万余人，坚持城池，以待援兵。...8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "洪仁环",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "林绍璋",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "黄文金",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "杨辅清",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "多隆阿",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "鲍超",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆解围战",
+        "relation": "统帅",
+        "PersonName": "成大吉",
+        "evidence": "3月，陈玉成率主力万余人自湖北进入安庆城北的集贤关，逼近围城湘军。随之，洪仁环、林绍璋和定南主将黄文金率所部4万余人，从天京进抵桐城地区，准备驰援安庆。但被多隆阿部阻截于练潭、横山铺一带，未能与陈玉成部会合。...7月，径入集贤关，连日轮番攻扑湘军外壕，城内守军也呼应配合，终因湘军壕深垒固，枪炮猛烈，未能攻破。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "谢天义",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "张朝爵",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "受天安",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "叶芸来",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "多隆阿",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "鲍超",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "安庆陷落",
+        "relation": "统帅",
+        "PersonName": "成大吉",
+        "evidence": "8月1日，湘军水陆各军突入城内，被困近年的万余饥疲守军宁死不屈，或战殁，或投江，壮烈殉难。安庆陷落，天京西线屏障遂失。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "曾贞干",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "彭玉麟",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "鲍超",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "李续宜",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "多隆阿",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "左宗棠",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "李鸿章",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "袁甲三",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "李世忠",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "都兴阿",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "湘军东犯",
+        "relation": "统帅",
+        "PersonName": "冯子材",
+        "evidence": "1862年1月，曾国藩分兵八路，大举东犯：新任江苏布政使曾国基率湘军2万，自安庆沿长江北岸直趋金陵：同知曾贞干率湘军4、5千人由池州沿长江南岸进攻芜湖；兵部侍郎彭玉麟等率湘军水师沿江而下，配合两岸陆师进攻；提督鲍超率所部湘军数万人由赣人皖，经青阳攻宁国府；安徽巡抚李续宜率所部湘军万余人进援皖北颖州；荆州将军多隆阿率鄂军2万余人围攻庐州：浙江巡抚左宗棠率湘、浙、赣军2万余人全力进攻浙江，牵制李世贤部；署理江苏巡抚李鸿章率淮军6500人，会同外国侵略军进攻上海周围的李秀成部。同时，节制协攻庐州的袁甲三、防守江浦的李世忠、扬州的都兴阿、镇江的冯子材等部。3月，各路清军分头向太平军进击。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "陈坤书",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "杨辅清",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "黄文金",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "林绍璋",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "曾贞干",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "彭玉麟",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "统帅",
+        "PersonName": "鲍超",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "天京外围攻守战",
+        "relation": "参与者",
+        "PersonName": "洪秀全",
+        "evidence": "10月，天京外围攻守战开始。李秀成督率援军与天京城内守军相配合，对围城湘军之东西两翼发起猛攻，激战月余不克。12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北，以调动长江南岸之敌北援，下游之敌上援，翼解天京之围。力战12天，相继攻占浦口、江浦等地，恢复了天京与江北间的通道。"
+      },
+      {
+        "EventName": "进北救南",
+        "relation": "统帅",
+        "PersonName": "林绍璋",
+        "evidence": "次年5月，进攻庐江、舒城、六安等城均不得手；又值青黄不接，粮食奇缺，被迫东返，折兵1万余人，“进北救南”计划落空。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "统帅",
+        "PersonName": "李秀成",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "统帅",
+        "PersonName": "洪秀全",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      },
+      {
+        "EventName": "天京陷落",
+        "relation": "参与者",
+        "PersonName": "洪天贵福",
+        "evidence": "11月，天京城只有太平门、神策门尚与外界相通，危在旦夕。这时，李秀成提出“让城出走”的建议，遭到洪秀全的严严斥责。1864年2月，湘军攻占紫金山巅之天保城。3月，曾国基部进驻太平门、神策门外，对天京形成合围。6月，洪秀全病逝（一说自杀），幼主天王洪天贵福即位。7月，湘军攻陷天京。不久，李秀成等相继被俘杀害。城内所有太平军将士，或在战斗中牺牲，或被湘军杀害，或聚众自楚，10余万人无一降者。天京的陷落，标志着太平天国的失败。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "安庆保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "安庆解围战",
+        "evidence": "这年秋，天京当局决定再次采用“围魏救赵”之计，丛江、浙战场调集大军，分由大江南北西进，企图合攻湖北，威胁敌之后路，以期安庆不救自救。\n安庆保卫战期间，陈玉成等多次试图解围，发生安庆解围战"
+      },
+      {
+        "EventName_A": "安庆解围战",
+        "relation": "因果关系",
+        "EventName_B": "安庆陷落",
+        "evidence": "解围失败导致安庆陷落"
+      },
+      {
+        "EventName_A": "安庆陷落",
+        "relation": "顺承关系",
+        "EventName_B": "湘军东犯",
+        "evidence": "安庆陷落，天京西线屏障遂失。1862年1月，曾国藩分兵八路，大举东犯"
+      },
+      {
+        "EventName_A": "天京外围攻守战",
+        "relation": "顺承关系",
+        "EventName_B": "湘军东犯",
+        "evidence": "3月，各路清军分头向太平军进击。...10月，天京外围攻守战开始。\n随后天京外围攻守战开始"
+      },
+      {
+        "EventName_A": "天京外围攻守战",
+        "relation": "顺承关系",
+        "EventName_B": "进北救南",
+        "evidence": "12月，又遵照洪秀全“进兵北行”的指令，命林绍璋等率数万进军皖北\n随后李秀成奉命进兵北行，实施进北救南计划\n因天京被围，李秀成奉命进兵北行，以解天京之围"
+      },
+      {
+        "EventName_A": "天京陷落",
+        "relation": "顺承关系",
+        "EventName_B": "进北救南",
+        "evidence": "随后，苏南的常州、太仓、苏州、无锡等地相继失守，浙江战场节节失利。这使天京的东南屏障丧失，军需和粮食供应断绝，进一步陷入了被动局面。"
+      },
+      {
+        "EventName_A": "安庆保卫战",
+        "relation": "因果关系",
+        "EventName_B": "安庆陷落",
+        "evidence": "安庆保卫战失败导致安庆陷落"
+      },
+      {
+        "EventName_A": "安庆解围战",
+        "relation": "包含关系",
+        "EventName_B": "安庆保卫战",
+        "evidence": "安庆解围战是安庆保卫战的一部分"
+      }
+    ]
+  }
+}

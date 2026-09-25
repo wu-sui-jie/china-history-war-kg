@@ -1,0 +1,2069 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "旧馆",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在旧馆一战，全歼张士诚所遣援军6万之众"
+      },
+      {
+        "geo_name": "湖州",
+        "modern_name": "湖州市",
+        "DynastyName": "元末明初",
+        "Province": "浙江省",
+        "City": "湖州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "湖州、杭州等地守军相继投降"
+      },
+      {
+        "geo_name": "杭州",
+        "modern_name": "杭州市",
+        "DynastyName": "元末明初",
+        "Province": "浙江省",
+        "City": "杭州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "湖州、杭州等地守军相继投降"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": "苏州市",
+        "DynastyName": "元末明初",
+        "Province": "江苏省",
+        "City": "苏州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "徐达乘胜合围平江，久攻未克"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "初胜江东桥，决胜鄱阳湖"
+      },
+      {
+        "geo_name": "鄱阳湖",
+        "modern_name": "鄱阳湖",
+        "DynastyName": "元末明初",
+        "Province": "江西省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "决胜鄱阳湖，全歼陈友谅军"
+      },
+      {
+        "geo_name": "大都",
+        "modern_name": "北京市",
+        "DynastyName": "元末明初",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "明军占领大都，元统治被推翻"
+      },
+      {
+        "geo_name": "山东",
+        "modern_name": "山东省",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "先取山东，撤其屏蔽"
+      },
+      {
+        "geo_name": "河南",
+        "modern_name": "河南省",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "旋师河南，断其羽翼"
+      },
+      {
+        "geo_name": "潼关",
+        "modern_name": "潼关县",
+        "DynastyName": "元末明初",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "潼关县",
+        "Specific_location": null,
+        "source_text": "拔潼关而守之，据其户槛"
+      },
+      {
+        "geo_name": "应天",
+        "modern_name": "南京市",
+        "DynastyName": "元末明初",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由应天经镇江沿运河北上"
+      },
+      {
+        "geo_name": "镇江",
+        "modern_name": "镇江市",
+        "DynastyName": "元末明初",
+        "Province": "江苏省",
+        "City": "镇江市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "由应天经镇江沿运河北上"
+      },
+      {
+        "geo_name": "沂州",
+        "modern_name": "临沂市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "临沂市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻克沂州（山东临沂）后"
+      },
+      {
+        "geo_name": "滕州",
+        "modern_name": "滕州市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "枣庄市",
+        "District_County": "滕州市",
+        "Specific_location": null,
+        "source_text": "令平章韩政分兵一部攻占滕州（山东滕县）等要地"
+      },
+      {
+        "geo_name": "益都",
+        "modern_name": "青州市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "潍坊市",
+        "District_County": "青州市",
+        "Specific_location": null,
+        "source_text": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "geo_name": "昌乐",
+        "modern_name": "昌乐县",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "潍坊市",
+        "District_County": "昌乐县",
+        "Specific_location": null,
+        "source_text": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "geo_name": "寿光",
+        "modern_name": "寿光市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "潍坊市",
+        "District_County": "寿光市",
+        "Specific_location": null,
+        "source_text": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "geo_name": "济南",
+        "modern_name": "济南市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "济南市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "继而夺取济南及其附近州县"
+      },
+      {
+        "geo_name": "建康",
+        "modern_name": "南京市",
+        "DynastyName": "元末明初",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱元璋在建康称帝，国号明"
+      },
+      {
+        "geo_name": "汴梁",
+        "modern_name": "开封市",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "开封市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占汴梁"
+      },
+      {
+        "geo_name": "虎牢关",
+        "modern_name": "虎牢关",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "荥阳市",
+        "Specific_location": null,
+        "source_text": "自虎牢关（河南荥阳西北）西进"
+      },
+      {
+        "geo_name": "塔儿湾",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "偃师区",
+        "Specific_location": null,
+        "source_text": "在塔儿湾（河南偃师县境）一举击溃托音特穆尔所率元军5万"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "洛阳市",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "迫使元梁王阿鲁温于洛阳投降"
+      },
+      {
+        "geo_name": "嵩",
+        "modern_name": "嵩县",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": "嵩县",
+        "Specific_location": null,
+        "source_text": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "geo_name": "许",
+        "modern_name": "许昌市",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "geo_name": "陈",
+        "modern_name": "淮阳区",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "周口市",
+        "District_County": "淮阳区",
+        "Specific_location": null,
+        "source_text": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "geo_name": "汝",
+        "modern_name": "临汝镇",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "平顶山市",
+        "District_County": "汝州市",
+        "Specific_location": null,
+        "source_text": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "geo_name": "华州",
+        "modern_name": "华州区",
+        "DynastyName": "元末明初",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "华州区",
+        "Specific_location": null,
+        "source_text": "并西进占领华州（陕西华县）"
+      },
+      {
+        "geo_name": "中滦",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "新乡市",
+        "District_County": "封丘县",
+        "Specific_location": null,
+        "source_text": "徐达率军自中滦（河南封丘西南）渡黄河"
+      },
+      {
+        "geo_name": "卫辉",
+        "modern_name": "卫辉市",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "新乡市",
+        "District_County": "卫辉市",
+        "Specific_location": null,
+        "source_text": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "geo_name": "彰德",
+        "modern_name": "安阳市",
+        "DynastyName": "元末明初",
+        "Province": "河南省",
+        "City": "安阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "geo_name": "磁州",
+        "modern_name": "磁县",
+        "DynastyName": "元末明初",
+        "Province": "河北省",
+        "City": "邯郸市",
+        "District_County": "磁县",
+        "Specific_location": null,
+        "source_text": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "geo_name": "临清",
+        "modern_name": "临清市",
+        "DynastyName": "元末明初",
+        "Province": "山东省",
+        "City": "聊城市",
+        "District_County": "临清市",
+        "Specific_location": null,
+        "source_text": "转向临清，会合山东各路明军"
+      },
+      {
+        "geo_name": "河西务",
+        "modern_name": "河西务镇",
+        "DynastyName": "元末明初",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "武清区",
+        "Specific_location": null,
+        "source_text": "在河西务（天津武清）、通州（北京通县）击败元军万余人"
+      },
+      {
+        "geo_name": "通州",
+        "modern_name": "通州区",
+        "DynastyName": "元末明初",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "通州区",
+        "Specific_location": null,
+        "source_text": "在河西务（天津武清）、通州（北京通县）击败元军万余人"
+      },
+      {
+        "geo_name": "上都",
+        "modern_name": "正蓝旗",
+        "DynastyName": "元末明初",
+        "Province": "内蒙古自治区",
+        "City": "锡林郭勒盟",
+        "District_County": "正蓝旗",
+        "Specific_location": null,
+        "source_text": "元顺帝仓惶逃奔上都开平"
+      },
+      {
+        "geo_name": "开平",
+        "modern_name": "正蓝旗",
+        "DynastyName": "元末明初",
+        "Province": "内蒙古自治区",
+        "City": "锡林郭勒盟",
+        "District_County": "正蓝旗",
+        "Specific_location": null,
+        "source_text": "元顺帝仓惶逃奔上都开平"
+      },
+      {
+        "geo_name": "重庆",
+        "modern_name": "重庆市",
+        "DynastyName": "元末明初",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "攻取重庆"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": "成都市",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "成都市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "从陆路袭取成都"
+      },
+      {
+        "geo_name": "瞿塘",
+        "modern_name": "瞿塘峡",
+        "DynastyName": "元末明初",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": "奉节县",
+        "Specific_location": null,
+        "source_text": "凭借瞿塘天险，防守长江人川要冲夔州"
+      },
+      {
+        "geo_name": "夔州",
+        "modern_name": "奉节县",
+        "DynastyName": "元末明初",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": "奉节县",
+        "Specific_location": null,
+        "source_text": "防守长江人川要冲夔州（四川毕节东）"
+      },
+      {
+        "geo_name": "金牛",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": "陕西省",
+        "City": "汉中市",
+        "District_County": "宁强县",
+        "Specific_location": null,
+        "source_text": "扼守金牛（陕西宁强北），以御明军"
+      },
+      {
+        "geo_name": "归州",
+        "modern_name": "秭归县",
+        "DynastyName": "元末明初",
+        "Province": "湖北省",
+        "City": "宜昌市",
+        "District_County": "秭归县",
+        "Specific_location": null,
+        "source_text": "退还归州（湖北秭归），待机而动"
+      },
+      {
+        "geo_name": "阶州",
+        "modern_name": "武都区",
+        "DynastyName": "元末明初",
+        "Province": "甘肃省",
+        "City": "陇南市",
+        "District_County": "武都区",
+        "Specific_location": null,
+        "source_text": "暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北）"
+      },
+      {
+        "geo_name": "文州",
+        "modern_name": "文县",
+        "DynastyName": "元末明初",
+        "Province": "甘肃省",
+        "City": "陇南市",
+        "District_County": "文县",
+        "Specific_location": null,
+        "source_text": "攻克阶州、文州（甘肃文县），打开人川通道"
+      },
+      {
+        "geo_name": "龙州",
+        "modern_name": "平武县",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "绵阳市",
+        "District_County": "平武县",
+        "Specific_location": null,
+        "source_text": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "geo_name": "彰明",
+        "modern_name": "江油市",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "绵阳市",
+        "District_County": "江油市",
+        "Specific_location": null,
+        "source_text": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "geo_name": "绵州",
+        "modern_name": "绵阳市",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "绵阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "geo_name": "汉州",
+        "modern_name": "广汉市",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "德阳市",
+        "District_County": "广汉市",
+        "Specific_location": null,
+        "source_text": "直逼汉州（广汉）"
+      },
+      {
+        "geo_name": "瞿塘关",
+        "modern_name": "瞿塘峡",
+        "DynastyName": "元末明初",
+        "Province": "重庆市",
+        "City": "重庆市",
+        "District_County": "奉节县",
+        "Specific_location": null,
+        "source_text": "汤和遣廖永忠率精兵进取瞿塘关"
+      },
+      {
+        "geo_name": "云南",
+        "modern_name": "云南省",
+        "DynastyName": "元末明初",
+        "Province": "云南省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "便决定以武力攻取。命傅友德为征南将军"
+      },
+      {
+        "geo_name": "湖广",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "明军进至湖广（约湖北、湖南）后"
+      },
+      {
+        "geo_name": "永宁",
+        "modern_name": "叙永县",
+        "DynastyName": "元末明初",
+        "Province": "四川省",
+        "City": "泸州市",
+        "District_County": "叙永县",
+        "Specific_location": null,
+        "source_text": "经永宁（四川叙永）南下取乌撒（贵州威宁）"
+      },
+      {
+        "geo_name": "乌撒",
+        "modern_name": "威宁彝族回族苗族自治县",
+        "DynastyName": "元末明初",
+        "Province": "贵州省",
+        "City": "毕节市",
+        "District_County": "威宁彝族回族苗族自治县",
+        "Specific_location": null,
+        "source_text": "经永宁（四川叙永）南下取乌撒（贵州威宁）"
+      },
+      {
+        "geo_name": "辰州",
+        "modern_name": "沅陵县",
+        "DynastyName": "元末明初",
+        "Province": "湖南省",
+        "City": "怀化市",
+        "District_County": "沅陵县",
+        "Specific_location": null,
+        "source_text": "经辰州、沅州（湖南沅陵、芷江）"
+      },
+      {
+        "geo_name": "沅州",
+        "modern_name": "芷江侗族自治县",
+        "DynastyName": "元末明初",
+        "Province": "湖南省",
+        "City": "怀化市",
+        "District_County": "芷江侗族自治县",
+        "Specific_location": null,
+        "source_text": "经辰州、沅州（湖南沅陵、芷江）"
+      },
+      {
+        "geo_name": "普定",
+        "modern_name": "普定县",
+        "DynastyName": "元末明初",
+        "Province": "贵州省",
+        "City": "安顺市",
+        "District_County": "普定县",
+        "Specific_location": null,
+        "source_text": "占普定（贵州安顺），直趋云南"
+      },
+      {
+        "geo_name": "白石江",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": "云南省",
+        "City": "曲靖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "渡过白石江，俘获元军司徒平章达里麻以下2万人"
+      },
+      {
+        "geo_name": "曲靖",
+        "modern_name": "曲靖市",
+        "DynastyName": "元末明初",
+        "Province": "云南省",
+        "City": "曲靖市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "占领云南东部门户曲靖"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": "昆明市",
+        "DynastyName": "元末明初",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "遣蓝玉、沐英率军进攻昆明"
+      },
+      {
+        "geo_name": "板桥",
+        "modern_name": null,
+        "DynastyName": "元末明初",
+        "Province": "云南省",
+        "City": "昆明市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "明军进抵板桥（昆明东）"
+      },
+      {
+        "geo_name": "赤水河",
+        "modern_name": "赤水河",
+        "DynastyName": "元末明初",
+        "Province": "贵州省",
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "郭英率军到达赤水河"
+      },
+      {
+        "geo_name": "七星关",
+        "modern_name": "七星关区",
+        "DynastyName": "元末明初",
+        "Province": "贵州省",
+        "City": "毕节市",
+        "District_County": "七星关区",
+        "Specific_location": null,
+        "source_text": "克七星关（毕节西南）"
+      },
+      {
+        "geo_name": "毕节",
+        "modern_name": "毕节市",
+        "DynastyName": "元末明初",
+        "Province": "贵州省",
+        "City": "毕节市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "直达毕节，附近州县望风归降"
+      },
+      {
+        "geo_name": "旧馆",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "geo_name": "平江",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "geo_name": "江东桥",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "geo_name": "鄱阳湖",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "geo_name": "塔儿湾",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "geo_name": "大都",
+        "modern_name": null,
+        "DynastyName": "元",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "geo_name": "四川",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "重庆",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "成都",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "瞿塘",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "夔州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "金牛",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "归州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "阶州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "文州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "龙州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "彰明",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "绵州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "汉州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "瞿塘关",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "geo_name": "云南",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "湖广",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "永宁",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "乌撒",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "辰州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "沅州",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "普定",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "白石江",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "曲靖",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "昆明",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "板桥",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "赤水河",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "七星关",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "geo_name": "毕节",
+        "modern_name": null,
+        "DynastyName": "明",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "朱元璋军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "OrgName": "张士诚军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "OrgName": "陈友谅军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "OrgName": "明军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。\n灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "OrgName": "元军",
+        "OrgType": "军事势力",
+        "DynastyName": "元",
+        "source_text": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "OrgName": "夏政权",
+        "OrgType": "军事势力",
+        "DynastyName": "明",
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "元顺帝",
+        "DynastyName": "元",
+        "OrgName": null,
+        "Role": "统帅",
+        "Note": null,
+        "source_text": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "旧馆之战",
+        "EventType": "统一战争",
+        "StartDate": "1366年10月",
+        "EndDate": "1366年10月",
+        "DynastyName": "元",
+        "Place": "旧馆",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，全歼张士诚援军6万",
+        "Commanders": "徐达",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "旧馆",
+        "Casualties": "歼敌6万",
+        "source": "《中国历代战争简史》",
+        "Impact": "为合围平江、消灭张士诚奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平江之战",
+            "evidence": "随后，湖州、杭州等地守军相继投降，徐达乘胜合围平江"
+          }
+        ],
+        "source_text": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "EventType": "统一战争",
+        "StartDate": "1367年9月",
+        "EndDate": "1367年9月",
+        "DynastyName": "元",
+        "Place": "平江",
+        "Aggressor": "朱元璋军",
+        "Defender": "张士诚军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，生俘张士诚",
+        "Commanders": "徐达",
+        "KeyPersons": "张士诚",
+        "Action": "攻城",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "平江",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "彻底消灭张士诚势力，为灭元建明奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "旧馆之战",
+            "evidence": "徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城"
+          }
+        ],
+        "source_text": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "EventType": "统一战争",
+        "StartDate": "1360年",
+        "EndDate": "1360年",
+        "DynastyName": "元",
+        "Place": "江东桥",
+        "Aggressor": "朱元璋军",
+        "Defender": "陈友谅军",
+        "Allies": null,
+        "Result": "朱元璋军获胜",
+        "Commanders": "朱元璋",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "江东桥",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "初胜陈友谅，为后续鄱阳湖决战奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "平江之战",
+            "evidence": "初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江"
+          }
+        ],
+        "source_text": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "EventType": "统一战争",
+        "StartDate": "1363年",
+        "EndDate": "1363年",
+        "DynastyName": "元",
+        "Place": "鄱阳湖",
+        "Aggressor": "朱元璋军",
+        "Defender": "陈友谅军",
+        "Allies": null,
+        "Result": "朱元璋军获胜，全歼陈友谅军",
+        "Commanders": "朱元璋、陈友谅",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "鄱阳湖",
+        "Casualties": "全歼陈友谅军",
+        "source": "《中国历代战争简史》",
+        "Impact": "为灭元建明奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "塔儿湾之战",
+            "evidence": "继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+          }
+        ],
+        "source_text": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "EventType": "统一战争",
+        "StartDate": "1368年4月",
+        "EndDate": "1368年4月",
+        "DynastyName": "元",
+        "Place": "塔儿湾",
+        "Aggressor": "明军",
+        "Defender": "元军",
+        "Allies": null,
+        "Result": "明军获胜，元军溃败，梁王阿鲁温投降",
+        "Commanders": "徐达、常遇春、托音特穆尔",
+        "KeyPersons": "阿鲁温",
+        "Action": "交战",
+        "TroopSize": "元军5万",
+        "Duration": "不详",
+        "GeographicScope": "塔儿湾",
+        "Casualties": "元军5万被击溃",
+        "source": "《中国历代战争简史》",
+        "Impact": "明军占领洛阳，为攻取大都扫清障碍",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "明攻大都之战",
+            "evidence": "随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。5月，朱元璋抵汴梁督战，与诸将商讨下一步作战计划。徐达根据元廷外援已绝的军事形势，建议乘势直取元都，朱元璋表示同意。7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+          }
+        ],
+        "source_text": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1368年7月",
+        "EndDate": "1368年8月",
+        "DynastyName": "元",
+        "Place": "大都",
+        "Aggressor": "明军",
+        "Defender": "元军",
+        "Allies": null,
+        "Result": "明军获胜，占领大都，元朝灭亡",
+        "Commanders": "徐达、常遇春、元顺帝",
+        "KeyPersons": null,
+        "Action": "攻占",
+        "TroopSize": "明军25万",
+        "Duration": "约一个月",
+        "GeographicScope": "大都",
+        "Casualties": "元军万余人被击败",
+        "source": "《中国历代战争简史》",
+        "Impact": "元朝统治被推翻，明朝建立",
+        "Remark": "",
+        "relations": [],
+        "source_text": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "EventType": "统一战争",
+        "StartDate": "1371年",
+        "EndDate": "1371年",
+        "DynastyName": "明",
+        "Place": "四川、重庆、成都、瞿塘、夔州、金牛、归州、阶州、文州、龙州、彰明、绵州、汉州、瞿塘关",
+        "Aggressor": "明军",
+        "Defender": "夏政权",
+        "Allies": null,
+        "Result": "明军获胜，夏主明升出降，夏政权灭亡",
+        "Commanders": "汤和、周德兴、廖永忠、傅友德、戴寿、明升",
+        "KeyPersons": null,
+        "Action": "攻伐、守御、投降",
+        "TroopSize": "明军水陆两路，傅友德部约10万步骑",
+        "Duration": "持续数月",
+        "GeographicScope": "四川、重庆、陕西南部、甘肃南部、湖北西部",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "消灭夏政权，统一四川地区，为明朝统一全国奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "明攻云南之战",
+            "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。"
+          }
+        ],
+        "source_text": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "EventType": "统一战争",
+        "StartDate": "1381年",
+        "EndDate": "1381年",
+        "DynastyName": "明",
+        "Place": "云南、湖广、永宁、乌撒、辰州、沅州、普定、白石江、曲靖、昆明、板桥、赤水河、七星关、毕节",
+        "Aggressor": "明军",
+        "Defender": "元梁王",
+        "Allies": null,
+        "Result": "明军获胜，梁王自杀，云南平定",
+        "Commanders": "傅友德、蓝玉、沐英、郭英、把匝刺瓦尔密、达里麻、实卜、观音保",
+        "KeyPersons": null,
+        "Action": "攻伐、守御、投降",
+        "TroopSize": "明军步骑30万，其中郭英部5万，傅友德主力25万",
+        "Duration": "持续数月",
+        "GeographicScope": "云南、贵州、湖南、四川",
+        "Casualties": "俘获元军2万人",
+        "source": "《中国历代战争简史》",
+        "Impact": "消灭元朝残余势力，统一云南，加强中央对西南边疆的控制",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "明攻夏蜀之战",
+            "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。"
+          }
+        ],
+        "source_text": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "旧馆之战",
+        "relation": "主战场",
+        "modern_name": "旧馆",
+        "evidence": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "主战场",
+        "modern_name": "平江",
+        "evidence": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "主战场",
+        "modern_name": "江东桥",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "主战场",
+        "modern_name": "鄱阳湖",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "relation": "主战场",
+        "modern_name": "塔儿湾",
+        "evidence": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "主战场",
+        "modern_name": "大都",
+        "evidence": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "临清",
+        "evidence": "转向临清，会合山东各路明军，沿运河继续北进"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "河西务",
+        "evidence": "在河西务（天津武清）、通州（北京通县）击败元军万余人"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "通州",
+        "evidence": "在河西务（天津武清）、通州（北京通县）击败元军万余人"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "出发地",
+        "modern_name": "应天",
+        "evidence": "由应天经镇江沿运河北上"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "镇江",
+        "evidence": "由应天经镇江沿运河北上"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "沂州",
+        "evidence": "在攻克沂州（山东临沂）后"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "滕州",
+        "evidence": "令平章韩政分兵一部攻占滕州（山东滕县）等要地"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "益都",
+        "evidence": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "昌乐",
+        "evidence": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "寿光",
+        "evidence": "攻占山东益都、昌乐、寿光等地"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "济南",
+        "evidence": "继而夺取济南及其附近州县"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "汴梁",
+        "evidence": "挥师由山东向河南进军，攻占汴梁"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "虎牢关",
+        "evidence": "自虎牢关（河南荥阳西北）西进"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "洛阳",
+        "evidence": "迫使元梁王阿鲁温于洛阳投降"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "嵩",
+        "evidence": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "许",
+        "evidence": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "陈",
+        "evidence": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "汝",
+        "evidence": "徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "潼关",
+        "evidence": "元潼关（陕西潼关东北）守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "华州",
+        "evidence": "并西进占领华州（陕西华县）"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "中滦",
+        "evidence": "徐达率军自中滦（河南封丘西南）渡黄河"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "卫辉",
+        "evidence": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "彰德",
+        "evidence": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "途经地",
+        "modern_name": "磁州",
+        "evidence": "攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县）"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "目的地",
+        "modern_name": "上都",
+        "evidence": "元顺帝仓惶逃奔上都开平"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "目的地",
+        "modern_name": "开平",
+        "evidence": "元顺帝仓惶逃奔上都开平"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "重庆",
+        "evidence": "攻取重庆"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "成都",
+        "evidence": "从陆路袭取成都"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "瞿塘",
+        "evidence": "凭借瞿塘天险，防守长江人川要冲夔州"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "夔州",
+        "evidence": "防守长江人川要冲夔州（四川毕节东）"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "驻防地",
+        "modern_name": "金牛",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "归州",
+        "evidence": "退还归州（湖北秭归），待机而动"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "阶州",
+        "evidence": "于4月初攻克阶州、文州（甘肃文县）"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "文州",
+        "evidence": "于4月初攻克阶州、文州（甘肃文县）"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "龙州",
+        "evidence": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "彰明",
+        "evidence": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "途经地",
+        "modern_name": "绵州",
+        "evidence": "乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "汉州",
+        "evidence": "直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "瞿塘关",
+        "evidence": "汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "云南",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "湖广",
+        "evidence": "明军进至湖广（约湖北、湖南）后"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "永宁",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "乌撒",
+        "evidence": "经永宁（四川叙永）南下取乌撒（贵州威宁）"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "辰州",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "沅州",
+        "evidence": "经辰州、沅州（湖南沅陵、芷江）"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "普定",
+        "evidence": "占普定（贵州安顺）"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "白石江",
+        "evidence": "渡过白石江，俘获元军司徒平章达里麻以下2万人"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "曲靖",
+        "evidence": "占领云南东部门户曲靖"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "昆明",
+        "evidence": "遣蓝玉、沐英率军进攻昆明"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "板桥",
+        "evidence": "明军进抵板桥（昆明东）"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "赤水河",
+        "evidence": "郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "主战场",
+        "modern_name": "七星关",
+        "evidence": "克七星关（毕节西南）"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "毕节",
+        "evidence": "直达毕节"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "主战场",
+        "modern_name": "四川",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "重庆",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "目的地",
+        "modern_name": "重庆",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "成都",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "目的地",
+        "modern_name": "成都",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "瞿塘",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "目的地",
+        "modern_name": "瞿塘",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "战略要地",
+        "modern_name": "瞿塘",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "夔州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "金牛",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "归州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "阶州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "文州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "龙州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "彰明",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "绵州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "汉州",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "次要战场",
+        "modern_name": "瞿塘关",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "目的地",
+        "modern_name": "瞿塘关",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "目的地",
+        "modern_name": "云南",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "驻防地",
+        "modern_name": "云南",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "湖广",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "目的地",
+        "modern_name": "湖广",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "永宁",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "乌撒",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "目的地",
+        "modern_name": "乌撒",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "辰州",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "沅州",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "普定",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "白石江",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "途经地",
+        "modern_name": "白石江",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "曲靖",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "昆明",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "目的地",
+        "modern_name": "昆明",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "板桥",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "赤水河",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "七星关",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "次要战场",
+        "modern_name": "毕节",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "旧馆之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "旧馆之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "防守方",
+        "OrgName": "张士诚军",
+        "evidence": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "EventName": "江东桥之战",
+        "relation": "防守方",
+        "OrgName": "陈友谅军",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "发起方",
+        "OrgName": "朱元璋军",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "EventName": "鄱阳湖之战",
+        "relation": "防守方",
+        "OrgName": "陈友谅军",
+        "evidence": "朱元璋在建立和巩固江南根据地后，初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "relation": "防守方",
+        "OrgName": "元军",
+        "evidence": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "防守方",
+        "OrgName": "元军",
+        "evidence": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻夏蜀之战",
+        "relation": "防守方",
+        "OrgName": "夏政权",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。命汤和为征西将军，周德兴、廖永忠为左、右副将军，统率水师，溯长江而上，攻取重庆；傅友德为征虏前将军，统率约10万步骑，由陕西南下，从陆路袭取成都。夏主明升闻讯，由左丞相戴寿率领重兵，凭借瞿塘天险，防守长江人川要冲夔州（四川毕节东）；在北面，扼守金牛（陕西宁强北），以御明军。3月，汤和部进抵夔州，初战失利，退还归州（湖北秭归），待机而动。傅友德声言出金牛，暗引步骑主力趋夏军防守薄弱的阶州（甘肃武都西北），以5000精兵为前锋，攀山穿谷，日夜兼行，于4月初攻克阶州、文州（甘肃文县），打开人川通道，乘胜攻占四川龙州（平武东南）、彰明（江油南）、绵州（绵阳）等地，直逼汉州（广汉）。6月初，趁戴寿援军立足未稳，率军出击，一举陷城。此时，汤和遣廖永忠率精兵进取瞿塘关，水陆并进，上下夹击，攻克夔州，进抵重庆。22日，夏主明升出降。7月，傅友德部围成都，戴寿也率部请降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "发起方",
+        "OrgName": "明军",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "防守方",
+        "OrgName": "元军",
+        "evidence": "元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降"
+      },
+      {
+        "EventName": "旧馆之战",
+        "relation": "投降方",
+        "OrgName": "朱元璋军",
+        "evidence": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "旧馆之战",
+        "relation": "投降方",
+        "OrgName": "张士诚军",
+        "evidence": "10月，在旧馆一战，全歼张士诚所遣援军6万之众，11月，湖州、杭州等地守军相继投降，徐达乘胜合围平江，久攻未克。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "投降方",
+        "OrgName": "朱元璋军",
+        "evidence": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "平江之战",
+        "relation": "投降方",
+        "OrgName": "张士诚军",
+        "evidence": "1367年9月，猛攻破城，生俘张士诚。随后，盘踞浙东的方国珍投降。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "relation": "投降方",
+        "OrgName": "明军",
+        "evidence": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "塔儿湾之战",
+        "relation": "投降方",
+        "OrgName": "元军",
+        "evidence": "3月，徐达挥师由山东向河南进军，攻占汴梁。4月，自虎牢关西进，在塔儿湾一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "投降方",
+        "OrgName": "明军",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      },
+      {
+        "EventName": "明攻云南之战",
+        "relation": "被俘方",
+        "OrgName": "明军",
+        "evidence": "1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。命傅友德为征南将军，蓝玉、沐英为左、右副将军，率步骑30万征云南。9月，明军进至湖广（约湖北、湖南）后，兵分两路：一路由都督郭英领兵5万，经永宁（四川叙永）南下取乌撒（贵州威宁）：一路由傅友德率主力25万，经辰州、沅州（湖南沅陵、芷江），占普定（贵州安顺），直趋云南。12月，傅友德采纳沐英出奇制胜的建议，渡过白石江，俘获元军司徒平章达里麻以下2万人，占领云南东部门户曲靖。随后，遣蓝玉、沐英率军进攻昆明，自率兵数万北上；以策应郭英进攻乌撒。22日，梁王逃离昆明自杀。次日，明军进抵板桥（昆明东），元右丞观音保出城投降。这时，郭英率军到达赤水河，与傅友德所率援军，合击元右丞实卜军，进占乌撒。继而依山为营，乘势攻杀，大败元军，克七星关（毕节西南），直达毕节，附近州县望风归降。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "旧馆之战",
+        "relation": "统帅",
+        "PersonName": "元顺帝",
+        "evidence": "元顺帝令陕西等地元军速援山东，但各路元军按兵不动"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "统帅",
+        "PersonName": "元顺帝",
+        "evidence": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName": "明攻大都之战",
+        "relation": "君主",
+        "PersonName": "元顺帝",
+        "evidence": "7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "平江之战",
+        "relation": "顺承关系",
+        "EventName_B": "旧馆之战",
+        "evidence": "徐达乘胜合围平江，久攻未克。1367年9月，猛攻破城\n随后，湖州、杭州等地守军相继投降，徐达乘胜合围平江"
+      },
+      {
+        "EventName_A": "江东桥之战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "初胜江东桥，决胜鄱阳湖"
+      },
+      {
+        "EventName_A": "平江之战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "全歼陈友谅军；继而先北后南，决战平江"
+      },
+      {
+        "EventName_A": "塔儿湾之战",
+        "relation": "顺承关系",
+        "EventName_B": "明攻大都之战",
+        "evidence": "在塔儿湾（河南偃师县境）一举击溃托音特穆尔所率元军5万，迫使元梁王阿鲁温于洛阳投降。随后，徐达、常遇春分兵攻占嵩（河南嵩县）、许（河南许昌）、陈（河南淮阳）、汝（河南临汝）诸州。元潼关（陕西潼关东北）守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州（陕西华县）。5月，朱元璋抵汴梁督战，与诸将商讨下一步作战计划。徐达根据元廷外援已绝的军事形势，建议乘势直取元都，朱元璋表示同意。7月1日，徐达率军自中滦（河南封丘西南）渡黄河，攻占卫辉（河南汲县）、彰德（河南安阳）、磁州（河北磁县），转向临清，会合山东各路明军，沿运河继续北进，在河西务（天津武清）、通州（北京通县）击败元军万余人，进逼大都\n随后，徐达、常遇春分兵攻占嵩、许、陈、汝诸州。元潼关守将李思齐、张思道闻风弃关西逃。徐达等派兵进驻潼关，并西进占领华州。5月，朱元璋抵汴梁督战，与诸将商讨下一步作战计划。徐达根据元廷外援已绝的军事形势，建议乘势直取元都，朱元璋表示同意。7月1日，徐达率军自中滦渡黄河，攻占卫辉、彰德、磁州，转向临清，会合山东各路明军，沿运河继续北进，在河西务、通州击败元军万余人，进逼大都，元顺帝仓惶逃奔上都开平。8月2日，明军占领大都，元统治被推翻。"
+      },
+      {
+        "EventName_A": "平江之战",
+        "relation": "顺承关系",
+        "EventName_B": "江东桥之战",
+        "evidence": "初胜江东桥，决胜鄱阳湖，全歼陈友谅军；继而先北后南，决战平江"
+      },
+      {
+        "EventName_A": "塔儿湾之战",
+        "relation": "顺承关系",
+        "EventName_B": "鄱阳湖之战",
+        "evidence": "继而先北后南，决战平江，彻底消灭张士诚。历战七年，平定了长江中下游，为灭元建明，统一全国奠定了坚实的基础。"
+      },
+      {
+        "EventName_A": "明攻云南之战",
+        "relation": "顺承关系",
+        "EventName_B": "明攻夏蜀之战",
+        "evidence": "灭元后，朱元璋乘胜分兵消灭各地割据势力。1381年秋，朱元璋见元梁王把匝刺瓦尔密等，继续占据云南，杀使拒降，便决定以武力攻取。\n灭元后，朱元璋乘胜分兵消灭各地割据势力。1371年，水陆两路进攻夏蜀。"
+      }
+    ]
+  }
+}

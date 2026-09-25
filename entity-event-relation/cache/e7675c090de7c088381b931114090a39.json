@@ -1,0 +1,1796 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "大沽",
+        "modern_name": "天津市滨海新区",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "滨海新区",
+        "Specific_location": null,
+        "source_text": "八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "geo_name": "塘沽",
+        "modern_name": "天津市滨海新区塘沽",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "滨海新区",
+        "Specific_location": null,
+        "source_text": "联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。"
+      },
+      {
+        "geo_name": "天津",
+        "modern_name": "天津市",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。"
+      },
+      {
+        "geo_name": "廊坊",
+        "modern_name": "河北省廊坊市",
+        "DynastyName": "清朝",
+        "Province": "河北省",
+        "City": "廊坊市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "geo_name": "大沽口",
+        "modern_name": "天津市滨海新区大沽口",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "滨海新区",
+        "Specific_location": null,
+        "source_text": "大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。"
+      },
+      {
+        "geo_name": "海河",
+        "modern_name": "海河",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "炮舰10艘驶入海河，对炮台形成水陆夹击之势。"
+      },
+      {
+        "geo_name": "老龙头火车站",
+        "modern_name": "天津老龙头火车站",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。"
+      },
+      {
+        "geo_name": "紫竹林租界",
+        "modern_name": "天津紫竹林租界",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。"
+      },
+      {
+        "geo_name": "东机器局",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "在东机器局重创侵略军，并一度攻占了火车站。"
+      },
+      {
+        "geo_name": "跑马场",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "geo_name": "八里台",
+        "modern_name": "天津市八里台",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "聂士成率部在八里台与敌激战，壮烈殉国。"
+      },
+      {
+        "geo_name": "小营门炮台",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "geo_name": "杨村",
+        "modern_name": "天津市武清区杨村",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "武清区",
+        "Specific_location": null,
+        "source_text": "裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。"
+      },
+      {
+        "geo_name": "北仓",
+        "modern_name": "天津市北辰区北仓",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "北辰区",
+        "Specific_location": null,
+        "source_text": "裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。"
+      },
+      {
+        "geo_name": "北运河",
+        "modern_name": "北运河",
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "为阻止联军沿北运河北上，马玉昆率兵万余，于北仓以南横跨运河构筑两道防御阵地。"
+      },
+      {
+        "geo_name": "刘家摆渡",
+        "modern_name": "刘家码头",
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "韩家村",
+        "modern_name": "韩家墅",
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "火箭局",
+        "modern_name": "杨家咀附近",
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "刘家房",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "唐家湾",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "穆庄",
+        "modern_name": "天穆村",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "北辰区",
+        "Specific_location": null,
+        "source_text": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "geo_name": "王庄",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "第二道以北仓南的王庄为中心，构筑向左右各延伸三公里的垒墙，驻守清军4000多人。"
+      },
+      {
+        "geo_name": "通州",
+        "modern_name": "北京市通州区",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "通州区",
+        "Specific_location": null,
+        "source_text": "宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "geo_name": "南蔡村",
+        "modern_name": "天津市武清区南蔡村",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "武清区",
+        "Specific_location": null,
+        "source_text": "直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "geo_name": "河西务",
+        "modern_name": "天津市武清区河西务",
+        "DynastyName": "清朝",
+        "Province": "天津市",
+        "City": "天津市",
+        "District_County": "武清区",
+        "Specific_location": null,
+        "source_text": "9日，两路联军包抄河西务。"
+      },
+      {
+        "geo_name": "张家湾",
+        "modern_name": "北京市通州区张家湾",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": "通州区",
+        "Specific_location": null,
+        "source_text": "随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": "北京市",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，北京集结清军7.8万人。"
+      },
+      {
+        "geo_name": "南苑",
+        "modern_name": "北京市南苑",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "宋庆、马玉昆部万余人驻南苑。"
+      },
+      {
+        "geo_name": "广渠门",
+        "modern_name": "北京市广渠门",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "geo_name": "朝阳门",
+        "modern_name": "北京市朝阳门",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "geo_name": "东直门",
+        "modern_name": "北京市东直门",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "geo_name": "西华门",
+        "modern_name": "北京市西华门",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "荣禄部30营驻西华门、棋盘街。"
+      },
+      {
+        "geo_name": "棋盘街",
+        "modern_name": "北京市棋盘街",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "荣禄部30营驻西华门、棋盘街。"
+      },
+      {
+        "geo_name": "内城9门",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "geo_name": "外城7门",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "geo_name": "紫禁城",
+        "modern_name": "北京故宫",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "geo_name": "东西河沿",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "geo_name": "东西珠市口",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "geo_name": "莱市口",
+        "modern_name": "北京市莱市口",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "geo_name": "花儿市",
+        "modern_name": null,
+        "DynastyName": "清朝",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "geo_name": "东便门",
+        "modern_name": "北京市东便门",
+        "DynastyName": "清朝",
+        "Province": "北京市",
+        "City": "北京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "14日，相继攻破广渠门、东便门、东直门，进入城内。"
+      },
+      {
+        "geo_name": "廊坊一带",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "geo_name": "大沽口",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "geo_name": "天津",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "geo_name": "天津城",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "geo_name": "北仓",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "geo_name": "杨村",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "geo_name": "河西务",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "geo_name": "北京",
+        "modern_name": null,
+        "DynastyName": "清",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "清朝",
+        "OrgType": "中央政权",
+        "DynastyName": "清朝",
+        "source_text": "清朝唯恐祸起肘腋，又不得不采取“因而用之，徐图挽救”的控制利用政策，派庄亲王载勋等总统义和团事务。"
+      },
+      {
+        "OrgName": "义和团",
+        "OrgType": "起义军",
+        "DynastyName": "清朝",
+        "source_text": "帝国主义为了集中力量镇压中国北方的义和团，各国陆续从在华军事基地、殖民地国家和国内抽调兵员，由军舰和运输船载运到大沽、塘沽，并进入天津租界。"
+      },
+      {
+        "OrgName": "八国联军",
+        "OrgType": "联盟",
+        "DynastyName": "清朝",
+        "source_text": "正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。\n当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "OrgName": "清军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。\n这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "OrgName": "联军",
+        "OrgType": "联盟",
+        "DynastyName": "清朝",
+        "source_text": "联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。\n8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "OrgName": "武卫左军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站。"
+      },
+      {
+        "OrgName": "淮军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "淮军、练军会同义和团张德成部，从西面一度攻入租界。"
+      },
+      {
+        "OrgName": "练军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "淮军、练军会同义和团张德成部，从西面一度攻入租界。"
+      },
+      {
+        "OrgName": "武卫前军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "OrgName": "八旗",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "OrgName": "绿营",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "OrgName": "虎神营",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "虎神营、神机营等39营驻守各门城楼。"
+      },
+      {
+        "OrgName": "神机营",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "虎神营、神机营等39营驻守各门城楼。"
+      },
+      {
+        "OrgName": "八旗前锋",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "OrgName": "护军",
+        "OrgType": "国家",
+        "DynastyName": "清朝",
+        "source_text": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "OrgName": "西摩尔联军",
+        "OrgType": "军事势力",
+        "DynastyName": "清",
+        "source_text": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "载勋",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "统帅",
+        "Note": "庄亲王，总统义和团事务",
+        "source_text": "派庄亲王载勋等总统义和团事务。"
+      },
+      {
+        "PersonName": "慈禧",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "君主",
+        "Note": "清朝实际统治者，听信载漪等人伪造列强要其归政光绪的假照会后，玩弄“以团制夷”、“假夷灭团”的阴谋，后挟持光绪帝出逃",
+        "source_text": "特别是慈禧听信载漪等人伪造列强要其归政光绪的假照会后，便玩弄“以团制夷”、“假夷灭团”的阴谋，以维护其统治集团的政治利益。"
+      },
+      {
+        "PersonName": "载漪",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "谋士",
+        "Note": "伪造列强要慈禧归政光绪的假照会，影响慈禧决策",
+        "source_text": "特别是慈禧听信载漪等人伪造列强要其归政光绪的假照会后，便玩弄“以团制夷”、“假夷灭团”的阴谋，以维护其统治集团的政治利益。"
+      },
+      {
+        "PersonName": "西摩尔",
+        "DynastyName": "英国",
+        "OrgName": "英国海军",
+        "Role": "统帅",
+        "Note": "英国海军中将，率第一批侵略军进犯北京，在廊坊遭阻击",
+        "source_text": "由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。"
+      },
+      {
+        "PersonName": "麦克拉",
+        "DynastyName": "美国",
+        "OrgName": "美国海军",
+        "Role": "统帅",
+        "Note": "美国海军上校，与西摩尔共同率领侵略军进犯北京",
+        "source_text": "由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。"
+      },
+      {
+        "PersonName": "罗荣光",
+        "DynastyName": "清朝",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "天津镇总兵，坚守大沽炮台，拒绝联军通牒，率军还击",
+        "source_text": "通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。"
+      },
+      {
+        "PersonName": "裕禄",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "统帅",
+        "Note": "直隶总督，与义和团首领商订部署，后弃城逃跑，逃至南蔡村自杀而死",
+        "source_text": "直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻。"
+      },
+      {
+        "PersonName": "马玉昆",
+        "DynastyName": "清朝",
+        "OrgName": "武卫左军",
+        "Role": "统帅",
+        "Note": "提督，率武卫左军会同义和团曹福田部进攻租界，后率兵万余在北仓以南构筑防御阵地，天津失陷后撤往杨村、北仓",
+        "source_text": "提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站。"
+      },
+      {
+        "PersonName": "曹福田",
+        "DynastyName": "清朝",
+        "OrgName": "义和团",
+        "Role": "统帅",
+        "Note": "义和团首领，与马玉昆部协同进攻租界",
+        "source_text": "提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站。"
+      },
+      {
+        "PersonName": "张德成",
+        "DynastyName": "清朝",
+        "OrgName": "义和团",
+        "Role": "统帅",
+        "Note": "义和团首领，与淮军、练军协同从西面攻入租界",
+        "source_text": "淮军、练军会同义和团张德成部，从西面一度攻入租界。"
+      },
+      {
+        "PersonName": "聂士成",
+        "DynastyName": "清朝",
+        "OrgName": "武卫前军",
+        "Role": "统帅",
+        "Note": "武卫前军统领，率部进占跑马场、八里台、小营门炮台，后在八里台与敌激战，壮烈殉国",
+        "source_text": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "PersonName": "李鸿章",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "使者",
+        "Note": "被任命为直隶总督兼北洋大臣，准备议和",
+        "source_text": "清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。"
+      },
+      {
+        "PersonName": "宋庆",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "统帅",
+        "Note": "帮办北洋军各大臣，到津后开始屠杀义和团，后率军驻守杨村，战败后向通州方向败退",
+        "source_text": "14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。"
+      },
+      {
+        "PersonName": "李秉衡",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "统帅",
+        "Note": "帮办武卫军务大臣，率部迎敌，见数万清军不战而逃，愤而吞金自杀",
+        "source_text": "帮办武卫军务大臣李秉衡率部迎敌。"
+      },
+      {
+        "PersonName": "董福祥",
+        "DynastyName": "清朝",
+        "OrgName": "清军",
+        "Role": "将领",
+        "Note": "率25营驻守广渠门、朝阳门、东直门",
+        "source_text": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "PersonName": "荣禄",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "统帅",
+        "Note": "率30营驻西华门、棋盘街，全部城防由荣禄指挥",
+        "source_text": "荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。全部城防由荣禄指挥。"
+      },
+      {
+        "PersonName": "光绪帝",
+        "DynastyName": "清朝",
+        "OrgName": "清朝",
+        "Role": "君主",
+        "Note": "被慈禧挟持出逃",
+        "source_text": "次日清晨，慈禧挟持光绪帝出逃。\n这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "EventType": "联军讨伐",
+        "StartDate": "1900年5月",
+        "EndDate": "1900年5月",
+        "DynastyName": "清",
+        "Place": "廊坊一带",
+        "Aggressor": "西摩尔联军",
+        "Defender": "义和团和清军",
+        "Allies": null,
+        "Result": "联军被迫退回天津租界",
+        "Commanders": "西摩尔、麦克拉",
+        "KeyPersons": null,
+        "Action": "进犯、阻截、围攻、袭击",
+        "TroopSize": "联军2000余人，义和团和清军不详",
+        "Duration": "数日",
+        "GeographicScope": "廊坊一带",
+        "Casualties": "联军伤亡290人",
+        "source": "原始文本",
+        "Impact": "联军进犯北京受阻，但八国联军趁机攻占大沽口",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "大沽口之战",
+            "evidence": "正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽"
+          }
+        ],
+        "source_text": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1900年5月21日",
+        "EndDate": "1900年5月21日",
+        "DynastyName": "清",
+        "Place": "大沽口",
+        "Aggressor": "八国联军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "清军炮台失陷",
+        "Commanders": "罗荣光",
+        "KeyPersons": null,
+        "Action": "炮击、还击",
+        "TroopSize": "清军2000余人，联军900多人登陆，炮舰10艘",
+        "Duration": "激战6小时",
+        "GeographicScope": "大沽口",
+        "Casualties": "联军伤舰6艘，毙伤敌200多人；清军后援不继",
+        "source": "原始文本",
+        "Impact": "大沽炮台失陷，联军得以进犯天津",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "天津保卫战",
+            "evidence": "八国联军以突然袭击的方式攻占大沽，准备进犯天津城"
+          }
+        ],
+        "source_text": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "EventType": "首都保卫战",
+        "StartDate": "1900年6月",
+        "EndDate": "1900年6月18日",
+        "DynastyName": "清",
+        "Place": "天津",
+        "Aggressor": "八国联军",
+        "Defender": "清军、义和团",
+        "Allies": null,
+        "Result": "天津失陷",
+        "Commanders": "裕禄、马玉昆、聂士成、宋庆",
+        "KeyPersons": "曹福田、张德成",
+        "Action": "进攻、守卫、激战、弃城",
+        "TroopSize": "清军2.5万人，义和团不详；联军7000多人",
+        "Duration": "约半月",
+        "GeographicScope": "天津城及周边",
+        "Casualties": "聂士成殉国，清军伤亡不详",
+        "source": "原始文本",
+        "Impact": "天津失陷，北京受到直接威胁",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "西摩尔联军进犯北京",
+            "evidence": "西摩尔联军进犯北京受阻后，八国联军攻占大沽，进而进犯天津"
+          },
+          {
+            "type": "顺承关系",
+            "to": "大沽口之战",
+            "evidence": "大沽口之战后，联军准备进犯天津城"
+          }
+        ],
+        "source_text": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "EventType": "首都保卫战",
+        "StartDate": "1900年6月17日",
+        "EndDate": "1900年6月18日",
+        "DynastyName": "清",
+        "Place": "天津城",
+        "Aggressor": "八国联军",
+        "Defender": "清军",
+        "Allies": "义和团",
+        "Result": "天津失陷，清军撤往杨村、北仓",
+        "Commanders": "裕禄、宋庆、马玉昆",
+        "KeyPersons": null,
+        "Action": "攻防",
+        "TroopSize": "侵略军7000多人，清军2万多人",
+        "Duration": "持续两日",
+        "GeographicScope": "天津城",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "天津失陷，北京受到直接威胁",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "北仓阻击战",
+            "evidence": "天津失陷后，清廷从各地调遣部队加强北京及其附近地区的防御，为阻止联军沿北运河北上，马玉昆率兵万余，于北仓以南构筑防御阵地。"
+          }
+        ],
+        "source_text": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1900年8月5日",
+        "EndDate": "1900年8月5日",
+        "DynastyName": "清",
+        "Place": "北仓",
+        "Aggressor": "联军",
+        "Defender": "清军",
+        "Allies": "义和团",
+        "Result": "清军防线被突破，北仓失守",
+        "Commanders": "马玉昆",
+        "KeyPersons": null,
+        "Action": "阻击",
+        "TroopSize": "联军1.8万余人，清军1.3万余人",
+        "Duration": "一日",
+        "GeographicScope": "北仓以南",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "北仓失守，联军继续北犯",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "杨村之战",
+            "evidence": "次日，乘胜分路攻克杨村。"
+          }
+        ],
+        "source_text": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "杨村之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1900年8月6日",
+        "EndDate": "1900年8月6日",
+        "DynastyName": "清",
+        "Place": "杨村",
+        "Aggressor": "联军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "杨村失守，清军败退",
+        "Commanders": "宋庆、马玉昆",
+        "KeyPersons": null,
+        "Action": "攻防",
+        "TroopSize": "联军1.8万余人，清军5000人",
+        "Duration": "一日",
+        "GeographicScope": "杨村",
+        "Casualties": "不详",
+        "source": "《中国历代战争简史》",
+        "Impact": "杨村失守，清军败退，直隶总督裕禄自杀",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "北仓阻击战",
+            "evidence": "次日，乘胜分路攻克杨村。"
+          }
+        ],
+        "source_text": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "河西务之战",
+        "EventType": "战略要地守卫",
+        "StartDate": "1900年8月9日",
+        "EndDate": "1900年8月9日",
+        "DynastyName": "清",
+        "Place": "河西务",
+        "Aggressor": "联军",
+        "Defender": "清军",
+        "Allies": null,
+        "Result": "联军获胜，清军败退",
+        "Commanders": "李秉衡",
+        "KeyPersons": null,
+        "Action": "交战",
+        "TroopSize": "联军1.8万余人，清军数万",
+        "Duration": "一日",
+        "GeographicScope": "河西务",
+        "Casualties": "清军不战而逃，李秉衡自杀",
+        "source": "原始文本",
+        "Impact": "联军突破河西务，直逼北京",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "北京之战",
+            "evidence": "随即，联军夺取张家湾，占领通州，直扑北京。"
+          }
+        ],
+        "source_text": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName": "北京之战",
+        "EventType": "首都保卫战",
+        "StartDate": "1900年8月13日",
+        "EndDate": "1900年8月14日",
+        "DynastyName": "清",
+        "Place": "北京",
+        "Aggressor": "联军",
+        "Defender": "清军和义和团",
+        "Allies": null,
+        "Result": "联军获胜，北京失陷，慈禧出逃",
+        "Commanders": "荣禄、董福祥、宋庆、马玉昆",
+        "KeyPersons": "慈禧、光绪帝",
+        "Action": "攻防",
+        "TroopSize": "联军1.5万余人，清军7.8万，义和团5万余",
+        "Duration": "两日",
+        "GeographicScope": "北京城",
+        "Casualties": "不详",
+        "source": "原始文本",
+        "Impact": "北京陷落，慈禧挟光绪帝出逃，清朝统治动摇",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "河西务之战",
+            "evidence": "13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。"
+          }
+        ],
+        "source_text": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "主战场",
+        "modern_name": "廊坊一带",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "出发地",
+        "modern_name": "天津",
+        "evidence": "由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "目的地",
+        "modern_name": "北京",
+        "evidence": "由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "主战场",
+        "modern_name": "大沽口",
+        "evidence": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "战略要地",
+        "modern_name": "大沽口",
+        "evidence": "大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "主战场",
+        "modern_name": "天津",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "老龙头火车站",
+        "evidence": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "紫竹林租界",
+        "evidence": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "东机器局",
+        "evidence": "在东机器局重创侵略军，并一度攻占了火车站。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "跑马场",
+        "evidence": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "八里台",
+        "evidence": "聂士成率部在八里台与敌激战，壮烈殉国。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "次要战场",
+        "modern_name": "小营门炮台",
+        "evidence": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "主战场",
+        "modern_name": "天津城",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "主战场",
+        "modern_name": "北仓",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "次要战场",
+        "modern_name": "北运河",
+        "evidence": "为阻止联军沿北运河北上，马玉昆率兵万余，于北仓以南横跨运河构筑两道防御阵地。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "刘家摆渡",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "韩家村",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "火箭局",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "刘家房",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "唐家湾",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "穆庄",
+        "evidence": "第一道由刘家摆渡（刘家码头）、韩家村（韩家墅）、火箭局（杨家咀附近）、刘家房、唐家湾、穆庄（天穆村）等据点组成，驻守清军9000人。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "驻防地",
+        "modern_name": "王庄",
+        "evidence": "第二道以北仓南的王庄为中心，构筑向左右各延伸三公里的垒墙，驻守清军4000多人。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "主战场",
+        "modern_name": "杨村",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "河西务之战",
+        "relation": "主战场",
+        "modern_name": "河西务",
+        "evidence": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "主战场",
+        "modern_name": "北京",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "次要战场",
+        "modern_name": "广渠门",
+        "evidence": "14日，相继攻破广渠门、东便门、东直门，进人城内。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "次要战场",
+        "modern_name": "东便门",
+        "evidence": "14日，相继攻破广渠门、东便门、东直门，进人城内。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "次要战场",
+        "modern_name": "东直门",
+        "evidence": "14日，相继攻破广渠门、东便门、东直门，进人城内。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "南苑",
+        "evidence": "宋庆、马玉昆部万余人驻南苑。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "朝阳门",
+        "evidence": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "西华门",
+        "evidence": "荣禄部30营驻西华门、棋盘街。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "棋盘街",
+        "evidence": "荣禄部30营驻西华门、棋盘街。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "内城9门",
+        "evidence": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "外城7门",
+        "evidence": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "紫禁城",
+        "evidence": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "东西河沿",
+        "evidence": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "东西珠市口",
+        "evidence": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "莱市口",
+        "evidence": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "驻防地",
+        "modern_name": "花儿市",
+        "evidence": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "目的地",
+        "modern_name": "天津",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "战略要地",
+        "modern_name": "天津",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "议和地点",
+        "modern_name": "天津",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "目的地",
+        "modern_name": "天津城",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "发起方",
+        "OrgName": "西摩尔联军",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "防守方",
+        "OrgName": "义和团",
+        "evidence": "沿途连遭义和团和清军的阻截、围攻和袭击。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "发起方",
+        "OrgName": "八国联军",
+        "evidence": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "发起方",
+        "OrgName": "八国联军",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "防守方",
+        "OrgName": "义和团",
+        "evidence": "天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参战方",
+        "OrgName": "武卫左军",
+        "evidence": "提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参战方",
+        "OrgName": "淮军",
+        "evidence": "淮军、练军会同义和团张德成部，从西面一度攻入租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参战方",
+        "OrgName": "练军",
+        "evidence": "淮军、练军会同义和团张德成部，从西面一度攻入租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参战方",
+        "OrgName": "武卫前军",
+        "evidence": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "发起方",
+        "OrgName": "八国联军",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "同盟方",
+        "OrgName": "义和团",
+        "evidence": "天津失陷后，清廷从各地调遣部队加强北京及其附近地区的防御。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "发起方",
+        "OrgName": "联军",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "同盟方",
+        "OrgName": "义和团",
+        "evidence": "总计兵力达17万余人，还有义和团7万余人，以抗击联军北犯。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "发起方",
+        "OrgName": "联军",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "河西务之战",
+        "relation": "发起方",
+        "OrgName": "联军",
+        "evidence": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName": "河西务之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "发起方",
+        "OrgName": "联军",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "防守方",
+        "OrgName": "清军",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "防守方",
+        "OrgName": "义和团",
+        "evidence": "义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "八旗",
+        "evidence": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "绿营",
+        "evidence": "八旗、绿营2万余人驻内城9门、外城7门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "虎神营",
+        "evidence": "虎神营、神机营等39营驻守各门城楼。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "神机营",
+        "evidence": "虎神营、神机营等39营驻守各门城楼。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "八旗前锋",
+        "evidence": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参战方",
+        "OrgName": "护军",
+        "evidence": "八旗前锋和护军守紫禁城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "防守方",
+        "OrgName": "义",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "防守方",
+        "OrgName": "团",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "议和方",
+        "OrgName": "八国联军",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "议和方",
+        "OrgName": "清军",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "防守方",
+        "OrgName": "义",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "议和方",
+        "OrgName": "义",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "防守方",
+        "OrgName": "团",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "议和方",
+        "OrgName": "团",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "支援方",
+        "OrgName": "义",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "支援方",
+        "OrgName": "团",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "支援方",
+        "OrgName": "义",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "同盟方",
+        "OrgName": "义",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "支援方",
+        "OrgName": "团",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "同盟方",
+        "OrgName": "团",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "防守方",
+        "OrgName": "义",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "防守方",
+        "OrgName": "团",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "统帅",
+        "PersonName": "西摩尔",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "将领",
+        "PersonName": "麦克拉",
+        "evidence": "由英国海军中将西摩尔、美国海军上校麦克拉率领。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "将领",
+        "PersonName": "罗荣光",
+        "evidence": "通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "统帅",
+        "PersonName": "裕禄",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "将领",
+        "PersonName": "马玉昆",
+        "evidence": "提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "将领",
+        "PersonName": "聂士成",
+        "evidence": "武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "将领",
+        "PersonName": "宋庆",
+        "evidence": "帮办北洋军各大臣宋庆到津，开始屠杀义和团。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参与者",
+        "PersonName": "曹福田",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "参与者",
+        "PersonName": "张德成",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "统帅",
+        "PersonName": "裕禄",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "将领",
+        "PersonName": "宋庆",
+        "evidence": "裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "将领",
+        "PersonName": "马玉昆",
+        "evidence": "裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。"
+      },
+      {
+        "EventName": "北仓阻击战",
+        "relation": "统帅",
+        "PersonName": "马玉昆",
+        "evidence": "8月初，联军集中1.8万余人，火炮81门，从天津出发，沿北运河两岸向北仓进犯。右岸为日、英、美军，共1.3万多人，携火炮53门；左岸为俄、德、法、意、奥军，共4800多人，火炮28门。5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "统帅",
+        "PersonName": "宋庆",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "将领",
+        "PersonName": "马玉昆",
+        "evidence": "宋庆军与马玉昆残部向通州方向败退。"
+      },
+      {
+        "EventName": "河西务之战",
+        "relation": "统帅",
+        "PersonName": "李秉衡",
+        "evidence": "9日，两路联军包抄河西务。帮办武卫军务大臣李秉衡率部迎敌。但见数万清军不战而逃，极为愤慨，又无法阻止，便吞金自杀。随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "统帅",
+        "PersonName": "荣禄",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "将领",
+        "PersonName": "董福祥",
+        "evidence": "董福祥部25营驻广渠门、朝阳门、东直门。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "将领",
+        "PersonName": "宋庆",
+        "evidence": "宋庆、马玉昆部万余人驻南苑。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "将领",
+        "PersonName": "马玉昆",
+        "evidence": "宋庆、马玉昆部万余人驻南苑。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "君主",
+        "PersonName": "慈禧",
+        "evidence": "次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "君主",
+        "PersonName": "光绪帝",
+        "evidence": "次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "将领",
+        "PersonName": "西摩尔",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "西摩尔联军进犯北京",
+        "relation": "统帅",
+        "PersonName": "麦克拉",
+        "evidence": "这年5月，驻天津各领事开会决定，再从天津租界抽调官兵2000余人，由英国海军中将西摩尔、美国海军上校麦克拉率领，分批乘火车进人北京。西摩尔率第一批800余人出发后，沿途连遭义和团和清军的阻截、围攻和袭击，伤亡290人，被迫退回天津租界。正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。"
+      },
+      {
+        "EventName": "大沽口之战",
+        "relation": "统帅",
+        "PersonName": "罗荣光",
+        "evidence": "当时，大沽口两岸建有4座炮台，装备各型火炮近180门，驻有清军2000余人。5月上旬，各国军舰20多艘集结大沽口外，对清政府施加压力，并伺机侵占炮台，扩大侵华战争。19日，联军900多人在塘沽登岸，炮舰10艘驶入海河，对炮台形成水陆夹击之势。20日，以清军在海河口布雷为词，通牒天津镇总兵罗荣光，限21日2时交出炮台。遭到罗荣光的严辞拒绝。21日零时50分，联军即炮击炮台。清军开炮还击，激战6小时，伤敌舰6艘，毙伤敌200多人，终因后援不继，炮台先后失陷。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "统帅",
+        "PersonName": "马玉昆",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "统帅",
+        "PersonName": "聂士成",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津保卫战",
+        "relation": "统帅",
+        "PersonName": "宋庆",
+        "evidence": "25日，清政府对各国宣战。在这之前，天津的义和团及清军已经不断袭击老龙头火车站和紫竹林租界内的侵略军，并拆毁铁路、电线，断其对外联系。6月上旬，驻津清军增至2.5万人。直隶总督裕禄同义和团首领商订部署，从三个方向对租界内侵略军发起进攻：提督马玉昆率武卫左军会同义和团曹福田部，自北面进攻租界，在东机器局重创侵略军，并一度攻占了火车站：淮军、练军会同义和团张德成部，从西面一度攻入租界；武卫前军统领聂士成率部进占跑马场、八里台、小营门炮台后，从南面直逼租界。13日，侵略军自租界南面出击。聂士成率部在八里台与敌激战，壮烈殉国。正当义和团及清军实施“三面进攻之计”，取得一定战果时，清廷却任命李鸿章为直隶总督兼北洋大臣，准备议和。14日，帮办北洋军各大臣宋庆到津，开始屠杀义和团，战局急转直下。17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "统帅",
+        "PersonName": "宋庆",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "天津城失陷",
+        "relation": "统帅",
+        "PersonName": "马玉昆",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷，北京受到直接威胁。"
+      },
+      {
+        "EventName": "杨村之战",
+        "relation": "统帅",
+        "PersonName": "马玉昆",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "统帅",
+        "PersonName": "董福祥",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "统帅",
+        "PersonName": "宋庆",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "统帅",
+        "PersonName": "马玉昆",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参与者",
+        "PersonName": "慈禧",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      },
+      {
+        "EventName": "北京之战",
+        "relation": "参与者",
+        "PersonName": "光绪帝",
+        "evidence": "这时，北京集结清军7.8万人。宋庆、马玉昆部万余人驻南苑；董福祥部25营驻广渠门、朝阳门、东直门：荣禄部30营驻西华门、棋盘街；八旗、绿营2万余人驻内城9门、外城7门；虎神营、神机营等39营驻守各门城楼；八旗前锋和护军守紫禁城。义和团5万余人分别守卫东西河沿，东西珠市口、莱市口、花儿市等6大区。全部城防由荣禄指挥。13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。14日，相继攻破广渠门、东便门、东直门，进人城内。次日清晨，慈禧挟持光绪帝出逃。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "大沽口之战",
+        "relation": "顺承关系",
+        "EventName_B": "天津保卫战",
+        "evidence": "正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽，准备进犯天津城。\n大沽口之战后，联军准备进犯天津城"
+      },
+      {
+        "EventName_A": "天津保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "天津城失陷",
+        "evidence": "17日，侵略军7000多人自租界分两路进攻天津城。裕禄、宋庆及马玉昆率2万多清军弃城，撤往杨村、北仓。18日，天津失陷。"
+      },
+      {
+        "EventName_A": "北仓阻击战",
+        "relation": "顺承关系",
+        "EventName_B": "天津城失陷",
+        "evidence": "天津失陷后，清廷从各地调遣部队加强北京及其附近地区的防御。为阻止联军沿北运河北上，马玉昆率兵万余，于北仓以南横跨运河构筑两道防御阵地。\n天津失陷后，清廷从各地调遣部队加强北京及其附近地区的防御，为阻止联军沿北运河北上，马玉昆率兵万余，于北仓以南构筑防御阵地。"
+      },
+      {
+        "EventName_A": "北仓阻击战",
+        "relation": "顺承关系",
+        "EventName_B": "杨村之战",
+        "evidence": "5日，突破清军第一道防线。继而以一部由西侧“统道土余，出马军后”，前后夹击，攻破第二道防线，占领仓北据点。次日，乘胜分路攻克杨村。"
+      },
+      {
+        "EventName_A": "杨村之战",
+        "relation": "顺承关系",
+        "EventName_B": "河西务之战",
+        "evidence": "次日，乘胜分路攻克杨村。宋庆军与马玉昆残部向通州方向败退，直隶总督裕禄逃至南蔡村自杀而死。9日，两路联军包抄河西务。"
+      },
+      {
+        "EventName_A": "北京之战",
+        "relation": "顺承关系",
+        "EventName_B": "河西务之战",
+        "evidence": "13日，联军1.5万余人，携火炮百余门，分三路从通州冒雨进逼北京。\n随即，联军夺取张家湾，占领通州，直扑北京。"
+      },
+      {
+        "EventName_A": "大沽口之战",
+        "relation": "顺承关系",
+        "EventName_B": "西摩尔联军进犯北京",
+        "evidence": "正当西摩尔所率侵略军困在廊坊时，八国联军以突然袭击的方式攻占大沽"
+      },
+      {
+        "EventName_A": "天津保卫战",
+        "relation": "顺承关系",
+        "EventName_B": "西摩尔联军进犯北京",
+        "evidence": "西摩尔联军进犯北京受阻后，八国联军攻占大沽，进而进犯天津"
+      }
+    ]
+  }
+}

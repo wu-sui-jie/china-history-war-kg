@@ -1,0 +1,1035 @@
+{
+  "entities": {
+    "places": [
+      {
+        "geo_name": "临胸",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "与燕军主力在临胸激战许久，未分胜负。"
+      },
+      {
+        "geo_name": "广固",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。"
+      },
+      {
+        "geo_name": "洛阳",
+        "modern_name": "洛阳市",
+        "DynastyName": "东晋",
+        "Province": "河南省",
+        "City": "洛阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "刘裕以强有力的水陆军组成先锋各军，会攻洛阳。"
+      },
+      {
+        "geo_name": "许昌",
+        "modern_name": "许昌市",
+        "DynastyName": "东晋",
+        "Province": "河南省",
+        "City": "许昌市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "命龙骧将军王镇恶（王猛之子）、冠军将军檀道济率步兵自淮水一带向许昌、洛阳方向进攻。"
+      },
+      {
+        "geo_name": "汴水",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "建武将军沈林子等率水军自汴水溯黄河西进。"
+      },
+      {
+        "geo_name": "黄河",
+        "modern_name": "黄河",
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "建武将军沈林子等率水军自汴水溯黄河西进。"
+      },
+      {
+        "geo_name": "彭城",
+        "modern_name": "徐州市",
+        "DynastyName": "东晋",
+        "Province": "江苏省",
+        "City": "徐州市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "刘裕亲率水军劲旅驻屯彭城，待水路开放，沿黄河西进。"
+      },
+      {
+        "geo_name": "泗水",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "geo_name": "巨野泽",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "geo_name": "襄阳",
+        "modern_name": "襄阳市",
+        "DynastyName": "东晋",
+        "Province": "湖北省",
+        "City": "襄阳市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "新野太守朱超石等率军由襄阳挺进阳城（河南登封东南）。"
+      },
+      {
+        "geo_name": "阳城",
+        "modern_name": "登封市",
+        "DynastyName": "东晋",
+        "Province": "河南省",
+        "City": "郑州市",
+        "District_County": "登封市",
+        "Specific_location": "东南",
+        "source_text": "新野太守朱超石等率军由襄阳挺进阳城（河南登封东南）。"
+      },
+      {
+        "geo_name": "武关",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "商洛市",
+        "District_County": "丹凤县",
+        "Specific_location": "东南",
+        "source_text": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关（陕西商南东南），以牵制关中秦军。"
+      },
+      {
+        "geo_name": "潼关",
+        "modern_name": "潼关县",
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "潼关县",
+        "Specific_location": null,
+        "source_text": "次年3月，攻克潼关。"
+      },
+      {
+        "geo_name": "定城",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": "潼关西",
+        "source_text": "后秦大将军姚绍退守定城（潼关西），据险抵抗。"
+      },
+      {
+        "geo_name": "长安",
+        "modern_name": "西安市",
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "7月率主力由潼关进攻长安。"
+      },
+      {
+        "geo_name": "蒲阪",
+        "modern_name": "永济市",
+        "DynastyName": "东晋",
+        "Province": "山西省",
+        "City": "运城市",
+        "District_County": "永济市",
+        "Specific_location": "西",
+        "source_text": "又派朱超石等北渡黄河攻蒲阪（山西永济西），掩护主力翼侧。"
+      },
+      {
+        "geo_name": "青泥",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": "蓝田县",
+        "Specific_location": null,
+        "source_text": "亲率步骑数万至青泥（陕西蓝田）。"
+      },
+      {
+        "geo_name": "霸上",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": "长安东",
+        "source_text": "姚泓败奔霸上（长安东）。"
+      },
+      {
+        "geo_name": "郑城",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "渭南市",
+        "District_County": "华县",
+        "Specific_location": null,
+        "source_text": "姚赞见晋军由渭水逼近长安，便退守郑城（陕西华县），刘裕也进逼郑城。"
+      },
+      {
+        "geo_name": "渭桥",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": "陕西省",
+        "City": "西安市",
+        "District_County": null,
+        "Specific_location": "长安北",
+        "source_text": "王镇恶率军乘蒙冲小舰，进至渭桥（长安北），弃舟登岸，击败秦军姚丕。"
+      },
+      {
+        "geo_name": "建康",
+        "modern_name": "南京市",
+        "DynastyName": "东晋",
+        "Province": "江苏省",
+        "City": "南京市",
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "geo_name": "临朐",
+        "modern_name": null,
+        "DynastyName": "东晋",
+        "Province": null,
+        "City": null,
+        "District_County": null,
+        "Specific_location": null,
+        "source_text": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      }
+    ],
+    "organizations": [
+      {
+        "OrgName": "燕军",
+        "OrgType": "国家",
+        "DynastyName": "南燕",
+        "source_text": "与燕军主力在临胸激战许久，未分胜负。"
+      },
+      {
+        "OrgName": "晋军",
+        "OrgType": "国家",
+        "DynastyName": "东晋",
+        "source_text": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。"
+      },
+      {
+        "OrgName": "大夏",
+        "OrgType": "国家",
+        "DynastyName": "大夏",
+        "source_text": "这时后秦与大夏正在交战，只能派兵1万救燕。"
+      },
+      {
+        "OrgName": "南燕",
+        "OrgType": "国家",
+        "DynastyName": "南燕",
+        "source_text": "南燕求援使者张纲在返回途中被晋军截获。"
+      },
+      {
+        "OrgName": "北魏",
+        "OrgType": "国家",
+        "DynastyName": "北魏",
+        "source_text": "又结好北凉沮渠蒙逊，并对北魏保持守境相安的状态。"
+      },
+      {
+        "OrgName": "北凉",
+        "OrgType": "国家",
+        "DynastyName": "北凉",
+        "source_text": "又结好北凉沮渠蒙逊。"
+      },
+      {
+        "OrgName": "西秦",
+        "OrgType": "国家",
+        "DynastyName": "西秦",
+        "source_text": "北方大夏、西方西秦、西南氐王不断入侵后秦之机。"
+      },
+      {
+        "OrgName": "秦军",
+        "OrgType": "国家",
+        "DynastyName": "后秦",
+        "source_text": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关（陕西商南东南），以牵制关中秦军。"
+      },
+      {
+        "OrgName": "魏军",
+        "OrgType": "国家",
+        "DynastyName": "北魏",
+        "source_text": "刘裕率水军于公元417年正月从彭城出发，水军溯黄河而上，在魏军侧击下强行通过魏境。"
+      }
+    ],
+    "persons": [
+      {
+        "PersonName": "刘裕",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "统帅",
+        "Note": "灭南燕、灭后秦的统帅，后篡晋建宋",
+        "source_text": "刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后。"
+      },
+      {
+        "PersonName": "胡藩",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "参军，提出出奇制胜建议并引兵绕后",
+        "source_text": "刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后。"
+      },
+      {
+        "PersonName": "慕容超",
+        "DynastyName": "南燕",
+        "OrgName": "南燕",
+        "Role": "君主",
+        "Note": "南燕君主，被晋军追获斩首",
+        "source_text": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。"
+      },
+      {
+        "PersonName": "张纲",
+        "DynastyName": "南燕",
+        "OrgName": "南燕",
+        "Role": "使者",
+        "Note": "尚书郎，出使后秦求援，被晋军截获",
+        "source_text": "南燕求援使者张纲在返回途中被晋军截获。"
+      },
+      {
+        "PersonName": "韩范",
+        "DynastyName": "南燕",
+        "OrgName": "南燕",
+        "Role": "使者",
+        "Note": "尚书令，出使后秦求援",
+        "source_text": "派遣使者尚书郎张纲、尚书令韩范到后秦救援。"
+      },
+      {
+        "PersonName": "公孙五楼",
+        "DynastyName": "南燕",
+        "OrgName": "南燕",
+        "Role": "将领",
+        "Note": "派其挖地道出击晋兵，失败",
+        "source_text": "慕容超派公孙五楼挖地道出击晋兵，又遭失败。\n慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "PersonName": "悦寿",
+        "DynastyName": "南燕",
+        "OrgName": "南燕",
+        "Role": "将领",
+        "Note": "尚书，开城门迎接晋军",
+        "source_text": "燕尚书悦寿开城门迎接晋军。"
+      },
+      {
+        "PersonName": "姚兴",
+        "DynastyName": "后秦",
+        "OrgName": "后秦",
+        "Role": "君主",
+        "Note": "后秦君主，其死导致诸子争位",
+        "source_text": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位。"
+      },
+      {
+        "PersonName": "王镇恶",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "龙骧将军，王猛之子，率步兵攻洛阳，后率水军攻长安",
+        "source_text": "命龙骧将军王镇恶（王猛之子）、冠军将军檀道济率步兵自淮水一带向许昌、洛阳方向进攻。"
+      },
+      {
+        "PersonName": "檀道济",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "冠军将军，率步兵攻洛阳",
+        "source_text": "命龙骧将军王镇恶（王猛之子）、冠军将军檀道济率步兵自淮水一带向许昌、洛阳方向进攻。"
+      },
+      {
+        "PersonName": "沈林子",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "建武将军，率水军溯黄河西进",
+        "source_text": "建武将军沈林子等率水军自汴水溯黄河西进。"
+      },
+      {
+        "PersonName": "王仲德",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "冀州刺史，督前锋诸军",
+        "source_text": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "PersonName": "朱超石",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "新野太守，率军攻蒲阪失利",
+        "source_text": "新野太守朱超石等率军由襄阳挺进阳城（河南登封东南）。"
+      },
+      {
+        "PersonName": "沈田子",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "振武将军，率军袭秦军后，青泥之战获胜",
+        "source_text": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关（陕西商南东南），以牵制关中秦军。"
+      },
+      {
+        "PersonName": "傅弘之",
+        "DynastyName": "东晋",
+        "OrgName": "东晋",
+        "Role": "将领",
+        "Note": "建威将军，与沈田子同率军",
+        "source_text": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关（陕西商南东南），以牵制关中秦军。"
+      },
+      {
+        "PersonName": "姚泓",
+        "DynastyName": "后秦",
+        "OrgName": "后秦",
+        "Role": "君主",
+        "Note": "后秦主，率军迎击，败奔霸上，后投降被斩",
+        "source_text": "后秦主姚泓正欲亲率大军正面迎击刘裕军，闻沈田子袭其后发展迅速，决定先击沈军。"
+      },
+      {
+        "PersonName": "姚绍",
+        "DynastyName": "后秦",
+        "OrgName": "后秦",
+        "Role": "将领",
+        "Note": "大将军，退守定城抵抗",
+        "source_text": "后秦大将军姚绍退守定城（潼关西），据险抵抗。"
+      },
+      {
+        "PersonName": "姚赞",
+        "DynastyName": "后秦",
+        "OrgName": "后秦",
+        "Role": "将领",
+        "Note": "守定城，后退守郑城",
+        "source_text": "姚赞见晋军由渭水逼近长安，便退守郑城（陕西华县）。"
+      },
+      {
+        "PersonName": "姚丕",
+        "DynastyName": "后秦",
+        "OrgName": "后秦",
+        "Role": "将领",
+        "Note": "秦军将领，在渭桥被击败",
+        "source_text": "王镇恶率军乘蒙冲小舰，进至渭桥（长安北），弃舟登岸，击败秦军姚丕。"
+      },
+      {
+        "PersonName": "沮渠蒙逊",
+        "DynastyName": "北凉",
+        "OrgName": "北凉",
+        "Role": "君主",
+        "Note": "北凉君主，与刘裕结好",
+        "source_text": "又结好北凉沮渠蒙逊。"
+      }
+    ]
+  },
+  "events": {
+    "events": [
+      {
+        "EventName": "临朐之战",
+        "EventType": "统一战争",
+        "StartDate": "409年",
+        "EndDate": "409年",
+        "DynastyName": "东晋",
+        "Place": "临朐",
+        "Aggressor": "东晋",
+        "Defender": "南燕",
+        "Allies": null,
+        "Result": "东晋获胜，占领临朐",
+        "Commanders": "刘裕、胡藩、慕容超",
+        "KeyPersons": null,
+        "Action": "交战、奇袭",
+        "TroopSize": "不详",
+        "Duration": "不详",
+        "GeographicScope": "临朐地区",
+        "Casualties": "不详",
+        "source": "《资治通鉴》",
+        "Impact": "为后续围攻广固、灭亡南燕奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "广固之战",
+            "evidence": "慕容超逃还广固，晋军乘胜进围广固"
+          }
+        ],
+        "source_text": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      },
+      {
+        "EventName": "广固之战",
+        "EventType": "统一战争",
+        "StartDate": "409年",
+        "EndDate": "410年",
+        "DynastyName": "东晋",
+        "Place": "广固",
+        "Aggressor": "东晋",
+        "Defender": "南燕",
+        "Allies": null,
+        "Result": "东晋获胜，南燕灭亡",
+        "Commanders": "刘裕、慕容超、公孙五楼、悦寿",
+        "KeyPersons": "张纲、韩范",
+        "Action": "围城、攻心、攻城",
+        "TroopSize": "不详",
+        "Duration": "持续数月",
+        "GeographicScope": "广固城",
+        "Casualties": "不详",
+        "source": "《资治通鉴》",
+        "Impact": "南燕灭亡，东晋收复山东地区",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "刘裕灭后秦之战",
+            "evidence": "刘裕灭南燕后，经过7年的准备，发兵灭后秦"
+          }
+        ],
+        "source_text": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "EventType": "统一战争",
+        "StartDate": "416年",
+        "EndDate": "417年",
+        "DynastyName": "东晋",
+        "Place": "洛阳、潼关、长安",
+        "Aggressor": "东晋",
+        "Defender": "后秦",
+        "Allies": null,
+        "Result": "东晋获胜，后秦灭亡",
+        "Commanders": "刘裕、王镇恶、檀道济、沈林子、王仲德、朱超石、沈田子、傅弘之、姚泓、姚绍、姚赞、姚丕",
+        "KeyPersons": null,
+        "Action": "攻伐、守御、追击、投降",
+        "TroopSize": "不详",
+        "Duration": "持续约一年",
+        "GeographicScope": "河南、陕西等地",
+        "Casualties": "不详",
+        "source": "《资治通鉴》",
+        "Impact": "后秦灭亡，东晋收复关中地区，为刘裕篡晋奠定基础",
+        "Remark": "",
+        "relations": [
+          {
+            "type": "顺承关系",
+            "to": "广固之战",
+            "evidence": "刘裕灭南燕后，经过7年的准备，发兵灭后秦"
+          }
+        ],
+        "source_text": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      }
+    ],
+    "metadata": {}
+  },
+  "relations": {
+    "event_place_relations": [
+      {
+        "EventName": "临朐之战",
+        "relation": "主战场",
+        "modern_name": "临朐",
+        "evidence": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "主战场",
+        "modern_name": "广固",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "洛阳",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "潼关",
+        "evidence": "次年3月，攻克潼关。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "长安",
+        "evidence": "王镇恶军攻人长安城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "彭城",
+        "evidence": "刘裕亲率水军劲旅驻屯彭城，待水路开放，沿黄河西进。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "黄河",
+        "evidence": "刘裕率水军于公元417年正月从彭城出发，水军溯黄河而上。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "汴水",
+        "evidence": "建武将军沈林子等率水军自汴水溯黄河西进。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "泗水",
+        "evidence": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "巨野泽",
+        "evidence": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "出发地",
+        "modern_name": "襄阳",
+        "evidence": "新野太守朱超石等率军由襄阳挺进阳城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "阳城",
+        "evidence": "新野太守朱超石等率军由襄阳挺进阳城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "武关",
+        "evidence": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "定城",
+        "evidence": "后秦大将军姚绍退守定城（潼关西），据险抵抗。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "途经地",
+        "modern_name": "蒲阪",
+        "evidence": "又派朱超石等北渡黄河攻蒲阪。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "青泥",
+        "evidence": "亲率步骑数万至青泥（陕西蓝田）。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "霸上",
+        "evidence": "姚泓败奔霸上（长安东）。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "郑城",
+        "evidence": "姚赞，见晋军由渭水逼近长安，便退守郑城（陕西华县）。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "主战场",
+        "modern_name": "渭桥",
+        "evidence": "王镇恶率军乘蒙冲小舰，进至渭桥（长安北），弃舟登岸。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "目的地",
+        "modern_name": "建康",
+        "evidence": "姚泓投降，被送至建康斩于市。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "目的地",
+        "modern_name": "广固",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "次要战场",
+        "modern_name": "潼关",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "次要战场",
+        "modern_name": "长安",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      }
+    ],
+    "event_organization_relations": [
+      {
+        "EventName": "临朐之战",
+        "relation": "发起方",
+        "OrgName": "晋军",
+        "evidence": "刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后。"
+      },
+      {
+        "EventName": "临朐之战",
+        "relation": "防守方",
+        "OrgName": "燕军",
+        "evidence": "与燕军主力在临胸激战许久。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "发起方",
+        "OrgName": "晋军",
+        "evidence": "晋军乘胜进围广固。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "防守方",
+        "OrgName": "南燕",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "支援方",
+        "OrgName": "后秦",
+        "evidence": "慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "发起方",
+        "OrgName": "晋军",
+        "evidence": "刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "防守方",
+        "OrgName": "后秦",
+        "evidence": "面临晋军的进攻，后秦被迫采取北拒夏，东挡晋的两面防御作战对策。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "同盟方",
+        "OrgName": "北凉",
+        "evidence": "又结好北凉沮渠蒙逊。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "参战方",
+        "OrgName": "北魏",
+        "evidence": "并对北魏保持守境相安的状态。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "参战方",
+        "OrgName": "大夏",
+        "evidence": "北方大夏、西方西秦、西南氐王不断入侵后秦之机。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "参战方",
+        "OrgName": "西秦",
+        "evidence": "北方大夏、西方西秦、西南氐王不断入侵后秦之机。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "参战方",
+        "OrgName": "秦军",
+        "evidence": "秦军围沈部数层，沈田子激励士卒奋战，歼秦军万余人。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "参战方",
+        "OrgName": "魏军",
+        "evidence": "在魏军侧击下强行通过魏境。"
+      },
+      {
+        "EventName": "临朐之战",
+        "relation": "防守方",
+        "OrgName": "南燕",
+        "evidence": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      }
+    ],
+    "event_person_relations": [
+      {
+        "EventName": "临朐之战",
+        "relation": "统帅",
+        "PersonName": "刘裕",
+        "evidence": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      },
+      {
+        "EventName": "临朐之战",
+        "relation": "将领",
+        "PersonName": "胡藩",
+        "evidence": "由胡藩等引兵绕至燕军阵后。"
+      },
+      {
+        "EventName": "临朐之战",
+        "relation": "统帅",
+        "PersonName": "慕容超",
+        "evidence": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "统帅",
+        "PersonName": "刘裕",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "统帅",
+        "PersonName": "慕容超",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "将领",
+        "PersonName": "公孙五楼",
+        "evidence": "慕容超派公孙五楼挖地道出击晋兵。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "将领",
+        "PersonName": "悦寿",
+        "evidence": "燕尚书悦寿开城门迎接晋军。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "使者",
+        "PersonName": "张纲",
+        "evidence": "派遣使者尚书郎张纲、尚书令韩范到后秦救援。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "使者",
+        "PersonName": "韩范",
+        "evidence": "派遣使者尚书郎张纲、尚书令韩范到后秦救援。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "刘裕",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "王镇恶",
+        "evidence": "命龙骧将军王镇恶（王猛之子）、冠军将军檀道济率步兵自淮水一带向许昌、洛阳方向进攻。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "檀道济",
+        "evidence": "命龙骧将军王镇恶（王猛之子）、冠军将军檀道济率步兵自淮水一带向许昌、洛阳方向进攻。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "沈林子",
+        "evidence": "建武将军沈林子等率水军自汴水溯黄河西进。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "王仲德",
+        "evidence": "冀州刺史王仲德督前锋诸军，由彭城经泗水、巨野泽入黄河。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "朱超石",
+        "evidence": "新野太守朱超石等率军由襄阳挺进阳城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "沈田子",
+        "evidence": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "傅弘之",
+        "evidence": "另派振武将军沈田子、建威将军傅弘之军由襄阳挺进武关。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "姚泓",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "姚绍",
+        "evidence": "后秦大将军姚绍退守定城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "姚赞",
+        "evidence": "姚赞，见晋军由渭水逼近长安，便退守郑城。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "将领",
+        "PersonName": "姚丕",
+        "evidence": "击败秦军姚丕。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "君主",
+        "PersonName": "姚兴",
+        "evidence": "刘裕乘后秦姚兴死，其诸子争夺帝位。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "君主",
+        "PersonName": "沮渠蒙逊",
+        "evidence": "又结好北凉沮渠蒙逊。"
+      },
+      {
+        "EventName": "临朐之战",
+        "relation": "统帅",
+        "PersonName": "胡藩",
+        "evidence": "与燕军主力在临朐激战许久，未分胜负。刘裕接受参军胡藩出奇制胜的建议，由胡藩等引兵绕至燕军阵后，扬言由海道至此。慕容超大惊，晋兵趁势占临朐。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "统帅",
+        "PersonName": "公孙五楼",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "君主",
+        "PersonName": "公孙五楼",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "统帅",
+        "PersonName": "悦寿",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "参与者",
+        "PersonName": "张纲",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "广固之战",
+        "relation": "参与者",
+        "PersonName": "韩范",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固，攻破外城。慕容超一边集众固守内城，一边派遣使者尚书郎张纲、尚书令韩范到后秦救援。刘裕督兵挖堑二层，筑高三丈的长堤围困燕军，同时安抚降附。...公元410年2月，刘裕下令四面攻城，燕尚书悦寿开城门迎接晋军，慕容超左右数十骑从城中突破出走，被晋军追获，送至建康斩首，南燕亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "王镇恶",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "君主",
+        "PersonName": "王镇恶",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "檀道济",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "沈林子",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "王仲德",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "君主",
+        "PersonName": "王仲德",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "朱超石",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "沈田子",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "傅弘之",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "投降",
+        "PersonName": "姚泓",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "姚绍",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "姚赞",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      },
+      {
+        "EventName": "刘裕灭后秦之战",
+        "relation": "统帅",
+        "PersonName": "姚丕",
+        "evidence": "公元416年，刘裕乘后秦姚兴死，其诸子争夺帝位，北方大夏、西方西秦、西南氐王不断入侵后秦之机，于8月率大军从建康出发，兵分5路，水陆并进，大举伐秦。...次年3月，攻克潼关。...8月24日，姚泓投降，被送至建康斩于市，后秦亡。"
+      }
+    ],
+    "event_event_relations": [
+      {
+        "EventName_A": "临朐之战",
+        "relation": "顺承关系",
+        "EventName_B": "广固之战",
+        "evidence": "慕容超逃还广固，晋军乘胜进围广固。"
+      },
+      {
+        "EventName_A": "刘裕灭后秦之战",
+        "relation": "顺承关系",
+        "EventName_B": "广固之战",
+        "evidence": "刘裕灭南燕后，经过7年的镇压农民起义和平息黄河以南的山东、豫南、鄂北及巴、蜀反对势力的准备，实力进一步增强、政局稳定。\n刘裕灭南燕后，经过7年的准备，发兵灭后秦"
+      }
+    ]
+  }
+}

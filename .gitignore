@@ -19,7 +19,9 @@ __pycache__/
 
 # 日志与缓存
 logs/
-cache/
+# 只忽略**仓库根**的 cache/（第 14 轮审计 P3-13）：裸的 `cache/` 会匹配任意层级，
+# 与刚出事的 `data/` 同一类规则——某个模块的 tests/cache 夹具会被静默忽略。
+/cache/
 
 # 由脚本从源数据重建的派生数据（不进库，避免与源 JSON 重复）
 backend/data/processed/
