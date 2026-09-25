@@ -31,6 +31,7 @@ from contracts.sse import (
     StatusStage,
 )
 from contracts.question import QuestionType
+from lib.redact import public_text
 from server.runtime import Runtime
 
 # 日志 handler 由 server.api 在启动时统一配置（rag.* 命名空间，见 lib/logging_util）
@@ -723,7 +724,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         logger.exception("问答编排内部错误（sid=%s）", sid)
         yield sse_format(_event(SSEEventType.ERROR, sid,
                                 data={"error_code": ErrorCode.INTERNAL.value,
-                                      "message": f"内部错误: {e}"}))
+                                      "message": f"内部错误: {public_text(e)}"}))
         # 终态用 failed 而不是 cancelled：error+done(cancelled) 会让前端把异常轮
         # 误判成"正常结束/用户取消"，进而把空回答写进下一轮历史（P0-5）。
         yield sse_format(_event(

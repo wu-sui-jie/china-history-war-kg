@@ -47,6 +47,13 @@ def _client(**kwargs) -> Introspector:
     return Introspector(**params)
 
 
+def _concurrent(count: int, coro_factory):
+    """并发跑 `count` 个协程（同一事件循环），返回结果列表。"""
+    async def gather():
+        return await asyncio.gather(*(coro_factory(i) for i in range(count)))
+    return asyncio.run(gather())
+
+
 def _run(coro):
     return asyncio.run(coro)
 
@@ -147,11 +154,50 @@ def test_fail_open_在后端不可用时放行():
     assert _run(client.check("t")).active is True
 
 
-def test_失败不写缓存(monkeypatch):
-    """把失败当结果缓存下来，会让后端的一次抖动变成这段时间内人人被拒（或被放行）。"""
+def test_失败结论按失败策略得出(monkeypatch):
+    """失败时返回的是**策略推导出的结论**，并标记 `unavailable`（第 14 轮审计 P2-1）。
+
+    标记的意义：调用方要能区分"后端说这张凭证已失效"（401）与"我们问不到后端"
+    （503）——旧实现两者都回 401「登录已失效」，后端抖一下就把全体用户"登出"了。
+    """
+    client = _client(fail_mode="closed")
+    client._post = _Recorder(exc=RuntimeError("boom"))
+    closed = _run(client.check("t"))
+    assert closed.active is False
+    assert closed.unavailable is True
+
+    client = _client(fail_mode="open")
+    client._post = _Recorder(exc=RuntimeError("boom"))
+    opened = _run(client.check("t"))
+    assert opened.active is True
+    assert opened.unavailable is True
+
+
+def test_失败结论的负缓存只影响重试频率不影响结论(monkeypatch):
+    """负缓存的是"按策略得出的结论"，与逐次判定的结果一致——省下的只是超时排队。"""
     clock = [1000.0]
     monkeypatch.setattr(introspection.time, "monotonic", lambda: clock[0])
-    client = _client(ttl_seconds=30.0, fail_mode="closed")
+    client = _client(ttl_seconds=30.0, fail_mode="closed", failure_cache_seconds=5.0)
+    recorder = _Recorder(exc=RuntimeError("boom"))
+    client._post = recorder
+
+    first = _run(client.check("t"))
+    second = _run(client.check("t"))
+
+    assert len(recorder.calls) == 1, "窗口内不再重复问后端（每个请求都排 3 秒超时是纯浪费）"
+    assert second == first, "缓存下来的必须仍是同一个策略结论"
+
+    # 窗口过后重新尝试（后端恢复了就该尽快恢复服务，而不是等满 TTL）
+    clock[0] += 6
+    _run(client.check("t"))
+    assert len(recorder.calls) == 2
+
+
+def test_关掉负缓存后每次都重试(monkeypatch):
+    """排障时可以把窗口设为 0：每次都真问一次，便于观察后端是否恢复。"""
+    clock = [1000.0]
+    monkeypatch.setattr(introspection.time, "monotonic", lambda: clock[0])
+    client = _client(ttl_seconds=30.0, fail_mode="closed", failure_cache_seconds=0.0)
     recorder = _Recorder(exc=RuntimeError("boom"))
     client._post = recorder
 
@@ -159,7 +205,6 @@ def test_失败不写缓存(monkeypatch):
     _run(client.check("t"))
 
     assert len(recorder.calls) == 2
-    assert client._cache == {}
     assert client.stats["failures"] == 2
 
 
@@ -371,3 +416,62 @@ def test_失败原因只取第一行并截断():
 
     reason = introspection._public_reason(RuntimeError("连不上 http://127.0.0.1:5000\n详情"))
     assert reason == "连不上 http://127.0.0.1:5000"
+
+
+def test_同_token_并发只查一次后端(monkeypatch):
+    """single-flight（第 14 轮审计 P2-9）：TTL 到期瞬间的并发请求不该各发一次。"""
+    # 注意：这里**不能**冻结 time.monotonic。
+    # `introspection.time` 就是标准库 time 模块，patch 它等于把**整个进程**的
+    # 单调时钟钉死——而 asyncio 的事件循环用同一个时钟算超时，于是 `asyncio.sleep()`
+    # 永远不会到期（本文件第一次写这三条用例时就死锁在这里，pytest 卡在 90% 不动）。
+    # 不加冻结也足够确定：TTL 是 30 秒，而整个用例只跑几十毫秒。
+    client = _client(ttl_seconds=30.0)
+    recorder = _Recorder(Verdict(True))
+
+    async def slow_post(token):
+        # 让在途窗口足够长，保证 100 个请求真的重叠
+        await asyncio.sleep(0.02)
+        return await recorder(token)
+
+    client._post = slow_post
+    results = _concurrent(100, lambda i: client.check("same-token"))
+
+    assert len(recorder.calls) == 1, f"并发被击穿：打了 {len(recorder.calls)} 次后端"
+    assert all(result.active for result in results)
+    assert client.snapshot()["inflight"] == 0, "在途表必须清空（否则后续请求会被挂住）"
+
+
+def test_不同_token_可以并行查询(monkeypatch):
+    """single-flight 只合并**同一个** token：不同 token 各查各的，不该被串行化。"""
+    # 注意：这里**不能**冻结 time.monotonic。
+    # `introspection.time` 就是标准库 time 模块，patch 它等于把**整个进程**的
+    # 单调时钟钉死——而 asyncio 的事件循环用同一个时钟算超时，于是 `asyncio.sleep()`
+    # 永远不会到期（本文件第一次写这三条用例时就死锁在这里，pytest 卡在 90% 不动）。
+    # 不加冻结也足够确定：TTL 是 30 秒，而整个用例只跑几十毫秒。
+    client = _client(ttl_seconds=30.0)
+    recorder = _Recorder(Verdict(True))
+    client._post = recorder
+
+    _concurrent(5, lambda i: client.check(f"token-{i}"))
+
+    assert len(recorder.calls) == 5
+
+
+def test_在途查询失败后_Future_仍会结清(monkeypatch):
+    """查询抛异常时，等在同一个 Future 上的请求必须拿到结论而不是永久挂起。"""
+    # 注意：这里**不能**冻结 time.monotonic。
+    # `introspection.time` 就是标准库 time 模块，patch 它等于把**整个进程**的
+    # 单调时钟钉死——而 asyncio 的事件循环用同一个时钟算超时，于是 `asyncio.sleep()`
+    # 永远不会到期（本文件第一次写这三条用例时就死锁在这里，pytest 卡在 90% 不动）。
+    # 不加冻结也足够确定：TTL 是 30 秒，而整个用例只跑几十毫秒。
+    client = _client(fail_mode="closed")
+
+    async def boom(token):
+        await asyncio.sleep(0.01)
+        raise RuntimeError("连接被拒")
+
+    client._post = boom
+    results = _concurrent(10, lambda i: client.check("same-token"))
+
+    assert all(result.active is False and result.unavailable for result in results)
+    assert client.snapshot()["inflight"] == 0

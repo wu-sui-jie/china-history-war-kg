@@ -17,7 +17,6 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-import re
 import secrets
 import threading
 import time
@@ -30,9 +29,11 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
+from data.index import chroma_store
 from config.settings import Settings, get_settings
 from contracts.query_json import QueryJsonResult
 from lib.logging_util import setup_rag_logging
+from lib.redact import public_text
 from contracts.request import QueryRequest, RequestValidationError
 from contracts.sse import ErrorCode, FinishReason
 from server import auth, introspection
@@ -195,7 +196,7 @@ def _load_dicts_payload(rt) -> dict:
             },
         }
     except Exception as e:  # noqa: BLE001
-        return {"status": "error", "message": f"读取词典失败: {e}"}
+        return {"status": "error", "message": f"读取词典失败: {public_text(e)}"}
 
 
 @app.get("/api/dicts")
@@ -270,7 +271,7 @@ def _demo_status(rt) -> dict:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:  # noqa: BLE001
-        return {"demo_ready": False, "demo_error": f"示例题清单解析失败: {e}"}
+        return {"demo_ready": False, "demo_error": f"示例题清单解析失败: {public_text(e)}"}
     if not isinstance(data, dict):
         return {"demo_ready": False, "demo_error": "示例题清单根节点必须是对象"}
     error = _validate_demo_examples(data, rt)
@@ -306,7 +307,7 @@ def _load_demo_examples(rt) -> dict:
         data["status"] = "ok"
         return data
     except Exception as e:  # noqa: BLE001
-        return {"status": "error", "message": f"读取示例题失败: {e}"}
+        return {"status": "error", "message": f"读取示例题失败: {public_text(e)}"}
 
 
 @app.get("/api/demo/examples")
@@ -388,22 +389,12 @@ def _load_error():
 
 # 服务器绝对路径脱敏（RAG-4）：路径本身不是漏洞，但会白送部署结构与用户名，
 # 公开接口没必要回传。只做替换，不改变错误语义。
-_RAG_ROOT = str(Path(__file__).resolve().parents[1])
-_ABS_PATH_RE = re.compile(
-    r"(?:[A-Za-z]:[\\/][^\s\"'）)]+|/(?:home|opt|Users|root|var|srv|tmp)/[^\s\"'）)]*)"
-)
-
-
+#
+# 实现在 `lib/redact.py`（第 14 轮审计 P2-2）：SSE 链路的 error 帧（`server/sse.py`）
+# 也要用它，而它原先只在本文件里——工具放错地方的结果是同一类泄露"一半堵、一半漏"。
 def _public_text(value):
     """把对外响应文本里的服务器绝对路径收敛为占位符。"""
-    if value is None:
-        return value
-    text = str(value)
-    if not text:
-        return text
-    if _RAG_ROOT:
-        text = text.replace(_RAG_ROOT, "<RAG_ROOT>")
-    return _ABS_PATH_RE.sub("<path>", text)
+    return public_text(value)
 
 
 def _rate_limiter() -> RateLimiter:
@@ -504,6 +495,16 @@ async def _revocation_rejection(request: Request) -> Optional[JSONResponse]:
         return None
 
     identity = request.state.identity
+    if verdict.unavailable:
+        # **问不到后端** ≠ **后端说这张凭证失效**（第 14 轮审计 P2-1）。
+        # 旧实现两者都回 401「登录已失效，请重新登录」，日志也写成"拒绝已失效的凭证"：
+        # 后端抖一下，全体用户被"登出"，而他们重新登录拿到的 token 仍会被同样拒绝——
+        # 用户与运维都被指向了错误的方向。故障路径回 503（语义就是"稍后重试"），
+        # error_code 用 server_busy 与"容量拒绝"共用同一个"可重试"约定。
+        logger.warning("无法确认凭证状态（按 %s 策略拒绝）：user_id=%s path=%s 原因=%s",
+                       _introspector().fail_mode, identity.get("user_id"),
+                       request.url.path, verdict.reason or "后端不可用")
+        return _json_error(503, "暂时无法确认登录状态，请稍后重试", ErrorCode.SERVER_BUSY)
     logger.warning("拒绝已失效的凭证：user_id=%s path=%s 原因=%s",
                    identity.get("user_id"), request.url.path, verdict.reason or "已撤销")
     # 话术与旧后端逐字一致：同一个"凭证失效"在两条通道上应该只有一种说法
@@ -618,6 +619,9 @@ def health():
         "cache": rt.generate.cache.stats() if rt else empty_cache_stats(),
         "rate_limit": _rate_limiter().stats(),
         "sync_pool": sync_pool_stats(),
+        # chromadb 客户端登记数（第 14 轮审计 P2-13）：>0 说明本进程持着向量库连接，
+        # 停机时会统一释放。只报个数，不含路径。
+        "chroma_clients": chroma_store.client_count(),
     }
     payload.update(_demo_status(rt))
     warnings: list[str] = []
@@ -711,10 +715,6 @@ async def query(req: Request):
     rejection = _auth_rejection(req)
     if rejection is not None:
         return rejection
-    # 凭证撤销检查（第 13 轮复核）：验签通过不等于仍然有效，见 _revocation_rejection。
-    rejection = await _revocation_rejection(req)
-    if rejection is not None:
-        return rejection
 
     rt = _runtime()
     if rt is None:
@@ -728,6 +728,12 @@ async def query(req: Request):
            f"请求过于频繁：每分钟最多 {limiter.per_minute} 次，请稍后再试",
            ErrorCode.RATE_LIMITED,
         )
+    # 凭证撤销检查放在**限流之后**（第 14 轮审计 P2-9）：未命中缓存时它会向后端发一次查询，
+    # 而后端不可用时每个请求都要在 3 秒超时上排队——没有限流挡在前面，一个客户端就能用
+    # 并发请求把本进程的协程全占在"等待后端"里。鉴权（验签）仍在限流之前，见上方顺序说明。
+    rejection = await _revocation_rejection(req)
+    if rejection is not None:
+        return rejection
 
     settings: Settings = app.state.settings
     try:
@@ -770,7 +776,9 @@ async def query(req: Request):
 # 与服务端内部故障是两回事，调用方据此决定"重试"还是"降级提示"）。
 _ERROR_HTTP_STATUS = {
     ErrorCode.TIMEOUT.value: 504,
-    ErrorCode.SERVER_BUSY.value: 500,
+    # 容量拒绝（并发池满 / 排队超限）是**暂时**状态，语义是"稍后重试"而不是"服务坏了"：
+    # 映射成 500 时，按状态码决定要不要重试的调用方不会重试（第 14 轮审计 P3-3）。
+    ErrorCode.SERVER_BUSY.value: 503,
     ErrorCode.INTERNAL.value: 500,
 }
 
@@ -903,7 +911,7 @@ async def _collect(rt, q: QueryRequest, deadline: float) -> QueryJsonResult:
                 if not agg.has_terminal:
                     agg.feed({"type": "error",
                               "data": {"error_code": ErrorCode.INTERNAL.value,
-                                       "message": f"编排异常: {e}"}})
+                                       "message": f"编排异常: {public_text(e)}"}})
                 break
             event = _parse_frame(frame)
             if event is not None:
@@ -993,10 +1001,6 @@ async def query_json(req: Request):
     rejection = _json_endpoint_rejection(req, settings)
     if rejection is not None:
         return rejection
-    # 撤销检查只对走 JWT 的调用方生效（机器人没有用户身份，也不该被这条拦住）
-    rejection = await _revocation_rejection(req)
-    if rejection is not None:
-        return rejection
 
     rt = _runtime()
     if rt is None:
@@ -1010,6 +1014,11 @@ async def query_json(req: Request):
             f"请求过于频繁：每分钟最多 {limiter.per_minute} 次，请稍后再试",
             ErrorCode.RATE_LIMITED,
         )
+    # 撤销检查只对走 JWT 的调用方生效（机器人没有用户身份，也不该被这条拦住），
+    # 且放在限流之后（第 14 轮审计 P2-9，与 SSE 通道同序）。
+    rejection = await _revocation_rejection(req)
+    if rejection is not None:
+        return rejection
 
     try:
         payload = await _read_json_limited(req, settings.request_max_bytes)

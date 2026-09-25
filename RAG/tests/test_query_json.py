@@ -302,11 +302,17 @@ def test_result_error_field_present_when_failed():
     assert agg.result().to_dict()["error"]["error_code"] == "timeout"
 
 
-@pytest.mark.parametrize("code", ["timeout", "server_busy", "internal"])
-def test_error_http_status_mapping(code):
+@pytest.mark.parametrize("code,expected", [
+    ("timeout", 504),
+    # 容量拒绝是**暂时**状态，语义是"稍后重试"而不是"服务坏了"（第 14 轮审计 P3-3）：
+    # 映射成 500 时，按状态码决定要不要重试的调用方不会重试。
+    ("server_busy", 503),
+    ("internal", 500),
+])
+def test_error_http_status_mapping(code, expected):
     from server.api import _ERROR_HTTP_STATUS
 
-    assert _ERROR_HTTP_STATUS[code] in (500, 504)
+    assert _ERROR_HTTP_STATUS[code] == expected
 
 
 # ---- 7) 路由层：鉴权、状态码与响应体形状（不起真实 runtime，只挂假 runtime）----
