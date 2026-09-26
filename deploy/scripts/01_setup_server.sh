@@ -127,22 +127,32 @@ pip_install "${BACKEND_PY}" --upgrade pip
 pip_install "${RAG_PY}" --upgrade pip
 
 echo "--- 旧后端（Python 3.11）---"
-# 依赖来源分两档，**优先用验证过的那一套**（第 14 轮审计生成的统一 lock）：
+# 依赖来源分两档，**默认走 requirements.txt**：
 #
-#   1. requirements.lock（仓库根，119 包带 sha256）—— 它固定的是"四套测试在空环境里
-#      全绿的那套版本组合"。原先服务器只按 requirements.txt 的**版本区间**装，
-#      解析出来的组合可以与开发机/CI 验证过的完全不同，"本机好、服务器坏"多是这样来的。
-#   2. requirements.txt（仓库根 + backend/）—— 锁装不上时的回退（平台差异等），
-#      并明确打一条告警，让人知道"这次装的不是验证过的组合"。
+#   1. requirements.txt（backend/ + 仓库根）—— 默认。与既有部署一致，任何平台都能装。
+#   2. requirements.lock（仓库根，119 包带 sha256）—— 显式 `USE_UNIFIED_LOCK=1` 才用。
 #
-# 注意锁的覆盖面：它由 `[all]` 生成，因此 **RAG / 飞书侧的依赖**（chromadb、lark 等）
-# 也会进这个环境，多占约 200 MB。这是有意的取舍——换来"服务器与验证环境同版本"；
-# 不想多装就得再维护一份 backend 专用锁，那是另一种代价。
-if [[ -f "${APP_DIR}/requirements.lock" ]] \
+# 为什么锁不是默认（2026-09-26 真机实测）：**这份锁在 Linux 上装不上**。它是在
+# Windows 开发机上生成的，`uvicorn[standard]` 经 `--strip-extras` 剥掉了 extras，
+# 而 Linux 专有的 uvloop 在 Windows 的 pip freeze 里根本不存在，于是
+# `--require-hashes` 直接报：
+#
+#     ERROR: In --require-hashes mode, all requirements must have their versions
+#     pinned with ==. These do not: uvloop>=0.15.1
+#     (from uvicorn[standard]>=0.18.3 -> chromadb==1.5.9 -> -r requirements.lock)
+#
+# 本机（Windows）验证"锁可重装"时看不出来——恰好因为 Windows 不需要 uvloop。
+# 修好之前默认不用它，避免每台新服务器都白等几分钟下载后再失败。
+# 待办：生成器要按平台补全（或 CI 在 Linux 上真装一遍），详见 docs/ 的实施记录。
+#
+# 注意锁的覆盖面（等它可用时）：它由 `[all]` 生成，因此 **RAG / 飞书侧的依赖**
+# （chromadb、lark 等）也会进这个环境，多占约 200 MB。那是有意的取舍。
+if [[ "${USE_UNIFIED_LOCK:-0}" == "1" ]] && [[ -f "${APP_DIR}/requirements.lock" ]] \
    && pip_install "${BACKEND_PY}" --require-hashes -r "${APP_DIR}/requirements.lock"; then
     echo "旧后端依赖已按 requirements.lock 安装（含哈希校验）"
 else
-    warn "锁文件不可用或安装失败，退回 requirements.txt（版本可能与验证环境不同）"
+    [[ "${USE_UNIFIED_LOCK:-0}" == "1" ]] \
+        && warn "锁文件不可用或安装失败，退回 requirements.txt（版本可能与验证环境不同）"
     if [[ -f "${APP_DIR}/backend/requirements.txt" ]]; then
         pip_install "${BACKEND_PY}" -r "${APP_DIR}/backend/requirements.txt"
     fi
