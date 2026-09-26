@@ -1,5 +1,5 @@
 {
-  "_note": "/api/extract/entities-events 抽取链的录制回放夹具。llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。重新录制：python tools/record_extract_replay.py",
+  "_note": "/api/extract/entities-events 抽取链的录制回放夹具。llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。重新录制：python tools/record_extract_replay.py expected_payload 于 2026-09-26（第二轮）再次按当前后处理重算（llm_responses 仍未变）：在线载荷现在只带**取值合法**的关系（`relation_type_allowed`），枚举外的关系不再进这份直接给前端渲染的载荷——录制里那条 `主战场 → 地点名` 的事件-事件关系正是枚举外写法。离线链的对应处理是进候选区（`split_publishable_outputs`）。",
   "recorded_with_model": "deepseek-r1:7b",
   "input_text": "公元前1046年，周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
   "llm_responses": [
@@ -87,7 +87,7 @@
       "event_place": [
         {
           "relation_type": "event_place",
-          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。",
           "EventName": "周武王灭商牧野之战",
           "PlaceName": null,
           "modern_name": "牧野",
@@ -97,14 +97,14 @@
       "event_person": [
         {
           "relation_type": "event_person",
-          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。",
           "EventName": "周武王灭商牧野之战",
           "PersonName": "周武王",
           "relation": "统帅"
         },
         {
           "relation_type": "event_person",
-          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
+          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。",
           "EventName": "周武王灭商牧野之战",
           "PersonName": "周武王",
           "relation": "君主"
@@ -119,22 +119,14 @@
           "relation": "发起方"
         }
       ],
-      "event_event": [
-        {
-          "relation_type": "event_event",
-          "evidence": "周武王率诸侯之师东进，与商纣王的军队战于牧野。",
-          "EventName_A": "周武王灭商牧野之战",
-          "EventName_B": "牧野",
-          "relation": "主战场"
-        }
-      ]
+      "event_event": []
     },
     "summary": {
       "place_count": 1,
       "organization_count": 1,
       "person_count": 1,
       "event_count": 1,
-      "relation_count": 5
+      "relation_count": 4
     },
     "process_time": 0.0
   }

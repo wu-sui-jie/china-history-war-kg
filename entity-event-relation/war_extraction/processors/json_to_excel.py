@@ -54,45 +54,71 @@ class JsonToExcelConverter:
 
     def convert_all(self, json_dir: Path, base_name: str):
         """
-        转换所有JSON文件为Excel
+        从批次目录的权威聚合产物 `9_final_all.json` 生成全部 Excel。
+
+        **为什么只读聚合文件。** 这里原先读 `1_places.json`…`8_events.json` 八个分步中间文件，
+        而那批中间文件的内容与 `9_final_all.json` 的对应字段逐字节一致，已于 2026-09-21
+        删除以消除重复。于是"从现有 JSON 重新生成 Excel"会直接 `FileNotFoundError`——
+        批次目录里只剩聚合文件时它就跑不动了。改为在内存里从聚合文件切片，
+        批次目录只要有 `9_final_all.json` 就能出全部表格。
         """
+        aggregate_path = json_dir / "9_final_all.json"
+        if not aggregate_path.is_file():
+            raise FileNotFoundError(
+                f"缺少权威聚合产物 {aggregate_path}：Excel 只由它生成"
+                "（分步中间文件已废弃，不再作为输入）"
+            )
+        payload = self._load_json(aggregate_path)
+
         excel_dir = json_dir / "excel"
         excel_dir.mkdir(exist_ok=True)
 
+        entities = payload.get("entities") or {}
+        relations = payload.get("relations") or {}
+        events_block = payload.get("events") or {}
+        # events 既可能是 {"events": [...], "metadata": {...}}，也可能是裸列表
+        events = events_block if isinstance(events_block, list) else (events_block.get("events") or [])
+
         # 1. 地点表
-        self._convert_places(json_dir / "1_places.json", excel_dir / f"{base_name}_地点.xlsx")
+        self._convert_places({"places": entities.get("places") or []},
+                             excel_dir / f"{base_name}_地点.xlsx")
 
         # 2. 人物表
-        self._convert_persons(json_dir / "2_persons.json", excel_dir / f"{base_name}_人物.xlsx")
+        self._convert_persons({"persons": entities.get("persons") or []},
+                              excel_dir / f"{base_name}_人物.xlsx")
 
         # 3. 组织表
-        self._convert_organizations(json_dir / "3_organizations.json", excel_dir / f"{base_name}_组织.xlsx")
+        self._convert_organizations({"organizations": entities.get("organizations") or []},
+                                    excel_dir / f"{base_name}_组织.xlsx")
 
         # 4. 事件-地点关系表
-        self._convert_event_place_relations(json_dir / "4_event_place_relations.json",
-                                            excel_dir / f"{base_name}_事件地点关系.xlsx")
+        self._convert_event_place_relations(
+            {"event_place_relations": relations.get("event_place_relations") or []},
+            excel_dir / f"{base_name}_事件地点关系.xlsx")
 
         # 5. 事件-人物关系表
-        self._convert_event_person_relations(json_dir / "5_event_person_relations.json",
-                                             excel_dir / f"{base_name}_事件人物关系.xlsx")
+        self._convert_event_person_relations(
+            {"event_person_relations": relations.get("event_person_relations") or []},
+            excel_dir / f"{base_name}_事件人物关系.xlsx")
 
         # 6. 事件-组织关系表
-        self._convert_event_org_relations(json_dir / "6_event_organization_relations.json",
-                                          excel_dir / f"{base_name}_事件组织关系.xlsx")
+        self._convert_event_org_relations(
+            {"event_organization_relations": relations.get("event_organization_relations") or []},
+            excel_dir / f"{base_name}_事件组织关系.xlsx")
 
         # 7. 事件-事件关系表
-        self._convert_event_event_relations(json_dir / "7_event_event_relations.json",
-                                            excel_dir / f"{base_name}_事件事件关系.xlsx")
+        self._convert_event_event_relations(
+            {"event_event_relations": relations.get("event_event_relations") or []},
+            excel_dir / f"{base_name}_事件事件关系.xlsx")
 
         # 8. 事件表（适配新模型）
-        self._convert_events(json_dir / "8_events.json", excel_dir / f"{base_name}_事件.xlsx")
+        self._convert_events({"events": events}, excel_dir / f"{base_name}_事件.xlsx")
 
         # 9. 全部整合（多个sheet）
-        self._convert_all_in_one(json_dir / "9_final_all.json", excel_dir / f"{base_name}_全部数据.xlsx")
+        self._convert_all_in_one(payload, excel_dir / f"{base_name}_全部数据.xlsx")
 
-    def _convert_places(self, json_path: Path, excel_path: Path):
+    def _convert_places(self, data: Dict, excel_path: Path):
         """转换地点表"""
-        data = self._load_json(json_path)
         places = data.get("places", [])
 
         # 处理null值
@@ -129,9 +155,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  地点表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_persons(self, json_path: Path, excel_path: Path):
+    def _convert_persons(self, data: Dict, excel_path: Path):
         """转换人物表"""
-        data = self._load_json(json_path)
         persons = data.get("persons", [])
 
         # 处理null值
@@ -164,9 +189,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  人物表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_organizations(self, json_path: Path, excel_path: Path):
+    def _convert_organizations(self, data: Dict, excel_path: Path):
         """转换组织表"""
-        data = self._load_json(json_path)
         orgs = data.get("organizations", [])
 
         # 处理null值
@@ -197,9 +221,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  组织表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_event_place_relations(self, json_path: Path, excel_path: Path):
+    def _convert_event_place_relations(self, data: Dict, excel_path: Path):
         """转换事件-地点关系表"""
-        data = self._load_json(json_path)
         relations = data.get("event_place_relations", [])
 
         # 处理null值
@@ -230,9 +253,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  事件-地点关系表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_event_person_relations(self, json_path: Path, excel_path: Path):
+    def _convert_event_person_relations(self, data: Dict, excel_path: Path):
         """转换事件-人物关系表"""
-        data = self._load_json(json_path)
         relations = data.get("event_person_relations", [])
 
         # 处理null值
@@ -263,9 +285,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  事件-人物关系表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_event_org_relations(self, json_path: Path, excel_path: Path):
+    def _convert_event_org_relations(self, data: Dict, excel_path: Path):
         """转换事件-组织关系表"""
-        data = self._load_json(json_path)
         relations = data.get("event_organization_relations", [])
 
         # 处理null值
@@ -296,9 +317,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  事件-组织关系表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_event_event_relations(self, json_path: Path, excel_path: Path):
+    def _convert_event_event_relations(self, data: Dict, excel_path: Path):
         """转换事件-事件关系表"""
-        data = self._load_json(json_path)
         relations = data.get("event_event_relations", [])
 
         # 处理null值
@@ -329,9 +349,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  事件-事件关系表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_events(self, json_path: Path, excel_path: Path):
+    def _convert_events(self, data: Dict, excel_path: Path):
         """转换事件表（适配新模型）"""
-        data = self._load_json(json_path)
         events = data.get("events", [])
 
         # 处理null值
@@ -396,9 +415,8 @@ class JsonToExcelConverter:
         df.to_excel(excel_path, index=False, engine='openpyxl')
         print(f"  事件表: {len(rows)} 条记录 -> {excel_path.name}")
 
-    def _convert_all_in_one(self, json_path: Path, excel_path: Path):
+    def _convert_all_in_one(self, data: Dict, excel_path: Path):
         """转换全部数据（多sheet）"""
-        data = self._load_json(json_path)
 
         with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
             # Sheet 1: 地点

@@ -1,0 +1,7 @@
+{
+  "_comment": "输入文本清洗规则。加载逻辑见 war_extraction/core/text_cleaner.py；文件缺失时用代码内默认值并打印告警。",
+  "_risk_note": "ocr_fixes 是逐条的一对一替换，**只登记确知**的错字。猜出来的替换会静默改掉原文，比 OCR 错字本身更难查——所以这张表默认是空的，宁可先不改字。",
+  "merge_soft_line_breaks": true,
+  "strip_invisible_chars": true,
+  "ocr_fixes": {}
+}

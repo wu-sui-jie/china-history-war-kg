@@ -17,6 +17,9 @@ class PlaceEntity(BaseModel):
     City: Optional[str] = None
     District_County: Optional[str] = None
     Specific_location: Optional[str] = None
+    # 是否被发布事件引用（发布子集里的地点保留**全量**，用这个标记区分主数据与候选地点）。
+    # 软依赖：下游不认识这个键时忽略它，不影响入库。
+    referenced_by_published_event: Optional[bool] = None
     source_text: Optional[str] = None  # 原文片段
 
 
@@ -56,6 +59,7 @@ class EntityExtractionResult(BaseModel):
             place.setdefault("City", None)
             place.setdefault("District_County", None)
             place.setdefault("Specific_location", None)
+            place.setdefault("referenced_by_published_event", None)
             place.setdefault("source_text", None)
 
         for org in data.get("organizations", []):

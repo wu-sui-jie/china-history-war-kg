@@ -8,10 +8,11 @@ from typing import List, Tuple
 from war_extraction.config import PROMPT_VERSIONS
 from war_extraction.core.llm_client import LLMAuthError, LLMAPIError
 from war_extraction.models import Event, EventExtractionResult, EventRelation
-from war_extraction.prompts import EVENT_IDENTIFICATION_PROMPT, EVENT_TYPE_PROMPT, FULL_EVENT_PROMPT
+from war_extraction.prompts import EVENT_IDENTIFICATION_PROMPT, FULL_EVENT_PROMPT
 from war_extraction.utils import Normalizer
 from war_extraction.utils.json_payload import extract_json_payload
-from war_extraction.utils.value_parsing import ensure_event_date_order
+from war_extraction.utils.value_parsing import ensure_event_date_order, event_identity_key
+from war_extraction.utils.vocabulary import normalize_event_type
 
 
 class EventExtractor:
@@ -19,7 +20,6 @@ class EventExtractor:
 
     def __init__(self, llm_client):
         self.llm = llm_client
-        self.q1_template = EVENT_TYPE_PROMPT
         self.identify_template = EVENT_IDENTIFICATION_PROMPT
         self.q3_template = FULL_EVENT_PROMPT
         # 大事件列表拆成小批：一批过大时模型容易整批给不出结果，且一批失败只影响这一批
@@ -83,6 +83,8 @@ class EventExtractor:
         _, event_name, time_text, location, parties, evidence = event_tuple
         return Event(
             EventName=self.normalizer.standardize_event_name(event_name) or "Unnamed Event",
+            # 最小事件没有类型信息：按提示词的兜底口径写"战争"，不留空
+            EventType=normalize_event_type(None)[0],
             StartDate=time_text or None,
             Place=location or None,
             Aggressor=parties or None,
@@ -103,12 +105,10 @@ class EventExtractor:
         for item in event_list:
             _, event_name, time_text, location, parties, evidence = item
             canonical_name = self.normalizer.standardize_event_name(event_name)
-            key = (
-                self.normalizer.normalize_event_name(canonical_name),
-                (time_text or "").strip(),
-                self.normalizer.normalize_entity_name(location or ""),
-            )
-            fallback_key = (self.normalizer.normalize_event_name(canonical_name), "", "")
+            # 事件身份键的唯一实现在 value_parsing.event_identity_key（名称+朝代+起始时间+首个地点）。
+            # 识别阶段没有朝代字段，传空串：定义一致，只是可用字段少一个。
+            key = event_identity_key(self.normalizer, canonical_name, "", time_text, location)
+            fallback_key = (key[0], "", "", "")
             if key in seen or fallback_key in seen:
                 continue
             seen.add(key)
@@ -194,7 +194,11 @@ class EventExtractor:
 
     def _postprocess_events(self, events: List[Event]) -> tuple[List[Event], int, int]:
         """
-        后处理：规范化事件名，并按"规范化名称 + 朝代"归并近似重复（地点相同的优先算同一条）。
+        后处理：规范化事件名与事件类型，并按统一的事件身份键归并重复。
+
+        身份键 = 归一名称 + 朝代 + 起始时间 + 首个地点（`value_parsing.event_identity_key`）。
+        原先这里只按**规范化名称**判重，于是同名不同年代的战争（两个"扬州之战"）会被并成一条；
+        而合并期与清理期用的是更宽的键——同一份数据在不同环节的"事件"口径不一样。
         """
         filtered = []
         event_map = {}
@@ -202,15 +206,17 @@ class EventExtractor:
         merged_count = 0
         for event in events:
             event.EventName = self.normalizer.standardize_event_name(event.EventName)
+            # 事件类型兜底：提示词说"不确定则填战争"，但产物里确实出现过 4 条 null。
+            # 空值交给下游 `or "战争"` 兜底，等于把"不确定"混进确定值里，这里就补上。
+            event.EventType, _ = normalize_event_type(event.EventType)
             if not self._looks_like_war_candidate(event.EventName, event.source_text):
                 filtered_out_count += 1
                 continue
             if not self._is_local_event_candidate(event.EventName, event.source_text):
                 filtered_out_count += 1
                 continue
-            key = (
-                self.normalizer.normalize_event_name(event.EventName),
-                # 合并键先只看规范化事件名（朝代差异当互补元数据合并，不参与判重）
+            key = event_identity_key(
+                self.normalizer, event.EventName, event.DynastyName, event.StartDate, event.Place
             )
             if key not in event_map:
                 event_map[key] = event
@@ -237,10 +243,6 @@ class EventExtractor:
         for event in event_map.values():
             filtered.append(self._ensure_chronological_dates(event))
         return filtered, filtered_out_count, merged_count
-
-    def extract_event_type(self, text: str) -> str:
-        prompt = self.q1_template.render(text=text, prompt_version=PROMPT_VERSIONS["event_type"])
-        return self.llm.call(prompt, temperature=0.1)
 
     def identify_events(self, text: str) -> List[Tuple[str, str, str, str, str, str]]:
         prompt = self.identify_template.render(text=text, prompt_version=PROMPT_VERSIONS["event_identification"])

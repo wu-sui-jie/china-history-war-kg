@@ -68,7 +68,15 @@ import { getNodeRelations } from '@/api/module/node'
 import { apiErrorMessage } from '@/utils/apiError'
 import { mergeNodeRelations } from '@/utils/graph'
 
-/** 四个子页的全部差异集中在这里，模板与逻辑共享。 */
+/**
+ * 四个子页的全部差异集中在这里，模板与逻辑共享。
+ *
+ * `relTypes` 必须与产物的关系名**允许集合**逐项一致（权威表在
+ * `entity-event-relation/war_extraction/utils/vocabulary.py`）。
+ * 原先这里与提示词枚举、RAG field_map 三处各写一份且互不相同，症状是
+ * "产物里有、下拉点不到"——组织组就缺了 `参战方`，而产物里有 207 行。
+ * 改取值时先改权威表，再同步这里（以及 RAG 的 field_map）。
+ */
 const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTypes: string[]; endpoint: EventGraphEndpoint }> = {
   event: {
     label: '战争名称',
@@ -79,19 +87,26 @@ const GRAPH_CONFIGS: Record<string, { label: string; placeholder: string; relTyp
   organization: {
     label: '名称',
     placeholder: '请输入战争或势力名称',
-    relTypes: ['发起方', '防守方', '支援方', '同盟方', '投降方', '被俘方', '议和方', '调停方'],
+    relTypes: ['发起方', '防守方', '支援方', '同盟方', '投降方', '被俘方', '议和方', '调停方', '参战方'],
     endpoint: '/api/graph/event_organization'
   },
   person: {
     label: '名称',
     placeholder: '请输入战争或人物名称',
-    relTypes: ['统帅', '将领', '谋士', '使者', '君主', '参与者', '俘虏', '阵亡', '投降', '叛变', '可汗'],
+    relTypes: [
+      '统帅', '将领', '谋士', '使者', '君主', '参与者', '俘虏', '阵亡', '投降', '叛变', '可汗',
+      '被俘', '防守方统帅', '向导', '监督', '发起方', '防守方', '同盟方', '支援方'
+    ],
     endpoint: '/api/graph/event_person'
   },
   place: {
     label: '名称',
     placeholder: '请输入战争或地点名称',
-    relTypes: ['主战场', '次要战场', '出发地', '目的地', '途经地', '驻防地', '指挥所', '补给地', '战略要地', '议和地点'],
+    relTypes: [
+      '主战场', '次要战场', '出发地', '目的地', '途经地', '驻防地', '指挥所', '补给地',
+      '战略要地', '议和地点',
+      '退守地', '登陆地', '会师地', '撤退地', '出边地', '集结地', '会师地点', '逃亡地', '伏击地', '终点'
+    ],
     endpoint: '/api/graph/event_place'
   }
 }

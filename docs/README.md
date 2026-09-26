@@ -17,6 +17,7 @@ china-war/
 ├── backend/docs/规则引擎与LLM问答设计.md
 ├── frontend/README.md              ← 旧前端（Vue3 + layui-vue 管理台，:3001）
 ├── entity-event-relation/README.md ← 知识抽取与评估（离线跑，不参与 Web 运行；包名 war_extraction）
+│   ├── docs/数据提取模块分析与整改方案.md ← **要改抽取先读这份**（指标归因、跨模块契约、分阶段方案与验收）
 │   └── data/annotations/README.md  ← 人工标注规范（评估的分子分母）
 ├── RAG/                            ← RAG 问答系统（代码在本仓库内，独立服务）
 │   ├── README.md                   ← 代码组织、开发约定、运行方式
@@ -48,6 +49,7 @@ china-war/
 | 查 RAG 的部署、发布与鉴权 | [RAG/docs/deploy.md](../RAG/docs/deploy.md)、[RAG/docs/architecture.md](../RAG/docs/architecture.md) |
 | 查 RAG 阶段交付与历轮审核整改 | [RAG/docs/CHANGELOG.md](../RAG/docs/CHANGELOG.md) |
 | 重跑知识抽取或评估 | [entity-event-relation/README.md](../entity-event-relation/README.md) |
+| **要提升抽取质量 / 整改数据提取模块** | **[数据提取模块分析与整改方案.md](../entity-event-relation/docs/数据提取模块分析与整改方案.md)**：当前指标为什么低、逐层归因、提示词与标注的具体缺陷、**改抽取前必看的下游契约与静默失败清单**、分阶段方案与验收命令 |
 | 改人工标注（评估的分子分母） | [data/annotations/README.md](../entity-event-relation/data/annotations/README.md)：字段口径、关系名取值表、五条已知局限、"改标注的流程" |
 | 把 RAG 接进飞书（问答 / 纠错反馈） | [feishu-bot/README.md](../feishu-bot/README.md) → [开发文档](../feishu-bot/docs/开发文档.md)、[需求与方案](../feishu-bot/docs/需求与方案.md)、[修复历史](../feishu-bot/docs/修复历史.md) |
 | 改部署脚本、systemd 单元或自检 | [deploy/README.md](../deploy/README.md)；配置结构由 `scripts/check_deploy_config.py` 机械检查（已进 CI） |
@@ -75,6 +77,11 @@ china-war/
    项目级的实测数字汇总在 [项目现状与后续计划.md](项目现状与后续计划.md) 第五节，并注明口径与日期。
 2. **跨模块的约定写在本文档所在目录**（`docs/`），不要塞进根 README；
    单模块细节写在该模块自己的 README。项目级 `docs/` 只保留这四份文档，不新增同类过程文档。
+   **例外与先例**：单模块的**常驻分析/方案文档**放在该模块自己的 `docs/` 下
+   （如 `entity-event-relation/docs/数据提取模块分析与整改方案.md`）——它不是过程记录，
+   而是"整改前必须读"的常驻依据，**不要在文档合并时压缩或删除**；
+   反过来，它必须挂进本文档的索引（见「按目的找文档」与目录树），
+   否则会重复 2026-09-26 那次"分析文档被压缩后无人找得到"的情况。
 3. **过程性记录不长期保留**：阶段开发说明、审核报告、整改工作单在收口后压缩为一份归纳文档
    （先例是 `RAG/docs/CHANGELOG.md`；项目级先例是 [项目审查与修复历史.md](项目审查与修复历史.md)——
    2026-09-26 把 34 份过程文档按主题压缩成这一份），逐条的改动细节由 Git 历史承担。

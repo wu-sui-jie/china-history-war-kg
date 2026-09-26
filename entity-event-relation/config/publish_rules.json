@@ -1,0 +1,41 @@
+{
+  "_comment": "发布过滤与事件清理里那些**书本特化**的硬编码规则。原先散在 main.py 里，换一本语料只能改代码；现在只改这里。加载逻辑见 war_extraction/utils/publish_rules.py（文件缺失时用代码内默认值并打印告警，不会静默变成空表）。",
+  "_sync_note": "改这里等于改整个知识库的内容（published 子集是下游 SQLite/Neo4j/RAG 的输入），所以必须与产物换代、SQLite 重导、Neo4j 重同步、RAG 快照重建打包成一次发布。",
+  "summary_only_event_text_markers": [
+    "原文仅提及事件名称",
+    "主要战争有",
+    "北征南伐",
+    "东攻西进"
+  ],
+  "summary_only_event_names": [
+    "少康中兴",
+    "商代之远征"
+  ],
+  "campaign_summary_suffixes": [
+    "南征",
+    "东征",
+    "西征",
+    "北伐",
+    "征鬼方"
+  ],
+  "weak_result_tokens": [
+    "获得一些胜利",
+    "暂时控制",
+    "势力南至",
+    "不详",
+    "未知"
+  ],
+  "ancient_event_markers": [
+    "神农",
+    "黄帝",
+    "炎帝",
+    "尧",
+    "舜",
+    "禹",
+    "蚩尤"
+  ],
+  "ancient_credible_dynasties": [
+    "上古",
+    "远古"
+  ]
+}

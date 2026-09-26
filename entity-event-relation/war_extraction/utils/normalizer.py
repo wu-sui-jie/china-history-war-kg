@@ -8,6 +8,11 @@ import re
 from pathlib import Path
 from typing import Dict
 
+from war_extraction.utils.vocabulary import (
+    ALL_RELATION_TYPES,
+    EVENT_EVENT_RELATION_TYPES,
+)
+
 #: 以本文件位置锚定项目根（entity-event-relation/）——与 llm_client / cache_manager 一致。
 #: 默认 config_dir 必须是绝对路径：用相对当前工作目录的 "config" 会在换个工作目录启动时
 #: "静默加载不到别名表与关系映射"，而这件事完全没有提示。
@@ -61,9 +66,9 @@ class Normalizer:
         "孙滨": "孙膑",
     }
 
-    CANONICAL_EVENT_RELATION_TYPES = {
-        "因果关系", "顺承关系", "并列关系", "包含关系", "条件关系",
-    }
+    #: 五个规范事件-事件关系类型。定义已收进 `utils/vocabulary.py`（枚举权威表），
+    #: 这里保留同名属性供既有调用点与用例使用。
+    CANONICAL_EVENT_RELATION_TYPES = EVENT_EVENT_RELATION_TYPES
 
     RELATION_ALIASES = {
         "因果": "因果关系",
@@ -84,12 +89,10 @@ class Normalizer:
         "条件关系": "条件关系",
     }
 
-    FRONTEND_RELATION_TYPES = {
-        "因果关系", "顺承关系", "并列关系", "包含关系", "条件关系",
-        "主战场", "次要战场", "出发地", "目的地", "途经地", "驻防地", "指挥所", "补给地", "战略要地", "议和地点",
-        "发起方", "防守方", "支援方", "同盟方", "投降方", "被俘方", "议和方", "调停方", "参战方",
-        "统帅", "将领", "谋士", "使者", "君主", "参与者", "俘虏", "阵亡", "投降", "叛变", "可汗",
-    }
+    #: 前端选值 / 归一保留用的关系名集合：**由枚举权威表派生**，不再在各处各写一份。
+    #: 原先它是一份手写清单，与提示词枚举、RAG field_map、前端下拉三处互不相同——
+    #: 例如前端组织下拉缺"参战方"，而产物里有 207 行。改取值只改 `utils/vocabulary.py`。
+    FRONTEND_RELATION_TYPES = ALL_RELATION_TYPES
 
     def __init__(self, config_dir: str = None):
         self.config_dir = Path(config_dir) if config_dir else DEFAULT_CONFIG_DIR
@@ -217,7 +220,8 @@ class Normalizer:
         return self.relation_map.get(value, value)
 
     def is_placeholder_value(self, value: str) -> bool:
-        value = (value or "").strip()
+        # 入参可能是整数（人工标注的年份写法），统一转字符串再判
+        value = ("" if value is None else str(value)).strip()
         if not value:
             return True
         compact = re.sub(r"\s+", "", value)
@@ -283,6 +287,12 @@ class Normalizer:
             r".+之间$",
             r".+[至到].+$",
             r".*[（(].*[)）].*",
+            # 半括号碎片：多值拆分按"、"切会把 `东夷（山东、江苏一带）` 切成
+            # `东夷（山东` 与 `江苏一带）` 两片，各自都没有成对的括号，于是上面那条
+            # 括号规则一条也匹配不到——两个碎片就这样留在了实体与地点字段里
+            # （实测它们确实出现在产物里）。这两条补的就是这类拆裂碎片。
+            r"[（(][^（()）]*$",
+            r"^[^（()）]*[)）]",
             r".*等\d+方国$",
             r".*等\d+国$",
             r".*等\d+部落$",

@@ -21,6 +21,14 @@ from relation_types import normalize_event_relation_type
 from models import db, Event, Place, Organization, Person
 from models import EventEventRelation, EventPlaceRelation, EventPersonRelation, EventOrganizationRel
 
+# 枚举取值（组织类型等）的唯一来源在 war_extraction 的权威表里；backend 以正常依赖方式
+# 引用它（开发态 `pip install -e ../entity-event-relation`），不在这里再抄一份取值。
+# 不做 `except ImportError` 兜底：兜底等于在这里**又抄一份取值集合**，
+# 权威表增删取值时这份副本会静默落后（而"落后"的表现是"库里某类组织被改写"，
+# 不会报错）。war_extraction 是本模块的正常依赖（`pip install -e entity-event-relation`），
+# 没装就该在导入期直接失败——那是清楚且可修的。
+from war_extraction.utils.vocabulary import ORG_TYPES  # noqa: E402
+
 logger = get_logger(__name__)
 
 
@@ -316,7 +324,11 @@ class JsonToSqliteImporter:
         db.session.commit()
 
     def import_organizations(self):
-        valid_types = {"国家", "部落", "起义军", "联盟", "地方势力", "中央政权"}
+        # 白名单取自枚举权威表（`war_extraction/utils/vocabulary.py`）。
+        # 原先这里硬编码 6 值，而产物里有 `军事势力`（181 行）、`军队`（117 行）、
+        # `革命组织`（5 行）、`方国`（2 行）——它们全被**静默改写**成"地方势力"，
+        # 库里看不出来、原始 JSON 里也看不出来。改取值只改权威表这一处。
+        valid_types = set(ORG_TYPES)
         for item in self._iter_organizations():
             try:
                 name = _safe_text(item.get("OrgName"))

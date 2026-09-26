@@ -4,5 +4,8 @@
   "entity_fuzzy_threshold": 70,
   "event_event_sim_threshold": 0.35,
   "alias_map_path": "config/aliases.json",
-  "relation_map_path": "config/relation_types.json"
+  "relation_map_path": "config/relation_types.json",
+  "event_year_tolerance": 30,
+  "enforce_semantic_constraints": true,
+  "_comment": "评估口径阈值。event_year_tolerance / enforce_semantic_constraints 只作用于事件配对；改任一项都等于换口径，报告里必须写明。"
 }

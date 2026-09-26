@@ -38,10 +38,10 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from war_extraction.config import DEFAULT_CHUNK_SIZE, DEFAULT_OVERLAP
-from war_extraction.core.text_splitter import TextSplitter
+from war_extraction.core.text_splitter import TextSplitter, paragraph_index
 from war_extraction.extractors.entity_extractor import EntityExtractor
 from war_extraction.extractors.event_extractor import EventExtractor
-from war_extraction.extractors.relation_extractor import RelationExtractor
+from war_extraction.extractors.relation_extractor import RelationExtractor, RelationStageDegraded
 from war_extraction.models import (
     EntityExtractionResult,
     Event,
@@ -85,8 +85,11 @@ def entities_from_dict(data: Dict) -> EntityExtractionResult:
 
 
 def events_from_dict(data: Dict) -> EventExtractionResult:
-    """把缓存里的字典还原成事件结果。"""
-    return EventExtractionResult(events=[Event(**e) for e in data.get("events", [])])
+    """把缓存里的字典还原成事件结果（含诊断 metadata，质量报告要读它）。"""
+    return EventExtractionResult(
+        events=[Event(**e) for e in data.get("events", [])],
+        metadata=dict(data.get("metadata") or {}),
+    )
 
 
 def relations_from_dict(data: Dict) -> RelationExtractionResult:
@@ -121,6 +124,13 @@ class ChunkExtraction:
     entities: EntityExtractionResult
     events: EventExtractionResult
     relations: RelationExtractionResult
+    #: 该段在**清洗后文本**里的段落序号（按换行计）。清洗合并了被折断的行内换行，
+    #: 所以这是"语义段落"的序号，不是原文行号。
+    paragraph_id: int = 1
+    #: 该段在**原文**里的起始字符偏移。`start/end` 是清洗后文本的坐标，而清洗会改变长度
+    #: （删不可见字符、合并折断的换行、替换错字），**两者不能混用**——要回原文定位
+    #: （人工抽检、错误分析）就用这个字段。
+    source_offset: int = 0
     #: 三阶段是否都成功——离线链路据此决定要不要把这一段写进缓存
     ok: bool = True
     from_cache: bool = False
@@ -160,6 +170,7 @@ def run_extraction(llm, text: str, *, splitter: Optional[TextSplitter] = None,
                    chunk_size: Optional[int] = None, overlap: Optional[int] = None,
                    cache=None, cache_context_meta: Optional[Dict] = None,
                    read_cache: bool = False, write_cache: bool = False,
+                   source_mapping=None,
                    on_entities_ready: Optional[EntityHook] = None,
                    on_events_ready: Optional[EventGateHook] = None,
                    on_chunk_done: Optional[ChunkDoneHook] = None,
@@ -177,6 +188,9 @@ def run_extraction(llm, text: str, *, splitter: Optional[TextSplitter] = None,
         cache_context_meta: 缓存上下文（`config.cache_context(...)`），键的一部分
         read_cache / write_cache: 缓存开关。**只有三阶段全成功的段才写缓存**，
             失败段下次运行会自动重试（原离线链路口径）
+        source_mapping: `text_cleaner.SourceMapping`；给了就为每段算出**原文**里的起始偏移
+            （`ChunkExtraction.source_offset`）。`text` 已经是被清洗过的文本，
+            没有这份映射就无法把段落的清洗后坐标换算回原文坐标。
         on_entities_ready: 实体阶段的钩子，返回值用于构建后续阶段的实体名列表
         on_events_ready: 事件阶段的"门"钩子，返回空列表则跳过关系阶段
         on_chunk_done: 每段最后的钩子（落盘/写缓存前）
@@ -202,6 +216,8 @@ def run_extraction(llm, text: str, *, splitter: Optional[TextSplitter] = None,
 
     stage_ok = {stage: 0 for stage in STAGES}
     partial_errors: List[str] = []
+    #: 走了"降级"路径的段数（目前只有关系阶段：LLM 失败但仍产出规则派生关系）
+    degraded_stages: List[int] = []
     results: List[ChunkExtraction] = []
     cache_hits = 0
 
@@ -214,13 +230,14 @@ def run_extraction(llm, text: str, *, splitter: Optional[TextSplitter] = None,
             on_chunk_start(index, total, start, end)
 
         chunk = _run_single_chunk(
-            index=index, start=start, end=end, chunk_text=chunk_text,
+            index=index, start=start, end=end, chunk_text=chunk_text, text=text,
             entity_extractor=entity_extractor, event_extractor=event_extractor,
             relation_extractor=relation_extractor,
             cache=cache, cache_context_meta=cache_context_meta,
             read_cache=read_cache, write_cache=write_cache,
             on_entities_ready=on_entities_ready, on_events_ready=on_events_ready,
             on_chunk_done=on_chunk_done, stage_ok=stage_ok, partial_errors=partial_errors,
+            degraded_stages=degraded_stages, source_mapping=source_mapping,
         )
         if chunk.from_cache:
             cache_hits += 1
@@ -234,15 +251,30 @@ def run_extraction(llm, text: str, *, splitter: Optional[TextSplitter] = None,
         "chunks": total,
         "cache_hits": cache_hits,
         "failed_chunks": sum(1 for chunk in results if not chunk.ok),
+        "relation_degraded_stages": len(degraded_stages),
     }
     return ExtractionRun(chunks=results, diagnostics=diagnostics)
 
 
-def _run_single_chunk(*, index: int, start: int, end: int, chunk_text: str,
+def _source_offset(source_mapping, position: int) -> int:
+    """清洗后位置 → 原文位置；没有映射时退化为原值（并提醒它是清洗后坐标）。
+
+    没有映射的情况有两类：调用方没做清洗（`--no-clean`，此时清洗后文本就是原文，
+    两者相等，退化是正确的）、或调用方没传（老调用点）。两种情况都返回 `position`，
+    但**只有前者在语义上等于"原文坐标"**——所以文档里要求 `source_offset` 只在使用
+    清洗后的链路上解读。
+    """
+    if source_mapping is None:
+        return position
+    return source_mapping.to_original(position)
+
+
+def _run_single_chunk(*, index: int, start: int, end: int, chunk_text: str, text: str,
                       entity_extractor, event_extractor, relation_extractor,
                       cache, cache_context_meta, read_cache: bool, write_cache: bool,
                       on_entities_ready, on_events_ready, on_chunk_done,
-                      stage_ok: Dict[str, int], partial_errors: List[str]) -> ChunkExtraction:
+                      stage_ok: Dict[str, int], partial_errors: List[str],
+                      degraded_stages: List[int], source_mapping=None) -> ChunkExtraction:
     """跑一个文本段；缓存命中时直接走"还原 + on_chunk_done"。"""
     cached = cache.get(chunk_text, cache_context_meta) if (cache and read_cache) else None
     if cached:
@@ -252,6 +284,8 @@ def _run_single_chunk(*, index: int, start: int, end: int, chunk_text: str,
         if on_chunk_done:
             entities, events, relations = on_chunk_done(chunk_text, entities, events, relations)
         return ChunkExtraction(index=index, start=start, end=end, text=chunk_text,
+                              paragraph_id=paragraph_index(text, start),
+                              source_offset=_source_offset(source_mapping, start),
                               entities=entities, events=events, relations=relations,
                               ok=True, from_cache=True)
 
@@ -301,6 +335,12 @@ def _run_single_chunk(*, index: int, start: int, end: int, chunk_text: str,
             relations = relation_extractor.extract(chunk_text, events.events,
                                                    place_list, org_list, person_list)
             stage_ok["relation"] += 1
+        except RelationStageDegraded as exc:
+            # 降级：数据不丢（用异常里带的规则派生结果），但**记成失败**——
+            # 失败即不写缓存，下次运行会重新调模型；质量报告里的降级段数由 diagnostics 统计。
+            degraded_stages.append(1)
+            fail("关系抽取", exc)
+            relations = exc.result
         except Exception as exc:  # noqa: BLE001
             fail("关系抽取", exc)
 
@@ -319,5 +359,7 @@ def _run_single_chunk(*, index: int, start: int, end: int, chunk_text: str,
             print(f"  缓存保存失败: {exc}")
 
     return ChunkExtraction(index=index, start=start, end=end, text=chunk_text,
+                          paragraph_id=paragraph_index(text, start),
+                          source_offset=_source_offset(source_mapping, start),
                           entities=entities, events=events, relations=relations,
                           ok=ok, errors=chunk_errors)

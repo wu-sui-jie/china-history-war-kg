@@ -1,0 +1,442 @@
+{
+  "source": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+  "counts": {
+    "events": 1050,
+    "places": 5316,
+    "persons": 2492,
+    "organizations": 1067,
+    "relations": 18146
+  },
+  "dangling_relations": {
+    "event-place": {
+      "exact_dangling": 63,
+      "normalized_dangling": 27,
+      "samples": [
+        "周文王东征",
+        "周文王东征",
+        "周文王东征",
+        "周文王东征",
+        "周文王东征"
+      ]
+    },
+    "event-organization": {
+      "exact_dangling": 36,
+      "normalized_dangling": 17,
+      "samples": [
+        "周文王东征",
+        "周文王东征",
+        "周文王东征",
+        "周文王东征",
+        "昭王南征"
+      ]
+    },
+    "event-person": {
+      "exact_dangling": 53,
+      "normalized_dangling": 10,
+      "samples": [
+        "周文王东征",
+        "昭王南征",
+        "周文王东征",
+        "昭王南征",
+        "昭王南征"
+      ]
+    },
+    "event-event": {
+      "exact_dangling": 8,
+      "normalized_dangling": 0,
+      "samples": [
+        "冯异平定关中",
+        "刘裕灭后秦之战",
+        "刘裕灭后秦之战",
+        "刘裕灭后秦之战",
+        "北周南伐"
+      ]
+    }
+  },
+  "enum_values": {
+    "OrgType": {
+      "total": 1067,
+      "outside_enum": {},
+      "distribution": {
+        "国家": 235,
+        "地方势力": 186,
+        "军事势力": 181,
+        "部落": 160,
+        "军队": 117,
+        "起义军": 95,
+        "中央政权": 45,
+        "联盟": 41,
+        "革命组织": 5,
+        "方国": 2
+      }
+    },
+    "Role": {
+      "total": 2492,
+      "outside_enum": {},
+      "distribution": {
+        "将领": 1291,
+        "君主": 525,
+        "统帅": 454,
+        "谋士": 137,
+        "使者": 40,
+        "参战者": 35,
+        "关键人物": 7,
+        "监军": 1,
+        "首领": 1,
+        "领袖": 1
+      }
+    },
+    "EventType": {
+      "total": 1050,
+      "empty": 4,
+      "outside_enum": {},
+      "distribution": {
+        "统一战争": 183,
+        "对外远征": 163,
+        "边境防御": 144,
+        "战略要地守卫": 128,
+        "镇压叛乱": 113,
+        "农民起义": 66,
+        "开疆拓土": 39,
+        "首都保卫战": 39,
+        "军阀割据": 39,
+        "联军讨伐": 27,
+        "战争": 16,
+        "贵族叛乱": 16,
+        "少数民族反叛": 16,
+        "诸侯联盟": 16,
+        "皇位争夺": 10,
+        "藩镇混战": 10,
+        "": 4,
+        "割据政权建立": 4,
+        "叛乱": 4,
+        "兵变": 4,
+        "军阀混战": 2,
+        "宫廷政变": 1,
+        "诸侯争霸": 1,
+        "伏击战": 1,
+        "战略进攻": 1,
+        "政治事件": 1,
+        "议和": 1,
+        "追击战": 1
+      }
+    },
+    "event_place_relations": {
+      "total": 6922,
+      "outside_enum": {},
+      "distribution": {
+        "次要战场": 2132,
+        "主战场": 1758,
+        "战略要地": 842,
+        "目的地": 814,
+        "途经地": 446,
+        "驻防地": 304,
+        "出发地": 263,
+        "议和地点": 233,
+        "补给地": 89,
+        "指挥所": 23,
+        "退守地": 3,
+        "登陆地": 3,
+        "会师地": 2,
+        "撤退地": 2,
+        "出边地": 2,
+        "集结地": 2,
+        "会师地点": 1,
+        "逃亡地": 1,
+        "伏击地": 1,
+        "终点": 1
+      }
+    },
+    "event_organization_relations": {
+      "total": 3692,
+      "outside_enum": {
+        "指挥所": 1
+      },
+      "distribution": {
+        "防守方": 1314,
+        "发起方": 1230,
+        "投降方": 267,
+        "支援方": 208,
+        "参战方": 207,
+        "同盟方": 199,
+        "被俘方": 189,
+        "议和方": 75,
+        "调停方": 2,
+        "指挥所": 1
+      }
+    },
+    "event_person_relations": {
+      "total": 6618,
+      "outside_enum": {},
+      "distribution": {
+        "统帅": 3016,
+        "将领": 1578,
+        "参与者": 781,
+        "君主": 634,
+        "阵亡": 156,
+        "谋士": 155,
+        "投降": 81,
+        "俘虏": 72,
+        "使者": 51,
+        "防守方": 44,
+        "叛变": 27,
+        "可汗": 9,
+        "发起方": 5,
+        "被俘": 3,
+        "防守方统帅": 2,
+        "同盟方": 1,
+        "向导": 1,
+        "监督": 1,
+        "支援方": 1
+      }
+    },
+    "event_event_relations": {
+      "total": 914,
+      "outside_enum": {},
+      "distribution": {
+        "顺承关系": 798,
+        "并列关系": 47,
+        "因果关系": 40,
+        "包含关系": 28,
+        "条件关系": 1
+      }
+    }
+  },
+  "duplicates": {
+    "places": 0,
+    "persons": 0,
+    "organizations": 0,
+    "events": 0
+  },
+  "residual_years": {
+    "count": 0,
+    "samples": []
+  },
+  "placeholder_as_value": {
+    "total_events": 1050,
+    "placeholder_rows": {
+      "TroopSize": 629,
+      "Duration": 585,
+      "Casualties": 657,
+      "GeographicScope": 6,
+      "Result": 19,
+      "Place": 1
+    }
+  },
+  "direction_vs_time": {
+    "count": 255,
+    "samples": [
+      {
+        "EventName_A": "齐桓公救卫之战",
+        "year_a": -660,
+        "EventName_B": "齐桓公救邢之战",
+        "year_b": -661
+      },
+      {
+        "EventName_A": "城濮之战",
+        "year_a": -632,
+        "EventName_B": "楚攻宋之战",
+        "year_b": -633
+      },
+      {
+        "EventName_A": "崤山之战",
+        "year_a": -627,
+        "EventName_B": "秦袭郑之战",
+        "year_b": -628
+      },
+      {
+        "EventName_A": "楚伐宋之战",
+        "year_a": -595,
+        "EventName_B": "邲之战",
+        "year_b": -597
+      },
+      {
+        "EventName_A": "晋楚彭城之战",
+        "year_a": -573,
+        "EventName_B": "晋楚鄢陵之战",
+        "year_b": -575
+      },
+      {
+        "EventName_A": "晋攻郑焦夷之战",
+        "year_a": -572,
+        "EventName_B": "晋楚彭城之战",
+        "year_b": -573
+      },
+      {
+        "EventName_A": "晋攻郑焦夷之战",
+        "year_a": -572,
+        "EventName_B": "晋楚郑宋之战",
+        "year_b": -573
+      },
+      {
+        "EventName_A": "晋攻郑焦夷之战",
+        "year_a": -572,
+        "EventName_B": "晋楚鄢陵之战",
+        "year_b": -575
+      },
+      {
+        "EventName_A": "房钟之战",
+        "year_a": -536,
+        "EventName_B": "鹊岸之战",
+        "year_b": -537
+      },
+      {
+        "EventName_A": "夫椒之战",
+        "year_a": -494,
+        "EventName_B": "携李之战",
+        "year_b": -496
+      }
+    ]
+  },
+  "evidence_reuse": {
+    "total_relations": 18146,
+    "evidence_empty": 0,
+    "evidence_equals_event_source_text": 11368,
+    "reuse_ratio": 0.6264741540835446,
+    "top_reused_events": [
+      [
+        "平定三藩之乱",
+        152
+      ],
+      [
+        "靖难之役",
+        81
+      ],
+      [
+        "二破江南大营",
+        79
+      ],
+      [
+        "元攻宋之战",
+        73
+      ],
+      [
+        "宋魏战争",
+        69
+      ]
+    ]
+  },
+  "relation_volume": {
+    "events_with_relations": 1038,
+    "average": 17.5,
+    "max": 188,
+    "top": [
+      [
+        "平定三藩之乱",
+        188
+      ],
+      [
+        "晋灭吴之战",
+        136
+      ],
+      [
+        "靖难之役",
+        123
+      ],
+      [
+        "元攻宋之战",
+        107
+      ],
+      [
+        "太平军北伐",
+        103
+      ]
+    ]
+  },
+  "annotations": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\data\\annotations",
+    "event_names": 320,
+    "entity_names": {
+      "places": 378,
+      "persons": 506,
+      "organizations": 242
+    },
+    "entity_duplicate_rows": {
+      "places": 28,
+      "persons": 0,
+      "organizations": 37,
+      "events": 3
+    },
+    "relations": {
+      "event-place": {
+        "rows": 479,
+        "duplicate_rows": 0,
+        "head_not_in_events": 230,
+        "tail_not_in_scope": 194
+      },
+      "event-org": {
+        "rows": 527,
+        "duplicate_rows": 0,
+        "head_not_in_events": 136,
+        "tail_not_in_scope": 106
+      },
+      "event-person": {
+        "rows": 592,
+        "duplicate_rows": 1,
+        "head_not_in_events": 183,
+        "tail_not_in_scope": 180
+      },
+      "event-event": {
+        "rows": 168,
+        "duplicate_rows": 21,
+        "head_not_in_events": 56,
+        "tail_not_in_scope": 69
+      }
+    },
+    "residual_years": {
+      "count": 14,
+      "samples": [
+        {
+          "EventName": "西摩尔联军受阻廊坊",
+          "field": "StartDate",
+          "value": "153"
+        },
+        {
+          "EventName": "西摩尔联军受阻廊坊",
+          "field": "EndDate",
+          "value": "153"
+        },
+        {
+          "EventName": "大沽口炮台失陷",
+          "field": "StartDate",
+          "value": "173"
+        },
+        {
+          "EventName": "大沽口炮台失陷",
+          "field": "EndDate",
+          "value": "173"
+        },
+        {
+          "EventName": "天津保卫战",
+          "field": "StartDate",
+          "value": "153"
+        },
+        {
+          "EventName": "天津保卫战",
+          "field": "EndDate",
+          "value": "183"
+        },
+        {
+          "EventName": "天津陷落",
+          "field": "StartDate",
+          "value": "200"
+        },
+        {
+          "EventName": "天津陷落",
+          "field": "EndDate",
+          "value": "200"
+        },
+        {
+          "EventName": "北仓、杨村阻击战",
+          "field": "StartDate",
+          "value": "214"
+        },
+        {
+          "EventName": "北仓、杨村阻击战",
+          "field": "EndDate",
+          "value": "214"
+        }
+      ]
+    }
+  }
+}

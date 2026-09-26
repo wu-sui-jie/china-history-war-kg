@@ -47,7 +47,14 @@ class Event(BaseModel):
     source: Optional[str] = None
     Impact: Optional[str] = None
     Remark: Optional[str] = ""
-    
+
+    # 事件名别名（归并前后用过的其它写法）。
+    # **为什么单独一个字段。** 原先把 `alias:旧名` 直接追加进 `Remark`，而 `Remark` 是
+    # 正文备注，有三个下游出口（SQLite 的 `events.remark` 列、前端属性面板、Excel 列），
+    # 于是流程元信息混进内容被展示出来。新增字段对下游零影响（不认识的键会被忽略），
+    # 只有希望它也进 SQLite/Neo4j 时才需要在 `backend/node_property_mapping.py` 加映射。
+    AliasNames: List[str] = Field(default_factory=list)
+
     # 事件关系
     relations: List[EventRelation] = Field(default_factory=list)
     
@@ -86,6 +93,7 @@ class EventExtractionResult(BaseModel):
             event.setdefault("source", None)
             event.setdefault("Impact", None)
             event.setdefault("Remark", None)
+            event.setdefault("AliasNames", [])
             event.setdefault("relations", [])
             event.setdefault("source_text", None)
 

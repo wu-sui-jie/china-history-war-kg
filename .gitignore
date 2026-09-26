@@ -48,6 +48,9 @@ Thumbs.db
 # ---- 本仓库是公开仓库：以下内容一律不入库（本地保留，路径见各 README）----
 # 1) 原书全文（受版权约束，不得公开发布）
 entity-event-relation/data/中国历代战争简史.txt
+# 按原书切出的朝代子集（`data/dynasty_subsets/*.txt`）同属原书正文（占全书 31.7%），
+# 同样不入库；切分脚本与说明（README.md）在库内，可随时重建。
+entity-event-relation/data/dynasty_subsets/*.txt
 entity-event-relation/data/中国战争史地图集.txt
 entity-event-relation/data/中国历代战争简史_测试数据.txt
 backend/data/raw/

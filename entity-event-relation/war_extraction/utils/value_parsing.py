@@ -1,13 +1,13 @@
 """
-字段值解析：多值字段拆分、年份解析、起止时间定序。
+字段值解析：多值字段拆分、年份解析、起止时间定序、事件身份键。
 
-这三段逻辑在 `main.py` 与 `war_extraction/extractors/` 下都只有**一份实现**（就在这里）：
-多值拆分、年份解析、起止时间定序各存一份的话，改一处忘一处就会两边漂移。
+这几段逻辑在 `main.py` 与 `war_extraction/extractors/` 下都只有**一份实现**（就在这里）：
+多值拆分、年份解析、起止时间定序、事件身份各存一份的话，改一处忘一处就会两边漂移。
 """
 from __future__ import annotations
 
 import re
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Tuple
 
 __all__ = [
     "MULTI_VALUE_SEPARATORS",
@@ -15,6 +15,8 @@ __all__ = [
     "split_multi_value",
     "parse_year_for_order",
     "ensure_event_date_order",
+    "first_effective_place",
+    "event_identity_key",
 ]
 
 #: 多值字段的分隔符。**顺序有意义**：先把长分隔符换成 "|"，再处理单字符分隔符。
@@ -44,10 +46,16 @@ def parse_year_for_order(value: str) -> Optional[int]:
     把日期文本解析成可比较的年份（公元前取负数）；解析不出返回 None。
 
     只认"公元前 X 年 / 前 X 年"与"X 年"两种写法，够用来判断两个时间点的先后。
+
+    入参一律先转成字符串：人工标注里的年份有整数写法（`StartDate: 618`），
+    直接 `.strip()` 会在这里抛 `AttributeError`，而那会让整个评估跑不起来。
     """
-    value = (value or "").strip()
-    if not value or value in {"不详", "未知", "进行中"}:
+    value = str(value).strip() if value is not None else ""
+    if not value or value in {"不详", "未知", "进行中", "none", "null"}:
         return None
+    # 纯数字（标注里的整数年份）直接当公元年
+    if value.isdigit() and len(value) <= 4:
+        return int(value)
     match = re.search(r"(公元前|前)\s*(\d{1,4})\s*年?", value)
     if match:
         return -int(match.group(2))
@@ -71,3 +79,41 @@ def ensure_event_date_order(event_obj):
     remark = "已自动校正开始时间晚于结束时间的问题"
     event_obj.Remark = "\n".join([part for part in [getattr(event_obj, "Remark", None), remark] if part])
     return event_obj
+
+
+def first_effective_place(normalizer, value: str) -> str:
+    """事件身份里的"首个有效地点"：多值拆分后跳过长噪声名的第一个地点。"""
+    for place_name in split_multi_value(value):
+        if not normalizer.is_noisy_place_name(place_name):
+            return normalizer.normalize_entity_name(place_name)
+    return ""
+
+
+def event_identity_key(normalizer, name, dynasty=None, start_date=None, place=None) -> Tuple[str, str, str, str]:
+    """
+    事件身份的**唯一定义**：归一后名称 + 朝代 + 起始时间 + 首个有效地点。
+
+    **为什么要收成一处。** 原先四处口径互不相同：
+
+    | 位置 | 原来的键 |
+    | --- | --- |
+    | 抽取器 `_postprocess_events` | 只有规范化名称 |
+    | 合并期 `ResultMerger._event_merge_key` | 名称 + 朝代 |
+    | 清理期 `main.cleanup_events` | 名称 + 朝代 + 时间 + 地点 |
+    | 发布期 `main.split_publishable_outputs` | 名称 + 时间 + 地点（**没有朝代**） |
+
+    后果是同名不同年代的两场战争在一处被合并、在另一处不被合并：事件计数、关系分母、
+    发布子集三者互相打架，而"哪一处才对"无法从产物看出来。
+
+    已定口径（整改方案 10.1 第 4 项）：**名称 + 朝代 + 起始时间 + 首个地点**。
+    连带效果是"同名不同年代事件不再被合并"，事件计数与关系分母都会变——这是预期变化。
+
+    事件识别阶段拿不到朝代（那一阶段的输出只有 id/name/time/location/parties/evidence），
+    此时传空朝代，键的**定义**仍然一致，只是可用字段少一个。
+    """
+    return (
+        normalizer.normalize_event_name(name),
+        (dynasty or "").strip(),
+        (start_date or "").strip(),
+        first_effective_place(normalizer, place),
+    )

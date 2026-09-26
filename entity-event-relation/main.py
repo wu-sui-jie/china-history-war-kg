@@ -10,6 +10,7 @@ import re
 from pathlib import Path
 from tqdm import tqdm
 from war_extraction.core import DeepSeekClient, TextSplitter, CacheManager
+from war_extraction.core.text_cleaner import clean_text_with_mapping
 from war_extraction.core.extraction_runner import (
     entities_from_dict as dict_to_entities,
     events_from_dict as dict_to_events,
@@ -28,9 +29,21 @@ from war_extraction.models import (
 )
 from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
 from war_extraction.utils import EntityClassifier, Normalizer
-from war_extraction.utils.relation_rules import arbitrate_event_event_relation
+from war_extraction.utils.provenance import artifact_digest, generation_metadata
+from war_extraction.utils.publish_rules import load_publish_rules
+from war_extraction.utils.vocabulary import (
+    normalize_event_type,
+    normalize_org_type,
+    normalize_role,
+    relation_type_allowed,
+)
+from war_extraction.utils.relation_rules import (
+    build_event_start_years,
+    reduce_event_event_relations,
+)
 from war_extraction.utils.value_parsing import (
     ensure_event_date_order,
+    event_identity_key,
     parse_year_for_order,
     split_multi_value,
 )
@@ -54,6 +67,11 @@ def _looks_like_org_name(value: str) -> bool:
     return EntityClassifier.looks_like_org_name(value)
 
 
+#: 发布过滤用的书本特化规则（事件名名单、概括事件标记、弱结果词、上古标记词）。
+#: 内容在 `config/publish_rules.json`，规则本身不再是代码——换语料只改配置。
+PUBLISH_RULES = load_publish_rules()
+
+
 def _is_summary_only_event(event_obj) -> bool:
     """判定"只有概括、没有具体战事"的事件；最终清理与质量诊断共用这一条规则。"""
     event_name = getattr(event_obj, "EventName", "") or ""
@@ -61,13 +79,11 @@ def _is_summary_only_event(event_obj) -> bool:
     remark = getattr(event_obj, "Remark", "") or ""
     text = f"{event_name} {source_text} {remark}"
 
-    if "原文仅提及事件名称" in text:
+    if any(marker in text for marker in PUBLISH_RULES["summary_only_event_text_markers"]):
         return True
-    if "主要战争有" in source_text:
+    if event_name in set(PUBLISH_RULES["summary_only_event_names"]):
         return True
-    if event_name in {"少康中兴", "商代之远征"}:
-        return True
-    if "北征南伐" in text and "东攻西进" in text:
+    if any(token in text for token in ("北征南伐", "东攻西进")):
         return True
     return False
 
@@ -142,21 +158,36 @@ def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtracti
     )
 
 
+def _add_alias(event_obj, alias: str) -> None:
+    '''
+    把事件名别名记进独立的 `AliasNames` 字段。
+
+    **不再写进 `Remark`。** `Remark` 是正文备注，会经 `import_json_to_sqlite` 的
+    `events.remark` 列、前端属性面板、Excel 三处展示；把 `alias:旧名` 拼进去等于把
+    流程元信息当成内容给用户看。新字段对下游零影响（未映射的键被忽略）。
+    '''
+    alias = (alias or "").strip()
+    if not alias or alias == (getattr(event_obj, "EventName", None) or ""):
+        return
+    aliases = list(getattr(event_obj, "AliasNames", None) or [])
+    if alias not in aliases:
+        aliases.append(alias)
+    event_obj.AliasNames = aliases
+
+
 def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
     """
     导出前规范化事件显示名，并按"规范化名称 + 朝代 + 开始时间 + 首个有效地点"归并近似重复事件：
     重复行按完整度取优、缺失字段互补，最后丢掉只有概括的事件。
+
+    事件的诊断 metadata 要**带着一起走**并就地更新（最终事件数、后处理过滤数），
+    否则合并阶段刚补回来的诊断项会在这一步再丢一次。
     """
     normalizer = Normalizer()
     # 事件名别名表只有 war_extraction/utils/normalizer.py 的 EVENT_NAME_ALIASES 一份，
     # 这里直接引用它。standardize_event_name 已经套过别名表，这里再套一次是为了让
     # "已标准化的名字"也能再收敛一次（幂等，不改变行为）。
     event_name_overrides = normalizer.EVENT_NAME_ALIASES
-    def first_effective_place(value):
-        for place_name in _split_multi_value(value):
-            if not normalizer.is_noisy_place_name(place_name):
-                return normalizer.normalize_entity_name(place_name)
-        return ""
 
     def event_completeness_score(event_obj):
         score_fields = [
@@ -178,11 +209,10 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
         event = ensure_event_date_order(event)
         event.EventName = normalizer.standardize_event_name(event.EventName)
         event.EventName = event_name_overrides.get(event.EventName, event.EventName)
-        key = (
-            normalizer.normalize_event_name(event.EventName),
-            event.DynastyName or "",
-            event.StartDate or "",
-            first_effective_place(event.Place),
+        # 事件身份键的唯一实现在 value_parsing.event_identity_key：四处（抽取器/合并期/
+        # 清理期/发布期）必须用同一套，否则同名不同年代的事件在一处被合并、在另一处不被合并。
+        key = event_identity_key(
+            normalizer, event.EventName, event.DynastyName, event.StartDate, event.Place
         )
         if key not in event_map:
             event_map[key] = event
@@ -192,9 +222,11 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
             previous_name = existing.EventName
             existing.EventName = event.EventName
             if previous_name and previous_name != event.EventName:
-                existing.Remark = "\n".join([part for part in [existing.Remark, f"alias:{previous_name}"] if part])
+                _add_alias(existing, previous_name)
         elif event.EventName and event.EventName != existing.EventName:
-            existing.Remark = "\n".join([part for part in [existing.Remark, f"alias:{event.EventName}"] if part])
+            _add_alias(existing, event.EventName)
+        for alias in getattr(event, "AliasNames", None) or []:
+            _add_alias(existing, alias)
         for field_name in [
             "EventType", "StartDate", "EndDate", "Place", "Aggressor", "Defender",
             "Allies", "Result", "Commanders", "KeyPersons", "Action", "TroopSize",
@@ -222,7 +254,7 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
             summary_like_keys.add(normalized_names[index])
             continue
         event_name = event.EventName or ""
-        if not event_name.endswith(("南征", "东征", "西征", "北伐", "征鬼方")):
+        if not event_name.endswith(tuple(PUBLISH_RULES["campaign_summary_suffixes"])):
             continue
         current_key = normalized_names[index]
         for other_index, other in enumerate(merged_events):
@@ -235,7 +267,17 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
                 break
 
     filtered_events = [event for event in merged_events if normalizer.normalize_event_name(event.EventName) not in summary_like_keys]
-    return EventExtractionResult(events=filtered_events)
+    metadata = dict(getattr(events, "metadata", None) or {})
+    if metadata:
+        # 有诊断 metadata 才更新：没有时保持为空，免得凭空造出"看起来正常"的数字。
+        # 这一步丢掉的（概括事件、被更具体阶段事件取代的战役）计入后处理过滤数。
+        dropped = max(len(merged_events) - len(filtered_events), 0)
+        metadata["postprocess_filtered_count"] = int(metadata.get("postprocess_filtered_count", 0)) + dropped
+        metadata["final_event_count"] = len(filtered_events)
+        metadata["missing_event_count"] = max(
+            int(metadata.get("identified_event_count", len(filtered_events))) - len(filtered_events), 0
+        )
+    return EventExtractionResult(events=filtered_events, metadata=metadata)
 
 
 def finalize_outputs(entities, events, relations):
@@ -243,9 +285,27 @@ def finalize_outputs(entities, events, relations):
     entities = cleanup_entity_conflicts(entities)
     events = cleanup_events(events)
     valid_event_names = {getattr(event, "EventName", None) for event in events.events if getattr(event, "EventName", None)}
-    relations = cleanup_relation_conflicts(relations, valid_event_names)
+    # 事件起始年份索引：关系清理要用它给"顺承/因果"定方向（字典序定方向是错的）
+    event_start_years = build_event_start_years(Normalizer(), events.events)
+    relations, first_pass = cleanup_relation_conflicts(relations, valid_event_names, event_start_years)
     relations = enrich_relations_from_events(entities, events, relations)
-    relations = cleanup_relation_conflicts(relations, valid_event_names)
+    relations, second_pass = cleanup_relation_conflicts(relations, valid_event_names, event_start_years)
+    # 两次清理丢掉的悬空边合计写进事件 metadata：质量报告与体检脚本从这里读，
+    # 不能让"丢掉了几条边"这个事实只存在于内存里。
+    cleanup_diagnostics = {
+        "dangling_relations_dropped": {
+            key: first_pass["dangling_relations_dropped"].get(key, 0)
+            + second_pass["dangling_relations_dropped"].get(key, 0)
+            for key in second_pass["dangling_relations_dropped"]
+        },
+        # 枚举外的事件-事件关系条数：它们**保留在产物里**、由发布拆分阶段进候选区，
+        # 这里单独计数是为了让"这批有多少条"在质量报告里有通道（原先既不留也不数）。
+        "event_event_relations_outside_enum": (
+            first_pass.get("event_event_relations_outside_enum", 0)
+            + second_pass.get("event_event_relations_outside_enum", 0)
+        ),
+    }
+    events.metadata = {**(events.metadata or {}), "cleanup_diagnostics": cleanup_diagnostics}
     return entities, events, relations
 
 
@@ -254,6 +314,7 @@ def enrich_relations_from_events(entities, events, relations):
     从最终事件字段确定性派生事件-实体关系。缓存读取与分段合并之后都要再跑一次，
     否则旧的稀疏关系缓存会让四个图谱页面一直连不上。
     """
+    normalizer = Normalizer()
     place_list = "、".join([p.geo_name for p in entities.places if getattr(p, "geo_name", None)])
     org_list = "、".join([o.OrgName for o in entities.organizations if getattr(o, "OrgName", None)])
     person_list = "、".join([p.PersonName for p in entities.persons if getattr(p, "PersonName", None)])
@@ -263,16 +324,59 @@ def enrich_relations_from_events(entities, events, relations):
         org_list,
         person_list,
     )
-    return ResultMerger.merge_relations([relations, derived_relations])
+    return ResultMerger.merge_relations(
+        [relations, derived_relations],
+        event_start_years=build_event_start_years(normalizer, events.events),
+    )
+
+
+def _enum_is_legal(value, kind: str) -> bool:
+    """
+    schema 校验层：这个取值是否落在枚举权威表（`utils/vocabulary.py`）里。
+
+    这是**防漂移的闸门**，不是装饰——`normalize_relation` 对不认识的关系名是原样返回的，
+    于是 20 种提示词枚举外的地点关系、`关键人物`这类枚举外角色能一路落进产物，
+    而下游（前端下拉、RAG 白名单、导入白名单）看不到这些取值，只表现为"点不到""被静默改写"。
+    校验不通过的记录进候选区（`candidate/`），不进发布子集。
+
+    取值本身已经在决策里扩散进权威表的（`军事势力`/`关键人物`等）算通过；
+    只有表外的**新**取值会被拦下来——这时要做的是决定"扩表还是改数据"，而不是让它悄悄流下去。
+    """
+    checkers = {
+        "OrgType": normalize_org_type,
+        "Role": normalize_role,
+        "EventType": normalize_event_type,
+    }
+    checker = checkers[kind]
+    _, hit = checker(value)
+    return hit
 
 
 def split_publishable_outputs(entities, events, relations):
     """
-    把最终抽取结果拆成"可发布"与"候选"两套：只有要素齐全、结果可信的事件，
-    以及它们引用到的实体与关系进入 published；弱记录留在 candidate，
+    把最终抽取结果拆成"可发布"与"候选"两套：只有要素齐全、结果可信、且枚举合法的记录，
+    以及它们引用到的实体与关系进入 published；其余留在 candidate，
     避免它们阻塞下游入库与图谱使用。
+
+    两处相对原实现的口径变化：
+
+    1. **地点不再按"有噪声/没噪声"二分**（已定决策 10.1 第 8 项）：`published` 保留全量地点，
+       另加 `referenced_by_published_event` 标记区分"主数据"与"候选地点"。理由是裁掉会
+       与地理编码链和地图选择器断链——地图页能画出多少点直接取决于地点是否在 published 里。
+    2. **枚举校验进候选区**：`OrgType`/`Role`/`EventType`/关系类型不在权威表里的记录
+       走 candidate，不进发布子集（见 `_enum_is_legal`）。
     """
     normalizer = Normalizer()
+    enum_out = {
+        "places": 0,
+        "organizations": 0,
+        "persons": 0,
+        "events": 0,
+        "event_place_relations": 0,
+        "event_organization_relations": 0,
+        "event_person_relations": 0,
+        "event_event_relations": 0,
+    }
 
     def is_effective_value(value):
         return not normalizer.is_placeholder_value(value)
@@ -312,7 +416,7 @@ def split_publishable_outputs(entities, events, relations):
 
     def has_strong_result(event_obj):
         result_value = (getattr(event_obj, "Result", None) or "").strip()
-        weak_result_tokens = ["获得一些胜利", "暂时控制", "势力南至", "不详", "未知"]
+        weak_result_tokens = PUBLISH_RULES["weak_result_tokens"]
         if not is_effective_value(result_value):
             return False
         return not any(token in result_value for token in weak_result_tokens)
@@ -330,12 +434,14 @@ def split_publishable_outputs(entities, events, relations):
         return relation == "并列关系"
 
     def published_event_key(event_obj):
-        normalized_name = normalizer.normalize_event_name(getattr(event_obj, "EventName", None))
-        place_key = sanitize_publishable_place(getattr(event_obj, "Place", None))
-        return (
-            normalized_name,
-            getattr(event_obj, "StartDate", None) or "",
-            place_key,
+        # 发布期的身份键也走统一实现（原先是"名称 + 时间 + 地点"，**少了朝代**——
+        # 与清理期不一致，同名不同朝代的事件在这一步又会被并掉）
+        return event_identity_key(
+            normalizer,
+            getattr(event_obj, "EventName", None),
+            getattr(event_obj, "DynastyName", None),
+            getattr(event_obj, "StartDate", None),
+            sanitize_publishable_place(getattr(event_obj, "Place", None)),
         )
 
     def has_credible_dynasty(event_obj):
@@ -343,9 +449,9 @@ def split_publishable_outputs(entities, events, relations):
         dynasty_name = (getattr(event_obj, "DynastyName", "") or "").strip()
         if not dynasty_name or normalizer.is_placeholder_value(dynasty_name):
             return False
-        ancient_markers = ["神农", "黄帝", "炎帝", "尧", "舜", "禹", "蚩尤"]
+        ancient_markers = PUBLISH_RULES["ancient_event_markers"]
         if any(marker in event_name for marker in ancient_markers):
-            return dynasty_name in {"上古", "远古"}
+            return dynasty_name in set(PUBLISH_RULES["ancient_credible_dynasties"])
         return True
 
     def event_publish_score(event_obj):
@@ -394,19 +500,21 @@ def split_publishable_outputs(entities, events, relations):
             and has_required_event_fields(event_obj)
         )
 
-    published_places = []
+    # 地点：**全量进 published**，用 `referenced_by_published_event` 标记是否被发布事件引用。
+    # 裁掉噪声地点会与地理编码链、地图选择器断链（已定决策 10.1 第 8 项）。
+    published_places = list(entities.places)
     candidate_places = []
-    for place in entities.places:
-        if normalizer.is_noisy_place_name(getattr(place, "geo_name", None)):
-            candidate_places.append(place)
-        else:
-            published_places.append(place)
 
     published_events = []
     candidate_events = []
     published_event_names = set()
     for event in events.events:
         event.Place = sanitize_publishable_place(getattr(event, "Place", None)) or getattr(event, "Place", None)
+        if not _enum_is_legal(getattr(event, "EventType", None), "EventType"):
+            # 事件类型不在权威表里：进候选区，不进发布子集（下游按固定词典统计，未知类型会被兜底）
+            enum_out["events"] += 1
+            candidate_events.append(event)
+            continue
         if is_publishable_event(event):
             published_events.append(event)
             published_event_names.add(getattr(event, "EventName", None))
@@ -448,12 +556,28 @@ def split_publishable_outputs(entities, events, relations):
         event_event_relations=[],
     )
 
+    def _relation_enum_ok(rel, category: str) -> bool:
+        if relation_type_allowed(normalizer.normalize_relation(getattr(rel, "relation", None)), category):
+            return True
+        enum_out[category_map[category]] += 1
+        return False
+
+    category_map = {
+        "event-place": "event_place_relations",
+        "event-organization": "event_organization_relations",
+        "event-person": "event_person_relations",
+        "event-event": "event_event_relations",
+    }
+
     for rel in relations.event_place_relations:
         if getattr(rel, "EventName", None) not in published_event_names:
             candidate_relations.event_place_relations.append(rel)
             continue
         place_name = getattr(rel, "modern_name", None)
         if normalizer.is_noisy_place_name(place_name):
+            candidate_relations.event_place_relations.append(rel)
+            continue
+        if not _relation_enum_ok(rel, "event-place"):
             candidate_relations.event_place_relations.append(rel)
             continue
         published_relations.event_place_relations.append(rel)
@@ -463,26 +587,53 @@ def split_publishable_outputs(entities, events, relations):
             getattr(rel, "EventName", None) in published_event_names
             and EntityClassifier.is_valid_org_name(getattr(rel, "OrgName", None))
             and getattr(rel, "OrgName", None) in published_org_names
+            and _relation_enum_ok(rel, "event-organization")
         ):
             published_relations.event_organization_relations.append(rel)
         else:
             candidate_relations.event_organization_relations.append(rel)
 
     for rel in relations.event_person_relations:
-        if getattr(rel, "EventName", None) in published_event_names:
+        if (
+            getattr(rel, "EventName", None) in published_event_names
+            and _relation_enum_ok(rel, "event-person")
+        ):
             published_relations.event_person_relations.append(rel)
         else:
             candidate_relations.event_person_relations.append(rel)
 
     for rel in relations.event_event_relations:
+        # **取值合法性检查必须排在 `is_high_confidence...` 之前**：后者只认"因果/顺承/并列"，
+        # 枚举外的类型（如 `主战场`）一律返回 False，于是 `and` 短路后
+        # `_relation_enum_ok` 根本不会被执行——计数恒为 0，这就是"枚举外的条目没有计数通道"
+        # 的具体成因（核验 P0-2 的另一半）。顺序换成"事件在名单里 → 取值合法 → 置信度"。
         if (
             getattr(rel, "EventName_A", None) in published_event_names
             and getattr(rel, "EventName_B", None) in published_event_names
+            and _relation_enum_ok(rel, "event-event")
             and is_high_confidence_event_event_relation(rel)
         ):
             published_relations.event_event_relations.append(rel)
         else:
             candidate_relations.event_event_relations.append(rel)
+
+    # 地点是否被发布事件引用：给全量地点一个"主数据 / 候选"的区分标记（软依赖，
+    # 下游不认识的键会忽略；前端可用它区分主数据与候选地点）。
+    referenced_published_place_names = set()
+    for event in published_events:
+        for place_name in _split_multi_value(getattr(event, "Place", None)):
+            referenced_published_place_names.add(normalizer.normalize_entity_name(place_name))
+    for rel in published_relations.event_place_relations:
+        referenced_published_place_names.add(
+            normalizer.normalize_entity_name(getattr(rel, "modern_name", None))
+        )
+    for place in published_places:
+        referenced = normalizer.normalize_entity_name(getattr(place, "geo_name", None)) in referenced_published_place_names
+        try:
+            place.referenced_by_published_event = referenced
+        except (ValueError, TypeError):
+            # 模型没声明该字段时忽略：标记只是软依赖，不该让落盘失败
+            pass
 
     referenced_published_org_names = set()
     referenced_published_person_names = set()
@@ -497,29 +648,35 @@ def split_publishable_outputs(entities, events, relations):
     referenced_published_org_names = {name for name in referenced_published_org_names if name}
     referenced_published_person_names = {name for name in referenced_published_person_names if name}
 
+    def _org_publishable(org) -> bool:
+        name = getattr(org, "OrgName", None)
+        if not EntityClassifier.is_valid_org_name(name):
+            return False
+        if name not in referenced_published_org_names:
+            return False
+        # 组织类型不在权威表里的组织进候选区（原先只有导入脚本会静默改写它）
+        if not _enum_is_legal(getattr(org, "OrgType", None), "OrgType"):
+            enum_out["organizations"] += 1
+            return False
+        return True
+
+    def _person_publishable(person) -> bool:
+        if getattr(person, "PersonName", None) not in referenced_published_person_names:
+            return False
+        if not _enum_is_legal(getattr(person, "Role", None), "Role"):
+            enum_out["persons"] += 1
+            return False
+        return True
+
     published_entities = EntityExtractionResult(
         places=published_places,
-        organizations=[
-            org for org in entities.organizations
-            if EntityClassifier.is_valid_org_name(getattr(org, "OrgName", None))
-            and getattr(org, "OrgName", None) in referenced_published_org_names
-        ],
-        persons=[
-            person for person in entities.persons
-            if getattr(person, "PersonName", None) in referenced_published_person_names
-        ],
+        organizations=[org for org in entities.organizations if _org_publishable(org)],
+        persons=[person for person in entities.persons if _person_publishable(person)],
     )
     candidate_entities = EntityExtractionResult(
         places=candidate_places,
-        organizations=[
-            org for org in entities.organizations
-            if not EntityClassifier.is_valid_org_name(getattr(org, "OrgName", None))
-            or getattr(org, "OrgName", None) not in referenced_published_org_names
-        ],
-        persons=[
-            person for person in entities.persons
-            if getattr(person, "PersonName", None) not in referenced_published_person_names
-        ],
+        organizations=[org for org in entities.organizations if not _org_publishable(org)],
+        persons=[person for person in entities.persons if not _person_publishable(person)],
     )
     published_event_result = EventExtractionResult(
         events=published_events,
@@ -529,78 +686,98 @@ def split_publishable_outputs(entities, events, relations):
         events=candidate_events,
         metadata={**(events.metadata or {}), "publish_stage": "candidate"},
     )
+    # 第三个返回值是"因枚举不合法而进候选区"的条数：写进质量报告，别让这一步静默发生
     return (
         (published_entities, published_event_result, published_relations),
         (candidate_entities, candidate_event_result, candidate_relations),
+        {"enum_out": enum_out},
     )
 
 
-def _arbitrate_event_event_relation(normalizer: Normalizer, rel):
-    # 仲裁实现只有 war_extraction/utils/relation_rules.py 一处，抽取器与本文件共用
-    return arbitrate_event_event_relation(normalizer, rel)
-
-
-def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_names=None) -> RelationExtractionResult:
+def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_names=None,
+                             event_start_years=None) -> RelationExtractionResult:
     """
     关系的最后一道清理：规范化名称与关系类型、丢掉自环与指向已过滤事件的边、
-    按证据文本的出现顺序校正"顺承/因果"方向，再按无向 pair 去重
-    （同 pair 保留关系优先级更高的；同优先级保留 evidence 更长的）。
+    按证据/时间校正"顺承/因果"方向，再按对称对去重。
 
-    传入 `valid_event_names` 时，只有两端都能在有效事件名单里对上的边才保留——
-    否则事件清理删掉的概括事件会留下悬空边。
+    传入 `valid_event_names` 时，**四类关系**的事件端都要在最终事件名单里对得上——
+    原来只有事件-事件关系做了这道过滤，于是 raw 产物里事件-地点 27 条、事件-组织 17 条、
+    事件-人物 10 条关系的 `EventName` 在事件表里根本找不到（导入时靠精确名单丢掉，
+    只有 `published` 侧是干净的）。现在四类一起过滤，悬空边数为 0。
+
+    事件-事件关系的方向判定与去重收在 `war_extraction/utils/relation_rules.py`，
+    抽取器与本函数共用同一份——两处各一份会让"抽出来的关系"和"清理后的关系"对不上。
     """
     normalizer = Normalizer()
-    relation_priority = {"因果关系": 3, "顺承关系": 2, "并列关系": 1}
     valid_event_keys = {
         normalizer.normalize_event_name(name)
         for name in (valid_event_names or set())
         if name
     }
 
-    cleaned_event_rels = {}
-    for rel in relations.event_event_relations:
-        rel.EventName_A = normalizer.standardize_event_name(rel.EventName_A)
-        rel.EventName_B = normalizer.standardize_event_name(rel.EventName_B)
-        rel.relation = normalizer.normalize_relation(rel.relation)
-        if (rel.EventName_A or "").startswith("E") and (rel.EventName_A or "")[1:].isdigit():
-            continue
-        if (rel.EventName_B or "").startswith("E") and (rel.EventName_B or "")[1:].isdigit():
-            continue
+    def _event_allowed(name) -> bool:
+        if not valid_event_keys:
+            return True
+        return normalizer.normalize_event_name(name) in valid_event_keys
 
-        name_a = normalizer.normalize_event_name(rel.EventName_A)
-        name_b = normalizer.normalize_event_name(rel.EventName_B)
-        if not name_a or not name_b or name_a == name_b:
-            continue
-        if valid_event_keys and (name_a not in valid_event_keys or name_b not in valid_event_keys):
-            continue
-        rel = _arbitrate_event_event_relation(normalizer, rel)
+    dropped_dangling = {
+        "event_place_relations": 0,
+        "event_organization_relations": 0,
+        "event_person_relations": 0,
+        "event_event_relations": 0,
+    }
 
-        if rel.relation in {"顺承关系", "因果关系"} and rel.evidence:
-            idx_a = rel.evidence.find(rel.EventName_A)
-            idx_b = rel.evidence.find(rel.EventName_B)
-            if idx_a >= 0 and idx_b >= 0 and idx_a > idx_b:
-                rel.EventName_A, rel.EventName_B = rel.EventName_B, rel.EventName_A
-                name_a, name_b = name_b, name_a
+    def _drop_dangling(relations, attribute):
+        """丢掉事件端对不上最终事件名单的边，并计数——悬空边数要能被体检脚本与质量报告看见。"""
+        kept = []
+        for rel in relations:
+            rel.EventName = normalizer.standardize_event_name(getattr(rel, "EventName", None))
+            rel.relation = normalizer.normalize_relation(getattr(rel, "relation", None))
+            if not rel.EventName or not rel.relation:
+                continue
+            if not _event_allowed(rel.EventName):
+                dropped_dangling[attribute] += 1
+                continue
+            kept.append(rel)
+        return kept
 
-        if rel.relation in {"顺承关系", "因果关系", "并列关系"}:
-            pair_key = tuple(sorted([name_a, name_b]))
-        else:
-            pair_key = tuple(sorted([name_a, name_b])) + (rel.evidence or "",)
+    relations.event_place_relations = _drop_dangling(
+        relations.event_place_relations, "event_place_relations")
+    relations.event_organization_relations = _drop_dangling(
+        relations.event_organization_relations, "event_organization_relations")
+    relations.event_person_relations = _drop_dangling(
+        relations.event_person_relations, "event_person_relations")
 
-        existing = cleaned_event_rels.get(pair_key)
-        if existing is None:
-            cleaned_event_rels[pair_key] = rel
-            continue
+    # 事件-事件：端点过滤在收敛函数内部做（它要先标准化再判），所以**在这里先数一遍**——
+    # 原先把 `name_allowed` 传进去就完事，"被它丢掉了多少条悬空边"既没计数也没返回通道，
+    # 于是四类关系里只有这一类在报告里是 0（不是真的没有，是没数）。
+    if valid_event_keys:
+        surviving_event_rels = []
+        for rel in relations.event_event_relations:
+            name_a = normalizer.normalize_event_name(getattr(rel, "EventName_A", None))
+            name_b = normalizer.normalize_event_name(getattr(rel, "EventName_B", None))
+            if _event_allowed(name_a) and _event_allowed(name_b):
+                surviving_event_rels.append(rel)
+            else:
+                dropped_dangling["event_event_relations"] += 1
+        relations.event_event_relations = surviving_event_rels
 
-        existing_priority = relation_priority.get(existing.relation, 0)
-        current_priority = relation_priority.get(rel.relation, 0)
-        if current_priority > existing_priority:
-            cleaned_event_rels[pair_key] = rel
-        elif current_priority == existing_priority and len(rel.evidence or "") > len(existing.evidence or ""):
-            cleaned_event_rels[pair_key] = rel
+    # 枚举外类型的关系**不丢**，只计数（它们留在产物里、由发布拆分阶段进候选区）：
+    # 见 `war_extraction/utils/relation_rules.py::reduce_event_event_relations` 的说明。
+    quarantined_event_relations: list = []
+    relations.event_event_relations = reduce_event_event_relations(
+        normalizer,
+        relations.event_event_relations,
+        event_start_years=event_start_years,
+        quarantine=quarantined_event_relations,
+    )
 
-    relations.event_event_relations = list(cleaned_event_rels.values())
-    return relations
+    # 本次的丢弃/隔离统计随返回值一起出去：质量报告与体检脚本都要报这些数，不能静默丢。
+    # （不用函数属性当返回值——那种隐式通道会让调用方忘记读取，数字就悄悄消失了。）
+    return relations, {
+        "dangling_relations_dropped": dropped_dangling,
+        "event_event_relations_outside_enum": len(quarantined_event_relations),
+    }
 
 
 def enrich_entities_from_events(entities: EntityExtractionResult, events: EventExtractionResult) -> EntityExtractionResult:
@@ -665,7 +842,8 @@ def enrich_entities_from_events(entities: EntityExtractionResult, events: EventE
 
 
 def process_long_text(text: str, llm, splitter: TextSplitter,
-                      read_cache: bool = True, write_cache: bool = True):
+                      read_cache: bool = True, write_cache: bool = True,
+                      text_meta: dict = None, source_mapping=None):
     """
     处理长文本：分段抽取→合并结果
 
@@ -698,6 +876,7 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
         llm, text, splitter=splitter,
         cache=cache, cache_context_meta=cache_meta,
         read_cache=read_cache, write_cache=write_cache,
+        source_mapping=source_mapping,
         on_entities_ready=_entities_ready,
         on_chunk_done=lambda _t, e, ev, r: finalize_outputs(e, ev, r),
         on_chunk_start=_chunk_start,
@@ -715,14 +894,45 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
 
     final_entities = merger.merge_entities(run.entities)
     final_events = merger.merge_events(run.events)
-    final_relations = merger.merge_relations(run.relations)
+    # 合并期就要有事件起始年份：跨段出现的同一条"顺承/因果"关系需要据此定方向，
+    # 只靠事件名字典序定方向是错的（详见 utils/relation_rules.py 的说明）。
+    final_relations = merger.merge_relations(
+        run.relations,
+        event_start_years=build_event_start_years(Normalizer(), final_events.events),
+    )
     final_entities, final_events, final_relations = finalize_outputs(final_entities, final_events, final_relations)
-
+    _attach_extraction_diagnostics(final_events, run, text_meta)
     return final_entities, final_events, final_relations
 
 
+def _attach_extraction_diagnostics(final_events, run, text_meta: dict = None) -> None:
+    """
+    把本次分段运行的诊断挂到事件 metadata 上，供质量报告读取。
+
+    **为什么要这么挂。** 质量报告只拿得到 entities/events/relations 三样东西，
+    而"关系阶段降级了几段"这类诊断在 `run.diagnostics` 里。挂在事件 metadata 上是
+    唯一不需要改 `build_quality_report` / `save_results` / `process_*` 三层签名的通道，
+    且与既有的"事件诊断 metadata"用的是同一处（`events.metadata`）。
+    """
+    diagnostics = dict(getattr(run, "diagnostics", None) or {})
+    if not diagnostics:
+        return
+    final_events.metadata = {
+        **(final_events.metadata or {}),
+        **(text_meta or {}),
+        "extraction_diagnostics": {
+            "stage_ok": diagnostics.get("stage_ok"),
+            "chunks": diagnostics.get("chunks"),
+            "cache_hits": diagnostics.get("cache_hits"),
+            "failed_chunks": diagnostics.get("failed_chunks"),
+            "relation_degraded_stages": diagnostics.get("relation_degraded_stages", 0),
+        },
+    }
+
+
 def process_single_file(file_path: Path, llm, enable_split: bool = True,
-                        read_cache: bool = True, write_cache: bool = True):
+                        read_cache: bool = True, write_cache: bool = True,
+                        clean: bool = True):
     """
     处理单个文件（支持缓存）
 
@@ -732,26 +942,45 @@ def process_single_file(file_path: Path, llm, enable_split: bool = True,
         enable_split: 是否启用长文本分段
         read_cache: 是否读取缓存
         write_cache: 是否保存缓存
+        clean: 是否做输入文本清洗（OCR 错字、行内硬换行、不可见字符）。
+            清洗统计随产物 metadata 记录在 `text_cleaning` 下，所以"这次洗了没有、影响多大"可查。
+            默认开启：书籍转换文本的行内硬换行会把句子折断，不清洗等于把输入噪声记成模型错误。
     """
     print(f"使用模型: {llm.model}")
     print(f"开始处理文件: {file_path}")
 
-    text = file_path.read_text(encoding="utf-8")
+    raw_text = file_path.read_text(encoding="utf-8")
+    source_mapping = None
+    if clean:
+        # 带位置映射的清洗：分段算出来的 `source_offset` 才能换算回**原文**坐标
+        text, cleaning_stats, source_mapping = clean_text_with_mapping(raw_text)
+        cleaning_stats["enabled"] = True
+        if cleaning_stats["soft_line_breaks_merged"] or cleaning_stats["ocr_fixes_applied"]:
+            print(f"文本清洗: 合并行内换行 {cleaning_stats['soft_line_breaks_merged']} 处，"
+                  f"错字订正 {cleaning_stats['ocr_fixes_applied']} 处，"
+                  f"长度 {cleaning_stats['input_length']} → {cleaning_stats['output_length']}")
+    else:
+        text, cleaning_stats = raw_text, {"enabled": False, "input_length": len(raw_text),
+                                          "output_length": len(raw_text)}
+    text_meta = {"text_cleaning": cleaning_stats}
     print(f"文本长度: {len(text)} 字符")
 
     # 短文本直接整体缓存，长文本使用分段缓存
     if not enable_split or len(text) <= 2000:
         # 短文本：整篇一段、整体缓存。三阶段调用交给共享编排，
         # 这里只提供本链路的钩子（实体回填/清洗 + finalize_outputs）。
-        return _process_one_shot(text, llm, "single_file", read_cache, write_cache)
+        return _process_one_shot(text, llm, "single_file", read_cache, write_cache, text_meta,
+                                 source_mapping)
 
     else:
         # 长文本：使用分段缓存（在 process_long_text 内部处理）
-        return process_long_text(text, llm, TextSplitter(), read_cache, write_cache)
+        return process_long_text(text, llm, TextSplitter(), read_cache, write_cache, text_meta,
+                                 source_mapping)
 
 
 def _process_one_shot(text: str, llm, cache_stage: str,
-                      read_cache: bool = True, write_cache: bool = True):
+                      read_cache: bool = True, write_cache: bool = True,
+                      text_meta: dict = None, source_mapping=None):
     """
     整篇一次跑完（不分段）：短文本路径用，缓存按整篇文本一个条目。
 
@@ -769,6 +998,7 @@ def _process_one_shot(text: str, llm, cache_stage: str,
         splitter=TextSplitter(chunk_size=max(len(text), 1), overlap=0),
         cache=cache, cache_context_meta=cache_meta,
         read_cache=read_cache, write_cache=write_cache,
+        source_mapping=source_mapping,
         on_entities_ready=lambda _t, entities, events: cleanup_entity_conflicts(
             enrich_entities_from_events(entities, events)),
         on_chunk_done=lambda _t, e, ev, r: finalize_outputs(e, ev, r),
@@ -779,10 +1009,45 @@ def _process_one_shot(text: str, llm, cache_stage: str,
         print("\n" + "=" * 60)
         print("缓存命中！直接返回结果，无需API调用")
         print("=" * 60)
+    _attach_extraction_diagnostics(chunk.events, run, text_meta)
     return chunk.entities, chunk.events, chunk.relations
 
 
-def build_quality_report(entities, events, relations) -> dict:
+def _enum_out_counts(entities, events, relations) -> dict:
+    """
+    数一遍产物里"不在枚举权威表内"的取值。
+
+    这批数字是 `阶段 3 / schema 校验层` 的观测面：校验层只把不合法的记录挪进候选区，
+    而"到底有多少、是哪一类"必须能在质量报告里看到——否则所谓"防漂移"就只是一句话。
+    关系类型按类别分别数，因为四类各有各的允许集合。
+    """
+    counter = {
+        "OrgType": 0, "Role": 0, "EventType": 0,
+        "event_place_relations": 0, "event_organization_relations": 0,
+        "event_person_relations": 0, "event_event_relations": 0,
+    }
+    for org in entities.organizations:
+        if not normalize_org_type(getattr(org, "OrgType", None))[1]:
+            counter["OrgType"] += 1
+    for person in entities.persons:
+        if not normalize_role(getattr(person, "Role", None))[1]:
+            counter["Role"] += 1
+    for event in events.events:
+        if not normalize_event_type(getattr(event, "EventType", None))[1]:
+            counter["EventType"] += 1
+    for attribute, category in (
+        ("event_place_relations", "event-place"),
+        ("event_organization_relations", "event-organization"),
+        ("event_person_relations", "event-person"),
+        ("event_event_relations", "event-event"),
+    ):
+        for rel in getattr(relations, attribute):
+            if not relation_type_allowed(getattr(rel, "relation", None), category):
+                counter[attribute] += 1
+    return counter
+
+
+def build_quality_report(entities, events, relations, split_stats: dict = None) -> dict:
     """汇总抽取完整度（各类计数、source_text/evidence 缺失数、事件计数诊断），便于重跑后快速判断。"""
     places = entities.places
     persons = entities.persons
@@ -852,7 +1117,57 @@ def build_quality_report(entities, events, relations) -> dict:
             "missing_event_count": missing_event_count,
             "postprocess_filtered_count": postprocess_filtered_count,
             "postprocess_merged_count": postprocess_merged_count,
+            # 枚举外取值数（体检脚本与它同口径）。收敛到权威表之后这里应当是 0；
+            # 变成非 0 说明"提示词枚举 / 权威表 / 产物"三者漂移了，要先决定扩表还是改数据。
+            "enum_out_values": _enum_out_counts(entities, events, relations),
+            # 悬空边（事件端对不上最终事件名单）被丢掉的前后口径：丢掉多少必须可见
+            "dangling_relations_dropped": (event_metadata.get("cleanup_diagnostics") or {})
+                .get("dangling_relations_dropped", {}),
+            # 枚举外的事件-事件关系条数（保留在产物里、进候选区，见 cleanup_relation_conflicts）
+            "event_event_relations_outside_enum": (event_metadata.get("cleanup_diagnostics") or {})
+                .get("event_event_relations_outside_enum", 0),
+            # 走了"降级"路径的分段数（关系阶段 LLM 失败但保留了规则派生关系）
+            "relation_degraded_stages": (event_metadata.get("extraction_diagnostics") or {})
+                .get("relation_degraded_stages", 0),
+            # 因枚举不合法被挪进候选区的条数。**raw 产物这一项恒为 null**，因为发布拆分
+            # 发生在 raw 产物写盘之后（拆分会把事件的 `Place` 就地清洗，不能提前跑）——
+            # 这里如实写 null 表示"不适用"，不要写成空字典（那看起来像"统计到了 0 条"）。
+            # 要看这个数就去看 `published/` 与 `candidate/` 两份报告，或看本报告的
+            # `enum_out_values`（raw 侧各容器的枚举外计数）。
+            "moved_to_candidate_by_enum": (split_stats or {}).get("enum_out") if split_stats else None,
         }
+    }
+
+
+def _write_artifact(path: Path, payload: dict) -> None:
+    """
+    落盘产物：先算出内容哈希写进 `metadata.artifact_sha256`，再写文件。
+
+    哈希覆盖"除该字段自身以外的全部内容"，所以读回来抠掉它就能自校验——
+    "指标变了"时至少能确认被评估的确实是哪一份文件。
+    """
+    payload.setdefault("metadata", {})["artifact_sha256"] = artifact_digest(payload)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+
+def _artifact_body(entities, events, relations) -> dict:
+    """
+    把三个结果对象转成落盘用的三段，并把 `text_cleaning` 从 `events.metadata` **提到顶层**。
+
+    为什么要提出来：清洗统计描述的是**输入文本**，不是事件属性；文档（指南 §2.4）承诺它在
+    顶层 `metadata.text_cleaning` 下，而它实际是被 `_attach_extraction_diagnostics` 塞进
+    `events.metadata` 的（那条通道是为了让分段诊断能走到质量报告）。这里在落盘前搬一次，
+    两处都保留会变成"同一件事两处口径"。
+
+    注意 `events.model_dump()` 返回的是新字典，所以 pop 只影响落盘内容，不改内存里的对象。
+    """
+    events_payload = events.model_dump()
+    return {
+        "entities": entities.model_dump(),
+        "events": events_payload,
+        "relations": relations.model_dump(),
+        "_text_cleaning": (events_payload.get("metadata") or {}).pop("text_cleaning", None),
     }
 
 
@@ -862,8 +1177,9 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
     保存抽取结果到 output/ 目录
     输出9个JSON文件和对应的Excel文件
 
-    llm_meta: 由调用方传入 {"model": ..., "api_base": ...}，随 metadata 落盘，
+    llm_meta: 由调用方传入 {"model": ..., "model_served": ..., "api_base": ...}，随 metadata 落盘，
     使产物可自证由哪个模型/端点产出（缺了它，换模型重跑后产物就分不出来源）。
+    除此之外，`generation_metadata` 还会补上温度、seed、`git_commit` 与产物哈希。
     """
     # 默认输出目录按 __file__ 锚定到模块根，不随当前工作目录变
     output_dir = output_base or (Path(__file__).resolve().parent / "output")
@@ -872,50 +1188,17 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
     result_dir = output_dir / name
     result_dir.mkdir(exist_ok=True)
 
-    # 使用 model_dump 确保所有字段完整输出
-    # 1. 地点实体 JSON
-    places_data = {"places": [place.model_dump() for place in entities.places]}
-    with open(result_dir / "1_places.json", "w", encoding="utf-8") as f:
-        json.dump(places_data, f, ensure_ascii=False, indent=2)
+    # 产物自证：模型 / 端点 / 温度 / seed / 提交号，与内容哈希一起写进 metadata
+    provenance = generation_metadata(llm_meta=llm_meta)
 
-    # 2. 人物实体 JSON
-    persons_data = {"persons": [person.model_dump() for person in entities.persons]}
-    with open(result_dir / "2_persons.json", "w", encoding="utf-8") as f:
-        json.dump(persons_data, f, ensure_ascii=False, indent=2)
-
-    # 3. 组织实体 JSON
-    organizations_data = {"organizations": [org.model_dump() for org in entities.organizations]}
-    with open(result_dir / "3_organizations.json", "w", encoding="utf-8") as f:
-        json.dump(organizations_data, f, ensure_ascii=False, indent=2)
-
-    # 4. 事件-地点关系 JSON
-    event_place_data = {"event_place_relations": [rel.model_dump() for rel in relations.event_place_relations]}
-    with open(result_dir / "4_event_place_relations.json", "w", encoding="utf-8") as f:
-        json.dump(event_place_data, f, ensure_ascii=False, indent=2)
-
-    # 5. 事件-人物关系 JSON
-    event_person_data = {"event_person_relations": [rel.model_dump() for rel in relations.event_person_relations]}
-    with open(result_dir / "5_event_person_relations.json", "w", encoding="utf-8") as f:
-        json.dump(event_person_data, f, ensure_ascii=False, indent=2)
-
-    # 6. 事件-组织关系 JSON
-    event_org_data = {
-        "event_organization_relations": [rel.model_dump() for rel in relations.event_organization_relations]}
-    with open(result_dir / "6_event_organization_relations.json", "w", encoding="utf-8") as f:
-        json.dump(event_org_data, f, ensure_ascii=False, indent=2)
-
-    # 7. 事件-事件关系 JSON
-    event_event_data = {"event_event_relations": [rel.model_dump() for rel in relations.event_event_relations]}
-    with open(result_dir / "7_event_event_relations.json", "w", encoding="utf-8") as f:
-        json.dump(event_event_data, f, ensure_ascii=False, indent=2)
-
-    # 8. 事件 JSON
-    events_data = {"events": [event.model_dump() for event in events.events]}
-    with open(result_dir / "8_events.json", "w", encoding="utf-8") as f:
-        json.dump(events_data, f, ensure_ascii=False, indent=2)
+    # 分步中间产物（1_places.json … 8_events.json）不再写出：它们与 9_final_all.json 的
+    # 对应字段逐字节一致，属纯重复（约 20 MB/次），而且 json_to_excel 已改为只读聚合文件。
+    # 批次目录里唯一的权威产物是 9_final_all.json（published/ 另算一套粒度）。
 
     # 9. 全部整合 JSON
     quality_report = build_quality_report(entities, events, relations)
+    body = _artifact_body(entities, events, relations)
+    text_cleaning = body.pop("_text_cleaning")
     final_data = {
         "metadata": {
             "extracted_at": current_timestamp(),
@@ -923,24 +1206,26 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
             "prompt_version": PROMPT_VERSION,
             "input_file": str(input_file) if input_file else name,
             "text_length": text_length,
-            **(llm_meta or {}),
+            # 输入清洗统计：顶层 metadata 下（`events.metadata` 里那份已在 _artifact_body 里搬走）
+            "text_cleaning": text_cleaning,
+            **provenance,
         },
-        "entities": entities.model_dump(),
-        "events": events.model_dump(),
-        "relations": relations.model_dump(),
+        **body,
         "quality_report": quality_report
     }
-    with open(result_dir / "9_final_all.json", "w", encoding="utf-8") as f:
-        json.dump(final_data, f, ensure_ascii=False, indent=2)
+    _write_artifact(result_dir / "9_final_all.json", final_data)
 
     with open(result_dir / "10_quality_report.json", "w", encoding="utf-8") as f:
         json.dump(quality_report, f, ensure_ascii=False, indent=2)
 
-    published_output, _ = split_publishable_outputs(entities, events, relations)
+    published_output, candidate_output, split_stats = split_publishable_outputs(entities, events, relations)
     stage_entities, stage_events, stage_relations = published_output
+    candidate_entities, candidate_events, candidate_relations = candidate_output
     stage_dir = result_dir / "published"
     stage_dir.mkdir(exist_ok=True)
-    stage_quality_report = build_quality_report(stage_entities, stage_events, stage_relations)
+    stage_quality_report = build_quality_report(
+        stage_entities, stage_events, stage_relations, split_stats=split_stats)
+    stage_body = _artifact_body(stage_entities, stage_events, stage_relations)
     stage_final_data = {
         "metadata": {
             "extracted_at": current_timestamp(),
@@ -948,18 +1233,43 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
             "prompt_version": PROMPT_VERSION,
             "input_file": str(input_file) if input_file else name,
             "text_length": text_length,
+            "text_cleaning": stage_body.pop("_text_cleaning"),
             "publish_stage": "published",
-            **(llm_meta or {}),
+            **provenance,
         },
-        "entities": stage_entities.model_dump(),
-        "events": stage_events.model_dump(),
-        "relations": stage_relations.model_dump(),
+        **stage_body,
         "quality_report": stage_quality_report
     }
-    with open(stage_dir / "final.json", "w", encoding="utf-8") as f:
-        json.dump(stage_final_data, f, ensure_ascii=False, indent=2)
+    _write_artifact(stage_dir / "final.json", stage_final_data)
     with open(stage_dir / "quality_report.json", "w", encoding="utf-8") as f:
         json.dump(stage_quality_report, f, ensure_ascii=False, indent=2)
+
+    # 候选区落盘：原先 candidate 只在内存里算出来就被丢掉，于是"哪些记录没进发布子集、
+    # 为什么"完全不可查（下游只导 9_final_all.json 与 published/final.json，不读这里）。
+    # 落盘只是让这一半结果可见，对下游零影响。
+    candidate_dir = result_dir / "candidate"
+    candidate_dir.mkdir(exist_ok=True)
+    candidate_quality_report = build_quality_report(
+        candidate_entities, candidate_events, candidate_relations, split_stats=split_stats)
+    candidate_body = _artifact_body(candidate_entities, candidate_events, candidate_relations)
+    candidate_final_data = {
+        "metadata": {
+            "extracted_at": current_timestamp(),
+            "extraction_version": EXTRACTION_VERSION,
+            "prompt_version": PROMPT_VERSION,
+            "input_file": str(input_file) if input_file else name,
+            "text_length": text_length,
+            "text_cleaning": candidate_body.pop("_text_cleaning"),
+            "publish_stage": "candidate",
+            "publish_split_stats": split_stats,
+            **provenance,
+        },
+        **candidate_body,
+        "quality_report": candidate_quality_report,
+    }
+    _write_artifact(candidate_dir / "final.json", candidate_final_data)
+    with open(candidate_dir / "quality_report.json", "w", encoding="utf-8") as f:
+        json.dump(candidate_quality_report, f, ensure_ascii=False, indent=2)
 
     print(f"\nJSON文件已保存至: {result_dir}")
 
@@ -979,6 +1289,9 @@ def main():
     parser.add_argument("--no-split", action="store_true", help="禁用长文本分段")
     parser.add_argument("--no-cache", action="store_true", help="完全禁用缓存：不读取也不保存")
     parser.add_argument("--refresh-cache", action="store_true", help="跳过读取缓存，但保存本次新结果")
+    parser.add_argument("--no-clean", action="store_true",
+                        help="跳过输入文本清洗（OCR 错字、行内硬换行、不可见字符）；"
+                             "默认清洗，清洗统计会记进产物 metadata")
     parser.add_argument("--output", default=str(Path(__file__).resolve().parent / "output"),
                         help="输出目录，默认 <模块根>/output")
     args = parser.parse_args()
@@ -997,11 +1310,20 @@ def main():
     try:
         if path.is_file():
             entities, events, relations = process_single_file(
-                path, llm, enable_split, read_cache, write_cache
+                path, llm, enable_split, read_cache, write_cache, clean=not args.no_clean
             )
             text_length = len(path.read_text(encoding="utf-8"))
-            save_results(path.stem, entities, events, relations, path, text_length, Path(args.output),
-                         llm_meta={"model": llm.model, "api_base": llm.base_url})
+            save_results(
+                path.stem, entities, events, relations, path, text_length, Path(args.output),
+                llm_meta={
+                    # 请求名与实际服务名分开记：服务端把 deepseek-chat 别名路由到
+                    # deepseek-flash，只记请求名等于自证错信息（见 llm_client 的说明）
+                    "model": llm.model,
+                    "model_served": llm.model_served,
+                    "thinking_mode": llm.thinking_mode,
+                    "api_base": llm.base_url,
+                },
+            )
         else:
             print(f"错误: 文件不存在: {path}")
             raise SystemExit(1)

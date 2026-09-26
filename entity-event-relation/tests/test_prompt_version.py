@@ -29,8 +29,10 @@ def test_分项版本只跟本阶段模板的哈希走():
     """改事件模板不该让实体阶段的缓存失效（分项版本各按各的文件取哈希）。"""
     assert PROMPT_VERSIONS["entity_extraction"].endswith(prompt_source_hash("entity_prompts.py"))
     assert PROMPT_VERSIONS["relation_extraction"].endswith(prompt_source_hash("relation_prompts.py"))
-    # 三个事件类阶段共用同一个模板文件 → 哈希段相同
-    assert PROMPT_VERSIONS["event_type"].split("+")[1] == PROMPT_VERSIONS["full_event"].split("+")[1]
+    # 两个事件类阶段共用同一个模板文件 → 哈希段相同
+    assert PROMPT_VERSIONS["event_identification"].split("+")[1] == PROMPT_VERSIONS["full_event"].split("+")[1]
+    # "事件类型判定"阶段（event_type）已随它的死代码模板一起删除，不该再出现在分项版本里
+    assert "event_type" not in PROMPT_VERSIONS
     # 不同模板文件之间哈希段不该撞
     assert prompt_source_hash("entity_prompts.py") != prompt_source_hash("event_prompts.py")
     assert prompt_source_hash("event_prompts.py") != prompt_source_hash("relation_prompts.py")

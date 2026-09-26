@@ -8,6 +8,7 @@ import argparse
 from pathlib import Path
 from war_extraction.evaluation import OptimalEvaluator
 from war_extraction.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp, current_time_tag
+from war_extraction.utils.provenance import file_sha256, git_commit
 
 #: 默认路径一律以本文件位置锚定（模块根），不随当前工作目录变。
 #: 若用相对路径，从仓库根跑 `python entity-event-relation/evaluate.py` 会去找
@@ -55,6 +56,51 @@ def warn_if_overwriting_baseline(output_dir: Path):
     print("!" * 70)
 
 
+def build_eval_metadata(pred_path: Path, pred_data: dict, config_path: Path, eval_config: dict) -> dict:
+    """
+    评估结果的 metadata：把"被评估的产物"与"跑评估的评估器"**分成两组**记录。
+
+    **为什么要分开。** 原先这里只写"评估时"的 `prompt_version` / `extraction_version`，
+    对一份旧产物重跑评估，就会把旧产物标成当前提示词版本——产物自身的版本因此永久丢失。
+    现在 `predictions` 组读的是**产物 metadata 里写的**版本（产物自证），
+    `evaluator` 组才是本次运行的代码版本，另附预测文件与标注文件的 sha256，
+    满足"报告指标必须同时给出口径"这条要求。
+    """
+    artifact_metadata = pred_data.get("metadata") or {}
+    annotation_dir = DEFAULT_ANNOTATION_DIR
+    annotation_files = {}
+    if annotation_dir.is_dir():
+        for name in sorted(p.name for p in annotation_dir.glob("*.json")):
+            annotation_files[name] = file_sha256(annotation_dir / name)
+
+    return {
+        "evaluated_at": current_timestamp(),
+        # —— 被评估的产物（取自产物自证，不是评估时的代码版本）——
+        "predictions": {
+            "path": str(pred_path),
+            "sha256": file_sha256(pred_path),
+            "artifact_sha256": artifact_metadata.get("artifact_sha256"),
+            "extracted_at": artifact_metadata.get("extracted_at"),
+            "prompt_version": artifact_metadata.get("prompt_version"),
+            "extraction_version": artifact_metadata.get("extraction_version"),
+            "model": artifact_metadata.get("model"),
+            "api_base": artifact_metadata.get("api_base"),
+            "git_commit": artifact_metadata.get("git_commit"),
+        },
+        # —— 本次评估运行的代码与口径 ——
+        "evaluator": {
+            "prompt_version": PROMPT_VERSION,
+            "extraction_version": EXTRACTION_VERSION,
+            "git_commit": git_commit(short=True),
+            "eval_config": eval_config,
+            "eval_config_path": str(config_path),
+            "eval_config_sha256": file_sha256(config_path),
+            "annotation_dir": str(annotation_dir),
+            "annotation_files": annotation_files,
+        },
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description="评估历史战争文本抽取结果")
     parser.add_argument("--pred", default=str(DEFAULT_PRED), help="预测结果 JSON 路径")
@@ -62,6 +108,8 @@ def main():
     parser.add_argument("--output", default=None,
                         help="评估输出目录，默认 evaluation/run_<时间戳>"
                              "（历史基线 evaluation/latest 需显式指定）")
+    parser.add_argument("--also-published", default=None, nargs="?", const="__auto__",
+                        help="额外评估发布子集（published/final.json）；不给值时取批次目录下的默认路径")
     args = parser.parse_args()
 
     output_dir = Path(args.output) if args.output else default_output_dir()
@@ -76,6 +124,10 @@ def main():
 
     # 加载预测结果
     pred_path = Path(args.pred)
+    if args.also_published == "__auto__":
+        # 全量产物的同批次发布子集
+        candidate_path = pred_path.parent / "published" / "final.json"
+        args.also_published = str(candidate_path)
     with open(pred_path, "r", encoding="utf-8") as f:
         pred_data = json.load(f)
 
@@ -85,17 +137,39 @@ def main():
         relation_threshold=eval_config.get("relation_threshold", 40),
         event_sim_threshold=eval_config.get("event_sim_threshold", 0.35),
         entity_fuzzy_threshold=eval_config.get("entity_fuzzy_threshold", 70),
-        event_event_sim_threshold=eval_config.get("event_event_sim_threshold", 0.35)
+        event_event_sim_threshold=eval_config.get("event_event_sim_threshold", 0.35),
+        event_year_tolerance=eval_config.get("event_year_tolerance", 30),
+        enforce_semantic_constraints=eval_config.get("enforce_semantic_constraints", True),
     )
 
     results = evaluator.run_evaluation(pred_data)
-    results["metadata"] = {
-        "evaluated_at": current_timestamp(),
-        "prompt_version": PROMPT_VERSION,
-        "extraction_version": EXTRACTION_VERSION,
-        "eval_config": eval_config,
-        "pred_path": str(pred_path)
-    }
+    results["metadata"] = build_eval_metadata(pred_path, pred_data, config_path, eval_config)
+
+    # 发布子集也评一遍：下游知识库实际导的是 published/final.json（或全量），
+    # 两份的粒度不同（1050 vs 881 事件），指标不可混用——所以两套都报，且各自带文件哈希。
+    if args.also_published:
+        published_path = Path(args.also_published)
+        if not published_path.is_file():
+            print(f"[跳过发布子集评估] 文件不存在: {published_path}")
+        else:
+            with open(published_path, "r", encoding="utf-8") as f:
+                published_data = json.load(f)
+            published_evaluator = OptimalEvaluator(
+                annotation_dir=DEFAULT_ANNOTATION_DIR,
+                relation_threshold=eval_config.get("relation_threshold", 40),
+                event_sim_threshold=eval_config.get("event_sim_threshold", 0.35),
+                entity_fuzzy_threshold=eval_config.get("entity_fuzzy_threshold", 70),
+                event_event_sim_threshold=eval_config.get("event_event_sim_threshold", 0.35),
+                event_year_tolerance=eval_config.get("event_year_tolerance", 30),
+                enforce_semantic_constraints=eval_config.get("enforce_semantic_constraints", True),
+            )
+            print("#" * 70)
+            print(f"# 发布子集评估: {published_path}")
+            print("#" * 70)
+            results["published"] = published_evaluator.run_evaluation(published_data)
+            results["published"]["metadata"] = build_eval_metadata(
+                published_path, published_data, config_path, eval_config)
+            results["summary_published"] = results["published"]["summary"]
 
     output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:

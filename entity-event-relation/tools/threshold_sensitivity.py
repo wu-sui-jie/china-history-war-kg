@@ -64,6 +64,10 @@ def evaluate_once(pred_data: dict, config: dict) -> dict:
         event_sim_threshold=config["event_sim_threshold"],
         entity_fuzzy_threshold=config["entity_fuzzy_threshold"],
         event_event_sim_threshold=config["event_event_sim_threshold"],
+        # 事件配对的语义约束与年份容差也要跟着 eval_config 走：扫描阈值时不带上它们，
+        # 得出的"阈值—指标"曲线与正式口径不是同一条（口径不同，数字不可比）。
+        event_year_tolerance=config.get("event_year_tolerance", 30),
+        enforce_semantic_constraints=config.get("enforce_semantic_constraints", True),
     )
     with contextlib.redirect_stdout(io.StringIO()):
         results = evaluator.run_evaluation(pred_data)

@@ -130,10 +130,18 @@ def _normalize_dynasty(name):
     return name
 
 
-# 合法角色列表（来自entity-event-relation提示词模板）
-VALID_ROLES = ["统帅", "将领", "谋士", "君主", "使者", "参战者"]
+# 合法角色列表：**唯一来源**是 war_extraction 的枚举权威表
+# （决策 10：允许取值表只保留一份实现，放在 war_extraction/utils/ 供两边共用）。
+# 原先这里另抄了一份 6 值列表，而离线产物里还有"关键人物/监军/首领/领袖"——
+# 两套口径并存，同一个角色在两条链路上会被判成不同结果。
+from war_extraction.utils.vocabulary import normalize_role as _vocabulary_normalize_role  # noqa: E402
+from war_extraction.utils.vocabulary import relation_type_allowed  # noqa: E402
 
-# 常见错误角色名 → 正确角色名 映射
+# 这里**不再**导出 `VALID_ROLES`：它在生产代码里零引用（只有一条用例断言它存在，
+# 那是自己给自己造的引用），留着只会让人以为"在线侧有一份独立的角色白名单"，
+# 而事实是两边共用 `war_extraction/utils/vocabulary.ROLES` 这一份。
+
+# 常见错误角色名 → 正确角色名 映射（只做**明确的同义/英文**纠正，不猜）
 _ROLE_CORRECTIONS = {
     "king": "君主", "emperor": "君主", "ruler": "君主", "monarch": "君主", "sovereign": "君主",
     "queen": "君主", "prince": "君主", "lord": "君主",
@@ -141,36 +149,45 @@ _ROLE_CORRECTIONS = {
     "strategist": "谋士", "advisor": "谋士", "counselor": "谋士",
     "envoy": "使者", "emissary": "使者", "messenger": "使者",
     "soldier": "参战者", "warrior": "参战者", "fighter": "参战者",
-    "首领": "统帅", "头领": "统帅", "主帅": "统帅", "主将": "将领",
-    "将军": "将领", "军师": "谋士", "谋臣": "谋士", "大臣": "参战者",
-    "将领": "将领", "统帅": "统帅", "谋士": "谋士", "君主": "君主",
+    "头领": "统帅", "主帅": "统帅", "主将": "将领",
+    "将军": "将领", "军师": "谋士", "谋臣": "谋士",
 }
+
+# 刻意**不在**上面这张表里的两条（原先有，2026-09-26 复核后删）：
+#   `首领 → 统帅`：`首领` 现在本身就是权威表里的合法角色（决策 5 扩的 4 个值之一），
+#       把它改写成"统帅"等于把合法取值抹掉；
+#   `大臣 → 参战者`：这正是决策 10 明确要废除的"一律抹成参战者"。
+# 两条现在都落到 `_normalize_role` 的兜底分支：**保留原值**，由数据治理去统计写法。
 
 
 def _normalize_role(name):
-    """校验并纠正角色名称，将LLM输出的错误角色名（如英文"king"）纠正为中文"""
+    """
+    校验并纠正角色名称。
+
+    **修掉的那一处**：原第 3 步是子串匹配（`if role in name`），会把
+    "曹操" 猜成"君主"、"将领甲" 猜成"将领"——猜错比不猜更糟，因为它把
+    "模型给了一个我们不认识的值"这件事藏了起来。现在口径与离线侧一致：
+    精确/别名映射得上就归一，映射不上**保留原值**（不猜、也不一律抹成"参战者"），
+    由体检脚本与数据治理去统计"还有哪些写法需要登记进权威表"。
+    """
     if not name:
         return name
-    name = str(name).strip()
-    if not name:
-        return name
+    text = str(name).strip()
+    if not text:
+        return text
 
-    # 1. 精确匹配合法角色
-    if name in VALID_ROLES:
-        return name
-
-    # 2. 查找已知错误映射（不区分大小写）
-    lower_name = name.lower()
+    # 1. 查已知错误映射（不区分大小写）
+    lower_name = text.lower()
     if lower_name in _ROLE_CORRECTIONS:
         return _ROLE_CORRECTIONS[lower_name]
 
-    # 3. 模糊匹配：如果名称包含某个合法角色
-    for role in VALID_ROLES:
-        if role in name:
-            return role
+    # 2. 走共享的权威表归一（精确命中或命中登记过的别名）
+    normalized, hit = _vocabulary_normalize_role(text)
+    if hit:
+        return normalized
 
-    # 4. 默认返回"参战者"
-    return "参战者"
+    # 3. 映射不上：保留原值
+    return text
 
 
 def _normalize_event_name(event_name, source_text=""):
@@ -336,20 +353,26 @@ def extract_all_optimized(llm, text: str):
 
     def on_chunk_done(_chunk_text, chunk_entities, chunk_events, chunk_relations):
         """收集关系（类型安全处理 + 默认关系名），并返回三段结果供编排落盘。"""
+        # 四条收集循环都带一道**取值合法性**过滤（`relation_type_allowed`）。
+        # 理由：本函数的返回值是**直接给前端渲染的载荷**（`/api/extract/entities-events`），
+        # 不是离线链那种"raw 产物 + 发布子集"的两段结构——这里没有候选区可以安置
+        # 枚举外的取值，只能不放进来。否则页面会显示图谱下拉里根本点不到的关系名
+        # （原先的空类型兜底 `发生地` / `关联` 自己就是枚举外的写法）。
+        # 离线链那条路的对应处理在 `main.split_publishable_outputs`（枚举外进候选区）。
         for r in chunk_relations.event_place_relations:
             ename = _to_str(r.EventName) or ""
             pname = _to_str(r.modern_name) or ""
-            if ename and pname:
+            if ename and pname and relation_type_allowed(_to_str(r.relation), "event-place"):
                 r.EventName = ename
                 r.modern_name = pname
-                r.relation = _to_str(r.relation) or "发生地"
+                r.relation = _to_str(r.relation)
                 r.evidence = _to_str(r.evidence) or ""
                 all_event_place_rels.append(r)
 
         for r in chunk_relations.event_person_relations:
             ename = _to_str(r.EventName) or ""
             pname = _to_str(r.PersonName) or ""
-            if ename and pname:
+            if ename and pname and relation_type_allowed(_to_str(r.relation) or "参与者", "event-person"):
                 r.EventName = ename
                 r.PersonName = pname
                 r.relation = _to_str(r.relation) or "参与者"
@@ -359,7 +382,7 @@ def extract_all_optimized(llm, text: str):
         for r in chunk_relations.event_organization_relations:
             ename = _to_str(r.EventName) or ""
             oname = _to_str(r.OrgName) or ""
-            if ename and oname:
+            if ename and oname and relation_type_allowed(_to_str(r.relation) or "参战方", "event-organization"):
                 r.EventName = ename
                 r.OrgName = oname
                 r.relation = _to_str(r.relation) or "参战方"
@@ -369,10 +392,12 @@ def extract_all_optimized(llm, text: str):
         for r in chunk_relations.event_event_relations:
             ea = _to_str(r.EventName_A) or ""
             eb = _to_str(r.EventName_B) or ""
-            if ea and eb:
+            # 空类型的兜底不再是 `关联`（那个写法不在事件-事件的 5 类规范名里），
+            # 而是**不放进来**：事件-事件关系没有"未知类型"这个合法取值。
+            if ea and eb and relation_type_allowed(_to_str(r.relation), "event-event"):
                 r.EventName_A = ea
                 r.EventName_B = eb
-                r.relation = _to_str(r.relation) or "关联"
+                r.relation = _to_str(r.relation)
                 r.evidence = _to_str(r.evidence) or ""
                 all_event_event_rels.append(r)
         return chunk_entities, chunk_events, chunk_relations
