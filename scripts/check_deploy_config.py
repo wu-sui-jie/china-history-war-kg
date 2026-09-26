@@ -148,13 +148,29 @@ def check_install_services_unit_list(problems: list[str]) -> int:
         _fail(problems, "缺少 deploy/scripts/install_services.sh")
         return 0
     text = script.read_text(encoding="utf-8")
-    # 取 `for unit in …; do` 那一段（允许用反斜杠续行）
-    match = re.search(r"for\s+unit\s+in\s+(.*?);\s*do", text, re.S)
+    # 取 `for unit in …; do` 那一段（允许用反斜杠续行）。`^` 配合 re.M 锚到行首，
+    # 免得匹配到注释或文档里提到的同一句话。
+    match = re.search(r"^\s*for\s+unit\s+in\s+(.*?);\s*do", text, re.S | re.M)
     if not match:
         _fail(problems, "install_services.sh 里找不到 `for unit in ...; do`（脚本结构变了？）")
         return 0
-    names = [token for token in match.group(1).split() if not token.startswith("#")]
+    # 续行的反斜杠会被 split() 当成独立 token。**必须显式滤掉**：这一条是本检查
+    # 第一版的实际缺陷——本机（Windows）跑它居然通过，因为 `Path("deploy/systemd") / "\\"`
+    # 在 Windows 上被当成"目录自身"（反斜杠是路径分隔符），`.exists()` 为真；
+    # 到了 Linux 它就是两个字面字符，CI 立刻报"单元 '\\' 不存在"。同一段代码在
+    # 两个平台上给出相反结论——这正是本仓库反复踩到的"只在 Windows 验证过"。
+    names = []
+    for token in match.group(1).split():
+        token = token.strip("\\")
+        if not token or token.startswith("#"):
+            continue
+        names.append(token)
     for name in names:
+        # 单元名必须长得像单元文件：`xxx.service` / `xxx.timer`
+        if not re.fullmatch(r"[A-Za-z0-9@._-]+\.(service|timer)", name):
+            _fail(problems, f"install_services.sh 列出的 {name!r} 不像 systemd 单元文件名"
+                            f"（应为 xxx.service / xxx.timer；续行符或注释漏进解析了？）")
+            continue
         if not (DEPLOY / "systemd" / name).exists():
             _fail(problems, f"install_services.sh 列出的单元 {name!r} 在 deploy/systemd/ 下不存在"
                             f"（会以“缺少 …/systemd/{name}”在第 2 步中止部署）")
