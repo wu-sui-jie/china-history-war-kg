@@ -40,7 +40,7 @@
 3. question_type：由 F02 判定，前端不直接指定。
 4. history：前端携带当前会话近期历史，初版建议最多 2 到 4 轮。
 
-请求边界（2026-09-15 审核 P0-2）：以下上限由契约层强制，超限在调用检索/模型之前
+请求边界：以下上限由契约层强制，超限在调用检索/模型之前
 返回 HTTP 4xx（`{"status":"error","error_code":"invalid_request|payload_too_large",...}`），
 不会进入 SSE 流。默认值见 `config/defaults.py`，可用环境变量覆盖。
 
@@ -55,7 +55,7 @@
 | `filters.*` | 每维 20 项、单项 64 字符 | `FILTERS_MAX_ITEMS` / `FILTER_VALUE_MAX_CHARS` |
 | `corrected_entities` | 20 条，action 仅 add/replace/remove | `CORRECTIONS_MAX_ITEMS` |
 
-数据版本（2026-09-15 审核 P0-7）：服务的数据版本优先取 `RAG_ACTIVE_VERSION`（显式固定，
+数据版本：服务的数据版本优先取 `RAG_ACTIVE_VERSION`（显式固定，
 版本目录缺失即启动失败），未配置时才扫描"最新一致版本"。`GET /api/health` 返回
 `version`、`index_version`、`git_commit`、快照/索引 manifest 与向量 ids 的 SHA-256。
 5. corrected_entities：前端在用户手动纠正实体时填写；未纠正时不传。
@@ -109,9 +109,9 @@ rewritten_question 由 F02 根据原问题、会话历史和实体纠正结果�
 dynasty_bias 是 F02 从问句中自动识别到的朝代（如问"商朝"→["商"]），**仅作排序软偏置，
 不作为过滤条件**；显式筛选走 filters.dynasty（硬过滤）。生效范围：F03 图谱侧在策略前
 重排节点（可经 top_k 影响证据集合）；F04 文本侧只是检索返回序，最终顺序由 F05 按相关分
-决定（当前不改变最终排序）——详见 `docs/features/02-entity-linking.md`。
-两者分开的原因见 `docs/features/02-entity-linking.md` 与
-`docs/CHANGELOG.md`（RAGv4 系统问题 4：证据 ID 跨表重复）。
+决定（当前不改变最终排序）——详见 [features.md](features.md) 第二节。
+两者分开的原因见 [features.md](features.md) 第二节与
+[CHANGELOG.md](CHANGELOG.md)（RAGv4 系统问题：证据 ID 跨表重复）。
 
 entities 是 F02 判定并应用纠正后的最终实体，SSE entities 事件中的实体字段与它一致。
 
@@ -252,8 +252,7 @@ citation_index 由 F05 统一分配，F06 在回答中使用，F07 展示引用�
 
 ## 规则推理产物（inferred_relations.json）
 
-P2 规则推理移植（2026-09-20，设计见 [RAG_v2/RAG规则推理移植-需求与设计.md](RAG_v2/RAG规则推理移植-需求与设计.md)）
-的离线固化产物，与 `relations.json` 同级写在快照目录内，由 `scripts/build_inferred_relations.py`
+规则推理移植（设计见 [RAG_v2.md](RAG_v2.md) 第六节）的离线固化产物，与 `relations.json` 同级写在快照目录内，由 `scripts/build_inferred_relations.py`
 应用 `data/rules/rule_base.json`（20 条规则）生成：
 
 | 文件 | 内容 |
@@ -435,7 +434,7 @@ F01 与 F06 之间建议使用 SSE，事件按顺序推送：
 5. text_results：文本证据。
 6. fusion：融合结果摘要，可携带 conflicts。
 7. thinking：推理模型的思考增量（`data={"delta": "..."}`）。
-   **默认不发射**（2026-09-15 审核 P0-3）：推理内容可能包含中间判断与上下文复述，
+   **默认不发射**：推理内容可能包含中间判断与上下文复述，
    公共接口只通过 done 事件的 `first_thinking_ms` / `thinking_frames` 暴露“思考了多久、多少段”，
    不含内容。本地调试设 `EXPOSE_THINKING=true` 后才会收到该事件，对接方可直接忽略。
    开启后 reasoning 字段名两端不同（中转 `reasoning` / 官方 `reasoning_content`），后端同时兼容。

@@ -5,9 +5,9 @@
 RAG 系统唯一用户可见页面：左侧提问历史栏（可折叠，点任意一轮回到该轮问答）、中间对话区
 （流式回答 + 过程状态 + 引用 + 实体识别与纠正）、右侧知识面板（实体卡 / 图谱子图 / 时间线 /
 地点列表降级 / 引用证据）、顶部朝代与战争类型筛选；数据全部来自 RAG 后端 SSE（`POST /api/query`）
-与普通接口（`/api/health`、`/api/dicts`），不依赖旧 `china-war/frontend/` 后台模板。
+与普通接口（`/api/health`、`/api/dicts`、`/api/demo/examples`），不依赖旧 `china-war/frontend/` 后台模板。
 
-> 需求与验收：`../docs/features/01-qa-main.md`、`../docs/features/07-knowledge-panel.md`；
+> 需求与验收：`../docs/features.md` 第一节（F01）与第七节（F07）；
 > 阶段交付与对接细节：`../docs/CHANGELOG.md`；
 > 前后端数据契约：`../docs/data-contract.md`。
 
@@ -26,22 +26,46 @@ RAG 系统唯一用户可见页面：左侧提问历史栏（可折叠，点任�
 cd RAG/frontend
 npm install
 npm run dev          # http://127.0.0.1:5173（/api 代理到 127.0.0.1:8000）
-npm run build        # 类型检查 + 产物到 dist/（可静态托管）
+npm run build        # 类型检查（vue-tsc）+ 产物到 dist/（可静态托管）
 npm run preview      # 预览构建产物
 ```
+
+`vite.config.ts` 里 dev server 固定 `host 127.0.0.1`、`port 5173`，代理键取接口前缀
+（默认 `/api`）；并入模式联调时该键是 `/rag/api`，并重写回后端的 `/api`。
+
+改完代码建议跑一遍：
+
+```bash
+npm run typecheck        # vue-tsc -b
+npm run test:unit        # 状态机 / SSE 解析 / 持久化（不需要 DOM）
+npm run test:component   # Vue Test Utils 组件交互（jsdom）
+npm run check:bundle     # 首屏体积门禁（解析 dist 产物）
+npm run verify           # typecheck + test + build + check:bundle
+```
+
+`npm run test:e2e` 需要后端已启动（默认 `RAG_BASE_URL=http://127.0.0.1:8125`）。
 
 ## 并入旧知识库系统 Web 入口（可选）
 
 RAG 也可以挂到旧后台（layui 管理台）的 `/rag/` 子路径下，由反代把 `/rag/*` 转发给本服务，
 用户从旧后台菜单「RAG 智能问答」进入——见 `../../docs/集成与入口约定.md`。
 
+**与主应用集成时必须用并入模式构建，不能拿 `npm run build` 的产物去挂 `/rag/`：**
+
 ```bash
-npm run build:integration   # base=/rag/ + 接口前缀=/rag/api（参数在 .env.integration）
+npm run build:integration   # 类型检查 + base=/rag/ + 接口前缀=/rag/api（参数在 .env.integration）
 ```
 
-并入模式只改构建期参数（`VITE_BASE_PATH` / `VITE_API_BASE`），服务端与数据链路不动。
-`npm run build` 仍是独立部署口径（base `/`、接口前缀 `/api`）；两个模式的 dist 互斥，
-切换后必须重新构建，否则页面与接口前缀对不上。
+参数是 `VITE_BASE_PATH=/rag/` 与 `VITE_API_BASE=/rag/api`，由 `vite.config.ts` 在构建期注入。
+独立口径的产物挂到 `/rag/` 下会**白屏**：`index.html` 引用的是 `/assets/...` 而不是
+`/rag/assets/...`，接口也会打到 `/api/*` 而不是 `/rag/api/*`；浏览器控制台只报 404，
+不看 Network 面板不容易发现。
+
+`npm run build` 是独立部署口径（base `/`、接口前缀 `/api`），用于 RAG 自己的同源托管。
+两个模式共用同一个 `dist/`、互相覆盖，切换后必须重新构建。构建结束会在 `dist/build-mode.txt`
+写下本次模式（`standalone` / `integration`），RAG 服务启动时读它并在日志与 `/api/health` 里报出。
+
+并入模式只改这两个构建参数，服务端与数据链路不动。
 
 ## 目录结构
 
@@ -56,9 +80,14 @@ frontend/
     ├── types/contract.ts        # 前后端契约 TS 类型（镜像 data-contract）
     ├── api/
     │   ├── base.ts              # 接口前缀（默认 /api，并入模式 /rag/api）+ 路径拼接
-    │   ├── sse.ts               # fetch 流解析 data: 行 + AbortController
-    │   └── http.ts              # /api/health、/api/dicts
-    ├── stores/session.ts        # 会话持久化 + 问答状态机 + 纠正/取消/筛选
+    │   ├── authToken.ts         # 主应用下发的 JWT 进程内保管 + 身份请求头
+    │   ├── sse.ts               # fetch 流解析 data: 行 + AbortController + 三档超时
+    │   ├── demo.ts              # /api/demo/examples（F08 演示示例题）
+    │   └── http.ts              # /api/health、/api/dicts（带超时）
+    ├── stores/session.ts        # 多会话持久化（按账号分桶）+ 问答状态机 + 纠正/取消/筛选
+    ├── utils/
+    │   ├── userScope.ts         # 主应用身份桥（uid → localStorage 分桶 key）
+    │   └── sessionExport.ts     # 会话导出 Markdown（含引用来源清单）
     └── components/
         ├── chat/                # F01：ChatInput / ChatPane / MessageBubble / MarkdownContent
         ├── history/             # F01：HistoryPane（提问历史列表，点轮次回到该轮问答）
@@ -68,9 +97,12 @@ frontend/
 
 ## 关键交互规则
 
-- 会话保存在 localStorage（`ragv5-session-v2`，带 `schemaVersion`；旧键 `ragv3-session-v1` 会自动迁移，
-  更高版本或损坏的数据隔离到 `ragv5-session-quarantine`），刷新保留历史与已收到的正文（中断轮恢复为
-  `interrupted`）；流式正文按 ~800ms 节流落盘；清空会话新建 session_id。
+- 会话保存在 localStorage，基础 key 为 `ragv5-session-v3`（带 `schemaVersion`；主应用 iframe 嵌入时
+  按账号加后缀 `:u{uid}`，由 `utils/userScope.ts` 组装）。旧键 `ragv5-session-v2`、
+  `ragv3-session-v1`、`ragv5-session-v1` 读取时自动迁移为"单会话"；更高版本或损坏的数据隔离到
+  `ragv5-session-quarantine`（不删除，便于排查）。刷新保留历史与已收到的正文（中断轮恢复为
+  `interrupted`）；流式正文按 ~800ms 节流落盘。上限为 20 个会话 / 每会话 60 条消息，写入配额不足时
+  降级为 8 个会话 × 20 条并剥离面板数据。
 - 提问历史（`HistoryPane`）：左侧栏列出每一轮（含失败/取消/被重查取代的轮次，各带状态徽标），
   点击即把知识面板切到该轮并滚动定位到聊天区对应消息；面板顶部出现"正在查看历史轮次 + 返回最新"。
   新提问自动回到最新视图；选中的轮次被裁剪/清空后自动回退。点历史消息的引用 chips 会先切到该轮
@@ -84,7 +116,7 @@ frontend/
 - 图谱子图画布节点可拖动缩放，追问入口在节点下方 chips（生成“介绍一下 XX”）。
 - 地点：有坐标时出地图（`MapView.vue`，echarts geo + 省级底图 `src/assets/china-map.json`，
   点位大小随相关事件数、可缩放拖拽），无坐标自动降级为地点卡片列表（现代地名/省市区/暂无坐标提示）。
-  坐标覆盖 4,819/5,316（RAGv5 2026-09-15 起），底图随包走、不依赖外网。
+  坐标覆盖 4,819/5,316，底图随包走、不依赖外网。
 
 ## 状态
 

@@ -26,13 +26,29 @@ pnpm dev          # 或 npm run dev
 
 ```bash
 pnpm build          # 生产构建，产物到 dist/
-pnpm build:check    # 类型检查（vue-tsc --noEmit）+ 生产构建，提 PR 前建议跑
+pnpm build:check    # vue-tsc --noEmit + 生产构建 + 产物资源路径核对，提 PR 前建议跑
+```
+
+### 测试
+
+```bash
+pnpm test            # 全部用例（unit + component）
+pnpm test:unit       # tests/unit：纯函数与组合式函数
+pnpm test:component  # tests/component：组件挂载（jsdom）
+```
+
+工具链是 vitest + Vue Test Utils + jsdom，配置见 `vitest.config.ts`——它的 `base` 与
+`vite.config.ts` 同为 `/static/`，否则资源路径断言会与生产脱节，等于没测。
+
+```bash
+pnpm build                              # 先构建出 dist/（冒烟脚本托管产物）
+node scripts/smoke-inference-page.mjs   # 问答页浏览器冒烟（需 playwright-core）
 ```
 
 > 若用镜像源更快的场景：`npm config set registry https://mirrors.huaweicloud.com/repository/npm/`。
 >
-> 类型检查基于 TypeScript 5.x（Vue 3.5 的 `.d.ts` 需要 5.x 才认识）；`tsconfig.json` 开了
-> `skipLibCheck`（跳过第三方声明）与 `allowJs`（四个无 `lang="ts"` 的维护页需要）。
+> 类型检查基于 TypeScript 5.x；`tsconfig.json` 开了 `skipLibCheck`（跳过第三方声明）与
+> `allowJs`，所有 `.vue` 的 `<script>` 都已带 `lang="ts"`。
 
 ## 页面与路由
 
@@ -78,18 +94,23 @@ frontend/src/
 │   ├── knowledge.ts       # 实体类型/字段标签映射、关系属性分组等业务工具
 │   ├── userScopedStorage.ts # 按账号隔离的 localStorage 读写（问答/识别记录）
 │   ├── apiError.ts        # 从 axios 失败响应里取后端 msg（错误提示统一入口）
+│   ├── auth.ts            # 当前账号是否拥有写权限（admin / editor）
+│   ├── graph.ts           # 图谱节点显示名与关系合并去重（各图谱组件共用）
 │   ├── clipboard.ts       # 复制到剪贴板（剪贴板 API + 文本域回退）
 │   ├── inference-export.ts # 问答记录导出 Markdown（纯函数）
+│   ├── inference-render.ts # 问答页渲染：Markdown 净化、图谱上下文 HTML、JSON 转表格
 │   └── date.ts            # 对话时间展示
 └── views/                 # 页面（inference / knowledge / knowledge-list / workspace / admin / login / error）
-    └── inference/         # 历史问答助手：index.vue（403 行，只留状态与编排）+ index.css
+    └── inference/         # 历史问答助手：index.vue（只留状态与编排）+ index.css
         └── components/    # SessionSidebar / ChatMessages / ChatInput / KgNodeDrawer / KgGraph
 ```
 
-`scripts/` 下有三个与页面维护相关的脚本（都不是构建流程的一部分）：
+`scripts/` 下有四个脚本：`check-dist-assets.mjs` 挂在 `build:check` 上，其余三个是页面维护
+工具（不在构建流程里）：
 
 | 脚本 | 用途 |
 | --- | --- |
+| `check-dist-assets.mjs` | 构建后核对产物里的静态资源引用（源码规则 + 产物规则两段，缺一不可） |
 | `namespace-inference-css.mjs` | 给 `views/inference/index.css` 的选择器加 `.inference-container` 命名空间前缀（幂等，写回前做等价校验） |
 | `check-inference-style-coverage.mjs` | 检查问答页与四个子组件模板里用到的 class 都有样式兜底（拆组件时最容易掉的样式） |
 | `smoke-inference-page.mjs` | 浏览器冒烟：桩后端托管 `dist/`，用 Playwright 断言计算样式与交互（提问/切会话/图谱/导出/落盘） |
@@ -98,9 +119,9 @@ frontend/src/
 
 ### 1. 加菜单项要改三处
 
-菜单的**唯一事实源是后端 `get_menu()`**（现位于 `backend/blueprints/auth.py`，随第 7 轮路由蓝图拆分从 `app.py` 迁入；按角色裁剪：viewer 不下发数据运营组）。
-2026-09-25 移除了 mockjs——它此前在开发态拦下 `/user/menu` 返回硬编码菜单、不感知角色，
-曾导致"开发态菜单与生产不一致、加菜单要改三处"。
+菜单的**唯一事实源是后端 `get_menu()`**（现位于 `backend/blueprints/auth.py`；按角色裁剪：viewer 不下发数据运营组）。
+开发态不使用 mockjs：它会拦下 `/user/menu` 返回硬编码菜单、不感知角色，
+让开发态菜单与生产不一致。
 
 新增或调整菜单项，下面三处都要满足，否则菜单会缺项或点进去 404：
 
@@ -115,7 +136,7 @@ frontend/src/
 
 后端鉴权状态码：未登录/Token 过期或伪造 → `401`；Token 有效但无写权限（`viewer` 角色调写接口）→ `403`。
 
-## 受控入口与按账号隔离（2026-09-25）
+## 受控入口与按账号隔离
 
 ### 入口的角色拦截是三层的
 
@@ -128,19 +149,19 @@ frontend/src/
 
 ### 问答/识别记录按账号隔离
 
-聊天记录与文本识别记录原先存在全局 key（`chatHistory` / `extractHistory`），同一浏览器上
-换账号会看到同一个人的记录。现在 key 拼账号 id（`chatHistory:u3`），由
+聊天记录与文本识别记录存在全局 key（`chatHistory` / `extractHistory`）下时，同一浏览器上
+换账号会看到同一个人的记录。因此 key 拼账号 id（`chatHistory:u3`），由
 `utils/userScopedStorage.ts` 统一读写：
 
 - 账号未知但**已登录**（token 在、`userinfo` 没拉到）时，既不读也不写公共桶——那份数据不知道属于谁；
-- 页面在挂载时**钉住**本次所属的账号 id（`scopedUid`），不再实时读 `userStore.userInfo`：
+- 页面在挂载时**钉住**本次所属的账号 id（`scopedUid`），不实时读 `userStore.userInfo`：
   登出与 token 过期都是"先清 userInfo、再跳登录页"，若卸载落盘时才读，key 会退回全局 key，
-  把整份记录写进公共桶（第 6 轮审核 H1）；
-- 升级前那份全局记录会被归档到 `chatHistory:legacy-archived`，**不归属任何账号**。
+  把整份记录写进公共桶；
+- 历史遗留的全局记录会被归档到 `chatHistory:legacy-archived`，**不归属任何账号**。
 
 RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 iframe load 后通过
-`postMessage` 把 `{type:'cw-user', uid, role}` 发给 RAG 前端，见
-[../docs/集成与入口约定.md](../docs/集成与入口约定.md) 第四节。
+`postMessage` 把 `{type:'cw-user', uid, role, token}` 发给 RAG 前端（`token` 由 RAG 服务端
+验签，用于防冒充），见 [../docs/集成与入口约定.md](../docs/集成与入口约定.md) 第四节。
 
 ## 开发规范
 
@@ -151,11 +172,11 @@ RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 ifram
   问答内的子图用 `views/inference/components/KgGraph.vue`；
   **新增关系维度只需在 `EntityGraph.vue` 的 `GRAPH_CONFIGS` 加一项 + 注册路由**，不要再复制页面
 - **大页面按"模板进 components、状态进 composables、纯逻辑进 utils/api"拆**（样板见 `views/inference/`：
-  1189 行拆成 403 行页面 + 4 个子组件 + 2 个组合式函数 + 3 个工具模块），拆前先给子组件写挂载测试
+  页面只留状态与编排，子组件先写挂载测试再动模板）
 - **子组件的样式归它自己**：父组件的 `<style scoped>` 不会作用于子组件内部的元素。
   页面级共用样式（如 `inference/index.css`）要按**页面根元素的命名空间**写
   （每条选择器前缀 `.inference-container`），否则会和其它页面重名的 class 互相污染
-  （`frontend/scripts/namespace-inference-css.mjs` 的注释里写了原因与做法）
+  （`scripts/namespace-inference-css.mjs` 的注释里写了原因与做法）
 
 ## 常见问题
 

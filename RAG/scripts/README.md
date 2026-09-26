@@ -20,16 +20,16 @@
 | `gen_demo_examples.py` | 从已审核题库生成 F08 演示示例清单（能力标注 + 按实测时延/截断筛题） | F08（RAGv5） |
 | `smoke_deploy.py` | 部署冒烟六步：health / 页面 / 示例题接口 / 逐条示例题 / 缓存命中 / 限流；兼作演示预热 | F08/F06（RAGv5） |
 | `check_vector_consistency.py` | 向量一致性：条数校验 + Chroma top-k 与暴力余弦 top-k 抽样重合率（下限 0.9） | F04/F11（RAGv5） |
-| `compare_chunking.py` | 分块参数对比实验：建索引变体 → 跑评测 → 汇总报告 | F11（RAGv5 T8） |
+| `compare_chunking.py` | 分块参数对比实验：建索引变体 → 跑评测 → 汇总报告 | F11（RAGv5） |
 | `fetch_place_coords.py` | 批量获取高德坐标（复用旧项目编码器 + 断点续跑 + 配额保护 + 按（地名+省）去重） | F09/F07（RAGv5） |
-| `build_lineage.py` | 数据血缘（`data/release/lineage.json`）+ `--check` 校验 schema 与 run→demo→runtime 一致性 | 发布（第五轮 P2-4） |
-| `audit_chroma_segments.py` | Chroma collection/segment 映射、孤儿目录审计、四方计数一致性（不一致即退出非零） | 发布（第五轮 P2-5） |
-| `build_artifact_manifest.py` | 制品清单 + `verify`（含逻辑哈希）/ `verify-sums`（标准物理 SHA256SUMS） | 发布（第四轮 P2-3） |
-| `gen_sbom.py` | 生成/校验 SPDX 2.3 SBOM（Python + Node 依赖） | 发布（第五轮 P2-7） |
-| `lock_hashes.py` | 给 Python 锁文件补 `--hash`（走 PyPI JSON API，不下载制品）；`--check` 供 CI 门禁 | 发布（第五轮 P2-6） |
-| `fetch_data_artifact.py` | 数据制品打包（`--pack`）/ 下载 / 预期哈希校验 / 可选 gpg 验签 / 安全解包（zip-slip 与范围限制） | 发布（第五轮 P2-7） |
-| `build_release_bundle.py` | 组装完整 release 包（源码 + 数据 + dist + 证据 + SBOM + 依赖声明） | 发布（第五轮 P2-7） |
-| `check_docs.py` | 文档一致性：相对链接、current 口径、`.env.example` 键、**数据计数与清单一致** | 文档（第五轮 R5-2） |
+| `build_lineage.py` | 数据血缘（`data/release/lineage.json`）+ `--check` 校验 schema 与 run→demo→runtime 一致性 | 发布 |
+| `audit_chroma_segments.py` | Chroma collection/segment 映射、孤儿目录审计、四方计数一致性（不一致即退出非零） | 发布 |
+| `build_artifact_manifest.py` | 制品清单 + `verify`（含逻辑哈希）/ `verify-sums`（标准物理 SHA256SUMS） | 发布 |
+| `gen_sbom.py` | 生成/校验 SPDX 2.3 SBOM（Python + Node 依赖） | 发布 |
+| `lock_hashes.py` | 给 Python 锁文件补 `--hash`（走 PyPI JSON API，不下载制品）；`--check` 供 CI 门禁 | 发布 |
+| `fetch_data_artifact.py` | 数据制品打包（`--pack`）/ 下载 / 预期哈希校验 / 可选 gpg 验签 / 安全解包（zip-slip 与范围限制） | 发布 |
+| `build_release_bundle.py` | 组装完整 release 包（源码 + 数据 + dist + 证据 + SBOM + 依赖声明） | 发布 |
+| `check_docs.py` | 文档一致性：相对链接、current 口径、`.env.example` 键、**数据计数与清单一致** | 文档 |
 | `check_secrets.py` | 明文密钥扫描（提交与发布前门禁） | 安全 |
 
 ## 用法
@@ -53,9 +53,9 @@ python scripts/apply_audit.py --decisions audit_decisions.json
 python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟（演示前跑一次即预热缓存）
 python scripts/check_vector_consistency.py                    # 向量一致性抽检（抽样比对暴力余弦）
 python scripts/gen_demo_examples.py                           # 生成 F08 示例清单（含实测时延）
-python scripts/compare_chunking.py                            # 分块参数对比实验（T8）
+python scripts/compare_chunking.py                            # 分块参数对比实验
 
-# 发布链路（第六轮复核后新增/更新，详见 docs/deploy.md 第九节）
+# 发布链路（详见 docs/deploy.md 第九节）
 python scripts/lock_hashes.py --check                     # 锁文件是否每条需求都带 --hash
 python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_lineage.py --check
 python scripts/audit_chroma_segments.py --version 20260915_v1
@@ -65,8 +65,8 @@ python scripts/build_artifact_manifest.py verify && python scripts/build_artifac
 python scripts/build_release_bundle.py --version 20260915_v1 --smoke-report logs/smoke_release.json
 ```
 
-说明：`run_server.py` / `apply_audit.py` 属 RAGv2 新增；运行环境建议用
-已装 fastapi/uvicorn/openai/chromadb 的 Python 3.11 环境（本机 `E:/anaconda/envs/AI_Agent`）。
+运行环境：**Python 3.11**（本地 conda 环境 `china-war-py311`，即 `conda activate china-war-py311`；
+口径见 [../README.md](../README.md) 第五节），需已装 fastapi/uvicorn/openai/chromadb。
 
 ## 约定
 

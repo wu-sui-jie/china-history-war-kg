@@ -5,7 +5,7 @@
 >
 > **这不是什么**：不是现行事实源。版本、测试数、门禁状态、数据计数一律看
 > [current-status.md](current-status.md)；功能怎么用、契约是什么看 [README.md](README.md)、
-> [data-contract.md](data-contract.md) 与 [features/](features/)。
+> [data-contract.md](data-contract.md) 与 [features.md](features.md)。
 >
 > **2026-09-21 整理说明**：本文件由原先的 `RAG_v1/`（14 份阶段开发说明与规划）与
 > `changes/`（24 份审核报告、整改工作单、复核裁定）共 38 份过程文档压缩而成——

@@ -13,7 +13,7 @@
 | `bank.py` | 题库（黄金问答集）schema、JSONL 读写、结构校验（含人工审核字段） |
 | `chain.py` | 进程内问答链运行器 + 检索配置（双通道/单文本/关键词 AND/OR；`EvalConfig.mode` 支持 keyword/vector/hybrid，无向量时自动降级关键词），与 `server/sse.py` 同口径 |
 | `metrics.py` | 客观指标：实体命中、图谱命中、文本 top-k 召回、融合携带、引用携带、回答覆盖与四类失败归因 |
-| `grading.py` | 人工评分模板导出/读回（答案正确性 + 引用正确性，逐条复核） |
+| `grading.py` | 人工评分模板导出/读回（答案正确性 + 引用正确性） |
 | `report.py` | markdown 报告：指标统计、双通道 vs 纯文本对比、失败样例、人工评分合并 |
 | `cli.py` | 命令行入口（check-bank / run / report） |
 
@@ -61,7 +61,7 @@ python scripts/run_evaluation.py report --scores <scores.jsonl>
 4. 问句自动识别到的朝代是**软偏置**（`F02Output.dynasty_bias`，不剔除结果）；
    只有显式 filters（F01 下拉）才是硬过滤。偏置在 F03 图谱侧生效（策略前重排节点，
    可经 top_k 影响证据集合），文本侧仅为 F04 返回序、会被 F05 相关分重排覆盖
-   （如实说明，见 `docs/features/02-entity-linking.md`）。
+   （如实说明，见 [../docs/features.md](../docs/features.md) 第二节）。
 5. 题库审核状态见 `annotation_version`（当前 `reviewed-2`：39/39 通过）。首轮
    委托审核后 4 条（B01/E01/R05/T03）曾保留作 F02 缺陷复现样本，F02 修复后
    复测通过；委托审核任务书见 `data/eval/<v>/review/REVIEW_GUIDE.md`。

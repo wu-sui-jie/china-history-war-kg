@@ -3,7 +3,7 @@
 > 面向中国历代战争史知识库的「图谱 + 文本」双通道 RAG 问答系统。
 > 功能需求与验收标准见 [docs/](docs/README.md)；当前版本、测试数、门禁状态见
 > [docs/current-status.md](docs/current-status.md)（唯一事实源）；
-> 阶段交付与审核整改经过见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。
+> 阶段交付与关键设计决定见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。
 > 本文档只讲**代码怎么组织、怎么开发、怎么跑**。
 
 ## 一、这是什么
@@ -52,7 +52,7 @@ RAG/
 ├── README.md                # 本文档：代码组织与开发约定
 ├── docs/                    # 需求/功能/契约/部署文档（见 docs/README.md）
 ├── .env.example             # 环境变量模板（密钥不入库）
-├── requirements*.txt/.lock  # 依赖声明与锁定（见第六节）
+├── requirements*.txt/.lock  # 依赖声明与锁定（见第六节「如何运行」末）
 ├── config/                  # 配置加载
 ├── contracts/               # 共享数据契约 + 版本化的 Python dataclass
 ├── lib/                     # 无业务工具
@@ -77,7 +77,7 @@ RAG/
    │  scripts/export_snapshot.py            （F09）
    ▼
 data/snapshot/<版本>/            干净图谱快照 + 词典 + 治理报告
-   │  scripts/build_inferred_relations.py （P2 规则推理固化，可选）
+   │  scripts/build_inferred_relations.py （规则推理固化，可选）
    ▼
 data/snapshot/<版本>/inferred_relations.json   规则推理边（带溯源标记）
    │  scripts/build_index.py                （F11）
@@ -94,6 +94,15 @@ F03/F04 运行时确认快照与索引版本一致。版本号贯穿 [docs/data-
 
 ## 五、环境与配置
 
+**统一运行环境：Python 3.11**（全项目四个 Python 模块统一；本地 conda 环境名 `china-war-py311`）：
+
+```bash
+conda activate china-war-py311
+```
+
+Chroma 依赖树要求 ≥3.10，锁文件按 3.11 生成；CI 的 RAG job 也用 3.11
+（旧后端与抽取链 job 仍为 3.8/3.11 双跑，属过渡档）。
+
 密钥/接口不硬编码。复制 `.env.example` 为 `.env` 并填写（离线链路可先不填 LLM/向量密钥）：
 
 ```bash
@@ -104,8 +113,7 @@ cp .env.example .env
 `LLM_API_KEY → DEEPSEEK_API_KEY → RAG-command → RAG-deepseek-v4`（生成模型）与
 `EMBEDDING_API_KEY → DASHSCOPE_API_KEY`（向量模型），完整清单与部署口径见 [docs/deploy.md](docs/deploy.md)。
 
-运行环境：Python 3.11（Chroma 依赖树要求 ≥3.10；锁文件按 3.11 生成）。离线链路依赖 jieba/numpy/pydantic，
-在线链路另需 fastapi/uvicorn/openai（见 `requirements.txt`）。
+离线链路依赖 jieba/numpy/pydantic，在线链路另需 fastapi/uvicorn/openai（见 `requirements.txt`）。
 
 ## 六、如何运行
 
@@ -150,7 +158,23 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟六步，�
 锁文件体积较大（≈150 KB）属正常：每条依赖带多个 sha256 哈希（同一包在不同 Python 版本与平台的
 发布产物各有哈希），用于供应链校验与跨机器复现。日常开发装 `requirements-dev.txt` 即可。
 
-## 七、开发约定（项目级）
+## 七、如何测试
+
+```bash
+# 后端（RAG/ 根，Python 3.11；全量约 460 例）
+python -m pytest tests -q
+
+# 静态检查与文档一致性门禁
+python -m ruff check server config contracts lib data scripts evaluation tests
+python scripts/check_docs.py --strict
+
+# 前端（另有专人负责，见 frontend/README.md）
+cd frontend && npm test
+```
+
+用例数、各门禁的最近一次实测结果只在 [docs/current-status.md](docs/current-status.md) 维护。
+
+## 八、开发约定（项目级）
 
 > `RAG/` 是**同一仓库下的子目录**（2026-09-21 由独立仓库并入，见根目录 `docs/README.md`），
 > 但仍作为**独立服务**单独部署与运行：不依赖旧后端/旧前端/Neo4j 是否启动，只读自己的快照与索引。
@@ -168,7 +192,7 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟六步，�
 7. 文档与配置改动后跑一次 `python scripts/check_docs.py --strict`（相对链接、current 口径、
    `.env.example`、数据计数四类检查）。
 
-## 八、路线图
+## 九、路线图
 
 | 阶段 | 内容 | 状态 |
 | --- | --- | --- |
@@ -178,5 +202,5 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟六步，�
 | RAGv4 | F10 评测（题库/指标/报告/人工评分） | ✅ 已完成 |
 | RAGv5 | F08 演示模式 + 真实 LLM/向量接入与部署打磨 | ✅ 已完成 |
 
-每个阶段交付了什么、当时的设计口径、踩过哪些坑，以及随后六轮独立审核整改的结论，
+每个阶段交付了什么、当时的设计口径、踩过哪些坑，以及随后的整改结论，
 统一见 [docs/CHANGELOG.md](docs/CHANGELOG.md)。

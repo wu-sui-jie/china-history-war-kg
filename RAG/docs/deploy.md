@@ -47,7 +47,7 @@ python scripts/export_snapshot.py --version 20260915_v1
 python scripts/build_index.py --version 20260915_v1 --no-embeddings   # 只建关键词索引（无向量密钥时）
 python scripts/build_index.py --version 20260915_v1                   # 有向量密钥：同一步嵌入并写 Chroma
 
-# 3) 向量（RAGv5 T3）——复用既有 chunks，只补/重建 vectors/
+# 3) 向量——复用既有 chunks，只补/重建 vectors/
 python scripts/build_index.py --vectors-only --sample 8      # 先小样验证维度（约 5 秒）
 python scripts/build_index.py --vectors-only --concurrency 4 # 全量（9,544 条约 6 分钟）
 python scripts/check_vector_consistency.py --sample 20       # 一致性抽检（重合率 ≥0.9）
@@ -73,14 +73,14 @@ cd frontend && npm install && npm run build && cd ..
 | `EMBEDDING_BASE_URL` / `EMBEDDING_MODEL` / `EMBEDDING_DIM` | 百炼 + `text-embedding-v4` / `1024` | 查询侧向量化用 |
 | `RATE_LIMIT_PER_MINUTE` / `CACHE_TTL_SECONDS` | `30` / `3600` | 演示负载足够；缓存是**进**程内的，重启即空 |
 | `RAG_ACTIVE_VERSION` | `20260915_v1` | 生产必须显式固定；启动脚本 `--version` 会代填并把来源标为 `cli_explicit` |
-| `CORS_ALLOW_ORIGINS` | `*`（本机演示） | **显式生产档**（自己写了 `RAG_REQUIRE_ACTIVE_VERSION=true`）下若仍是 `*`，服务会**拒绝启动**（第五轮 R5-5）；正式部署填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认公开 |
-| `SHUTDOWN_DRAIN_SECONDS` | `10` | 停机时先停收同步任务、撤销排队，再用这个上限等在途任务，最后才关外部客户端（第五轮 P0-3） |
+| `CORS_ALLOW_ORIGINS` | `*`（本机演示） | **显式生产档**（自己写了 `RAG_REQUIRE_ACTIVE_VERSION=true`）下若仍是 `*`，服务会**拒绝启动**；正式部署填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认公开 |
+| `SHUTDOWN_DRAIN_SECONDS` | `10` | 停机时先停收同步任务、撤销排队，再用这个上限等在途任务，最后才关外部客户端 |
 
 **A2. 身份校验与凭证撤销（对外部署必读）**
 
 这一组开关的门禁比较硬：**显式生产档下配错会直接拒绝启动**。而
 `config/settings.py` 与 `RAG/.env.example` 的报错文案都让人"去看 docs/deploy.md"——
-本小节就是那句话的落点（第 14 轮审计 P2-25：原先这里一处都没提过这些变量）。
+本小节就是那句话的落点。
 
 | 变量 | 取值 | 说明 |
 | --- | --- | --- |
@@ -190,11 +190,11 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 | 首字很久（>15 s） | 中转负载波动或该题推理很长；换题目、或先跑一次让它进缓存 |
 | 缓存"不生效" | 缓存是进程内的：重启后首次必然全量；另外改变 `TEXT_MODE` 也会换缓存键 |
 | 限流误伤 | 默认按**直连来源 IP** 计数，`X-Forwarded-For` 不参与（防伪造）；部署在反向代理后才设 `RATE_LIMIT_TRUST_FORWARDED_FOR=true` 并用 `RATE_LIMIT_TRUSTED_PROXIES` 限定可信代理。演示前确认出口 IP，必要时调 `RATE_LIMIT_PER_MINUTE` |
-| 启动即 `RuntimeError: CORS 配置被拒绝` | 显式生产档（自己设了 `RAG_REQUIRE_ACTIVE_VERSION=true`）仍用 `CORS_ALLOW_ORIGINS=*`。填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认"就是要公开 API"（第五轮 R5-5） |
-| 停机日志出现"仍有 N 个在途同步任务未在 X 秒内结束" | 同步调用（embedding/LLM 兜底）卡住，超过 `SHUTDOWN_DRAIN_SECONDS` 上限。可调大该值；同步函数无法中断，最终由各自的 HTTP 超时兜底（P0-3） |
+| 启动即 `RuntimeError: CORS 配置被拒绝` | 显式生产档（自己设了 `RAG_REQUIRE_ACTIVE_VERSION=true`）仍用 `CORS_ALLOW_ORIGINS=*`。填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认"就是要公开 API" |
+| 停机日志出现"仍有 N 个在途同步任务未在 X 秒内结束" | 同步调用（embedding/LLM 兜底）卡住，超过 `SHUTDOWN_DRAIN_SECONDS` 上限。可调大该值；同步函数无法中断，最终由各自的 HTTP 超时兜底 |
 | `chromadb` 导入失败 | 用锁文件安装：`pip install --require-hashes -r requirements.lock`（版本与实测一致；`chromadb 1.3.4`） |
 
-## 九、发布打包与发布门禁（2026-09-16 第五轮整改）
+## 九、发布打包与发布门禁
 
 ```bash
 # 1) 先提交，保证工作区干净（发布门禁第一步就是 git status 必须为空）
@@ -225,7 +225,7 @@ python scripts/fetch_data_artifact.py --from-file data.zip --sha256 <64hex> \
 GitHub 侧：`.github/workflows/ci.yml` 跑后端/前端/浏览器（桩后端，无需数据）/lint；
 `.github/workflows/release.yml` 是发布门禁，需要 `data_artifact_url` 与
 `data_artifact_sha256` 两个输入（或 `RELEASE_DATA_URL` Secret），smoke 失败会**阻断**发布
-（旧版用 `|| true` 吞掉了失败——第五轮 P2-7 已移除）。
+（smoke 失败会直接阻断发布）。
 
 ## 十、数据来源与授权
 

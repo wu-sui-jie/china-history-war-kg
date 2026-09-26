@@ -22,7 +22,7 @@
    （model_used=heuristic-offline，finish_reason=normal）。这是降级演示器，不是规划的 degraded。
 3. **无证据** → 拒答文案（finish_reason=refused）。
 
-## 提示词与防泄露（features/06 落地）
+## 提示词与防泄露（features.md 第六节「F06」落地）
 
 - 系统提示词与检索上下文只存后端，只以"证据块+引用编号"形式进模型；
 - 提示词明令不得输出系统指令/检索 query/内部工具/证据组装规则；

@@ -1,7 +1,7 @@
 # RAG 智能问答页面功能总览
 
 > 本文档只作为功能清单和文档索引，不展开具体功能实现。
-> 每个功能的"作用、如何实现、验收标准"等详细说明，请点击对应功能文档查看。
+> 每个功能的"作用、边界、如何实现、验收标准"统一写在 [features.md](features.md) 的对应分节里。
 
 ## 页面形态说明
 
@@ -25,9 +25,9 @@ docs/ 下的文档按两层组织，**读什么取决于你要做什么**：
 | [data-contract.md](data-contract.md) | 改接口/字段/证据结构/SSE 事件前必读（字段调整必须同步本文件与 `contracts/`） |
 | [architecture.md](architecture.md) | 理解整体分层与调用关系 |
 | [deploy.md](deploy.md) | 部署、排障、环境变量 |
-| [features/](features/)（11 份） | 每个功能的"作用 / 实现 / 验收标准"；改某功能前先看对应那份 |
-| [CHANGELOG.md](CHANGELOG.md) | 阶段交付与六轮审核整改的归纳记录（审计追溯、复盘"为什么这么改"时看） |
-| [RAG_v2/](RAG_v2/) | 借鉴旧问答系统的需求分析、规则推理移植的需求与设计 |
+| [features.md](features.md) | **F01–F11 全部功能的"作用 / 边界 / 实现 / 验收标准"**；改某功能前先看对应分节 |
+| [CHANGELOG.md](CHANGELOG.md) | 阶段交付与历次整改的归纳记录（审计追溯、复盘"为什么这么改"时看） |
+| [RAG_v2.md](RAG_v2.md) | 借鉴旧问答系统的需求分析，以及规则推理移植的需求与设计（含落地结果） |
 
 ```text
 RAG/docs/
@@ -36,26 +36,29 @@ RAG/docs/
 ├── data-contract.md           # 统一数据契约与流式协议
 ├── architecture.md            # 总体架构
 ├── deploy.md                  # 部署与排障
-├── CHANGELOG.md               # 阶段与审核整改汇总（历史）
-├── features/                  # 功能分块文档（F01–F11，现役）
-└── RAG_v2/                    # 需求与设计（借鉴旧问答系统 / 规则推理移植）
+├── features.md                # 功能说明（F01–F11，按功能分节）
+├── RAG_v2.md                  # 需求与设计（借鉴旧问答系统 / 规则推理移植）
+└── CHANGELOG.md               # 阶段与整改汇总（历史）
 ```
 
 ## 功能清单
 
 | 编号 | 功能 | 状态 | 详细文档 |
 | --- | --- | --- | --- |
-| F01 | 智能问答主界面（单页面） | 已完成 | [01-qa-main.md](features/01-qa-main.md) |
-| F02 | 实体识别与消歧 | 已完成（词典/规则版，LLM 兜底开关预留） | [02-entity-linking.md](features/02-entity-linking.md) |
-| F03 | 图谱检索通道（GraphRAG） | 已完成 | [03-graph-retrieval.md](features/03-graph-retrieval.md) |
-| F04 | 文本检索通道 | 已完成（关键词 + 向量 + hybrid 融合，默认 hybrid/rrf） | [04-text-retrieval.md](features/04-text-retrieval.md) |
-| F05 | 检索结果融合与重排 | 已完成 | [05-fusion-rerank.md](features/05-fusion-rerank.md) |
-| F06 | 证据溯源回答生成 | 已完成（真实 LLM 流式 + 推理增量 + 降级链） | [06-grounded-answer.md](features/06-grounded-answer.md) |
-| F07 | 可视化知识面板 | 已完成 | [07-knowledge-panel.md](features/07-knowledge-panel.md) |
-| F08 | 演示模式与示例问题 | 已完成（示例题取自已审核题库） | [08-demo-mode.md](features/08-demo-mode.md) |
-| F09 | 数据快照与知识库治理 | 已完成 | [09-data-governance.md](features/09-data-governance.md) |
-| F10 | 问答效果评测 | 已完成（评测闭环 + 题库 reviewed-2 全通过 + 人工评分） | [10-evaluation.md](features/10-evaluation.md) |
-| F11 | 文本切分与索引构建 | 已完成（含向量索引：百炼 v4 + Chroma，1024 维） | [11-text-indexing.md](features/11-text-indexing.md) |
+| F01 | 智能问答主界面（单页面） | 已完成 | [features.md](features.md) 第一节 |
+| F02 | 问题理解、实体识别与消歧 | 已完成（词典/规则版，LLM 兜底开关预留） | [features.md](features.md) 第二节 |
+| F03 | 图谱检索通道（GraphRAG） | 已完成 | [features.md](features.md) 第三节 |
+| F04 | 文本检索通道 | 已完成（关键词 + 向量 + hybrid 融合，默认 hybrid/rrf） | [features.md](features.md) 第四节 |
+| F05 | 检索结果融合与重排 | 已完成 | [features.md](features.md) 第五节 |
+| F06 | 证据溯源回答生成 | 已完成（真实 LLM 流式 + 推理增量 + 降级链） | [features.md](features.md) 第六节 |
+| F07 | 可视化知识面板 | 已完成（含地图模块） | [features.md](features.md) 第七节 |
+| F08 | 演示模式与示例问题 | 已完成（示例题取自已审核题库） | [features.md](features.md) 第八节 |
+| F09 | 数据快照与知识库治理 | 已完成（高风险治理待人工回填） | [features.md](features.md) 第九节 |
+| F10 | 问答效果评测 | 已完成（评测闭环；评分当前为 AI 代理口径） | [features.md](features.md) 第十节 |
+| F11 | 文本切分与索引构建 | 已完成（含向量索引：百炼 v4 + Chroma，1024 维） | [features.md](features.md) 第十一节 |
+
+> 跨功能约定（改字段先改契约、数字只有一处、版本必须一致）、未完成项与回归用例分布，
+> 见 [features.md](features.md) 第十二节。
 
 > 各功能由哪个阶段交付、当时的设计口径与踩过的坑，见 [CHANGELOG.md](CHANGELOG.md)；
 > 当前版本号、测试数、数据计数一律见 [current-status.md](current-status.md)。

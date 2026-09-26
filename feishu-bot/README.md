@@ -8,7 +8,7 @@
 
 - 独立进程，飞书官方 SDK WebSocket 长连接接入（无需公网回调地址，个人本机可跑）；
 - 技能框架：起步 `knowledge_qa`（调 RAG 非流式接口回答知识问题）、
-  `report_error`（纠错反馈收集与投递），外加 `/help` 命令；
+  `report_error`（纠错反馈收集与投递），外加 `/help` 与 `/new`（重置本会话上下文）命令；
   意图分流用规则，不引入 LLM；
 - 对 RAG 的唯一依赖是 HTTP 接口（`POST /api/query/json` 等），RAG 引擎保持只读、无状态；
 - 依赖独立（`requirements.txt` 不并入 RAG），状态自有（SQLite 会话与反馈）；
@@ -20,27 +20,39 @@
 # 0) 前置：RAG 服务已启动（另一进程），并在飞书开放平台建好企业自建应用
 #    （开通机器人能力；事件订阅选「长连接」模式，订阅 im.message.receive_v1 与 card.action.trigger）
 
-# 1) 依赖（可与 RAG 共用 Python 3.11 环境）
+# 1) 环境与依赖：四个 Python 模块统一 Python 3.11，本地 conda 环境为 china-war-py311
+conda activate china-war-py311
 cd feishu-bot
 pip install -r requirements.txt
 
 # 2) 配置
 cp .env.example .env        # 填 FEISHU_APP_ID / FEISHU_APP_SECRET（其余按需）
 
-# 3) 子图出图（P2，可选；不做也能跑，子图会走文字降级）
-cd render && npm install echarts @resvg/resvg-js d3-force && cd ..
+# 3) 子图出图（可选；不做也能跑，子图会走文字降级。需要 Node ≥ 18）
+cd render && npm ci && cd ..
 
-# 4) 启动（注意用 `python`，不要用 Windows 的 `py` 启动器——`py` 不走 conda 环境）
+# 4) 启动（长连接，不占端口；注意用 `python`，不要用 Windows 的 `py` 启动器
+#    ——`py` 不走 conda 环境，会报 ModuleNotFoundError: lark_oapi）
 python main.py
 ```
+
+**依赖口径**：仓库根 `requirements.lock`（119 包、带 sha256）覆盖四个模块的依赖，但本模块
+**刻意用自己那份 `requirements.txt`**，不共用锁文件——`lark-oapi` 版本被 `==` 锁死
+（当前 `1.7.3`）：长连接对卡片回调帧的分发是 SDK 内部实现细节，升级可能静默改变行为
+（例如旧版 `CARD` 帧会被直接丢弃）。升级前必须回归按钮回调（需求文档风险 4）。
+
+CI：仓库 `.github/workflows/ci.yml` 的 `feishu-bot` job 用 Python 3.11 装本模块
+`requirements.txt`，跑 `ruff check .`（ruff 版本钉死 `0.16.8`，与仓库其它 job 一致）、
+`cd render && npm ci`（子图渲染用例需要）与 `python -m pytest tests -q`。
 
 日常维护：
 
 ```bash
+cd feishu-bot
 python scripts/cleanup_db.py --dry-run        # 看会清理多少过期会话/事件记录
-python scripts/cleanup_db.py --purge-orphans  # 额外清掉"没有配对回答的孤儿提问行"（升级后跑一次）
+python scripts/cleanup_db.py --purge-orphans  # 额外清掉"没有配对回答的孤儿提问行"（异常中断留下的行，跑一次）
 python scripts/consistency_check.py --limit 3 # SSE 与非流式接口的一致性回归（RAG 发布后跑）
-pytest -q                                     # 单元 + 集成测试（不依赖飞书与真实 RAG）
+python -m pytest tests -q                     # 单元 + 集成测试（不依赖飞书与真实 RAG）
 ```
 
 ## 检测与验收
@@ -50,7 +62,8 @@ pytest -q                                     # 单元 + 集成测试（不依�
 ### 第 1 层：本地自动化（无需飞书、无需凭证）
 
 ```bash
-pytest -q                                     # 单元 + 集成测试（不依赖飞书与真实 RAG）
+cd feishu-bot
+python -m pytest tests -q                     # 单元 + 集成测试（不依赖飞书与真实 RAG）
 python scripts/local_smoke.py                 # 真调 RAG 的端到端冒烟，打印卡片结构
 python scripts/local_smoke.py --dead-rag      # 看降级卡片（不依赖任何服务）
 python scripts/consistency_check.py --limit 3 # SSE 与非流式接口结果必须一致（RAG 发布后跑）
@@ -86,7 +99,8 @@ RAG 探活与非流式接口是否存在 → `/help` → 主问题（占位卡 +
 
 ### 第 3 层：接上飞书后的人工验收清单
 
-**最短体验路径**（约 10 分钟，覆盖全部 P0–P2 与批次③ 功能；先按这个走一遍，再看下面的详细表）：
+**最短体验路径**（约 10 分钟，覆盖全部 P0–P2 功能，含两段式回复与 `/new`；先按这个走一遍，
+再看下面的详细表）：
 
 1. 飞书客户端搜索应用名（如「战争事件聊天机器人」）进入单聊，先发 `/help`
    → 应立刻收到使用说明卡片（**不调 RAG**，最快验证"链路通"）
@@ -115,8 +129,8 @@ RAG 探活与非流式接口是否存在 → `/help` → 主问题（占位卡 +
 | 4 | 群里 @机器人 问同一题 | 同效；不 @ 时不响应 | 日志"群聊消息未 @ 机器人，忽略"；若 @ 了也不响应 → 看"未取到机器人 open_id"警告 |
 | 5 | 接着问「他后来怎么样了」 | 回答能对应上一轮的对象 | 日志中 RAG 收到 `history` 条数；空 → 查 `messages` 表 |
 | 6 | 点卡片底部「试试问这些」 | 直接得到该问题的新回答卡片 | 按钮没有 → `/api/demo/examples` 不可用（日志有警告） |
-| 7 | **P0-4**：点「反馈有误」 | toast「已收到反馈」+ 运营群收到工单卡片 | 无 toast → 长连接没收到 `card.action.trigger`（事件订阅漏配）；有 toast 但运营群没卡片 → 查 `FEISHU_OPERATORS_CHAT_ID` |
-| 8 | **P0-4**：连点两次同一按钮 | 两条都被处理（第二个示例问题会再答一次） | 只处理一次 → `CARD_DEDUPE_WINDOW_SECONDS` 设大了；日志有 `duplicate 卡片回调已丢弃` |
+| 7 | 点「反馈有误」 | toast「已收到反馈」+ 运营群收到工单卡片 | 无 toast → 长连接没收到 `card.action.trigger`（事件订阅漏配）；有 toast 但运营群没卡片 → 查 `FEISHU_OPERATORS_CHAT_ID` |
+| 8 | 连点两次同一按钮 | 两条都被处理（第二个示例问题会再答一次） | 只处理一次 → `CARD_DEDUPE_WINDOW_SECONDS` 设大了；日志有 `duplicate 卡片回调已丢弃` |
 | 9 | 停掉 RAG 再提问 | 收到"服务暂不可用"降级卡片 | 若收到空白或没回复 → 看 worker 日志 |
 | 10 | 重启机器人后再追问 | 上下文仍在（会话在 SQLite） | 丢了 → 检查 `BOT_DB_PATH` 是否被换过 |
 | 11 | 子图类问题（如"介绍一下涿鹿之战"） | 卡片里有关系图图片 | 只有文字版 → 日志"子图出图不可用：…"（Node 未装或 node_modules 缺失） |
@@ -124,18 +138,22 @@ RAG 探活与非流式接口是否存在 → `/help` → 主问题（占位卡 +
 | 13 | 长回答（如"介绍一下长平之战"） | 先出「正在检索…」占位卡，随后**同一张卡**变成正文（两段式回复） | 占位卡一直不替换 → 看日志有无 `最终卡片更新失败`（此时卡片会被换成"没能发送成功"提示） |
 | 14 | 发 `/new` 后再追问同一题 | 收到"已清空本会话的上下文"；此前上下文不再生效 | 历史没清 → 看日志 `会话已重置：session=… messages=N`；`N=0` 说明本来就没有上下文 |
 
-> 第 7、8 两条是需求文档风险 4 点名的 **P0-4 实测项**：长连接能否收到卡片回调、
-> `event_id` 是否可用于去重、真实连点是否被误杀。跑过这两条，P1/P2 的交互设计才算被证实。
+> 第 7、8 两条是需求文档风险 4 点名的实测项：长连接能否收到卡片回调、`event_id` 是否可用于
+> 去重、真实连点是否被误杀。跑过这两条，P1/P2 的交互设计才算被证实。
+>
+> 传输层抖动下的重试与 uuid 幂等（真实飞书侧）至今**未验证**，本轮人工验收要加做一条：
+> 挂系统代理或断网，实测"重试 → 撤回本轮历史 → ERROR 带答案全文"链路（见
+> [docs/修复历史.md](docs/修复历史.md) 第四节与第八节）。
 
 ### 排查速查
 
 | 现象 | 常见原因 |
 | --- | --- |
 | 启动即退出并打印缺少 `FEISHU_APP_ID` | 没建 `.env`（`cp .env.example .env` 后填凭证） |
-| `ModuleNotFoundError: No module named 'lark_oapi'` | **解释器不是装依赖的那个**：Windows 上用 `py main.py` 会走 `py` 启动器自己的默认解释器（本机实测指向 `E:\python\python_dataspace\python.exe`），**不进入** conda 环境（哪怕提示符显示 `(AI_Agent)`）。改用 `python main.py`，或直接用绝对路径 `E:\anaconda\envs\AI_Agent\python.exe main.py`。核对命令：`python -c "import sys, lark_oapi; print(sys.executable)"` |
+| `ModuleNotFoundError: No module named 'lark_oapi'` | **解释器不是装依赖的那个**：Windows 上用 `py main.py` 会走 `py` 启动器自己的默认解释器，**不进入** conda 环境。先 `conda activate china-war-py311` 再用 `python main.py`；核对命令：`python -c "import sys, lark_oapi; print(sys.executable)"` |
 | 日志 `回复消息失败：code=99991672 … scopes is required: [im:message:send, im:message, im:message:send_as_bot]` | 应用缺**发消息**权限。去「权限管理 → 应用身份权限（tenant_access_token）」勾选 **`im:message:send_as_bot`（以应用的身份发消息）**，建议同时勾 `im:message`（获取与发送单聊、群组消息）；两条都是**免审权限**，开通后**重新发布一版**生效。**用户身份权限（user_access_token）那列不用开**——机器人全程用应用身份 |
-| `WARNING 子图渲染失败（exit=0）` 且错误信息为空 | 旧版本的中文路径编码问题（已修）：Node 输出的 UTF-8 被按本地编码解读 → JSON 解析失败。用当前代码重启机器人即可；仍失败时日志会带上 stdout/stderr 片段 |
-| `Ctrl-C` 后日志说"正在停止"但进程不退 | ① 若日志**反复**只打印"收到信号，正在停止"且间隔很短，说明你按的是**修复前启动的旧进程**——改完代码必须重启进程才会生效，用 `taskkill /F /PID <机器人PID>` 结束它（**不要**用 `taskkill /F /IM python.exe`，那会连 RAG 与旧后端一起杀掉；机器人 PID 的特征是"内存约 90MB + 出站 443 连接"）。② 新代码下第一下 Ctrl-C 约 1 秒内退出，连按两次可强制退出 |
+| `WARNING 子图渲染失败（exit=0）` 且错误信息为空 | 中文路径编码问题：Node 输出的 UTF-8 被按本地编码解读 → JSON 解析失败。用当前代码重启机器人即可（子进程已显式 `encoding="utf-8"`）；仍失败时日志会带上 stdout/stderr 片段 |
+| `Ctrl-C` 后日志说"正在停止"但进程不退 | ① 若日志**反复**只打印"收到信号，正在停止"且间隔很短，说明你按的是**改动前启动的旧进程**——改完代码必须重启进程才会生效，用 `taskkill /F /PID <机器人PID>` 结束它（**不要**用 `taskkill /F /IM python.exe`，那会连 RAG 与旧后端一起杀掉；机器人 PID 的特征是"内存约 90MB + 出站 443 连接"）。② 当前代码第一下 Ctrl-C 约 1 秒内退出，连按两次可强制退出 |
 | 每次提问都是"服务暂不可用" | RAG 没起、`RAG_BASE_URL` 写错、或跑的是**改动前的旧 RAG 实例**（启动日志的 ERROR 会点名） |
 | 每次提问都是"超时" | ① **回答本身很长**：介绍类问题（"介绍一下某某之战"）实测 12–25s 且 `truncated=True`，25s 预算是紧的；② **RAG 冷启动**：刚重启时要加载词典/向量库、首次调用 embedding，第一问可能超过预算；③ **历史里有垃圾行**：更早版本写下的命令行/超时轮留下的提问行会污染上下文，也让缓存键永远命中不了——跑一次 `python scripts/cleanup_db.py --purge-orphans`（当前代码已不再产生，且查询侧会丢弃）；④ 想等更久就**两边一起调大**——RAG 侧 `QUERY_JSON_TIMEOUT_SECONDS=45` + 机器人侧 `RAG_QUERY_TIMEOUT=40` 与 `RAG_JSON_BUDGET=45`；⑤ 想更快可在 RAG 侧调小 `LLM_MAX_TOKENS`（IM 场景短答更好读）。注意**同一问题在同一会话里再问一次不会命中缓存**（历史参与缓存键），所以每次都是真生成 |
 | 收不到任何消息 | 事件订阅没选长连接 / 没订阅 `im.message.receive_v1` / 应用未发布（配置要发布后才生效）/ 单聊没先给机器人发消息 |
@@ -150,32 +168,34 @@ RAG 探活与非流式接口是否存在 → `/help` → 主问题（占位卡 +
 
 ```text
 feishu-bot/
-├── main.py                # 入口：配置校验 → 建表 → 自检 → ws 长连接
+├── main.py                # 入口：配置校验 → 建表 → 自检 → ws 长连接（不占端口）
 ├── config.py              # 环境变量读取与校验（启动即 fail-fast）
+├── requirements.txt       # 本模块独立依赖（lark-oapi 版本锁死，不并入根 requirements.lock）
 ├── bot/
-│   ├── feishu_client.py   # SDK 封装：ws 接入、发消息/卡片、上传图片、PATCH 卡片
-│   ├── dispatcher.py      # 事件接入：去重、入队、worker 线程
-│   ├── session.py         # 会话与历史（SQLite，含字节预算组装）
-│   ├── db.py              # SQLite 连接与建表
+│   ├── feishu_client.py   # SDK 封装：ws 接入、发消息/卡片、上传图片、PATCH 卡片、传输层重试
+│   ├── dispatcher.py      # 事件接入：去重、入队、worker 线程、两段式回复
+│   ├── session.py         # 会话与历史（SQLite，含字节预算组装；/new 的重置）
+│   ├── db.py              # SQLite 连接与建表（含老库补列迁移）
 │   ├── rag_client.py      # RAG HTTP 客户端（超时与错误映射）+ 示例题缓存
-│   ├── skills/            # base（协议）/ help / knowledge_qa / report_error
+│   ├── skills/            # base（协议/命令匹配）/ help / new_session / knowledge_qa / report_error
 │   ├── cards/             # md_sanitizer（白名单收敛器）+ builder（卡片 2.0）
-│   └── render/subgraph.py # P2：子图 → PNG → image_key（失败自动降级）
-├── render/                # Node SSR 出图（echarts + resvg + d3-force）
+│   └── render/subgraph.py # 子图 → PNG → image_key（失败自动降级）
+├── render/                # Node SSR 出图（echarts + resvg + d3-force；npm ci 安装）
 ├── scripts/               # local_smoke.py（本地端到端冒烟）/ cleanup_db.py / consistency_check.py
+├── docs/                  # 需求与方案 / 开发文档 / 修复历史
 └── tests/                 # 单测 + 假 RAG 集成测试（card_helpers.py 是卡片取值的唯一实现）
 ```
 
 ## 文档
 
-| 文档 | 内容 | 状态 |
-| --- | --- | --- |
-| [docs/需求与方案.md](docs/需求与方案.md) | 目标 G1–G6、两层架构、分期 P0–P2、改造点清单、关键技术决策、代码事实表、待决项与风险 | 需求已确认（v2.1）；P0–P2 已实现 |
-| [docs/开发文档.md](docs/开发文档.md) | 技术选型、目录结构、进程模型、模块设计、RAG 非流式接口契约、SQLite 表结构、配置项、任务拆解与验收、测试与部署 | v1.2（2026-09-21）：实现已落地，含实现期补充说明（第十三节第 16–17 条为 2026-09-24 审查后的修复） |
-| [docs/审查报告-20260924.md](docs/审查报告-20260924.md) | 代码与文档的第三方审查：4 个待修代码问题、7 项低优先级、6 处文档口径漂移、优化与拓展路线 | 过程性记录；四条代码问题已修复（见下一条） |
-| [docs/修复实施记录-20260924.md](docs/修复实施记录-20260924.md) | 本轮改了哪些（3.1 四条 + 3.2 七项 + 文档回写）、为什么这么改、行为变更、证据等级与未做项 | 已实施（提交 `3c53ee9`）；审核通过（见下一条） |
-| [docs/修复审核报告-20260924.md](docs/修复审核报告-20260924.md) | 对修复实施记录的独立复核：逐条验证、P3 新发现一条（负缓存窗口口径）、决策点确认、下一步修复清单 | 审核通过；P3 已按方案 A 收口（提交 `8b68555`）；批次③④ 与真实租户人工验收待办 |
-| [docs/修复实施记录-批次③-20260925.md](docs/修复实施记录-批次③-20260925.md) | 批次③ 两项的落地：两段式回复（占位卡 → PATCH）、`/new` 重置会话；含失败路径、行为变更、证据等级 | 已实施，待审核；批次④ 与人工验收未做 |
+| 文档 | 内容 |
+| --- | --- |
+| [docs/需求与方案.md](docs/需求与方案.md) | 目标 G1–G6、两层架构、分期 P0–P2、改造点清单、关键技术决策、代码事实表、待决项与风险 |
+| [docs/开发文档.md](docs/开发文档.md) | 技术选型、目录结构、进程模型、模块设计、RAG 非流式接口契约、SQLite 表结构、配置项、任务拆解与验收、测试与部署 |
+| [docs/修复历史.md](docs/修复历史.md) | 按主题归纳的修复结论：约束与不变量、验收标准、踩坑教训、"改这里要同步改哪里"、未完成事项 |
+
+项目级文档（仓库根 `docs/`）见 [docs/README.md](../docs/README.md)；本模块在其中的定位与启动口径
+见 [docs/集成与入口约定.md](../docs/集成与入口约定.md) 与 [docs/项目现状与后续计划.md](../docs/项目现状与后续计划.md)。
 
 实现与设计文档的差异都在开发文档的「实现说明」小节里逐条记录（技能扩展字段、
 卡片按钮的落库顺序、纠错回执取舍等）。

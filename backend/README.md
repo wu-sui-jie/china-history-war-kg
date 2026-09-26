@@ -2,36 +2,57 @@
 
 Flask 应用，为管理台（`frontend/`）提供图谱查询、节点 CRUD、数据运营与旧版智能问答接口。
 
-- **运行时**：Python 3.11（统一环境，见根 README；CI 双跑 3.8/3.11，3.8 是过渡档），端口 **5000**
+- **运行时**：Python 3.11（本地统一 conda 环境 `china-war-py311`；跨模块口径见
+  [docs/集成与入口约定.md](../docs/集成与入口约定.md)。CI 的旧后端与抽取链 job 仍 3.8/3.11
+  双跑，3.8 是待废弃的过渡档），端口 **5000**
 - **数据**：SQLite（主存储，WAL 模式）+ Neo4j（可视化与图谱查询，SQLite 变更后同步）
 - **智能问答**：规则引擎（`rules/rule_base.json`，20 条）+ Ollama 本地大模型
-- **问答设计细节**：见 [规则引擎与LLM问答设计.md](规则引擎与LLM问答设计.md)
+- **问答设计细节**：见 [docs/规则引擎与LLM问答设计.md](docs/规则引擎与LLM问答设计.md)
+- **现状与后续计划**：见 [docs/项目现状与后续计划.md](../docs/项目现状与后续计划.md)
 
 ## 目录结构
 
 ```text
 backend/
-├── app.py                    # Flask 应用入口：应用装配、全局钩子、启停（路由已拆到 blueprints/）
-├── blueprints/               # 路由按业务分五组（P2-1 收官，URL 与拆分前逐字相同）
+├── app.py                    # Flask 应用入口：应用装配、全局钩子、启停（路由在 blueprints/）
+├── blueprints/               # 路由按业务分六组（**不加 url_prefix**，URL 由装饰器决定）
 │   ├── auth.py               #   登录注册 / 账号信息 / 用户管理 / 菜单与权限
 │   ├── node.py               #   节点增删改查与节点查询（写接口受 require_write_role 保护）
 │   ├── graph.py              #   图谱检索、四类关系图、节点子图、关系分析、全局搜索
 │   ├── workspace.py          #   仪表盘 / 数据集 / 质检 / 实体详情 / 时间轴 / 地图 / 修复工单
-│   └── llm.py                #   旧问答（同步与 SSE）与文本抽取——都消耗 LLM 配额
+│   ├── llm.py                #   旧问答（同步与 SSE）与文本抽取——都消耗 LLM 配额
+│   └── internal.py           #   服务间接口：token introspection（由服务间密钥守卫）
 ├── roles.py                  # 角色常量（WRITE_ROLES / ROLE_RANKS / *_MENU_IDS）与鉴权装饰器
-├── requirements.txt          # 本模块依赖声明（UTF-8，带版本下界）
+├── api_errors.py             # 统一错误响应层（框架层错误 → JSON + 正确 HTTP 状态）
 ├── db_utils.py               # DbUtil：SQLite 读写 + 同步 Neo4j
+├── db_handle.py              # Neo4j 连接单例（app 与 report_builders 共用）
 ├── model_search.py           # neo4j_db：Neo4j 图查询与节点写操作
-├── models.py                 # SQLAlchemy 模型（UserInfo + 4 实体 + 4 关系表）
-├── jwt_util.py               # JWT 签发与校验（含 exp 过期声明）
+├── models.py                 # SQLAlchemy 模型（UserInfo + 4 实体 + 4 关系表 + outbox 表）
+├── graph_key.py              # 稳定图谱键 graph_key = "<Type>:<SQLite 主键>"
+├── sync_compensation.py      # 事务型 outbox：落库 / 重放 / 退避 / 数据集版本作废
+├── retry_sync.py             # 命令行重放入口（--list / --due-only / --limit）
+├── jwt_util.py               # JWT 签发与校验（含 exp / iss / aud / ver 声明）
+├── login_guard.py            # 登录限流与账号锁定（同 IP 与同账号两把尺子）
+├── password_policy.py        # 口令强度的唯一判定口径
+├── create_admin.py           # 首个管理员的一次性引导命令
+├── llm_pipeline.py           # LLM 流水线：模型调用、抽取链与问答编排
+├── report_builders.py        # 报表构建器：把 SQLite/Neo4j 数据装配成前端结构
 ├── common_utils.py           # 跨模块小工具：safe_text / safe_float / safe_identifier / LRU 缓存
 ├── relation_types.py         # 事件-事件关系类型的唯一权威表（别名 ↔ 标准名）
-├── import_json_to_sqlite.py  # 从抽取结果 JSON 导入 SQLite（--source 可指定，需 --yes 确认重建）
+├── node_property_mapping.py  # SQLite ↔ Neo4j 字段映射的单一来源
+├── dynasty_data.py           # 朝代相关的全部数据表（展示顺序 / 别名 / 校验白名单）
+├── logging_util.py           # 统一日志配置（控制台 + logs/backend.log）
+├── local_settings.py         # 配置读取：环境变量 → backend/.env → 占位默认值
+├── requirements.txt          # 本模块依赖声明（UTF-8，带版本下界）
+├── import_json_to_sqlite.py  # 从抽取结果 JSON 导入 SQLite（--source 可指定，需 --yes 确认覆盖知识表）
 ├── sync_sqlite_to_neo4j.py   # SQLite → Neo4j 同步（全量/增量）
 ├── entity_extract/           # 实体抽取：规则快速命中 + Ollama 兜底
 ├── inference/                # 旧版智能问答：规则引擎与大模型集成
 ├── rules/rule_base.json      # 推理规则库（20 条：细分规则 17 + 复合规则 3）
-├── data/current_dataset.json # 当前数据集元信息（由 import 脚本写入，app.py 5 处读取）
+├── tests/                    # 常驻回归用例（`python -m pytest tests -q`）
+├── tools/                    # 离线工具：响应快照、抽取回放录制、性能剖析等
+├── docs/                     # 模块内设计文档（规则引擎与LLM问答设计.md）
+├── data/current_dataset.json # 当前数据集元信息（由 import 脚本写入，report_builders 读取）
 ├── data/raw/                 # 原始战争史文本存档（**无代码读取**，仅作留档）
 ├── data/processed/           # 分表 JSON：由 import 脚本每次导入时重建，已 gitignore
 ├── database                  # SQLite 数据库文件
@@ -77,22 +98,22 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
     → 同步 Neo4j（model_search.py）→ 图谱可视化
 ```
 
-**同步规则（第 13 轮整改后）**：节点增删改走**事务型 outbox**，图谱侧按**稳定图谱键**
+**同步规则**：节点增删改走**事务型 outbox**，图谱侧按**稳定图谱键**
 （`graph_key = "<Type>:<SQLite 主键>"`，见 `graph_key.py`）定位：
 
 1. 业务行与一条待办（`neo4j_sync_jobs`）在**同一次 SQLite 提交**里落库——提交后进程崩溃也不会
    留下"改了但没人知道还没同步"的状态；
 2. 提交后立刻尝试写 Neo4j：成功就把待办标 `done`，失败记 `last_error` 并按下一次退避时刻
    （30 秒 → 2 分钟 → 10 分钟 → 1 小时 → `abandoned`）留待重放；
-3. 重放成功会**回写** `neo4j_id`（原先重试成功但 `neo4j_id` 仍是空，后续更新/删除仍无法定位）。
+3. 重放成功会**回写** `neo4j_id`（它是观测信息：不回写就看不到这条任务对应图谱里的哪个节点）。
 
 **为什么不再按名字或 `neo4j_id` 定位**：按名字会把同名节点合成一个（"赤壁之战"在不同来源里确实有多个），
 改名又会被当成新建、留下旧节点；`neo4j_id` 是 Neo4j 内部分配的，全量重导或恢复备份后会全变。
 `graph_key` 由主存储决定，重放、重建、改名都不影响定位，`neo4j_id` 因此降级为观测信息。
-改造前建的无键节点会在第一次 upsert 时被**认领**（`SET n.graph_key`），不会产生重复。
+历史遗留的无键节点会在第一次 upsert 时被**认领**（`SET n.graph_key`），不会产生重复。
 
-删除的顺序不变：**先删 SQLite、再删 Neo4j**（且待办与删除同一次提交），SQLite 侧失败时不会留下
-「Neo4j 已删、SQLite 还在」的永久不一致。Neo4j 侧失败不再静默吞掉：响应里带
+删除的顺序是**先删 SQLite、再删 Neo4j**（且待办与删除同一次提交），SQLite 侧失败时不会留下
+「Neo4j 已删、SQLite 还在」的永久不一致。Neo4j 侧失败不静默吞掉：响应里带
 `sync_status` / `sync_error`，待办可用 `python retry_sync.py`（或 `deploy/systemd/china-war-outbox-retry.timer`
 每分钟自动重放）补齐，质检接口 `/api/quality/report` 还会给出两侧节点计数对账（`sync_reconciliation`）。
 
@@ -149,15 +170,15 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
 
 | 位置 | 形式 |
 | --- | --- |
-| `backend/roles.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；菜单裁剪白名单 `ADMIN_MENU_IDS` / `EDITOR_MENU_IDS` 与可见性判断。第 7 轮路由蓝图拆分时从 `app.py` 抽成独立模块（`app.py` 现 415 行）。菜单数据本体的 `get_menu()` 在 `backend/blueprints/auth.py` |
+| `backend/roles.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；菜单裁剪白名单 `ADMIN_MENU_IDS` / `EDITOR_MENU_IDS` 与可见性判断。它独立于 `app.py`，避免"蓝图 import app / app import 蓝图"的循环（`app.py` 现 467 行）。菜单数据本体的 `get_menu()` 在 `backend/blueprints/auth.py` |
 | `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
 | `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
-| `backend/tests/` | 常驻用例（**63 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽接口限 editor、抽取提示词与录制回放，以及第 9 轮新增的四组守护——**空角色回填为 viewer**（不提权）、**删除节点时关系级联且外键真的开着**、**数据重导不删账号**、**首个管理员引导命令**。`cd backend && python -m pytest tests -q`（第 6 轮审核 H4 建立，后续轮次扩充） |
+| `backend/tests/` | 常驻用例（**218 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽取接口限 editor、抽取提示词与录制回放，以及四组守护——**空角色回填为 viewer**（不提权）、**删除节点时关系级联且外键真的开着**、**数据重导不删账号**、**首个管理员引导命令**。`cd backend && python -m pytest tests -q` |
 
 **生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
 被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。
 
-⚠️ **启动迁移对空角色一律回填 `viewer`，不回填 `admin`**（第 12 轮审查 P1-5 改的口径）。
+⚠️ **启动迁移对空角色一律回填 `viewer`，不回填 `admin`**。
 该迁移每次启动都跑，而空角色行可能来自导入脚本、手工写库或旧版本遗漏——回填 admin 等于
 每次开机都可能静默提权，与 `DbUtil.get_role` 的最小权限兜底正好相反。空值只让人少看几个
 页面，不会让人多写几个接口。**首个管理员请用下面的引导命令，不要再靠改库。**
@@ -176,7 +197,7 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
    护栏：**只在库中确实没有管理员时才动数据**（已有管理员时退出码 1，并要求改走管理台）；
    口令只从终端读、不进 shell 历史；不走任何 HTTP 接口，因此不存在"匿名首管"的攻击面。
    为什么需要它：注册接口一律只建 viewer，而「用户管理」页只有 admin 能进——没有管理员
-   就进不去，全新库会死锁（此前只能手写 SQL，且没有"仅首次可用"这层护栏）。
+   就进不去，全新库会死锁（手写 SQL 同样能做到，但没有"仅首次可用"这层护栏）。
 
 1. 管理员在界面上操作：「用户管理」页把角色下拉改掉再保存（仅 `admin` 可见）。
    防呆由服务端执行——不能改自己的角色（否则最后一个管理员可以把自己降级、系统失管），
@@ -259,14 +280,25 @@ SELECT account, role FROM UserInfo WHERE account = 'someone';
 ## 运行方式
 
 ```bash
-# 统一环境（Python 3.11；本机解释器路径见根 README 的「本机环境备注」）
+# 统一环境：Python 3.11（本地 conda 环境名 china-war-py311）
 conda activate china-war-py311
 cd backend
 python app.py
 # 服务地址: http://localhost:5000
 ```
 
-依赖见 [requirements.txt](requirements.txt)（`pip install -r backend/requirements.txt`）。
+依赖：仓库根的 `requirements.lock`（119 包、带 sha256）覆盖四个模块的全部三方依赖。
+
+```bash
+conda activate china-war-py311
+pip install --no-cache-dir -r requirements.lock
+pip install -e entity-event-relation      # 抽取链是仓库内的正式包
+```
+
+`entity-event-relation` 必须装：backend 以正式包 `war_extraction` 引用抽取链，漏装会直接
+`ModuleNotFoundError: No module named 'war_extraction'`。`backend/requirements.txt` 只声明本模块
+自身的运行依赖（版本下界），服务器安装脚本默认走它。
+
 首次启动会自动初始化 SQLite schema，并做一次结构迁移（补 `UserInfo.role` 列、回填存量角色、
 补 `account` 唯一索引）。
 
@@ -285,11 +317,23 @@ ollama serve
 ollama pull deepseek-r1:7b
 ```
 
+## 测试
+
+```bash
+cd backend
+python -m pytest tests -q
+# 本机实测（china-war-py311）：218 passed
+```
+
+用例覆盖鉴权与角色链路、菜单裁剪、节点写路径的数据完整性、错误响应口径、登录限流与账号撤销、
+双写补偿重放、抽取链提示词与录制回放等，详见 `tests/`。
+
 ## 数据导入与同步（可选，换数据集时用）
 
 ```bash
 # 默认读取 entity-event-relation/output/.../9_final_all.json
-# 注意：会 drop_all() 重建整个 SQLite 库，因此必须显式加 --yes
+# 注意：会清空 4 类实体表与 4 类关系表后重新导入，因此必须显式加 --yes
+# （账号表 UserInfo 不在清理范围内；脚本只 create_all 补新表，不 drop_all）
 python import_json_to_sqlite.py --yes
 
 # 也可指定数据源：单个结果 JSON，或发布子集
@@ -333,10 +377,11 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
 
 ## 注意事项
 
-0. **改接口先找对文件**：路由在 `blueprints/` 下按业务分组（五组见上表），
+0. **改接口先找对文件**：路由在 `blueprints/` 下按业务分组（六组见上表），
    `app.py` 只留应用装配与全局钩子（鉴权 `before_request`、实体提取器单例绑定）。**蓝图不加
-   url_prefix**，URL 必须与拆分前逐字相同；改动的行为不变性由
-   `python tools/snapshot_responses.py` 的 67 请求前后对照兜底（见该脚本的文件头）。
+   url_prefix**，URL 完全由蓝图里的路由装饰器决定（多一层前缀会让前端调用全部失配）；
+   改动的行为不变性由 `python tools/snapshot_responses.py` 的 67 请求前后对照兜底
+   （见该脚本的文件头）。
 1. **数据库初始化**：首次运行自动创建 SQLite 表结构，并做一次结构迁移（`UserInfo.role` 列、
    `token_version` / `disabled` 列、`account` 唯一索引、关系表证据字段、补偿队列的新列）；
    WAL 与 `synchronous=NORMAL` 由 SQLAlchemy 的 connect 事件钩子在**每个新连接**上设置，
@@ -360,14 +405,15 @@ cp backend/.env.example backend/.env    # 然后填入你的 Neo4j 口令与 JWT
    改密码 / 停用账号会把 `token_version` +1，旧 JWT 立刻失效（见 `DbUtil.check_token_usable`）。
    配置项与生产建议见 `deploy/env/backend.env`。
    **落库时间一律是 UTC epoch 秒**（`time.time()`，列名带 `_epoch` 后缀）：这类计数必须跨进程、
-   跨重启可比，而 `time.monotonic()`（开机以来的秒数）在重启后就换了基准——旧实现把它写进库里，
-   重启后会把账号凭空锁住几十万秒、或让锁定提前失效（第 13 轮复核第三节）。
-   升级时旧口径的 `login_attempts` 表会被**整表作废重建**（限流数据是临时安全状态，不是业务数据）。
-   **计数、窗口滚动与锁定判定在一条 UPSERT 里完成**（第 13 轮复核整改 §2.3）：改造前是
-   "读 → Python 里 +1 → 写回"，20 个并发失败实测只记到 **4** 次；现在记满 20 次。
+   跨重启可比，而 `time.monotonic()`（开机以来的秒数）在重启后就换了基准——写进库里会让重启后
+   的账号被凭空锁住几十万秒、或让锁定提前失效。
+   遇到旧口径（monotonic 值）的 `login_attempts` 表时会被**整表作废重建**（限流数据是临时安全
+   状态，不是业务数据）。
+   **计数、窗口滚动与锁定判定在一条 UPSERT 里完成**："读 → Python 里 +1 → 写回"在 20 个并发
+   失败下实测只记到 **4** 次；一条 UPSERT 能记满 20 次。
    限流自身故障时按 `LOGIN_GUARD_FAILURE_MODE` 处置（见环境变量表），默认 fail-closed。
 7. **口令策略只有一份实现**：`password_policy.py` 的 `MIN/MAX_PASSWORD_LENGTH` 与
-   `password_problem()` 被注册、改密码、首管命令（`create_admin.py`）共用——改造前首管是
-   6–20 位，等于"权限最高的账号允许最弱的密码"，而 21–64 位的强口令反而设不上。
-   策略**只回答合不合规，不修改输入**：首尾空白由它明确报错，前端不再 `trim()` 口令
+   `password_problem()` 被注册、改密码、首管命令（`create_admin.py`）共用——首管若单独定一套
+   更松的长度（如 6–20 位），等于"权限最高的账号允许最弱的密码"，而 21–64 位的强口令反而设不上。
+   策略**只回答合不合规，不修改输入**：首尾空白由它明确报错，前端不 `trim()` 口令
    （静默改写用户输入会让人永远猜不到为什么登录不上）。

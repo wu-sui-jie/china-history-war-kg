@@ -39,7 +39,7 @@
                                      （长连接，不走 nginx）
 ```
 
-**两个环境仍然分开，但主版本统一为 3.11**：RAG 的 chromadb 要求 Python ≥ 3.10；旧后端原先在 3.8 上跑，2026-09-26 已在真机验证它同样跑在 3.11（四套测试与线上接口都通过），于是全仓统一到 **Python 3.11**——服务器上仍是两个独立环境（依赖集不同：一个是 Flask + py2neo，一个是 FastAPI + chromadb），但不再需要为一个模块留 3.8。
+**两个环境仍然分开，但主版本统一为 3.11**：RAG 的 chromadb 要求 Python ≥ 3.10；旧后端（Flask + py2neo）也已在 3.11 上验证通过（四套测试与线上接口全过，2026-09-26 真机实测），于是全仓统一到 **Python 3.11**——服务器上仍是两个独立环境（依赖集不同：一个是 Flask + py2neo，一个是 FastAPI + chromadb），分环境是**隔离选择**，Python 版本不再是理由。
 
 ---
 
@@ -143,7 +143,7 @@ nano backend/.env                # 填 NEO4J_PASSWORD（第 3 步的口令）、
                                  # RAG_INTERNAL_SERVICE_KEY 同值）
 ```
 
-`INTERNAL_SERVICE_KEY` 是**服务间密钥**（第 13 轮复核新增）：RAG 用它调用旧后端的
+`INTERNAL_SERVICE_KEY` 是**服务间密钥**：RAG 用它调用旧后端的
 `/api/internal/token/introspect`，确认"这张凭证现在还作不作数"。不配的后果见下面 RAG 的第 4 项。
 
 **RAG 服务**（模型端点、检索、限流、CORS）：
@@ -159,35 +159,35 @@ RAG 有三个**必改项**，不改虽然能启动但行为是错的（`deploy/e
    —— 不加的话，所有用户对 RAG 来说都是同一个 IP，`RATE_LIMIT_PER_MINUTE=30` 会变成**全站合计 30 次/分钟**。
 2. `CORS_ALLOW_ORIGINS` 不能留 `*`（显式生产档下服务会拒绝启动）。只用 IP 就填 `http://你的公网IP`，
    有域名填 `https://你的域名`。
-3. `RAG_AUTH_MODE` 必须显式选一个（第 13 轮整改）：
+3. `RAG_AUTH_MODE` 必须显式选一个：
    - `RAG_AUTH_MODE=jwt`：本服务验签，**同时**要配 `RAG_JWT_SECRET`（与 backend 的 `JWT_SECRET` 同值）；
    - `RAG_AUTH_MODE=nginx`：由 nginx 的 `auth_basic` 或前置网关把关，服务只监听回环；
    - `RAG_AUTH_MODE=disabled`：不校验身份，**显式生产档下会拒绝启动**。
 
-   ★ 这一项以前只打一条 WARNING，而 WARNING 会被忽略——"nginx 在把关"和"根本没人在把关"
-   在配置里长得一模一样。现在必须显式二选一：留空或写 `disabled` 时，只要同时设了
+   ★ 这一项必须**显式二选一**，不能靠"看起来配了"：留空或写 `disabled` 时，只要同时设了
    `RAG_REQUIRE_ACTIVE_VERSION=true`，服务启动即失败。选 `nginx` 档时若监听的不是回环地址，
    `run_server.py` 也会拒绝启动（那种情况下同网段可以绕过 nginx 直连后端）。
-   旧开关 `RAG_REQUIRE_AUTH` 仍被接受（`true` 等价于 `jwt`），只用于兼容改造前的配置。
+   要求显式的原因："nginx 在把关"和"根本没人在把关"在配置里长得一模一样，只打一条 WARNING
+   会被忽略。旧开关 `RAG_REQUIRE_AUTH` 仍被接受（`true` 等价于 `jwt`），只用于兼容按旧名字写的配置。
 
-   ★ **生产默认是 `jwt`**（模板里已经是这个值）。原模板写的是 `nginx`，而 nginx 侧的
-   `auth_basic` 是注释状态——照着两份模板部署会得到"RAG 以为 nginx 在鉴权、nginx 其实没配"
-   的组合：两边都能正常启动、日志里没有任何异常，唯一后果是公网 RAG 没有访问控制。
-   现在这个组合在**安装阶段**就会被拦住（见第 6 步的鉴权门禁），不再依赖你记得改注释。
+   ★ **生产默认是 `jwt`**（模板里已经是这个值）。若档位选了 `nginx` 而 nginx 侧的
+   `auth_basic` 还处于注释状态，就会得到"RAG 以为 nginx 在鉴权、nginx 其实没配"的组合：
+   两边都能正常启动、日志里没有任何异常，唯一后果是公网 RAG 没有访问控制。
+   这个组合在**安装阶段**就会被拦住（见第 6 步的鉴权门禁），不依赖你记得去改 nginx 注释。
 
-4. `RAG_INTROSPECT_URL` + `RAG_INTERNAL_SERVICE_KEY`（第 13 轮复核新增，**强烈建议配上**）：
+4. `RAG_INTROSPECT_URL` + `RAG_INTERNAL_SERVICE_KEY`（**强烈建议配上**）：
 
    不配的后果很具体：**账号被停用或改密码后，旧 token 在自然过期前（默认 7 天）仍能调用
    RAG 问答接口**——旧后端本身会立刻拒绝该凭证，于是安全动作只在一半系统上生效。
    配上之后 RAG 会按 `RAG_INTROSPECT_TTL_SECONDS`（默认 30 秒）向后端确认一次凭证状态，
    **该 TTL 就是撤销生效延迟的上界**。密钥与 backend 的 `INTERNAL_SERVICE_KEY` 必须同值。
 
-   ★ **生产档下这一项必须显式选择**（第 13 轮复核整改 §2.7）：要么按上面配齐（或加一行
+   ★ **生产档下这一项必须显式选择**：要么按上面配齐（或加一行
    `RAG_REQUIRE_REVOCATION_CHECK=true` 表示"这个部署必须有"），要么设
    `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受延迟。两个都不做，服务会**拒绝启动**，
    安装门禁也会在同一口径上拦一次（`check_rag_auth.sh`）。
 
-5. `RAG_BOT_API_KEY`（只在**要接飞书机器人**时必填，第 14 轮审计 P2-20）：
+5. `RAG_BOT_API_KEY`（只在**要接飞书机器人**时必填）：
 
    机器人没有用户身份，只会发 `X-Bot-Key`，而 jwt 档推出 `require_auth=True`——
    两边都不配的结果是**机器人每问必被 401**，机器人侧却只显示"RAG 不可用"，
@@ -249,7 +249,7 @@ sudo bash deploy/scripts/install_services.sh
 这一步会：装 nginx → 写 nginx 站点 → 登记三个 systemd 服务（`china-war-backend`、`china-war-rag`、
 `china-war-bot`）→ **跑一次鉴权门禁** → 启动并设为开机自启。
 
-**鉴权门禁**（第 13 轮复核新增，`deploy/scripts/check_rag_auth.sh`）在启动服务**之前**执行，
+**鉴权门禁**（`deploy/scripts/check_rag_auth.sh`）在启动服务**之前**执行，
 任一失败即终止安装。它校验的是"两份配置各看起来都对、合起来却漏了一半"这类组合：
 
 | 检查 | 挡住的失败模式 |
@@ -257,7 +257,7 @@ sudo bash deploy/scripts/install_services.sh
 | 鉴权模式取值合法；生产档下不能是 `disabled` | 拼错取值静默回落、生产漏配 |
 | `jwt` 档：RAG 与 backend 两侧 JWT 密钥**同值** | 这套校验最容易踩的坑——表现为问答全部 401 |
 | `jwt` 档：撤销查询要么两侧配齐，要么明确告警 | "停用账号后在 token 到期前仍可用"这条边界被静默继承 |
-| `nginx` 档：`.htpasswd` 存在、`auth_basic` 处于**启用**状态、`nginx -T` 生效配置里 `/rag/` 带认证 | 复核发现的原始缺陷：模板说 nginx 把关，nginx 里那两行其实是注释 |
+| `nginx` 档：`.htpasswd` 存在、`auth_basic` 处于**启用**状态、`nginx -T` 生效配置里 `/rag/` 带认证 | 档位说 nginx 把关、nginx 里那两行其实是注释：两边都能正常启动，公网 RAG 没有访问控制 |
 | 密钥不是模板占位符、长度达标（JWT 与服务间密钥 ≥ 32、Neo4j 口令 ≥ 12），Neo4j 口令不是出厂默认值 | 把同一个 `CHANGE_ME_...` 复制到两侧能通过"非空 + 同值"检查；占位符判定与 `RAG/scripts/check_secrets.py` 同口径 |
 | 生产档下撤销策略已显式选择（配齐查询，或 `RAG_ALLOW_DELAYED_REVOCATION=true`） | "两个值都不填"等于静默接受"停用账号后 7 天内仍可用" |
 | 两种档位：RAG 只监听回环；nginx 屏蔽 `/api/internal/` | 直连后端端口绕过鉴权、内部接口暴露到公网 |
@@ -268,7 +268,7 @@ sudo bash deploy/scripts/install_services.sh
 sudo bash deploy/scripts/check_rag_auth.sh
 ```
 
-**另有一个 systemd 定时器**（第 13 轮整改新增，补偿队列的自动重放）：
+**另有一个 systemd 定时器**（补偿队列的自动重放）：
 
 ```bash
 sudo cp deploy/systemd/china-war-outbox-retry.{service,timer} /etc/systemd/system/
@@ -416,11 +416,11 @@ sudo systemctl restart china-war-rag
 
 ## 六、安全边界（务必读完再决定要不要开放公网）
 
-1. **RAG 的鉴权必须显式配置**（第 13 轮复核后已改为默认 `jwt`）：服务端验签旧后端签发的 JWT，
+1. **RAG 的鉴权默认是 `jwt` 档**：服务端验签旧后端签发的 JWT，
    两条问答通道一视同仁；未开启时 `/api/health` 会持续告警。旧后台的登录门禁**管不到 RAG**——
    `/rag/*` 被 nginx 直接转给了 8000，不经过 Flask。
-2. **不要依赖"两份配置各看起来都对"**。原先的模板写 `RAG_AUTH_MODE=nginx`，而 nginx 的
-   `auth_basic` 是注释状态——这种组合两边都能正常启动、日志里没有异常，唯一后果是公网 RAG
+2. **不要依赖"两份配置各看起来都对"**。档位写 `RAG_AUTH_MODE=nginx`、而 nginx 的
+   `auth_basic` 是注释状态，这种组合两边都能正常启动、日志里没有异常，唯一后果是公网 RAG
    没有访问控制。现在：模板默认 `jwt`；若确实要用 nginx 档，`deploy/scripts/check_rag_auth.sh`
    会在安装阶段校验 `.htpasswd` 存在、`auth_basic` 确实启用、`nginx -T` 生效配置里 `/rag/`
    带认证，缺一即拒绝安装。
@@ -432,8 +432,8 @@ sudo systemctl restart china-war-rag
    服务间内部接口（`/api/internal/`）只走回环，nginx 对公网直接返回 404。
 6. `.env` 与 `/etc/china-war/rag-secrets.env` 里是口令和密钥，权限保持 `600`。
 7. 本仓库是公开仓库——真实口令、密钥一律只写在服务器上，不要提交进 git。
-8. **首次部署前轮换历史凭据（必做）**：git 历史（初始提交 `57eea5b`）里曾明文提交过 Neo4j 口令与 JWT 密钥。
-   当前 HEAD 已改为从 `backend/.env` 读取，但**历史里的旧值仍可取回**，视同已泄露：
+8. **首次部署前轮换历史凭据（必做）**：git 历史（初始提交 `57eea5b`）里明文提交过 Neo4j 口令与 JWT 密钥，
+   这些旧值**仍可从历史中取回**，视同已泄露（当前代码已从 `backend/.env` 读取，不影响这个结论）：
    - Neo4j 口令：在 Neo4j 上执行 `ALTER USER neo4j SET PASSWORD '<新口令>'`，同步更新 `backend/.env` 的 `NEO4J_PASSWORD`；
    - JWT 密钥：换一个全新的 `JWT_SECRET`（`openssl rand -base64 48`）。换掉后所有旧 token 立即失效，用户需重新登录；
    - 服务间密钥：换 `INTERNAL_SERVICE_KEY` / `RAG_INTERNAL_SERVICE_KEY`（两侧同值，`openssl rand -hex 32`）。
@@ -496,6 +496,11 @@ RAG 的 `data/snapshot`、`data/index` 是派生制品，丢了按第五节重�
 ---
 
 ## 九、真机部署实测记录（2026-09-26）
+
+> **服务器租期**：这一节记录的第一台服务器（公网 IP `47.117.100.163`）是**临时租用**的，
+> **2026-10-26 到期**；到期后该 IP 上的三个服务、nginx 入口与演示环境都会不可用。
+> 续费或迁到新机器后，按本文第四节重做部署与自检，并更新
+> `deploy/scripts/verify_deploy_auth.py` 的默认 IP（可用 `PUBLIC_HOST` 覆盖）。
 
 这一节记的是**只在真机上才会现形**的坑。它们的共同点是：本机看不出来、CI 也全绿，而后果都是"部署看起来成功了，其实没生效"。
 
