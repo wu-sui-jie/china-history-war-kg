@@ -1,24 +1,19 @@
-# 旧后端（Flask，:5000）依赖声明。
+# 旧后端（Flask，:5000）自身运行所需的直接依赖，按 backend 的 import 清单核对。
 #
-# 运行环境：Python 3.11（本地统一 conda 环境 china-war-py311）。
-#
-# 安装（推荐走仓库根的统一 lock，它覆盖四个模块的全部三方依赖）：
-#   pip install --no-cache-dir -r requirements.lock
-#   pip install -e entity-event-relation       # 抽取链是仓库内的正式包，漏装会 ModuleNotFoundError
-# 只想装本模块的运行依赖时：pip install -r backend/requirements.txt
-#
-# 与根依赖声明的关系：
-#   requirements.lock 锁定四模块共用的精确版本（带 sha256）；根 pyproject.toml 按模块分组
-#   声明版本区间。本文件只列 backend 自身运行所需，由 backend 的 import 清单驱动。
+# 环境：Python 3.11（本地统一 conda 环境 china-war-py311）。
+# 版本区间与根 pyproject.toml 的 backend 声明一致——那里是权威来源，两边改到其中一处时要同步。
+# 要装验证过的精确版本用仓库根的统一锁：
+#     pip install --require-hashes -r requirements.lock
+# 只装本模块的运行依赖：
+#     pip install -r backend/requirements.txt
 #
 # 说明：
-#   - 版本下界按实际验证过的版本给出，未锁定精确版本；
-#   - py2neo 已停止维护（2021.2.4 为最后一版），仅用于 Neo4j 可视化读写，见 backend/README.md；
-#   - 本清单按代码里的 import 核对过：历史根文件里出现过的 openai / requests / python-dotenv
-#     在 backend 中并无 import，故不在此列出。
+#   - 只给区间、不锁精确版本；
+#   - py2neo 已停更（2021.2.4 为最后一版），仅用于 Neo4j 可视化读写，见 backend/README.md；
+#   - openai / python-dotenv 在 backend 里没有 import（属抽取链与 RAG 的依赖），故不列在此处。
 
-Flask>=2.3,<3
-Flask-Cors>=5.0,<6
+Flask>=2.3,<4
+Flask-Cors>=5.0,<7
 Flask-SQLAlchemy>=3.0,<4
 SQLAlchemy>=2.0,<3
 Werkzeug>=3.0,<4
@@ -26,15 +21,14 @@ PyJWT>=2.4,<3
 py2neo>=2021.2.4,<2022
 ollama>=0.5,<1
 jieba>=0.42,<1
+requests>=2.31,<3
 
-# backend 通过正式包 war_extraction（同级目录 entity-event-relation）引用抽取链，
-# 其中 pydantic 模型是 backend 也用到的部分，因此 pydantic 仍需装在这里。
-# 注意：war_extraction 本身要用 -e 安装，见下。
+# 抽取链 war_extraction 的模型层依赖 pydantic（backend 不直接 import，但导入该包时必须有它）。
 pydantic>=2.0,<3
 
-# ---- 抽取链包 war_extraction（本仓库内的 entity-event-relation，不发布到 PyPI）----
-# 不在本文件里用 "-e ../entity-event-relation" 声明：路径依赖写进 requirements 会让
-# `pip install -r backend/requirements.txt` 在别的工作目录下失效。安装顺序是：
-#   1) pip install --no-cache-dir -r requirements.lock   （仓库根，含抽取链的三方依赖）
-#   2) pip install -e entity-event-relation       （开发态安装 war_extraction）
+# 抽取链包 war_extraction 是本仓库内的 entity-event-relation，要用 -e 安装：
+#     pip install -e entity-event-relation
+# 不把 "-e ../entity-event-relation" 写进本文件：路径依赖会让
+# `pip install -r backend/requirements.txt` 在别的工作目录下失效。
+# 完整顺序：先装统一锁（含抽取链的三方依赖），再 `-e entity-event-relation`；
 # CI 里这两步都在 legacy-backend job 中执行，见 .github/workflows/ci.yml。

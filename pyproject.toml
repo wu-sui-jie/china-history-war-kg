@@ -79,28 +79,29 @@ dependencies = []
 [project.optional-dependencies]
 
 # ---- 旧后端（Flask :5000）----
-# SQLAlchemy 2 与 Flask-SQLAlchemy 3 是**统一目标**：backend 当前在本机以
-# SQLAlchemy 1.4 验证过，升到 2.0 需要先跑通那 101 项测试（见文件头说明）。
-# 旧版 `Query.get()` 等用法在 2.0 下仍可用但会产生 LegacyAPIWarning，属已知项。
+# 下界取实际验证过的版本（本机与 CI 都在 Flask 3.1 / SQLAlchemy 2.x 上跑通全部用例），
+# 上界留一个主版本，避免自动升到尚未验证的下一个大版本。
+# `Query.get()` 已全部改为 `db.session.get()`，CI 把 LegacyAPIWarning 当失败门禁。
 backend = [
     "Flask>=2.3,<4",
     "Flask-Cors>=5.0,<7",
+    "requests>=2.31,<3",
     "Flask-SQLAlchemy>=3.0,<4",
     "SQLAlchemy>=2.0,<3",
     "Werkzeug>=3.0,<4",
     "PyJWT>=2.4,<3",
-    # py2neo 是唯一的"必须留着的旧依赖"：替换成官方 driver 属文档第十三节的
-    # 独立改造（新增 neo4j 依赖 + 适配层 + 真实 Neo4j 集成验证），不在这里顺手换。
+    # py2neo 是唯一必须留着的旧依赖（已停更，2021.2.4 为最后一版）：换成官方 driver
+    # 属独立改造（新增 neo4j 依赖 + 适配层 + 真实 Neo4j 集成验证），不在这里顺手换。
     "py2neo>=2021.2.4,<2022",
     "ollama>=0.5,<1",
     "jieba>=0.42,<1",
-    "python-dotenv>=0.21",
 ]
 
 # ---- 离线抽取链的三方依赖（backend 的 /api/extract/* 与 entity-event-relation 共用）----
 extract = [
     "openai>=1.0,<3",
     "pydantic>=2.0,<3",
+    "python-dotenv>=0.21",
     "Jinja2>=3.0",
     "fuzzywuzzy>=0.18",
     "python-Levenshtein>=0.20",
