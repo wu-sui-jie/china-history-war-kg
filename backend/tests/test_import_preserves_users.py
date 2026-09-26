@@ -1,16 +1,16 @@
-"""数据重导不得动账号（审查报告 P0-1）。
+"""数据重导不得动账号。
 
-修复前 `JsonToSqliteImporter.run()` 调 `db.drop_all()` + `create_all()`，而 UserInfo 与
+`JsonToSqliteImporter.run()` 若调 `db.drop_all()` + `create_all()`，而 UserInfo 与
 知识表共用同一个 SQLAlchemy metadata——于是"换一份抽取数据集重导"会顺手删光所有账号、
 口令哈希与角色，管理员账号消失后只能重新注册 viewer 再手工改 SQLite 才能恢复。
 
 这里钉三件事：
-1. `run()` 不再调用 `drop_all`（用打桩把"被调用"变成失败，而不是靠读源码）；
+1. `run()` 不调用 `drop_all`（用打桩把"被调用"变成失败，而不是靠读源码）；
 2. 导入前后账号数量与角色**逐条相同**；
 3. 真的执行到了导入（实体被写进去），否则上面两条会因为"什么都没干"而假通过。
 
-用例直接跑完整 `run()`，不是只测其中某个函数——P0 级事故出在 `run()` 的编排上，
-只测 `clear_migration_tables()` 漏得掉。
+用例直接跑完整 `run()`，不是只测其中某个函数——事故出在 `run()` 的编排上，
+只测 `clear_migration_tables()` 会漏掉。
 """
 
 import json
@@ -59,9 +59,9 @@ def importer(tmp_path, monkeypatch):
 
 
 def test_导入不再调用_drop_all(importer, monkeypatch):
-    """把 drop_all 换成"一被调用就失败"：它回来了就说明 P0-1 又复发。"""
+    """把 drop_all 换成"一被调用就失败"：它一旦被调用就会连带删掉账号。"""
     def _forbidden():
-        pytest.fail("导入脚本又调用了 db.drop_all()——这会连带删除 UserInfo（P0-1）")
+        pytest.fail("导入脚本又调用了 db.drop_all()——这会连带删除 UserInfo")
 
     monkeypatch.setattr(db, "drop_all", _forbidden)
 

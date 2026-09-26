@@ -1,8 +1,8 @@
-"""节点增删改查与节点查询路由（P2-1 收官：从 app.py 按业务分组迁出）。
+"""节点增删改查与节点查询路由。
 
 含四类写接口（create/update/delete_node、update_properties，均受 require_write_role 保护）
-与只读的节点/关系类型查询。**URL 与行为逐字未变**；第 12 轮审查 P1-3 追加了双写补偿的
-查看与重试两个接口（`/api/sync/*`，见文件末尾）。
+与只读的节点/关系类型查询。**URL 与响应形状必须保持不变**（前端与快照用例都按现有
+路径与字段调用）；另有双写补偿的查看与重试两个接口（`/api/sync/*`，见文件末尾）。
 """
 
 from flask import Blueprint, g, jsonify, request
@@ -20,9 +20,9 @@ logger = get_logger(__name__)
 def _result_response(result: dict):
     """把 `DbUtil` 的 `{code, msg, data}` 结果转成响应，**HTTP 状态取同一个 code**。
 
-    DbUtil 的写方法用 code 表达业务结果（200 / 400 / 404 / 500），而路由此前一律回
-    HTTP 200——于是"节点不存在"在监控、反代与前端重试逻辑眼里都是**成功**，
-    只能靠读 body 才能分辨（第 13 轮复核第七节第 5 条的状态码表）。
+    DbUtil 的写方法用 code 表达业务结果（200 / 400 / 404 / 500），HTTP 状态必须跟着
+    code 走：一律回 200 会让"节点不存在"在监控、反代与前端重试逻辑眼里都是**成功**，
+    只能靠读 body 才能分辨。
 
     前端两条分支都能显示后端文案（`useNodeCrudPage` 既有 `res.code !== 200` 分支，
     也有读 `error.response.data.msg` 的 catch 分支），因此这一步对用户可见行为无影响。
@@ -127,8 +127,8 @@ def update_node():
         return _result_response(result)
 
     except Exception as e:
-        # 改前这里既没有日志、HTTP 又是 200：失败在客户端表现为"成功但没变"，
-        # 在服务端日志里也没有任何痕迹（第 13 轮复核第七节第 3 条）。
+        # 这里必须记日志并给出非 2xx：只回 HTTP 200 且不留日志时，失败在客户端表现为
+        # "成功但没变"，在服务端也没有任何痕迹。
         return server_error("更新节点失败", e)
 
 
@@ -154,8 +154,8 @@ def delete_node():
         return _result_response(result)
 
     except Exception as e:
-        # 改前这里既没有日志、HTTP 又是 200：失败在客户端表现为"成功但没变"，
-        # 在服务端日志里也没有任何痕迹（第 13 轮复核第七节第 3 条）。
+        # 这里必须记日志并给出非 2xx：只回 HTTP 200 且不留日志时，失败在客户端表现为
+        # "成功但没变"，在服务端也没有任何痕迹。
         return server_error("删除节点失败", e)
 
 
@@ -168,8 +168,8 @@ def get_node_detail():
         node_id = request.args.get('id')
         node_type = request.args.get('type')
 
-        # 非数字 id 原先由 `int(node_id)` 抛 ValueError，被兜底 except 收成
-        # 500「操作失败」（第 14 轮审计 P3-1）——一次参数错误被说成服务器故障。
+        # 非数字 id 在这里就判成 400：直接交给 `int(node_id)` 会抛 ValueError，
+        # 被兜底 except 收成 500「操作失败」——一次参数错误被说成服务器故障。
         if node_id and not str(node_id).strip().lstrip("-").isdigit():
             return jsonify(error_payload(400, "节点ID必须是数字")), 400
 
@@ -349,7 +349,7 @@ def search_nodes_by_name():
         return server_error("操作失败", e)
 
 
-# ==================== 双写补偿（第 12 轮审查 P1-3）====================
+# ==================== 双写补偿 ====================
 # Neo4j 写失败时落一条待补偿记录（见 sync_compensation.py），这里给出查看与重试入口。
 # 受 require_write_role 保护而不是 require_admin：它只影响图谱侧的可见性，
 # 与 editor 已有的写节点权限是同一类动作，不需要额外提权。

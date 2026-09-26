@@ -23,10 +23,9 @@ log = logging.getLogger(__name__)
 
 # 触发降级卡片的错误码（开发文档 5.3）。
 #
-# 第 14 轮审计 P3-6：这个集合原先**没有任何引用**，真正决定降级文案的是
-# `knowledge_qa._degraded_reply` 里一句硬编码判断，于是「往集合里加错误码」会静默无效。
-# 现在它就是判定集（timeout 另走一档文案），并补上此前漏掉的 `rate_limited`：
-# 429 在机器人看来同样是「服务暂不可用、稍后再试」，不是内部故障。
+# 这个集合就是判定集：`knowledge_qa._degraded_reply` 按它选文案（timeout 另走一档），
+# 所以**往集合里加错误码才会生效**，不要在其他地方再写一份硬编码判断。
+# `rate_limited` 也在内：429 在机器人看来同样是「服务暂不可用、稍后再试」，不是内部故障。
 DEGRADED_CODES = frozenset({"timeout", "server_busy", "internal", "llm_timeout",
                             "llm_unavailable", "bad_response", "transport",
                             "rate_limited"})
@@ -162,9 +161,9 @@ class RagClient:
         if resp.status_code in (400, 413, 422, 429):
             return True
         if resp.status_code in (401, 403):
-            # 第 14 轮审计 P3-7：401/403 说明**路由存在、身份被拒**——最常见的原因是
-            # 机器人侧没配 / 配错 X-Bot-Key（RAG 在 jwt 档下要求它，见 P2-20）。
-            # 原先把 401 归到下面那条"该地址可能不是 RAG 服务"，运维会朝反方向修。
+            # 401/403 说明**路由存在、身份被拒**——最常见的原因是机器人侧没配 / 配错
+            # X-Bot-Key（RAG 在 jwt 档下要求它）。必须与下面那条"该地址可能不是 RAG
+            # 服务"分开报，否则运维会朝反方向修。
             log.error("探测 /api/query/json 被拒（HTTP %s）：这是身份问题，不是地址问题——"
                       "请检查 feishu-bot/.env 的 RAG_BOT_API_KEY 与 RAG 侧 "
                       "RAG_BOT_API_KEY 是否同值（jwt 档下必须配）", resp.status_code)
@@ -198,7 +197,7 @@ class RagClient:
 
 
 class DemoExamplesCache:
-    """示例问题按钮的题目缓存（P1-3）：启动预取 + 每 1h 刷新，接口失败保留旧值。
+    """示例问题按钮的题目缓存：启动预取 + 每 1h 刷新，接口失败保留旧值。
 
     放在 rag_client 里而不是单独模块：它本质是"带缓存的 RAG 只读调用"，
     与限流、鉴权、超时口径共享同一个客户端。
@@ -226,8 +225,8 @@ class DemoExamplesCache:
     def refresh(self, force: bool = False) -> list[str]:
         """取（并按需刷新）示例题。失败时保留上一次结果，不清空。
 
-        **负缓存**：守卫只看"刷新窗口是否过期"，不看"有没有题目"。早先要求缓存非空
-        （`fresh and self._questions`），于是接口失败或返回空列表时守卫永远不成立，
+        **负缓存**：守卫只看"刷新窗口是否过期"，不看"有没有题目"。若把缓存非空也当
+        必要条件（`fresh and self._questions`），接口失败或返回空列表时守卫永远不成立，
         每次组卡都同步重打一次 `GET /api/demo/examples`——端点不可用时最坏吃满
         connect 5s + read 25s 的客户端超时，直接叠加在用户等待时间上。
         现在成功与失败两条路径都记刷新时刻，窗口按**上一次刷新是否失败**取档：
@@ -235,9 +234,8 @@ class DemoExamplesCache:
         （默认 5min）再试。
 
         窗口按"上次是否失败"而不是"当前有没有题目"取档，是因为后者会让
-        "留有旧题目、本次刷新失败"的情形仍等满一小时——接口恢复了按钮区却迟迟不更新
-        （审核报告第三节方案 A）。失败时旧题目照旧展示（`_questions` 不动），
-        只是下次刷新提前到 5 分钟后。
+        "留有旧题目、本次刷新失败"的情形仍等满一小时——接口恢复了按钮区却迟迟不更新。
+        失败时旧题目照旧展示（`_questions` 不动），只是下次刷新提前到 5 分钟后。
         """
         if not self.enabled or self.count == 0:
             return []

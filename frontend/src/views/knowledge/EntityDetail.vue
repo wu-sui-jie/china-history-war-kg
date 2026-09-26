@@ -205,7 +205,7 @@ const loadData = async () => {
     return
   }
 
-  // 后端失败改为 HTTP 4xx/5xx（第 13 轮复核第七节）：参数缺失是 400、实体不存在是 404，
+  // 后端失败是 HTTP 4xx/5xx：参数缺失是 400、实体不存在是 404，
   // 两者都走 axios 异常分支，因此必须 catch 之后再取值——只判断 code 会让失败静默。
   try {
     const res = await getEntityDetail({ id, type })

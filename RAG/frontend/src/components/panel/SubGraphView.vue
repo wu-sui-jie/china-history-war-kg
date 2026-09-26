@@ -16,7 +16,7 @@ let ro: ResizeObserver | null = null
 let echartsCore: typeof import('echarts/core') | null = null
 let disposed = false
 
-/** 懒加载 ECharts（P1-15）：整包按需引入，且只在真正要画图时才下载。 */
+/** 懒加载 ECharts：整包按需引入，且只在真正要画图时才下载。 */
 async function ensureEcharts(): Promise<typeof import('echarts/core')> {
   if (echartsCore) return echartsCore
   const [core, charts, components, renderers] = await Promise.all([
@@ -31,7 +31,7 @@ async function ensureEcharts(): Promise<typeof import('echarts/core')> {
 }
 
 // 动态 chunk 加载失败（离线/发布后文件名变化）要有可见降级与重试，
-// 不能变成未处理的 Promise rejection（第四轮复核 P2-8）。
+// 不能变成未处理的 Promise rejection。
 const loadError = ref('')
 const loading = ref(false)
 

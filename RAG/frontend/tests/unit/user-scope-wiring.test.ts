@@ -1,9 +1,9 @@
-/** 装配级回归：主应用发身份消息 → store 真的换桶（问题二方案 A 的接缝）。
+/** 装配级回归：主应用发身份消息 → store 真的换桶（main.ts 与 store 的接缝）。
  *
  * 为什么单独有这一条：`installHostUserBridge` 与 `applyUserScope` 各自单测都过，
- * 但**合起来**曾经不生效——bridge 先把 activeUid 设为新值，再回调 store 的
- * applyUserScope，而后者的"同 uid 即空操作"守卫一看 uid 已经相等就直接返回，
- * 于是桶从来没换过（线上表现：两个账号看到的记录一模一样）。
+ * 但**合起来**有一条硬约束——bridge 若先把 activeUid 设为新值再回调 store 的
+ * applyUserScope，后者的"同 uid 即空操作"守卫一看 uid 已经相等就直接返回，
+ * 桶就永远换不过去（表现：两个账号看到的记录一模一样）。
  *
  * 这条用例刻意照 `main.ts` 的装配方式接线，任何一侧改动导致接缝失效都会红。
  */
@@ -27,7 +27,7 @@ beforeEach(() => {
 })
 
 // 每个用例都要解绑：桥装在 window 上，不摘会在后续用例里累积，
-// 旧 store 也会被回调（换桶有副作用，会造成用例间互相污染）
+// 上一个用例的 store 也会被回调（换桶有副作用，会造成用例间互相污染）
 afterEach(() => {
   off?.()
   off = undefined

@@ -94,7 +94,7 @@ function exportSession(): void {
   store.showToast('info', '已导出当前会话（Markdown）')
 }
 
-// 移动端抽屉的对话框语义（第四轮复核 P1-13）：
+// 移动端抽屉的对话框语义：
 // Escape 关闭、打开时把焦点移入抽屉、关闭后焦点回到触发按钮。
 const drawerEl = ref<HTMLElement | null>(null)
 const panelTriggerEl = ref<HTMLButtonElement | null>(null)
@@ -113,7 +113,7 @@ function closeHistory(): void {
 
 /** 真正可 Tab 到的元素：排除 disabled / 隐藏 / aria-hidden / roving tabindex(-1)。
  *
- * 第五轮审核 P1-13：旧实现直接 querySelectorAll('button, ...')，把 tablist 里
+ * 只取真正可 Tab 到的元素：querySelectorAll('button, ...') 会把 tablist 里
  * `:tabindex="tab === item.id ? 0 : -1"` 的**非当前 tab** 也算成"可聚焦"，
  * 于是"最后一个元素"往往是一个根本 Tab 不到的元素，`active === last` 永远不成立，
  * 焦点就从中途逃出抽屉（浏览器实测：第 2 次 Tab 即逃逸）。

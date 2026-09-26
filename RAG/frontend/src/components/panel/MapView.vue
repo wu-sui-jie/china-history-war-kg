@@ -15,7 +15,7 @@ let registered = false
 let echartsCore: typeof import('echarts/core') | null = null
 let disposed = false
 
-/** 懒加载 ECharts 与中国地图 JSON（P1-15）：
+/** 懒加载 ECharts 与中国地图 JSON：
  * 地图源文件约 570 KB，只有真正打开"地点"页并画图时才需要下载。 */
 async function ensureEcharts(): Promise<typeof import('echarts/core')> {
   if (echartsCore) return echartsCore
@@ -46,7 +46,7 @@ function validPoints(): MapPoint[] {
   )
 }
 
-// 动态 chunk（echarts + 地图 JSON）加载失败要可见、可重试（第四轮复核 P2-8）
+// 动态 chunk（echarts + 地图 JSON）加载失败要可见、可重试
 const loadError = ref('')
 const loading = ref(false)
 

@@ -3,7 +3,7 @@
  * EventSource 只支持 GET，而 /api/query 需要 POST body（问题/历史/筛选），
  * 因此这里用 fetch 流逐行解析；支持 AbortController 中途取消。
  *
- * 解析与超时（2026-09-15 审核 P1-12 / P1-13）：
+ * 解析与超时：
  * - 按 **行** 累积、空行分发，兼容 CRLF（部分反代会改写换行）与多行 `data:`；
  * - 忽略注释行（`: ping` 心跳）与 `event:`/`id:`/`retry:` 字段；
  * - 流尾若还有未分发的完整块，flush 时补一次解析（EOF 残帧）；
@@ -26,7 +26,7 @@ export interface StreamOptions {
   totalTimeoutMs?: number
 }
 
-/** 流结束的原因：由调用方决定如何收敛 UI 状态（第四轮复核 P2-10 细分为独立取值）。 */
+/** 流结束的原因：由调用方决定如何收敛 UI 状态（每类超时/错误单独取值）。 */
 export type StreamOutcome =
   | 'eof' // 字节流自然结束但没收到 done（是否收到 done 由上层判断）
   | 'aborted' // 用户主动 abort
@@ -153,7 +153,7 @@ export async function streamQuery(
     }
   }
 
-  /** 按当前阶段重置超时计时（第四轮复核 P1-8）。
+  /** 按当前阶段重置超时计时。
    *
    * 三档互相独立：
    * - connect：等响应头，只受 connectTimeout 约束（后端不返回响应头时就该在这一档结束）；
@@ -173,7 +173,7 @@ export async function streamQuery(
     const wait = Math.min(...limits)
     if (!Number.isFinite(wait)) return
     // 谁先到点，由**触发那一刻**判定：不能在 arm 阶段就写死，
-    // 否则用户手动 abort 也会被误判成超时（实测回归）。
+    // 否则用户手动 abort 也会被误判成超时。
     const totalLeft = totalTimeout > 0 ? totalTimeout - (Date.now() - startedAt) : Infinity
     const isTotalFirst = wait >= totalLeft
     const fire = () => {
@@ -197,7 +197,7 @@ export async function streamQuery(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        // 身份头（第 12 轮审查 P1-1）：服务端验签用。未登录/独立访问时为空对象，
+        // 身份头：服务端验签用。未登录/独立访问时为空对象，
         // 与服务端未开启校验时的行为一致。
         ...authHeaders(),
       },

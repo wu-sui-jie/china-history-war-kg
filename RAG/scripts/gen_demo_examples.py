@@ -11,13 +11,14 @@
    首 thinking / 首正文时延与是否被 `max_tokens` 截断；截断或首正文超阈值的题默认剔除
    —— 推理模型的时延与截断率在题目之间差异极大（实测 4.76 s vs 13.11 s），不实测就会踩雷。
 
-输出：`data/eval/<v>/demo_examples.json`（入 Git、可人工复核），结构见 RAGv5-开发说明 §四.7。
+输出：`data/eval/<v>/demo_examples.json`（入 Git、可人工复核），字段口径见
+[../docs/data-contract.md](../docs/data-contract.md) 与 [../docs/features.md](../docs/features.md) 第八节。
 
 用法：
   python scripts/gen_demo_examples.py --version 20260915_v1 --run v5_coords_v1
   python scripts/gen_demo_examples.py --measure --max-examples 12      # 实测后再定清单
 
-版本口径（2026-09-15 审核 P0-9）：
+版本口径：
 - `--version` 缺省取 RAG_ACTIVE_VERSION / 最新一致版本，**不再硬编码**某个历史版本；
 - `--run` 缺省读该版本 `runs/latest.txt`，找不到就报错而不是回落到别的版本；
 - run 的 meta.json 若声明了 version，必须与目标版本一致（除非显式 --allow-run-version-mismatch），
@@ -135,8 +136,8 @@ async def _measure_one(rt, question: str, sid: str, timeout_s: float = 90.0) -> 
             elif etype == "done":
                 done = payload.get("data") or {}
                 finish = done.get("finish_reason", "")
-                # 记录实际使用的模型：血缘据此判断"demo 是否真的来自模型"
-                # （第五轮整改复核 B3——只写 measurement_mode 声明还不够）
+                # 记录实际使用的模型：血缘据此判断"demo 是否真的来自模型"——
+                # 只写 measurement_mode 声明还不够
                 model_used = str(done.get("model_used") or "")
         return {
             "first_thinking_ms": int(t_think * 1000) if t_think else None,
@@ -294,7 +295,7 @@ def main() -> int:
         rt = build_runtime(settings, version)
         if not rt.generate.llm.available:
             print("⚠ 未配置可用 LLM，实测只反映离线回答器（无法评估真实时延/截断）")
-        # 真实模型 / 离线摘要回答器必须显式区分（第五轮整改复核 B3）：
+        # 真实模型 / 离线摘要回答器必须显式区分：
         # demo 的时延与措辞来自哪条链路，直接决定它能不能当作"真实模型"证据
         measurement_mode = "real_llm" if rt.generate.llm.available else "offline"
         print(f"开始实测 {len(cands)} 条（TEXT_MODE={settings.text_mode}，模型={settings.llm_model}，"

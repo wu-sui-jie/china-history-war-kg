@@ -28,9 +28,9 @@ import local_settings
 
 # 统一错误响应层（框架层错误 → JSON，见 api_errors 的模块文档）
 import api_errors
-# LLM 流水线：模型调用、抽取链、问答编排（P2-1 第二步）——这里只用于请求级单例的准备
+# LLM 流水线：模型调用、抽取链、问答编排——这里只用于请求级单例的准备
 import llm_pipeline
-# 报表构建器、Neo4j 句柄、鉴权装饰器与领域常量都已拆到独立模块（P2-1 与蓝图拆分）：
+# 报表构建器、Neo4j 句柄、鉴权装饰器与领域常量都已拆到独立模块：
 # 路由侧在 blueprints/ 里各自 import，本文件只剩应用装配与启停。
 from db_utils import DbUtil
 from jwt_util import TokenError, decode
@@ -43,7 +43,7 @@ app = Flask(__name__)
 
 # CORS：只放行本机开发用的前端来源。
 # 生产是 nginx 同源反代，浏览器根本不发跨域请求，因此不需要对任意站点开放——
-# 原先的 CORS(app) 允许任何来源带 Token 调写接口。局域网联调时用
+# CORS(app) 会允许任何来源带 Token 调写接口。局域网联调时用
 # CORS_ALLOW_ORIGINS 显式追加来源（逗号分隔，或 '*' 表示不限制）。
 _cors_origins = [
     origin.strip()
@@ -54,12 +54,12 @@ _cors_origins = [
 ]
 CORS(app, resources={r"/*": {"origins": _cors_origins}})
 
-# 统一错误响应（第 13 轮整改，文档第九节）：框架层错误（404/405/413/未捕获异常）
-# 原先回的是 HTML 页面，前端读不到任何文案，只能显示通用的"操作失败"。
+# 统一错误响应：框架层错误（404/405/413/未捕获异常）
+# 默认回的是 HTML 页面，前端读不到任何文案，只能显示通用的"操作失败"。
 # 必须在**注册任何路由之前**装好——否则早注册的路由一旦出错就没有处理器可用。
 api_errors.install(app)
 # 请求身份统一存放在 flask.g.user_id（按请求隔离）；
-# 历史上用模块级全局变量承载，多线程下会串号，已废弃。
+# 不要用模块级全局变量承载身份：多线程下会串号。
 
 # ================== 数据库配置 ==================
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -187,9 +187,9 @@ def ensure_user_table_schema():
     existing_columns = {row[1] for row in rows}
     if "role" not in existing_columns:
         db.session.execute(text("ALTER TABLE UserInfo ADD COLUMN role VARCHAR(32)"))
-    # token_version / disabled（第 13 轮整改）。ALTER TABLE ADD COLUMN 加 NOT NULL 列
+    # token_version / disabled 两列。ALTER TABLE ADD COLUMN 加 NOT NULL 列
     # 必须给默认值，否则 SQLite 直接报错；存量行的取值也就是这个默认值：
-    # version=1、未禁用——与改造前的行为完全一致（老 token 里没有 ver，按 1 处理）。
+    # version=1、未禁用；老 token 里没有 ver，按 1 处理。
     if "token_version" not in existing_columns:
         db.session.execute(
             text("ALTER TABLE UserInfo ADD COLUMN token_version INTEGER NOT NULL DEFAULT 1"))
@@ -198,13 +198,12 @@ def ensure_user_table_schema():
             text("ALTER TABLE UserInfo ADD COLUMN disabled BOOLEAN NOT NULL DEFAULT 0"))
     # 空角色一律回填 **viewer**，不回填 admin。
     #
-    # 这里曾经回填 admin，理由是"角色模型引入前建的账号都是本机管理员手工创建的"。
-    # 该理由已不成立：现在任何导入、手工写库或旧版本遗漏都可能留下空角色行，而
+    # 回填 admin 是不安全的：任何导入、手工写库或旧版本遗漏都可能留下空角色行，而
     # 启动迁移是每次开机都跑的——一条空角色行等于一次静默提权。口径与
     # DbUtil.get_role（空值按 viewer 兜底）保持一致：空值最多让人少看几个页面，
     # 不会让人多写几个接口。
     #
-    # 首个管理员不再靠这条迁移产生，改用显式引导命令：
+    # 首个管理员不靠这条迁移产生，用显式引导命令：
     #   cd backend && python create_admin.py --account <账号>     （见 create_admin.py）
     db.session.execute(text("UPDATE UserInfo SET role = 'viewer' WHERE role IS NULL OR role = ''"))
     # token_version 兜底：NULL 会让 token_version_of 回落到 1，与库里的 NULL 比较
@@ -217,7 +216,7 @@ def ensure_user_table_schema():
             text("CREATE UNIQUE INDEX IF NOT EXISTS idx_userinfo_account ON UserInfo(account)")
         )
     except Exception as exc:
-        # 建不上索引 = 库里存在重复账号。**不再只打一条 warning 就继续**（第 14 轮审计 P2-6）：
+        # 建不上索引 = 库里存在重复账号，必须当场停下并列出重复行：
         # 重复账号会同时破坏两件事——注册不再被拦（唯一约束缺位），
         # 而且 `authentication` 用 `.first()` 取行，可能拿另一行的口令哈希去比对，
         # 表现为"这个人的密码能登进那个人的账号"。这属于认证完整性问题，必须当场停下。
@@ -273,7 +272,7 @@ with app.app_context():
         backfill_event_place_relation_evidence()
         ensure_user_table_schema()
         # 补偿队列（outbox）：create_all 只建缺失的表，不会给已存在的 neo4j_sync_jobs
-        # 补上第 13 轮新增的 graph_key / operation 等列，所以显式跑一次补列迁移。
+        # 补上 graph_key / operation 等新列，所以显式跑一次补列迁移。
         from sync_compensation import ensure_sync_jobs_table
 
         ensure_sync_jobs_table()
@@ -289,58 +288,6 @@ with app.app_context():
 
 
 # ================== 初始化函数 ==================
-
-
-
-
-
-
-
-
-
-# ================== 初始化函数 ==================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def initialize_entity_extractor():
     """把进程内单例（实体提取器 / 规则推理引擎）挂到 flask.g。
@@ -382,12 +329,12 @@ except Exception as e:
 
 # 放行路径：登录、注册、运行状态与静态资源
 #
-# /api/health 免登录是有意的（第 13 轮复核整改 §2.4）：监控与部署自检要在**没有账号
+# /api/health 免登录是有意的：监控与部署自检要在**没有账号
 # 凭据**时探活，而"登录是不是全 503"恰恰是最需要探活的时刻。它只回"活着"与限流的
 # 失败策略，不含版本/路径/阈值（见 blueprints/workspace.py 的 health）。
 PASS_URLS = {"/", "/api/login", "/api/sign_in", "/api/health"}
 
-# 内部接口前缀（服务间调用，第 13 轮复核）。这些请求由 RAG 服务发出，**没有用户 token**，
+# 内部接口前缀（服务间调用）。这些请求由 RAG 服务发出，**没有用户 token**，
 # 所以必须在全局鉴权这里放行；它们自己的守卫是 internal_bp 上的服务间密钥校验
 # （蓝图级 before_request，对蓝图内所有路由生效）。两处缺一不可：
 # 这里的放行不等于"开放"，密钥校验那一步才是真正的门。
@@ -419,10 +366,10 @@ def before():
     try:
         payload = decode(token)
     except TokenError as exc:
-        # 过期 / 伪造 token 按未认证处理（原先直接抛异常返回 500）
+        # 过期 / 伪造 token 按未认证处理，不向上抛（抛出去会变成 500）
         return jsonify({"code": 401, "msg": str(exc)}), 401
 
-    # JWT 自身验不了的两件事必须回库查（第 13 轮整改）：账号是否已被停用、
+    # JWT 自身验不了的两件事必须回库查：账号是否已被停用、
     # token 里的 ver 与库里 token_version 是否一致（改密码/踢人后 +1）。
     # 没有这一步，"封号"与"改密码"都要等 token 自然过期（最长 7 天）才生效。
     usable, reason = DbUtil.check_token_usable(payload)
@@ -445,7 +392,7 @@ app.before_request(initialize_entity_extractor)
 # ================== 用户相关接口 ==================
 
 # ================== 用户管理（仅管理员）==================
-# 角色体系（admin/editor/viewer）此前只能靠手写 SQL 提权，没有界面入口。
+# 角色体系（admin/editor/viewer）的提权入口就在这里，没有别的界面路径。
 # 这两个接口把提权变成管理员页面上的一次选择；防呆全部在服务端做——
 # 界面藏入口只是体验，判断留在接口里。
 
@@ -457,8 +404,9 @@ app.before_request(initialize_entity_extractor)
 
 # ================== 智能问答接口====================
 
-# ================== 路由蓝图（P2-1 收官）==================
-# 路由按业务分五组迁到 blueprints/，**不加 url_prefix**：URL 必须与拆分前逐字相同。
+# ================== 路由蓝图 ==================
+# 路由按业务分五组放在 blueprints/，**不加 url_prefix**：URL 完全由蓝图里的路由
+# 装饰器决定，多一层前缀会让前端调用全部失配。
 # 全局鉴权（before_request）与 initialize_entity_extractor 留在本文件、对全部蓝图生效，
 # 蓝图不重复实现鉴权。
 from blueprints import (  # noqa: E402
@@ -490,7 +438,7 @@ def graceful_shutdown():
 
 # atexit 注册刻意放在 `if __name__ == "__main__"` 里（文件末尾），不在模块级：
 # app.py 也会被当库导入（backend/tools/*、tests/conftest），那些进程退出时打一行
-# "正在关闭应用"既无意义，又会撞上已被关闭的日志流（第 12 轮审查实测到的退出告警）。
+# "正在关闭应用"既无意义，又会在日志流已经关闭时抛异常。
 
 # ================== 启动应用 ==================
 

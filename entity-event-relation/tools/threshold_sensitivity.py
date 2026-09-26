@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""阈值敏感性分析（EER-9 / 第 11 轮 C-6 第 2 条）。
+"""阈值敏感性分析。
 
 四个阈值在 `config/eval_config.json` 里，但"换一个值指标会动多少"从来没有量化过——
 评审问起"这些指标对阈值有多敏感"时只能凭感觉答。本脚本在**固定的预测产物**上做
@@ -12,8 +12,9 @@
     python tools/threshold_sensitivity.py --out /tmp/sens.md
     python tools/threshold_sensitivity.py --only relation_threshold --only entity_fuzzy_threshold
 
-**为什么先记产物指纹**：第 9 轮的教训是把"产物换代"误读成"匹配抖动"。指标变了要么是阈值
-变了、要么是预测产物换了，脚本把 `--pred` 的 sha256 打在表头，两者才分得清。
+**为什么先记产物指纹**：指标变了要么是阈值变了、要么是预测产物换了，两者必须分得清——
+曾经把"产物换代"误读成"匹配抖动"。脚本把 `--pred` 的 sha256 打在表头，
+对照前后两张表时就分得出来。
 
 **注意**：这里扫的是**评估口径**的敏感性，不改变抽取。改 `eval_config.json` 后要重跑的
 是 `python evaluate.py`，不涉及大模型额度。

@@ -1,7 +1,7 @@
-"""各蓝图的错误状态与"不外发内部信息"（第 13 轮复核第七节）。
+"""各蓝图的错误状态与"不外发内部信息"。
 
-第 13 轮先做了**框架层**（未知路径 / 方法不对 / 未捕获异常 → JSON；见 test_api_errors.py），
-但各蓝图**自己**返回的错误仍是老形态：
+**框架层**（未知路径 / 方法不对 / 未捕获异常 → JSON；见 test_api_errors.py）已统一，
+但各蓝图**自己**返回的错误是另一种形态：
 
     HTTP 200 + body {"code": 500, "msg": str(e)}
 
@@ -260,8 +260,8 @@ def test_节点读接口缺少必填参数返回_400(client, make_user, auth, pa
 
 
 def test_写接口把_DbUtil_的业务码透传成_HTTP_状态(client, make_user, auth):
-    """`DbUtil` 的写方法用 code 表达结果（200/400/404/500），而路由原先一律回 HTTP 200：
-    "节点不存在"在监控、反代与前端重试逻辑眼里都是**成功**（第 13 轮复核第七节的状态码表）。"""
+    """`DbUtil` 的写方法用 code 表达结果（200/400/404/500），HTTP 状态必须跟着 code 走：
+    一律回 200 会让"节点不存在"在监控、反代与前端重试逻辑眼里都是**成功**。"""
     editor = make_user("editor-1", "editor")
 
     unknown_type = client.post("/create_node", json={"type": "Bogus", "name": "x"},
@@ -276,7 +276,7 @@ def test_写接口把_DbUtil_的业务码透传成_HTTP_状态(client, make_user
 
 
 def test_写接口失败时_msg_不含异常原文(client, make_user, auth, monkeypatch):
-    """`DbUtil` 原先返回 `f"创建失败: {str(e)}"`——SQL、列名与库文件路径一起送给客户端。"""
+    """`DbUtil` 不能返回 `f"创建失败: {str(e)}"`——SQL、列名与库文件路径会一起送给客户端。"""
     from db_utils import DbUtil
 
     def _boom(node_type):  # noqa: ANN001, ANN202

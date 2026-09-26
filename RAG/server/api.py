@@ -46,7 +46,7 @@ async def lifespan(app: FastAPI):
     """启动加载 + 关闭回收。
 
     构建失败不阻塞启动（由 /api/health 暴露 load_error），便于部署时先看健康接口；
-    关闭时释放外部 HTTP 客户端（2026-09-15 审核 P1-9）。
+    关闭时释放外部 HTTP 客户端。
     """
     settings = get_settings()
     runtime: Runtime | None = None
@@ -62,7 +62,7 @@ async def lifespan(app: FastAPI):
         settings.rate_limit_per_minute,
         max_keys=settings.rate_limit_max_keys,
     )
-    # 凭证撤销查询器（第 13 轮复核）：未配 URL/密钥时它的 enabled 为 False，
+    # 凭证撤销查询器：未配 URL/密钥时它的 enabled 为 False，
     # 请求路径上直接跳过（见 _revocation_rejection）。
     app.state.introspector = introspection.from_settings(settings)
     if app.state.introspector.enabled:
@@ -80,8 +80,8 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         # 必须 await：AsyncOpenAI 的关闭是 coroutine，同步调用会抛 RuntimeError 并被吞掉，
-        # 连接池实际不会释放（第四轮复核 P0-3）。
-        # 收尾顺序由 Runtime.shutdown 保证（第五轮审核 P0-3）：先停收同步任务并撤销排队、
+        # 连接池实际不会释放。
+        # 收尾顺序由 Runtime.shutdown 保证：先停收同步任务并撤销排队、
         # 有上限地等待在途任务，再关闭外部客户端，避免在途任务用到已关闭的客户端。
         if runtime is not None:
             await runtime.shutdown()
@@ -98,12 +98,12 @@ app = FastAPI(title="中国历代战争史 RAG 问答", version="ragv5", lifespa
 
 _settings_boot = get_settings()
 
-# 统一日志（RAG-5）：给 rag.* 命名空间挂 handler（控制台 + logs/server.log 滚动）。
+# 统一日志：给 rag.* 命名空间挂 handler（控制台 + logs/server.log 滚动）。
 # 放在模块级而不是 lifespan 里——加载期的日志（下面的 CORS 提示、静态托管判断）才不至于丢掉。
 setup_rag_logging(_settings_boot.log_dir)
 logger = logging.getLogger("rag.api")
 
-# CORS 启动门禁（第五轮审核 R5-5）：默认 * 只适用于本地开发。
+# CORS 启动门禁：默认 * 只适用于本地开发。
 # 显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下若仍是 *，任意站点都能从浏览器调用
 # 公开问答接口——没有登录，限流也只按来源 IP 计，等于把配额与模型成本开放出去。
 # 这里直接失败而不是打日志：漏配的默认行为必须是拒绝，而不是静默放开。
@@ -114,7 +114,7 @@ _cors_warning = _settings_boot.cors_warning()
 if _cors_warning:
     logger.warning("注意：%s", _cors_warning)
 
-# 身份校验启动门禁（第 12 轮审查 P1-1）。
+# 身份校验启动门禁。
 # 说的与配的不一致（要校验却没密钥）→ 启动即失败：那等于服务起来后每个问答都 401。
 # 未开启校验时只告警，不阻断——"nginx 认证 + 只监听回环"是合法的内网部署方式，
 # 一刀切成启动失败会把可用部署判成坏配置。告警同时会出现在 /api/health.warnings 里。
@@ -125,7 +125,7 @@ _auth_warning = _settings_boot.auth_warning()
 if _auth_warning:
     logger.warning("注意：%s", _auth_warning)
 
-# 凭证撤销查询的启动门禁（第 13 轮复核）。取值非法（如 fail_mode 拼错）会让"后端不可用
+# 凭证撤销查询的启动门禁。取值非法（如 fail_mode 拼错）会让"后端不可用
 # 时到底放不放行"这件事由默认值默默决定——那是安全取舍，不能由拼写错误决定，因此启动即失败。
 # 未启用或只配一半只告警：服务仍能正常工作，但"撤销延迟到 token 到期"这条边界必须可见。
 _revocation_problem = _settings_boot.revocation_startup_problem()
@@ -138,7 +138,7 @@ if _revocation_warning:
 app.add_middleware(
     CORSMiddleware,
     # 配置校验保证非空（显式空值会被拒绝，见 Settings.validate）；这里不再 `or ["*"]`——
-    # 那会把"显式写空的错误配置"静默变成通配符（第五轮整改复核 B8）
+    # 那会把"显式写空的错误配置"静默变成通配符
     allow_origins=list(_settings_boot.cors_allow_origins),
     allow_methods=["*"],
     allow_headers=["*"],
@@ -208,7 +208,7 @@ def dicts():
     return payload
 
 
-# 演示清单每条示例的必填字段（第四轮复核 P1-6：缺字段的清单不能被当成可用示例）
+# 演示清单每条示例的必填字段（缺字段的清单不能当成可用示例）
 _DEMO_REQUIRED_FIELDS = ("id", "question", "category", "capability")
 _DEMO_MEASURED_FIELDS = ("first_answer_ms", "finish_reason")
 
@@ -220,9 +220,9 @@ def _demo_path(rt) -> Path:
 def _validate_demo_examples(data: dict, rt) -> str | None:
     """校验演示清单结构与版本一致性，返回错误信息（None = 通过）。
 
-    第四轮复核 P1-6：旧实现只在 `file_version` 为真且不等时拒绝，**缺失/空值/类型错误
-    会绕过检查**；清单结构本身也完全没有校验。这里要求版本严格相等，并检查
-    source_run、measurement_mode 与每条示例的必填/实测字段。
+    只在 `file_version` 为真且不等时拒绝是不够的：**缺失/空值/类型错误会绕过检查**，
+    清单结构本身也要校验。这里要求版本严格相等，并检查 source_run、measurement_mode
+    与每条示例的必填/实测字段。
     """
     file_version = data.get("version")
     if not isinstance(file_version, str) or not file_version:
@@ -323,8 +323,8 @@ def demo_examples():
 class RateLimiter:
     """按来源 key 的滑动窗口限流。
 
-    2026-09-15 审核 P1-3 修三处：无法并发原子（检查+追加要持锁）、key 表无界增长
-    （伪造来源可刷爆内存）、XFF 无条件信任（任何人可伪造首段 IP 绕过限流）。
+    三处边界必须同时守住：检查+追加要持锁（否则并发下不原子）、key 表要有界
+    （否则伪造来源可刷爆内存）、XFF 不能无条件信任（否则任何人可伪造首段 IP 绕过限流）。
     """
 
     def __init__(self, per_minute: int, max_keys: int = 4096):
@@ -349,8 +349,8 @@ class RateLimiter:
 
             if key not in self._hits and len(self._hits) >= self.max_keys:
                 # 表满：只清理"窗口内已无命中"的 key，绝不淘汰仍在窗口内的 key。
-                # 旧实现直接淘汰最久未活跃项，被淘汰的 key 再次访问时配额从零开始，
-                # 等于把限流窗口重置（第四轮复核 P1-4）。
+                # 若直接淘汰最久未活跃项，被淘汰的 key 再次访问时配额从零开始，
+                # 等于把限流窗口重置。
                 self._sweep_expired_locked(window_start)
                 if len(self._hits) >= self.max_keys:
                     # 全是活跃 key：拒绝新来源，避免用淘汰换取"看起来还能用"
@@ -387,11 +387,11 @@ def _load_error():
     return _public_text(getattr(app.state, "load_error", None))
 
 
-# 服务器绝对路径脱敏（RAG-4）：路径本身不是漏洞，但会白送部署结构与用户名，
+# 服务器绝对路径脱敏：路径本身不是漏洞，但会白送部署结构与用户名，
 # 公开接口没必要回传。只做替换，不改变错误语义。
 #
-# 实现在 `lib/redact.py`（第 14 轮审计 P2-2）：SSE 链路的 error 帧（`server/sse.py`）
-# 也要用它，而它原先只在本文件里——工具放错地方的结果是同一类泄露"一半堵、一半漏"。
+# 实现在 `lib/redact.py`：SSE 链路的 error 帧（`server/sse.py`）也要用它——
+# 只在本文件里实现会让同一类泄露"一半堵、一半漏"。
 def _public_text(value):
     """把对外响应文本里的服务器绝对路径收敛为占位符。"""
     return public_text(value)
@@ -419,7 +419,7 @@ def _resolve_identity(request: Request) -> tuple[Optional[dict], Optional[str]]:
     服务应当照常工作并给出告警，而不是把所有请求判成未认证；此时带上有效 token 的请求
     仍能拿到身份，方便平滑迁移。
 
-    `iss` / `aud` 的期望值来自配置（第 13 轮整改）：只在验签层校验签名是不够的，
+    `iss` / `aud` 的期望值来自配置：只在验签层校验签名是不够的，
     同一把密钥被别的服务共用时，别人的 token 也能过签名校验。
     """
     settings: Settings = request.app.state.settings
@@ -465,11 +465,11 @@ def _introspector() -> introspection.Introspector:
 
 
 async def _revocation_rejection(request: Request) -> Optional[JSONResponse]:
-    """凭证撤销检查（第 13 轮复核）：验签通过之后，再问一次后端"这张凭证还作不作数"。
+    """凭证撤销检查：验签通过之后，再问一次后端"这张凭证还作不作数"。
 
     为什么必须有这一步：验签只能证明"这是旧后端签的"，证明不了"它还该被承认"。
-    停用账号、改密码之后旧后端已经拒绝该 token，而本服务此前会一直放行到 token 自然
-    过期（默认 7 天）——安全动作只在一半系统上生效。
+    停用账号、改密码之后旧后端已经拒绝该 token，缺了这一步本服务会一直放行到 token
+    自然过期（默认 7 天）——安全动作只在一半系统上生效等于没生效。
 
     **只对"已经验签通过"的请求生效**（`request.state.identity` 非空）：没有身份的请求
     本来就不经过 JWT 这条路（例如飞书机器人走 X-Bot-Key），不该被这里拦下；而
@@ -496,11 +496,11 @@ async def _revocation_rejection(request: Request) -> Optional[JSONResponse]:
 
     identity = request.state.identity
     if verdict.unavailable:
-        # **问不到后端** ≠ **后端说这张凭证失效**（第 14 轮审计 P2-1）。
-        # 旧实现两者都回 401「登录已失效，请重新登录」，日志也写成"拒绝已失效的凭证"：
-        # 后端抖一下，全体用户被"登出"，而他们重新登录拿到的 token 仍会被同样拒绝——
-        # 用户与运维都被指向了错误的方向。故障路径回 503（语义就是"稍后重试"），
-        # error_code 用 server_busy 与"容量拒绝"共用同一个"可重试"约定。
+        # **问不到后端** ≠ **后端说这张凭证失效**。
+        # 两者都回 401「登录已失效，请重新登录」不行：后端抖一下全体用户被"登出"，
+        # 而他们重新登录拿到的 token 仍会被同样拒绝——用户与运维都被指向错误的方向。
+        # 故障路径回 503（语义就是"稍后重试"），error_code 用 server_busy
+        # 与"容量拒绝"共用同一个"可重试"约定。
         logger.warning("无法确认凭证状态（按 %s 策略拒绝）：user_id=%s path=%s 原因=%s",
                        _introspector().fail_mode, identity.get("user_id"),
                        request.url.path, verdict.reason or "后端不可用")
@@ -517,10 +517,10 @@ def _client_key(request: Request) -> str:
     X-Forwarded-For 只有在显式开启信任（RATE_LIMIT_TRUST_FORWARDED_FOR）时才采用；
     开启后仍可限定可信代理（RATE_LIMIT_TRUSTED_PROXIES），未列入的直连方所带 XFF 一律忽略。
 
-    **取哪一段与后端保持同一口径**（第 14 轮审计 P1-3）：原实现取 XFF 的第一段，
-    而 nginx 用的是 `$proxy_add_x_forwarded_for`——"客户端自带值在前、真实地址追加在后"，
+    **取哪一段必须与后端保持同一口径**：XFF 的第一段不可用，因为 nginx 用的是
+    `$proxy_add_x_forwarded_for`——"客户端自带值在前、真实地址追加在后"，
     所以第一段恰好是攻击者可控的那一段，换一个伪造值就换一个限流桶。
-    现在优先用 nginx 覆盖下发的 `X-Real-IP`，退而取 XFF 的**最右段**。
+    因此优先用 nginx 覆盖下发的 `X-Real-IP`，退而取 XFF 的**最右段**。
     """
     settings: Settings = request.app.state.settings
     peer = request.client.host if request.client else "unknown"
@@ -544,18 +544,18 @@ def _client_key(request: Request) -> str:
 def health():
     """健康与发布可追溯信息。
 
-    第四轮复核 P0-4：健康接口必须能让验收证据反向定位到唯一源码与配置。
-    为此补齐 source_dirty / release_id / config_fingerprint / artifact_manifest_sha256
-    与 demo_ready；同时在活跃版本未显式固定时给出告警字段，避免"看起来正常但换了数据"。
+    健康接口必须能让验收证据反向定位到唯一源码与配置：source_dirty / release_id /
+    config_fingerprint / artifact_manifest_sha256 与 demo_ready 都为此而报；
+    同时在活跃版本未显式固定时给出告警字段，避免"看起来正常但换了数据"。
 
-    第五轮整改复核 B8：**schema 不依赖运行态**——runtime 加载失败时也要返回与正常态
-    完全相同的键（`cache` / `sync_pool` / `rate_limit` 等为零值对象），否则监控在最需要
-    观测的失败时刻反而拿到不同字段。
+    **schema 不依赖运行态**：runtime 加载失败时也要返回与正常态完全相同的键
+    （`cache` / `sync_pool` / `rate_limit` 等为零值对象），否则监控在最需要观测的失败
+    时刻反而拿到不同字段。
 
     配置一律读**运行期**的 `app.state.settings`（lifespan 写入，与 `_runtime()` /
     `_rate_limiter()` 同一取法），模块级的 `_settings_boot` 只作为"没跑 lifespan 时"的兜底。
-    原先这里直接读模块级对象，于是"health 报的口径"与"请求实际用的口径"可能来自两个
-    不同对象——正常启动下两者取值相同，这个分叉只在测试里替换 settings 时才显形，
+    若直接读模块级对象，"health 报的口径"与"请求实际用的口径"可能来自两个不同对象——
+    正常启动下两者取值相同，这个分叉只在测试里替换 settings 时才显形，
     而它对"撤销查询到底开没开"这类安全口径是致命的。
     """
     settings = getattr(app.state, "settings", None) or _settings_boot
@@ -563,8 +563,8 @@ def health():
 
     rt = _runtime()
     meta = (rt.meta if rt else {}) or {}
-    # 向量链路的分解状态（第 12 轮审查 P2-2）。runtime 加载失败时也返回同形状的零值，
-    # 与上面 B8 的口径一致——监控在最需要观测的时刻不该拿到不同的键。
+    # 向量链路的分解状态。runtime 加载失败时也返回同形状的零值——
+    # 监控在最需要观测的时刻不该拿到不同的键。
     vector_status = rt.text.vector_status() if rt else {
         "artifact_ready": False, "embedding_client_configured": False,
         "embedding_probe_ok": None, "last_vector_error": "",
@@ -577,10 +577,10 @@ def health():
         # 不代表查询期真的可用：查询向量化是网络调用。要看真伪请读下面的 vector 对象。
         "vector_available": bool(rt.text.vector_available) if rt else False,
         "vector": vector_status,
-        # 身份校验的当前口径（第 12 轮审查 P1-1）：让运维一眼看出"这个部署到底验不验身份"，
-        # 而不是靠读环境变量文件推断。`jwt_configured` 只说配了密钥，不泄露密钥本身。
+        # 身份校验的当前口径：让运维一眼看出"这个部署到底验不验身份"，而不是靠读环境
+        # 变量文件推断。`jwt_configured` 只说配了密钥，不泄露密钥本身。
         "auth": {
-            # 模式是运维真正要看的那个字段（第 13 轮整改）：`required=false` 既可能是
+            # 模式是运维真正要看的那个字段：`required=false` 既可能是
             # "nginx 在把关"，也可能是"根本没人在把关"，只有模式能区分这两者。
             "mode": (getattr(settings, "auth_mode", "") or "disabled"),
             "required": bool(getattr(settings, "require_auth", False)),
@@ -588,7 +588,7 @@ def health():
             "bot_key_configured": bool((getattr(settings, "bot_api_key", "") or "").strip()),
             "token_header": "Token",
             "accepts_bearer": True,
-            # 凭证撤销查询（第 13 轮复核 / 复核整改 §2.7、§2.9）：
+            # 凭证撤销查询：
             #   policy=enforced  已启用查询，撤销生效延迟上界 = max_delay_seconds（=TTL）
             #   policy=delayed   未启用：旧 token 到自然过期前仍可用（要么显式接受，要么漏配）
             #   policy=not-applicable  非 jwt 档，本服务不验签，也就没有这个问题
@@ -614,12 +614,12 @@ def health():
         "config_fingerprint": meta.get("config_fingerprint", ""),
         "artifact_manifest_sha256": meta.get("artifact_manifest_sha256", ""),
         "version_selection": meta.get("version_selection", ""),
-        # 同源托管产物的构建模式（integration / standalone / disabled，见 RAG-9）
+        # 同源托管产物的构建模式（integration / standalone / disabled）
         "frontend_mode": _frontend_mode,
         "cache": rt.generate.cache.stats() if rt else empty_cache_stats(),
         "rate_limit": _rate_limiter().stats(),
         "sync_pool": sync_pool_stats(),
-        # chromadb 客户端登记数（第 14 轮审计 P2-13）：>0 说明本进程持着向量库连接，
+        # chromadb 客户端登记数：>0 说明本进程持着向量库连接，
         # 停机时会统一释放。只报个数，不含路径。
         "chroma_clients": chroma_store.client_count(),
     }
@@ -635,20 +635,20 @@ def health():
         # 仍要在 health 里留痕，避免"公开 CORS"成为看不见的既成事实
         warnings.append(settings.cors_warning() or "")
     if settings.auth_warning():
-        # 未启用服务端身份校验（第 12 轮审查 P1-1）：不阻断启动，但必须让运维看得见——
+        # 未启用服务端身份校验：不阻断启动，但必须让运维看得见——
         # 否则"知道 /rag/ 地址就能调"会成为一条没有任何留痕的既成事实。
         warnings.append(settings.auth_warning())
     if settings.bot_channel_warning():
-        # jwt 档 + 空 Bot Key = 飞书机器人每问必 401（第 14 轮审计 P2-20）。
+        # jwt 档 + 空 Bot Key = 飞书机器人每问必 401。
         # 机器人侧只会说"RAG 不可用"，这条告警是唯一能把方向指对的地方。
         warnings.append(settings.bot_channel_warning())
     if settings.revocation_warning():
-        # 凭证撤销边界（第 13 轮复核）：验签通过 ≠ 仍然有效。未启用撤销查询时，
+        # 凭证撤销边界：验签通过 ≠ 仍然有效。未启用撤销查询时，
         # "停用账号/改密码后旧 token 在自然过期前仍可调本服务"这件事必须在运行中的
         # 服务上可见——文档里写一句"注意边界"是不够的。
         warnings.append(settings.revocation_warning())
     if vector_status["embedding_probe_ok"] is False:
-        # 声明可用、查询期却失败：这正是本次要消掉的假阳性，必须显式告警而不是静默降级
+        # 声明可用、查询期却失败：这是必须消掉的假阳性，要显式告警而不是静默降级
         warnings.append(
             "向量声明可用但查询期失败，已自动降级关键词："
             f"{vector_status['last_vector_error'] or '（无错误原文）'}；"
@@ -664,7 +664,7 @@ class _PayloadTooLarge(Exception):
 
 
 async def _read_json_limited(request: Request, limit: int) -> dict:
-    """带尺寸上限地读取 JSON 请求体（P0-2）。
+    """带尺寸上限地读取 JSON 请求体。
 
     先看 Content-Length 快速拒绝，再按流累计校验——只有前者会被分块传输绕过，
     只有后者会在超大 body 上先占满内存。
@@ -699,18 +699,17 @@ def _json_error(status_code: int, message: str, code: ErrorCode) -> JSONResponse
 async def query(req: Request):
     """SSE 问答流。请求体见 contracts.request.QueryRequest。
 
-    失败在**建立流之前**用 4xx 返回（P0-2 / P2）：客户端无需解析 SSE 就能区分
+    失败在**建立流之前**用 4xx 返回：客户端无需解析 SSE 就能区分
     参数错误、超限与限流；只有进入编排后的内部错误才走 SSE 的 error+done。
 
-    **顺序：鉴权 → 撤销检查 → runtime → 限流 → 参数校验 → 执行**（第 13 轮复核整改 §2.10）。
-    原先这里先查 runtime 再鉴权，于是 runtime 加载失败时**匿名请求**会先拿到
-    503 与脱敏后的加载错误——服务状态与内部故障信息泄露给了未认证的人；
-    而 `/api/query/json` 是反过来的（先鉴权），两条通道口径不一致。
-    现在两条通道顺序一致：未认证的请求在任何情况下都先得到 401，
-    也看不到 runtime / load_error（它不该知道这台机器的数据加载得怎么样）。
+    **顺序：鉴权 → runtime → 限流 → 撤销检查 → 参数校验 → 执行**。
+    先查 runtime 再鉴权会有两个后果：runtime 加载失败时**匿名请求**会先拿到 503 与
+    脱敏后的加载错误（服务状态与内部故障信息泄露给未认证的人），且与
+    `/api/query/json` 的顺序不一致。两条通道顺序一致后，未认证的请求在任何情况下都先
+    得到 401，也看不到 runtime / load_error（它不该知道这台机器的数据加载得怎么样）。
     """
-    # 身份校验（第 12 轮审查 P1-1）：开启 RAG_REQUIRE_AUTH 后，SSE 与 JSON 两条通道
-    # 一视同仁地要求可信身份。放在限流之前——未认证的请求不该消耗配额，
+    # 身份校验：开启 RAG_REQUIRE_AUTH 后，SSE 与 JSON 两条通道一视同仁地要求可信身份。
+    # 放在限流之前——未认证的请求不该消耗配额，
     # 也不该从响应耗时上得到任何信息。
     rejection = _auth_rejection(req)
     if rejection is not None:
@@ -728,7 +727,7 @@ async def query(req: Request):
            f"请求过于频繁：每分钟最多 {limiter.per_minute} 次，请稍后再试",
            ErrorCode.RATE_LIMITED,
         )
-    # 凭证撤销检查放在**限流之后**（第 14 轮审计 P2-9）：未命中缓存时它会向后端发一次查询，
+    # 凭证撤销检查放在**限流之后**：未命中缓存时它会向后端发一次查询，
     # 而后端不可用时每个请求都要在 3 秒超时上排队——没有限流挡在前面，一个客户端就能用
     # 并发请求把本进程的协程全占在"等待后端"里。鉴权（验签）仍在限流之前，见上方顺序说明。
     rejection = await _revocation_rejection(req)
@@ -765,10 +764,10 @@ async def query(req: Request):
     )
 
 
-# ---- 非流式问答（POST /api/query/json）：本改动是 RAG 侧唯一的增量 ----
+# ---- 非流式问答（POST /api/query/json）----
 #
 # 消费**同一个** run_query 生成器（server/sse.py），逐帧解析后按事件类型聚合，
-# 不复制任何编排逻辑——这是"两条通道结果天然一致"（P0 回归口径）的实现方式。
+# 不复制任何编排逻辑——这是"两条通道结果天然一致"的实现方式。
 # 聚合规则见 feishu-bot/docs/开发文档.md 6.2，响应契约见 contracts/query_json.py。
 
 # 聚合期间出现 error 事件（含聚合超时）时的 HTTP 状态码映射。
@@ -777,7 +776,7 @@ async def query(req: Request):
 _ERROR_HTTP_STATUS = {
     ErrorCode.TIMEOUT.value: 504,
     # 容量拒绝（并发池满 / 排队超限）是**暂时**状态，语义是"稍后重试"而不是"服务坏了"：
-    # 映射成 500 时，按状态码决定要不要重试的调用方不会重试（第 14 轮审计 P3-3）。
+    # 映射成 500 时，按状态码决定要不要重试的调用方不会重试。
     ErrorCode.SERVER_BUSY.value: 503,
     ErrorCode.INTERNAL.value: 500,
 }
@@ -982,7 +981,7 @@ def _json_endpoint_rejection(request: Request, settings: Settings) -> Optional[J
             "未认证：该接口要求旧系统签发的有效登录凭证，或正确的 X-Bot-Key 共享密钥",
             ErrorCode.UNAUTHORIZED,
         )
-    # 既没配共享密钥、也没强制身份：内网默认，与改造前一致
+    # 既没配共享密钥、也没强制身份：按内网默认可信处理，放行
     return None
 
 
@@ -1015,7 +1014,7 @@ async def query_json(req: Request):
             ErrorCode.RATE_LIMITED,
         )
     # 撤销检查只对走 JWT 的调用方生效（机器人没有用户身份，也不该被这条拦住），
-    # 且放在限流之后（第 14 轮审计 P2-9，与 SSE 通道同序）。
+    # 且放在限流之后（与 SSE 通道同序）。
     rejection = await _revocation_rejection(req)
     if rejection is not None:
         return rejection
@@ -1051,8 +1050,8 @@ async def query_json(req: Request):
 def _frame_type(frame: str) -> str:
     """取 SSE 帧的事件类型（超时终态判定用）。
 
-    第六轮复核 D1：旧实现用子串 `'"type": "answer"' in frame` 判断"是否已送出正文"，
-    而正文是用户可控/模型可控内容——只要回答里出现该字面量（例如讲解 JSON 格式），
+    用子串 `'"type": "answer"' in frame` 判断"是否已送出正文"不可靠：
+    正文是用户可控/模型可控内容，只要回答里出现该字面量（例如讲解 JSON 格式），
     超时终态就会被误判成 interrupted。这里解析帧本身取 `type` 字段。
     """
     if not frame.startswith("data: "):
@@ -1067,9 +1066,9 @@ def _frame_type(frame: str) -> str:
 async def _stream_with_heartbeat(rt, q: QueryRequest, settings: Settings):
     """给 run_query 套上心跳与整体 deadline。
 
-    第四轮复核 P0-2 修正了三点：
-    - 截止时间用**单调时钟**（time.monotonic）计算，不再拿心跳当等待上限：
-      旧实现的心跳为 0 时会永久等待，心跳大于剩余时间时会晚一个完整心跳周期才收流；
+    三条硬要求：
+    - 截止时间用**单调时钟**（time.monotonic）计算，不拿心跳当等待上限：
+      心跳为 0 时会永久等待，心跳大于剩余时间时会晚一个完整心跳周期才收流；
     - 每次等待取 `min(心跳, 剩余时间)`，`remaining <= 0` 立即结束；
     - 超时按"是否已经送出正文"区分终态：已送正文 → interrupted（回答可能不完整），
       未送正文 → failed；错误码用专门的 timeout。
@@ -1165,7 +1164,7 @@ if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
     from fastapi.staticfiles import StaticFiles
 
     class _SecurityHeadersStaticFiles(StaticFiles):
-        """同源托管的前端产物：补基础安全响应头（RAG-3）。
+        """同源托管的前端产物：补基础安全响应头。
 
         /rag/* 若被第三方站点 iframe 嵌入，等于替对方消耗限流配额与模型成本；
         X-Frame-Options / CSP frame-ancestors 直接堵掉这条路。

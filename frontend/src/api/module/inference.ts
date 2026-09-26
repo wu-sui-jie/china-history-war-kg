@@ -1,8 +1,7 @@
-/** 旧问答助手的流式问答（SSE）客户端（第 7 轮 W2 从 index.vue 抽出）。
+/** 旧问答助手的流式问答（SSE）客户端。
  *
- * 页面原先把 fetch + 分块解析 + 逐帧 switch 全写在自己身上（约 170 行），
- * 抽出来之后：**传输与协议解析归这里**（含帧类型定义），**把帧应用到消息状态归页面**。
- * 这样帧协议有类型可依，页面也不再出现 `data` 之类的 any。
+ * 职责划分：**传输与协议解析归这里**（含帧类型定义），**把帧应用到消息状态归页面**。
+ * 页面不再自己写 fetch 与分块解析，帧协议有类型可依，也不会出现 `data` 之类的 any。
  */
 
 import { handleUnauthorized } from '../http'
@@ -32,7 +31,7 @@ export interface StreamInferenceOptions {
 /**
  * 发起一次流式问答，逐帧回调，直到流结束。
  *
- * 分块解析与页面原先的实现一致：按 `\n` 切行、把最后一段不完整的行留在 buffer 里，
+ * 分块解析规则：按 `\n` 切行、把最后一段不完整的行留在 buffer 里，
  * 只处理 `data: ` 前缀的行；单行 JSON 解析失败不影响后续行。
  */
 export async function streamInference(
@@ -51,8 +50,8 @@ export async function streamInference(
   })
 
   if (!response.ok) {
-    // 401 要接回统一处理（第 14 轮审计 P2-16）：这条流走原生 fetch、绕过 axios 拦截器，
-    // 原先只抛 `HTTP error! status: 401`，页面统一显示"推理请求发生错误，请稍后再试"——
+    // 401 要接回统一处理：这条流走原生 fetch、绕过 axios 拦截器，
+    // 只抛 `HTTP error! status: 401` 的话，页面统一显示"推理请求发生错误，请稍后再试"——
     // 凭据失效时用户既不回登录页、也看不到真因。
     if (response.status === 401) {
       handleUnauthorized();

@@ -1,8 +1,9 @@
-"""RAG 服务端身份校验（第 12 轮审查 P1-1）。
+"""RAG 服务端身份校验。
 
-修复前：`/api/query`（SSE）没有任何鉴权，`/api/query/json` 只有一个**可选**共享密钥，
-nginx 的 `auth_basic` 是注释掉的——知道 `/rag/` 地址就能直接调用问答接口，既不受旧系统
-角色控制，也消耗模型配额；浏览器侧那个 uid 只用来拼 localStorage key，不是服务端身份。
+本服务默认不做身份校验：`/api/query`（SSE）没有任何鉴权，`/api/query/json` 只有一个
+**可选**共享密钥，nginx 的 `auth_basic` 默认是注释掉的——知道 `/rag/` 地址就能直接调用
+问答接口，既不受旧系统角色控制，也消耗模型配额；浏览器侧那个 uid 只用来拼 localStorage
+key，不是服务端身份。开启 `RAG_AUTH_MODE=jwt` 后上游这些结论才成立。
 
 这里的用例分两层：
 1. **纯函数层**（verify_hs256 / identity_from_headers）：把每种不可信情形逐个钉死——
@@ -348,7 +349,7 @@ def test_开启校验且无_Bot_Key_时_非流式接口拒绝匿名(auth_client)
     assert resp.json()["error_code"] == "unauthorized"
 
 
-# ---- 凭证撤销查询（第 13 轮复核）：验签通过 ≠ 仍然有效 ----
+# ---- 凭证撤销查询：验签通过 ≠ 仍然有效 ----
 
 
 def _stub_introspector(monkeypatch, *, active=True, exc=None, enabled=True, calls=None):
@@ -376,7 +377,7 @@ def _stub_introspector(monkeypatch, *, active=True, exc=None, enabled=True, call
 
 
 def test_撤销查询判定已失效时拒绝(auth_client, monkeypatch):
-    """本次整改的核心：旧后端说"这张凭证不算了"，RAG 必须跟着拒——此前它会放行到过期。"""
+    """旧后端说"这张凭证不算了"，RAG 必须跟着拒——否则会放行到 token 过期。"""
     client, settings = auth_client
     settings.require_auth = True
     settings.jwt_secret = SECRET
@@ -435,9 +436,9 @@ def test_后端不可用时按_fail_closed_拒绝_并回_503(auth_client, monkey
     理由写在 introspection.py 里——这是一条安全查询，"把后端打挂"不该成为一种
     绕过撤销的手段。要放行必须显式把失败策略改成 open。
 
-    **回 503 而不是 401**（第 14 轮审计 P2-1）：两者都是拒绝，但含义完全不同——
+    **回 503 而不是 401**：两者都是拒绝，但含义完全不同——
     401 让用户去重新登录（而新 token 同样会被拒），503 告诉他"稍后重试"。
-    旧实现把"问不到后端"当成"凭证已失效"，后端抖一下就把全体用户"登出"了。
+    把"问不到后端"当成"凭证已失效"不行：后端抖一下就把全体用户"登出"了。
     """
     client, settings = auth_client
     settings.require_auth = True
@@ -595,9 +596,9 @@ def test_撤销查询只配一半时的告警指名缺哪一项(auth_client, mon
 
 
 def test_匿名请求在_runtime_加载失败时仍先得到_401(auth_client):
-    """顺序问题（第 13 轮复核整改 §2.10）。
+    """准入顺序。
 
-    原先 `/api/query` 先查 runtime 再鉴权：runtime 加载失败时**匿名请求**会先拿到 503
+    `/api/query` 若先查 runtime 再鉴权：runtime 加载失败时**匿名请求**会先拿到 503
     与脱敏后的加载错误——服务状态与内部故障信息泄露给了未认证的人；
     而 `/api/query/json` 是反过来的，两条通道口径不一致。
     """
@@ -685,7 +686,7 @@ def test_要开校验却没密钥时启动判定报错():
     assert settings.auth_startup_problem() is None
 
 
-# ---- 鉴权模式分档（第 13 轮整改）----
+# ---- 鉴权模式分档 ----
 
 
 def _bare_settings(**kwargs):
@@ -778,7 +779,7 @@ def test_模式解析_新配置优先且兼容旧开关():
         importlib.reload(settings_mod)
 
 
-# ---- iss / aud / sub 校验（第 13 轮整改，文档三-4）----
+# ---- iss / aud / sub 校验 ----
 
 
 def test_iss_不符的_token_被拒绝():
@@ -877,7 +878,7 @@ def test_配了_Bot_Key_时头值不对仍然_401(auth_client):
                        headers={"Token": valid_token()}).status_code == 401
 
 
-# ---------------------------------- jwt 档与机器人通道（第 14 轮审计 P2-20）
+# ---------------------------------- jwt 档与机器人通道
 
 
 def test_jwt_档未配_Bot_Key_时给出告警(auth_client, monkeypatch):
@@ -922,11 +923,11 @@ def test_非_jwt_档不提示_Bot_Key(auth_client, monkeypatch):
     assert not any("RAG_BOT_API_KEY" in w for w in payload.get("warnings", []))
 
 
-# ---------------------------------------- 配置自相矛盾与重复账号（第 14 轮审计 P2-6 / P2-7）
+# ---------------------------------------- 配置自相矛盾与重复账号
 
 
 def test_鉴权模式与旧开关冲突时拒绝启动(monkeypatch):
-    """P2-7：`RAG_REQUIRE_AUTH=true` 说"本服务验签"，`RAG_AUTH_MODE=nginx` 说"交给网关"。
+    """`RAG_REQUIRE_AUTH=true` 说"本服务验签"，`RAG_AUTH_MODE=nginx` 说"交给网关"。
 
     原实现让新模式静默覆盖旧开关，于是"两边都不拦"——而配置看起来是写了的。
     """

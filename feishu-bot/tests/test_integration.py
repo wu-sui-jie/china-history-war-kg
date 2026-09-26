@@ -31,7 +31,7 @@ OPERATORS_CHAT = "oc_operators"
 class RecordingFeishu:
     """接住所有发送动作（等价于 mock 掉 SDK 的发送函数）。
 
-    两段式回复（批次③-1）也要在替身上成立：PATCH **替换** replies 里那一条（飞书侧
+    两段式回复也要在替身上成立：PATCH **替换** replies 里那一条（飞书侧
     就是整卡替换同一条消息），于是 `last_card` 恒等于"用户当前看到的那张卡"。
     """
 
@@ -367,7 +367,7 @@ def test_feedback_on_missing_message_is_ignored(stack, session):
     assert not app.feishu.sent
 
 
-# ---- 批次③-1：两段式回复（占位卡 → PATCH 最终卡）----
+# ---- 两段式回复（占位卡 → PATCH 最终卡）----
 
 
 def test_two_phase_placeholder_is_replaced_by_answer(stack, session):
@@ -440,7 +440,7 @@ def test_help_does_not_go_two_phase(stack):
     assert "我能做什么" in app.feishu.sent_cards[0]["body"]["elements"][0]["content"]
 
 
-# ---- 批次③-2：/new 重置会话 ----
+# ---- /new 重置会话 ----
 
 
 def test_new_command_resets_history(stack, session):
@@ -551,7 +551,7 @@ def test_send_failure_rolls_back_turn_and_keeps_worker_alive(stack, session):
 
 
 def test_subgraph_image_used_when_renderer_available(stack):
-    """渲染成功时卡片走 img 元素（P2-1 成功路径）。"""
+    """渲染成功时卡片走 img 元素（子图成功路径）。"""
 
     class FakeRenderer:
         def render_and_upload(self, subgraph):
@@ -566,7 +566,7 @@ def test_subgraph_image_used_when_renderer_available(stack):
 
 
 def test_subgraph_text_fallback_when_renderer_fails(stack):
-    """渲染失败必须自动降级为文字列表，**不允许空白**（P2-1 降级路径）。"""
+    """渲染失败必须自动降级为文字列表，**不允许空白**（子图降级路径）。"""
 
     class BrokenRenderer:
         def render_and_upload(self, subgraph):

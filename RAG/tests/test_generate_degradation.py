@@ -85,7 +85,7 @@ def test_error_path_still_degrades():
 
 
 def test_error_path_logs_reason(caplog):
-    """降级必须留下可诊断的日志（2026-09-15 冒烟发现：此前静默降级，排障困难）。"""
+    """降级必须留下可诊断的日志（静默降级会让排障困难）。"""
     import logging
 
     g = _gen(_FakeLLM(text="", error="llm_error: Connection error."))

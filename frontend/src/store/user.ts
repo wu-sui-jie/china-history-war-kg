@@ -65,9 +65,9 @@ function mergeWorkspaceMenus(source: MenuItem[] = []) {
     ].filter(Boolean) as MenuItem[]
   }
 
-  // 修正 2026-09-25：不再用 WORKSPACE_GROUP 兜底。菜单唯一事实源是后端
-  // get_menu()，viewer 的数据运营组被角色裁剪后本就不该出现——原先的
-  // `|| WORKSPACE_GROUP` 保底会把内置默认组（数据集中心+图谱质检）硬塞
+  // 不能用内置常量兜底 WORKSPACE_GROUP。菜单唯一事实源是后端
+  // get_menu()，viewer 的数据运营组被角色裁剪后本就不该出现——`|| WORKSPACE_GROUP`
+  // 这类保底会把内置默认组（数据集中心+图谱质检）硬塞
   // 回给 viewer，等于部分撤销后端的裁剪。
   const workspaceGroup = menuMap.get('/workspace/manage')
   if (workspaceGroup?.children) {
@@ -111,8 +111,8 @@ export const useUserStore = defineStore({
   },
   actions: {
     async loadMenus() {
-      // 第 14 轮审计 P2-15：这里原先只有 .then —— 接口失败时菜单静默为空
-      // （侧边栏只剩首页），调用方还留着一条 unhandled rejection。
+      // 这里必须有 catch：接口失败时菜单会静默为空（侧边栏只剩首页），
+      // 调用方还留着一条 unhandled rejection。
       // 菜单为空是"看起来像没权限"的状态，必须能说出来是加载失败。
       try {
         const { data, code } = await menu()
@@ -168,7 +168,7 @@ export const useUserStore = defineStore({
   persist: {
     storage: localStorage,
     paths: ['token', 'userInfo', 'permissions', 'menus'],
-    // 本地缓存里可能存着改动前下发的菜单，恢复时先过一遍隐藏清单，
+    // 本地缓存里的菜单可能早于当前隐藏清单，恢复时先过一遍，
     // 否则等 loadMenus() 返回前会短暂闪出已下线的入口。
     afterRestore: (ctx) => {
       const store = ctx.store as unknown as { menus?: MenuItem[] }

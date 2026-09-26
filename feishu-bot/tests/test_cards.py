@@ -100,7 +100,7 @@ def test_citation_snippet_is_truncated_but_not_rewritten():
     assert "甲" * 401 not in content
 
 
-# ---- 3) panel 文本化（P1-2）----
+# ---- 3) panel 文本化 ----
 
 
 def test_entity_cards_are_textified():
@@ -148,7 +148,7 @@ def test_places_use_fallback_format():
     assert "- 河内" in content
 
 
-# ---- 4) 子图：图片优先、文字降级（P2-1）----
+# ---- 4) 子图：图片优先、文字降级 ----
 
 
 def test_subgraph_renders_image_when_img_key_present():
@@ -189,7 +189,7 @@ def test_empty_subgraph_produces_no_section():
     assert not _folds(card)
 
 
-# ---- 5) 按钮（P1-3 / P2-2）----
+# ---- 5) 按钮 ----
 
 
 def _buttons(card: dict) -> list[dict]:
@@ -429,7 +429,7 @@ def test_notice_card_is_minimal():
 
 
 def test_placeholder_card_is_grey_and_replaceable():
-    """占位卡（批次③-1）：灰色（不是答案）、有 update_multi（PATCH 的前提）。"""
+    """占位卡：灰色（不是答案）、有 update_multi（PATCH 的前提）。"""
     from bot.cards.builder import PLACEHOLDER_TEXT, build_placeholder_card
 
     card = build_placeholder_card()

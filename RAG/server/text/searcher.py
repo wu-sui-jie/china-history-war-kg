@@ -3,7 +3,7 @@
 关键词检索在本层自实现 `_query_fts`（AND/OR 召回 + BM25 排序 + 兜底），
 在此基础上按需读取 chunks 元信息，并做 min-max 归一化与 mode 标记。
 
-向量检索（RAGv5 T3）：查询侧调云端模型得到问题向量，交给 `data/index/vectors/chroma/`
+向量检索（RAGv5）：查询侧调云端模型得到问题向量，交给 `data/index/vectors/chroma/`
 的 Chroma 集合做余弦近邻检索；**向量不可用（集合缺失/条数不一致/无密钥）时
 `vector_available=False` → 由 server/text/scoring.resolve_mode 自动降级关键词**。
 `embeddings.npy` 只是审计副本，不参与检索。
@@ -19,10 +19,10 @@ from data.index import chroma_store
 from data.index import fts as fts_mod
 from server.text.scoring import fuse_hybrid
 
-# and_or 模式下：AND 命中少于该数量时并入 OR 结果（长改写问题 AND 常只命中个别片段，
-# 旧实现"仅在 AND 为空时才兜底"会丢掉 OR 里更相关的片段；见 RAGv5 §2.5-2）。
-# 这些上限原先硬编码在这里，现由 Settings（TEXT_QUERY_*）配置，下面的默认值仅在
-# 直接构造 TextSearcher（测试）时生效。
+# and_or 模式下：AND 命中少于该数量时并入 OR 结果。"仅在 AND 为空时才兜底"会丢掉
+# OR 里更相关的片段（长改写问题 AND 常只命中个别片段）。
+# 这些上限由 Settings（TEXT_QUERY_*）配置，下面的默认值仅在直接构造
+# TextSearcher（测试）时生效。
 DEFAULT_QUERY_MAX_WORDS = 8
 DEFAULT_QUERY_AND_WORDS = 5
 DEFAULT_QUERY_OR_WORDS = 6
@@ -62,13 +62,13 @@ class TextSearcher:
         self.query_or_words = max(1, int(query_or_words or DEFAULT_QUERY_OR_WORDS))
         self.and_min_hits = max(1, int(and_min_hits or DEFAULT_QUERY_AND_MIN_HITS))
 
-        # ---- 向量链路的可用性（第 12 轮审查 P2-2 拆解）----
+        # ---- 向量链路的可用性（拆成可分别观测的几段）----
         #
-        # 原先只有一个 `vector_available`，它回答的是"制品与客户端装好了吗"，却被 health
-        # 与评测当成"向量检索真的能用"。两者不是一回事：查询侧 embedding 是**网络调用**，
+        # 单个 `vector_available` 回答的是"制品与客户端装好了吗"，但 health 与评测容易
+        # 把它当成"向量检索真的能用"。两者不是一回事：查询侧 embedding 是**网络调用**，
         # 密钥失效 / 端点不可达时制品与客户端依然完好，查询却在运行时静默降级成关键词——
         # 于是出现"健康检查说向量可用、实际走关键词"的假阳性，还会一路掩盖进评测指标。
-        # 拆成可分别观测的几段：
+        # 因此拆成下面几段：
         #
         #   vector_artifact_ready        Chroma 集合能加载且条数与 ids.json 一致（制品）
         #   embedding_client_configured  查询侧 embed_fn 已装配（客户端）
@@ -283,7 +283,7 @@ class TextSearcher:
         不剔除任何结果）；显式筛选仍走 metadata_filter 硬过滤。
         注意：本函数返回的顺序不是最终证据顺序——F05 融合会按 `_score`（各条不同）
         重排文本证据，因此文本侧偏置**不影响最终排序**（图谱侧偏置在 F03 策略前
-        重排节点、可经 top_k 影响证据集合）。详见 docs/features/02-entity-linking.md。
+        重排节点、可经 top_k 影响证据集合）。详见 docs/features.md 第二节。
         """
         limit = limit or self.top_k
         words = fts_mod.tokenize(query)[:self.query_max_words]
@@ -296,7 +296,7 @@ class TextSearcher:
         else:
             hits = self._query_fts(words, mode="and", limit=limit)
             # AND 优先；命中不足时**并入** OR 结果（而不是只在 AND 为空时才兜底）：
-            # 长改写问题的 AND 往往只命中 1–2 个片段，旧口径会把 OR 里更相关的片段整批丢掉。
+            # 长改写问题的 AND 往往只命中 1–2 个片段，只看 AND 会把 OR 里更相关的片段整批丢掉。
             if len(hits) < min(limit, self.and_min_hits):
                 seen = {cid for cid, _ in hits}
                 for cid, s in self._query_fts(words, mode="or", limit=limit):
@@ -377,7 +377,7 @@ class TextSearcher:
             return True
         if mf.get("dynasty") and row.get("dynasty") not in mf["dynasty"]:
             return False
-        # event_type（RAGv5 §2.5-3 调整）：
+        # event_type 的过滤范围：
         # - 事件卡片与关系证据有该元数据 → 严格按筛选值过滤；
         # - 原文片段（raw）没有该元数据（书页文本无事件/类型归属）→ **放行**，
         #   否则按战争类型筛选时原文证据会被整批剔除（v4 实测 F01 文本召回 100% → 0%）。

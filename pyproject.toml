@@ -1,27 +1,25 @@
-# 全仓库统一依赖声明（文档第十四节第 5 条）。
+# 全仓库统一依赖声明。
 #
 # ## 这个文件是什么
 #
-# 四个模块（backend / RAG / feishu-bot / 抽取包 war_extraction）此前各有自己的
-# requirements：根 requirements.txt 写 "Python 3.8"、RAG/requirements.txt 写 3.11、
-# feishu-bot 写 3.11——同一份代码库要装两个 Python 版本，而"哪个模块该用哪个环境"
-# 只存在于各文件的注释里。这里把它们收敛成一处**按模块分组的声明**，
-# 并统一 Python 版本与几个关键库的主版本。
+# 四个模块（backend / RAG / feishu-bot / 抽取包 war_extraction）的依赖原本散在各自
+# 的 requirements 文件里，"哪个模块要装什么"只存在于各文件的注释里。这里把它们收敛成
+# 一处**按模块分组的声明**，并统一 Python 版本与几个关键库的主版本。
 #
 # ## 这个文件不是什么（请勿误读）
 #
 # **它本身不是锁文件**：这里声明的是版本区间与分组，锁定的精确版本在根
 # `requirements.lock`（119 个包、带 sha256，生成脚本 `scripts/gen_unified_lock.py`）。
 #
-# ## 迁移状态（第 14 轮审计后的实测，2026-09-25）
+# ## 迁移状态（2026-09-25 实测）
 #
 # | 项 | 状态 |
 # | --- | --- |
-# | 四个模块统一 Python 3.11 | **已实测**：`china-war-py311`（3.11.16）上 backend 200 / EER 109 / RAG 441 / 飞书 297 全绿，与 3.8 基线逐套一致 |
-# | SQLAlchemy 2 兼容 | **已实测**：本机一直是 SQLAlchemy 2.x（此前文件头写的"1.4"有误，见第 14 轮审计 E-1/C.3）；10 处 `Query.get()` 已改 `db.session.get()`，CI 现在把 `LegacyAPIWarning` 当失败门禁 |
+# | 四个模块统一 Python 3.11 | **已实测**：`china-war-py311`（3.11.16）上四套测试全绿（backend 218 / EER 109 / RAG 464 / 飞书 301），与 3.8 基线逐套一致 |
+# | SQLAlchemy 2 兼容 | **已实测**：本机一直是 SQLAlchemy 2.x；`Query.get()` 已全部改 `db.session.get()`，CI 把 `LegacyAPIWarning` 当失败门禁 |
 # | 可复现 lock | **已生成并验证**：空环境 `pip install --require-hashes -r requirements.lock` 后四套测试全绿 |
 # | CI 双跑 3.8 / 3.11 | 已加（`legacy-backend` 矩阵），稳定后再删 3.8 那一档 |
-# | py2neo → 官方 driver | **未做**：py2neo 只发布到 2021.2.4、未声明支持 3.12+，这是"统一到 3.11 就够、不要跳到 3.12"的主因（文档第十三节） |
+# | py2neo → 官方 driver | **未做**：py2neo 只发布到 2021.2.4、未声明支持 3.12+，这是"统一到 3.11 就够、不要跳到 3.12"的主因 |
 #
 # ## 用法
 #
@@ -33,14 +31,14 @@
 #   pip install -e ".[all]"          # 本机统一开发环境（推荐）
 #
 #   # 上面这一步**不含抽取链包本身**（它是仓库内的独立包，不是三方依赖），
-#   # 而旧后端会 `import war_extraction`——漏装它后端直接起不来（第 14 轮审计 E-5）：
+#   # 而旧后端会 `import war_extraction`——漏装它后端直接起不来：
 #   pip install -e entity-event-relation
 #
 #   # 要复现"验证过的那套版本"用 lock（四套测试已在此组合上全绿）：
 #   pip install --require-hashes -r requirements.lock
 #
 # 四个模块仍然是**四个独立进程**，不是合并成一个程序——分组只是依赖声明，
-# 不改变部署形态（文档第十四节第 4 条）。
+# 不改变部署形态。
 
 [build-system]
 requires = ["setuptools>=61"]
@@ -55,7 +53,7 @@ build-backend = "setuptools.build_meta"
 #   error: Multiple top-level packages discovered in a flat-layout:
 #          ['RAG', 'deploy', 'backend', 'frontend']
 #
-# 后果是 `pip install -e ".[all]"`（Python 3.11 统一方案的 5.3 步）在本仓库
+# 后果是 `pip install -e ".[all]"` 在本仓库
 # **根本执行不了**：它在干净环境上直接失败，而不是装完缺少依赖。显式声明空包列表
 # 即可让构建器不去猜——真要装代码，装的是 `entity-event-relation` 那个包
 # （它有自己的 pyproject 与 `include = ["war_extraction*"]`）。
@@ -151,9 +149,9 @@ all = [
     "china-war[dev]",
 ]
 
-# ## 关于可复现 lock（文档第十四节第 5 条 / 迁移阶段 5）
+# ## 关于可复现 lock
 #
-# 根 `requirements.lock` **已生成并验证**（第 14 轮审计 §5.8）：
+# 根 `requirements.lock` **已生成并验证**：
 #
 #   python scripts/gen_unified_lock.py     # 生成 + 补哈希 + 自检
 #   python scripts/gen_unified_lock.py --check   # 只校验（CI 用）
@@ -163,7 +161,7 @@ all = [
 # RAG 自己那份带哈希的 `RAG/requirements.lock` 保持独立、不与本锁互相覆盖。
 
 
-# ================== Ruff 配置（第 14 轮审计 E-7）==================
+# ================== Ruff 配置 ==================
 #
 # ## 为什么必须有这一段
 #
@@ -174,10 +172,9 @@ all = [
 #     ruff 0.14.4（CI 的 RAG / 飞书 job）  →  All checks passed!
 #     ruff 0.16.8（pyproject 与本机 3.8 环境）→  RAG 480 errors / 飞书 74 errors
 #
-# 而两个版本各自恰好装在不同的本机环境里——**本地怎么跑都不会暴露差异**，
-# 这正是它一直没被发现的原因（第 14 轮审计 P3-12 的实测记录）。
-# 所以"把 CI 的版本号从 0.14.4 改成 0.16.8"这种直接统一的动作会让 RAG 的 lint job
-# 当场变红；正确顺序是先把规则集写死，再统一版本。
+# 两个版本各自恰好装在不同的本机环境里，**本地怎么跑都不会暴露差异**——这正是
+# 差异长期没被发现的原因。直接"把 CI 的版本号从 0.14.4 改成 0.16.8"会让 RAG 的 lint
+# job 当场变红；正确顺序是先把规则集写死，再统一版本。
 #
 # ## 为什么 select 就写这四条
 #
@@ -186,11 +183,10 @@ all = [
 # 让它不再随 ruff 版本漂移；统一到 0.16.8 之后判定与今天完全一致。
 #
 # 新默认集里多出来的 550 余条（UP045 `Optional[X]`→`X | None` 204 条、UP006、
-# I001 导入排序、RUF100 无用 noqa…）**属于风格现代化，不在本次范围内**：
-# 一次性改 550 处会让"哪一处改动引入了回归"变得无法归因，而它们与当前这批
-# 安全/数据完整性修复没有关系。其中确实有几类形状像 bug 的（B023 闭包捕获循环变量、
-# PLW1510 subprocess 未给 check=、DTZ005 不带时区的 now()），已单独记入实施记录，
-# 建议作为独立一轮按类别逐个处理。
+# I001 导入排序、RUF100 无用 noqa…）**属于风格现代化，刻意不纳入门禁**：
+# 一次性改 550 处会让"哪一处改动引入了回归"变得无法归因。其中确实有几类形状像 bug 的
+# （B023 闭包捕获循环变量、PLW1510 subprocess 未给 check=、DTZ005 不带时区的 now()），
+# 需要按类别单独处理，不要与功能改动混在同一次提交里。
 #
 # ## 作用范围
 #

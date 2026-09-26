@@ -1,7 +1,7 @@
-/** 旧问答助手（`/knowledge/inference`）的领域类型（第 7 轮 W2）。
+/** 旧问答助手（`/knowledge/inference`）的领域类型。
  *
- * 这些类型原先以 `any` / 内联字面量的形式散在 `views/inference/index.vue` 里，
- * 页面拆子组件后 props/emits 需要显式类型，于是收敛到这里（FE-7 / P2-2 第二步）。
+ * 这些类型以 `any` / 内联字面量的形式散在 `views/inference/index.vue` 里时无法复用，
+ * 页面拆子组件后 props/emits 需要显式类型，于是收敛到这里。
  */
 
 /** 图谱节点：字段随实体类型不同（朝代/时间/地点/交战方…），前端只做展示，故保留索引签名。 */

@@ -1,14 +1,14 @@
 """F06 拒答判定与文案（server/generate/refusal.py）。
 
-拒答路径（features/06 规则 + RAGv5 补强）：
+拒答路径（见 docs/features.md 第六节的拒答判定规则）：
 1. 图谱证据为空 且 文本证据为空 → 直接拒答（finish_reason=refused）。
 2. 实体为空 且 文本证据与问题无共享词 → 依据不足拒答（sse.py / evaluation 两处同口径）。
-3. **（RAGv5 §4.6 新增）领域外谓词**：问题问的是知识库不可能覆盖的属性/器物
+3. **领域外谓词**：问题问的是知识库不可能覆盖的属性/器物
    （邮箱、电话、度假、坦克、股票…），**且这些词在所有证据里都不出现** → 拒答。
    保守优先：只要证据里出现过该词，就不拒答（宁可少拒，不可把可答题拒掉）。
 4. score 不单独作为拒答阈值；向量/hybrid 模式下作为低分兜底信号之一，与规则 2
    叠加生效（VECTOR_REFUSAL_MIN_SCORE 在 sse.py 的编排里读取）。
-5. **模型自拒识别（2026-09-15 全项目审核 P0-1 落地）**：模型按提示词规则在
+5. **模型自拒识别**：模型按提示词规则在
    证据不足时用固定句式说明（见 prompts.py 规则 4），生成返回前经
    detect_model_refusal 识别 → finish_reason=refused，前端据此标记"依据不足"。
 """
@@ -93,7 +93,7 @@ def _evidence_haystack(evidence: list[Evidence]) -> str:
 def out_of_scope_reason(question: str, evidence: list[Evidence]) -> str | None:
     """领域外谓词规则：命中词表且证据里完全没有该词 → 返回拒答文案；否则 None。
 
-    设计要点（RAGv5 §4.6）：只做"确定不该答"的判定，命中不确定时一律不拒答，
+    设计要点：只做"确定不该答"的判定，命中不确定时一律不拒答，
     避免把可通过史料回答的问题误拒。
     """
     if not question or not evidence:

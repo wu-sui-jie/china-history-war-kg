@@ -1,5 +1,5 @@
 {
-  "_note": "第 11 轮 B 类：/api/extract/entities-events 抽取链的录制回放夹具。llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。重新录制：python tools/record_extract_replay.py",
+  "_note": "/api/extract/entities-events 抽取链的录制回放夹具。llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。重新录制：python tools/record_extract_replay.py",
   "recorded_with_model": "deepseek-r1:7b",
   "input_text": "公元前1046年，周武王率诸侯之师东进，与商纣王的军队战于牧野。商军阵前倒戈，商纣王大败，商朝灭亡，周武王建立周朝。",
   "llm_responses": [

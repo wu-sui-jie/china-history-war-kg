@@ -4,23 +4,22 @@ import { writeFileSync } from 'node:fs'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 
-/** 基路径与接口前缀参数化（2026-09-20 并入旧知识库系统 Web 入口）。
+/** 基路径与接口前缀参数化（并入旧知识库系统 Web 入口）。
  *
- * 默认值保持独立部署口径（base `/`、接口前缀 `/api`），所以 `npm run build` 的产物
- * 与并入前逐字节一致，RAGv5 的同源托管与部署链路不受影响。
- * 并入模式由 `.env.integration` 覆盖：`npm run build:integration`
+ * 默认值保持独立部署口径（base `/`、接口前缀 `/api`），`npm run build` 的产物用于
+ * 同源托管与部署链路。并入模式由 `.env.integration` 覆盖：`npm run build:integration`
  * → base `/rag/`、接口前缀 `/rag/api`，配合旧系统的子路径反代使用。
  */
 
-/** 把构建模式写进 dist，供 RAG 服务启动时核对（RAG-9）。
+/** 把构建模式写进 dist，供 RAG 服务启动时核对。
  *
  * `dist/` 只有一份，`build`（base=/）与 `build:integration`（base=/rag/）互相覆盖；
  * 并入反代下若误用独立产物，页面会白屏且控制台只有 404、不看 Network 面板发现不了。
  * 服务端读这个文件（缺失时回退看 index.html 的资源前缀）并在日志与 /api/health 里报出模式。
  *
- * 写入目录取 `build.outDir`（第 7 轮 W4）：原先写死 `./dist/`，用 `--outDir dist-plain`
- * 之类的旁路构建（浏览器 e2e 就是这么跑的）会把并入模式 dist 的标记改成 standalone，
- * 而产物本身没动——服务启动时会报错模式，排查起来像"构建产物坏了"。
+ * 写入目录取 `build.outDir` 而非写死 `./dist/`：用 `--outDir dist-plain`
+ * 之类的旁路构建（浏览器 e2e 就是这么跑的）时，写死会让并入模式 dist 的标记被改成
+ * standalone，而产物本身没动——服务启动时会报错模式，排查起来像"构建产物坏了"。
  */
 function buildModeMarker(mode: string): Plugin {
   let outDir = 'dist'
@@ -72,7 +71,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       sourcemap: false,
-      // 首屏预算（2026-09-15 审核 P1-15）：入口只应包含界面框架，
+      // 首屏预算：入口只应包含界面框架，
       // ECharts/地图这类重资源必须留在按需加载的分包里。
       chunkSizeWarningLimit: 600,
       rollupOptions: {

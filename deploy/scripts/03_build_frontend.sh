@@ -28,9 +28,9 @@ as_app_user() {
 log "1/3 旧前端（frontend/ → dist，base=/static/）"
 cd "${APP_DIR}/frontend"
 chown -R "${APP_USER}:${APP_USER}" "${APP_DIR}/frontend"
-# 用 pnpm + 入库的锁文件（第 14 轮审计 P2-21）：仓库入库的是 frontend/pnpm-lock.yaml，
-# CI 也是 `pnpm install --frozen-lockfile`——原先这里用 `npm install`，会按 package.json
-# 重新解析版本树、并生成一份没人看过也没入库的 package-lock.json。结果就是
+# 用 pnpm + 入库的锁文件：仓库入库的是 frontend/pnpm-lock.yaml，
+# CI 也是 `pnpm install --frozen-lockfile`。改用 `npm install` 会按 package.json
+# 重新解析版本树、并生成一份没人看过也没入库的 package-lock.json——结果就是
 # **服务器上构建出来的产物与 CI 验证过的那份不是同一个版本组合**，而且谁都没发现。
 # corepack 随 Node 18+ 提供，用它激活 packageManager 字段里钉的 pnpm 版本。
 if [[ -f pnpm-lock.yaml ]]; then

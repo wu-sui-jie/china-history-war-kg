@@ -1,8 +1,8 @@
-/** 问答页（inference/index.vue）的渲染工具（S3-5 第一步，2026-09-25）。
+/** 问答页（inference/index.vue）的渲染工具。
  *
- * 从那个 3400 行的页面里搬出来的纯函数：Markdown 渲染与净化、知识图谱上下文的
- * HTML 拼装、JSON 转表格、思考过程渲染。它们与 Vue 状态无关，原先埋在页面里、
- * 完全没法单测；现在单独成模块，tests/unit/inference-render.test.ts 是它们的底线。
+ * 纯函数集合：Markdown 渲染与净化、知识图谱上下文的 HTML 拼装、JSON 转表格、
+ * 思考过程渲染。它们与 Vue 状态无关，单独成模块才能单测，
+ * tests/unit/inference-render.test.ts 是它们的底线。
  *
  * 安全约定（与页面里的注释一致）：模型输出与图谱数据都属不可信内容，
  * 因此 MarkdownIt 开 html: false，所有进入 v-html 的 HTML 一律过 DOMPurify。

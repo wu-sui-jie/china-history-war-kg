@@ -21,9 +21,8 @@ from .historical_places_mapping import HISTORICAL_MAPPING
 _DEFAULT_PROGRESS = object()
 
 #: 逐条进度文件名模板（放模块目录下，不入库——见 .gitignore）。
-#: Changed 2026-09-25（第 11 轮 A-2）：文件名带 run_id，**一次跑批一个文件**。
-#: 原先所有批次共用一个 geocoding_progress.jsonl、靠记录里的 run_id 区分，只增不减，
-#: 跑多了会一直长；现在中断后一眼就能看出是哪一批，用完也可整文件丢弃。
+#: 文件名带 run_id，**一次跑批一个文件**：共用一个文件、靠记录里的 run_id 区分的话，
+#: 文件只增不减；分文件后中断了能一眼看出是哪一批，用完也可整文件丢弃。
 PROGRESS_FILENAME_TEMPLATE = 'geocoding_progress_{run_id}.jsonl'
 
 
@@ -57,7 +56,7 @@ def default_progress_path(run_id: str = None) -> str:
 
 def prune_progress_files(keep: int = 20, progress_dir: str = None) -> List[str]:
     """
-    进度文件清理口径（A-2）：按修改时间从新到旧保留 ``keep`` 份，更旧的删掉。
+    进度文件清理口径：按修改时间从新到旧保留 ``keep`` 份，更旧的删掉。
 
     **不自动调用**——删文件有副作用，留成显式动作：
         python -c "from war_extraction.geocoding.geocode_amap import prune_progress_files; print(prune_progress_files())"
@@ -158,10 +157,10 @@ class AmapGeocoder:
         self.request_count = 0
         self.success_count = 0
         self.fail_count = 0
-        # Added 2026-09-25（EER-12）
+        #: 因瞬时故障实际重试过多少次（诊断用）
         self.retry_count = 0
         self.quota_exhausted = False
-        #: Added 2026-09-25（第 11 轮 A-3）：本批是否被**日配额**提前截断（而不是单条失败）。
+        #: 本批是否被**日配额**提前截断（而不是单条失败）。
         #: 调用方据此判断拿到的 results 是"全部地点"还是"一部分"。
         self.batch_aborted_by_quota = False
         self.last_failure_reason = ''
@@ -226,7 +225,7 @@ class AmapGeocoder:
         """
         发一次请求，返回 (判定, 载荷)。
 
-        判定取值（EER-12 的核心：把"值得重试"与"重试也没用"分开）：
+        判定取值（把"值得重试"与"重试也没用"分开）：
           - ``'ok'``：拿到结果，载荷是 ``geocodes[0]`` 字典；
           - ``'transient'``：网络异常 / 5xx / 429 / 响应不是 JSON——退避重试可能成功，载荷是原因；
           - ``'quota'``：高德返回配额或频率受限的错误码——重试只会白烧额度，载荷是 infocode；
@@ -344,10 +343,10 @@ class AmapGeocoder:
         """
         追加一条进度记录（JSONL，一行一条）并 fsync。
 
-        Added 2026-09-25（EER-12）：原来只在批次末尾 save_results 一次性落盘，
-        批次跑到一半被杀（Ctrl-C、断网、配额耗尽）就把**整批**已花掉额度的结果丢了。
-        现在逐条落盘，中途失败最多丢当前这一条。用追加 + fsync：写入本身足够原子
-        （一条记录远小于一个块，且崩了最多留一行残行，解析时跳过即可）。
+        不能只在批次末尾 `save_results` 一次性落盘：批次跑到一半被杀（Ctrl-C、断网、
+        配额耗尽）就把**整批**已花掉额度的结果丢了。逐条落盘后中途失败最多丢当前这一条。
+        用追加 + fsync：写入本身足够原子（一条记录远小于一个块，且崩了最多留一行残行，
+        解析时跳过即可）。
         """
         if not progress_path:
             return
@@ -379,7 +378,7 @@ class AmapGeocoder:
         results = []
         total = len(places)
 
-        # 先定 run_id，再据此推导默认进度文件名（A-2：一次跑批一个文件）
+        # 先定 run_id，再据此推导默认进度文件名（一批一个文件）
         if run_id is None:
             run_id = new_run_id()
         if progress_path is _DEFAULT_PROGRESS:
@@ -469,10 +468,9 @@ def warn_if_quota_truncated(geocoder: 'AmapGeocoder') -> bool:
     """
     本批被日配额截断时打醒目提示，返回是否被截断。
 
-    Added 2026-09-25（第 11 轮 A-3）：抽取层刻意保留"日配额耗尽即停整批"的行为
-    （当天不会再成功，继续跑只是把剩余地点全刷成失败），但**调用方**看到的是一份
-    部分结果——审核与导入照常进行的话，人会以为"这批跑完了"。所以把提示做成显式动作，
-    由调用方决定要不要继续往下走。
+    编码层刻意保留"日配额耗尽即停整批"的行为（当天不会再成功，继续跑只是把剩余地点
+    全刷成失败），但**调用方**看到的是一份部分结果——审核与导入照常进行的话，
+    人会以为"这批跑完了"。所以把提示做成显式动作，由调用方决定要不要继续往下走。
     """
     if not geocoder.batch_aborted_by_quota:
         return False
@@ -508,7 +506,7 @@ def load_and_geocode(input_file: str, api_key: str = None) -> List[Dict]:
     # 批量编码
     results = geocoder.batch_geocode(places)
 
-    # A-3：截断时在结果保存前先说清楚（本步只编码，不停下来）
+    # 截断时在结果保存前先说清楚（本步只编码，不停下来）
     warn_if_quota_truncated(geocoder)
 
     # 保存结果

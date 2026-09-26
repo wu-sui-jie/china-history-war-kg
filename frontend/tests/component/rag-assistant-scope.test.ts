@@ -1,10 +1,10 @@
-/** RAG 嵌入页的跨应用身份契约（问题二方案 A + 方案 B 的凭证）。
+/** RAG 嵌入页的跨应用身份契约（账号分桶 + 服务端验签凭证）。
  *
  * 契约的另一半在 RAG 前端：它只认 `{type:'cw-user', uid, role, token}` 且只认同源
  * （见 RAG 仓库 tests/unit/user-scope.test.ts）。这里钉住主应用发出的这一半——载荷形状、
  * targetOrigin、以及"在 iframe load 之后才发"（早于 load 发会丢消息）。
  *
- * token 是第 12 轮审查 P1-1 加的：uid/role 只用于分 localStorage 桶（防串记录），
+ * token 由 RAG 服务端验签：uid/role 只用于分 localStorage 桶（防串记录），
  * 防冒充靠 RAG 服务端验签这份 token。少发它不会导致前端报错，只会让开启
  * RAG_REQUIRE_AUTH 的部署里所有问答 401——所以必须在契约层钉住。
  */

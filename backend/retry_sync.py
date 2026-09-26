@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""重放待补偿的 Neo4j 同步任务（第 12 轮审查 P1-3 / 第 13 轮整改）。
+"""重放待补偿的 Neo4j 同步任务。
 
 用法：
     cd backend

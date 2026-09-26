@@ -1,12 +1,13 @@
-"""向量接线与审计副本重建的守护用例（RAGv5 T3 收尾）。
+"""向量接线与审计副本重建的守护用例。
 
 覆盖两处"文档写了、行为上必须成立"的路径：
 
 1. `data/index/build.py::_build_vectors` 的三条分支——开关关 / 开但无密钥 → 写空占位
    （在线侧自动降级 keyword，**不得**因缺密钥中断整条离线构建）；开关开且有密钥 →
    委托 `vector_pipeline.build_vector_store`（云端嵌入 + 写 Chroma）。
-2. `vector_pipeline.rebuild_chroma_from_npy`——只用审计副本（`ids.json` + `embeddings.npy`）
-   重建 Chroma，不调用云端；行数、维度不一致必须报错；元数据按 `chunk_id` 对齐。
+2. `vector_pipeline.rebuild_chroma_from_npy`——只用审计副本
+   （`ids.json` + `embeddings.npy`）重建 Chroma，不调用云端；
+   行数、维度不一致必须报错；元数据按 `chunk_id` 对齐。
 """
 
 from __future__ import annotations

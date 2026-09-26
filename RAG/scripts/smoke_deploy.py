@@ -1,4 +1,4 @@
-"""部署冒烟（RAGv5 T4）：一次跑通"页面可访问 + 接口可用 + 示例题稳定 + 缓存命中"。
+"""部署冒烟（RAGv5）：一次跑通"页面可访问 + 接口可用 + 示例题稳定 + 缓存命中"。
 
 检查项（任一失败 → 退出码非 0，并写入 JSON 报告）：
 1. `GET /api/health` → status=ok，记录 version / text_mode / vector_available / llm_available；
@@ -37,7 +37,7 @@ def _stdout_encoding() -> str:
 
 
 def _output_symbols() -> tuple[str, str]:
-    """选择跨平台安全的通过/失败前缀（第五轮审核 R5-1）。
+    """选择跨平台安全的通过/失败前缀。
 
     Windows 默认控制台是 GBK，直接 print("✓") 会抛 UnicodeEncodeError 让脚本在
     健康检查阶段就崩掉——检查项没跑完，退出码也没有参考价值。这里先探测编码，

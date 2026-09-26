@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * 浏览器验收用的桩后端（2026-09-16 第五轮审核 P1-12 / P1-13）。
+ * 浏览器验收用的桩后端。
  *
  * 为什么需要它：Playwright 用例要连一个真实后端，而 CI 里没有 `data/`
  * （快照/索引约 210 MB，不入 Git），于是浏览器用例要么跑不了、要么只能靠
- * release workflow 的受限环境——"浏览器用例从未成功运行过"就是这么来的。
+ * release workflow 的受限环境。
  *
  * 本桩服务提供前端真正依赖的四个接口（健康、词典、示例题、SSE 问答），
  * 数据是固定 fixture，因此：
@@ -34,7 +34,7 @@ const port = Number(getArg('--port', process.env.E2E_PORT || '8125'))
 const distDir = path.resolve(getArg('--dist', 'dist'))
 // 每帧之间的间隔（ms）：模拟流式，0 = 尽快发完
 const slowMs = Number(getArg('--slow', '0'))
-// 桩身份标记：运行器（e2e-run.mjs）用它确认"端口上跑的是本次启动的桩"（B6）
+// 桩身份标记：运行器（e2e-run.mjs）用它确认"端口上跑的是本次启动的桩"
 const VERSION = getArg('--marker', 'e2e-fixture')
 
 const MIME = {
@@ -173,8 +173,8 @@ function sseFrame(payload) {
  * 顺序（server/sse.py 的 run_query）：session_start → status(entity_linking) → entities
  * → status(graph_search) → status(text_search) → graph_results → text_results
  * → status(fusion) → fusion → status(generating) → answer… → citations → panel → done。
- * 注意两个检索 status 都先于两个 results 帧（第五轮整改复核 Z5：旧注释声称"与后端一致"，
- * 实际把 graph_results 插在了 status(text_search) 之前，会误导下一个读代码的人）。
+ * 注意两个检索 status 都先于两个 results 帧（别把 graph_results 插在 status(text_search)
+ * 之前，那与后端顺序不一致，会误导下一个读代码的人）。
  */
 function scriptedFrames(sessionId) {
   const frames = [

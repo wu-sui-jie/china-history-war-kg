@@ -22,8 +22,7 @@ class EventExtractor:
         self.q1_template = EVENT_TYPE_PROMPT
         self.identify_template = EVENT_IDENTIFICATION_PROMPT
         self.q3_template = FULL_EVENT_PROMPT
-        # Changed 2026-04-21 12:42:17 +08:00: Split large event lists into
-        # smaller batches so one oversized prompt does not zero out a chunk.
+        # 大事件列表拆成小批：一批过大时模型容易整批给不出结果，且一批失败只影响这一批
         self.full_event_batch_size = 3
         self.normalizer = Normalizer()
 
@@ -77,7 +76,7 @@ class EventExtractor:
 
     def _ensure_chronological_dates(self, event: Event) -> Event:
         """Keep extracted event dates in historical order when both years are parseable."""
-        # EER-6：改调公共实现（原来与 main.py 的 ensure_event_date_order 是两份逐字相同的逻辑）
+        # 起止时间定序只有 war_extraction/utils/value_parsing.py 一处实现
         return ensure_event_date_order(event)
 
     def _build_minimal_event(self, event_tuple: Tuple[str, str, str, str, str, str]) -> Event:
@@ -97,8 +96,7 @@ class EventExtractor:
 
     def _deduplicate_identified_events(self, event_list: List[Tuple[str, str, str, str, str, str]]) -> List[Tuple[str, str, str, str, str, str]]:
         """
-        Changed 2026-04-21 16:46:12 +08:00: Deduplicate identified events using
-        canonical name first, then fall back to time/place context.
+        识别结果去重：先按规范化事件名判重，必要时再用时间/地点上下文区分同名不同场的事件。
         """
         deduplicated = []
         seen = set()
@@ -140,8 +138,7 @@ class EventExtractor:
 
     def _is_local_event_candidate(self, event_name: str, evidence: str) -> bool:
         """
-        Changed 2026-04-21 17:20:11 +08:00: Drop summary-only future events
-        that appear in overview sentences instead of the chunk's local narrative.
+        丢掉"概述句里的未来事件"：这类事件只出现在综述/展望句里，不属于本段的本地叙事。
         """
         text = f"{event_name or ''} {evidence or ''}"
         summary_markers = ["最后", "尔后的", "春秋战国", "战国七雄", "第一次大统一", "此时期又称"]
@@ -197,8 +194,7 @@ class EventExtractor:
 
     def _postprocess_events(self, events: List[Event]) -> tuple[List[Event], int, int]:
         """
-        Changed 2026-04-21 16:46:12 +08:00: Canonicalize names and merge
-        near-duplicates using canonical name + dynasty, with place as a tiebreaker.
+        后处理：规范化事件名，并按"规范化名称 + 朝代"归并近似重复（地点相同的优先算同一条）。
         """
         filtered = []
         event_map = {}
@@ -214,9 +210,7 @@ class EventExtractor:
                 continue
             key = (
                 self.normalizer.normalize_event_name(event.EventName),
-                # Changed 2026-04-21 17:20:11 +08:00: Collapse final duplicates
-                # by canonical event name first; dynasty differences are merged
-                # later as complementary metadata.
+                # 合并键先只看规范化事件名（朝代差异当互补元数据合并，不参与判重）
             )
             if key not in event_map:
                 event_map[key] = event
@@ -411,8 +405,8 @@ class EventExtractor:
         except (LLMAuthError, LLMAPIError):
             raise
         except Exception as e:
-            # 修正 2026-09-25：识别失败原先吞成空列表、片段照常缓存，失败内容被
-            # 永久标记为「无事件」。改为上抛，由编排层判失败、不落缓存。
+            # 必须上抛，不能吞成空列表：片段会照常写进缓存，失败内容被永久标记为「无事件」。
+            # 上抛后由编排层判失败、不落缓存、下次重跑。
             print(f"事件识别失败: {e}")
             raise
 
@@ -430,8 +424,8 @@ class EventExtractor:
             except (LLMAuthError, LLMAPIError):
                 raise
             except Exception as e:
-                # 修正 2026-09-25：批次失败原先吞掉、其余批次照常缓存，失败批次的事件
-                # 永久丢失。改为上抛，让整个片段判失败、下次重跑。
+                # 必须上抛，不能只丢这一批：否则其余批次照常写缓存，失败批次的事件永久丢失。
+                # 上抛让整个片段判失败、下次重跑。
                 print(f"完整事件抽取失败: {e}")
                 raise
 

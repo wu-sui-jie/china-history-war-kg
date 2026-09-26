@@ -1,15 +1,14 @@
-"""EER-6：合并到公共模块的这几段逻辑，行为必须与原来的几份拷贝一致。
+"""公共模块里这几段逻辑的行为必须钉死。
 
-这几段此前在多个文件里各存一份（JSON 解析三份 + llm_client 一份扫描、多值拆分两份、
-年份解析两份、起止时间定序两份、事件-事件关系仲裁两份），改一处忘一处就会两边漂移。
-本轮把它们收成公共实现，**属于纯重构**——所以这里逐条钉住原行为，尤其是两处刻意保留的差异：
+这几段（JSON 解析、多值拆分、年份解析、起止时间定序、事件-事件关系仲裁）在多个文件里
+各存一份就会两边漂移，所以都收成了公共实现。收成公共实现**属于纯重构**——
+这里逐条钉住原行为，尤其是那处刻意保留的差异：
 
 1. `extract_json_payload`（取第一个可解析值、先试整体解析）与
    `extract_largest_json_text`（取最大候选、返回文本、不试整体解析）**不是同一个策略**，
    合并掉任何一个都会改变抽取产物；
-2. `split_multi_value` 的排除集：抽取器用宽的（含"未知/无/None"），
-   main.py 曾用窄的（只排除"不详/null"）。**2026-09-25 已按决策统一为宽口径、窄集删除**
-   ——那条钉分歧的用例已移出本文件，改由 `tests/test_decision_filters.py` 钉统一后的行为。
+2. `split_multi_value` 的排除集只有宽口径一套（含"未知/无/None"）。统一后的行为由
+   `tests/test_decision_filters.py` 钉住。
 """
 
 import json
@@ -87,15 +86,15 @@ def test_split_multi_value_splits_on_all_separators():
 
 
 def test_split_multi_value_wide_placeholders_are_removed():
-    """宽口径（抽取器原来那份）：占位词也算"没有值"。"""
+    """宽口径：占位词（含"未知/无/None"）也算"没有值"。"""
     assert split_multi_value("甲、未知、乙", placeholders=PLACEHOLDERS_FULL) == ["甲", "乙"]
     assert split_multi_value("甲、无、乙", placeholders=PLACEHOLDERS_FULL) == ["甲", "乙"]
     assert split_multi_value("甲、None、乙", placeholders=PLACEHOLDERS_FULL) == ["甲", "乙"]
 
 
-# 注：原先这里还有一条 `test_split_multi_value_narrow_placeholders_kept`，钉的是
-# "main.py 用窄排除集"这个**刻意保留的分歧**。2026-09-25 决策统一为宽口径、窄集删除后，
-# 该用例的前提不复存在，已移出本文件；统一后的行为由 `tests/test_decision_filters.py`
+# 注：这里曾有一条 `test_split_multi_value_narrow_placeholders_kept`，钉的是
+# "main.py 用窄排除集"这个分歧。排除集统一为宽口径、窄集不再存在后，该用例的前提不复存在，
+# 已移出本文件；统一后的行为由 `tests/test_decision_filters.py`
 # 的 `test_placeholder_set_unified_to_wide` 与 `test_main_pipeline_uses_the_unified_wide_set` 钉住。
 
 

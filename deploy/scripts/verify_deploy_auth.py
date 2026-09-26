@@ -25,7 +25,11 @@ sys.path.insert(0, BACKEND)
 import local_settings  # noqa: E402  读 backend/.env（值不打印）
 import jwt_util  # noqa: E402
 
-PUBLIC = "http://47.117.100.163"
+# 公网入口。默认值指向第一台服务器，它是**临时租用、2026-10-26 到期**的，此后这个
+# 默认值会指向一台已下线的机器；换机或换域名时用 PUBLIC_HOST 覆盖（与 selfcheck.sh 同约定）：
+#     PUBLIC_HOST=your.domain.or.ip python verify_deploy_auth.py
+_host = os.environ.get("PUBLIC_HOST", "47.117.100.163")
+PUBLIC = _host if _host.startswith(("http://", "https://")) else f"http://{_host}"
 
 
 def req(method, url, body=None, headers=None, timeout=20):

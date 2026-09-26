@@ -27,7 +27,7 @@ class LLMResponse:
     # 服务端返回的 finish_reason（"length" = 触及 max_tokens 被截断，需告警）
     api_finish_reason: Optional[str] = None
     # 已把部分正文推给调用方之后才失败：调用方**不得**再叠加重试/降级文本
-    # （2026-09-15 审核 P1-5：透明重试会把两次尝试的正文拼在一起，用户看到重复答案）。
+    # （透明重试会把两次尝试的正文拼在一起，用户看到重复答案）。
     partial: bool = False
 
 
@@ -74,7 +74,7 @@ class LLMClient:
         on_delta(delta_text) 收到正文增量；on_thinking(text) 收到推理增量（可为 None）。
         推理增量的字段名两端不同（中转 reasoning / 官方 reasoning_content），见 _reasoning_of。
 
-        重试边界（2026-09-15 审核 P1-5）：**只要已经向调用方推过正文增量，就不再重试、
+        重试边界：**只要已经向调用方推过正文增量，就不再重试、
         不再切换备用模型**——已发送的文本无法撤回，第二次尝试只会把两段答案拼在一起。
         此时以 partial=True 返回，由上层标记为"回答可能不完整"。
 

@@ -1,13 +1,13 @@
-"""C-2（EER-11 的另一半）：路径锚定、配置缺失不再静默、缓存 GC/TTL。
+"""路径锚定、配置缺失不再静默、缓存 GC/TTL。
 
-背景三点，都是第 10 轮核对时确认过的：
+三条口径都必须钉住：
 
-1. `CacheManager(cache_dir="cache")` 与 `Normalizer(config_dir="config")` 用的是**相对当前工作
-   目录**的路径，而同包的 `llm_client` 早就用 `__file__` 锚定了项目根——两处口径不一致。
+1. `CacheManager(cache_dir="cache")` 与 `Normalizer(config_dir="config")` 若用**相对当前工作
+   目录**的路径，就和同包 `llm_client` 的 `__file__` 锚定口径不一致。
    后果是"从仓库根跑"和"从模块目录跑"落到不同的缓存/配置上，读不到别名表时还完全无声。
-2. `Normalizer._load_json` 找不到文件时静默返回 `{}`，别名表没加载这件事在日志里毫无痕迹。
-3. 改原子写之后，写结果文件成功、写索引前崩掉会留下永不失效的**孤儿条目文件**，`cache/`
-   只增不减（已 22MB）。
+2. `Normalizer._load_json` 找不到文件时必须出声，否则别名表没加载这件事在日志里毫无痕迹。
+3. 原子写之后，写结果文件成功、写索引前崩掉会留下永不失效的**孤儿条目文件**，`cache/`
+   只增不减（已 22MB），必须靠 GC 回收。
 
 用例都不写仓库目录：缓存与配置一律指到 `tmp_path`。
 """
@@ -56,7 +56,7 @@ def test_配置缺失时不再静默(tmp_path, capsys):
 
 
 def test_孤儿条目文件在索引重写时被回收(tmp_path):
-    """索引里没有、也不是刚写的东西 → 回收（EER-11 的另一半）。"""
+    """索引里没有、也不是刚写的东西 → 回收。"""
     cache = CacheManager(cache_dir=str(tmp_path))
     cache.set("正常文本", {"v": 1})
 

@@ -1,8 +1,8 @@
-"""EER-12：高德地理编码的重试退避、配额区分、逐条落盘。
+"""高德地理编码的重试退避、配额区分、逐条落盘。
 
-原来的 `geocode_single` 是一次性请求：网络抖一下就整条失败（`except Exception` 一网打尽、
-不重试），而且只有批次末尾的 `save_results` 才落盘——批次跑一半被杀就把**整批**已花掉额度的
-结果全丢了。改法是三件事：
+`geocode_single` 不能是一次性请求：网络抖一下就整条失败（`except Exception` 一网打尽、
+不重试），而且只在批次末尾 `save_results` 才落盘——批次跑一半被杀就把**整批**已花掉额度的
+结果全丢了。所以三条口径必须钉住：
 
 1. 只对**瞬时**故障退避重试（网络异常 / 5xx / 429 / 响应不是 JSON），指数退避 max_retries 次；
 2. 配额与频率类错误码（10003/10004/10021/10044）**不重试**——高德已经说"你超了"，
@@ -241,7 +241,7 @@ def test_progress_can_be_disabled(make_geocoder, tmp_path):
 
 
 def test_default_progress_path_is_in_module_dir_and_carries_run_id():
-    """默认进度文件固定在模块目录下，文件名带 run_id（A-2：一批一个文件）。"""
+    """默认进度文件固定在模块目录下，文件名带 run_id（一批一个文件）。"""
     geocoding_dir = Path(__file__).resolve().parents[1] / "war_extraction" / "geocoding"
 
     path = Path(default_progress_path('20260925_070325_001'))
@@ -260,7 +260,7 @@ def test_default_progress_path_is_unique_per_call():
 
 
 def test_batch_geocode_writes_default_progress_file_next_to_module(monkeypatch, make_geocoder, tmp_path):
-    """不传 progress_path 时，进度确实落到默认路径（A-4：补上 sentinel 分支的端到端断言）。
+    """不传 progress_path 时，进度确实落到默认路径（覆盖 sentinel 分支的端到端断言）。
 
     用 monkeypatch 把模块级 default_progress_path 指到 tmp_path：既真跑通了
     "sentinel → 默认路径" 这一支，又不往仓库目录里写文件。
@@ -284,7 +284,7 @@ def test_batch_geocode_writes_default_progress_file_next_to_module(monkeypatch, 
 
 
 def test_two_default_batches_produce_two_files(monkeypatch, make_geocoder, tmp_path):
-    """连跑两批默认进度 → 两个文件，各自只含本批记录（A-2 验收）。"""
+    """连跑两批默认进度 → 两个文件，各自只含本批记录（一批一个文件）。"""
     monkeypatch.setattr(geocode_amap, 'default_progress_path',
                         lambda run_id=None: str(tmp_path / f"geocoding_progress_{run_id}.jsonl"))
 
@@ -301,7 +301,7 @@ def test_two_default_batches_produce_two_files(monkeypatch, make_geocoder, tmp_p
 
 
 def test_quota_abort_marks_the_batch(make_geocoder):
-    """日配额截断时置 batch_aborted_by_quota（A-3：调用方据此判断拿到的是部分结果）。"""
+    """日配额截断时置 batch_aborted_by_quota（调用方据此判断拿到的是部分结果）。"""
     geocoder = make_geocoder([_FakeResponse(_ok_payload())])
     geocoder._request_once = lambda params: ('quota', '10003')
 

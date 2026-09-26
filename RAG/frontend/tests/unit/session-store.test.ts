@@ -1,4 +1,4 @@
-/** 会话状态机守护用例（第四轮复核 P1-9 / P1-10 / P1-11 / P2-11 / P1-12）。
+/** 会话状态机守护用例。
  *
  * 直接驱动真实的 Pinia store，只把网络边界（globalThis.fetch）替换成可控 SSE 流，
  * 因此覆盖的是"解析 → 状态转移 → 历史装配 → 持久化"的完整链路，而不是替身逻辑。
@@ -358,7 +358,7 @@ test('取消流后状态为 cancelled 且可再次提问', async () => {
   assert.equal(store.messages.filter((m) => m.role === 'assistant').length, 2)
 })
 
-// ---------------------------------------------------------------- 纠正 payload（P1-3）
+// ---------------------------------------------------------------- 纠正 payload
 function _assistantWithSameNameEntities(store: any): any {
   const turn = store.messages.filter((m: any) => m.role === 'assistant').pop()
   turn.entities = [
@@ -458,7 +458,7 @@ test('add / remove 纠正的字段口径', async () => {
   await store.whenIdle()
 })
 
-// ---------- 历史提问记录（2026-09-20）----------
+// ---------- 历史提问记录 ----------
 // 面板可以回到任意一轮：这些用例守住"派生列表 / 选中切换 / 新提问回到最新"三条链路。
 
 /** 完成一轮问答（answer → 可选 panel → done），返回该轮 assistant 消息。 */
@@ -591,8 +591,8 @@ test('turnHistory 保留被重查取代的旧轮并标记 superseded', async () 
   assert.equal(list[1].turnStatus, 'failed')
 })
 
-// ---------- 多会话管理（2026-09-20 借鉴项 P1）----------
-// 存储结构升到 v3：会话索引 + 每会话消息体。这些用例守住
+// ---------- 多会话管理 ----------
+// 存储结构为 v3：会话索引 + 每会话消息体。这些用例守住
 // "自动命名 / 新建-切换-删除 / 刷新保持 / 超限裁剪 / 不串消息" 五条链路。
 
 test('首条提问自动命名会话（前 15 字），已有标题不被后续提问覆盖', async () => {

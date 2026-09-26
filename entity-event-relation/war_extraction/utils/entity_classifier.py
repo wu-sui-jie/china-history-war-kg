@@ -10,10 +10,15 @@ from war_extraction.utils.normalizer import Normalizer
 
 class EntityClassifier:
     """
-    Changed 2026-04-21 13:57:14 +08:00: Centralize person/org/place
-    disambiguation so extraction and backfill no longer maintain two rule sets.
-    Changed 2026-04-21 16:46:12 +08:00: Add stricter low-quality filters and
-    canonical cleanup for final export.
+    人/组织/地点三类的判别与清洗规则集中在这里，抽取与回填不再各维护一套。
+
+    除标记词（`PERSON_MARKERS` / `ORG_MARKERS`）外，还有两张显式覆盖表：
+    `PERSON_OVERRIDES`（不带任何称号词、但确是人名的上古人物）与
+    `ORG_OVERRIDES`（容易被误判成人名的部族/方国/军队）。
+
+    人名侧没有"整条丢弃"的名单：`秦始皇` / `吴起` 这类合法人物、以及 `孙滨` 这类原书错字
+    变体都不该被丢掉——后者走别名归一（见 `Normalizer.ENTITY_ALIASES`），前者只做结构过滤
+    （见 `is_valid_person_name`）。
     """
 
     PERSON_OVERRIDES = {
@@ -35,16 +40,6 @@ class EntityClassifier:
         "下旨", "南征", "东征", "西征", "北伐", "战争", "之战", "作战",
         "三个宗族集团", "夷族", "诸侯国", "方国", "四周方国", "夷",
     }
-    #: 人名过滤名单**已删除**（2026-09-25 决策项收口，用户裁定"删掉"）。
-    #: 这里原先有 `LOW_QUALITY_PERSON_NAMES = {"秦始皇", "吴起"}`，把这两条整条丢弃。删除依据（实测）：
-    #: 两者都在人工标注里各出现 1 次（data/annotations/sample_entities.json），而预测 persons 里各 0 次
-    #: ——实体评估只比对 PersonName，所以那份名单保证它们永远配不上，直接贡献 2 个 FN。模型其实抽出来了，
-    #: 只是散在别处：`relations.event_person_relations[].PersonName` 里 `吴起` 作「统帅」、
-    #: `秦始皇` 作「君主」各 2 条，事件的 `Commanders` / `KeyPersons` 里也都有。
-    #: **注意**：过滤发生在抽取阶段（main.py 建 persons 列表时），删掉它只在下一次抽取的产物里见效；
-    #: 当前产物与评估指标不受影响（改前/改后对同一份产物各跑一次评估，除时间戳外逐字段相同）。
-    #: 另注："孙滨"更早也在这份名单里，那本来就是错的——它是"孙膑"的原书错字变体，
-    #: 已改为别名归一（见 Normalizer.ENTITY_ALIASES），不该整条丢弃。
 
     KIND_MAPPING = {
         "place": "place",
@@ -103,9 +98,7 @@ class EntityClassifier:
 
     @classmethod
     def normalize_person_name(cls, value: Optional[str]) -> str:
-        # Changed 2026-09-25（第 11 轮 C-5）：原先这里硬编码三条人名别名
-        # （神农氏/商纣王/夏桀），与 Normalizer.ENTITY_ALIASES 是同内容的第二份——
-        # 现在只保留 normalizer 那一份，别名表在本模块里不再重复。
+        # 人名别名表只有 Normalizer.ENTITY_ALIASES 一份，本模块不另存副本
         if not value:
             return ""
         stripped = str(value).strip()
@@ -133,8 +126,7 @@ class EntityClassifier:
         stripped = cls.normalize_person_name(value)
         if not stripped or len(stripped) > 12:
             return False
-        # 原先这里还有一条"在 LOW_QUALITY_PERSON_NAMES 里就丢弃"——该名单已于 2026-09-25 删除，
-        # 理由见类顶部注释。
+        # 结构过滤：既像组织又不像人的一律拦掉（"商军"这类）
         if cls.looks_like_org_name(stripped) and not cls.looks_like_person_name(stripped):
             return False
         return True

@@ -32,7 +32,7 @@ def load_searcher(index_dir: Path, source_version: str, top_k: int = 30,
     """构造检索器。embed_fn 用于查询侧向量化；为 None 时向量不可用（自动降级关键词）。
 
     query_* / and_min_hits 由调用方从 Settings（TEXT_QUERY_*）注入；
-    不传时沿用 TextSearcher 里的默认值（原先硬编码的那组）。
+    不传时沿用 TextSearcher 里的默认值。
     """
     kwargs = {}
     if query_max_words is not None:
@@ -65,7 +65,7 @@ def search(
     hybrid_strategy: weighted（线性加权，默认）/ rrf（倒数排名融合）/ fallback（仅关键词为空才用向量）。
     dynasty_bias: 问句自动识别的朝代，仅用于检索返回序（软偏置，不剔除结果）；
         最终文本证据顺序由 F05 决定，文本侧偏置不影响最终排序
-        （图谱侧在 F03 策略前生效），见 docs/features/02-entity-linking.md。
+        （图谱侧在 F03 策略前生效），见 docs/features.md 第二节。
     模式降级：请求 vector/hybrid 但向量不可用（Chroma 集合缺失/条数不一致/无密钥）→ keyword。
     """
     eff_mode = resolve_mode(mode, searcher.vector_available)

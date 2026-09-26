@@ -1,12 +1,13 @@
-"""文档与配置的一致性检查（2026-09-16 工作单 P2-7 的 CI lint 部分）。
+"""文档与配置的一致性检查（CI 的文档 lint 环节）。
 
 四类检查，全部离线可跑：
 1. **相对链接**：Markdown 中的相对路径 / 图片必须真实存在（外链不检查，避免 CI 依赖网络）；
-2. **current 口径**：对 current 文档禁止出现与事实冲突的表述（如"demo 可用"）；
+2. **current 口径**：对 current 文档禁止出现与事实冲突的表述（如"demo 可用"），
+   且清单里的文档必须存在——路径写错时不能静默跳过，否则检查会假通过；
 3. **配置一致性**：`.env.example` 里出现的键必须真的被 config 读取；
-4. **数据计数一致性**（第五轮审核 R5-2）：`docs/current-status.md` 里的
-   实体/关系/向量数字必须等于快照与索引清单里的真实计数——唯一事实源写错数字，
-   会被后续文档一路抄下去。本地有 data/ 时才校验（CI 无大制品则跳过并说明）。
+4. **数据计数一致性**：`docs/current-status.md` 里的实体/关系/向量数字必须等于
+   快照与索引清单里的真实计数——唯一事实源写错数字，会被后续文档一路抄下去。
+   本地有 data/ 时才校验（CI 无大制品则跳过并说明）。
 
 用法：python scripts/check_docs.py [--strict]
 """
@@ -39,8 +40,8 @@ CURRENT_DOCS = [
     "docs/data-contract.md",
     "docs/architecture.md",
     "docs/deploy.md",
-    "docs/features/06-grounded-answer.md",
-    "docs/features/08-demo-mode.md",
+    "docs/features.md",
+    "docs/RAG_v2.md",
     "frontend/README.md",
     "server/README.md",
 ]
@@ -78,6 +79,9 @@ def check_current_wording() -> list[str]:
     for rel in CURRENT_DOCS:
         path = ROOT / rel
         if not path.is_file():
+            # 清单里的文档必须存在：路径写错（例如文档合并后旧路径残留）会让本项检查
+            # 整段跳过、表面通过，所以这里如实报出来。
+            problems.append(f"{rel} 不存在（current 文档清单里的路径已失效）")
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
         for pattern, why in FORBIDDEN_IN_CURRENT:
@@ -145,10 +149,10 @@ def _actual_counts() -> dict | None:
 
 
 def check_dataset_counts(doc_path: Path | None = None) -> list[str]:
-    """current-status 的数据集数字必须等于清单真实值（第五轮审核 R5-2）。
+    """current-status 的数据集数字必须等于清单真实值。
 
-    唯一事实源写错（10925/17730 vs 实际 9925/17700）会一路传播到其他文档、
-    汇报材料与验收记录；这里把数字重新绑定到**清单文件**，而不是靠人工复核。
+    唯一事实源写错数字会一路传播到其他文档、汇报材料与验收记录；
+    这里把数字绑定到**快照/索引清单文件**，而不是靠人工核对。
 
     `doc_path` 可显式覆盖（测试用临时副本），默认仍是 docs/current-status.md。
     """

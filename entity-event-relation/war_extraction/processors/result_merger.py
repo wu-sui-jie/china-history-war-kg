@@ -1,7 +1,7 @@
 """
 多段抽取结果合并模块
 解决长文本分段处理后的结果整合与去重问题
-新增：事件关系合并、source_text去重
+含事件关系合并与 source_text 去重
 """
 
 from war_extraction.models import (
@@ -21,7 +21,7 @@ class ResultMerger:
 
     @staticmethod
     def _fill_missing_fields(existing_obj, new_obj, field_names: list):
-        """Changed 2026-04-21 12:48:22 +08:00: Merge complementary fields instead of replacing whole rows."""
+        """用新对象的非空字段补齐旧对象的空字段（互补合并，不整行替换）。"""
         for field_name in field_names:
             existing_value = getattr(existing_obj, field_name, None)
             new_value = getattr(new_obj, field_name, None)
@@ -40,7 +40,7 @@ class ResultMerger:
 
     @staticmethod
     def _event_merge_key(normalizer: Normalizer, event_obj):
-        """Changed 2026-04-21 16:46:12 +08:00: Prefer canonical name plus dynasty for stronger duplicate collapse across overlapping chunks."""
+        """事件合并键：规范化名称 + 朝代，让重叠分段里的同一事件能归并到一起。"""
         normalized_name = normalizer.normalize_event_name(event_obj.EventName)
         if normalized_name:
             return (normalized_name, event_obj.DynastyName or "")
@@ -73,8 +73,7 @@ class ResultMerger:
         for result in results:
             # 合并地点实体，以 geo_name 为唯一键
             for place in result.places:
-                # Changed 2026-04-20 16:33:36 +08:00: Include dynasty/alias
-                # context in merge keys to reduce false duplicate merges.
+                # 合并键含朝代与现代地名，减少同名不同地点的误合并
                 key = (
                     normalizer.normalize_entity_name(place.geo_name),
                     place.DynastyName or "",
@@ -209,7 +208,7 @@ class ResultMerger:
                             existing.source_text, evt.source_text
                         )
                     
-                    # 合并 relations（关键新增）
+                    # 合并 relations
                     if evt.relations:
                         existing.relations = ResultMerger._merge_relations(
                             existing.relations, evt.relations
@@ -251,8 +250,7 @@ class ResultMerger:
                 # 如果关系已存在，保留证据更充分的
                 existing_evidence = relation_dict[key].evidence or "" if key in relation_dict else ""
                 current_evidence = rel.evidence or ""
-                # Changed 2026-04-21 13:57:14 +08:00: Guard against None evidence
-                # so relation merge does not fail on optional fields.
+                # evidence 是可选字段：先判空再比长度，避免在 None 上取 len
                 if key not in relation_dict or len(current_evidence) > len(existing_evidence):
                     relation_dict[key] = rel
             elif isinstance(rel, dict):
@@ -347,8 +345,9 @@ class ResultMerger:
         for rel in merged.event_event_relations:
             rel.relation = normalizer.normalize_relation(rel.relation)
 
-        # Changed 2026-04-21 16:46:12 +08:00: Collapse reverse duplicates for
-        # order-sensitive event-event relations after chunk merge.
+        # 事件-事件关系里"顺承/因果"是有方向的：分段合并后把 A→B 与 B→A 收敛成一条，
+        # 方向按事件名字典序固定（`EventName_A > EventName_B` 就交换两端）——注意这是
+        # 已有的取舍，方向由字典序而非历史时间决定，后续由 evidence 顺序再校正一次。
         reduced_event_rels = {}
         for rel in merged.event_event_relations:
             name_a = normalizer.normalize_event_name(rel.EventName_A)

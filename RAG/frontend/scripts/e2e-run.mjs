@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 离线浏览器验收运行器（2026-09-16 第五轮审核 P1-12）。
+ * 离线浏览器验收运行器。
  *
  * 起桩后端（scripts/e2e-server.mjs）→ 等 /api/health 且确认是我们的桩 →
  * 跑 Playwright → 收掉桩进程。需要先 `npm run build`（桩后端托管 dist/）。
@@ -19,7 +19,7 @@ const baseURL = `http://127.0.0.1:${port}`
 const extra = process.argv.slice(2)
 
 // 桩身份的标记：运行器把它传给桩（桩用它当 health.version 与 demo.version），
-// 再在探活时校验回来。第五轮整改复核 B6——旧实现只看"端口上 /api/health 是否 200"，
+// 再在探活时校验回来。只看"端口上 /api/health 是否 200"不够——
 // 端口被上一次残留的桩或真实后端占用时会对着**错误的服务**跑绿。
 const STUB_MARKER = process.env.E2E_STUB_MARKER || 'e2e-fixture'
 

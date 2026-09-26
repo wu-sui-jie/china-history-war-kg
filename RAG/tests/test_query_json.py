@@ -304,7 +304,7 @@ def test_result_error_field_present_when_failed():
 
 @pytest.mark.parametrize("code,expected", [
     ("timeout", 504),
-    # 容量拒绝是**暂时**状态，语义是"稍后重试"而不是"服务坏了"（第 14 轮审计 P3-3）：
+    # 容量拒绝是**暂时**状态，语义是"稍后重试"而不是"服务坏了"：
     # 映射成 500 时，按状态码决定要不要重试的调用方不会重试。
     ("server_busy", 503),
     ("internal", 500),
@@ -426,4 +426,3 @@ def test_route_timeout_maps_to_504(api_client):
 
     assert resp.status_code == 504
     assert resp.json()["error_code"] == "timeout"
-

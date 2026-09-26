@@ -1,4 +1,4 @@
-"""子图出图（P2-1）的守护用例。
+"""子图出图的守护用例。
 
 降级路径是**必经路径**，与成功路径同等测试（开发文档十二-2）：
 Node 缺失、脚本报错、超时、空图，都必须返回 None 交给文字降级，绝不允许空白。
@@ -47,7 +47,7 @@ def renderer(tmp_path):
 def fake_render_env(tmp_path, monkeypatch):
     """把"渲染环境可用"这件事做成这些用例真正需要的最小条件。
 
-    为什么需要它（2026-09-25 CI 红灯的根因）：这些用例用的是**假 Node 脚本**
+    为什么需要它（CI 红灯的根因）：这些用例用的是**假 Node 脚本**
     （只往 stdout 写字，不 require echarts/resvg/d3），因此真实 npm 依赖并不是
     它们的前提；但产品代码的预检要求 `render/node_modules` 存在才算"可用"。
     只判断 `shutil.which("node")` 的写法在 CI 上会漏判——GitHub 的 runner 自带 node

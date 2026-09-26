@@ -9,9 +9,9 @@ from pathlib import Path
 from war_extraction.evaluation import OptimalEvaluator
 from war_extraction.config import PROMPT_VERSION, EXTRACTION_VERSION, current_timestamp, current_time_tag
 
-#: 以本文件位置锚定项目根，默认路径不再随当前工作目录变（第 11 轮 C-2）。
-#: 原先 --pred / --config / 标注目录都是相对路径：从仓库根跑 `python entity-event-relation/evaluate.py`
-#: 会去找 `<仓库根>/output/...`（不存在），从模块目录跑才对——两个结果不该不一样。
+#: 默认路径一律以本文件位置锚定（模块根），不随当前工作目录变。
+#: 若用相对路径，从仓库根跑 `python entity-event-relation/evaluate.py` 会去找
+#: `<仓库根>/output/...`（不存在），只有从模块目录跑才对——同一命令不该给出两种结果。
 _PROJECT_ROOT = Path(__file__).resolve().parent
 
 DEFAULT_PRED = _PROJECT_ROOT / "output" / "中国历代战争简史" / "9_final_all.json"
@@ -23,11 +23,10 @@ def default_output_dir() -> Path:
     """
     本次评估的默认输出目录：``evaluation/run_<时间戳>``（项目根下）。
 
-    Changed 2026-09-25（第 11 轮 A-1）：默认不再是 ``evaluation/latest``。那个目录是
-    **跟踪入库的历史基线**（``metadata.snapshot_note`` 说明了它的来历与局限），
-    且第 9 轮定序化（EER-15）之前的值不可复现——被一次随手运行覆盖掉的话，
-    ``git diff`` 只显示"数值变了"，看不出注释与口径说明一起没了。
-    要覆盖历史基线现在必须显式写 ``--output evaluation/latest``。
+    刻意**不**默认写 ``evaluation/latest``：那个目录是**跟踪入库的历史基线**
+    （``metadata.snapshot_note`` 说明了它的来历与局限），而且它的值属于定序化之前的
+    评估口径、不可复现——被一次随手运行覆盖掉的话，``git diff`` 只显示"数值变了"，
+    看不出注释与口径说明一起没了。要覆盖历史基线必须显式写 ``--output evaluation/latest``。
     """
     return _PROJECT_ROOT / "evaluation" / f"run_{current_time_tag()}"
 
@@ -36,8 +35,9 @@ def warn_if_overwriting_baseline(output_dir: Path):
     """
     目标目录里已有带 ``snapshot_note`` 的结果时，覆盖前说清楚。
 
-    这是 A-1 的第 2 道保险：默认目录已经避开历史基线，但 ``--output`` 仍可显式指过去
-    （也包含 ``evaluation/recheck-*`` 这类带注释的快照）。
+    默认目录已经避开历史基线，但 ``--output`` 仍可显式指过去（也包含
+    ``evaluation/recheck-*`` 这类带注释的快照），所以覆盖前先提示，避免把注释
+    连同旧值一起冲掉。
     """
     results_file = output_dir / "results.json"
     if not results_file.exists():
@@ -79,8 +79,7 @@ def main():
     with open(pred_path, "r", encoding="utf-8") as f:
         pred_data = json.load(f)
 
-    # Changed 2026-04-20 16:33:36 +08:00: Load thresholds from config so
-    # prompt/evaluation experiments are reproducible.
+    # 阈值从 config 读，这样提示词/评估实验才可复现
     evaluator = OptimalEvaluator(
         annotation_dir=DEFAULT_ANNOTATION_DIR,
         relation_threshold=eval_config.get("relation_threshold", 40),
@@ -101,8 +100,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir / "results.json", "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
-    # Added 2026-04-20 21:46:02 +08:00: Split reports make prompt iteration
-    # easier without manually mining the full results JSON.
+    # 拆出错误分析/字段报告两份小文件，省得每次翻整份 results.json
     error_analysis = {
         "entity_extraction": results.get("entity_extraction", {}).get("error_samples", {}),
         "event_extraction": results.get("event_extraction", {}).get("full_events", {}).get("error_samples", {}),

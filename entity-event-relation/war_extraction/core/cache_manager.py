@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 
 #: 以本文件位置锚定项目根（entity-event-relation/）——与 llm_client 的做法一致。
-#: Changed 2026-09-25（第 11 轮 C-2）：默认 cache_dir 原先是相对当前工作目录的 "cache"，
-#: 于是"从仓库根跑"和"从模块目录跑"会落到两个不同的缓存上（一个读不到另一个的结果）。
+#: 默认 cache_dir 必须是绝对路径：用相对当前工作目录的 "cache" 会让"从仓库根跑"和
+#: "从模块目录跑"落到两个不同的缓存上（一个读不到另一个的结果）。
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 #: 默认缓存目录（项目根下的 cache/）
@@ -55,7 +55,7 @@ class CacheManager:
                 with open(self.index_path, "r", encoding="utf-8") as f:
                     return json.load(f)
             except (json.JSONDecodeError, OSError) as e:
-                # 改原子写之前留下的半截文件会让整个抽取任务启动即崩。
+                # 半截（写入中途被杀）的索引会让整个抽取任务启动即崩。
                 # 索引只是"省钱用的加速表"，损坏时按空索引继续（不静默删文件，便于人工排查）。
                 print(f"  [缓存索引损坏] {self.index_path} 解析失败（{e}），本次按空索引继续")
         return {}
@@ -64,10 +64,10 @@ class CacheManager:
         """
         写 JSON 到临时文件再 os.replace 原子替换。
 
-        Added 2026-09-25（EER-11）：原实现直接 open(path, "w") 全量重写，
-        进程在中途被杀（Ctrl-C、OOM、断电）就会留下截断的 JSON；索引尤其致命——
-        下次启动 _load_index 解析失败，整个缓存连同任务一起不可用。
-        os.replace 在同一文件系统内是原子的，因此任何时刻读到的都是完整的旧版或新版。
+        直接用 open(path, "w") 全量重写会把目标文件先截断成 0 字节，进程在中途被杀
+        （Ctrl-C、OOM、断电）就留下截断的 JSON；索引尤其致命——下次启动 _load_index
+        解析失败，整个缓存连同任务一起不可用。os.replace 在同一文件系统内是原子的，
+        因此任何时刻读到的都是完整的旧版或新版。
         """
         fd, tmp_name = tempfile.mkstemp(dir=str(path.parent), prefix=f".{path.name}.", suffix=".tmp")
         try:
@@ -92,18 +92,15 @@ class CacheManager:
         """
         摘除失效条目（索引里有、结果文件缺失或损坏），并立刻落盘。
 
-        Added 2026-09-25（EER-11）：悬挂条目此前会永远留在索引里，
-        每次读都白跑一次文件系统、每次都判"未命中"，索引只增不减。
+        不摘除的话，悬挂条目会永远留在索引里：每次读都白跑一次文件系统、
+        每次都判"未命中"，索引只增不减。
         """
         self.index.pop(text_hash, None)
         self._save_index()
         print(f"  [缓存条目已摘除] {text_hash[:8]}…（{reason}）")
 
     def _compute_hash(self, text: str, context: Optional[Dict[str, Any]] = None) -> str:
-        """
-        Changed 2026-04-20 16:33:36 +08:00: Cache keys include extraction
-        context so optimized prompts do not reuse stale DeepSeek responses.
-        """
+        """缓存键：文本 + 抽取上下文（模型、提示词版本、阶段、分段参数），避免复用旧响应。"""
         payload = {
             "text": text,
             "context": context or {}
@@ -172,11 +169,11 @@ class CacheManager:
 
     def collect_garbage(self, grace_seconds: int = ORPHAN_GRACE_SECONDS) -> List[str]:
         """
-        GC（EER-11 的另一半）：删掉**索引里没有**的条目文件。
+        GC：删掉**索引里没有**的条目文件。
 
-        Added 2026-09-25（第 11 轮 C-2）：改原子写之后，写结果文件成功、写索引前崩掉
-        会留下永不失效的孤儿文件（索引没记账，永远读不到它，也永远没人删它）。
-        现在索引每重写一次就把这类文件回收掉。
+        原子写只保证"不读到半截文件"，不保证索引与文件一致：写结果文件成功、写索引前
+        崩掉，就会留下永不失效的孤儿文件（索引没记账，永远读不到它，也永远没人删它）。
+        所以索引每重写一次就把这类文件回收掉。
 
         Args:
             grace_seconds: 宽限期。比它更新的孤儿文件先留着——可能是另一个进程
@@ -207,11 +204,11 @@ class CacheManager:
 
     def prune_expired(self, ttl_days: int = None, dry_run: bool = True) -> List[str]:
         """
-        TTL（EER-11 的另一半）：挑出超过 ``ttl_days`` 天没被更新的条目并（可选）删掉。
+        TTL：挑出超过 ``ttl_days`` 天没被更新的条目并（可选）删掉。
 
         **刻意不自动调用**，也没接进 `get()`。理由：这份缓存同时是当前抽取产物的
         **可复现路径**（同模型 + 同提示词版本 + 同分段参数才算命中，命中即可零成本重跑），
-        按时间自动失效会让人在毫无察觉的情况下把 22MB、195 段的缓存放掉，
+        按时间自动失效会让人在毫无察觉的情况下把整本缓存放掉，
         下次抽取变成整本重跑（真花钱、且产物换代）。所以 TTL 留成显式动作：
 
             python -c "from war_extraction.core.cache_manager import CacheManager; \\

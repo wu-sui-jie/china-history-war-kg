@@ -442,7 +442,7 @@ import { useUserStore } from '../../store/user';
 const router = useRouter();
 const userStore = useUserStore();
 
-// 识别记录的存储 key：按账号隔离（问题二方案 A；老全局记录由 readScoped 归档）
+// 识别记录的存储 key：按账号隔离（老全局记录由 readScoped 归档）
 const EXTRACT_HISTORY_KEY = 'extractHistory';
 
 // 本页面所属的账号 id：挂载时钉住，不跟随 userInfo 变化（同 inference/index.vue）。

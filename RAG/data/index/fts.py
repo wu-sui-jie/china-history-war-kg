@@ -86,4 +86,3 @@ def build_fts5(db_path: Path, chunks: list[dict], logger=None) -> int:
     if logger:
         logger.info(f"FTS5 建库完成: {db_path.name} 片段{len(chunks)} 可检索{seen}")
     return seen
-

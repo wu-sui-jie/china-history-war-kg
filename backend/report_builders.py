@@ -1,6 +1,6 @@
-"""报表构建器：把 SQLite/Neo4j 的原始数据装配成前端要用的结构（P2-1 拆分第一步）。
+"""报表构建器：把 SQLite/Neo4j 的原始数据装配成前端要用的结构。
 
-原先这些函数与路由、LLM 流水线一起挤在 `app.py`（3800+ 行）里。本模块只负责
+本模块只负责
 "读数据 → 组装响应"，不含路由与写操作：
 
 - 仪表盘 / 数据集概览 / 数据集版本
@@ -247,10 +247,10 @@ def _isolated_filter(model):
 def _isolated_node_rows(limit=20):
     """找出未参与任何结构化关系的孤立节点。
 
-    P2-5：原实现把 8 张关系表的全部外键列与四类节点全量拉进 Python 再做集合差
-    （本库约 1.7 万关系行 + 9925 个节点对象，每次质检请求都要重来一遍），
-    这里下推到数据库侧用 NOT EXISTS 判断，LIMIT 也提前生效。
-    顺序显式按 id 升序，保证返回稳定（原实现依赖 rowid 顺序）。
+    把 8 张关系表的全部外键列与四类节点全量拉进 Python 再做集合差，是每次质检请求
+    都要重来一遍的开销（本库约 1.7 万关系行 + 9925 个节点对象）；这里下推到数据库侧
+    用 NOT EXISTS 判断，LIMIT 也提前生效。
+    顺序显式按 id 升序，保证返回稳定（不能依赖 rowid 顺序）。
     """
     isolated_rows = []
     for model, type_name in ((Event, "Event"), (Place, "Place"),
@@ -315,9 +315,8 @@ def _place_related_event_count(place_id):
 def _place_event_counts():
     """一次查出所有地点的关联事件数：{place_id: 行数}。
 
-    原先 `_coordinate_issue_rows` 在 5316 个地点的循环里逐个 COUNT（P2-5 的 N+1 热点），
-    这里换成一次 GROUP BY。用 count(id) 而不是 count(distinct event_id)，与原实现
-    的行数口径保持一致。
+    用一次 GROUP BY 代替在 5316 个地点的循环里逐个 COUNT（那是 N+1 热点）。
+    用 count(id) 而不是 count(distinct event_id)，保持"一行关系算一次"的行数口径。
     """
     return dict(
         db.session.query(EventPlaceRelation.place_id, func.count(EventPlaceRelation.id))
@@ -666,7 +665,7 @@ def _events_by_ids(event_ids):
 def _bulk_event_participants(event_ids):
     """{event_id: {"persons": [], "organizations": [], "related_events": []}}，同 `_event_participants`。
 
-    三类参与方各一次查询（原先每个事件三次），每个事件仍按原顺序截断 12 / 12 / 10 条。
+    三类参与方各一次查询（避免每个事件三次），每个事件仍按原顺序截断 12 / 12 / 10 条。
     """
     ids = sorted({event_id for event_id in event_ids if event_id is not None})
     bundles = {
@@ -771,9 +770,9 @@ def _timeline_events_by_participant(name):
         for row in EventOrganizationRel.query.filter(EventOrganizationRel.org_id == org.id).all():
             event_ids.add(row.event_id)
 
-    # 一次取回事件与质量标记：原先是逐个 Event.get + 每条 brief 各查一次
+    # 一次取回事件与质量标记：不要逐个 Event.get + 每条 brief 各查一次
     events_by_id = {event.id: event for event in _events_by_ids(event_ids)}
-    # event_ids 是集合，按它的迭代顺序取事件，排序稳定性与原实现一致
+    # event_ids 是集合，按它的迭代顺序取事件（同一份输入下顺序稳定）
     ordered_events = [events_by_id[event_id] for event_id in event_ids if event_id in events_by_id]
     flags_by_event = _bulk_event_quality_flags(ordered_events)
 
@@ -797,7 +796,7 @@ def build_map_overview(keyword='', dynasty=''):
 
     places = place_query.limit(300).all()
     allowed_place_ids = {place.id for place in places}
-    # 批量预取本页地点要用的关系行、事件、参与方与质量标记（原先全是逐条查询）
+    # 批量预取本页地点要用的关系行、事件、参与方与质量标记（避免逐条查询）
     relations_by_place = _event_place_relations_by_place([place.id for place in places])
     related_event_ids = {row.event_id for rows in relations_by_place.values() for row in rows}
     events_by_id = {event.id: event for event in _events_by_ids(related_event_ids)}
@@ -989,7 +988,7 @@ def build_map_overview(keyword='', dynasty=''):
         if filter_values:
             event_query = event_query.filter(Event.dynasty.in_(filter_values))
 
-    # 批量预取路由段要用的关系行与地点（原先每个事件一条关系查询、每条关系一次 Place.get）
+    # 批量预取路由段要用的关系行与地点（避免每个事件一条关系查询、每条关系一次 Place.get）
     route_events = event_query.limit(500).all()
     route_relations_by_event = _event_place_relations_by_event([event.id for event in route_events])
     route_place_ids = {
@@ -1342,7 +1341,7 @@ def build_timeline_overview(keyword='', dynasty='', participant=''):
             continue
         kept_events.append(event)
 
-    # 质量标记一次批量算好再逐条套用（原先每条 brief 都要查重复名与关系数）
+    # 质量标记一次批量算好再逐条套用（避免每条 brief 都查重复名与关系数）
     flags_by_event = _bulk_event_quality_flags(kept_events)
     for event in kept_events:
         parsed_year = _parse_year_value(event.start_date) or _parse_year_value(event.end_date)
@@ -1546,7 +1545,7 @@ def build_sync_reconciliation():
             neo4j_count = result[0]["c"] if result else 0
         except Exception as exc:
             # 对账失败要**报出来**（status 会变成 unknown），但不能把原文回给客户端：
-            # 它通常含 bolt 连接串与主机名，而这个接口 viewer 权限就能读（第 14 轮审计 P2-4）。
+            # 它通常含 bolt 连接串与主机名，而这个接口 viewer 权限就能读。
             logger.exception("Neo4j 计数失败：label=%s", label)
             error = f"{type(exc).__name__}（详见服务端日志）"
 

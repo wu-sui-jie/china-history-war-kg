@@ -1,7 +1,7 @@
-"""F03 图谱证据 ID 唯一性回归（修复跨 legacy 表行号重复）。
+"""F03 图谱证据 ID 唯一性回归。
 
-背景：`source_row_id` 只在各 legacy 表内唯一（实测 6437 个号跨表重复），旧实现
-`graph_{source_row_id}` 会让不同证据共享同一 ID。修复后 ID 为
+背景：`source_row_id` 只在各 legacy 表内唯一（实测 6437 个号跨表重复），
+只用 `graph_{source_row_id}` 会让不同证据共享同一 ID。因此 ID 为
 `graph_{legacy表名}_{source_row_id}`（缺行号时用含表名的内容哈希回退）。
 
 数据缺失自动 skip。运行：python -m pytest tests/test_evidence_ids.py -q

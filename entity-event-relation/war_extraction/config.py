@@ -9,7 +9,7 @@ from pathlib import Path
 #: 全项目的墙钟口径：metadata 时间戳、批次目录名都用它，避免各处自行 datetime.now()
 _TZ_SINGAPORE = timezone(timedelta(hours=8))
 
-#: 提示词模板源码目录（按 __file__ 锚定，与 C-2 的路径口径一致）
+#: 提示词模板源码目录（按 __file__ 锚定，与缓存/配置目录同一路径口径）
 _PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 EXTRACTION_VERSION = "extraction-v2-20260420"
@@ -18,12 +18,12 @@ CONFIG_VERSION = "config-v1-20260420"
 
 def prompt_source_hash(name: str = None) -> str:
     """
-    提示词模板源码的 sha256 前 8 位（EER-5 / 第 11 轮 C-4）。
+    提示词模板源码的 sha256 前 8 位。
 
-    **为什么机械派生版本号。** 原先 `PROMPT_VERSION` 是手写的单一版本串，改提示词忘了
-    bump 就会：①缓存键不变 → 命中旧结果，改了等于没改；②产物 metadata 里的
-    `prompt_version` 与实际提示词不符（学术评估里这是硬伤）。现在版本号由源码哈希拼出来，
-    改一个字符就换版本，缓存自动失效，不依赖人记得。
+    **为什么机械派生版本号。** 单靠人写的版本串，改提示词忘了 bump 就会：
+    ①缓存键不变 → 命中旧结果，改了等于没改；②产物 metadata 里的 `prompt_version`
+    与实际提示词不符（学术评估里这是硬伤）。这里把哈希拼进版本串，改一个字符就换版本，
+    缓存自动失效，不依赖人记得。
 
     Args:
         name: 只对某个模板文件取哈希（如 "entity_prompts.py"）；None 表示本目录下全部
@@ -73,18 +73,15 @@ def current_time_tag() -> str:
     """
     文件名 / 目录名用的紧凑时间标签（``20260925_183012``）。
 
-    Added 2026-09-25（第 11 轮 A-1）：给"每次运行一个目录"的产物命名用，
-    与 ``current_timestamp`` 共用同一个时区，免得目录名与 metadata 差几小时。
+    给"每次运行一个目录"的产物命名用，与 ``current_timestamp`` 共用同一个时区，
+    免得目录名与 metadata 里的时间差几小时。
     """
     return datetime.now(_TZ_SINGAPORE).strftime("%Y%m%d_%H%M%S")
 
 
 def cache_context(model_name: str, stage: str, chunk_size: int = DEFAULT_CHUNK_SIZE,
                   overlap: int = DEFAULT_OVERLAP) -> dict:
-    """
-    Added 2026-04-20 16:33:36 +08:00: Version cache keys by model, prompt,
-    extraction stage, and splitter settings to avoid stale DeepSeek results.
-    """
+    """缓存键的上下文：按模型、提示词版本、抽取阶段与分段参数区分，避免复用旧响应。"""
     return {
         "model_name": model_name,
         "prompt_version": PROMPT_VERSION,

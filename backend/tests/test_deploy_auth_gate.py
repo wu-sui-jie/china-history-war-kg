@@ -1,10 +1,10 @@
-"""部署鉴权门禁的用例（第 13 轮复核整改 §2.5，与第 13 轮复核第四节）。
+"""部署鉴权门禁的用例。
 
 `deploy/scripts/check_rag_auth.sh` 是**安装期**门禁：拦的是"两份配置各看起来都对、
 合起来却漏了一半"这类组合。这类脚本最容易退化成"写了但没人跑过"，所以这里用合成配置
 把它的判定逐条跑一遍——包括最核心的升级项：**模板占位符不能通过检查**。
 
-§2.5 的具体场景：部署模板里写的是 `CHANGE_ME_openssl_rand_base64_48`。部署者若把同一个
+具体场景：部署模板里写的是 `CHANGE_ME_openssl_rand_base64_48`。部署者若把同一个
 占位符复制到两侧，"非空 + 两侧同值"两条老检查会全部通过——一串所有人都知道的值就这样
 成了生产密钥。门禁因此还要判"像不像占位符"与"够不够长"，并检查 Neo4j 口令不是默认值。
 
@@ -79,7 +79,7 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
         f"NEO4J_PASSWORD={neo4j_password}",
     ]) + "\n")
     # 站点配置里的 auth_basic 是否启用，与 RAG_AUTH_MODE 是**两个独立的开关**：
-    # 那正是第 13 轮复核发现的缺陷形态——模式选了 nginx，而这里还是注释。
+    # 这正是最容易漏掉的组合——模式选了 nginx，而这里还是注释。
     auth_lines = (['    auth_basic           "china-war";',
                    '    auth_basic_user_file /etc/nginx/.htpasswd;'] if auth_basic_enabled else
                   ['    # auth_basic           "china-war";',
@@ -94,7 +94,7 @@ def _gate(tmp_path: Path, *, jwt_secret: str = REAL_JWT,
         "}",
     ]) + "\n")
     if bot_deployed:
-        # 机器人存在 = 这个部署要接它 → 门禁按"必须配 Bot Key"判（P2-20）
+        # 机器人存在 = 这个部署要接它 → 门禁按"必须配 Bot Key"判
         _write(tmp_path / "feishu-bot" / ".env", "FEISHU_APP_ID=cli_x\n")
     _write(htpasswd, "china-war:$apr1$abcdefgh$0123456789abcdefghij\n")
     _write(rag_unit,
@@ -256,11 +256,11 @@ def test_占位符判定与密钥扫描器一致(tmp_path, sample):
     assert (result.returncode == 0) is expected_pass, _out(result)
 
 
-# ---------------------------------------------------------------- nginx 档的旧检查仍在
+# ---------------------------------------------------------------- nginx 档的检查
 
 
 def test_nginx_档下_auth_basic_仍是注释要失败(tmp_path):
-    """第 13 轮复核发现的原始缺陷：RAG 说"nginx 在把关"，而 auth_basic 是注释状态。
+    """RAG 说"nginx 在把关"，而 auth_basic 是注释状态。
 
     这种组合两边都能正常启动、日志里没有异常，唯一后果是公网没有访问控制——
     所以它必须在安装期就红。
@@ -288,12 +288,12 @@ def test_回环监听与内部接口屏蔽在两种档位下都被检查(tmp_pat
         assert "只监听回环" in result.stdout
 
 
-# ---------------------------------------------------------------- systemd 依赖（§2.9）
+# ---------------------------------------------------------------- systemd 依赖
 
 
 def test_rag_服务声明依赖_backend():
-    """§2.9：`RAG_INTROSPECT_FAIL_MODE=closed`（默认）下 backend 不可用 = 所有 JWT 用户的
-    问答全部失败，而原先 unit 只依赖 network-online，RAG 可能先于 backend 起来把用户全拒掉。
+    """`RAG_INTROSPECT_FAIL_MODE=closed`（默认）下 backend 不可用 = 所有 JWT 用户的
+    问答全部失败；unit 若只依赖 network-online，RAG 可能先于 backend 起来把用户全拒掉。
 
     这里直接读 unit 文件：`After`/`Wants` 写在 [Unit] 段里，是**声明式**的启动顺序，
     没有别的机制能替代它（进程内的重试只能缓解，不能保证顺序）。
@@ -335,7 +335,7 @@ exit 0
     assert "auth_basic 处于启用状态" in result.stdout
 
 
-# ---------------------------------------------------------------- 机器人通道（P2-20）
+# ---------------------------------------------------------------- 机器人通道
 
 
 def test_jwt_档未配_Bot_Key_且要部署机器人时失败(tmp_path):

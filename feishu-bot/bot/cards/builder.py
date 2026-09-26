@@ -26,7 +26,7 @@ DEGRADED_TEXTS = {
 # 413 属于机器人侧历史组装问题，绝不能这样提示（开发文档 5.3 / 风险 8）。
 TOO_LONG_TEXT = "问题过长或不支持，请精简后重试。"
 NOT_TEXT_MESSAGE = "暂只支持文字提问，请把问题打成文字发我。"
-# 两段式回复（批次③-1）：知识问答要同步等 RAG（长回答实测 12–25s），
+# 两段式回复：知识问答要同步等 RAG（长回答实测 12–25s），
 # 先回这张占位卡让用户确认"收到了、在查"，跑完再用整卡 PATCH 替换。
 PLACEHOLDER_TEXT = ("正在检索史料，请稍候……\n\n"
                     "长回答通常需要 5–25 秒，这条卡片稍后会被完整回答替换。")
@@ -170,7 +170,7 @@ def _render_places(map_points: Any) -> str:
 
 
 def _render_subgraph_text(subgraph: Any) -> str:
-    """子图文字降级（P2-1）：节点/边按上限输出，超出加"……等 N 项"。
+    """子图文字降级：节点/边按上限输出，超出加"……等 N 项"。
 
     这是**必经路径**：Node 缺失、渲染超时、空图都会走到这里（开发文档十二-2）。
     """
@@ -252,13 +252,13 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
 
     elements: list[dict] = [_md(body or "（没有可显示的内容）")]
 
-    # 引用区（P0 出列表；P1 调优折叠与回调）
+    # 引用区（起步只出列表；调优方向是折叠与回调）
     if citations or conflicts:
         count = len(citations)
         title_text = f"引用（{count}）" if count else "引用"
         elements.append(_fold(title_text, [_md(_render_citations(citations, conflicts))]))
 
-    # 实体卡文字化（P1-2）
+    # 实体卡文字化
     entity_cards = [c for c in (panel.get("entity_cards") or []) if isinstance(c, dict)]
     if entity_cards:
         shown = entity_cards[:MAX_ENTITY_CARDS]
@@ -267,12 +267,12 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
             blocks.append(f"……等 {len(entity_cards)} 个相关实体")
         elements.append(_fold(f"相关实体（{len(entity_cards)}）", [_md("\n\n".join(blocks))]))
 
-    # 时间线文字化（P1-2）
+    # 时间线文字化
     timeline_text = _render_timeline(panel.get("timeline"))
     if timeline_text:
         elements.append(_fold("时间线", [_md(timeline_text)]))
 
-    # 子图（P2-1）：图片优先，失败/空图走文字降级
+    # 子图：图片优先，失败/空图走文字降级
     subgraph = panel.get("subgraph") or {}
     if isinstance(subgraph, dict) and (subgraph.get("nodes") or subgraph.get("edges")):
         if subgraph_img_key:
@@ -284,12 +284,12 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
             if text:
                 elements.append(_fold("关系图（文字版）", [_md(text)]))
 
-    # 地点列表（P1-2）
+    # 地点列表
     places_text = _render_places(panel.get("map_points"))
     if places_text:
         elements.append(_fold("相关地点", [_md(places_text)]))
 
-    # 示例问题按钮（P1-3）
+    # 示例问题按钮
     # 2.0 已删除交互模块（"tag": "action"），按钮**直接放进 elements**（官方迁移说明）。
     # 代价是每个按钮独占一行（body.direction 默认纵向）；要横排得用 column_set，
     # 但那多一层容器、字段更多，验收期先取"文档明确支持、字段最少"的形态。
@@ -301,7 +301,7 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
             for q in demo
         )
 
-    # 纠错反馈按钮（P2-2）
+    # 纠错反馈按钮
     if msg_key:
         elements.append(
             _button("反馈有误", {"action": "report_error", "msg_key": str(msg_key)}))
@@ -315,7 +315,7 @@ def build_answer_card(*, answer_md: str, citations: Iterable[dict] | None = None
 
 
 def attach_feedback_button(card: dict, msg_key: int | str | None) -> dict:
-    """给已组好的卡片补上"反馈有误"按钮（P2-2）。
+    """给已组好的卡片补上"反馈有误"按钮。
 
     为什么是"补"而不是一次组好：按钮的回传参数要带 `messages.id`，而这个 id 只有
     先落库才有；而卡片必须在发送前组好。因此流程是"落库拿 id → 补按钮 → 发送 →
@@ -375,7 +375,7 @@ def build_notice_card(text: str, *, title: str = CARD_TITLE) -> dict:
 
 
 def build_placeholder_card(text: str = PLACEHOLDER_TEXT) -> dict:
-    """两段式回复的占位卡（批次③-1），走与提示卡相同的灰色模板。
+    """两段式回复的占位卡，走与提示卡相同的灰色模板。
 
     为什么用灰色而不是答案卡的蓝色：它**不是答案**，不该看起来像答案——
     用户扫一眼就知道"还在查"，而不是"机器人回了句废话"。

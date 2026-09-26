@@ -44,10 +44,10 @@ const historyTime = computed(() => {
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 })
 
-/** 面板生命周期空状态（2026-09-15 审核 P1-19 + 第四轮复核 P2-9）：
+/** 面板生命周期空状态：
  * "还没提问 / 正在识别实体 / 正在检索 / 正在生成 / 已完成但该 tab 无数据 / 失败 / 已取消"要分开说，
- * 旧实现统一显示"暂无数据"，用户分不清是没数据还是还在跑。
- * 第四轮修正：cancelled 原先被归进 ready，导致"本轮已取消"的文案永远不可达。 */
+ * 统一显示"暂无数据"时用户分不清是没数据还是还在跑。
+ * cancelled 不能归进 ready，否则"本轮已取消"的文案永远不可达。 */
 type PanelPhase = 'idle' | 'running' | 'cancelled' | 'failed' | 'ready'
 const phase = computed<PanelPhase>(() => {
   const m = msg.value
@@ -123,7 +123,7 @@ watch(
       <button class="ghost-btn" type="button" @click="store.returnToLatest()">返回最新</button>
     </div>
 
-    <!-- 标准 tabs 语义（第四轮复核 P1-13）：role=tablist/tab + aria-selected/aria-controls，
+    <!-- 标准 tabs 语义：role=tablist/tab + aria-selected/aria-controls，
          键盘用户与读屏可以知道"当前在哪个视图、有哪些视图" -->
     <div class="panel-tabs" role="tablist" aria-label="知识面板视图">
       <button

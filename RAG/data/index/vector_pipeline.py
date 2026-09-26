@@ -1,4 +1,4 @@
-"""向量索引构建流水线（RAGv5 T3）：嵌入 → 断点续跑 → ids.json / npy 审计副本 + Chroma。
+"""向量索引构建流水线（RAGv5）：嵌入 → 断点续跑 → ids.json / npy 审计副本 + Chroma。
 
 - 复用既有 `chunks.jsonl`（`--vectors-only` 路径），不重切分、不重建 FTS5
 - 分批（百炼上限 10 条/请求）调用云端向量模型，**每批落盘 `vectors/_parts/`**，

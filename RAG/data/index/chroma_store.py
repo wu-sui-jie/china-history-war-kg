@@ -76,10 +76,10 @@ def build_collection(index_dir: Path, ids: List[str], embeddings,
 def load_collection(index_dir: Path, collection_name: str):
     """加载集合（不可用时返回 None，由调用方降级关键词）。
 
-    **客户端会被登记下来**（第 14 轮审计 P2-13）：原实现只把 collection 返回出去、
-    把 `PersistentClient` 丢掉，而 chromadb 内部按路径缓存客户端——那个对象连同
-    `chroma.sqlite3` 的连接与文件锁会一直留到进程退出，同进程的热重载或重复构建
-    就会撞上锁冲突。登记之后由 `release_clients()` 在停机统一释放。
+    **客户端会被登记下来**：只把 collection 返回出去、把 `PersistentClient` 丢掉时，
+    那个对象连同 `chroma.sqlite3` 的连接与文件锁会一直留到进程退出（chromadb 内部按
+    路径缓存客户端），同进程的热重载或重复构建就会撞上锁冲突。
+    登记之后由 `release_clients()` 在停机统一释放。
     """
     try:
         import chromadb
@@ -96,7 +96,7 @@ def load_collection(index_dir: Path, collection_name: str):
         return None
 
 
-# 本进程创建的 chromadb 客户端（按路径去重；第 14 轮审计 P2-13）
+# 本进程创建的 chromadb 客户端（按路径去重）
 _CLIENTS: dict = {}
 
 

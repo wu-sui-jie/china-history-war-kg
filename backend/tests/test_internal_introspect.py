@@ -1,6 +1,6 @@
-"""服务间 token introspection（第 13 轮复核，文档第四节方案 B）。
+"""服务间 token introspection（文档第四节方案 B）。
 
-背景：第 13 轮让旧后端做到了"改密码 / 封号后旧 token 立刻失效"，但 RAG 只验签名
+背景：旧后端做到了"改密码 / 封号后旧 token 立刻失效"，但 RAG 只验签名
 不查库——同一张旧 token 仍能调 RAG 的问答接口，直到自然过期。这个接口就是补那条缝：
 RAG 拿 token 来问一句"现在还作不作数"。
 
@@ -38,7 +38,7 @@ def _introspect(client, token, *, key=SERVICE_KEY, body=None):
 
 
 def test_未配置密钥时接口整体不可用(client):
-    """可选的保护开关漏配时**不能**退化成"没有保护"——这是本仓库反复出现的一类缺陷。
+    """可选的保护开关漏配时**不能**退化成"没有保护"。
 
     一个匿名的 introspection 接口不只是信息泄露：它还给了攻击者一条"这张凭证
     失效没有"的探测通道。
@@ -187,7 +187,7 @@ def test_请求体必须是_json_对象(client, service_key):
 
 
 def test_全局鉴权被拒时_introspect_同样为_false(client, make_user, service_key):
-    """两条路径必须同口径：若 RAG 说 active 而旧后端拒之门外，那条缝就是本次整改的目标。"""
+    """两条路径必须同口径：RAG 说 active 而旧后端拒之门外，就是必须堵上的那条缝。"""
     user = make_user("someone", "viewer")
     token = encode(user.id, "viewer", token_version=1)
     from db_utils import DbUtil

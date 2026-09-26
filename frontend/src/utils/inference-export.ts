@@ -1,7 +1,7 @@
-/** 问答记录的 Markdown 导出（第 7 轮 W2 从 index.vue 抽出）。
+/** 问答记录的 Markdown 导出。
  *
- * `buildConversationMarkdown` 是纯函数（给定会话返回字符串），因此可以直接单测——
- * 原先它和 Blob/下载/提示混在一个 90 行的函数里，只能靠人肉看一遍。
+ * `buildConversationMarkdown` 是纯函数（给定会话返回字符串），因此可以直接单测；
+ * Blob/下载/提示留在调用方，不混进这个函数里。
  */
 
 import { formatChatTime } from './date'

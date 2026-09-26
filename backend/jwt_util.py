@@ -7,11 +7,11 @@ JWT认证工具模块
   - decode(token): 解析Token获取载荷，过期/伪造/来源不符会统一抛 TokenError
   - token_version_of(payload): 取 token 的用户版本号，供"强制下线"判断
 
-## 第 13 轮整改：补全标准声明
+## 补全标准声明
 
-原先只发 `user_id` / `role` / `iat` / `exp`，于是**验签只能证明"这把密钥签的"**：
+只发 `user_id` / `role` / `iat` / `exp` 时，**验签只能证明"这把密钥签的"**：
 同一把 HS256 密钥在内网里常被多个服务共用，任何知道密钥的服务都能为任意 user_id
-签发一个能被本系统接受的凭证。现在补齐：
+签发一个能被本系统接受的凭证。因此必须补齐：
 
 | 声明 | 作用 |
 | --- | --- |
@@ -29,7 +29,7 @@ JWT认证工具模块
 文档建议长期改用 RS256/ES256（backend 持私钥签发、RAG 只持公钥验签），这样 RAG
 被入侵也无法伪造用户 token。当前保留 HS256 的原因：RAG 的依赖是带哈希锁文件逐条
 审计的（CI 用 `--require-hashes` 安装），引入非对称签名需要新增密码学依赖并重走一次
-供应链审计。这是一次**有记录的取舍**，不是遗漏——见 docs 的方案文档第三节第 3 条。
+供应链审计。这是**有记录的取舍**，不是遗漏——见 `docs/项目现状与后续计划.md` 的「决策项」一节。
 """
 
 import uuid
@@ -45,7 +45,7 @@ secret = local_settings.jwt_secret()
 
 # Token 有效期（秒），默认 7 天；用 JWT_TTL_SECONDS 覆盖。
 #
-# 文档建议把访问 token 缩短到 15–30 分钟。**这里没有直接改**：本系统只有访问 token、
+# 文档建议把访问 token 缩短到 15–30 分钟。**本系统不能直接照做**：只有访问 token、
 # 没有 refresh token，把默认值调短等于让所有人在部署后立刻被登出、之后每半小时登出一次。
 # 缩短有效期必须与刷新流程一起做，否则只是把安全成本转嫁给用户。当前用的是
 # "token_version + 账号禁用"这条撤销路径（见 db_utils.check_token_usable），
@@ -81,7 +81,7 @@ def _ttl_seconds():
 def token_version_of(payload):
     """取载荷里的用户版本号（`ver`），缺失或非法时回落到默认值。
 
-    回落而不是报错：改造之前签发的 token 没有这个声明，报错会让所有在线用户
+    回落而不是报错：早期签发的 token 没有这个声明，报错会让所有在线用户
     在升级瞬间被登出；而"缺失 = 1"恰好与迁移回填的存量账号取值一致。
     """
     value = (payload or {}).get("ver", DEFAULT_TOKEN_VERSION)
@@ -94,7 +94,7 @@ def token_version_of(payload):
 def encode(user_id, role=None, token_version=DEFAULT_TOKEN_VERSION):
     """签发 token。
 
-    `role` 是可选的自定义声明（第 12 轮审查 P1-1）：RAG 服务端验签后能一并拿到角色，
+    `role` 是可选的自定义声明：RAG 服务端验签后能一并拿到角色，
     按角色收敛配额/界面时不必回查旧库、也不必引入第二套账号体系。
     老 token 没有这个声明，RAG 侧按空串处理——所以缺省是 None 而不是 "viewer"：
     把"没带角色"和"角色就是 viewer"区分开，避免制造一个看起来有含义的默认值。

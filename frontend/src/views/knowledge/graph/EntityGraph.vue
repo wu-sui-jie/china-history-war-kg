@@ -1,8 +1,8 @@
 <!--
   战争关系图的四个子页（历史战争 / 参战势力 / 历史人物 / 战争地点）。
 
-  四者原本是四份逐行相同的文件，唯一差异是「名称标签、搜索提示、关系筛选枚举、接口路径」，
-  现已收敛为路由 meta.graphKind 驱动的一份实现。新增关系维度时只需在 GRAPH_CONFIGS 加一项
+  四者共用一份实现、由路由 meta.graphKind 驱动，差异集中在 GRAPH_CONFIGS 的「名称标签、
+  搜索提示、关系筛选枚举、接口路径」四项。新增关系维度时只需在 GRAPH_CONFIGS 加一项
   并在 base-routes.ts 注册路由。
 -->
 <template>
@@ -126,7 +126,7 @@ async function loadNodeRelations(nodeId: string) {
   try {
     const response = await getNodeRelations(nodeId)
     if (response.code === 200) {
-      // 合并去重的实现收敛在 utils/graph.ts（原先与 OverviewGraph 各一份）
+      // 合并去重的实现统一在 utils/graph.ts，不要在本页另写一份
       datasource.value = mergeNodeRelations(datasource.value, response.data || {})
       syncPageSummary()
     }
@@ -151,7 +151,7 @@ async function getGraph() {
       datasource.value = { nodes: [], lines: [] }
     }
   } catch (error) {
-    // 后端失败改为 HTTP 5xx（第 13 轮复核第七节）：清空画布之外还要给一句提示，
+    // 后端失败是 HTTP 5xx：清空画布之外还要给一句提示，
     // 否则用户只看到"图没了"，分不清是查询失败还是本来就没有数据。
     console.error('请求图谱数据失败:', error)
     datasource.value = { nodes: [], lines: [] }

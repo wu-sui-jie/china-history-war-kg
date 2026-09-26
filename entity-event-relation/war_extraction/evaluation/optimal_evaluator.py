@@ -1,13 +1,11 @@
 """
 最优评估器
-历史战争文本知识抽取评估系统（第五次优化版）
+历史战争文本知识抽取评估系统
 
-核心改进：
-- 事件匹配阈值从0.4降至0.35，增加事件匹配数
-- 关系阈值从45%降至40%，进一步提升召回率
-- 头事件匹配阈值与事件匹配同步降至0.35
-- 事件-事件尾实体匹配阈值同步降至0.35
-- 保留别名映射、包含关系满分等所有有效优化
+评估策略是"最优模糊匹配"：事件名、实体名、关系名都按相似度阈值判定，再按相似度
+降序做一对一贪心匹配。四个阈值由调用方从 `config/eval_config.json` 读入
+（事件名 0.35、事件-事件尾实体 0.35、关系名 40%、实体 70%），另保留别名映射与
+"包含关系满分"等规则。
 """
 from __future__ import annotations
 
@@ -21,7 +19,7 @@ from war_extraction.utils.normalizer import Normalizer
 
 class OptimalEvaluator:
     """
-    最优评估器（第五次优化版）
+    最优模糊匹配评估器。
     """
 
     def __init__(self, annotation_dir: Path, relation_threshold: int = 40, event_sim_threshold: float = 0.35,
@@ -54,11 +52,11 @@ class OptimalEvaluator:
 
         # 构建反向映射字典
         #
-        # 注意（第 11 轮 C-6 核对）：下一行会用 `Normalizer.relation_map`（来自
-        # `config/relation_types.json`）**覆盖**上面这张硬编码表。被覆盖到的条目形同虚设——
-        # 例如上面把"因果关系"列为"顺承关系"的变体，而 config 把"因果关系"归给"因果关系"，
-        # 最终以后者为准。**改上面这张表可能完全看不到效果**；真想改关系归一，
-        # 要先看 config/relation_types.json 覆盖了哪些键（`test_relation_types.py` 里有断言钉着）。
+        # 注意：下一行会用 `Normalizer.relation_map`（来自 `config/relation_types.json`）
+        # **覆盖**上面这张硬编码表。被覆盖到的条目形同虚设——例如上面把"因果关系"列为
+        # "顺承关系"的变体，而 config 把"因果关系"归给"因果关系"，最终以后者为准。
+        # **改上面这张表可能完全看不到效果**；真想改关系归一，要先看
+        # config/relation_types.json 覆盖了哪些键（`test_relation_types.py` 里有断言钉着）。
         self.normalize_map = {}
         for std, variants in self.relation_map.items():
             for v in variants:
@@ -155,19 +153,19 @@ class OptimalEvaluator:
         """
         关系类型是否算匹配。
 
-        **第 11 轮 C-6 的核心修正。** 原实现只做模糊比对（`fuzz.ratio > relation_threshold`），
-        而五个规范的事件-事件关系类型**两两之间的 fuzz.ratio 都是 50**——都带"关系"二字、
-        4 个字里中 2 个（2*2/8=50），全部越过阈值 40。实测：标注 `(E1, 顺承关系, E2)` 对上
-        预测 `(E1, 因果关系, E2)` 与 `(E1, 并列关系, E2)` 都判 tp=1，**事件-事件关系类型判错
-        照样满分**，关系指标对这一类错误完全不敏感。
+        五个规范的事件-事件关系类型**两两之间的 fuzz.ratio 都是 50**——都带"关系"二字、
+        4 个字里中 2 个（2*2/8=50），全部越过阈值 40。若对它们也走模糊比对，
+        标注 `(E1, 顺承关系, E2)` 对上预测 `(E1, 因果关系, E2)` 与
+        `(E1, 并列关系, E2)` 都会判 tp=1：**事件-事件关系类型判错照样满分**，
+        关系指标对这一类错误完全不敏感。
 
-        现在的口径：
+        口径：
           - 两侧都在五个规范事件-事件关系类型里 → **要求精确相等**（`因果关系` ≠ `顺承关系`）；
           - 其余情况（自由文本关系名，如"主战场""统帅"）仍走模糊比对——写法不唯一，
             模糊比对本来就是对的。
 
-        注意这是**口径变更**：历史关系指标会下降（原先白送的分没了），
-        见 docs/修复实施记录-第11轮-20260925.md 的前后对照。
+        精确相等这条是评估口径的一部分：靠模糊比对把不同类型也算成立的话，
+        关系指标会对"类型判错"完全不敏感，所以不能退回纯模糊比对。
         """
         if pred_relation == gold_relation:
             return True
@@ -354,8 +352,7 @@ class OptimalEvaluator:
         return gold_triples
 
     def evaluate_entities(self, pred_data: Dict, event_mapping: Dict) -> Dict:
-        """评估实体抽取 - 优化版：直接使用entities数据，不从events反向提取"""
-        
+        """评估实体抽取：直接用 entities 数据，不从 events 反向提取实体。"""
         # 直接使用 entities 中的数据（优先于从events反向提取）
         raw_places = pred_data.get('entities', {}).get('places', [])
         raw_persons = pred_data.get('entities', {}).get('persons', [])
@@ -384,10 +381,9 @@ class OptimalEvaluator:
                         return True
                     return fuzz.ratio(pred_name, gold_name) >= self.entity_fuzzy_threshold
 
-                # Changed 2026-04-20 16:33:36 +08:00: Require length guard
-                # for containment matches to avoid "汉" matching "汉武帝".
-                # Changed 2026-09-25: 遍历前定序。unmatched_gold 是集合，字符串哈希每进程
-                # 随机化；相似度并列时"谁先被取走"会随进程变化，错误样例随之漂移。
+                # 包含关系匹配要求长度 ≥2，否则 "汉" 会匹配上 "汉武帝"
+                # 遍历前必须定序：unmatched_gold 是集合，字符串哈希每进程随机化；
+                # 相似度并列时"谁先被取走"会随进程变化，错误样例随之漂移。
                 best_gold = None
                 best_score = -1
                 for gold_name in sorted(unmatched_gold):
@@ -397,8 +393,7 @@ class OptimalEvaluator:
                             best_score = score
                             best_gold = gold_name
 
-                # Changed 2026-04-20 16:33:36 +08:00: Entity matches are
-                # one-to-one so recall cannot exceed 100%.
+                # 实体匹配是一对一，所以召回率不可能超过 100%
                 if best_gold:
                     matched.append(item)
                     unmatched_gold.remove(best_gold)
@@ -411,7 +406,7 @@ class OptimalEvaluator:
         matched_orgs, unmatched_orgs = match_entities(raw_orgs, gold_orgs, 'OrgName')
 
         def calc_metrics(matched, unmatched, gold_names):
-            """计算指标 - 优化版"""
+            """按 TP/FP/FN 算 P/R/F1 与计数"""
             tp = len(matched)
             fp = len(unmatched)
             fn = len(gold_names) - tp
@@ -427,9 +422,9 @@ class OptimalEvaluator:
         total_pred = pred_cnt1 + pred_cnt2 + pred_cnt3
         total_gold = gold_cnt1 + gold_cnt2 + gold_cnt3
 
-        # 修正 2026-09-25：recall 此前按**预测数**加权（Σr·pred/Σpred），既非 micro
-        # 也非 macro，数值无标准含义。改为标准 micro 口径（P=TP/(TP+FP)、R=TP/(TP+FN)）；
-        # 原按预测数加权的 avg_p 数学上恒等于 micro-P，行为不变，avg_r 是真正的修正点。
+        # 三层合计用标准 micro 口径（P=TP/(TP+FP)、R=TP/(TP+FN)）。
+        # 注意不要退回"按预测数加权"（Σr·pred/Σpred）：那既非 micro 也非 macro，
+        # 数值没有标准含义（其中 P 在数学上恒等于 micro-P，R 则是错的）。
         total_tp = tp1 + tp2 + tp3
         total_fp = fp1 + fp2 + fp3
         total_fn = fn1 + fn2 + fn3
@@ -518,8 +513,8 @@ class OptimalEvaluator:
 
         输入是两个**集合**（filter_relations / build_gold_triples 的返回值），而 Python 的
         字符串哈希每进程随机化，集合迭代顺序随 PYTHONHASHSEED 变化。因此这里先把两侧都按
-        内容排序再遍历——否则同一份 pred + gold 换个进程就会得到不同的 tp/fp/fn（实测全量
-        数据上 tp 在 739~743 之间漂移、F1 在 0.7438~0.7479 之间漂移，见第 9 轮修复记录）。
+        内容排序再遍历——否则同一份 pred + gold 换个进程就会得到不同的 tp/fp/fn
+        （实测全量数据上 tp 在 739~743 之间漂移、F1 在 0.7438~0.7479 之间漂移）。
         排序后匹配结果是两个集合的纯函数，与进程哈希种子无关。
         """
         reverse_mapping = {v: k for k, v in event_mapping.items()}
@@ -544,8 +539,8 @@ class OptimalEvaluator:
                 if head_sim < self.event_sim_threshold:
                     continue
 
-                # 关系类型匹配：规范事件-事件关系类型要求精确相等，其余走模糊（见
-                # relation_types_match 的说明——这里原先是纯模糊，五个规范类型两两都过阈值）
+                # 关系类型匹配：规范事件-事件关系类型要求精确相等，其余走模糊
+                # （见 relation_types_match 的说明——纯模糊时五个规范类型两两都过阈值）
                 if not self.relation_types_match(rel_pred, rel_gold):
                     continue
                 # rel_score 只用于下面的排序（精确相等时为 1.0，自由文本关系名按相似度）
@@ -589,7 +584,7 @@ class OptimalEvaluator:
 
     def evaluate_relations(self, pred_relations: Dict, event_mapping: Dict) -> Dict:
         """
-        评估关系抽取（第五次优化版）：头事件模糊匹配阈值同步降低
+        评估关系抽取：头事件按事件名相似度、尾实体按关系阈值模糊匹配。
         """
         print(f"\n【关系评估】阈值={self.relation_threshold}%")
 
@@ -642,8 +637,12 @@ class OptimalEvaluator:
 
     def evaluate_event_fields(self, pred_events: List[Dict]) -> Dict:
         """
-        评估事件新字段的填充率和质量
-        新增字段：Allies, Commanders, KeyPersons, TroopSize, Duration, GeographicScope, Casualties, relations
+        统计事件各字段的填充率。
+
+        只统计"填没填"（非空且不是字符串 'null'），不比对填得对不对——
+        字段填错不会体现在这里，也不会体现在事件 F1 里。
+        统计字段：Allies, Commanders, KeyPersons, TroopSize, Duration,
+        GeographicScope, Casualties, relations。
         """
         if not pred_events:
             return {}
@@ -686,7 +685,7 @@ class OptimalEvaluator:
         event_metrics = self.evaluate_events(all_pred_events, event_mapping)
         relation_metrics = self.evaluate_relations(pred_data.get('relations', {}), event_mapping)
         
-        # 新增：事件新字段评估
+        # 事件字段填充率（不进 F1，只报"填没填"）
         field_metrics = self.evaluate_event_fields(all_pred_events)
 
         macro_f1 = (entity_metrics['f1'] + event_metrics['f1'] + relation_metrics['f1']) / 3

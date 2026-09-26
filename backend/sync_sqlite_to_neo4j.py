@@ -38,7 +38,6 @@ NEO4J_PASSWORD = local_settings.require_neo4j_password()
 graph = Graph(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 
-
 class SqliteToNeo4jSync:
     def __init__(self, mode="increment"):
         self.mode = mode
@@ -64,7 +63,7 @@ class SqliteToNeo4jSync:
     def _create_node(self, label, name, properties=None, graph_key=None):
         """按**稳定图谱键** upsert 节点，返回 (neo4j 节点 id, 状态)。
 
-        原先用 `MERGE (n:Label {name: $name})` 去重，两个后果（文档第六节第 5 条）：
+        不要用 `MERGE (n:Label {name: $name})` 去重，两个后果（文档第六节第 5 条）：
         同名节点被合成一个（"赤壁之战"在不同来源/朝代里确实有多个），
         而改名会被当成新建，留下旧节点加一个新节点。按 `<Type>:<SQLite 主键>` 定位后，
         改名就是一次属性更新，也不会再把两个不同对象合成一个。

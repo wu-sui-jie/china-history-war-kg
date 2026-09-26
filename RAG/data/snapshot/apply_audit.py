@@ -1,6 +1,7 @@
 """F09 治理增强：人工审核决定回填（data/snapshot/apply_audit.py）。
 
-对应 RAGv2 规划第 7 节（F09 治理增强，仅剩"同名歧义人工审核回填"开放项）。
+对应 [../docs/RAG_v2.md](../docs/RAG_v2.md) 的"借鉴项一/三"与 [../docs/features.md](../docs/features.md)
+第九节的 F09 人工审核回填开放项。
 
 回填文件契约（audit_decisions.json，操作人/处理前/处理后/审核结论/置信度）：
 

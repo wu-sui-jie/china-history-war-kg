@@ -1,10 +1,10 @@
-"""F02 LLM 兜底的同步调用封装（server/query/llm_fallback.py，RAGv5 §4.5）。
+"""F02 LLM 兜底的同步调用封装。
 
 为什么单独一个同步客户端：F02 的 `understand()` 在同步链路里被调用（`server/sse.py` 的
 异步生成器里直接同步调用），而 F06 的 `LLMClient` 是异步的。在这里用同步 OpenAI 客户端
 可以避免把 F02 改成 async 而牵动整条链（评测、测试、前端事件的顺序都依赖现状）。
 
-口径（与开发说明 §4.5 一致）：
+口径（与 docs/features.md 第二节的 F02 兜底开关一致）：
 - 独立超时 `LLM_ENTITY_TIMEOUT_SECONDS`（默认 8 s），不吃 F06 的首 Token 预算；
 - 单次尝试 + 短超时；异常/超时/解析失败一律返回空列表（调用方按"未命中"降级）；
 - 只做"抽取"，不做推理（提示词见 server/query/prompts.py）。

@@ -64,7 +64,7 @@ const loadData = async () => {
     const res = await relationAnalysis(query)
     graph.value = res.code === 200 ? res.data : { nodes: [], lines: [] }
   } catch (error) {
-    // 失败改为 HTTP 4xx/5xx（第 13 轮复核第七节）：不清空的话，画面上会留着上一次
+    // 失败是 HTTP 4xx/5xx：不清空的话，画面上会留着上一次
     // 查询的图，用户会以为那就是本次结果；同时把后端或兜底文案提示出来。
     console.error('关系分析失败:', error)
     graph.value = { nodes: [], lines: [] }

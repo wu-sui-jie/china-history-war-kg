@@ -24,7 +24,7 @@ class EntityExtractor:
         self.prompt_template = ENTITY_EXTRACTION_PROMPT
 
     def _flatten_entities(self, value) -> list:
-        """Changed 2026-04-20 23:06:12 +08:00: Flatten nested entity lists from LLM output."""
+        """把模型可能给出的嵌套列表压平成一维的实体字典列表。"""
         if value is None:
             return []
         if isinstance(value, dict):
@@ -41,7 +41,7 @@ class EntityExtractor:
         return flattened
 
     def _disambiguate_entities(self, data: dict) -> dict:
-        """Changed 2026-04-21 13:46:29 +08:00: Resolve person/org/place conflicts after coarse classification."""
+        """粗分类之后解决人/组织/地点三类冲突（按覆盖表与判别规则把条目挪到正确的一类）。"""
         places = []
         organizations = []
         persons = []
@@ -130,7 +130,7 @@ class EntityExtractor:
         )
 
     def _normalize_response_data(self, data) -> dict:
-        """Changed 2026-04-20 23:06:12 +08:00: Accept dict/list entity JSON shapes from DeepSeek."""
+        """把模型返回的 dict / list 两种实体 JSON 形态都规整成三键字典。"""
         normalized = {
             "places": [],
             "organizations": [],
@@ -206,13 +206,10 @@ class EntityExtractor:
         )
 
         try:
-            # Changed 2026-04-20 21:46:02 +08:00: Ask the model for JSON
-            # where supported, while llm_client falls back if the API rejects it.
+            # 优先请求 JSON 输出；API 不支持时 llm_client 内部会回退
             response = self.llm.call(prompt, json_mode=True)
 
-            # Changed 2026-04-21 12:48:22 +08:00: Use decoder scanning so
-            # list/root-wrapper JSON payloads can be recovered from model output.
-            # EER-6：改用 utils.json_payload 的公共实现（原三个抽取器各有一份逐字相同的拷贝）。
+            # 用 json_payload 的公共扫描逻辑，list / 根包装类载荷也能从模型输出里救回来
             data = extract_json_payload(response)
             if data is None:
                 print("实体抽取 JSON 解析失败: 未找到可用 JSON")
@@ -223,14 +220,12 @@ class EntityExtractor:
             data = self._normalize_response_data(data)
             data = self._disambiguate_entities(data)
 
-            # Changed 2026-04-20 23:06:12 +08:00: Read only normalized dict
-            # data so list-shaped model responses no longer trigger `.get` errors.
+            # 只读规整后的字典：list 形态的响应不会再触发 `.get` 报错
             places = [self._ensure_complete_place(p) for p in data.get("places", [])]
             organizations = [self._ensure_complete_org(o) for o in data.get("organizations", [])]
             persons = [self._ensure_complete_person(p) for p in data.get("persons", [])]
 
-            # Changed 2026-04-21 12:48:22 +08:00: Drop empty rows so stray
-            # wrapper objects from LLM output do not become invalid entities.
+            # 丢掉空行：模型输出里的包装对象不该变成无效实体
             places = [p for p in places if p.get("geo_name")]
             organizations = [o for o in organizations if o.get("OrgName")]
             persons = [p for p in persons if p.get("PersonName")]
@@ -244,8 +239,8 @@ class EntityExtractor:
         except (LLMAuthError, LLMAPIError):
             raise
         except Exception as e:
-            # 修正 2026-09-25：原先在此吞掉异常并返回空结果，调用方会把「调用失败」
-            # 当成「本段确实无实体」写入缓存，失败片段被永久污染（只能 --refresh-cache
-            # 手工救）。改为向上抛出，由编排层判定失败、不落缓存、下次自动重试。
+            # 必须上抛，不能吞掉异常返回空结果：调用方会把「调用失败」当成「本段确实无实体」
+            # 写进缓存，失败片段就被永久污染（只能 --refresh-cache 手工救）。
+            # 上抛后由编排层判失败、不落缓存、下次自动重试。
             print(f"实体抽取失败: {e}")
             raise

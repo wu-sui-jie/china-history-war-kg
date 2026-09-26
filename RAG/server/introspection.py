@@ -1,9 +1,9 @@
-"""凭证撤销查询：向旧后端确认"这张 token 现在还作不作数"（第 13 轮复核，文档第四节方案 B）。
+"""凭证撤销查询：向旧后端确认"这张 token 现在还作不作数"（方案 B：Token Introspection）。
 
 ## 为什么需要这一步
 
-第 12 轮给 RAG 加上了验签（`server/auth.py`），解决的问题是"知道 /rag/ 地址就能调问答接口"。
-但验签只证明**这张 token 是旧后端用那把密钥签的**，它证明不了这张 token 现在还该不该被承认：
+验签（`server/auth.py`）解决的问题是"知道 /rag/ 地址就能调问答接口"，但验签只证明
+**这张 token 是旧后端用那把密钥签的**，它证明不了这张 token 现在还该不该被承认：
 
     管理员停用某账号（或本人改了密码）→ 旧后端立刻拒绝该 token
                                         → RAG 仍然放行，直到 JWT 自然过期（默认 7 天）
@@ -66,15 +66,14 @@ FAIL_MODES = (FAIL_CLOSED, FAIL_OPEN)
 class Verdict:
     """一次查询的结论。`reason` 只用于服务端日志，不回给客户端。
 
-    `unavailable` 用来把**两种"不活跃"分开**（第 14 轮审计 P2-1）：
+    `unavailable` 用来把**两种"不活跃"分开**：
 
     - `active=False, unavailable=False` → 后端明确判定这张凭证已失效（撤销）→ 401；
     - `active=False, unavailable=True`  → 本服务**无法确认**凭证状态（后端抖动/重启）
       → 503，客户端该重试而不是重新登录。
 
-    旧实现两者都回 401「登录已失效，请重新登录」，日志也写成"拒绝已失效的凭证"：
-    后端抖一下，全体用户被登出，而重新登录拿到的 token 仍会被同样拒绝——
-    用户与运维都被指向了错误的方向。
+    两者都回 401「登录已失效，请重新登录」会把用户与运维都指向错误的方向：
+    后端抖一下全体用户被登出，而重新登录拿到的 token 仍会被同样拒绝。
     """
 
     active: bool
@@ -100,16 +99,16 @@ class Introspector:
         self.fail_mode = fail_mode if fail_mode in FAIL_MODES else FAIL_CLOSED
         self.timeout_seconds = float(timeout_seconds)
         self.max_entries = max(1, int(max_entries))
-        # 失败结果的秒级负缓存（第 14 轮审计 P2-9）。它不是"把失败当结论缓存"：
+        # 失败结果的秒级负缓存。它不是"把失败当结论缓存"：
         # 缓存下来的仍然是**按失败策略得出的那个结论**，与不缓存时逐次判定的结果完全一致，
         # 只是不再让每个请求都在 3 秒超时上排一次队（后端不可用时这是纯浪费）。
         self.failure_cache_seconds = max(0.0, float(failure_cache_seconds))
         self._cache: dict[str, tuple[float, Verdict]] = {}
-        # 在途查询表：按 token 摘要合并并发查询（single-flight，P2-9）
+        # 在途查询表：按 token 摘要合并并发查询（single-flight）
         self._inflight: dict[str, "asyncio.Future"] = {}
         self._client = None            # httpx.AsyncClient，惰性创建
         self.stats = {"queries": 0, "hits": 0, "revoked": 0, "failures": 0}
-        # 最近一次查询的成败（第 13 轮复核整改 §2.9）：`failures>0` 只说明"历史上失败过"，
+        # 最近一次查询的成败：`failures>0` 只说明"历史上失败过"，
         # 而"现在后端是不是可达"要看这两个时刻——backend 重启后运维最想知道的正是
         # "它恢复了吗"，那时 counters 帮不上忙。
         self._last_ok_at: Optional[float] = None
@@ -161,7 +160,7 @@ class Introspector:
             return cached[1]
 
         # single-flight：同一个 token 的并发请求只发一次后端查询，其余 await 同一个 Future。
-        # 为什么需要（P2-9）：TTL 到期瞬间，同一用户的多个并发请求会各自发起一次查询；
+        # 为什么需要：TTL 到期瞬间，同一用户的多个并发请求会各自发起一次查询；
         # 后端不可用时更糟——每个请求都要在 3 秒超时上排队，而这发生在限流之前。
         inflight = self._inflight.get(key)
         if inflight is not None:

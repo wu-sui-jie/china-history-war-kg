@@ -1,7 +1,7 @@
 /** Node 环境下的最小浏览器 API 替身（localStorage / window / 定时器）。
  *
  * 只补齐被测代码真正用到的部分，不引入 jsdom：目标是让 store 与 SSE 客户端的
- * 状态机能在 Node 里跑真实断言（第四轮复核 P1-12）。
+ * 状态机能在 Node 里跑真实断言。
  */
 
 class MemoryStorage {

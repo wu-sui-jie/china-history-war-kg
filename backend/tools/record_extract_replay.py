@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""录制 `/api/extract/entities-events` 的抽取链路回放 fixture（第 11 轮 B 类）。
+"""录制 `/api/extract/entities-events` 的抽取链路回放 fixture。
 
-**为什么需要它。** 这个端点的行为此前没有任何回归保护：`tools/snapshot_responses.py`
-刻意跳过它（"结果不确定，放进来只会制造噪音"），第 10 轮修掉的那个 bug
-（实体对象被当 place_list 渲染进提示词）正是从这儿漏过去的。提示词层面已有
+**为什么需要它。** 这个端点的行为不能只靠快照兜底：`tools/snapshot_responses.py`
+刻意跳过它（"结果不确定，放进来只会制造噪音"），"实体对象被当 place_list 渲染进提示词"
+这类 bug 正是从这儿漏过去的。提示词层面已有
 `tests/test_extract_prompt.py` 钉住，但**序列化 / 字段归一 / 后处理**的变化它看不见——
 那正是本脚本 + `tests/test_extract_replay.py` 要兜的：
 
@@ -108,7 +108,7 @@ def main() -> int:
 
     fixture = {
         "_note": (
-            "第 11 轮 B 类：/api/extract/entities-events 抽取链的录制回放夹具。"
+            "/api/extract/entities-events 抽取链的录制回放夹具。"
             "llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时"
             "每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经"
             "serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。"

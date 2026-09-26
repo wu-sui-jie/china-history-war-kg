@@ -34,7 +34,7 @@ const graphContainer = ref<HTMLDivElement | null>(null);
 let chart: echarts.ECharts | null = null;
 let resizeObserver: ResizeObserver | null = null;
 
-// 显示名与分类名都用共享实现（原先本文件自带一份，与 utils 漂移）
+// 显示名与分类名都用共享实现，不要在本文件另写一份，否则会与 utils 漂移
 const getNodeDisplayName = (node: any) => nodeDisplayName(node || {});
 
 // 初始化图表
@@ -626,7 +626,7 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   min-height: 300px;
-  background-color: #f8f9fa; /* 更改为与主页图谱相同的背景色 */
+  background-color: #f8f9fa; /* 与主页图谱相同的背景色 */
   pointer-events: auto;
   isolation: isolate;
   touch-action: pan-x pan-y;

@@ -1,6 +1,6 @@
 import Http from '../http'
 
-// 知识图谱相关接口：全局搜索、关系分析、聚焦子图与自由图谱查询（FE-6 统一入口）。
+// 知识图谱相关接口：全局搜索、关系分析、聚焦子图与自由图谱查询。
 
 export const globalSearch = (keyword: string) => Http.get('/api/search/global', { keyword })
 

@@ -1,4 +1,4 @@
-/** 知识面板与证据列表的组件用例（2026-09-16 工作单 P1-12 / P1-13）。
+/** 知识面板与证据列表的组件用例。
  *
  * 覆盖：面板生命周期空状态（未提问 / 已取消 / 失败 / 完成但无数据）、
  * tabs 的 ARIA 语义、证据展开按钮的 aria-expanded、动态 chunk 加载失败的降级与重试。
@@ -45,7 +45,7 @@ describe('面板生命周期空状态', () => {
     expect(wrapper.text()).toContain('尚未提问')
   })
 
-  test('已取消轮显示取消文案（P2-9 的可达性）', () => {
+  test('已取消轮显示取消文案', () => {
     const store = useSessionStore()
     store.messages = [assistantWith({ turnStatus: 'cancelled', cancelled: true,
                                       finished: false, answer: '' })]
@@ -97,7 +97,7 @@ describe('历史轮次提示条（2026-09-20）', () => {
   })
 })
 
-describe('tabs 的 ARIA 语义（P1-13）', () => {
+describe('tabs 的 ARIA 语义', () => {
   test('tablist/tab/aria-selected 对应正确，方向键可切换', async () => {
     const store = useSessionStore()
     store.messages = [assistantWith({ turnStatus: 'completed' })]
@@ -173,7 +173,7 @@ describe('证据列表', () => {
   })
 })
 
-describe('动态 chunk 加载失败降级（P2-8）', () => {
+describe('动态 chunk 加载失败降级', () => {
   test('图谱组件加载失败时显示错误与重试按钮', async () => {
     vi.mock('echarts/core', () => {
       throw new Error('chunk load failed')

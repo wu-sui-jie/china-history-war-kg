@@ -107,12 +107,12 @@ def test_help_recognises_variants():
 
 
 def test_help_card_lists_the_reset_command():
-    """说明书必须列出 /new——用户唯一的自助重置入口（批次③-2）。"""
+    """说明书必须列出 /new——用户唯一的自助重置入口。"""
     text = HelpSkill().run(make_ctx("/help")).card["body"]["elements"][0]["content"]
     assert "/new" in text
 
 
-# ---- 批次③-2：/new 重置会话 ----
+# ---- /new 重置会话 ----
 
 
 def test_new_session_recognises_variants(session):
@@ -289,7 +289,7 @@ def test_bot_key_absent_when_not_configured(config, session):
         fake.stop()
 
 
-# ---- 示例问题按钮（P1-3）----
+# ---- 示例问题按钮 ----
 
 
 def test_examples_cache_used_for_buttons(config, session):
@@ -337,9 +337,9 @@ def test_examples_cache_keeps_last_known_on_failure():
 
 
 def test_examples_failure_is_negatively_cached():
-    """取题失败也要命中缓存窗口（审查报告 3.1-3）。
+    """取题失败也要命中缓存窗口。
 
-    原先的守卫要求"缓存非空"，接口失败时永远不成立——每张卡片都同步重打一次
+    守卫若要求"缓存非空"，接口失败时永远不成立——每张卡片都同步重打一次
     `GET /api/demo/examples`，端点不可用时最坏吃满客户端超时，直接叠加在用户等待上。
     """
     calls = {"n": 0}
@@ -372,7 +372,7 @@ def test_examples_failure_window_never_exceeds_success_window():
 
 
 def test_examples_failure_window_applies_with_stale_questions():
-    """**留有旧题目时刷新失败，也要按失败窗口重试**（修复审核报告第三节，方案 A）。
+    """**留有旧题目时刷新失败，也要按失败窗口重试**。
 
     窗口若按"当前有没有题目"取档，这种情形会仍等满一小时——旧按钮还能用，
     但接口恢复了按钮区最多晚 1 小时才更新。

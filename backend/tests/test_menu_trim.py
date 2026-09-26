@@ -1,4 +1,4 @@
-"""菜单的角色裁剪（第 6 轮审核 H4）。
+"""菜单的角色裁剪。
 
 `/user/menu` 是三级裁剪里的第二层（第一层是后端接口的 403，第三层是前端路由 meta）：
 - viewer：看不到「数据运营」整组（不能改数据），也看不到「文本实体识别」（会消耗 LLM 配额）
@@ -15,7 +15,7 @@ import pytest
 @pytest.mark.parametrize(
     "role,expect_hidden",
     [
-        # P2-8：/knowledge/inference 的接口与路由都按 editor 卡，菜单必须一致
+        # /knowledge/inference 的接口与路由都按 editor 卡，菜单必须一致
         ("viewer", {"/admin/users", "/workspace/manage", "/knowledge/text-extract",
                     "/knowledge/inference"}),
         ("editor", {"/admin/users"}),

@@ -21,7 +21,7 @@ class RequestValidationError(ValueError):
     """请求参数不合法（类型/长度/数量超限）。
 
     API 层把它映射成 4xx（400/413），在调用外部模型之前就拒绝，
-    避免"超大输入 → 高内存 + 高 embedding/LLM 成本"（2026-09-15 审核 P0-2）。
+    避免"超大输入 → 高内存 + 高 embedding/LLM 成本"。
     """
 
 
@@ -96,7 +96,7 @@ def _check_list(field_name: str, value: Any, limit: int) -> list:
     return value
 
 
-# correction 条目允许出现的字段（未列出的字段会被拒绝，见 P1-2）
+# correction 条目允许出现的字段（未列出的字段会被拒绝）
 _CORRECTION_FIELDS = frozenset({
     "action", "source_entity_id", "replacement_entity_id", "entity_id",
     "entity_type", "name", "original", "replacement",
@@ -142,7 +142,7 @@ class HistoryTurn(BaseModel):
 
 @dataclass
 class CorrectedEntity(BaseModel):
-    """用户对识别实体的一次纠正指令（2026-09-16 工作单 P1-2 / P1-3 重构）。
+    """用户对识别实体的一次纠正指令。
 
     为什么要拆成"源 ID / 目标 ID"两个字段：一个 `entity_id` 同时表示
     "被替换的实体"和"替换成的新实体"，同名不同朝代时后端无法判断用户选中的是哪一个，
@@ -219,7 +219,7 @@ class QueryRequest(BaseModel):
         """从请求 dict 构造（嵌套 dict → dataclass 转换，避免直接 ** 展开时
         filters/corrected_entities/history 仍是 dict）。
 
-        同时做**边界与类型校验**（2026-09-15 审核 P0-2）：字段超长/超量、类型不符、
+        同时做**边界与类型校验**：字段超长/超量、类型不符、
         未知枚举一律抛 RequestValidationError，由 API 层在调用外部模型前返回 4xx。
         历史实现直接 `HistoryTurn(**h)`，多余字段会抛 TypeError，形状错误的
         filters 会把 dict 键当成参数名——报错信息对调用方毫无指导意义。
@@ -282,7 +282,7 @@ class QueryRequest(BaseModel):
                 raise RequestValidationError(f"corrected_entities[{i}] 必须是对象")
             action_raw = item.get("action")
             # 先确认是字符串：数组/对象会让 CorrectionAction(...) 抛 TypeError，
-            # 那是个未转换的 500，而不是可解释的 400（第四轮复核 P1-2）。
+            # 那是个未转换的 500，而不是可解释的 400。
             if not isinstance(action_raw, str):
                 raise RequestValidationError(
                     f"corrected_entities[{i}].action 必须是字符串 add/replace/remove，"
@@ -301,7 +301,7 @@ class QueryRequest(BaseModel):
                                limits.filter_value_max_chars)
                 return text or None
 
-            # 未知字段直接拒绝（P1-2 第 4 条）：显式列出而不是默默忽略
+            # 未知字段直接拒绝：显式列出而不是默默忽略
             unknown = sorted(set(item) - _CORRECTION_FIELDS)
             if unknown:
                 raise RequestValidationError(
@@ -316,7 +316,7 @@ class QueryRequest(BaseModel):
             original = _opt("original")
             replacement = _opt("replacement")
 
-            # 动作语义校验（P1-2 / P1-3）：缺定位字段一律 400，不允许静默 no-op，
+            # 动作语义校验：缺定位字段一律 400，不允许静默 no-op，
             # 也不允许用另一个动作的字段蒙混过关（add 不再接受 replacement 顶替 name）。
             if action is CorrectionAction.ADD:
                 if not name:
@@ -402,14 +402,14 @@ class F02Output(BaseModel):
     candidates: List[EntityCandidate] = field(default_factory=list)
     filters: Filters = field(default_factory=Filters)
     # 问句中自动识别到的朝代（仅用于排序加权，**不作为硬过滤**）。
-    # 显式筛选（F01 下拉）走 filters.dynasty，保持硬过滤；两者分开是 2026-09-13
-    # 审核后修复：硬过滤会把"被问到的朝代"连同事件本身一起剔除（如问"商朝"时
-    # 鸣条之战属夏，被整题清空而拒答）。详见 docs/CHANGELOG.md（RAGv4 系统问题 1）。
+    # 显式筛选（F01 下拉）走 filters.dynasty，保持硬过滤。两者必须分开：
+    # 硬过滤会把"被问到的朝代"连同事件本身一起剔除（如问"商朝"时鸣条之战属夏，
+    # 被整题清空而拒答）。详见 docs/CHANGELOG.md（RAGv4 系统问题）。
     dynasty_bias: List[str] = field(default_factory=list)
-    # 是否走了 F02 的 LLM 兜底（词典完全未命中 → 模型抽实体，RAGv5 §4.5）。
+    # 是否走了 F02 的 LLM 兜底（词典完全未命中 → 模型抽实体）。
     # 仅作可观测性：默认关闭；开启后进入 entities 事件与评测 trace，便于核对是否误触发。
     llm_entity_used: bool = False
-    # 同名多实体时，是否由"问句里提到的朝代"选定（偏好而非硬过滤，RAGv5 2026-09-14）。
+    # 同名多实体时，是否由"问句里提到的朝代"选定（偏好而非硬过滤）。
     # 例：问"西汉的井陉之战"→ 候选含战国/西汉两条，命中西汉那条并前置。
     # 仅作可观测性：进入 entities 事件与评测 trace；候选集合不变，页面仍可纠正。
     dynasty_disambiguated: bool = False

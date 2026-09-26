@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 静态资源路径检查（第 12 轮审查 P1-4 的回归门禁）。
+ * 静态资源路径检查（构建后的回归门禁）。
  *
  * 背景：vite 的 base 是 `/static/`，而 `public/` 下的资源**原样拷贝、不改名、也不会被
  * 构建器补上前缀**。于是写错路径的三种形态都不会让构建失败，只有上线后肉眼可见：
@@ -9,7 +9,7 @@
  *       转给旧后端 Flask，后端没有这条静态路由 → 登录主图 401/404。
  *   形态二（相对路径）CSS 里的 `url(background.jpg)`：相对 `dist/assets/*.css` 解析成
  *       `/static/assets/background.jpg`；更糟的是 vite 解析不到这个文件时会**把整条
- *       background 声明从产物里删掉**（本轮实测：修复前 dist 的 .login-wrap 规则里
+ *       background 声明从产物里删掉**（实测 dist 的 .login-wrap 规则里
  *       完全没有 background-image），页面上背景直接消失。
  *   形态三（同一形态一）`src="/icon/logout.svg"`：退出按钮图标 404。
  *

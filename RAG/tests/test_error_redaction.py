@@ -1,4 +1,4 @@
-"""对外错误文案的脱敏（第 14 轮审计 P2-2 / P2-3）。
+"""对外错误文案的脱敏。
 
 背景：`server/api.py` 里早就有 `_public_text()` 把服务器绝对路径换成占位符，但它
 只被"文件不存在"那几条分支用到，而**同一个文件**里另外三处（`读取词典失败` /
@@ -75,7 +75,7 @@ def test_异常里没有路径时文案保持可读(tmp_path):
 
 
 def test_词典缺失时的文案同样脱敏(tmp_path):
-    """同一个函数的另一条分支（文件不存在）此前就脱敏了，这里把它一起钉住。"""
+    """同一个函数的另一条分支（文件不存在）也要脱敏，这里把它一起钉住。"""
     from types import SimpleNamespace
 
     from server.api import _load_dicts_payload

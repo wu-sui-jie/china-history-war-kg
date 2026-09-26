@@ -167,7 +167,7 @@ def test_close_is_safe_without_connection(monkeypatch):
     client.close()          # 不应抛异常（SDK 客户端没有公开的 close）
 
 
-# ---- 传输层重试与幂等（审查报告 3.1-4）----
+# ---- 传输层重试与幂等 ----
 # 线上实测：一次瞬时 TLS 抖动（SSLEOFError）就让用户收到沉默，因为 requests 默认
 # max_retries=0、SDK 也没配重试。这一层重试与 uuid 幂等键必须一直有效。
 
@@ -247,7 +247,7 @@ def test_patch_card_retries_transport_errors(monkeypatch):
 def test_transport_failure_after_retries_is_raised(monkeypatch):
     """重试仍失败必须**抛给调用方**：dispatcher 据此撤回本轮历史。
 
-    早先的写法是任异常抛到 worker 的兜底 catch——用户收到沉默，这轮问答却留在
+    若任异常抛到 worker 的兜底 catch——用户收到沉默，这轮问答却留在
     历史里（回答从未送达，却参与下一轮上下文与回答缓存的键）。
     """
     client, messages, _ = make_flaky_client(monkeypatch, failures=99)

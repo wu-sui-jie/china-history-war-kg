@@ -1,4 +1,4 @@
-/** 主应用身份桥：让 RAG 前端知道"现在是谁在问"（问答记录隔离，问题二方案 A）。
+/** 主应用身份桥：让 RAG 前端知道"现在是谁在问"（问答记录按账号隔离）。
  *
  * 背景：RAG 是独立服务、没有用户体系，会话历史存在本页 localStorage 里且 key 全局唯一
  * （`ragv5-session-v3`）。主应用以同源 iframe 嵌入 RAG 时共享同一个 localStorage，
@@ -7,12 +7,12 @@
  * 这里只做三件事：
  * 1. 把主应用 postMessage 来的身份消息解析成 `{uid, role, token}` 并交给回调；
  * 2. 按账号组装存储 key——有 uid 用 `ragv5-session-v3:u{uid}`，没有 uid（独立访问
- *    :8000、或消息还没到）沿用原 key，行为与改造前完全一致；
- * 3. 把 token 交给 api/authToken 保管，供请求头使用（服务端验签，见 P1-1）。
+ *    :8000、或消息还没到）用基础 key；
+ * 3. 把 token 交给 api/authToken 保管，供请求头使用（服务端验签）。
  *
  * **换桶（setActiveUid）由 store 负责，这里不做**。原因是要保证"先把当前状态写回旧桶、
  * 再换 uid"这个顺序——如果桥先把 uid 改了，store 再写就会把上一个账号的会话写进新账号的
- * 桶里（串数据）。曾经踩过：桥改成传对象后 store 仍按字符串处理，activeUid 变成
+ * 桶里（串数据）。uid 的类型必须严格归一：把对象当字符串处理会得到
  * `"[object Object]"`，所有账号落进同一个桶，症状就是"两个账号记录一模一样"。
  * `tests/unit/user-scope-wiring.test.ts` 照 main.ts 的接线方式专门钉这一处。
  *
@@ -28,8 +28,8 @@ export const SESSION_STORAGE_KEY = 'ragv5-session-v3'
 
 /** uid 的形状约束：只接受数字/字母/下划线/连字符，且有长度上限。
  *
- * uid 会被直接拼进 localStorage 的 key，因此不能什么字符串都收（第 6 轮审核低危项）：
- * 桥曾经把对象当字符串处理，拼出 `ragv5-session-v3:u[object Object]` 这种桶；
+ * uid 会被直接拼进 localStorage 的 key，因此不能什么字符串都收：
+ * 把对象当字符串处理会拼出 `ragv5-session-v3:u[object Object]` 这种桶；
  * 超长 uid 也会把 key 长度和配额一起吃掉。主应用的账号 id 是数字，将来若换成
  * 字符串/UUID 也落在 `[A-Za-z0-9_-]` 之内。
  * 不合法一律按"没有账号"处理——退到独立访问语义，是这里最保守的一侧。
@@ -73,7 +73,7 @@ export function setActiveRole(role: string | null | undefined): void {
 
 /**
  * 按账号组装存储 key。
- * 没有账号（含 uid 非法）时不加后缀——独立访问 :8000 的场景与改造前一致，老记录也留在默认 key 里。
+ * 没有账号（含 uid 非法）时不加后缀——独立访问 :8000 走基础 key，老记录也留在默认 key 里。
  */
 export function storageKeyFor(uid: string | number | null | undefined, base = SESSION_STORAGE_KEY): string {
   const id = normalizeUid(uid)
@@ -90,7 +90,7 @@ export interface UserScopeMessage {
   uid: string | null
   /** 主应用给出的角色（admin/editor/viewer 或空串）。老版本主应用不发这个字段，按空串处理。 */
   role: string
-  /** 主应用的登录凭证（JWT），服务端验签用（第 12 轮审查 P1-1）；老版本主应用不发则为空串。 */
+  /** 主应用的登录凭证（JWT），服务端验签用；老版本主应用不发则为空串。 */
   token: string
 }
 

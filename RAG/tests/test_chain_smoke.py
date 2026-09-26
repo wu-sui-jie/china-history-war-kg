@@ -39,9 +39,9 @@ def runtime():
     s.fallback_llm_base_url = ""
     s.fallback_llm_api_key = ""
     rt = build_runtime(s, "20260904_v2")
-    # 查询侧 embedding 换成桩客户端（第 12 轮审查 P2-2）：本文件考的是"模式是否透传到
-    # 文本检索"与"有没有结果"，不是检索质量。跑真实端点会让断言依赖网络与密钥——
-    # 审查当次就有 1 条用例因为端点不可用而静默降级、断言失败（改成"只要有网就绿"）。
+    # 查询侧 embedding 换成桩客户端：本文件考的是"模式是否透传到文本检索"与
+    # "有没有结果"，不是检索质量。跑真实端点会让断言依赖网络与密钥——端点不可用时
+    # 会静默降级、断言失败（结果变成"只要有网就绿"）。
     # 只替换查询侧向量化：Chroma 制品加载与 vector_available 判定仍是真实链路。
     rt.text.embed_fn = offline_embed_fn(getattr(s, "embedding_dim", 1024))
     yield rt
@@ -78,7 +78,7 @@ def test_text_only_disables_graph(runtime):
 
 
 def test_text_mode_passthrough_and_autodowngrade(runtime):
-    """EvalConfig.mode 透传到文本检索（RAGv5 T3 起向量已可用）。
+    """EvalConfig.mode 透传到文本检索（RAGv5 起向量已可用）。
 
     两条断言覆盖两件事：
     1. mode="vector" 且向量后端可用 → 实际执行 vector 并返回结果；

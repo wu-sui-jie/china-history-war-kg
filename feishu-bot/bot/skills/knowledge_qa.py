@@ -1,4 +1,4 @@
-"""knowledge_qa：知识问答技能（开发文档 5.3，P0-3）。
+"""knowledge_qa：知识问答技能（开发文档 5.3）。
 
 流程：
     取 history（由 dispatcher 组装）→ rag_client.query
@@ -25,7 +25,7 @@ class KnowledgeQaSkill:
     name = "knowledge_qa"
     # 卡片按钮 value.action=ask（示例问题/追问按钮）也归本技能处理
     card_action = "ask"
-    # 两段式回复（批次③-1）：本技能同步等 RAG，长回答实测 12–25s，
+    # 两段式回复：本技能同步等 RAG，长回答实测 12–25s，
     # 声明它之后 dispatcher 会先回一张"正在检索…"占位卡，跑完再 PATCH 成最终卡
     wants_placeholder = True
 
@@ -91,7 +91,7 @@ class KnowledgeQaSkill:
 
     # ---- 内部 ----
     def _examples(self) -> list[str]:
-        """示例问题（P1-3）；拿不到就返回空列表，按钮区不渲染。"""
+        """示例问题；拿不到就返回空列表，按钮区不渲染。"""
         if self.examples is None:
             return []
         try:
@@ -101,7 +101,7 @@ class KnowledgeQaSkill:
             return []
 
     def _subgraph_image(self, panel: dict) -> str | None:
-        """子图 → image_key（P2-1）。任何失败都返回 None，由 builder 走文字降级。
+        """子图 → image_key。任何失败都返回 None，由 builder 走文字降级。
 
         上传动作在 renderer 内部完成（它同时持有 Node 渲染与 Feishu 上传两端），
         这里只管"有没有可渲染的子图"。
@@ -125,10 +125,10 @@ class KnowledgeQaSkill:
                      error.code, len(ctx.question))
             return Reply(kind="card", card=build_too_long_card())
 
-        # 降级原因分三档（第 14 轮审计 P3-6）：timeout 单独一档（文案说"稍后再试"），
+        # 降级原因分三档：timeout 单独一档（文案说"稍后再试"），
         # 集合里的可重试失败归 unavailable，其余才落到 internal。
-        # 判定依据取自 rag_client.DEGRADED_CODES —— 它原先是个**没有任何引用**的常量，
-        # 真正决定降级的是这里一句硬编码，于是"往集合里加错误码"会静默无效。
+        # 判定依据取自 rag_client.DEGRADED_CODES —— 往那个集合里加错误码才会生效，
+        # 这里不再另写硬编码判断。
         reason = ("timeout" if error.code == "timeout"
                   else "unavailable" if error.code in DEGRADED_CODES
                   else "internal")

@@ -1,8 +1,8 @@
-/** 知识库管理页的公共 CRUD 逻辑（FE-4，2026-09-25）。
+/** 知识库管理页的公共 CRUD 逻辑。
  *
- * 四个管理页（战争事件 / 参战组织 / 历史人物 / 战争地点）原先各有一份 ~250 行的
- * 复制粘贴：列表拉取、分页与查询、新增/编辑提交、删除确认、详情跳转。四份的差异只有
- * 节点类型、字段集合、列配置与文案，逻辑一字不差——改一处要改四遍。
+ * 四个管理页（战争事件 / 参战组织 / 历史人物 / 战争地点）的列表拉取、分页与查询、
+ * 新增/编辑提交、删除确认、详情跳转本可以共用一份：四份的差异只有
+ * 节点类型、字段集合、列配置与文案，逻辑一字不差——各自复制粘贴会变成改一处要改四遍。
  *
  * 这里把逻辑收成一份，页面只声明"自己长什么样"：
  *
@@ -14,7 +14,7 @@
  *       emptyForm: () => ({ id: null, type: 'Event', EventName: '', ... }),
  *     })
  *
- * 行为与抽之前的四份实现逐句对应（含提示文案、空值送 null、删除前确认），
+ * 行为与四个页面各自的实现逐句对应（含提示文案、空值送 null、删除前确认），
  * tests/component/crud-pages.test.ts 是这四页的回归底线。
  */
 
@@ -110,7 +110,7 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
   }
 
   // 参与提交的字段 = 空表单里除 id/type 之外的键，顺序也沿用空表单（后端不关心顺序，
-  // 但保持与抽之前逐字段一致，便于对照 payload）
+  // 但保持与声明的顺序逐字段一致，便于对照 payload）
   const submitFields = Object.keys(emptyForm()).filter((key) => key !== 'id' && key !== 'type')
 
   function add() {
@@ -194,7 +194,7 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
             layer.msg(res.msg || '删除失败', { icon: 2 })
           }
         }).catch((error: any) => {
-          // 修正 2026-09-25：原先没有 catch，viewer 被 403 拒绝时确认框关了
+          // 删除路径必须有 catch：viewer 被 403 拒绝时确认框关了
           // 却毫无反馈（"删除没反应"）。与提交路径一致，弹后端的失败原因。
           layer.msg(error?.response?.data?.msg || '网络错误，请重试', { icon: 2 })
         })
@@ -203,7 +203,7 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
         layer.close(index)
       },
       // layui-vue 的 LayerProps 类型没写出 btn2（取消按钮），运行时支持；这里只压类型，
-      // 行为与四个页面原来的写法一致
+      // 不影响取消按钮的实际行为
     } as any)
   }
 
@@ -238,9 +238,8 @@ export function useNodeCrudPage(options: NodeCrudPageOptions): NodeCrudPage {
         layer.msg(res.msg || '查询失败', { icon: 2 })
       }
     }).catch((error: any) => {
-      // 第 14 轮审计 P2-15：后端失败现在是 4xx/5xx（见第 13 轮复核整改第五节），
-      // 只有 catch 分支拿得到后端文案。原先没有 catch → 接口 500 时表格空白、
-      // 控制台留一条 unhandled rejection，用户只看到"没数据"。
+      // 后端失败是 4xx/5xx，只有 catch 分支拿得到后端文案。没有 catch 时
+      // 接口 500 会让表格空白、控制台留一条 unhandled rejection，用户只看到"没数据"。
       console.error('查询节点列表失败:', error)
       dataSource.value = []
       page.value.total = 0

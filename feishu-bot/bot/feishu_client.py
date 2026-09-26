@@ -57,7 +57,7 @@ log = logging.getLogger(__name__)
 MSG_TYPE_CARD = "interactive"
 MSG_TYPE_TEXT = "text"
 
-# 传输层重试：一次瞬时抖动不能让用户收到沉默（2026-09-24 线上实测——RAG 正常返回
+# 传输层重试：一次瞬时抖动不能让用户收到沉默（线上实测——RAG 正常返回
 # 5.9s，组卡后对 open.feishu.cn 的 TLS 连接被对端掐断（SSLEOFError），异常一路抛到
 # worker 的兜底 catch，用户什么也没收到）。根因是 requests 的 HTTPAdapter 默认
 # max_retries=0、SDK 也没配重试，所以这一层只能自己兜。
@@ -203,7 +203,7 @@ class FeishuClient:
         """上传图片得 image_key。
 
         必须传**文件对象**：SDK 的 multipart 组装会把 bytes/str 静默转成字符串，
-        结果是发出去一个 `b'...'` 字面量（P0-4 实测坑）。
+        结果是发出去一个 `b'...'` 字面量（实测坑）。
         """
         path = Path(path)
         try:

@@ -1,11 +1,11 @@
-"""请求身份校验：验证旧后端签发的 JWT（第 12 轮审查 P1-1）。
+"""请求身份校验：验证旧后端签发的 JWT。
 
 ## 为什么需要
 
-RAG 此前没有用户体系：`/api/query`（SSE）没有任何鉴权，`/api/query/json` 只有一个
-**可选的共享密钥**，nginx 里的 `auth_basic` 又是注释掉的。于是知道 `/rag/` 地址的人
-就能直接调用问答接口，既不受旧系统的 admin/editor/viewer 控制，也能消耗模型费用与
-限流配额；浏览器侧那个 uid 只用来拼 localStorage key，根本不是服务端身份。
+`/api/query`（SSE）默认没有任何鉴权，`/api/query/json` 只有一个**可选的共享密钥**，
+nginx 里的 `auth_basic` 默认是注释掉的。因此知道 `/rag/` 地址的人就能直接调用问答接口，
+既不受旧系统的 admin/editor/viewer 控制，也能消耗模型费用与限流配额；
+浏览器侧那个 uid 只用来拼 localStorage key，根本不是服务端身份。
 
 这里让 RAG 用**旧后端同一把密钥**验签：能验出 `user_id` 就说明这个请求确实来自
 已登录的主应用，身份进入请求上下文（`request.state.identity`），后续要按角色收敛

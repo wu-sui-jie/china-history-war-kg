@@ -275,7 +275,7 @@ class SessionStore:
 
     # ---- 清理 ----
     def reset(self, key: str) -> dict[str, int]:
-        """清空一个会话的上下文（`/new` 命令，批次③-2）。返回各表删除行数。
+        """清空一个会话的上下文（`/new` 命令）。返回各表删除行数。
 
         删 `messages` 与 `sessions` 两张表里该 session_key 的行；**`feedback` 表不动**
         ——纠错记录是治理队列，不该因为用户重置会话而消失（开发文档 5.7）。

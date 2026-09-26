@@ -1,4 +1,4 @@
-"""事件接入的守护用例（开发文档 10.1 / P0-4）。
+"""事件接入的守护用例（开发文档 10.1）。
 
 三件事必须成立，否则线上表现为"用户收到重复回答"或"机器人不响应"：
 1. event_id 去重（含重复投递）——飞书是"至少一次"投递；
@@ -174,7 +174,7 @@ class FakeFeishu:
 
 
 class EchoSkill:
-    """最小技能：把问题原样回显成卡片（P0-2 验收里的"已收到：xxx"）。"""
+    """最小技能：把问题原样回显成卡片（"已收到：xxx"）。"""
 
     name = "echo"
 
@@ -248,7 +248,7 @@ def test_message_dedupe_without_event_id_uses_message_id(config, session, db):
     assert dispatcher.stats["enqueued"] == 2
 
 
-# ---- 卡片回调去重（P0-4 验收口径）----
+# ---- 卡片回调去重 ----
 
 
 def test_card_action_dedupe_by_event_id(config, session, db):
@@ -261,7 +261,7 @@ def test_card_action_dedupe_by_event_id(config, session, db):
 
 
 def test_card_action_fallback_window_allows_real_repeated_clicks(config, session, db):
-    """连点两次同一按钮必须两条都处理（P0-4 的明确验收项）。
+    """连点两次同一按钮必须两条都处理。
 
     窗口只有 2s（默认）：真实二次点击之间必然超过它，所以两次都要放行；
     同一次点击的重投发生在毫秒级，会被压住。
@@ -337,7 +337,7 @@ def test_handle_message_records_answer_round_in_order(config, session, db):
 
 
 def test_send_failure_rolls_back_the_whole_turn(config, session, db):
-    """发送失败（重试后仍未成功）要把刚落库的两行一起撤回（审查报告 3.1-4）。
+    """发送失败（重试后仍未成功）要把刚落库的两行一起撤回。
 
     用户什么都没收到，这轮却留在历史里会污染下一轮上下文，也让 RAG 回答缓存的键
     永远命中不了（线上实测：本该毫秒返回的问题退化成十几秒真生成）。
@@ -376,7 +376,7 @@ def test_group_message_with_mention_strips_prefix(config, session, db):
 
 
 def test_group_message_keeps_mention_of_other_people(config, session, db):
-    """群里 @ 别人是问题的一部分，不能连它一起剥掉（审查报告 3.2-2）。"""
+    """群里 @ 别人是问题的一部分，不能连它一起剥掉。"""
     feishu = FakeFeishu()
     dispatcher = make_dispatcher(config, session, db, feishu=feishu)
     dispatcher.command_bot_open_id = "ou_bot"
@@ -448,7 +448,7 @@ def test_unknown_card_action_is_logged_not_crashing(config, session, db):
     assert dispatcher.stats["handled"] == 0
 
 
-# ---- 两段式回复（批次③-1）----
+# ---- 两段式回复 ----
 
 
 class SlowSkill:
@@ -522,7 +522,7 @@ def test_parsers_tolerate_bad_payloads(bad):
     assert parse_card_action(bad) is None
 
 
-# ---- 使用范围白名单（第 12 轮审查 P2-5）----
+# ---- 使用范围白名单 ----
 
 
 def _wait_until(predicate, timeout: float = 2.0) -> bool:
@@ -542,7 +542,7 @@ def _dispatcher_with_whitelist(config, session, db, **overrides) -> Dispatcher:
 
 
 def test_白名单为空时不限制(config, session, db):
-    """内网默认行为必须与改造前逐字一致：不配白名单 = 谁都能用。"""
+    """内网默认行为（不配白名单 = 谁都能用）必须逐字保持。"""
     dispatcher = _dispatcher_with_whitelist(config, session, db)
 
     assert dispatcher.is_allowed("oc_anyone", "ou_anyone") is True
@@ -601,11 +601,11 @@ def test_白名单外的卡片回调同样被拒(config, session, db):
     assert dispatcher.stats["rejected_not_allowed"] == 1
 
 
-# ---- 队列上限（第 12 轮审查 P2-5）----
+# ---- 队列上限 ----
 
 
 def test_队列有上限且满时快速拒绝(config, session, db):
-    """队列原先无上限，突发消息会一路吃内存直到进程被 OOM 杀掉。"""
+    """队列必须有上限：无上限时突发消息会一路吃内存直到进程被 OOM 杀掉。"""
     from dataclasses import replace
 
     dispatcher = make_dispatcher(replace(config, queue_max_size=2), session, db)
@@ -669,7 +669,7 @@ def test_繁忙提示可关闭(config, session, db):
     assert dispatcher.stats["rejected_full"] == 1
 
 
-# ---- 第 13 轮整改：停机不死锁 + 队列满不丢消息 ----
+# ---- 停机不死锁 + 队列满不丢消息 ----
 
 
 def _event_status(db, event_id: str) -> str | None:
@@ -678,10 +678,10 @@ def _event_status(db, event_id: str) -> str | None:
 
 
 def test_停机时队列满也不会阻塞(config, session, db):
-    """原先 `stop()` 用 `queue.put(None)` 唤醒 worker：队列满时会永久阻塞。
+    """`stop()` 若用 `queue.put(None)` 唤醒 worker，队列满时会永久阻塞。
 
     这里刻意**不启动 worker**（没人从队列取任务，等价于"worker 正卡在长任务上"），
-    把队列填满后调 stop——改造前这一步会永远回不来。
+    把队列填满后调 stop——哨兵消息这一步会永远回不来。
     """
     from dataclasses import replace
 
@@ -820,7 +820,7 @@ def test_老库补列迁移把既有事件视为已处理(tmp_path):
         database.close()
 
 
-# ------------------------------- 卡住事件的启动恢复（第 14 轮审计 P1-5）
+# ------------------------------- 卡住事件的启动恢复
 
 
 def _status(db, event_id: str) -> str | None:
@@ -857,7 +857,7 @@ def test_恢复后飞书重投能再认领(config, session, db):
 
     claim = dispatcher._claim_event("lost-ev", "im.message.receive_v1")
 
-    assert claim is not None, "重投必须能重新认领（这是'提问永久卡死'的修法）"
+    assert claim is not None, "重投必须能重新认领，否则这条提问会永久卡死"
 
 
 def test_已完成的与失败的不会被恢复(config, session, db):

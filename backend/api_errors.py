@@ -1,8 +1,8 @@
-"""统一的 API 错误响应（第 13 轮整改，文档第九节）。
+"""统一的 API 错误响应（文档第九节）。
 
 ## 为什么需要
 
-改造前，**框架层**的错误返回的是 Flask 的 HTML 页面：
+**框架层**的错误默认返回的是 Flask 的 HTML 页面：
 
 - 路由里抛出的未捕获异常 → 500 HTML（`FLASK_DEBUG=1` 时还带上完整堆栈与本地变量）；
 - 路径不存在 / 方法不对 → 404、405 的 HTML 页面；
@@ -23,8 +23,8 @@
 
 **为什么 `code` 保持数值而不是文档示例里的字符串**（`"NODE_NOT_FOUND"`）：
 前端所有页面都按 `code == 200` 这类数值分支，`frontend/src/utils/apiError.ts` 也读 `msg`。
-把 code 换成字符串是一次跨端迁移（前端、快照用例、文档同时改），不是修缺陷；
-这里先把"框架层错误没有 JSON 形状"这个真实缺口补上，并**同时给出 `message`**
+把 code 换成字符串是一次跨端迁移（前端、快照用例、文档同时改），收益与代价不成比例；
+这里只补"框架层错误没有 JSON 形状"这个缺口，并**同时给出 `message`**
 （文档用的名字），让将来迁移时前端有现成的字段可读。
 
 ## 三条硬约束
@@ -75,7 +75,7 @@ def error_payload(http_status: int, msg: str, *, code=None, data=None) -> dict:
     """拼统一错误体。`code` 可以覆盖（业务码与 HTTP 状态不一致时用）。
 
     `data` 用于保留调用方的响应形状：列表接口出错时仍要回空列表，前端才不会在
-    `data.map` 上崩（第 13 轮复核第七节把这条推广到了各蓝图自己返回的 4xx 上）。
+    `data.map` 上崩（各蓝图自己返回的 4xx 同样要保持这个形状）。
     """
     return {
         "code": http_status if code is None else code,
@@ -89,7 +89,7 @@ def error_payload(http_status: int, msg: str, *, code=None, data=None) -> dict:
 def server_error(prefix: str, exc: Exception, *, data=None):
     """路由内部异常的统一出口：日志里记全量，响应里只给安全文案。
 
-    各写入路由原先是 `return jsonify({"code": 500, "msg": str(e)})`——**HTTP 仍是 200**，
+    写成 `return jsonify({"code": 500, "msg": str(e)})` 有两个问题：**HTTP 仍是 200**，
     而且 `str(e)` 常带文件路径、SQL、库名（文档第九节明确要求"内部异常写日志，
     对客户端只返回安全错误信息"）。这个函数把两件事一次做对：
 
@@ -128,7 +128,6 @@ def json_body():
                        got, request.method, request.path, request_id())
         return None, (jsonify(error_payload(400, "请求体必须是一个 JSON 对象")), 400)
     return data, None
-
 
 
 def _safe_message(exc: HTTPException, http_status: int) -> str:

@@ -29,9 +29,9 @@ def resolve_embedding_key(settings: Settings) -> str:
 
 
 class EmbeddingClient:
-    """带生命周期的向量模型客户端（2026-09-16 工作单 P0-3）。
+    """带生命周期的向量模型客户端。
 
-    为什么不再返回裸闭包：`OpenAI(...)` 内部持有 HTTP 连接池，闭包形式让 Runtime
+    为什么不返回裸闭包：`OpenAI(...)` 内部持有 HTTP 连接池，闭包形式让 Runtime
     拿不到任何句柄，服务退出/热重载/测试反复启动时连接池无处释放。
     本类把 embedding 调用与资源释放放在一起：
     - `__call__(texts)`：与旧的 `embed_fn(texts)` 行为完全一致（可直接替换）；
@@ -117,7 +117,7 @@ def build_embed_fn(settings: Settings, logger=None) -> Optional[Callable[[List[s
     密钥/地址/模型任一缺失时返回 None（调用方走占位或跳过，不静默产假向量）。
 
     注意：返回的闭包**不可关闭**，服务端请改用 `build_embedding_client()`，
-    这样 Runtime 才能枚举并在退出时释放连接池（工作单 P0-3）。
+    这样 Runtime 才能枚举并在退出时释放连接池。
     """
     client = build_embedding_client(settings, logger=logger)
     if client is None:

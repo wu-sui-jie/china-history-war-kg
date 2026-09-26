@@ -1,4 +1,4 @@
-/** 会话按账号隔离与切换（问题二方案 A 的 store 侧）。
+/** 会话按账号隔离与切换（store 侧）。
  *
  * 最关键的一条是切换顺序：**先把当前内存状态写回原 key，再读新账号的存储**。
  * 反过来会把上一个账号的会话写进新账号的桶里（串数据），因此这里正面钉它。
@@ -98,7 +98,7 @@ test('退出到无账号：回到共享桶内容，账号桶保留', () => {
   assert.ok((localStorage.getItem(`${SESSION_STORAGE_KEY}:u7`) || '').includes('我的会话'))
 })
 
-/** 升级前的全局记录（第 6 轮审核 H2）：它不属于任何账号，不能被"先到者"收编。 */
+/** legacy 全局键（v2 结构）里的记录：它不属于任何账号，不能被"先到者"收编。 */
 const LEGACY_V2_KEY = 'ragv5-session-v2'
 
 function seedLegacySession(title: string) {

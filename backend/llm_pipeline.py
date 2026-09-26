@@ -1,6 +1,6 @@
-"""LLM 流水线：模型调用、文本抽取链与问答编排（P2-1 第二步）。
+"""LLM 流水线：模型调用、文本抽取链与问答编排。
 
-拆出范围（原先全在 app.py，合计约 1000 行）：
+本模块的范围：
 
 - `OllamaAdapter`：本地 Ollama 调用适配（重试 + 剥离 Markdown 代码块）。
 - 抽取链：`extract_all_optimized`（分段 → 实体 → 事件 → 关系，含去重与字段归一）
@@ -30,15 +30,15 @@ from common_utils import brief_error
 from logging_util import get_logger
 
 # EER（war_extraction）已是正式包：backend 以依赖方式引用它
-# （开发态 `pip install -e ../entity-event-relation`），不再往 sys.path 里塞目录（P2-4 收口）。
+# （开发态 `pip install -e ../entity-event-relation`），不往 sys.path 里塞目录。
 from inference.rule_llm_integration import DYNASTY_SCOPE_MAP  # noqa: E402
 from war_extraction.models import (  # noqa: E402
     EntityExtractionResult,
     EventExtractionResult,
     RelationExtractionResult,
 )
-# 抽取编排（分段循环 + 三阶段调用 + 失败诊断）现在只有一份，在 war_extraction 里；
-# 第 11 轮 C-1 起 backend 不再自己维护一套（原先两份平行实现已经漂过一次，见 EER-7）。
+# 抽取编排（分段循环 + 三阶段调用 + 失败诊断）只有一份，在 war_extraction 里；
+# backend 不自己维护第二套——两份平行实现已经漂过一次。
 from war_extraction.core.extraction_runner import run_extraction  # noqa: E402
 
 logger = get_logger(__name__)
@@ -234,7 +234,7 @@ def extract_all_optimized(llm, text: str):
     - RelationExtractor: 关系抽取（RELATION_EXTRACTION_PROMPT）
     支持长文本分段处理，自动合并去重
 
-    第 11 轮 C-1：分段循环与三阶段调用搬进 `war_extraction.core.extraction_runner`，
+    分段循环与三阶段调用在 `war_extraction.core.extraction_runner` 里，
     与离线链路（entity-event-relation/main.py）共用同一份编排。本函数保留的只是
     **backend 自己的后处理**——逐字段 `_to_str` / 归一化、跨段按名字去重收集、
     以及"所有阶段都没成功就抛 ExtractionUnavailable"这一接口层口径。
@@ -600,8 +600,8 @@ def run_inference(rule_engine, entity_extractor, question, request_id):
         elif "invalid" in error_msg.lower() or "syntax" in error_msg.lower():
             user_message = "抱歉，您的问题格式可能有误，请尝试用不同方式提问。"
 
-        # 完整异常只进日志（第 14 轮审计 P2-4）。原先这里回 `error_detail = str(e)`，
-        # 会把 Ollama/Neo4j 的连接串、主机与内部路径原样送给客户端；
+        # 完整异常只进日志。回 `error_detail = str(e)` 会把 Ollama/Neo4j 的连接串、
+        # 主机与内部路径原样送给客户端；
         # 触发条件是"模型服务没起"这种最常见的情形，因此不是理论风险。
         # `brief_error` 只取第一行并截断——保留"模型没起"这类用户可自行判断的线索。
         return {
@@ -902,8 +902,8 @@ _singleton_init_lock = threading.Lock()
 def get_shared_extractors():
     """返回 (实体提取器, 规则推理引擎)；某一个建失败就是 None，不影响另一个。
 
-    原来的写法是模块级全局变量 + before_request 里直接赋值；状态集中到这里以后，
-    调用方（app.py 的钩子）只负责把它挂到 flask.g 上，不再各自维护全局。
+    单例的构建与加锁集中在这里，调用方（app.py 的钩子）只负责把它挂到 flask.g 上，
+    不各自维护模块级全局变量（多线程下会串号）。
     """
     global _shared_entity_extractor, _shared_rule_llm_integration
 

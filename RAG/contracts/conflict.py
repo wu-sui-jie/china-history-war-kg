@@ -1,6 +1,6 @@
 """冲突对象（docs/data-contract.md → conflicts 示例 / 冲突与证据合并）。
 
-初版只做两类结构化冲突判定，范围严格限定：
+本层只做两类结构化冲突判定，范围严格限定：
 - graph_triple × graph_triple：同 subject、同 relation、不同 object（different_object）。
 - graph_triple × event_card：图谱关系字段与事件卡片字段不一致（field_vs_triple）。
 raw_text / evidence 不参与自动冲突判定。

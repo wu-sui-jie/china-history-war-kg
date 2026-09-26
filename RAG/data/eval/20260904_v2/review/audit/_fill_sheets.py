@@ -11,7 +11,7 @@ import pandas as pd
 REVIEW = Path(__file__).resolve().parent
 REVIEWER = "AI代理审核-ZCode(deepseek-v4-flash)"
 
-# ---------- 第一轮：题库审核 ----------
+# ---------- 题库审核 ----------
 # 留空（存疑/保留）的行：A 类四题，按 REVIEW_GUIDE §2.3 建议方案① 保留原题作缺陷复现样本
 BANK_HOLD = {"B01", "E01", "R05", "T03"}
 
@@ -24,7 +24,7 @@ assert list(bank["id"]) == orig_ids
 assert list(bank.columns) == orig_cols
 bank.to_csv(REVIEW / "bank_review_filled.csv", index=False, encoding="utf-8-sig")
 
-# ---------- 第二轮：答案/引用评分 ----------
+# ---------- 答案/引用评分 ----------
 scores = pd.read_csv(REVIEW / "scores_review_20260913_143352.csv", encoding="utf-8-sig", dtype=str).fillna("")
 s_cols = list(scores.columns)
 s_ids = list(scores["qid"])

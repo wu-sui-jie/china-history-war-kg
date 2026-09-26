@@ -72,13 +72,12 @@ chmod 755 "${APP_DIR}"
 
 # ---------------------------------------------------------------- systemd
 log "2/5 安装 systemd 服务单元"
-# 补偿队列的两个单元一起装（第 14 轮审计 P2-23）：原先它们只能手工 `cp`，
-# 而 selfcheck.sh 也不查——照 README 从上到下执行的人大概率漏掉，
-# 于是 Neo4j 写失败后的自动重放长期不生效，且没有任何检查会报出来。
+# 补偿队列的两个单元一起装：它们不是"可选附件"——漏装则 Neo4j 写失败的自动重放
+# 不会发生，而 selfcheck.sh 会因此报失败（不靠"照 README 手工 cp"来保证）。
 # 注意单元名必须带 `.service` 后缀：这里拼的是 `deploy/systemd/${unit}` 与
-# `/etc/systemd/system/${unit}` 两个路径。历史上前三个名字漏了后缀，于是本步骤
-# 必然走到 `die "缺少 .../systemd/china-war-backend"`——照 README 从上到下执行的人
-# 卡在 2/5，而 CI 只看脚本语法（`bash -n` 不会发现名字写错）。
+# `/etc/systemd/system/${unit}` 两个路径，名字写错一个字就会走到
+# `die "缺少 .../systemd/china-war-backend"`、卡在 2/5，而 CI 只看脚本语法
+# （`bash -n` 不会发现名字写错）。
 # 回归见 scripts/check_deploy_config.py 的 check_install_services_unit_list。
 for unit in china-war-backend.service china-war-rag.service china-war-bot.service \
             china-war-outbox-retry.service china-war-outbox-retry.timer \
@@ -141,7 +140,7 @@ echo "站点已启用：server_name ${SERVER_NAME}"
 log "4/5 校验配置"
 nginx -t
 
-# 鉴权门禁（第 13 轮复核第五节）：必须在**启动服务之前**拦住
+# 鉴权门禁：必须在**启动服务之前**拦住
 # "RAG 以为 nginx 在鉴权、nginx 实际没配认证"这类组合——那种部署两边都能正常启动、
 # 日志里没有任何异常，唯一的后果是公网 RAG 没有访问控制。脚本会校验：
 # 鉴权模式取值、两侧 JWT 密钥是否同值、nginx 档下 auth_basic 是否真的生效

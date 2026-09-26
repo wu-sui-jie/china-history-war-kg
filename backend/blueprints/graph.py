@@ -1,8 +1,8 @@
-"""图谱可视化与检索路由（P2-1 收官：从 app.py 按业务分组迁出）。
+"""图谱可视化与检索路由。
 
 覆盖全图检索（search_name_kg）、四类子页面关系图、单节点一阶子图、关系分析与全局搜索。
-**URL 未变**；错误口径按第 13 轮复核第七节迁移：统一 JSON + 正确 HTTP 状态 + 不外发异常原文
-（改动前这里一律是 `HTTP 200 + code 500 + msg=str(e)`，详见 api_errors 的模块文档）。
+**URL 未变**；错误口径：统一 JSON + 正确 HTTP 状态 + 不外发异常原文
+（不要回 `HTTP 200 + code 500 + msg=str(e)`，详见 api_errors 的模块文档）。
 """
 
 from flask import Blueprint, jsonify, request
@@ -33,7 +33,7 @@ def search_name():
     node_type = data.get('node_type', '')
     rel_type = data.get('rel_type', '')
     # 是否全图加载：默认关。全量分支会 `MATCH (n) RETURN n` 拉全部节点与关系且没有上限，
-    # 大图上单次请求就能吃掉大量内存与带宽（BE-8）。显式要求时也要先看规模。
+    # 大图上单次请求就能吃掉大量内存与带宽。显式要求时也要先看规模。
     load_all = bool(data.get('load_all', False))
 
     try:
@@ -76,8 +76,8 @@ def search_name():
                            else "limited"),
         })
     except Exception as e:
-        # 完整堆栈由 server_error 记进日志（原先这里还有一次 traceback.print_exc()，
-        # 与 logger.exception 重复）；响应里只有安全文案 + request_id
+        # 完整堆栈由 server_error 记进日志（它内部就是 logger.exception，
+        # 不要再加一次 traceback.print_exc()）；响应里只有安全文案 + request_id
         return api_errors.server_error("图谱搜索失败", e, data={"nodes": [], "lines": []})
 
 

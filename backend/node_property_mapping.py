@@ -1,6 +1,6 @@
-"""SQLite ↔ Neo4j 字段映射的单一来源（DB-7）。
+"""SQLite ↔ Neo4j 字段映射的单一来源。
 
-背景：同一套映射原先在三个地方各维护一份——`db_utils._field_mapping_by_type`（API 键 → 列）、
+背景：同一套映射若在多个地方各维护一份——`db_utils._field_mapping_by_type`（API 键 → 列）、
 `db_utils._neo4j_props`（列 → Neo4j 属性）、`sync_sqlite_to_neo4j` 的四个 `props()`（列 → Neo4j 属性）。
 任一处新增字段都要改三遍，且两侧对不上时不会报错，只会让图谱属性悄悄缺字段。
 
@@ -146,7 +146,7 @@ def neo4j_props(node_type: str, column_values: dict, include_name: bool = False,
     同步脚本要随属性一起写。
     fixed：额外固定属性（如 Event 的展示标签 `type`）。
 
-    写图谱前统一做编码复原（FE-13）：本函数是同步/建图路径上唯一的属性出口，
+    写图谱前统一做编码复原：本函数是同步/建图路径上唯一的属性出口，
     乱码在这里修掉，前端就不必再维护"乱码 key → 正常 key"的兼容映射。
     """
     props = dict(fixed or {})

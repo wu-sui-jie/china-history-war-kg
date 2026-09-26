@@ -1,12 +1,12 @@
 <!--
   消息列表（旧问答助手的聊天区）。
 
-  从 views/inference/index.vue 的模板里整块搬出来（第 7 轮 W2），class 名与结构保持不变。
+  class 名与结构沿用 views/inference/index.vue 的页面级样式，不要改动。
   子组件自己持有"每条消息的展开状态"（图谱可视化、引用信息、实体卡片）——它们是纯展示状态，
   与页面无关；对外只派发 copy / ask / node-click 三类动作。
 
-  滚动也归它管：父页面原先通过 ref 直接改 `.message-container` 的 scrollTop，
-  现在改用 defineExpose 暴露的 scrollToBottom / scrollToTop，避免跨组件操作 DOM。
+  滚动也归它管：父页面不直接改 `.message-container` 的 scrollTop，
+  而是用 defineExpose 暴露的 scrollToBottom / scrollToTop，避免跨组件操作 DOM。
 -->
 <template>
   <div class="message-container" ref="container">

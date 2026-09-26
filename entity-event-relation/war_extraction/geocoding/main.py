@@ -112,7 +112,7 @@ def run_full_pipeline(api_key: str = None, db_path: str = None, mode: str = 'int
     # 批量编码
     results = geocoder.batch_geocode(places)
 
-    # 日配额截断（A-3）：接下来审核 / 导入的只是部分结果，默认在此停下
+    # 日配额截断：接下来审核 / 导入的只是部分结果，默认在此停下
     if warn_if_quota_truncated(geocoder) and not allow_partial:
         print("\n已停止：本次只编码了部分地点，不进入审核 / 导入。")
         print("补齐后重跑本命令即可（已成功的坐标在编码结果文件里，可从那里复用）。")

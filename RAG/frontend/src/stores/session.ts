@@ -1,14 +1,14 @@
 /** 会话与问答状态（localStorage 持久化）。
  *
- * 状态机（2026-09-15 审核 P0-4/P0-5/P0-6）：
- * - 每轮回答只有一个终态 `turnStatus`，`streaming/finished/cancelled` 由它派生，
- *   不再各自为政（历史实现里 done 会把 error 轮标成 finished，进而污染下一轮上下文）；
+ * 状态机：
+ * - 每轮回答只有一个终态 `turnStatus`，`streaming/finished/cancelled` 由它派生；
+ *   三者各自为政会出现 done 把 error 轮标成 finished、进而污染下一轮上下文的错位；
  * - 只有 completed/refused/degraded 进入多轮历史，且被纠正结果替代的轮次会被排除；
  * - 流自然结束但没收到 done → interrupted（半截回答不进历史，也不再永久转圈）；
  * - 刷新恢复时把所有未收敛的瞬态状态迁移为 interrupted（幽灵流式消息没有 AbortController）。
  *
- * 多会话（2026-09-20 借鉴项 P1）：
- * - 存储结构升到 v3：会话索引（id/标题/时间）+ 每个会话各自的消息体；
+ * 多会话：
+ * - 存储结构为 v3：会话索引（id/标题/时间）+ 每个会话各自的消息体；
  * - 活动会话的消息体就是 `messages`，非活动会话的消息体在 `sessionBodies` 里，
  *   二者在切换/持久化时显式交换，避免"数组引用脱节"这类静默错位；
  * - 旧键（v2 单会话 / v1）读取时自动迁移成"单会话"；
@@ -42,7 +42,7 @@ import {
 
 /** 存储键带 schema 版本：字段结构变化时可以并存而不是把旧数据读坏。
  *  实际 key 由 utils/userScope 按账号组装（主应用 iframe 嵌入时是 `...:u{uid}`，
- *  独立访问 :8000 时就是下面这个基础 key，行为与改造前一致）。 */
+ *  独立访问 :8000 时就是下面这个基础 key）。 */
 const STORAGE_KEY_BASE = 'ragv5-session-v3'
 const LEGACY_STORAGE_KEYS = ['ragv5-session-v2', 'ragv3-session-v1', 'ragv5-session-v1']
 const STORAGE_SCHEMA_VERSION = 3
@@ -206,7 +206,7 @@ function normalizeStoredMessage(raw: any): ChatMessage | null {
       turnStatus = turnStatusFromFinishReason(String(raw.finishReason || ''), !!raw.error)
     } else turnStatus = 'interrupted'
   }
-  // 刷新后没有活的流：瞬态状态一律收敛为 interrupted（P0-6 幽灵流）
+  // 刷新后没有活的流：瞬态状态一律收敛为 interrupted，避免界面上留下永远不会结束的"进行中"
   if (isLive(turnStatus)) turnStatus = 'interrupted'
   const msg: AssistantMessage = {
     id: String(raw.id || newId('assistant')),
@@ -239,7 +239,7 @@ function normalizeStoredMessage(raw: any): ChatMessage | null {
 
 /** 把消息对象变成响应式代理。
  *
- * 必须做这一步（2026-09-15 复核发现的 P0 前端缺陷）：流式回答靠"改对象属性"驱动重渲染，
+ * 必须做这一步：流式回答靠"改对象属性"驱动重渲染，
  * 而 `messages.value.push(obj)` 存进数组的是**原始对象**——之后直接改原始对象的属性
  * 不会触发任何依赖（DOM 停留在"正在生成"），同时 `obj !== active.value`（后者是代理）
  * 会让事件守卫把所有 SSE 事件全部丢弃。实测：只有通过代理写入才会更新界面。
@@ -414,17 +414,17 @@ function normalizeScopeUid(scope: UserScopeMessage | string | null | undefined):
   return normalizeUid(raw)
 }
 
-/** schema 迁移（第四轮复核 P2-11 + 2026-09-20 多会话 P1）：
+/** schema 迁移：
  * - 当前版本（v3 多会话）：正常解析；
  * - v2/v1（单会话）：迁移为"第一条会话"，消息逐条升级；
  * - 更新版本：不猜结构，原值隔离到 quarantined 并向用户提示；
  * - 结构非法：同样隔离原值后从空会话开始（不再静默丢弃）。
  *
- * **在账号桶里（uid 非空）不回落旧全局键**（第 6 轮审核 H2）：升级前那份全局记录不属于
+ * **在账号桶里（uid 非空）不回落旧全局键**：全局键里的记录不属于
  * 任何账号，谁先登录都会被"收编"进他的桶——与主应用侧"老全局记录归档、不归属任何账号"
  * （frontend/src/utils/userScopedStorage.ts）的策略直接矛盾；而且解析失败时 quarantine
  * 会把全局共享的原值删掉，一个人打不开自己的会话就顺手伤了别人。
- * 独立访问 :8000（无 uid）时仍按原语义回落，老用户升级后照旧能看到自己的记录。
+ * 独立访问 :8000（无 uid）时仍回落全局键，老用户能看到自己的既有记录。
  */
 function persistedKeys(): string[] {
   const own = [activeStorageKey(STORAGE_KEY_BASE)]
@@ -714,7 +714,7 @@ export const useSessionStore = defineStore('session', () => {
    * 用 `loadedScope`（而不是 getActiveUid()）判断"是否同一个桶"：桥只回调、不改 activeUid，
    * 但即使将来有人改了桥的实现，这里的判断也仍然对齐"当前内存状态来自哪个桶"这个事实。
    *
-   * 没收到过消息时（独立访问 :8000）不会调用本函数，存储 key 不带后缀，行为与改造前一致。
+   * 没收到过消息时（独立访问 :8000）不会调用本函数，存储 key 不带后缀。
    */
   function applyUserScope(scope: UserScopeMessage | string | null): void {
     const nextUid = normalizeScopeUid(scope)
@@ -738,7 +738,7 @@ export const useSessionStore = defineStore('session', () => {
     selectedTurnId.value = null
     citationFocus.value = null
 
-    // 作废还在 runChain 里排队的轮次（第 6 轮审核 M5）：cancelStream 只中断"已经在跑"的那条，
+    // 作废还在 runChain 里排队的轮次：cancelStream 只中断"已经在跑"的那条，
     // 排队中的 job 尚未发出请求，换桶后它会带着 A 提的问题、用 B 的筛选与会话 id 发出去。
     // 递增序号让那些 job 在 beginTurn 的守卫里直接收敛为"已被新的提问取代"，不再发请求。
     turnSeq += 1
@@ -746,7 +746,7 @@ export const useSessionStore = defineStore('session', () => {
     if (reloaded.notice) showToast(reloaded.notice.kind, reloaded.notice.text)
   }
 
-  // 流式期间的持久化节流（第四轮复核 P1-11）：每个 delta 都写 localStorage 会明显掉帧，
+  // 流式期间的持久化节流：每个 delta 都写 localStorage 会明显掉帧，
   // 但完全不写又会在刷新时丢掉 user 消息与半截正文。用 800ms 合并窗口，终态一律立即落盘。
   let persistTimer: number | undefined
 
@@ -824,7 +824,7 @@ export const useSessionStore = defineStore('session', () => {
     filters.event_type.splice(0)
   }
 
-  // ---- 多会话管理（2026-09-20 借鉴项 P1）----
+  // ---- 多会话管理 ----
   /** 视图类状态复位：切换/新建会话后，面板与历史选择不能停留在旧会话上。 */
   function resetViewState(): void {
     active.value = null
@@ -977,11 +977,11 @@ export const useSessionStore = defineStore('session', () => {
     return asReactiveMessage(assistant)
   }
 
-  /** 串行化所有提问入口：任何时刻只允许一条活动流（第四轮复核 P1-10）。
+  /** 串行化所有提问入口：任何时刻只允许一条活动流。
    *
-   * 旧实现里 retry/correct 直接在活动流上启动新请求：全局 active 与 AbortController 被覆盖，
+   * retry/correct 若直接在活动流上启动新请求：全局 active 与 AbortController 被覆盖，
    * 旧请求继续占用后端资源，而它的事件因 id 守卫被静默丢弃——表现为"重试没反应、还更慢"。
-   * 现在统一走这里：先 abort 并**等前一条流真正收尾**，再启动新的一条。
+   * 所以统一走这里：先 abort 并**等前一条流真正收尾**，再启动新的一条。
    */
   let runChain: Promise<void> = Promise.resolve()
   /** 递增的请求序号：判断"排队中的这一轮是否已被更新的请求取代" */
@@ -1069,7 +1069,7 @@ export const useSessionStore = defineStore('session', () => {
         signal: controller.signal,
         onEvent: (event: SSEEnvelope) => {
           // 按 id 比较而不是对象引用：assistant 与 active.value 可能分别是原始对象/代理，
-          // 引用比较会在两者不等时静默丢掉全部事件（2026-09-15 复核发现的浏览器端卡死）。
+          // 引用比较会在两者不等时静默丢掉全部事件（实测的浏览器端卡死）。
           if (!active.value || assistant.id !== active.value.id) {
             // 已经收到 done 却还在来的业务帧属于协议错误：计数但不改动状态（幂等保护）
             if (assistant.doneSeen && event.type !== 'done') {
@@ -1131,7 +1131,7 @@ export const useSessionStore = defineStore('session', () => {
 
   function handleEvent(assistant: AssistantMessage, event: SSEEnvelope): void {
     const data = event.data || {}
-    // 协议守卫（第四轮复核 P1-9）：done 之后再来的业务帧属于协议错误，忽略并计数，
+    // 协议守卫：done 之后再来的业务帧属于协议错误，忽略并计数，
     // 不能让它把已完成/已失败的轮次改回"流式中"。
     if (isTerminal(assistant) && event.type !== 'done' && event.type !== 'error') {
       assistant.protocolErrors = (assistant.protocolErrors || 0) + 1
@@ -1159,7 +1159,7 @@ export const useSessionStore = defineStore('session', () => {
         if (delta) {
           assistant.answer += delta
           if (assistant.turnStatus === 'connecting') setTurnStatus(assistant, 'streaming')
-          schedulePersist()      // 节流落盘：刷新时至少保留到最近 800ms 的正文（P1-11）
+          schedulePersist()      // 节流落盘：刷新时至少保留到最近 800ms 的正文
         }
         break
       }
@@ -1195,7 +1195,7 @@ export const useSessionStore = defineStore('session', () => {
           assistant.status.push({ stage: 'cache_hit', label: '缓存命中', at: Date.now() })
         }
         let next = turnStatusFromFinishReason(reason, !!assistant.error)
-        // 收到过 error 事件时，normal done 不得把这一轮标成"完成"（第四轮复核 P1-9）：
+        // 收到过 error 事件时，normal done 不得把这一轮标成"完成"：
         // 否则页面同时显示错误与"已生成"，而且这轮还会被写进下一轮历史。
         // 只有明确的 refused / degraded 仍按后端语义进入可用终态。
         if (assistant.error && next === 'completed') {
@@ -1242,7 +1242,7 @@ export const useSessionStore = defineStore('session', () => {
   }
 
   /** 纠正重查：以某条 assistant 消息为源，按该消息的问题 + 纠正指令追加一轮新回答。
-   * 源轮次标记 supersededBy —— 后续追问使用纠正后的答案，而不是被替换的旧答案（P0-4）。 */
+   * 源轮次标记 supersededBy —— 后续追问使用纠正后的答案，而不是被替换的答案。 */
   function correctEntity(
     source: AssistantMessage,
     payload: {
@@ -1253,7 +1253,7 @@ export const useSessionStore = defineStore('session', () => {
     },
   ): void {
     if (!source || source.role !== 'assistant') return
-    // 契约口径（P1-3）：源与目标分别用 source_entity_id / replacement_entity_id 表达。
+    // 契约口径：源与目标分别用 source_entity_id / replacement_entity_id 表达。
     // 同名不同朝代共享 standard_name，只传名字时后端无法判断用户选的是哪一个。
     const corrections: CorrectedEntity[] = []
     if (payload.action === 'add' && payload.option) {
@@ -1340,8 +1340,8 @@ export const useSessionStore = defineStore('session', () => {
     })
   }
 
-  /** 失败/中断轮的重试：沿用原问题、原筛选与原纠正项（P1-20）。
-   * 走统一的 beginTurn：先取消并等待前一条流，保证任何时刻只有一条活动流（P1-10）。 */
+  /** 失败/中断轮的重试：沿用原问题、原筛选与原纠正项。
+   * 走统一的 beginTurn：先取消并等待前一条流，保证任何时刻只有一条活动流。 */
   function retryTurn(source: AssistantMessage): void {
     if (!source || source.role !== 'assistant') return
     if (isLive(source.turnStatus)) return

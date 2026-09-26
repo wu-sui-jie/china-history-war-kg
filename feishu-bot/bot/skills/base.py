@@ -28,8 +28,7 @@ class Reply:
     # 在开发文档 5.3 的 Reply 之上扩展一个可选字段：本轮回答若要写入会话历史，
     # 由技能填这里，dispatcher 负责落库。实际顺序是
     # "落库拿 id → 补反馈按钮 → 发送 → 回填 bot_message_id"——按钮的 value 要带
-    # messages.id，所以必须先落库再发送（开发文档第十三节第 3 条）。
-    # 不填（如降级卡片）表示这轮不进入历史。
+    # messages.id，所以必须先落库再发送。不填（如降级卡片）表示这轮不进入历史。
     assistant_turn: AssistantTurn | None = None
 
 
@@ -66,7 +65,7 @@ class Skill(Protocol):
 
     可选属性 `wants_placeholder = True`：本技能可能长时间阻塞（如同步等 RAG），
     dispatcher 会在执行它**之前**先回一张占位卡，跑完后用 PATCH 整卡替换（两段式
-    回复，批次③-1）。不声明表示秒回，走普通单段式发送——命令技能、提示卡片都不需要。
+    回复）。不声明表示秒回，走普通单段式发送——命令技能、提示卡片都不需要。
     """
 
     name: str

@@ -1,7 +1,7 @@
-"""角色常量与鉴权装饰器（P2-1 收官：从 app.py 抽出，供蓝图与 app 共用）。
+"""角色常量与鉴权装饰器（供蓝图与 app 共用）。
 
-原先这些定义在 app.py 里，路由搬进蓝图后会形成"蓝图 import app / app import 蓝图"的循环，
-因此把与请求处理无关的这部分独立出来。**口径不变**——三处一致的要求见
+这部分与请求处理无关，独立成模块才能避免"蓝图 import app / app import 蓝图"的循环。
+**三处口径必须一致**——三处一致的要求见
 backend/README 的角色职责表：本模块（接口鉴权）、get_menu（菜单裁剪，在 blueprints/auth.py）、
 前端路由 meta（frontend/src/router）。
 """
@@ -26,10 +26,10 @@ ADMIN_MENU_IDS = {"/admin/users"}
 # 消耗配额，只读账号不该有入口——与路由 meta.requiresRole='editor'、接口的
 # require_write_role 是同一口径，三处要一起改（见 backend/README 的角色职责表）。
 #
-# `/knowledge/inference` 是第 14 轮审计 P2-8 补上的：它的路由 meta 与接口
-# （blueprints/llm.py 的 require_write_role）都按 editor 卡，而这份名单里原先只有
-# text-extract——于是 viewer 在菜单里看得见"历史问答助手"，点进去被路由拦下、
-# 直接调接口一律 403。菜单是**三层口径的第一层**，"看得到却进不去"比"看不到"更让人困惑。
+# `/knowledge/inference` 必须在这份名单里：它的路由 meta 与接口
+# （blueprints/llm.py 的 require_write_role）都按 editor 卡，名单里只写 text-extract
+# 会让 viewer 在菜单里看得见"历史问答助手"，点进去被路由拦下、直接调接口一律 403。
+# 菜单是**三层口径的第一层**，"看得到却进不去"比"看不到"更让人困惑。
 EDITOR_MENU_IDS = {"/knowledge/text-extract", "/knowledge/inference"}
 
 

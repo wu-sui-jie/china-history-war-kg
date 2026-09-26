@@ -1,4 +1,4 @@
-"""T8 分块参数对比实验：同一快照、不同切分参数 → 索引变体 → 离线评测 → 对照报告。
+"""分块参数对比实验：同一快照、不同切分参数 → 索引变体 → 离线评测 → 对照报告。
 
 回答"CHUNK_MAX_CHARS / CHUNK_OVERLAP_CHARS 取多少合适"（RAGv1 起从未做过对照实验）。
 
@@ -198,7 +198,7 @@ def _report_md(version: str, rows: list[dict], suites: str, configs: list[str],
                base_label: str) -> str:
     L: list[str] = []
     A = L.append
-    A("# RAGv5 分块参数对比实验报告（T8）")
+    A("# RAGv5 分块参数对比实验报告")
     A("")
     A(f"- 快照版本：{version}　生成时间：{time.strftime('%Y-%m-%dT%H:%M:%S')}")
     A(f"- 评测口径：套件 `{suites}`、配置 `{configs}`、强制离线回答器（不接 LLM，保证可复现）")
@@ -261,7 +261,7 @@ def _report_md(version: str, rows: list[dict], suites: str, configs: list[str],
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="T8 分块参数对比实验")
+    ap = argparse.ArgumentParser(description="RAGv5 分块参数对比实验")
     ap.add_argument("--sizes", default="500/100,800/80,1200/120",
                     help="参数组，逗号分隔（格式 最大字数/重叠字数）")
     ap.add_argument("--version", default="", help="快照版本（默认最新一致版本）")

@@ -1,8 +1,8 @@
 """跨模块复用的小工具。
 
-这里只放「无业务语义」的纯工具函数：原先在 app.py / import_json_to_sqlite.py /
-entity_extract/extractor.py / inference/rule_llm_integration.py 里各写一份，
-现收敛到本模块。
+这里只放「无业务语义」的纯工具函数：app.py / import_json_to_sqlite.py /
+entity_extract/extractor.py / inference/rule_llm_integration.py 都可能用到，
+各自复制一份会让修一处漏三处，因此收敛到本模块。
 """
 
 import re
@@ -13,7 +13,7 @@ import threading
 _SAFE_IDENTIFIER_RE = re.compile(r"^[A-Za-z0-9_\u4e00-\u9fff]{1,64}$")
 
 # LRU 读写锁：OrderedDict 的 pop/赋值与淘汰循环都不是原子的，
-# 而缓存由 Flask 的多个请求线程与问答模块的线程池共享（BE-6）。
+# 而缓存由 Flask 的多个请求线程与问答模块的线程池共享。
 # 用 RLock：lru_get/lru_set 内部不重入，但调用方可能在已持有锁的路径上继续调用。
 _LRU_LOCK = threading.RLock()
 
@@ -52,7 +52,7 @@ def brief_error(error, limit=200):
 
     原样回显异常字符串会把内部细节（多行栈信息、绝对路径、连接串）送出去；
     但完全不给原因，又让"模型没起"这类本来可处理的故障变得无从判断。
-    折中：只取第一行并截断，完整内容仍由调用方写日志（第 6 轮审核低危项）。
+    折中：只取第一行并截断，完整内容仍由调用方写日志。
     """
     text = "" if error is None else str(error)
     stripped = text.strip()
@@ -62,13 +62,13 @@ def brief_error(error, limit=200):
     return first_line
 
 
-# ================== 编码守卫（FE-13）==================
-# 历史数据里出现过 "鎴樹簤浜嬩欢"（= 战争事件）这类值：UTF-8 字节被按 GBK 读出来。
-# 那批数据的来源是没写 encoding 的 open()/read_text()——在 Windows 上默认走 cp936。
-# 当时的处理是在前端 typeAliasMap 里加乱码 key 兼容，等于把问题藏在展示层：
+# ================== 编码守卫 ==================
+# 数据里出现过 "鎴樹簤浜嬩欢"（= 战争事件）这类值：UTF-8 字节被按 GBK 读出来。
+# 来源是没写 encoding 的 open()/read_text()——在 Windows 上默认走 cp936。
+# 在前端 typeAliasMap 里加乱码 key 兼容等于把问题藏在展示层：
 # 数据是坏的、只是看起来对，任何新入口（导入、同步、接口）都会再犯。
 #
-# 现在改为在源头修：导入与同步写库前统一过一遍 repair_mojibake，前端那份乱码映射删掉。
+# 修在源头：导入与同步写库前统一过一遍 repair_mojibake，前端不再维护乱码映射。
 # 判断依据是"能否 GBK 编码后再按 UTF-8 解码"——真实的中文文本在这步通常直接失败
 # （GBK 里没有对应的字节序列），所以不会误改正常数据。
 
@@ -113,7 +113,7 @@ def lru_get(cache, key):
     """按 LRU 语义取值：命中则把该键移到队尾再返回；未命中返回 None。
 
     列表类型做浅拷贝返回，避免调用方原地修改（sort/append 等）污染缓存。
-    读写都在锁内：pop + 重新插入期间另一个线程可能正在淘汰条目（BE-6）。
+    读写都在锁内：pop + 重新插入期间另一个线程可能正在淘汰条目。
     """
     with _LRU_LOCK:
         if key not in cache:

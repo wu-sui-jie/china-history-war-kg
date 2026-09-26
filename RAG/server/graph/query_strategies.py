@@ -1,4 +1,4 @@
-"""F03 问题类型 → 图谱查询策略（docs/features/03-graph-retrieval.md）。
+"""F03 问题类型 → 图谱查询策略（见 docs/features.md 第三节）。
 
 策略仅决定"查什么/怎么查"，具体执行在 search.py。
 """

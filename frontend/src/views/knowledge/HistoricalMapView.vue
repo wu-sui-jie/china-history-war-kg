@@ -974,7 +974,7 @@ const renderChart = async () => {
 }
 
 const loadData = async () => {
-  // 后端失败改为 HTTP 5xx（第 13 轮复核第七节），异常分支里才拿得到后端的 msg
+  // 后端失败是 HTTP 5xx，异常分支里才拿得到后端的 msg
   try {
     const res = await getEventMap({ ...filters })
     if (res.code === 200) {

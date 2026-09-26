@@ -112,8 +112,8 @@ import zh_CN from '../lang/zh_CN'
 import en_US from '../lang/en_US'
 
 // public/icon/logout.svg 原样拷贝、不改名，路径必须自己带 vite base（/static/）。
-// 原先写死的 `/icon/logout.svg` 在生产会被 nginx 的 `location /` 转给旧后端 Flask，
-// 后端没有这条静态路由 → 退出按钮的图标 404（与登录页 P1-4 同一类缺陷）。
+// 写死 `/icon/logout.svg` 在生产会被 nginx 的 `location /` 转给旧后端 Flask，
+// 后端没有这条静态路由 → 退出按钮的图标 404（与登录页的两张图同一类缺陷）。
 // 详见 frontend/scripts/check-dist-assets.mjs（构建后按产物核对）。
 const logoutIcon = `${import.meta.env.BASE_URL}icon/logout.svg`
 
@@ -282,7 +282,7 @@ export default {
   color: #666 !important;
 }
 
-/*图标默认颜色修复，指定 .layui-icon 去掉improtant，否则无法设置图标其他颜色*/
+/*图标默认颜色覆盖：必须指定 .layui-icon 并去掉 !important，否则无法设置图标其他颜色*/
 .layui-header .layui-nav-item .layui-icon {
   color: #666;
 }

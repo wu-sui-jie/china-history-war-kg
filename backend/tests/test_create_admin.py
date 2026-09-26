@@ -1,4 +1,4 @@
-"""首个管理员引导命令（审查报告 P2-6）。
+"""首个管理员引导命令。
 
 背景：注册接口一律只建 viewer，而用户管理页只有管理员能进——全新库因此死锁，
 过去只能手写 `UPDATE UserInfo SET role='admin'`。手写 SQL 的问题不是麻烦，是没有护栏：
@@ -76,11 +76,11 @@ def test_list_是纯读操作(_app_context, capsys):
 
 
 def test_口令长度越界时中止且不落库(_app_context, monkeypatch):
-    """首管命令的口令强度与注册/改密码**同一份策略**（第 13 轮复核整改 §2.1）。
+    """首管命令的口令强度与注册/改密码**同一份策略**。
 
-    原先这条用例把 `_read_password` 整体打桩成"抛 SystemExit"，于是它只证明了
-    "异常会中止"，没有证明"哪些口令会被拒"——6–20 位那套数值就藏在这个桩后面。
-    现在改成桩 `getpass`（真正被测的是命令自己的策略判定）。
+    把 `_read_password` 整体打桩成"抛 SystemExit"只能证明"异常会中止"，证明不了
+    "哪些口令会被拒"——策略的具体数值会藏在这个桩后面。
+    因此这里桩 `getpass`（真正被测的是命令自己的策略判定）。
     """
     import pytest
 
@@ -97,14 +97,14 @@ def test_口令长度越界时中止且不落库(_app_context, monkeypatch):
     assert f"{MIN_PASSWORD_LENGTH}~{MAX_PASSWORD_LENGTH}" in str(excinfo.value)
     assert UserInfo.query.count() == 0
 
-    # 21 位：旧实现的上限是 20（会拒绝强口令），现在必须接受
+    # 21 位：上限若是 20 就会拒绝这个强口令，必须接受
     monkeypatch.setattr(create_admin.getpass, "getpass", _answer("a" * 21))
     assert create_admin.main(["--account", "first-admin", "--name", "首管", "--password"]) == 0
     assert UserInfo.query.filter_by(account="first-admin").first().role == "admin"
 
 
 def test_首管口令首尾空白被拒(_app_context, monkeypatch):
-    """前端不再静默 trim 口令（第 13 轮复核整改 §2.2），"带空格的输入"由策略明确答复。"""
+    """口令不能静默 trim，"带空格的输入"由策略明确答复。"""
     import pytest
 
     monkeypatch.setattr(create_admin.getpass, "getpass", lambda prompt="": " password1234 ")

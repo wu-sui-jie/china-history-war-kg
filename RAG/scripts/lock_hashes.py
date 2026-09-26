@@ -1,4 +1,4 @@
-"""给锁文件补 `--hash=`（2026-09-16 第五轮审核 P2-6）。
+"""给锁文件补 `--hash=`。
 
 为什么不用 `pip-compile --generate-hashes`：它要为每个固定版本下载**所有平台**的
 wheel/sdist 才能算出哈希（chromadb 依赖树实测上 GB），本机两次因镜像传输中断失败——
@@ -158,7 +158,7 @@ def main() -> int:
         for item in problems:
             print(f"  - {item}")
         if problems:
-            print("锁文件缺少 --hash：`pip install --require-hashes` 会失败（P2-6）")
+            print("锁文件缺少 --hash：`pip install --require-hashes` 会失败")
             return 1
         print("锁文件均带完整 --hash")
         return 0

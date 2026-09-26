@@ -49,7 +49,7 @@ def sse_format(payload: dict) -> str:
 
 
 class SyncPoolBusy(RuntimeError):
-    """同步工作池排队已满：拒绝新的同步任务，避免无限堆积（第四轮复核 P1-5）。"""
+    """同步工作池排队已满：拒绝新的同步任务，避免无限堆积。"""
 
 
 class SyncWorkPool:
@@ -72,7 +72,7 @@ class SyncWorkPool:
         # 回调 _forget 需要同一把锁；非重入锁会在 note_cancel/begin_drain 里自锁死
         # （实测：整份测试套件卡在 test_sync_pool_cancel_before_start_frees_queue_slot）。
         self._lock = threading.RLock()
-        # 分离计数（工作单 P1-5）：active = 正在执行的线程任务；queued = 已提交未开始；
+        # 分离计数：active = 正在执行的线程任务；queued = 已提交未开始；
         # in_flight = active + queued（容量判定用后者）
         self._active = 0
         self._queued = 0
@@ -88,8 +88,8 @@ class SyncWorkPool:
         # 未完成任务句柄：停机时要能逐个 cancel()，否则排队任务仍会在客户端关闭后开跑
         self._futures: "set" = set()
         # "彻底空闲"事件（active == 0 且 queued == 0）：等待方阻塞在 Event 上，
-        # 不再用 time.sleep 轮询（第五轮整改复核 B2：轮询若发生在 async 路径上，
-        # 会把事件循环按 SHUTDOWN_DRAIN_SECONDS 的时长整个卡住）
+        # 用轮询等待不行——轮询若发生在 async 路径上，会把事件循环按
+        # SHUTDOWN_DRAIN_SECONDS 的时长整个卡住
         self._idle = threading.Event()
         self._idle.set()
 
@@ -97,7 +97,7 @@ class SyncWorkPool:
         """调用方必须持锁：按 active/queued 重算空闲事件。
 
         只看 active 是不够的：排队任务随时可能被 worker 捞起来执行，
-        提前判空会让"收尾完成"变成假信号（B2）。
+        提前判空会让"收尾完成"变成假信号。
         """
         if self._active == 0 and self._queued == 0:
             self._idle.set()
@@ -156,7 +156,7 @@ class SyncWorkPool:
             self._futures.discard(future)
 
     def note_cancel(self, future) -> None:
-        """调用方在等待期间被取消：能撤就撤掉尚未开始的任务，并记账（P1-5 第 3/4 条）。"""
+        """调用方在等待期间被取消：能撤就撤掉尚未开始的任务，并记账。"""
         with self._lock:
             if future.cancel():
                 # 尚未开始：ThreadPoolExecutor 不会再执行它，queued 计数由 _wrapped
@@ -172,7 +172,7 @@ class SyncWorkPool:
     def begin_drain(self) -> int:
         """停止接收新任务，并撤销所有尚未开始的排队任务；返回被撤销条数。
 
-        停机顺序（工作单 P0-3）的第一、二步：先关闸，再把"还没开跑"的任务撤掉。
+        停机顺序的第一、二步：先关闸，再把"还没开跑"的任务撤掉。
         撤销必须在关闭外部客户端**之前**完成，否则这些任务会在客户端已关闭后开跑
         （同步函数无法中断，只能先于客户端关闭把它们清掉）。
         """
@@ -265,7 +265,7 @@ def get_sync_pool(settings: Optional[Settings] = None) -> SyncWorkPool:
 
 
 async def shutdown_sync_pool_async(drain_seconds: float = 0.0) -> dict:
-    """`shutdown_sync_pool` 的异步版本：等待期间让出事件循环（第五轮复核 B2）。
+    """`shutdown_sync_pool` 的异步版本：等待期间让出事件循环。
 
     async 路径（`Runtime.shutdown`）必须用它：停机时事件循环还要服务正在收尾的
     SSE 流与健康检查，用同步轮询等待会把整个进程冻结 `drain_seconds` 那么久。
@@ -290,7 +290,7 @@ async def shutdown_sync_pool_async(drain_seconds: float = 0.0) -> dict:
 def shutdown_sync_pool(drain_seconds: float = 0.0) -> dict:
     """关闭同步工作池（同步调用方：脚本、测试、无 Runtime 的 lifespan 兜底）。
 
-    停机顺序（工作单 P0-3）：
+    停机顺序：
     1. 停止接收新任务（begin_drain 置位 draining）；
     2. 撤销全部尚未开始的排队任务；
     3. 用 `drain_seconds` 上限等待彻底空闲（active 与 queued 都为 0）；
@@ -319,8 +319,8 @@ def shutdown_sync_pool(drain_seconds: float = 0.0) -> dict:
 def empty_sync_pool_stats(settings: Optional[Settings] = None) -> dict:
     """同步池尚未创建时的**零值统计**，字段与 `SyncWorkPool.stats()` 完全一致。
 
-    为什么需要（第五轮审核 R5-6）：旧实现在池未创建时返回 `{}`，
-    监控看到的 schema 会随"是否已经跑过第一次查询"变化，无法写稳定的告警规则。
+    为什么需要：池未创建时返回 `{}` 会让监控看到的 schema 随"是否已经跑过第一次查询"
+    变化，无法写稳定的告警规则。
     """
     if settings is None:
         from config.settings import get_settings
@@ -347,13 +347,13 @@ def empty_sync_pool_stats(settings: Optional[Settings] = None) -> dict:
 
 
 def sync_pool_stats() -> dict:
-    """同步池统计：无论是否已创建，都返回同一套字段（R5-6）。"""
+    """同步池统计：无论是否已创建，都返回同一套字段。"""
     pool = _sync_pool
     return pool.stats() if pool is not None else empty_sync_pool_stats()
 
 
 async def run_in_thread(fn, *args, **kwargs):
-    """把同步阻塞调用下沉到有界线程池，避免冻结事件循环（2026-09-15 审核 P0-1 / 第四轮 P1-5）。
+    """把同步阻塞调用下沉到有界线程池，避免冻结事件循环。
 
     需要隔离的同步点：F04 查询侧 embedding（云端 HTTP，含超时与重试）、F02 的 LLM 兜底、
     FTS5/Chroma 的同步查询以及图谱遍历。它们都在 async 编排里被直接调用，
@@ -372,7 +372,7 @@ async def run_in_thread(fn, *args, **kwargs):
         return await asyncio.wrap_future(future)
     except asyncio.CancelledError:
         # 请求被取消（客户端断连/超时）：排队中的任务应立刻撤掉，别继续占队列名额；
-        # 已经在跑的同步函数无法打断，只能等它自己超时（P1-5 第 4 条）。
+        # 已经在跑的同步函数无法打断，只能等它自己超时。
         pool.note_cancel(future)
         raise
 
@@ -380,9 +380,9 @@ async def run_in_thread(fn, *args, **kwargs):
 def _chunk_answer_stream(text: str, chunk_chars: int = 160):
     """把完整答案切成小段用于 SSE 增量（离线摘要回答器/拒答文案等非 token 流路径）。
 
-    硬要求：**增量拼接必须严格等于原文**。旧实现用 `re.split(r"(?<=[。！？!?；;])\\s*|\\n+")`
-    会把句末标点后的空白/换行一起吃掉，导致流式拼回的答案丢换行（实测比原文少 19 个字符，
-    前端 markdown 列表会粘连），而缓存回放的是完整文本 → 两边不一致。
+    硬要求：**增量拼接必须严格等于原文**。若按句末标点切分时把标点后的空白/换行一起
+    吃掉，流式拼回的答案会丢换行（实测比原文少 19 个字符，前端 markdown 列表会粘连），
+    而缓存回放的是完整文本 → 两边不一致。
     """
     if not text:
         return
@@ -425,7 +425,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
     gen = runtime.generate
     settings = runtime.settings
 
-    # 生成任务句柄：断连/异常时必须在 finally 里取消并回收（P1-1）
+    # 生成任务句柄：断连/异常时必须在 finally 里取消并回收
     gen_task: Optional[asyncio.Task] = None
 
     # ---- session_start ----
@@ -441,7 +441,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         # 造成“实际上下文相同却互不命中缓存”的效率损耗。
         hist = runtime.question.trim_history(req.history)
         # F02 走线程：链内含词典匹配（jieba）与可选的 LLM 兜底（同步 HTTP，最长 8 s），
-        # 直接 await 会阻塞整个事件循环（P0-1）。
+        # 直接 await 会阻塞整个事件循环。
         out = await run_in_thread(
             runtime.question.understand,
             req.question, history=hist,
@@ -464,7 +464,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         cache_filters = dict(out.filters.to_dict() if out.filters else {})
         if out.dynasty_bias:
             cache_filters["dynasty_bias"] = list(out.dynasty_bias)
-        # 缓存键必须覆盖纠正后的实体与纠正指令本身（P1-1）：
+        # 缓存键必须覆盖纠正后的实体与纠正指令本身：
         # add 类纠正不改写问题文本，只按问题做键会让"纠正后"命中"纠正前"的答案。
         cache_key = gen.check_cache(
             out.rewritten_question, hist, cache_filters or None,
@@ -516,7 +516,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         yield sse_format(_event(SSEEventType.STATUS, sid,
                                 stage=StatusStage.TEXT_SEARCH.value))
         # F04 同步点最多：查询侧 embedding 是云端 HTTP 调用（60 s 超时 + 3 次尝试），
-        # 后面还有 Chroma 查询与 SQLite 取片段，全部下沉到线程（P0-1）。
+        # 后面还有 Chroma 查询与 SQLite 取片段，全部下沉到线程。
         text_result = await run_in_thread(
             tsearch, runtime.text, out.rewritten_question or req.question,
             filters=filters, mode=settings.text_mode,
@@ -587,7 +587,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                     data={"finish_reason": FinishReason.REFUSED.value, "model_used": ""}))
                 return
 
-        # 3) 领域外谓词（RAGv5 §4.6）：问的是知识库不可能覆盖的属性/器物
+        # 3) 领域外谓词：问的是知识库不可能覆盖的属性/器物
         #    （邮箱、电话、度假、坦克、股票…），且这些词在所有证据里都不出现 → 拒答。
         #    保守优先：证据里出现过该词就放行，避免把可答题误拒（X01–X03 应拒答却作答的补强）。
         scope_reason = refusal_mod.out_of_scope_reason(req.question, fused.evidence)
@@ -608,7 +608,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
         # 本次调用的统计（并发下不能用 gen.last_usage：那是"最近一次"口径，会互相覆盖）
         gen_stats: dict = {}
         expose_thinking = bool(getattr(settings, "expose_thinking", False))
-        # 推理过程只做内部度量：公共 SSE 默认**不**输出原始 reasoning（P0-3）。
+        # 推理过程只做内部度量：公共 SSE 默认**不**输出原始 reasoning。
         # 保留首思考时延与长度用于观测，内容本身只有在 EXPOSE_THINKING 打开时才外发。
         think_metrics = {"frames": 0, "chars": 0, "first_ms": None}
 
@@ -703,7 +703,7 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                                 data=panel.to_dict() if hasattr(panel, "to_dict") else panel))
         done_data = {"finish_reason": finish_reason, "model_used": model_used}
         if think_metrics["frames"]:
-            # 只报"有没有思考、多久、多长"，不报内容（P0-3）
+            # 只报"有没有思考、多久、多长"，不报内容
             done_data["first_thinking_ms"] = think_metrics["first_ms"]
             done_data["thinking_frames"] = think_metrics["frames"]
         if gen_stats.get("truncated"):
@@ -726,13 +726,13 @@ async def run_query(runtime: Runtime, req: QueryRequest) -> AsyncIterator[str]:
                                 data={"error_code": ErrorCode.INTERNAL.value,
                                       "message": f"内部错误: {public_text(e)}"}))
         # 终态用 failed 而不是 cancelled：error+done(cancelled) 会让前端把异常轮
-        # 误判成"正常结束/用户取消"，进而把空回答写进下一轮历史（P0-5）。
+        # 误判成"正常结束/用户取消"，进而把空回答写进下一轮历史。
         yield sse_format(_event(
             SSEEventType.DONE, sid,
             data={"finish_reason": FinishReason.FAILED.value, "model_used": ""}))
     finally:
         # 客户端断连（StreamingResponse 关闭生成器）或异常退出：取消模型任务并回收，
-        # 否则请求结束后仍会继续消耗 token 并可能抛"未检索异常"（P1-1）。
+        # 否则请求结束后仍会继续消耗 token 并可能抛"未检索异常"。
         if gen_task is not None and not gen_task.done():
             gen_task.cancel()
             try:

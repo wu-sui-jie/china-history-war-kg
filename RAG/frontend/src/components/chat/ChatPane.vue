@@ -10,8 +10,8 @@ import type { DemoExample } from '@/types/contract'
 const store = useSessionStore()
 const listEl = ref<HTMLElement | null>(null)
 
-// F08 演示示例题：来自后端（由已审核题库生成），前端不再硬编码问题。
-// 加载失败时只显示引导文案，不回退到硬编码（旧硬编码里有 2 条未审核题，是 v4 的教训）。
+// F08 演示示例题：来自后端（由已审核题库生成），前端不硬编码问题。
+// 加载失败时只显示引导文案，不回退到硬编码——硬编码的题可能未经审核，且会与服务端题库脱节。
 const examples = ref<DemoExample[]>([])
 const examplesNote = ref('')
 const CAPABILITY_LABEL: Record<string, string> = {

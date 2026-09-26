@@ -38,7 +38,7 @@ TASK_CARD_ACTION = "card_action"
 # 队列满时的提示文案。说明"稍后再试"而不是含糊的"出错了"：用户能据此决定自己的动作。
 QUEUE_BUSY_TEXT = "当前提问较多，排队已满，请稍后再试。"
 
-# ---- 事件状态机（第 13 轮整改）----
+# ---- 事件状态机 ----
 #
 # 一个事件从收到到有结论，中间要经过"认领 → 入队 → 处理"三步，每一步都可能中途
 # 掉队。把状态记下来是为了让"掉在哪一步"可查，而不是只留一个 received 计数。
@@ -56,16 +56,16 @@ STATUS_FAILED = "failed"                    # 处理中抛异常
 #   比静默丢掉一条更难解释。
 #
 # 不在表里的（received 半路卡住、rejected_busy）都表示"上一轮没做成"，
-# 重投可以再认领一次——这正是"队列满时消息永久消失"的修法。
+# 重投可以再认领一次——队列满被拒的消息因此不会永久消失。
 _CLAIMED_STATUSES = (STATUS_ACCEPTED, STATUS_PROCESSING, STATUS_DONE, STATUS_FAILED)
 
-# 卡住多久算"上一轮没做成"（第 14 轮审计 P1-5）。
+# 卡住多久算"上一轮没做成"。
 #
 # `processing` 也在 _CLAIMED_STATUSES 里，于是**进程被强杀**（SIGKILL / OOM /
 # 双重 Ctrl-C 的 os._exit(0) / 停机超时后退出）会永久留下一行 status='processing'：
 # 飞书重投同一 event_id 会被当成重复丢掉，那条提问就此永久消失，用户那张
-# "正在检索史料…"的占位卡在 24 小时 TTL 内也不会恢复。代码原先只给 `received`
-# 留了恢复口（不在 _CLAIMED_STATUSES 里），`processing` 没有。
+# "正在检索史料…"的占位卡在 24 小时 TTL 内也不会恢复。`received` 不在
+# _CLAIMED_STATUSES 里，本来就留了恢复口；`processing` 必须靠这条时间窗兜底。
 #
 # 阈值取 10 分钟：一次问答的预算是 RAG_QUERY_TIMEOUT(25s) + 连接超时 + 渲染，
 # 真实在途任务不会超过一两分钟。留得宽松是为了避免把"正在跑"的任务抢回来——
@@ -77,7 +77,7 @@ STUCK_EVENT_SECONDS = 600.0
 class Claim:
     """一次事件认领的凭据。
 
-    认领与入队之间必须能"回退"（第 13 轮整改）：队列满时若认领留在库里，飞书重投
+    认领与入队之间必须能"回退"：队列满时若认领留在库里，飞书重投
     同一 event_id 会撞上自己的去重记录被判成重复——事件已被标记处理，消息就此永久
     消失。因此认领要等到入队成功才由 `commit()` 坐实，入队失败由 `release()` 撤销。
 
@@ -290,7 +290,7 @@ def mentioned_bot(event: MessageEvent, bot_open_id: str | None) -> bool:
 
     优先比对 mention 的 open_id 与机器人自己的 open_id；拿不到 bot open_id 时
     退化为"文本开头出现任意 mention key"（开发文档 5.1 给的两条口径）。
-    P0-4 实测已确认事件里 mention.id.open_id 可用，退化路径只是兜底。
+    实测已确认事件里 mention.id.open_id 可用，退化路径只是兜底。
     """
     keys = {(m.get("key") or "") for m in event.mentions}
     keys.discard("")
@@ -321,7 +321,7 @@ class Dispatcher:
         self.feishu = feishu
         self.config = config
         self.clock = clock
-        # 有界队列（第 12 轮审查 P2-5）：原先是无界 queue.Queue()，消息突发时会一路吃内存，
+        # 有界队列：无界 queue.Queue() 在消息突发时会一路吃内存，
         # 直到进程被 OOM 杀掉——而触发条件是外部的，运维看不到任何预兆。
         # 上限与拒绝行为见 _enqueue。
         self.queue: queue.Queue = queue.Queue(maxsize=max(1, int(config.queue_max_size)))
@@ -341,7 +341,7 @@ class Dispatcher:
 
     # ---- 生命周期 ----
     def recover_stuck_events(self, *, stale_seconds: float = STUCK_EVENT_SECONDS) -> int:
-        """把"上一轮没做成"的事件扫回可重认领状态，返回改动行数（第 14 轮审计 P1-5）。
+        """把"上一轮没做成"的事件扫回可重认领状态，返回改动行数。
 
         要恢复的有两类：
 
@@ -394,10 +394,10 @@ class Dispatcher:
     def stop(self, timeout: float = 5.0) -> None:
         """停止 worker；`timeout` 为等待在途任务收尾的秒数。
 
-        **不再用哨兵消息唤醒 worker**（第 13 轮整改）。原先的 `queue.put(None)`
-        在队列已满时会阻塞，而 worker 此刻可能正卡在一次长 RAG 查询上——
-        于是 `stop()` 永久阻塞，`main.py` 的停机流程再也走不到 `close()`，
-        表现为"按了 Ctrl-C、日志说正在停止、进程却退不出来"（本地诊断结果：
+        **不用哨兵消息唤醒 worker**：`queue.put(None)` 在队列已满时会阻塞，
+        而 worker 此刻可能正卡在一次长 RAG 查询上——于是 `stop()` 永久阻塞，
+        `main.py` 的停机流程再也走不到 `close()`，表现为"按了 Ctrl-C、日志说
+        正在停止、进程却退不出来"（本地诊断结果：
         `stop_thread_alive_with_full_queue = True`）。
         worker 改成 `get(timeout=...)` 轮询 `_stop`，停机就只依赖一个 Event。
 
@@ -422,7 +422,7 @@ class Dispatcher:
     #
     # 认领（claim）→ 入队（enqueue）→ 坐实（commit）是三步，中间留了 release() 这个
     # 回退口：把"认领"和"最终处理"压成一步，队列满时被拒的消息会被自己的去重记录
-    # 永久挡在门外（第 13 轮整改修正的正是这一点）。
+    # 永久挡在门外，所以认领必须能撤销。
 
     def _set_event_status(self, event_id: str, status: str) -> None:
         """更新事件状态；事件不在表里就静默跳过（UPDATE 命中 0 行不是错误）。"""
@@ -485,7 +485,7 @@ class Dispatcher:
         self._set_event_status(claim.key, STATUS_ACCEPTED)
 
     def _release_claim(self, claim: Claim) -> None:
-        """入队失败 → 撤销认领（第 13 轮整改）。
+        """入队失败 → 撤销认领。
 
         队列满不等于"这条消息不该被处理"：飞书对未及时应答的事件会重投，用户也可能
         自己再发一次。若认领留在库里，重投会撞上自己的去重记录被静默丢弃——这就是
@@ -500,11 +500,12 @@ class Dispatcher:
             return
         self._set_event_status(claim.key, STATUS_REJECTED_BUSY)
 
-    # ---- 使用范围白名单（第 12 轮审查 P2-5）----
+    # ---- 使用范围白名单 ----
     def is_allowed(self, chat_id: str, open_id: str) -> bool:
         """该会话是否在允许范围内。
 
-        两个白名单都为空 = 不限（内网默认，行为与改造前完全一致）；
+        两个白名单都为空 = 不限（内网默认：任何能访问该机器人的同事都能用，
+        与不设白名单时的行为完全一致）；
         任一非空时**命中任一即可放行**；都非空则"在群名单里"或"在用户名单里"均通过。
         判定放在服务端：界面藏入口只是体验，判断必须在收到消息的这一刻做。
         """
@@ -665,7 +666,7 @@ class Dispatcher:
         if not enqueued:
             self._release_claim(claim)
             # 队列满时如实回"繁忙"，不要回"正在查询…"：后者是承诺已开始受理，
-            # 而这次点击其实没被受理（第 13 轮整改）。
+            # 而这次点击其实没被受理。
             return {"toast": {"type": "warning", "content": QUEUE_BUSY_TEXT}}
         self._commit_claim(claim)
         # 立即回执：toast 只是"已收到"，不承诺处理结果（处理结果由 worker 发卡片）
@@ -679,7 +680,7 @@ class Dispatcher:
     def worker_loop(self) -> None:
         log.info("worker 开始取任务")
         while not self._stop.is_set():
-            # 轮询式取任务（第 13 轮整改）：不再靠哨兵消息唤醒，停机只依赖 _stop。
+            # 轮询式取任务：不靠哨兵消息唤醒，停机只依赖 _stop。
             # 哨兵路径的问题见 `stop()`——队列满时 `put(None)` 会阻塞在那里。
             try:
                 item = self.queue.get(timeout=self._POLL_SECONDS)
@@ -736,7 +737,7 @@ class Dispatcher:
                  event.event_id, event.session_key, question[:60])
         ctx = self._build_context(event, question)
         skill = self._resolve_skill(ctx)
-        # 两段式回复（批次③-1）：慢技能先回占位卡，跑完再 PATCH 成最终卡
+        # 两段式回复：慢技能先回占位卡，跑完再 PATCH 成最终卡
         placeholder_id = self._send_placeholder(event, skill)
         reply = self._run_skill(ctx, skill)
         user_id, msg_key = self._record_turn(ctx, reply)
@@ -835,7 +836,7 @@ class Dispatcher:
                              user_id: int | None, assistant_id: int | None) -> None:
         """发送失败：撤回刚落库的 user + assistant 两行。
 
-        为什么必须撤（2026-09-24 线上实测：飞书侧 TLS 抖动导致回答未送达）：
+        为什么必须撤（线上实测：飞书侧 TLS 抖动导致回答未送达）：
         这轮问答已经进了历史，而下一轮的上下文与 **RAG 回答缓存的键**都会带着
         一条用户从未见过的回答——查询缓存因此永远命中不了，本该毫秒返回的问题
         退化成十几秒的真生成。与"成对写入"是同一条原则的两面：只写能入历史的轮次，
@@ -877,7 +878,7 @@ class Dispatcher:
             return Reply(kind="card", card=build_degraded_card(reason="internal"))
 
     def _send_placeholder(self, event: MessageEvent, skill: Any | None) -> str | None:
-        """两段式回复第一步：慢技能动手之前先回一张"正在检索…"占位卡（批次③-1）。
+        """两段式回复第一步：慢技能动手之前先回一张"正在检索…"占位卡。
 
         为什么要占位：知识问答同步等 RAG，介绍类长回答实测 12–25s，不给任何反馈用户
         只能干等、还会怀疑机器人没反应。占位卡发出去后最终卡由 PATCH 整卡替换（`_deliver`），

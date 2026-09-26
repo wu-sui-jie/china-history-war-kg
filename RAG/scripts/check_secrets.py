@@ -1,4 +1,4 @@
-"""密钥/令牌扫描（2026-09-16 工作单 P2-7 的 CI 步骤）。
+"""密钥/令牌扫描（CI 门禁步骤）。
 
 只做**入库内容**的静态扫描：`.env` 等本地文件按约定不入库，因此不扫（扫描时会先跳过）。
 命中即返回非零，用于 CI 阻断。
@@ -7,11 +7,10 @@
     python RAG/scripts/check_secrets.py                    # 只扫 RAG/（历史默认范围）
     python RAG/scripts/check_secrets.py --root .           # 扫整个仓库（CI 门禁用这个）
 
-**为什么要有 `--root`**（第 12 轮审查 P0-2 / P2-8）：本脚本原先的 ROOT 写死为 `RAG/`，
-旧模块 CI 的 grep 又只扫 `backend` 与 `entity-event-relation`，于是仓库根下的 `deploy/`、
-`feishu-bot/`、工作流与根级脚本全部在扫描范围之外——`deploy/env/*.env` 里放过非空的
-固定口令与 JWT 密钥（后来清成 CHANGE_ME 占位符）正是从这条缝里漏过去的。门禁范围必须
-覆盖"可能写进仓库的每个角落"，而不是实施者记得的那几个目录。
+**为什么默认扫全仓库**：把 ROOT 写死为 `RAG/`、或只依赖 CI 里针对个别目录的 grep，
+会让仓库根下的 `deploy/`、`feishu-bot/`、工作流与根级脚本落在扫描范围之外——
+`deploy/env/*.env` 里的固定口令与 JWT 密钥正是从这条缝里漏过去的。
+门禁范围必须覆盖"可能写进仓库的每个角落"，而不是实施者记得的那几个目录。
 """
 
 from __future__ import annotations
@@ -48,7 +47,7 @@ PATTERNS = [
     (re.compile(r"(?i)\b(api[_-]?key|secret|password|token)\s*[:=]\s*[\"']([A-Za-z0-9\-_]{20,})[\"']"),
      "硬编码的密钥/口令"),
     # 无引号的 .env 写法（KEY=value）：deploy/env/*.env 就是这种形态，
-    # 上面那条带引号的规则对它们完全无效——这正是固定凭据曾经躺在模板里的原因之一。
+    # 上面那条带引号的规则对它们完全无效，deploy/env/*.env 这类模板要单独一条规则。
     (re.compile(r"(?im)^\s*(?:export\s+)?[A-Z0-9_]*(?:SECRET|PASSWORD|PASSWD|TOKEN|API_KEY|APIKEY)"
                 r"[A-Z0-9_]*\s*=\s*([A-Za-z0-9+/=_\-]{16,})\s*$"),
      "未加引号的硬编码密钥/口令"),

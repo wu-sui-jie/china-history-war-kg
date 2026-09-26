@@ -1,4 +1,4 @@
-"""数据血缘生成（2026-09-16 工作单 P2-4）。
+"""数据血缘生成。
 
 把 `source → snapshot → index → vectors → eval → demo → release` 各层用**可校验的哈希**
 串起来，任一输出都能反查输入。产物：`data/release/lineage.json`。
@@ -156,7 +156,7 @@ def build(version: str) -> dict:
             "path": str(eval_dir / "demo_examples.json"),
             "sha256": file_sha256(eval_dir / "demo_examples.json"),
             "meta": demo_meta,
-            # 父节点：demo 由哪次评测 run 产出（P2-4 的关键一环）
+            # 父节点：demo 由哪次评测 run 产出（血缘的关键一环）
             "parent": demo_parent,
         },
         "release": {
@@ -169,7 +169,7 @@ def build(version: str) -> dict:
             "package_lock_sha256": file_sha256(root / "frontend" / "package-lock.json"),
         },
         # 跨层一致性结论：把"run → demo → runtime 版本是否一致"写成机器可判定的字段，
-        # 而不是留在两个互不相干的节点里等人肉对比（第五轮审核 P2-4）
+        # 而不是留在两个互不相干的节点里等人肉对比
         "checks": checks,
     }
     lineage["checks"]["problems"] = problems
@@ -182,7 +182,7 @@ def _consistency(version: str, demo_meta: dict, demo_parent: dict,
     """跨层一致性判定：run → demo → runtime。
 
     返回 (checks, problems)。`problems` 非空即表示血缘链在某一层断了，
-    `--check` 与 CI 据此判失败——旧实现只是把两个版本号并排记录，
+    `--check` 与 CI 据此判失败——只把两个版本号并排记录、不做判定的话，
     不一致时没有任何人会发现。
     """
     problems: list[str] = []
@@ -224,7 +224,7 @@ def _consistency(version: str, demo_meta: dict, demo_parent: dict,
     if parent_version and not checks["demo_version_matches_parent_run"]:
         problems.append(
             f"demo 版本 {demo_version!r} 与其父 run {run_id} 的版本 {parent_version!r} 不一致")
-    # 索引版本维度必须**判定**而不是只记录（第五轮整改复核 B3）：demo 的实测时延来自
+    # 索引版本维度必须**判定**而不是只记录：demo 的实测时延来自
     # 父 run 的索引，索引版本与运行时不一致时，时延数字不对应当前服务的检索行为
     if demo_parent.get("resolved") and demo_parent.get("index_version") \
             and not checks["parent_run_index_version_matches"]:
@@ -243,7 +243,7 @@ def _consistency(version: str, demo_meta: dict, demo_parent: dict,
     return checks, problems
 
 
-# ---- lineage 字段 schema（第五轮审核 P2-4：字段与父子一致性必须有独立校验）----
+# ---- lineage 字段 schema（字段与父子一致性必须有独立校验）----
 # 每一项： dotted_path -> (python 类型, 值正则或 None)
 LINEAGE_SCHEMA: dict = {
     "lineage_version": (int, None),
@@ -380,11 +380,11 @@ def _demo_meta(path: Path) -> dict:
 
 
 def _find_run(eval_dir: Path, run_id: str) -> dict:
-    """按 run_id 在评测目录里定位 run（demo 的**父节点**，P2-4）。
+    """按 run_id 在评测目录里定位 run（demo 的**父节点**）。
 
-    旧实现只记录 `eval.latest_run` 与 `demo.source_run` 两个字符串，两者指向不同的
-    run 时无人发现——于是"demo 来自哪次评测"在血缘里其实是断链。这里把 demo 声明的
-    source_run 真正解析成目录 + 元数据 + 哈希，父子关系可校验。
+    只记录 `eval.latest_run` 与 `demo.source_run` 两个字符串不够：两者指向不同的 run 时
+    无人发现——"demo 来自哪次评测"在血缘里其实是断链。这里把 demo 声明的 source_run
+    真正解析成目录 + 元数据 + 哈希，父子关系可校验。
     """
     if not run_id:
         return {"resolved": False, "reason": "demo 未声明 source_run"}

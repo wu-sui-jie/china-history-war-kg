@@ -1,6 +1,6 @@
-/** 问答记录的持有与持久化（第 7 轮 W2 从 views/inference/index.vue 抽出）。
+/** 问答记录的持有与持久化。
  *
- * 它是"按账号隔离"这条链路的落点，抽出来的好处是：隔离规则（钉住 uid、账号未知时不碰公共桶、
+ * 它是"按账号隔离"这条链路的落点：隔离规则（钉住 uid、账号未知时不碰公共桶、
  * 老全局记录归档）能单独测，不必挂载整个页面。
  *
  * 存储规则见 utils/userScopedStorage.ts；本模块只负责"什么时候读、什么时候写"。
@@ -25,10 +25,10 @@ const SAVE_DEBOUNCE_MS = 500
 export interface UseChatHistoryOptions {
   /** 读本页面所属的账号 id（挂载时钉住的那个，不跟随 store 变化） */
   uid: () => string | number | undefined
-  /** 已登录但拿不到账号 id：此时既不读也不写公共桶（见第 6 轮 H1） */
+  /** 已登录但拿不到账号 id：此时既不读也不写公共桶 */
   isAccessBlocked: () => boolean
   /**
-   * 落盘彻底失败时通知界面（第 14 轮审计 P2-14）。
+   * 落盘彻底失败时通知界面。
    *
    * 可选：不传就只留一条 console.warn。但这**不是可有可无的美化**——
    * 聊天记录写不进去意味着"刷新就全丢"，用户有权知道，而不是等到刷新后
@@ -61,8 +61,8 @@ export function useChatHistory(options: UseChatHistoryOptions) {
   /** 立即落盘（按账号分 key；账号未知但已登录时跳过） */
   function save() {
     if (options.isAccessBlocked()) return
-    // 用**返回值**判断成败，而不是 try/catch（第 14 轮审计 P2-14）：
-    // writeScoped 早先吞掉一切异常且不返回任何东西，于是下面这套降级永远不执行——
+    // 用**返回值**判断成败，而不是 try/catch：
+    // writeScoped 一旦吞掉异常且不返回任何东西，下面这套降级就永远不执行——
     // localStorage 写满后聊天记录静默停摆，用户完全看不出来。
     if (writeScoped(CHAT_HISTORY_KEY, options.uid(), chats.value)) return
     // 配额不够：丢掉一半会话再试一次

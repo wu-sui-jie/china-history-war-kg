@@ -12,8 +12,7 @@ class EventRelation(BaseModel):
     """事件之间的关系"""
     type: str  # 因果关系/顺承关系/并列关系/包含关系/条件关系
     to: str    # 目标事件名称或ID
-    # Changed 2026-04-21 12:42:17 +08:00: Allow missing evidence so one
-    # incomplete relation item from LLM will not invalidate the full event.
+    # evidence 可为空：模型少给一条证据不该让整个事件校验失败
     evidence: Optional[str] = ""  # 原文证据
 
 

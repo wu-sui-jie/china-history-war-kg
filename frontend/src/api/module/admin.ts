@@ -10,11 +10,11 @@ export interface AdminUser {
   name: string
   role: UserRole
   /**
-   * 账号是否已停用（第 14 轮审计 P2-18）。
+   * 账号是否已停用。
    *
-   * 后端早就返回这个字段（`UserInfo.to_dict()`），停用接口也早就有了
-   * （`POST /api/admin/users/<id>/status`）——但类型里没有它，页面也就没有状态列，
-   * 于是**已停用账号与正常账号在列表里长得一样**：管理员停用了某人，回头看列表
+   * 后端返回这个字段（`UserInfo.to_dict()`），停用接口是
+   * `POST /api/admin/users/<id>/status`。类型里必须有它、页面必须有状态列，
+   * 否则**已停用账号与正常账号在列表里长得一样**：管理员停用了某人，回头看列表
    * 却分不出来，只能靠"他还登录得了吗"去猜。
    */
   disabled: boolean

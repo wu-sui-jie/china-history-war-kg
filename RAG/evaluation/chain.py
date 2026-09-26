@@ -52,7 +52,7 @@ class EvalConfig:
         return " / ".join(parts)
 
 
-# 预设配置：dual 为生产口径基线；其余用于专项/对比（RAGv5 T6 新增 vector/hybrid）
+# 预设配置：dual 为生产口径基线；其余用于专项/对比（RAGv5 起含 vector/hybrid）
 CONFIG_DEFAULT = EvalConfig(label="dual")
 CONFIG_TEXT_ONLY = EvalConfig(label="text-only", use_graph=False)
 CONFIG_TEXT_ONLY_AND = EvalConfig(label="text-only-and", use_graph=False, keyword_mode="and")
@@ -239,7 +239,7 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
         refusal = {"rule": "no_evidence", "text": reason}
     elif not names and text_result is not None and text_result.evidence:
         # 与 sse.py 同步：向量/hybrid 下按"无共享词 + 最高分低于阈值"才拒答，
-        # 避免把语义命中但词面不重合的证据误判为不相关（RAGv5 §四.2）
+        # 避免把语义命中但词面不重合的证据误判为不相关
         _mode = (text_result.mode or "keyword").lower()
         _top = max((e.score or 0.0) for e in text_result.evidence)
         _weak = _top < runtime.settings.vector_refusal_min_score
@@ -248,7 +248,7 @@ async def run_question(runtime: Runtime, cfg: EvalConfig,
                       "当前无法给出有依据的回答。建议换个说法或补充具体事件/人物名。")
             refusal = {"rule": "no_shared_word", "text": reason}
 
-    # 与 sse.py 同步的第三条规则：领域外谓词（RAGv5 §4.6）
+    # 与 sse.py 同步的第三条规则：领域外谓词
     if refusal is None:
         from server.generate import refusal as _refusal_mod
 

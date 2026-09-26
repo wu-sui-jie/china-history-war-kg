@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 首屏产物体积门禁（2026-09-15 第四轮复核 P2-12；2026-09-25 第 12 轮审查 P2-3 修复）。
+ * 首屏产物体积门禁。
  *
  * `chunkSizeWarningLimit` 只打印警告，不能阻止有人在入口里静态 import ECharts，
  * 使 1MB 的重资源被 modulepreload 拖回首屏。这里在 CI/发布前做硬检查：
@@ -8,13 +8,13 @@
  *   2. 入口 + vendor 的 gzip 体积不得超过预算；
  *   3. 首屏 JS 总量（entry + vendor + 预加载 chunk）不得超过预算。
  *
- * ## 为什么必须按产物自己写的前缀解析（第 12 轮审查 P2-3）
+ * ## 为什么必须按产物自己写的前缀解析
  *
- * 原先这里把 `/assets/` 前缀写死，而 `npm run build:integration` 的产物引用的是
- * `/rag/assets/...`。正则一条都匹配不上，于是三个体积全是 0，"体积门禁通过"——
+ * 写死 `/assets/` 前缀时，`npm run build:integration` 的产物引用的是
+ * `/rag/assets/...`，正则一条都匹配不上，于是三个体积全是 0、"体积门禁通过"——
  * 一个永远为真的门禁等于没有门禁，而且它会掩盖真实回归。
- * 现在改为：从 index.html 里出现的 `src`/`href` 里**自己推断** assets 目录，
- * 并且**找不到入口或 vendor 时直接失败**，不允许再出现"0 kB 通过"。
+ * 因此这里从 index.html 里出现的 `src`/`href` 里**自己推断** assets 目录，
+ * 并且**找不到入口或 vendor 时直接失败**，不允许出现"0 kB 通过"。
  *
  * 用法：node scripts/check-bundle.mjs [--dist dist] [--json]
  */
@@ -134,7 +134,7 @@ export function checkBundle(distDir = 'dist') {
   const vendorGz = vendorUrl ? sizes[nameOf(vendorUrl)] : 0
 
   // 关键：拿不到入口/vendor 时**不能**按 0 通过。
-  // 这正是 P2-3 的失效方式——前缀对不上 → 匹配为空 → 三个 0 kB → "通过"。
+  // 前缀对不上就会匹配为空 → 三个 0 kB → "通过"，必须判失败。
   if (!entryUrl) {
     failures.push(
       `在 index.html 里没找到入口 chunk（预期 ${assetsPrefix || '任意前缀'}index-*.js）：` +

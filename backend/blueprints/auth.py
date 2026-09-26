@@ -1,8 +1,8 @@
-"""认证与用户相关路由（P2-1 收官：从 app.py 按业务分组迁出）。
+"""认证与用户相关路由。
 
 分组依据是"谁在用"：登录注册、账号信息、用户管理（改角色）、菜单与权限。
-**URL 与行为逐字未变**——迁移只动了装饰器（@app.route → @auth_bp.route），
-由 67 请求快照对照 + backend/tests 的 32 例兜底。
+**URL 与响应形状必须保持不变**：67 请求快照对照 + backend/tests 的用例都按现有路径与
+字段断言，改路由装饰器就足以把前端与用例一起打坏。
 
 注意：全局鉴权（before_request）与 initialize_entity_extractor 仍留在 app 级，
 蓝图不重复实现鉴权——它们对所有蓝图一视同仁。
@@ -30,7 +30,7 @@ def _guard_unavailable(exc: Exception):
     """限流自身不可用（`LOGIN_GUARD_FAILURE_MODE=closed`）时返回 **503**。
 
     为什么是 503 而不是"照旧放行"：这是一道安全闸门，读不到状态就意味着**无法判断
-    这次尝试该不该被拦**。放行等于"把限流表弄坏"成为绕过它的手段（第 13 轮复核整改 §2.4）。
+    这次尝试该不该被拦**。放行等于"把限流表弄坏"成为绕过它的手段。
     503 的语义也正好——"依赖的服务暂时不可用"，客户端应稍后重试而不是改口令；
     因此不占用 403 那条"密码错了"的语义，也不误导用户去反复试密码。
     """
@@ -90,8 +90,8 @@ def login():
         - data: JWT Token(成功时返回)
         - msg: 错误信息(失败时返回)
 
-    第 13 轮整改加了两条：**限流**（同 IP 与同账号两把尺子，见 login_guard）
-    与**账号停用检查**。HTTP 状态与响应形状刻意未变（仍是 200 + code 403）——
+    两条硬约束：**限流**（同 IP 与同账号两把尺子，见 login_guard）
+    与**账号停用检查**。HTTP 状态与响应形状刻意保持不变（仍是 200 + code 403）——
     前端按 `code` 分支，改动响应契约会把登录页一起打坏；限流是新状态，用 429 表达。
     """
     params = request.get_json(silent=True) or {}
@@ -129,10 +129,10 @@ def login():
         # 只清账号维度：清 IP 会让"用自己的合法账号登录一次"变成重置配额的手段。
         # record_success 的失败**不拒绝登录**（凭证已验证通过），理由见 login_guard 的说明。
         login_guard.record_success("account", account)
-        # 生成JWT Token。role 一并签发（第 12 轮审查 P1-1）：RAG 服务端验签后能拿到角色，
+        # 生成JWT Token。role 一并签发：RAG 服务端验签后能拿到角色，
         # 不必回查旧库；角色变更后旧 token 里的 role 会滞后，所以它只用于收敛界面这类
         # 低风险判断——写权限与管理员判断仍由本服务每次请求实时查库（见 DbUtil.get_role）。
-        # token_version 必须一并带上（第 13 轮整改）：它让"改密码/封号后旧 token 立刻失效"
+        # token_version 必须一并带上：它让"改密码/封号后旧 token 立刻失效"
         # 成为可能，漏传会退化成 1，与库里版本不符时旧 token 立刻失效（fail-closed）。
         token = encode(user.id, user.role or "viewer",
                        token_version=getattr(user, "token_version", 1) or 1)
@@ -186,7 +186,7 @@ def userinfo():
 def sign_in():
     """自由注册。
 
-    `ALLOW_SELF_REGISTRATION=false` 时关闭（第 13 轮整改，文档第十一节）：
+    `ALLOW_SELF_REGISTRATION=false` 时关闭（文档第十一节）：
     公网部署下"任何人都能建号"意味着任何人都能拿到 viewer 身份调接口、
     消耗模型配额。关闭后新建账号走管理员引导命令（backend/create_admin.py）。
     """

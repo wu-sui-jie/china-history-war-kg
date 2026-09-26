@@ -1,8 +1,8 @@
-"""release 制品打包（2026-09-16 第五轮审核 P2-7 第 5 条）。
+"""release 制品打包。
 
-旧实现的打包步骤只复制了 manifest / SHA256SUMS / lineage / Chroma 审计与依赖声明，
-**没有**源码、前端 dist、snapshot/index、eval/demo、smoke 报告、SBOM——
-于是"在另一台机器下载后 verify 并启动服务"这个目标根本达不到：
+打包只复制 manifest / SHA256SUMS / lineage / Chroma 审计与依赖声明是不够的：
+**必须**同时带源码、前端 dist、snapshot/index、eval/demo、smoke 报告、SBOM，
+否则"在另一台机器下载后 verify 并启动服务"这个目标根本达不到——
 解包出来只有一堆校验文件，没有可运行的任何东西。
 
 本脚本按"下载即可验证、即可启动"的目标组装目录：
@@ -256,8 +256,8 @@ def main() -> int:
     if smoke_src is None:
         candidates = sorted(settings.log_dir.glob("smoke_*.json")) if settings.log_dir.is_dir() else []
         smoke_src = candidates[-1] if candidates else None
-    # smoke 报告**必须有且退出码为 0**（第五轮整改复核 B7）：旧实现对缺失报告只打 warning，
-    # 于是手动跑打包就能绕过"服务冒烟"这道门禁。发布包不允许在缺少链路证据时生成。
+    # smoke 报告**必须有且退出码为 0**：对缺失报告只打 warning 时，手动跑打包就能绕过
+    # "服务冒烟"这道门禁。发布包不允许在缺少链路证据时生成。
     if smoke_src is None or not smoke_src.is_file():
         print("::error:: 缺少 smoke 报告：先跑 `python scripts/smoke_deploy.py "
               "--base <服务地址> --report logs/smoke_release.json` 再打包")

@@ -33,7 +33,7 @@ logger = get_logger(__name__)
 
 
 class _ThreadLocalNeo4j:
-    """把 neo4j_db 实例包装成「每线程一个 Graph」的代理（BE-6）。
+    """把 neo4j_db 实例包装成「每线程一个 Graph」的代理。
 
     py2neo 的 Graph 不是线程安全的（并发 run 会共用同一连接与事务状态），
     而本模块用 ThreadPoolExecutor 并发查询图谱。ThreadPoolExecutor 的线程是复用的，
@@ -61,7 +61,6 @@ class _ThreadLocalNeo4j:
 
     def __getattr__(self, item):
         return getattr(self._base, item)
-
 
 
 def _stable_hash(data: Any) -> str:
@@ -1693,5 +1692,5 @@ class RuleLLMIntegration:
         
         if not relations and not inferred_relations:
             return "未找到相关实体关系信息"
-        
-        return "\n".join(text_parts) 
+
+        return "\n".join(text_parts)

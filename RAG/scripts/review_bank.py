@@ -563,7 +563,7 @@ def bank_apply(args) -> int:
         for e in errors:
             print(f"- {e}")
     if getattr(args, "annotation_version", ""):
-        # 元数据与条目级版本同步（条目字段此前会残留 draft-0，与 meta 冲突）
+        # 元数据与条目级版本同步：条目字段若停在 draft-0 会与 meta 冲突
         bank.annotation_version = args.annotation_version
         for q in bank.items:
             q.annotation_version = args.annotation_version

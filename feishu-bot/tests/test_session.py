@@ -272,7 +272,7 @@ def test_feedback_roundtrip(session):
 
 
 def test_delete_messages_removes_only_given_rows(session, db):
-    """发送失败撤回本轮（dispatcher 用）：两行一起删，别的轮次不受影响。"""
+    """发送失败撤回本轮：两行一起删，别的轮次不受影响。"""
     _pair(session, "k", "保留下来的问题", "保留下来的回答")
     user_id = session.record_user("k", None, "没发出去的问题")
     assistant_id = session.record_assistant("k", bot_message_id=None, content="没发出去的回答",
@@ -287,7 +287,7 @@ def test_delete_messages_removes_only_given_rows(session, db):
 
 
 def test_reset_clears_messages_and_session_but_keeps_feedback(session, db):
-    """`/new` 的口径（批次③-2）：上下文清空，纠错记录保留。"""
+    """`/new` 的口径：上下文清空，纠错记录保留。"""
     session.touch("k", "ou_a", "oc_1")
     _pair(session, "k", "旧问题", "旧回答")
     _pair(session, "k2", "别人的问题", "别人的回答")

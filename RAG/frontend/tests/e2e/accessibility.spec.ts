@@ -1,5 +1,5 @@
 /**
- * 浏览器级可访问性验收（2026-09-16 工作单 P1-13）。
+ * 浏览器级可访问性验收。
  *
  * 只测"行为"，不测"属性是否存在"：键盘能否完成提问、抽屉焦点是否困住、
  * Escape 是否关闭并把焦点还回去、tabs 左右键是否切换。
@@ -71,8 +71,8 @@ test.describe('移动端抽屉', () => {
   })
 
   test('抽屉焦点陷阱：Tab / Shift+Tab 都不会把焦点带到抽屉外', async ({ page }) => {
-    // 第五轮审核 P1-13：旧用例只验证"焦点进入抽屉"与 Escape 回焦，
-    // 没有真正按 Tab 循环，因此"焦点陷阱"从未被证明存在。
+    // 焦点陷阱必须真正按 Tab 循环才算被证明：只验证"焦点进入抽屉"与 Escape 回焦，
+    // 无法证明焦点不会逃逸。
     await page.goto('/')
     const trigger = page.getByRole('button', { name: /知识面板|收起面板/ })
     await expect(trigger).toBeVisible()
@@ -135,9 +135,8 @@ test.describe('动态内容播报与减少动效', () => {
   })
 
   test('prefers-reduced-motion 下动画被压制', async ({ page }) => {
-    // 第五轮整改复核 B5：断言必须落在**真的有过渡**的元素上，并且同时测两种状态——
-    // 只测 reduce 态会空转：元素本来就没有 transition 时任何断言都通过（旧用例正是如此，
-    // 它断言的 .qa-topbar 全站没有任何 transition）。
+    // 断言必须落在**真的有过渡**的元素上，并且同时测两种状态——
+    // 只测 reduce 态会空转：元素本来就没有 transition 时任何断言都通过。
     await page.goto('/')
     const trigger = page.getByRole('button', { name: /知识面板|收起面板/ })
     await expect(trigger).toBeVisible()

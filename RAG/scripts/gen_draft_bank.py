@@ -1,4 +1,4 @@
-"""生成黄金问答集初版草稿（数据 grounded，非凭空编造）。
+"""生成黄金问答集草稿（数据 grounded，非凭空编造）。
 
 用法：python scripts/gen_draft_bank.py [--version 20260904_v2]
 

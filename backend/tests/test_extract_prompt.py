@@ -1,13 +1,13 @@
-"""抽取链的提示词内容回归（EER-7 的"平行演化易漂移"）。
+"""抽取链的提示词内容回归（防"平行演化漂移"）。
 
 **为什么需要这组用例。** backend 的 `llm_pipeline.extract_all_optimized` 与离线链路的
-`entity-event-relation/main.py` 是两份**平行实现**（EER-7 记的就是这个风险）。第 10 轮核对时
-发现已经漂了：backend 调 `event_extractor.extract(chunk_text, chunk_entities)`，而
+`entity-event-relation/main.py` 是两份**平行实现**，最容易悄悄漂移。一旦漂成 backend 调
+`event_extractor.extract(chunk_text, chunk_entities)`，而
 `EventExtractor.extract(text, place_list: str = "", ...)` 的第 2 个形参是**字符串**——
-于是整份实体对象被渲染进提示词。实测两边的第 3 阶段提示词：
+就会把整份实体对象渲染进提示词。两边的第 3 阶段提示词应当长这样：
 
-    修前：- 地点：places=[PlaceEntity(geo_name='牧野', modern_name=None, DynastyName=None, ...)]
-    修后：- 地点：牧野、朝歌
+    正确：- 地点：牧野、朝歌
+    错误：- 地点：places=[PlaceEntity(geo_name='牧野', modern_name=None, DynastyName=None, ...)]
 
 这不会抛异常、接口也照常 200，只是让模型拿着一串 Python repr 去抽事件——**静默降级**。
 `snapshot_responses.py` 覆盖不到它（该工具刻意跳过会调大模型的
@@ -94,7 +94,7 @@ def test_prompt_contains_no_python_object_repr(stub_run):
     """
     提示词里不许出现实体对象的 repr。
 
-    这是本组用例的核心：修前的 bug 不报错、不改状态码，只是把
+    这是本组用例的核心：这类 bug 不报错、不改状态码，只是把
     `places=[PlaceEntity(geo_name='牧野', ...)]` 塞给模型，所以只能这样钉住。
     """
     llm, _ = stub_run

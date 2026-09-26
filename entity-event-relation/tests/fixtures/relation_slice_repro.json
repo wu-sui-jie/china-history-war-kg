@@ -1,5 +1,5 @@
 {
-  "_note": "EER-15 的最小复现夹具（第 9 轮）。从 output/中国历代战争简史/9_final_all.json（该文件按 .gitignore 不入库）用 delta debugging 缩减到 2 条关系、2 个事件，缩减目标性质为「PYTHONHASHSEED=0 与 =1 两次运行 evaluate_relations 的返回不一致」。修前实测：两个种子下 counts 相同（filtered_pred=0）而 error_samples.unmatched_gold 的成员与顺序不同——即集合迭代顺序泄漏到报告里。缩减脚本本身是一次性工具，未入库；test_evaluator_deterministic.py 用真实代码路径重放这个夹具。",
+  "_note": "评估可复现性的最小复现夹具。从 output/中国历代战争简史/9_final_all.json（该文件按 .gitignore 不入库）用 delta debugging 缩减到 2 条关系、2 个事件，缩减目标性质为「PYTHONHASHSEED=0 与 =1 两次运行 evaluate_relations 的返回不一致」：两个种子下 counts 相同（filtered_pred=0）而 error_samples.unmatched_gold 的成员与顺序不同——即集合迭代顺序泄漏到报告里。缩减脚本本身是一次性工具，未入库；test_evaluator_deterministic.py 用真实代码路径重放这个夹具。",
   "event_mapping": {
     "宁远之战": "宁远之战",
     "天京陷落": "天京陷落"

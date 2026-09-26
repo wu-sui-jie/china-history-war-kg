@@ -1,9 +1,9 @@
-"""上传脚本的排除规则（第 14 轮审计 P1-1）。
+"""上传脚本的排除规则。
 
-## 这条缺陷的形状
+## 要防的形状
 
-`deploy/scripts/04_upload_from_local.sh` 的 `EXCLUDES` 原先全带尾斜杠
-（`--exclude '.git/'`）。rsync 认这种写法，**GNU tar 不认**：
+`deploy/scripts/04_upload_from_local.sh` 的 `EXCLUDES` 不能带尾斜杠
+（`--exclude '.git/'`）：rsync 认这种写法，**GNU tar 不认**：
 
 ```text
 带尾斜杠  --exclude '.git/' --exclude 'node_modules/'

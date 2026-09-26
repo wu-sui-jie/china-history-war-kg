@@ -1,14 +1,14 @@
-"""C-6（EER-9）：关系类型不能靠模糊比对蒙过去。
+"""关系类型不能靠模糊比对蒙过去。
 
-**修前的实测问题。** 关系类型原来只做模糊比对（`fuzz.ratio > relation_threshold`），
-而五个规范的事件-事件关系类型**两两之间的 fuzz.ratio 都是 50**——都带"关系"二字、
+**问题所在。** 关系类型若只做模糊比对（`fuzz.ratio > relation_threshold`），
+五个规范的事件-事件关系类型**两两之间的 fuzz.ratio 都是 50**——都带"关系"二字、
 4 个字里中 2 个（`2*2/8=50`），全部越过阈值 40。于是标注 `(E1, 顺承关系, E2)`
 对上预测 `(E1, 因果关系, E2)` 或 `(E1, 并列关系, E2)` 都判 tp=1：**类型判错照样满分**，
 关系指标对这类错误完全不敏感。顺带说明：head/tail 的模糊比对本身是合理的（写法不唯一），
 问题只出在**类型**上。
 
-修法：两侧都落在五个规范事件-事件关系类型里时要求**精确相等**；其余情况（自由文本关系名）
-仍走模糊比对。这是口径变更，历史关系指标会下降，见第 11 轮实施记录的前后对照。
+口径：两侧都落在五个规范事件-事件关系类型里时要求**精确相等**；其余情况（自由文本关系名）
+仍走模糊比对。改这条等于改评估口径，历史关系指标会下降。
 """
 
 from pathlib import Path
@@ -20,7 +20,7 @@ from war_extraction.utils.normalizer import Normalizer
 
 ANNOTATION_DIR = Path(__file__).resolve().parents[1] / "data" / "annotations"
 
-#: 五个规范事件-事件关系类型两两之间的 fuzz.ratio 都是 50——修前它们互相顶替的原因
+#: 五个规范事件-事件关系类型两两之间的 fuzz.ratio 都是 50——它们会互相顶替的原因
 CANONICAL_PAIRS_SIMILARITY = 50
 
 
@@ -49,7 +49,7 @@ def test_自由文本关系名仍走模糊比对(evaluator):
 
 
 def test_一条关系类型判错的三元组不算匹配(evaluator):
-    """端到端复现工作单里那张实测表：修前这两条都是 tp=1，修后必须是 0。"""
+    """端到端复现类型错配的实测表：把"顺承关系"判成"因果/并列关系"必须是 tp=0。"""
     mapping = {"牧野之战": "牧野之战", "商纣王东征": "牧野之战"}
 
     # 标注：顺承关系；预测：因果关系 → 不该算匹配
@@ -69,8 +69,8 @@ def test_一条关系类型判错的三元组不算匹配(evaluator):
 def test_config覆盖硬编码关系映射(evaluator):
     """硬编码表里"因果关系→顺承关系"这条被 config/relation_types.json 覆盖，最终以后者为准。
 
-    这条断言的意义：提醒"改 optimal_evaluator 里那张硬编码 relation_map 可能看不到效果"
-    （第 11 轮 C-6 附带的坑）。真要改关系归一，先看 config/relation_types.json。
+    这条断言的意义：提醒"改 optimal_evaluator 里那张硬编码 relation_map 可能看不到效果"。
+    真要改关系归一，先看 config/relation_types.json。
     """
     assert evaluator.normalize_relation("因果关系") == "因果关系"
     assert evaluator.normalize_relation("导致") == "因果关系"

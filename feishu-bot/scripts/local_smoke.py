@@ -37,8 +37,8 @@ from types import SimpleNamespace
 BOT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BOT_ROOT))
 # 卡片取值复用测试侧的唯一实现（tests/card_helpers.py，按卡片 2.0 结构取值）：
-# 本脚本曾按 1.0 形态找 `tag == "action"` 容器与顶层 `value`，2.0 迁移后没同步，
-# 结果是"按钮摘要永远为空、纠错反馈环节静默跳过"——两处解析必须共用一份实现。
+# 按 1.0 形态（`tag == "action"` 容器 + 顶层 `value`）取值拿不到任何按钮，会让
+# "按钮摘要为空、纠错反馈环节静默跳过"这类失效不报错——两处解析必须共用一份实现。
 sys.path.insert(0, str(BOT_ROOT / "tests"))
 
 from bot.db import Database                                       # noqa: E402
@@ -273,7 +273,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"    已存：{path}")
 
         # 2) 首次提问（fresh 会话）
-        #    两段式回复（批次③-1）：先 reply 占位卡，跑完用 PATCH 整卡替换
+        #    两段式回复：先 reply 占位卡，跑完用 PATCH 整卡替换
         feishu.replies.clear()
         feishu.patched.clear()
         started = time.monotonic()
@@ -324,7 +324,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"\n[4] 纠错反馈（按钮 msg_key={msg_key}）")
             if not msg_key:
                 # 降级卡片本来就不带按钮（没有可纠错的回答）；非降级卡片没有按钮
-                # 就是缺陷——这一条曾经因为按 1.0 解析而静默跳过，现在必须报出来
+                # 就是缺陷——必须显式报出来（按 1.0 取值会静默跳过这一步）
                 degraded = answer_card.get("header", {}).get("template") == "orange"
                 print("    没有反馈按钮" + ("（降级卡片不带按钮，符合预期）" if degraded
                                            else "——**异常**：非降级回答卡片应带「反馈有误」按钮"))
@@ -348,7 +348,7 @@ def main(argv: list[str] | None = None) -> int:
                 else:
                     print("    feedback 表里没有记录（异常，应有一条 open 记录）")
 
-        # 5) /new 重置会话（批次③-2）：上下文与历史一起清空，feedback 仍保留
+        # 5) /new 重置会话：上下文与历史一起清空，feedback 仍保留
         feishu.replies.clear()
         feishu.patched.clear()
         before_history = len(session.history_for_rag("ou_smoke:oc_smoke"))

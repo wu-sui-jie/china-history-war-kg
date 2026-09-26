@@ -1,4 +1,4 @@
-"""panel.subgraph → PNG（开发文档 5.6，P2-1）。
+"""panel.subgraph → PNG（开发文档 5.6）。
 
 选型：Node + echarts SSR（`renderer: 'svg', ssr: true`）+ resvg-js 转 PNG，
 不需要浏览器内核。布局约束见 render/render_subgraph.js 顶部注释：

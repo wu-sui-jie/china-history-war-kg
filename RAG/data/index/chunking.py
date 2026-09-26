@@ -103,7 +103,7 @@ def _chunk_evidence(evidences: list[dict], source_version: str, max_chars: int,
                     name2type: dict | None = None) -> list[dict]:
     """关系证据：保留为可引用的短文本，超长再按句子切（无重叠）。
 
-    RAGv5 §2.5-3：关系证据按 `source_name`（事件名）关联事件卡片补齐 `event_type`，
+    关系证据按 `source_name`（事件名）关联事件卡片补齐 `event_type`，
     使"按战争类型筛选"时证据片段不再被整批剔除。
     """
     name2type = name2type or {}

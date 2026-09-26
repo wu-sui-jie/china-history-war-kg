@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Neo4j 全文索引评估（BE-8）：先在真实数据上量，再决定要不要上。
+"""Neo4j 全文索引评估：先在真实数据上量，再决定要不要上。
 
 背景：旧后端的名称检索一律是 `WHERE toLower(n.name) CONTAINS toLower($q)`
 （model_search.py 十处），前缀通配使任何索引都失效，只能全标签扫描。候选方案是

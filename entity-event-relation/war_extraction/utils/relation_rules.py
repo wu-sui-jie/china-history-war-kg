@@ -1,8 +1,8 @@
 """
 事件-事件关系仲裁。
 
-EER-6：这段规则此前在 `main.py`（自由函数）与 `war_extraction/extractors/relation_extractor.py`
-（同名方法）里各一份，逐字相同——改一处忘一处就会让"抽出来的关系和清理后的关系"对不上。
+抽取时（`relation_extractor`）与最终清理时（`main.cleanup_relation_conflicts`）都要仲裁，
+规则只能有这一份——两处各一份会让"抽出来的关系"和"清理后的关系"对不上。
 """
 from __future__ import annotations
 

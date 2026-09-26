@@ -7,8 +7,8 @@ import Layui from '@layui/layui-vue'
 import '@layui/layui-vue/lib/index.css'
 
 async function bootstrap() {
-  // 2026-09-25 移除 mockjs：它拦截 /user/menu、/user/permission 返回硬编码菜单，
-  // 不感知角色（viewer 也拿到全量管理菜单）——菜单的唯一事实源统一为后端
+  // 不引入 mockjs：它会拦截 /user/menu、/user/permission 返回硬编码菜单，
+  // 不感知角色（viewer 也拿到全量管理菜单）——菜单的唯一事实源是后端
   // get_menu()（按角色裁剪）。开发时照常连后端即可。
   const app = createApp(App)
 

@@ -1,9 +1,9 @@
-/** 问答记录按账号隔离的浏览器级验收（2026-09-25，问题二方案 A）。
+/** 问答记录按账号隔离的浏览器级验收。
  *
  * 为什么必须有一条浏览器用例：这个功能横跨两个应用（主应用 postMessage ↔ RAG 前端按 uid 分桶），
- * `installHostUserBridge` 与 `applyUserScope` 各自单测都过，但**接缝**曾经断过——桥改成传
- * `{uid, role}` 对象后 store 仍按字符串处理，activeUid 变成 "[object Object]"，所有账号落进
- * 同一个桶，线上表现就是"两个账号看到的记录一模一样"。单测抓不到，浏览器里一跑就现。
+ * `installHostUserBridge` 与 `applyUserScope` 各自单测都过，但**接缝**有一条硬约束——桥传
+ * `{uid, role}` 对象而 store 按字符串处理时，activeUid 会变成 "[object Object]"，所有账号落进
+ * 同一个桶，表现就是"两个账号看到的记录一模一样"。单测抓不到，浏览器里一跑就现。
  *
  * 装置：本用例自己起一个页面容器（`/scope-harness.html`）把 RAG 页面放进 iframe，
  * 再从父页 postMessage 身份消息——与主应用 RagAssistant.vue 的做法一致（同源 + targetOrigin '/'）。

@@ -43,8 +43,8 @@ def setup_rag_logging(log_dir: Path | None = None, level: int = logging.INFO) ->
     """给 `rag.*` 命名空间挂统一 handler（控制台 + `logs/server.log` 滚动）。
 
     server 侧的模块（runtime / sse / generate / llm_client）都是
-    `logging.getLogger("rag.xxx")` 取值，但原先没有任何地方配置 handler：
-    INFO 级日志被默认丢弃、也不落文件，排查线上问题只能看 stdout（RAG-5）。
+    `logging.getLogger("rag.xxx")` 取值，必须由本函数统一挂上 handler：
+    否则 INFO 级日志被默认丢弃、也不落文件，排查线上问题只能看 stdout。
     在服务启动时调用本函数一次，所有 `rag.*` 子 logger 都会继承这套 handler。
 
     与 `get_logger` 的区别：那个是给离线脚本按 logger 各自初始化的（写 `logs/rag.log`），

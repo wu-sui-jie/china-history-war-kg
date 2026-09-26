@@ -1,4 +1,4 @@
-"""发布制品清单生成与校验（2026-09-15 第四轮复核 P2-3 / P0-4）。
+"""发布制品清单生成与校验。
 
 为什么需要它：health 里原有的哈希只覆盖 snapshot manifest、index manifest 与向量 ids，
 **不能证明真正被服务读取的 JSON、FTS、chunks、embeddings、Chroma 段和前端 dist 没变**。
@@ -52,7 +52,7 @@ def _sha256(path: Path) -> str:
 
 
 def _sqlite_logical_hash(path: Path) -> str:
-    """SQLite 元数据库的**逻辑**哈希（工作单 P2-3）。
+    """SQLite 元数据库的**逻辑**哈希。
 
     为什么不能直接哈希文件：Chroma 打开数据库时会写 WAL、更新 acquire_write / max_seq_id
     之类的运行态表，"跑一次服务再校验"必然失败——那不是制品变了，是元数据自更新。
@@ -102,7 +102,7 @@ def _entry(path: Path, root: Path, artifact_type: str, source_version: str) -> d
 def expected_paths(settings, version: str) -> dict[str, str]:
     """发布必需文件的**权威清单**（路径 → artifact_type）。
 
-    校验时用它做双向比对（工作单 P2-3）：清单里的文件必须存在，目录里出现的新文件
+    校验时用它做双向比对：清单里的文件必须存在，目录里出现的新文件
     也必须已被登记——只做单向检查会漏掉"新增了未登记的运行时文件"。
     """
     root = repo_root()
@@ -178,8 +178,8 @@ def collect(settings, version: str) -> dict:
         "manifest_version": 1,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "source_version": version,
-        # 与 lineage 统一口径：`<sha12>@<branch>`（第六轮复核 D4——两份发布证据
-        # 原先一个写全哈希、一个写短哈希@分支，交叉核对还得换算）；
+        # 与 lineage 统一口径：`<sha12>@<branch>`——两份发布证据若一个写全哈希、
+        # 一个写短哈希@分支，交叉核对还得换算；
         # 需要精确哈希时看 git_commit_full
         "git_commit": _git_commit_label(root),
         "git_commit_full": _git(["rev-parse", "HEAD"], root) or "",
@@ -205,7 +205,7 @@ def _git(args: list[str], cwd: Path) -> str:
         out = subprocess.run(["git", *args], cwd=str(cwd), capture_output=True,
                              text=True, timeout=10)
         # 统一 strip：git 输出带尾换行，写进 JSON 会变成 "abc...\n"，
-        # 严格比较、签名与外部工具消费都会因此对不上（第五轮审核 R5-7）
+        # 严格比较、签名与外部工具消费都会因此对不上
         return out.stdout.strip() if out.returncode == 0 else ""
     except Exception:  # noqa: BLE001
         return ""
@@ -235,7 +235,7 @@ def cmd_build(args) -> int:
 
     out_path = settings.data_dir / "release" / "artifact-manifest.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    # 必须 LF 写出：CRLF 会让 sha256sum -c 在 Linux 上逐行失败（第五轮复核 B1）
+    # 必须 LF 写出：CRLF 会让 sha256sum -c 在 Linux 上逐行失败
     write_text_lf(out_path, json.dumps(manifest, ensure_ascii=False, indent=2))
     sums_path, logical_path = _write_sha256sums(settings, manifest, out_path)
     print(f"清单已写入: {out_path}")
@@ -251,7 +251,7 @@ def cmd_build(args) -> int:
 def cmd_verify_sums(args) -> int:
     """校验 SHA256SUMS 的**物理**哈希（等价于 `sha256sum -c SHA256SUMS`）。
 
-    第五轮审核 P2-3 的验收要求之一：标准工具语义必须成立。这里不调用系统
+    硬要求：标准工具语义必须成立。这里不调用系统
     sha256sum（Windows/Git Bash 上不保证存在），而是用同一套算法逐行核对；
     任何一行对不上、缺文件或格式非法都返回非零。
     """
@@ -320,7 +320,7 @@ def cmd_verify(args) -> int:
         if _sha256(path) != entry["sha256"]:
             drift.append(f"内容变化: {rel}")
 
-    # 双向比对（P2-3）：目录里出现、但清单未登记的文件必须被发现
+    # 双向比对：目录里出现、但清单未登记的文件必须被发现
     if version:
         expected = expected_paths(get_settings(), version)
         for rel in sorted(set(expected) - registered):
@@ -342,9 +342,9 @@ def cmd_verify(args) -> int:
 def _write_sha256sums(settings, manifest: dict, out_path: Path) -> tuple[Path, Path]:
     """生成 SHA256SUMS（**物理**哈希）与 LOGICAL_HASHES.json（逻辑哈希）。
 
-    第五轮审核 P2-3 修正了旧实现的语义错误：旧版把 Chroma 元数据库的**逻辑哈希**
-    写进 SHA256SUMS，于是 `sha256sum -c SHA256SUMS` 必然报不一致——那不是文件被改了，
-    而是两种哈希本来就是不同口径。现在分工明确：
+    不能把 Chroma 元数据库的**逻辑哈希**写进 SHA256SUMS：那样
+    `sha256sum -c SHA256SUMS` 必然报不一致——不是文件被改了，而是两种哈希本来
+    就是不同口径。因此分工明确：
 
     - `SHA256SUMS`：标准语义，逐文件物理 sha256，`sha256sum -c` 可直接通过；
     - `LOGICAL_HASHES.json`：`hash_mode=sqlite_logical` 的条目单独存放逻辑哈希，

@@ -1,4 +1,4 @@
-/** MessageBubble 组件交互用例（2026-09-16 工作单 P1-12 的 Vue Test Utils 层）。
+/** MessageBubble 组件交互用例（Vue Test Utils 层）。
  *
  * 覆盖：重试按钮的显示与行为、同名候选下拉的 entity_id 取值与 payload、
  * 引用点击事件、失败轮的纠正入口收起。

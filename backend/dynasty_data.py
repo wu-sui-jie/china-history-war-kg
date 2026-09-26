@@ -1,9 +1,8 @@
-"""朝代相关的全部数据表（BE-9：原先散落在五个地方，口径还不一致）。
+"""朝代相关的全部数据表（口径统一后集中在这里）。
 
-为什么收敛：同一批朝代名原先分别在 `rule_llm_integration.DYNASTY_SCOPE_MAP`、
-`app.DYNASTY_DISPLAY_ORDER`、`app.DYNASTY_ALIAS_MAP`、`app.VALID_DYNASTIES`、
-`app._DYNASTY_CORRECTIONS`、`entity_extract.extractor.Extractor.DYNASTIES` 各维护一份。
-加一个朝代要改六处，漏改一处就会让某条链路悄悄查不到数据。
+为什么收敛：同一批朝代名若分散在 `rule_llm_integration`、`app`、
+`entity_extract.extractor.Extractor` 等多处各维护一份，加一个朝代就要改六处，
+漏改一处就会让某条链路悄悄查不到数据。
 
 **各表的用途与口径差异（刻意保留，不是漏改）**：
 

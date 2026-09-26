@@ -27,15 +27,14 @@ class RelationExtractor:
     def __init__(self, llm_client):
         self.llm = llm_client
         self.prompt_template = RELATION_EXTRACTION_PROMPT
-        # Changed 2026-09-25（第 11 轮 C-2）：按 __file__ 锚定到项目根的 logs/。
-        # 原先 Path("logs") 相对当前工作目录——换个目录启动就在那儿新建一个 logs/，
-        # 错误样本散落各处（同一个 EER-11 路径口径问题）。
+        # 按 __file__ 锚定到项目根的 logs/：用相对当前工作目录的 Path("logs") 的话，
+        # 换个目录启动就会在那儿新建一个 logs/，错误样本散落各处找不到。
         self.error_dir = Path(__file__).resolve().parents[2] / "logs" / "relation_errors"
         self.error_dir.mkdir(parents=True, exist_ok=True)
         self.normalizer = Normalizer()
 
     def _write_error_log(self, reason: str, response: str):
-        """Changed 2026-04-21 13:57:14 +08:00: Persist lightweight relation error samples for prompt tuning."""
+        """把抽错的响应片段落盘成错误样本，供之后调提示词用。"""
         safe_reason = reason.replace(" ", "_").replace(":", "_")
         path = self.error_dir / f"{safe_reason}.log"
         existing = path.read_text(encoding="utf-8") if path.exists() else ""
@@ -80,8 +79,8 @@ class RelationExtractor:
         }
 
     def _split_multi_value(self, value: str) -> list:
-        # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来这里与 main.py 各一份，
-        # 且**排除集不一致**：main.py 那份只排除"不详/null"）。这里保持抽取器原有的宽口径。
+        # 多值拆分只有 war_extraction/utils/value_parsing.py 一处；这里显式传全量占位词集，
+        # 保证"未知/无/None"也算没有值（与 main.py 侧同一口径）。
         return split_multi_value(value, placeholders=PLACEHOLDERS_FULL)
 
     def _allowed_name_set(self, value: str) -> set:
@@ -298,7 +297,7 @@ class RelationExtractor:
         )
 
     def _derive_event_event_relations_from_events(self, events: list) -> list:
-        """Changed 2026-04-21 14:45:21 +08:00: Backfill event-event relations from events[].relations."""
+        """从事件的 `relations` 字段回填事件-事件关系（模型常在事件层给关系、不给三元组）。"""
         derived = []
         for event in events:
             event_name = self.normalizer.standardize_event_name(event.EventName)
@@ -320,11 +319,11 @@ class RelationExtractor:
         return derived
 
     def _arbitrate_event_event_relation(self, rel: EventEventRelation) -> EventEventRelation:
-        # EER-6：改调公共实现（原来与 main.py 的 _arbitrate_event_event_relation 是两份逐字相同的逻辑）
+        # 仲裁规则只有 war_extraction/utils/relation_rules.py 一处，与 main.py 的收尾清理共用
         return arbitrate_event_event_relation(self.normalizer, rel)
 
     def _normalize_event_event_relations(self, relations: list[EventEventRelation]) -> list[EventEventRelation]:
-        """Changed 2026-04-21 16:46:12 +08:00: Canonicalize event-event labels, resolve direction conflicts, and drop self-loops/duplicates."""
+        """规范化事件-事件关系的名称与类型、消解方向冲突，并丢掉自环与重复。"""
         normalized = []
         by_pair = {}
         relation_priority = {"因果关系": 3, "顺承关系": 2, "并列关系": 1}
@@ -339,8 +338,8 @@ class RelationExtractor:
                 continue
             pair_key = tuple(sorted([name_a, name_b])) + (rel.relation, rel.evidence or "")
 
-            # Changed 2026-04-21 16:46:12 +08:00: Prefer one stable direction for
-            # order-sensitive relations instead of keeping both A->B and B->A.
+            # "顺承/因果"有方向：同一对事件只留一条，方向按事件名字典序固定
+            # （A > B 就交换两端），不保留 A→B 与 B→A 两份。
             if rel.relation in {"顺承关系", "因果关系"}:
                 preferred = rel
                 if rel.EventName_A > rel.EventName_B:

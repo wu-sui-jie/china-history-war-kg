@@ -20,7 +20,7 @@ from sync_compensation import OP_NODE_CREATE, OP_NODE_DELETE, OP_NODE_UPDATE
 
 from logging_util import get_logger
 
-# 口令策略的唯一实现（第 13 轮复核整改 §2.1）：数值与判定都在 password_policy 里，
+# 口令策略的唯一实现：数值与判定都在 password_policy 里，
 # 注册 / 改密码 / 首管命令 / 前端提示共用同一份口径。这里转出两个常量只是为了
 # 兼容既有引用（`from db_utils import MIN_PASSWORD_LENGTH`），新代码请直接引用该模块。
 from password_policy import (  # noqa: F401  （转出以兼容既有引用）
@@ -35,7 +35,7 @@ logger = get_logger(__name__)
 def _enqueue_compensation(node_type, node_id, node_name, properties, error):
     """把一次失败的 Neo4j 同步登记为待补偿任务**并自行提交**。
 
-    **第 13 轮起优先用同事务路径**（`_stage_sync_job` + 一次 commit）；本函数只保留给
+    **优先用同事务路径**（`_stage_sync_job` + 一次 commit）；本函数只保留给
     "事后补记"的场景（例如导入脚本在事务外发现对不上时）。
     """
     from sync_compensation import enqueue_failed_sync
@@ -61,8 +61,8 @@ def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
     """提交后立刻尝试把这次修改同步到 Neo4j；返回 `(是否成功, 错误说明, neo4j_id)`。
 
     成功 → 结单；失败 → 记错误并排下一次重试时刻（退避落库）。
-    **这条路径不再是"唯一的同步手段"**：任务已经和业务修改一起提交了，
-    这里只是让绝大多数请求不必等后台 worker（用户体验与原先完全一致）。
+    **这条路径不是"唯一的同步手段"**：任务已经和业务修改一起提交了，
+    这里只是让绝大多数请求不必等后台 worker——提交后立刻试一次同步。
     """
     import sync_compensation as sc
 
@@ -74,7 +74,7 @@ def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
     return False, message, None
 
 
-# 由数据库维护、**不接受外部指定**的列（第 14 轮审计 P2-5）。
+# 由数据库维护、**不接受外部指定**的列。
 #
 # 它们都是"真实的列"，所以"只按列名过滤"挡不住：editor 可以在 create_node 的请求体里
 # 塞 `id` 指定主键，塞 `created_at` 伪造入库时间。
@@ -84,7 +84,7 @@ def _try_sync_now(job, node_type, node_id, *, graph_key, name, properties,
 #   - created_at：质检报表按它统计"最近新增"，可伪造即报表不可信。
 MANAGED_COLUMNS = frozenset({"id", "neo4j_id", "created_at"})
 
-# 账号与昵称的长度上限（第 14 轮审计 P3-10）。
+# 账号与昵称的长度上限。
 #
 # 前端登录/注册页要求账号 3-20、昵称 ≤20，而后端（含模型列的 String(255)）**只要求非空**：
 # 与刚统一的"口令 10-64 两边一份口径"同类——前端更严会凭空拦住人，而且没有共同事实源，
@@ -127,9 +127,9 @@ class DbUtil:
     def find_user(user_id):
         """按 id 取用户信息字典；不存在返回 None。
 
-        与 get_role / list_users / set_user_role 一样是静态方法：它不使用实例状态
-        （原先写成实例方法，`DbUtil.find_user(id)` 会报 "missing 1 required positional
-        argument"，只能绕成 `DbUtil().find_user(id)`）。
+        与 get_role / list_users / set_user_role 一样是静态方法：它不使用实例状态，
+        必须用 `DbUtil.find_user(id)` 调用——写成实例方法时这个调用形式会报
+        "missing 1 required positional argument"，只能绕成 `DbUtil().find_user(id)`。
         """
         user = db.session.get(UserInfo, user_id) if user_id is not None else None
         return user.to_dict() if user else None
@@ -139,9 +139,8 @@ class DbUtil:
         """取用户角色。
 
         查不到返回空串（按未授权处理）；存量账号 role 为空时按 **viewer** 处理。
-        原先回退到 admin（当时的理由是"避免引入角色模型后把原有账号锁成只读"），但角色
-        迁移已给存量账号回填过取值，这个兜底只剩风险：任何一次写库遗漏（NULL/空串）都会
-        变成静默提权。默认值取最小权限，空值最多让人少看几个页面，不会让人多写几个接口。
+        回退到 admin 会让任何一次写库遗漏（NULL/空串）变成静默提权，所以默认值取
+        最小权限：空值最多让人少看几个页面，不会让人多写几个接口。
         没有应用上下文时同样返回空串——fail-closed，宁可拒绝也不放行。
         """
         if user_id is None:
@@ -167,13 +166,13 @@ class DbUtil:
                            f"（当前 {len(account)} 位）"}
         if len(name) > MAX_NAME_LENGTH:
             return {"code": 400, "msg": f"昵称长度不能超过 {MAX_NAME_LENGTH} 位"}
-        # 口令强度是注册路径也要过的门（第 13 轮整改）：只在改密码时管长度，等于
+        # 口令强度是注册路径也要过的门：只在改密码时管长度，等于
         # "弱口令只要一开始就设好，就永远不用改"。
         problem = self._password_policy_problem(password)
         if problem:
             return {"code": 400, "msg": problem}
 
-        # 先查一次存在性作为**可读的**第一道（第 14 轮审计 P2-6）：
+        # 先查一次存在性作为**可读的**第一道：
         # 唯一索引是并发下的真正防线（下面那个 IntegrityError），但它给不出"哪个账号重复"。
         # 而且索引可能因为存量重复数据而**没建上**（见 app.py 的启动迁移），
         # 那时没有这一步就等于重复账号不再被拦。
@@ -221,10 +220,10 @@ class DbUtil:
         db.session.commit()
         return user.to_dict()
 
-    # ---- token 撤销（第 13 轮整改，文档第五节）----
+    # ---- token 撤销 ----
     @staticmethod
     def token_status(payload):
-        """token 的当前状态，返回结构化字典（第 13 轮复核：供 RAG 的 introspect 使用）。
+        """token 的当前状态，返回结构化字典（供 RAG 的 introspect 使用）。
 
         ```
         {"active": bool, "reason": str, "user_id": ..., "role": str,
@@ -350,7 +349,7 @@ class DbUtil:
     def _password_policy_problem(password: str):
         """口令强度检查；合规返回 None。
 
-        判定实现在 `password_policy.password_problem`（唯一口径，第 13 轮复核整改 §2.1）。
+        判定实现在 `password_policy.password_problem`（唯一口径）。
         保留这个静态方法是为了不动既有调用点（注册与改密码两处），它只做转发。
         """
         return password_problem(password)
@@ -364,16 +363,14 @@ class DbUtil:
             "Person": Person,
         }.get(node_type)
 
-    # 按名回退查找/删除/改名（`_find_neo4j_by_name` / `_delete_neo4j_by_name` /
-    # `_update_neo4j_by_name`）已在第 13 轮整改中删除：它们是为了在 `neo4j_id` 缺失时
-    # "按名字猜一个节点"而存在的，而按名字定位在**同名节点有多个**时无法判断该动哪一个，
-    # 正是文档第六节第 3 条 C 描述的"更新变成新建 / 改错对象"的来源。
-    # 现在写路径一律按稳定图谱键定位（见 graph_key.py），历史遗留节点由
-    # `model_search.upsert_node` 的"认领同名无键节点"步骤平滑接管，不再需要这种兜底。
+    # 写路径一律按稳定图谱键定位（见 graph_key.py），**不做"按名字猜一个节点"的回退**：
+    # 按名字定位在**同名节点有多个**时无法判断该动哪一个，正是文档第六节第 3 条 C
+    # 描述的"更新变成新建 / 改错对象"的来源。历史遗留的无键节点由
+    # `model_search.upsert_node` 的"认领同名无键节点"步骤平滑接管。
 
     @staticmethod
     def _field_mapping_by_type(node_type: str):
-        """API 键 → SQLite 列名（映射表在 node_property_mapping，三处重复已收敛）。"""
+        """API 键 → SQLite 列名（映射表在 node_property_mapping，是唯一来源）。"""
         return API_TO_COLUMN.get(node_type, {})
 
     @staticmethod
@@ -434,7 +431,7 @@ class DbUtil:
             }
         except Exception:
             db.session.rollback()
-            # 完整异常只进日志：`str(e)` 常带 SQL、列名与库文件路径（第 13 轮复核第七节）。
+            # 完整异常只进日志：`str(e)` 常带 SQL、列名与库文件路径。
             # 调用方（blueprints/node.py）会把 code 透传成 HTTP 状态，因此这里只需给安全文案。
             logger.exception("创建节点失败：type=%s name=%s", node_type, name)
             return {"code": 500, "msg": "创建失败，请稍后重试"}
@@ -450,11 +447,11 @@ class DbUtil:
             if not node:
                 return {"code": 404, "msg": "节点不存在"}
 
-            # 名称要从**归一化后的属性**里取（第 14 轮审计 P1-4 根因 a）。
+            # 名称要从**归一化后的属性**里取。
             #
             # 前端从来不发 `name`：它按各实体的字段名发 `EventName` / `PersonName` /
-            # `OrgName` / `geo_name`（useNodeCrudPage 按 nameField 组装）。原实现只读
-            # `data.get("name")`，于是 new_name 恒为 None，一路作为 job.node_name 传到
+            # `OrgName` / `geo_name`（useNodeCrudPage 按 nameField 组装）。只读
+            # `data.get("name")` 会让 new_name 恒为 None，一路作为 job.node_name 传到
             # `SET n.name = $name`，把图谱里的 name 写成 null（等价于删除）；
             # 而 SQLite 那边因为下面的归一化循环会把名字救回来，所以**只有图谱坏掉、
             # 主存储看不出来**。
@@ -565,9 +562,9 @@ class DbUtil:
             # 先删主存储（SQLite）并**与待办同一次提交**：主存储删除失败时整体回滚、
             # 不动 Neo4j，不会留下「Neo4j 已删、SQLite 还在」的永久不一致。
             #
-            # 删除现在也进 outbox（第 13 轮整改）：原先明确不补偿删除（理由是"按名重放删除
-            # 有歧义"），于是删除失败会永久留在图谱里，而且没有任何记录。有了稳定图谱键
-            # 之后这个歧义消失了——`Event:123` 只可能指向一个节点，重放删除是明确的。
+            # 删除也进 outbox：重放删除按稳定图谱键定位（`Event:123` 只可能指向一个
+            # 节点），所以重放是明确的。不补偿删除会让失败永久留在图谱里，而且没有
+            # 任何记录。
             db.session.delete(node)
             job = _stage_sync_job(node_type, node_id, OP_NODE_DELETE, node_name, None)
             db.session.commit()
@@ -622,8 +619,8 @@ class DbUtil:
                             try:
                                 value = float(value)
                             except (TypeError, ValueError):
-                                # 非法经纬度原先抛 ValueError → 兜底 except 收成 500
-                                # 「操作失败」（第 14 轮审计 P3-1）
+                                # 非法经纬度在这里就判成请求错误：漏下去会被兜底 except
+                                # 收成 500「操作失败」
                                 return {"code": 400,
                                         "msg": f"{mapped_key} 必须是数字（当前 {value!r}）"}
                     setattr(node, mapped_key, value)
@@ -688,10 +685,10 @@ class DbUtil:
             end = start + limit
             return {"total": total_count, "records": all_records[start:end]}
         except Exception:
-            # 这里**不再吞掉异常**：原先返回 `{"total": 0, "records": [], "error": str(e)}`，
-            # 于是查询失败在客户端表现为"列表是空的"、在服务端日志里没有任何痕迹，
-            # 而且 `str(e)` 还会带着 SQL 与库路径回到前端（第 13 轮复核第七节）。
-            # 改为记日志后向上抛，由路由的 `server_error` 收成 HTTP 500 +
+            # 这里**不吞掉异常**：返回 `{"total": 0, "records": [], "error": str(e)}`
+            # 会让查询失败在客户端表现为"列表是空的"、在服务端日志里没有任何痕迹，
+            # 而且 `str(e)` 还会带着 SQL 与库路径回到前端。
+            # 记日志后向上抛，由路由的 `server_error` 收成 HTTP 500 +
             # 同一份空列表形状（前端不会在 `data.records` 上崩，但能知道"这是失败"）。
             logger.exception("查询节点列表失败：page=%s size=%s type=%s",
                              current, limit, node_type)

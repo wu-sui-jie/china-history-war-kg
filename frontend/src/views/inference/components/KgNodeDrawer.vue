@@ -1,10 +1,10 @@
 <!--
   图谱节点详情抽屉（点击问答子图里的节点后弹出）。
 
-  从 views/inference/index.vue 的模板里整块搬出来（第 7 轮 W2），class 名与结构保持不变。
+  class 名与结构沿用 views/inference/index.vue 的页面级样式，不要改动。
   它必须自成一个组件：lay-layer 会把内容 teleport 到 body，页面里按 `.inference-container`
-  命名空间生效的样式够不到它（teleport 之后不在那个子树里），所以抽屉的样式随模板一起
-  搬进本组件的 scoped 块（见文件尾）。
+  命名空间生效的样式够不到它（teleport 之后不在那个子树里），所以抽屉的样式放在
+  本组件的 scoped 块里（见文件尾）。
 -->
 <template>
   <lay-layer :model-value="modelValue" :title="'节点关联信息'" :shade="true" :area="['520px', '88vh']"
@@ -142,8 +142,8 @@ const nodeDetailEntries = computed(() => {
 </script>
 
 <style scoped>
-/* 从 index.css 原样搬来（第 7 轮 W2）：规则内容一字未改，只换了归属。
-   搬它的原因见文件头——teleport 出来的内容不在页面命名空间的子树里。 */
+/* 规则与 index.css 里的 .kg-node-detail 保持一致，不要各改一份。
+   放在这里的原因见文件头——teleport 出来的内容不在页面命名空间的子树里。 */
 .kg-node-detail {
   padding: 22px;
   display: flex;

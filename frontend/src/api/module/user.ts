@@ -1,6 +1,6 @@
 import Http from '../http';
 
-// 用户与登录接口（FE-6 统一入口）。
+// 用户与登录接口。
 
 export const menu = function() {
     return Http.get('/user/menu')

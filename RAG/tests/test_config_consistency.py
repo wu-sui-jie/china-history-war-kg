@@ -1,4 +1,4 @@
-"""配置三处一致性的守护用例（RAG-7）。
+"""配置三处一致性的守护用例。
 
 配置项要在三个地方各写一次：`config/defaults.py` 的默认值、`Settings` 的 dataclass 字段、
 `get_settings()` 里的 `os.environ.get(...)`。漏掉第三处时配置项会"永远等于默认值"，

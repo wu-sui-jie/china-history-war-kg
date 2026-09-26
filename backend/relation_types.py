@@ -1,7 +1,7 @@
 """事件-事件关系类型的唯一权威表。
 
-原先导入（import_json_to_sqlite）、同步（sync_sqlite_to_neo4j）、
-图谱查询（model_search）三处各维护一份别名表，任一处新增关系类型都要改三遍。
+导入（import_json_to_sqlite）、同步（sync_sqlite_to_neo4j）与图谱查询（model_search）
+若各维护一份别名表，任一处新增关系类型都要改三遍，漏改就会让别名查不到。
 此处收敛为一份，其余模块一律 import 这里。
 """
 

@@ -1,13 +1,14 @@
 """
 主库（旧后端的 SQLite）路径解析。
 
-EER-7：geocoding 子系统此前在 4 处各写了一遍"往上四层目录再拼 backend/database"
-（`export_unmapped_places.py` 三处、`import_coordinates.py` 一处），既重复、又把这个离线模块
-和 backend 的目录结构硬绑在一起——想换库或换机器就得改代码。这里收成一处解析，顺序为：
+geocoding 子系统需要"往上四层目录再拼 backend/database"时，只用这里的解析，不要各处
+重写：重写既重复、又把这个离线模块和 backend 的目录结构硬绑在一起——想换库或换机器
+就得改代码。解析顺序为：
 
 1. 显式传入的 `db_path` 参数；
 2. 环境变量 `EER_DB_PATH`（想指向别处的库时用这个，不必改代码）；
-3. 默认的仓库内 `backend/database`——**保持与原行为完全一致**，所以默认路径下行为不变。
+3. 默认的仓库内 `backend/database`——必须与手写四层 `dirname` 公式逐字符一致
+   （`tests/test_geocoding_db_path.py` 有断言钉着），所以默认路径下行为不变。
 
 注意：这里只解析路径，不保证文件存在——调用方自己检查并按原有方式报错
 （`FileNotFoundError: 数据库文件不存在: ...`），避免把错误口径也一起改掉。

@@ -1,8 +1,8 @@
-"""SBOM 生成与校验（2026-09-16 第五轮审核 P2-7 第 6 条）。
+"""SBOM 生成与校验。
 
-旧实现只写了 `spdxVersion/name/packages` 三个字段：缺 SPDX 2.3 的必需字段
-（dataLicense / SPDXID / documentNamespace / creationInfo），没有 Node 依赖，
-而且产物根本没被打进 release 包——"有 SBOM"只是文件名叫 SBOM。
+只写 `spdxVersion/name/packages` 三个字段不算完整 SBOM：会缺 SPDX 2.3 的必需字段
+（dataLicense / SPDXID / documentNamespace / creationInfo），也没有 Node 依赖，
+而且产物必须真的被打进 release 包——否则"有 SBOM"只是文件名叫 SBOM。
 
 本脚本生成**结构完整**的 SPDX 2.3 JSON：
 - 文档级必需字段齐全（spdxVersion、dataLicense、SPDXID、name、documentNamespace、
@@ -58,9 +58,9 @@ def python_packages(root: Path) -> list:
     """Python 依赖：优先解析锁文件（部署用的是它），否则回退到已安装分发。"""
     found: list = []
     seen: set = set()
-    # 部署锁在前、开发锁在后，两份都收（第六轮复核 D2）：旧实现只取第一个命中的
-    # 锁文件就 break——部署实际用 requirements.lock，而 dev 锁里的 pytest/pandas
-    # 同样是发布包内容，漏掉会让 SBOM 与"包里装了什么"对不上。
+    # 部署锁在前、开发锁在后，两份都收：只取第一个命中的锁文件就 break 会漏东西——
+    # 部署实际用 requirements.lock，而 dev 锁里的 pytest/pandas 同样是发布包内容，
+    # 漏掉会让 SBOM 与"包里装了什么"对不上。
     # 每条依赖的来源写在 annotation 里，可区分部署依赖与开发依赖。
     for lock_name in ("requirements.lock", "requirements-dev.lock"):
         lock = root / lock_name
@@ -119,7 +119,7 @@ def node_packages(root: Path) -> list:
 
 
 def purl_for(kind: str, name: str, version: str) -> str:
-    """依赖的 purl；npm 的 scoped 包必须按规范编码（第六轮复核 D2）。
+    """依赖的 purl；npm 的 scoped 包必须按规范编码。
 
     `@vue/test-utils` 的规范写法是 `pkg:npm/%40vue/test-utils@2.5.0`：
     scope 去掉 `@` 并百分号编码，包名保持原名。PyPI 侧按 PEP 503 归一化为小写。
@@ -161,8 +161,8 @@ def generate(root: Path, version: str) -> dict:
                     "comment": f"来源: {item['source']}",
                 }],
             })
-    # 命名空间必须**可重现**（第六轮复核 D2）：旧实现用 uuid4，同一次提交重复生成会得到
-    # 不同文档，SBOM 的哈希随每次构建漂移，无法用"哈希是否变化"判断依赖是否变化。
+    # 命名空间必须**可重现**：用 uuid4 会让同一次提交重复生成得到不同文档，
+    # SBOM 的哈希随每次构建漂移，无法用"哈希是否变化"判断依赖是否变化。
     # 这里用 版本 + commit + 包清单 的摘要，内容相同则命名空间相同。
     seed = json.dumps(
         {"version": version, "packages": [[p["name"], p["versionInfo"]] for p in packages]},

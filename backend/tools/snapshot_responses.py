@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """接口响应快照：重构前后各采集一次，diff 为空即"行为未变"。
 
-这是 P2-1（拆蓝图）与 P2-5（N+1 下推）的前置兜底——没有它就无法证明重构
+这是拆蓝图与 N+1 下推的前置兜底——没有它就无法证明重构
 只改了结构、没改行为。用法：
 
     # 1) 重构前，后端在跑的情况下采集基线
@@ -19,7 +19,7 @@
   跑在真实库上，绝不能因为对照脚本改坏数据。
 - 会调用大模型/外部服务的接口（`/api/ai/inference*`、`/api/extract/entities-events`）
   不在清单里：它们的结果本身不确定，放进来只会制造噪音。
-  **这个缺口由别的层兜住**（第 11 轮 B 类）：抽取端点的提示词内容有
+  **这个缺口由别的层兜住**：抽取端点的提示词内容有
   `tests/test_extract_prompt.py`（桩 LLM），序列化与后处理有
   `tests/test_extract_replay.py`（真实运行录制回放，夹具
   `tests/fixtures/extract_replay.json`，重录脚本 `tools/record_extract_replay.py`）。

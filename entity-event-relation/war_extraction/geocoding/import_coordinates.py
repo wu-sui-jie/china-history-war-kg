@@ -26,7 +26,7 @@ class CoordinateImporter:
             db_path: 数据库路径
         """
         if db_path is None:
-            # EER-7：路径解析收到 db_path 模块（显式参数 → EER_DB_PATH → 默认 backend/database）
+            # 路径解析统一走 db_path 模块（显式参数 → EER_DB_PATH → 默认 backend/database）
             db_path = resolve_db_path()
 
         self.db_path = db_path

@@ -1,6 +1,6 @@
 """F02 规则层：问题类型判定、朝代过滤器识别、指代消解（词典部分）。
 
-问题类型规则（features/02 与 data-contract）：
+问题类型规则（见 docs/features.md 第二节与 docs/data-contract.md）：
 single_entity / relation / event_event / comparison / timeline / background / unknown。
 
 朝代过滤器识别：问题中出现 dicts.dynasty_aliases 中的朝代术语（"战国时期…"），
@@ -74,7 +74,7 @@ def classify(question: str, entity_types: list[str], has_history: bool) -> Quest
 def extract_dynasty_mentions(question: str, dynasty_terms, entity_mentions=()) -> list[str]:
     """识别问句中提到的朝代（标准名列表），**仅供排序加权，不作为硬过滤**。
 
-    语义（2026-09-13 审核后确定）：
+    语义：
     - 返回值进 F02Output.dynasty_bias（F03/F04 用于排序优先），不进 filters；
       显式筛选（F01 下拉）仍走 filters.dynasty 硬过滤。原因：硬过滤会把"被问到的
       朝代"连同事件本身剔除——实测问"鸣条之战与商朝的建立有什么关系"时，事件朝代
@@ -136,7 +136,6 @@ def extract_dynasty_mentions(question: str, dynasty_terms, entity_mentions=()) -
     return found
 
 
-
 def detect_coref_mention(question: str) -> Optional[str]:
     """判断是否多轮指代追问（出现"它/这场战争"等），返回要消解的指代词。"""
     for c in _COREF_WITH_NOUN:
@@ -146,4 +145,3 @@ def detect_coref_mention(question: str) -> Optional[str]:
         if c in question:
             return c
     return None
-

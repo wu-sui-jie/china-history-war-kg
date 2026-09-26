@@ -1,8 +1,8 @@
 /**
  * 图谱组件之间共享的小工具。
  *
- * 原先 `EntityGraph.vue` 与 `OverviewGraph.vue` 各写一份 `loadNodeRelations`（逐字重复，
- * 只有容错写法不同），`KgGraph.vue` 与问答页各自实现过节点显示名。这里收敛为单一来源。
+ * 节点关系的合并去重与节点显示名都是图谱组件共用的逻辑，分成多份只会逐字重复
+ * （`EntityGraph.vue` / `OverviewGraph.vue` / `KgGraph.vue` / 问答页都用到）。这里收敛为单一来源。
  */
 
 /** 把「节点关系」接口的返回合并进现有图数据（按 id / from-to-text 去重）。 */

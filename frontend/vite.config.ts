@@ -43,7 +43,7 @@ export default defineConfig({
             // 旧接口不带 /api 前缀（历史上直接挂在 Flask 根路径上，生产由 nginx 的 `location /` 兜底）。
             // 接口 baseURL 改成同源相对路径后，开发态必须显式转发这几条，
             // 否则请求会落到 Vite 自己身上、被 SPA fallback 返回 index.html，axios 解析 JSON 直接报错。
-            // 新增这类旧路径接口时记得同步这里（或按 FE-6 统一改成 /api 前缀）。
+            // 新增这类旧路径接口时记得同步这里（或统一改成 /api 前缀）。
             '^/(create_node|update_node|delete_node|search_name_kg|user/(menu|permission))$': {
                 target: 'http://localhost:5000',
                 changeOrigin: true,

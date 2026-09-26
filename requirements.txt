@@ -1,10 +1,13 @@
 # 旧知识库系统（backend/）运行依赖
 #
-# 环境：Python 3.8
-#   RAG 子系统（RAG/）必须用 Python 3.11 单独建一个环境（依赖见 RAG/requirements.txt）：
-#   chromadb 要求 Python >= 3.10，而 Flask + py2neo 这一套按 3.8 编写，装进同一个环境必有一边跑不起来。
+# 环境：Python 3.11（四个模块统一，模块之间不再需要各建一个不同版本的环境）
 #
-# 安装：pip install -r requirements.txt
+# 本文件是「旧后端 + 离线抽取」的便捷入口，只列直接依赖、不锁版本。
+# 要复现验证过的那套精确版本，用仓库根的统一锁（覆盖四个模块、带 sha256）：
+#     pip install --require-hashes -r requirements.lock
+# 抽取链 war_extraction 是仓库内的包、不在锁内，需要额外装：
+#     pip install -e entity-event-relation
+#
 # 服务器部署：见 deploy/README.md（conda 环境名约定为 china-war-backend）
 
 # ---- Web 框架与 SQLite ORM ----
@@ -31,7 +34,7 @@ requests
 # ---- backend/.env 配置读取 ----
 python-dotenv
 
-# ---- war_extraction（entity-event-relation，P2-4 已打包）与 backend 共用的模型层 ----
+# ---- war_extraction（entity-event-relation 抽取链）与 backend 共用的模型层 ----
 pydantic
 
 # ---- 离线抽取流水线的三方依赖（backend 的 /api/extract/entities-events 与 entity-event-relation）----

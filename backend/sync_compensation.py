@@ -2,12 +2,12 @@
 
 ## 为什么需要
 
-节点创建/修改/删除都是"先提交 SQLite，再调 Neo4j"。Neo4j 失败时原先只在响应里带一句
-`sync_status=failed`（第 12 轮审查 P1-3）：没有记录、没有重试、没有补偿。后果是
+节点创建/修改/删除都是"先提交 SQLite，再调 Neo4j"。只在响应里带一句
+`sync_status=failed` 是不够的：没有记录、没有重试、没有补偿，后果是
 **管理台列表与图谱长期不一致，而且没人知道差在哪一条**——`scripts/consistency_check.py`
 只能发现数量差，说不出是哪几个节点、差的是属性还是关系。
 
-## 事务型 outbox（第 13 轮整改的核心变化）
+## 事务型 outbox
 
     BEGIN
       改业务表
@@ -15,10 +15,10 @@
     COMMIT
     → 再尝试立即写 Neo4j；成功就把任务标 done，失败就留着等后台重放
 
-原先的顺序是"提交业务 → 调 Neo4j → 失败后才记一条"。差别只在**提交与记账的先后**，
+另一种顺序是"提交业务 → 调 Neo4j → 失败后才记一条"。差别只在**提交与记账的先后**，
 但这一条差别决定了崩溃窗口：
 
-| 崩溃时机 | 原先 | 现在 |
+| 崩溃时机 | 失败后才记账 | 本方案（同事务） |
 | --- | --- | --- |
 | SQLite 提交后、Neo4j 调用前 | 不一致且无记录 | 任务已在表里，会被重放 |
 | Neo4j 成功后、标 done 前 | —— | 重放一次，幂等（MERGE by graph_key） |
@@ -32,7 +32,7 @@
 ## 覆盖的操作
 
 `node_create` / `node_update` / `node_delete` 三种，都带**属性快照**与
-（删除、改名时需要的）**原 Neo4j id 与原名字**。原先只有一种 "upsert"：
+（删除、改名时需要的）**原 Neo4j id 与原名字**。不能只留一种 "upsert"：
 更新失败重放时按新名字创建/合并，会留下旧节点并造出重复。
 
 **关系（四类）目前不进本队列**，由 `sync_sqlite_to_neo4j.py` 的全量/增量同步承担。
@@ -81,7 +81,7 @@ _MODEL_TABLE_DDL_HINT = (
     "neo4j_sync_jobs 表不存在时，启动一次后端（python app.py）会由 create_all 自动建表"
 )
 
-# 需要补列的列定义（第 13 轮整改给老库加 operation/graph_key 等）。
+# 需要补列的列定义（给老库加 operation/graph_key 等）。
 # 和 bot/db.py 的加列迁移同一思路：create_all 不会给已存在的表补列。
 _COLUMN_MIGRATIONS = {
     "neo4j_sync_jobs": (
@@ -363,10 +363,10 @@ def apply_job(job) -> tuple[bool, str]:
 
         props = {k: v for k, v in neo4j_props(
             node_type, json.loads(job.properties_json or "{}")).items() if v is not None}
-        # 名称取 job.node_name；它为空时退回属性快照里的 `name` 列（第 14 轮审计 P1-4）。
-        # 后者是给"修复前落库的旧 pending 行"准备的：那些行的 node_name 是 None
+        # 名称取 job.node_name；它为空时退回属性快照里的 `name` 列。
+        # 后者是给早期落库的旧 pending 行准备的：那些行的 node_name 是 None
         # （因为前端从来不发 `name`），重放时若不回退就会把图谱的名字抹掉——
-        # 而 upsert_node 现在也会拒绝写空名（兜底），这里做的是让它能拿到正确的值。
+        # 而 upsert_node 也会拒绝写空名（兜底），这里做的是让它能拿到正确的值。
         snapshot = json.loads(job.properties_json or "{}")
         effective_name = (job.node_name or "").strip() or str(snapshot.get("name") or "").strip()
         node_id, _is_new = handle.upsert_node(node_type, graph_key, effective_name, props)

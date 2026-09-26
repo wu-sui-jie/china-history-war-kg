@@ -424,6 +424,6 @@
       "relation_map_path": "config/relation_types.json"
     },
     "pred_path": "output\\中国历代战争简史\\9_final_all.json",
-    "snapshot_note": "修前口径快照：生成于 EER-15 定序化（2026-09-25 第 9 轮）之前。该版本的评估匹配直接迭代filter_relations/build_gold_triples 返回的集合，字符串哈希每进程随机化，因此这里的 tp/fp/fn 属于**某一颗哈希种子下的一次结果**、不可复现（实测同输入三颗种子下关系 tp 为 739/743/741）。定序化之后重跑的值见 docs/修复实施记录-第9轮-20260925.md：关系 tp/fp/fn=743/145/356、F1=0.747861。保留此文件仅作历史基线，**不要拿它当当前代码的输出或回归基线**。"
+    "snapshot_note": "修前口径快照：生成于评估匹配定序化（2026-09-25）之前。该版本的评估匹配直接迭代 filter_relations/build_gold_triples 返回的集合，字符串哈希每进程随机化，因此这里的 tp/fp/fn 属于**某一颗哈希种子下的一次结果**、不可复现（实测同输入三颗种子下关系 tp 为 739/743/741）。定序化之后重跑的值（关系 tp/fp/fn=743/145/356、F1=0.747861）与可复现性实测见 entity-event-relation/README.md。保留此文件仅作历史基线，**不要拿它当当前代码的输出或回归基线**。"
   }
 }

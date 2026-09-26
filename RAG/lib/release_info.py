@@ -1,4 +1,4 @@
-"""发布可追溯信息（2026-09-15 审核 P0-7 / P0-8）。
+"""发布可追溯信息。
 
 服务要能回答"我现在到底在用哪份数据、哪份代码"，否则灰度与回滚无从下手。
 这里只做**只读**采集：文件哈希 + Git commit + 版本目录名，不进任何业务逻辑。
@@ -80,7 +80,7 @@ def git_commit(root: Path) -> str:
         return ""
 
 
-# 明确排除在发布范围外的工作目录（2026-09-16 工作单要求 RAG/new/ 不修改、不提交）。
+# 明确排除在发布范围外的工作目录（RAG/new/ 约定不修改、不提交）。
 # 它未跟踪是"约定内"的状态，不应让发布门禁永远判脏。
 RELEASE_IGNORE_PREFIXES = ("new/",)
 
@@ -110,8 +110,8 @@ def git_dirty(root: Path, ignore_prefixes: tuple[str, ...] = RELEASE_IGNORE_PREF
               ) -> Optional[bool]:
     """工作区是否有未提交改动（不含约定的排除目录）；非仓库或 git 不可用返回 None。
 
-    为什么要它（第四轮复核 P0-4）：`git_commit` 只报告 HEAD，脏工作区里运行的代码
-    可能和 HEAD 完全不同，验收证据无法反向定位到唯一源码。health 暴露该字段，
+    为什么要它：`git_commit` 只报告 HEAD，脏工作区里运行的代码可能和 HEAD 完全不同，
+    验收证据无法反向定位到唯一源码。health 暴露该字段，
     release 构建脚本据此拒绝带未提交改动发布。
     """
     lines = git_status_lines(root, ignore_prefixes)

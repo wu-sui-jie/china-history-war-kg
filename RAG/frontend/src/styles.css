@@ -145,9 +145,9 @@ button:disabled {
   inset: 0;
   background: rgb(15 23 42 / 0.35);
   z-index: 49;
-  /* 真实过渡：蒙层淡入（第五轮整改复核 B5）。原先全站只有 toast 有 transition，
-     reduced-motion 用例于是断在一个"本来就没有过渡"的元素上，无论有没有
-     prefers-reduced-motion 规则都通过——测不出回归。 */
+  /* 真实过渡：蒙层淡入。蒙层必须有可测的 transition 层——否则 reduced-motion
+     用例会断在一个"本来就没有过渡"的元素上，无论有没有 prefers-reduced-motion
+     规则都通过，测不出回归。 */
   transition: opacity 0.18s ease;
 }
 
@@ -1080,7 +1080,7 @@ button:disabled {
   margin: 6px 8px 0;
 }
 
-/* 尊重"减少动态效果"偏好（第四轮复核 P1-13） */
+/* 尊重"减少动态效果"偏好 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

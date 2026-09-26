@@ -53,7 +53,7 @@ class AnswerGenerator:
                     corrections: list | None = None,
                     dynasty_bias: list | None = None):
         """查缓存。entities/corrections/dynasty_bias 必须与 generate 时同源，
-        否则"纠正前后"会共用同一条缓存（第四轮复核 P1-1）。"""
+        否则"纠正前后"会共用同一条缓存。"""
         key = cache_key(rewritten, history, filters, self._data_version,
                         self.settings.llm_model, self.settings.text_mode,
                         entities=entities, corrections=corrections,
@@ -116,7 +116,7 @@ class AnswerGenerator:
                     return (FinishReason.INTERRUPTED.value,
                             resp.model_used or "partial", resp.text or "")
                 # LLM 调用失败（尚未输出正文）→ 降级启发式回答器
-                # 2026-09-15 冒烟实践：此前降级原因不落日志，部署排障只能看到 degraded 结果，
+                # 降级原因必须落日志：否则部署排障只能看到 degraded 结果，
                 # 分不清是网络/密钥/额度问题；补一条 warning（含错误摘要）。
                 logging.getLogger("rag.generate").warning(
                     "LLM 生成失败，降级离线摘要回答器：%s", str(resp.error)[:200])
@@ -134,7 +134,7 @@ class AnswerGenerator:
                     on_delta(text)
                 _stamp(stats_out, offline=True, reason="empty_completion")
                 return FinishReason.DEGRADED.value, "heuristic-offline", text
-            # 模型自拒识别（2026-09-15 全项目审核 P0-1）：命中固定拒答句式且无引用编号
+            # 模型自拒识别：命中固定拒答句式且无引用编号
             # → 按拒答路径返回，前端据此显示"依据不足"。拒答语义优先于降级标记：
             # 备用模型返回的自拒文本同样记 refused（refused 是确定性结果，可入缓存）。
             if refusal_mod.detect_model_refusal(resp.text):

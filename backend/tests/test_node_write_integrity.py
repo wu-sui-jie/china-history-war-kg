@@ -1,6 +1,6 @@
-"""节点写路径的数据完整性（第 14 轮审计 P1-4 / P2-5）。
+"""节点写路径的数据完整性。
 
-## P1-4：编辑节点会把图谱的 name 写没，且属性全部静默丢弃
+## 编辑节点会把图谱的 name 写没，且属性全部静默丢弃
 
 两个根因叠在同一个接口上，都会**静默**损坏图谱数据：
 
@@ -13,7 +13,7 @@
    **SQLite 列名**取值 → 全部取到 None 再被 `if v is not None` 过滤掉，
    属性一个都同步不过去，函数却返回 `sync_status: success`。
 
-## P2-5：库维护的列不该接受外部指定
+## 库维护的列不该接受外部指定
 
 `id` / `created_at` / `neo4j_id` 都是真实的列，所以"只按列名过滤"挡不住它们：
 editor 能指定主键（污染自增序列，并与 `graph_key = "Type:id"` 的稳定键语义冲突——
@@ -47,7 +47,7 @@ def _job_for(node_id: int):
 
 
 def test_编辑节点不会把图谱的_name_写没(client, make_user, auth):
-    """P1-4 根因 a：前端发的是 EventName，不是 name。"""
+    """根因 a：前端发的是 EventName，不是 name。"""
     from models import Event, db
 
     event = Event(name="长平之战", dynasty="战国")
@@ -89,11 +89,11 @@ def test_缺少名称时返回_400_而不是把图谱写坏(client, make_user, a
 
 
 def test_属性快照的键名能被重放路径认出来(client, make_user, auth):
-    """P1-4 根因 b：快照必须用 SQLite 列名，`neo4j_props()` 才取得到值。
+    """根因 b：快照必须用 SQLite 列名，`neo4j_props()` 才取得到值。
 
     这是最关键的一条——它同时钉住了"属性确实会同步过去"：
-    旧实现的快照是 `{"name": ..., "Dynasty": "秦"}`，`neo4j_props()` 按列名取值
-    全部落空，重放等于什么都没写，而接口回的是 sync_status: success。
+    快照若用 API 键名（如 `{"name": ..., "Dynasty": "秦"}`），`neo4j_props()` 按列名
+    取值会全部落空，重放等于什么都没写，而接口回的是 sync_status: success。
     """
     from models import Event, db
     from node_property_mapping import COLUMN_TO_NEO4J, neo4j_props
@@ -122,7 +122,7 @@ def test_属性快照的键名能被重放路径认出来(client, make_user, aut
 
 
 def test_不接受外部指定的主键与入库时间(client, make_user, auth):
-    """P2-5：`id` / `created_at` / `neo4j_id` 由库维护，请求体里塞了也要被丢掉。"""
+    """`id` / `created_at` / `neo4j_id` 由库维护，请求体里塞了也要被丢掉。"""
     from models import Event, db
 
     editor = make_user("editor-1", "editor")

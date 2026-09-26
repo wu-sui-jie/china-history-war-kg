@@ -1,10 +1,10 @@
-"""F02 端到端回归：四题不得再被朝代硬筛选打回拒答（审核报告 T2 步骤 3）。
+"""F02 端到端回归：四题不得再被朝代硬筛选打回拒答。
 
 守护对象（首轮评审里因 F02 朝代误判被拒答的 4 题）：
 B01 秦为什么会发动长平之战？ / E01 鸣条之战与商朝的建立有什么关系？
 R05 巨鹿之战的楚军主帅是谁？ / T03 巨鹿之战发生于什么朝代？
 
-额外覆盖审核报告的关键实验：**即便词典补上"商朝"别名，也不得把 E01 打回拒答**
+额外覆盖一条关键实验：**即便词典补上"商朝"别名，也不得把 E01 打回拒答**
 （自动识别的朝代只进 dynasty_bias 排序偏置，不进 filters 硬过滤）。
 
 数据缺失自动 skip。运行：python -m pytest tests/test_f02_regression.py -q
@@ -74,7 +74,7 @@ def test_dynasty_is_bias_not_hard_filter(runtime):
 
 
 def test_adding_alias_does_not_break_e01(runtime):
-    """审核实验复现：给词典补"商朝"别名后，E01 仍不得被拒答（回归守护）。"""
+    """实验复现：给词典补"商朝"别名后，E01 仍不得被拒答（回归守护）。"""
     aliases = runtime.question.matcher._dicts.setdefault("dynasty_aliases", {})
     existed = "商朝" in aliases
     aliases["商朝"] = "商"

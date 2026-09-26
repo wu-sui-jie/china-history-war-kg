@@ -139,11 +139,9 @@ class DeepSeekClient:
 
     def _extract_json(self, content: str) -> str:
         """尝试从文本中提取JSON"""
-        # Changed 2026-04-20 16:33:36 +08:00: Prefer decoder scanning over
-        # greedy regex so nested/multiple JSON blocks are handled safely.
-        # EER-6：扫描逻辑改用 utils.json_payload（与三个抽取器共用一份实现），
-        # 但**保留本处"取最大候选、返回 JSON 文本"的取舍**——那个策略是刻意的
-        # （同一段回复里可能既有示例块又有真结果），别顺手改成"取第一个"。
+        # 用解码器逐位置扫描，不用贪婪正则——正则遇到嵌套或多个 JSON 块会切错边界。
+        # 本处的取舍是"取最大候选、返回 JSON 文本"（同一段回复里可能既有示例块又有真结果），
+        # 与三个抽取器用的 extract_json_payload"取第一个"**不同且不可互换**，别顺手改。
         largest = extract_largest_json_text(content)
         if largest is not None:
             return largest

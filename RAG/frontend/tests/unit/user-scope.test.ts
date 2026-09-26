@@ -1,4 +1,4 @@
-/** 主应用身份桥与按账号存储 key（问题二方案 A）。
+/** 主应用身份桥与按账号存储 key。
  *
  * 覆盖：key 组装、消息形状/origin 校验（只认同源）、重复 uid 不重复回调、解绑。
  */
@@ -39,7 +39,7 @@ test('存储 key：有账号带后缀，没账号保持原 key（独立访问行
 })
 
 test('uid 形状受约束：对象/超长/含分隔符一律按"没有账号"处理', () => {
-  // 曾经踩过的坑：桥把对象当字符串，拼出 :u[object Object] 这种谁都不是的桶
+  // 桥把对象当字符串会拼出 :u[object Object] 这种谁都不是的桶
   assert.equal(storageKeyFor({} as any), SESSION_STORAGE_KEY)
   assert.equal(storageKeyFor('[object Object]'), SESSION_STORAGE_KEY)
   assert.equal(storageKeyFor('a'.repeat(65)), SESSION_STORAGE_KEY)
@@ -92,7 +92,7 @@ test('消息解析：只认 cw-user 且只认同源（结果带 role 与 token�
     { uid: null, role: '', token: '' },
   )
   // 非法 token：一律归成"没有身份"。含空白的值进了 HTTP 头会被 fetch 拒绝，
-  // 含换行的值甚至可能被用来注入额外请求头，所以必须在入口就洗干净（P1-1）。
+  // 含换行的值甚至可能被用来注入额外请求头，所以必须在入口就洗干净。
   for (const bad of ['has space', 'a.b.c\nInjected: 1', { v: 1 }, 42, 'short']) {
     assert.deepEqual(
       parseUserScopeMessage({ origin: ORIGIN, data: { type: 'cw-user', uid: '7', token: bad } }, ORIGIN),

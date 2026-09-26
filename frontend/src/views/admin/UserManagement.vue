@@ -106,10 +106,10 @@ async function loadData() {
 }
 
 /**
- * 停用 / 启用账号（第 14 轮审计 P2-18）。
+ * 停用 / 启用账号。
  *
- * 为什么值得一个按钮：接口在 `POST /api/admin/users/<id>/status` 早就有，
- * 但页面上没有入口，管理员"停用某人"只能靠改角色或手写 SQL——而改角色并不阻止登录。
+ * 为什么值得一个按钮：接口在 `POST /api/admin/users/<id>/status`，
+ * 页面上没有入口时，管理员"停用某人"只能靠改角色或手写 SQL——而改角色并不阻止登录。
  * 停用是**独立于角色**的一档：角色决定能做什么，停用决定能不能进来。
  */
 async function toggleDisabled(row: AdminUser) {

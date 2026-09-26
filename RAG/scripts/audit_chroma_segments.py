@@ -1,4 +1,4 @@
-"""Chroma collection → segment 映射与孤儿判定（2026-09-16 工作单 P2-5）。
+"""Chroma collection → segment 映射与孤儿判定。
 
 背景：向量目录下有两个 UUID 子目录，但"目录数 > 1"并不能证明存在孤儿——
 一个 collection 可能合法对应多个不同 scope 的 segment。本脚本用 Chroma 自己的
@@ -46,7 +46,7 @@ def _sha256(path: Path) -> str:
 
 
 def _connect_ro(db: Path) -> sqlite3.Connection:
-    """只读打开元数据库：审计不得改动正式制品（工作单 P2-3 的同一要求）。"""
+    """只读打开元数据库：审计不得改动正式制品。"""
     con = sqlite3.connect(f"file:{db.as_posix()}?mode=ro", uri=True)
     con.row_factory = sqlite3.Row
     return con
@@ -155,14 +155,14 @@ def audit(index_dir: Path, *, do_random: int = 0, collection_name: str = "") -> 
     if manifest_path.is_file():
         try:
             m = json.loads(manifest_path.read_text(encoding="utf-8"))
-            # 第五轮审核 P2-5：索引清单的计数在 manifest["vectors"]["count"]，
-            # 旧实现读的是不存在的 "counts.vectors" / "vector_count"，永远是 null，
+            # 索引清单的计数在 manifest["vectors"]["count"]：
+            # 读不存在的 "counts.vectors" / "vector_count" 永远是 null，
             # 于是"计数一致"只比了 ids 与 embeddings，低于验收要求。
             manifest_count, manifest_count_source = _manifest_vector_count(m)
         except Exception:  # noqa: BLE001
             manifest_count = None
 
-    # 四方计数（P2-5 验收）：ids.json / 元数据库 embeddings / collection 向量数 / 清单声明
+    # 四方计数：ids.json / 元数据库 embeddings / collection 向量数 / 清单声明
     if not collection_name:
         collection_name = get_settings().chroma_collection
     expected_collection = collection_name
@@ -283,7 +283,7 @@ def main() -> int:
     if args.apply:
         report = apply_cleanup(index_dir, report, out_path)
         # 清理后重新审计：一致性结论必须反映**清理后**的磁盘状态，
-        # 否则报告里写的是清理前的计数，结论与制品对不上（P2-5）
+        # 否则报告里写的是清理前的计数，结论与制品对不上
         after = audit(index_dir, do_random=args.random,
                       collection_name=settings.chroma_collection)
         after["cleanup"] = report.get("cleanup")
@@ -311,7 +311,7 @@ def main() -> int:
     if report.get("error"):
         print(f"  ::error:: {report['error']}")
         return 1
-    # 任意一项为空或不一致 → 非零退出（P2-5 完成标准）
+    # 任意一项为空或不一致 → 非零退出
     if not report.get("counts_consistent"):
         print("  ::error:: 四方计数不一致或缺失，判定为不一致（退出码 1）")
         return 1

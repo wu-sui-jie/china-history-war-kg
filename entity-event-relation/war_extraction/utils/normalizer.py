@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Dict
 
 #: 以本文件位置锚定项目根（entity-event-relation/）——与 llm_client / cache_manager 一致。
-#: Changed 2026-09-25（第 11 轮 C-2）：config_dir 原先是相对当前工作目录的 "config"，
-#: 换个工作目录启动就"静默加载不到别名表与关系映射"，而这件事完全没有提示。
+#: 默认 config_dir 必须是绝对路径：用相对当前工作目录的 "config" 会在换个工作目录启动时
+#: "静默加载不到别名表与关系映射"，而这件事完全没有提示。
 _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 #: 默认配置目录（项目根下的 config/）
@@ -19,10 +19,11 @@ DEFAULT_CONFIG_DIR = _PROJECT_ROOT / "config"
 
 class Normalizer:
     """
-    Added 2026-04-20 16:33:36 +08:00: Centralize aliases and relation
-    normalization so extraction and evaluation use the same vocabulary.
-    Changed 2026-04-21 16:46:12 +08:00: Tighten canonicalization for event
-    deduplication, relation direction cleanup, and entity purity.
+    别名与关系归一的唯一来源：抽取、评估、导入共用同一套词表（`config/aliases.json`
+    与 `config/relation_types.json`），不然同一条数据在不同环节会被归成不同名字。
+
+    另有一套代码内的规范化规则：事件名的方向词收敛、实体名的括号/空白剥离、
+    事件去重用的 `EVENT_NAME_ALIASES`、以及供前端选值的 `FRONTEND_RELATION_TYPES`。
     """
 
     EVENT_NAME_ALIASES = {
@@ -53,11 +54,10 @@ class Normalizer:
         "三苗部落（修蛇部落）": "三苗",
         "三苗族（以修蛇为图腾的部落）": "三苗",
         "蚩尤、九黎族": "九黎",
-        # Changed 2026-09-25（第 11 轮 C-5）：原书里"孙膑"写作"孙滨"6 处、写作"孙膑"9 处
-        # （人工标注只用"孙膑"），两者 fuzz.ratio 只有 50，低于实体匹配阈值 70，配不上——
-        # 所以按别名归一（与"寒淀→寒浞"同一机制），让它在抽取阶段就收敛成标注用字。
-        # 注意：这不是"低质量人名"，先前挂在 EntityClassifier.LOW_QUALITY_PERSON_NAMES 里
-        # 是把它整条丢掉（连预测都不产生），方向反了。（该名单已于 2026-09-25 整体删除。）
+        # 原书里"孙膑"写作"孙滨"6 处、写作"孙膑"9 处（人工标注只用"孙膑"），
+        # 两者 fuzz.ratio 只有 50，低于实体匹配阈值 70，配不上——所以按别名归一
+        # （与"寒淀→寒浞"同一机制），让它在抽取阶段就收敛成标注用字。
+        # 这类"错字变体"必须走归一：整条丢掉连预测都不会产生，方向正好反了。
         "孙滨": "孙膑",
     }
 
@@ -99,8 +99,8 @@ class Normalizer:
     def _load_json(self, filename: str) -> Dict:
         path = self.config_dir / filename
         if not path.exists():
-            # Changed 2026-09-25（第 11 轮 C-2）：原先静默返回 {}——"别名表根本没加载"
-            # 会让归一化悄悄失效（实体/关系匹配不到一起），而日志里一点痕迹都没有。
+            # 不静默返回 {}：别名表没加载会让归一化悄悄失效（实体/关系匹配不到一起），
+            # 而日志里一点痕迹都没有，指标却已经变了。
             print(f"  [配置缺失] {path} 不存在：{filename} 相关的别名/映射本次按空表处理，"
                   f"抽取与评估结果都会受影响")
             return {}
@@ -127,8 +127,7 @@ class Normalizer:
         value = value.replace("神农伐斧", "神农斧隧")
         value = value.replace("征下旨", "征伐下旨")
 
-        # Changed 2026-04-21 16:46:12 +08:00: Avoid repeated directional words
-        # such as “武丁南南征荆楚” after layered normalization.
+        # 分层归一后会出现"武丁南南征荆楚"这类重复方向词，这里收敛掉
         if "荆楚" in value:
             if any(token in value for token in ["南攻荆楚", "攻荆楚", "征荆楚"]):
                 value = re.sub(r".*?(南攻荆楚|攻荆楚之战|攻荆楚|征荆楚之战|征荆楚)", "周昭王南征荆楚" if value.startswith("周昭王") else "南征荆楚", value)

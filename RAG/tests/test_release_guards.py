@@ -1,14 +1,14 @@
-"""第四轮复核（见 docs/CHANGELOG.md 第二节）的守护用例。
+"""发布链路的守护用例。
 
 覆盖发布阻断与正确性项：
-- P0-1 强制版本检查必须在扫描目录之前生效；
-- P0-2 SSE deadline 独立于心跳严格生效，并按是否已送出正文区分 interrupted / failed；
-- P0-3 异步客户端在 shutdown 中真的被 await（且单个失败不影响其余）；
-- P1-1 缓存键覆盖纠正实体与完整历史；
-- P1-2 纠正指令的动作语义校验（非法请求 400，不产生 500 或静默 no-op）；
-- P1-4 限流 key 表满时不得淘汰窗口内仍活跃的 key；
-- P1-5 同步工作池有界，超出排队上限以 server_busy 拒绝；
-- P1-6 演示清单缺少/错误 version 一律拒绝。
+- 强制版本检查必须在扫描目录之前生效；
+- SSE deadline 独立于心跳严格生效，并按是否已送出正文区分 interrupted / failed；
+- 异步客户端在 shutdown 中真的被 await（且单个失败不影响其余）；
+- 缓存键覆盖纠正实体与完整历史；
+- 纠正指令的动作语义校验（非法请求 400，不产生 500 或静默 no-op）；
+- 限流 key 表满时不得淘汰窗口内仍活跃的 key；
+- 同步工作池有界，超出排队上限以 server_busy 拒绝；
+- 演示清单缺少/错误 version 一律拒绝。
 
 全部使用替身运行时，不依赖 data/ 下的快照与索引。
 """
@@ -186,7 +186,7 @@ async def _collect(runtime, req=None):
     return [json.loads(f[len("data: "):]) async for f in run_query(runtime, req)]
 
 
-# ---------------------------------------------------------------- P0-1 版本
+# ---------------------------------------------------------------- 版本固定
 def _fake_data_dirs(tmp_path):
     snap = tmp_path / "snapshot"
     idx = tmp_path / "index"
@@ -196,7 +196,7 @@ def _fake_data_dirs(tmp_path):
 
 
 def test_require_active_version_fails_when_unset(tmp_path):
-    """require=true 且未指定版本：必须在扫描目录之前失败（P0-1）。"""
+    """require=true 且未指定版本：必须在扫描目录之前失败。"""
     from server.runtime import resolve_version
 
     snap, idx = _fake_data_dirs(tmp_path)
@@ -251,7 +251,7 @@ def test_explicit_version_beats_env_pin(tmp_path):
     assert version == "20260202_v1"
 
 
-# ---------------------------------------------------------------- P0-2 deadline
+# ---------------------------------------------------------------- deadline 与超时终态
 def _run_heartbeat(settings, generator, timeout_s=5.0):
     """跑一次心跳包装器，返回（事件列表, 实际耗时秒数）。"""
     from server.api import _stream_with_heartbeat
@@ -268,7 +268,7 @@ def _run_heartbeat(settings, generator, timeout_s=5.0):
 
 
 def test_deadline_holds_when_heartbeat_disabled(monkeypatch):
-    """heartbeat=0：deadline 仍然严格生效（旧实现会永久等待）。"""
+    """heartbeat=0：deadline 仍然严格生效（不能拿心跳当等待上限）。"""
     _patch_searches(monkeypatch)
     s = _settings(sse_heartbeat_seconds=0, sse_max_duration_seconds=0.3)
     frames, elapsed = _run_heartbeat(s, _FakeGenerator(delta="", hold=True))
@@ -308,7 +308,7 @@ def test_upstream_never_emits_still_times_out(monkeypatch):
     assert any('"done"' in f for f in frames)
 
 
-# ---------------------------------------------------------------- P0-3 shutdown
+# ---------------------------------------------------------------- shutdown 收尾顺序
 def test_shutdown_awaits_async_closers():
     from server.runtime import Runtime
 
@@ -343,7 +343,7 @@ def test_shutdown_is_idempotent_without_closers():
     asyncio.run(rt.shutdown())      # 无 closer 也不报错
 
 
-# ---------------------------------------------------------------- P1-2 纠正语义
+# ---------------------------------------------------------------- 纠正语义
 @pytest.mark.parametrize("item,keyword", [
     ({"action": ["add"]}, "必须是字符串"),
     ({"action": {"a": 1}}, "必须是字符串"),
@@ -460,7 +460,7 @@ def test_apply_corrections_remove_targets_source_id_not_list_order():
 
 
 def test_apply_corrections_replace_lands_on_replacement_id():
-    """用户选“西汉”这条，最终实体必须落到 event_han 且带上它的朝代（P1-3）。"""
+    """用户选“西汉”这条，最终实体必须落到 event_han 且带上它的朝代。"""
     from contracts.request import CorrectedEntity
 
     obj = _understand_stub()
@@ -495,7 +495,7 @@ def test_name_lookup_refuses_to_guess_between_same_name_entities():
     assert entity_type == "事件"       # 类型唯一时仍可用，ID 必须留空
 
 
-# ---------------------------------------------------------------- P1-1 缓存键
+# ---------------------------------------------------------------- 缓存键
 def test_cache_key_changes_with_corrections():
     from server.generate.cache import cache_key
     from contracts.request import CorrectedEntity
@@ -524,7 +524,7 @@ def test_cache_key_changes_with_entities():
 
 
 def test_cache_key_uses_full_history_not_tail():
-    """尾部相同的两份历史不能碰撞（旧实现只取 JSON 尾部 400 字符）。"""
+    """尾部相同的两份历史不能碰撞（只取尾部若干字符会让不同历史碰撞）。"""
     from server.generate.cache import cache_key
 
     tail = [{"role": "user", "content": "同一句尾部问题"},
@@ -550,7 +550,7 @@ def test_cache_key_normalizes_order_and_extra_fields():
     assert a == b
 
 
-# ---------------------------------------------------------------- P1-4 限流
+# ---------------------------------------------------------------- 限流
 def test_rate_limiter_rejects_new_keys_instead_of_evicting_live_ones():
     from server.api import RateLimiter
 
@@ -578,7 +578,7 @@ def test_rate_limiter_sweeps_expired_keys_to_make_room():
     assert limiter.stats()["evicted_keys"] == 16
 
 
-# ---------------------------------------------------------------- P1-5 线程池
+# ---------------------------------------------------------------- 同步线程池
 def test_sync_pool_rejects_when_queue_is_full():
     from server.sse import SyncPoolBusy, SyncWorkPool
 
@@ -612,7 +612,7 @@ def test_sync_pool_run_in_thread_returns_value():
     assert get_sync_pool().stats()["completed"] >= 1
 
 
-# ---------------------------------------------------------------- P1-6 demo 清单
+# ---------------------------------------------------------------- demo 清单校验
 class _DemoRt:
     def __init__(self, data_dir, version="20260915_v1"):
         from pathlib import Path
@@ -716,7 +716,7 @@ def test_run_query_reports_server_busy(monkeypatch):
     assert done["data"]["finish_reason"] == FinishReason.FAILED.value
 
 
-# ---------------------------------------------------------------- P0-3 资源生命周期
+# ---------------------------------------------------------------- 资源生命周期
 class _SyncCloserWithClose:
     """同步 closer 替身（如 EmbeddingClient / 同步 OpenAI 封装）。"""
 
@@ -755,7 +755,7 @@ def _runtime_with_resources(**owners):
 
 
 def test_shutdown_closes_embedding_client_once():
-    """P0-3：向量客户端必须被 Runtime 枚举到并关闭，且只关一次。"""
+    """向量客户端必须被 Runtime 枚举到并关闭，且只关一次。"""
     log: list[str] = []
     emb = _EmbeddingLike(log)
     rt = _runtime_with_resources(
@@ -804,7 +804,7 @@ def test_embedding_client_close_is_idempotent_and_marks_unavailable():
     client.close()                                # 幂等，不抛错
 
 
-# ---------------------------------------------------------------- P0-4 版本来源
+# ---------------------------------------------------------------- 版本来源
 @pytest.mark.parametrize("cli_version,env_version,expected", [
     ("20260915_v1", "", "cli_explicit"),
     (None, "20260915_v1", "env_pinned"),
@@ -817,7 +817,7 @@ def test_version_source_three_states(cli_version, env_version, expected):
     assert version_source(s, cli_version) == expected
 
 
-# ---------------------------------------------------------------- P1-5 同步池
+# ---------------------------------------------------------------- 同步池统计
 def test_sync_pool_separates_active_and_queued():
     from server.sse import SyncWorkPool
 
@@ -877,7 +877,7 @@ def test_sync_pool_cancel_before_start_frees_queue_slot():
 
 
 def test_sync_pool_budget_equal_to_deadline_is_rejected():
-    """P1-5：预算 + 收尾余量必须严格小于 deadline，等于也不行。"""
+    """外部调用预算 + 收尾余量必须严格小于 deadline，等于也不行。"""
     s = _settings(sse_max_duration_seconds=300, llm_timeout_seconds=95,
                   llm_max_retries=2, shutdown_margin_seconds=15)
     with pytest.raises(ValueError) as err:
@@ -889,7 +889,7 @@ def test_sync_pool_budget_equal_to_deadline_is_rejected():
     ok.validate()          # 180 + 15 < 300 → 通过
 
 
-# ---------------------------------------------------------------- P2-3 制品清单
+# ---------------------------------------------------------------- 制品清单
 def _make_chroma_like_db(path, vectors: int = 3):
     """构造一个最小 Chroma 元数据库（只含逻辑哈希用到的三张表）。"""
     import sqlite3
@@ -912,7 +912,7 @@ def _make_chroma_like_db(path, vectors: int = 3):
 
 
 def test_manifest_sqlite_logical_hash_ignores_runtime_writes(tmp_path):
-    """逻辑哈希只认语义内容：运行态写入不改哈希，增删向量必须改（工作单 P2-3）。"""
+    """逻辑哈希只认语义内容：运行态写入不改哈希，增删向量必须改。"""
     import sqlite3
     from scripts.build_artifact_manifest import _sqlite_logical_hash
 
@@ -1008,8 +1008,8 @@ def test_manifest_build_refuses_dirty_worktree(tmp_path, monkeypatch):
     assert bam.cmd_build(args) == 3
 
 
-# ============================================================ 第五轮审核守护用例
-# 覆盖：P0-3 停机顺序、P1-5/R5-6 同步池零值 schema、P0-4 版本来源、R5-5 生产 CORS。
+# ============================================================ 停机、同步池与生产门禁
+# 覆盖：停机顺序、同步池零值 schema、版本来源、显式生产档的 CORS 门禁。
 
 def _reset_pool(monkeypatch):
     """把同步池单例换成新实例并保证测试结束后关闭（避免线程泄漏到其他用例）。"""
@@ -1020,7 +1020,7 @@ def _reset_pool(monkeypatch):
 
 
 def test_sync_pool_stats_has_stable_schema_before_first_query(monkeypatch):
-    """R5-6：池尚未创建时 health 也必须返回完整零值统计，而不是 {}。"""
+    """池尚未创建时 health 也必须返回完整零值统计，而不是 {}。"""
     sse_mod = _reset_pool(monkeypatch)
     empty = sse_mod.sync_pool_stats()
     assert empty, "未初始化的池不能返回空字典"
@@ -1036,9 +1036,9 @@ def test_sync_pool_stats_has_stable_schema_before_first_query(monkeypatch):
 
 
 def test_shutdown_drains_active_before_closing_clients(monkeypatch):
-    """P0-3：停机顺序必须是"同步池先收尾、外部客户端后关闭"。
+    """停机顺序必须是"同步池先收尾、外部客户端后关闭"。
 
-    旧实现先关客户端再关池，池里在跑的 embedding/LLM 任务会拿着已关闭的客户端发请求。
+    若先关客户端再关池，池里在跑的 embedding/LLM 任务会拿着已关闭的客户端发请求。
     """
     import asyncio
     import threading
@@ -1071,7 +1071,7 @@ def test_shutdown_drains_active_before_closing_clients(monkeypatch):
 
 
 def test_shutdown_cancels_queued_tasks_without_running_them(monkeypatch):
-    """P0-3 第 2 步：排队任务必须在停机时被撤销，绝不能开跑。"""
+    """停机第 2 步：排队任务必须被撤销，绝不能开跑。"""
     import threading
 
     sse_mod = _reset_pool(monkeypatch)
@@ -1102,7 +1102,7 @@ def test_shutdown_cancels_queued_tasks_without_running_them(monkeypatch):
 def test_async_shutdown_does_not_block_event_loop(monkeypatch):
     """B2：async 停机路径的 drain 期间，事件循环必须仍能调度其他协程。
 
-    旧实现在协程里直接调用同步 `wait_idle`（`time.sleep` 轮询），会把正在收尾的
+    在协程里直接调用同步 `wait_idle`（`time.sleep` 轮询）不行：会把正在收尾的
     SSE 流与健康检查一起冻结最长 `SHUTDOWN_DRAIN_SECONDS`。
     """
     import threading
@@ -1184,7 +1184,7 @@ def test_wait_idle_waits_for_queued_not_only_active(monkeypatch):
 
 
 def test_build_runtime_closes_clients_when_later_layer_fails(tmp_path, monkeypatch):
-    """Z3：构建半途失败时必须关闭已建立的 embedding 客户端（不能丢下连接池）。"""
+    """构建半途失败时必须关闭已建立的 embedding 客户端（不能丢下连接池）。"""
     import server.fusion
     import server.graph
     import server.query
@@ -1223,7 +1223,7 @@ def test_build_runtime_closes_clients_when_later_layer_fails(tmp_path, monkeypat
 
 
 def test_version_source_cli_explicit_via_env_hint(monkeypatch):
-    """P0-4：run_server 传 --version 后 health 必须显示 cli_explicit。"""
+    """run_server 传 --version 后 health 必须显示 cli_explicit。"""
     from scripts import run_server
     from server.runtime import version_source
 
@@ -1252,7 +1252,7 @@ def test_version_source_cli_explicit_via_env_hint(monkeypatch):
     (False, False, ["*"], False, False),   # 开发态
 ])
 def test_cors_startup_gate(require_active, explicit, origins, allow_public, expect_problem):
-    """R5-5：显式生产档 + wildcard CORS 必须显式确认，否则启动即失败。"""
+    """显式生产档 + wildcard CORS 必须显式确认，否则启动即失败。"""
     s = _settings(require_active_version=require_active,
                   require_active_version_explicit=explicit,
                   cors_allow_origins=list(origins),
@@ -1360,7 +1360,7 @@ def test_health_schema_is_stable_when_runtime_missing():
 
 
 def test_cors_gate_actually_raises_on_import(monkeypatch):
-    """R5-5 端到端：显式生产 + 通配 CORS 时导入 server.api 必须直接失败（不是只打日志）。"""
+    """端到端：显式生产 + 通配 CORS 时导入 server.api 必须直接失败（不是只打日志）。"""
     import subprocess
     import sys
 
@@ -1377,7 +1377,7 @@ def test_cors_gate_actually_raises_on_import(monkeypatch):
 
 
 def test_smoke_output_symbols_are_encoding_safe(monkeypatch):
-    """R5-1：GBK/ASCII 控制台不得因 ✓/✗ 抛 UnicodeEncodeError。"""
+    """GBK/ASCII 控制台不得因 ✓/✗ 抛 UnicodeEncodeError。"""
     from scripts import smoke_deploy
 
     class _FakeStdout:
@@ -1401,4 +1401,3 @@ def test_smoke_output_symbols_are_encoding_safe(monkeypatch):
     assert (ok_prefix, fail_prefix) == ("[OK]", "[FAIL]")
     # 安全打印不得抛错（GBK 控制台里打印中文与 [FAIL] 都能编码）
     smoke_deploy._safe_print("  [FAIL] 请求失败：连接被拒绝")
-

@@ -1,4 +1,4 @@
-"""CLI 参数解析的守护用例（RAGv5 T8 修复）。
+"""CLI 参数解析的守护用例。
 
 背景：`evaluation/cli.py` 的 `--suites` 原实现把字符串直接当可迭代对象，
 `--suites main` 会被拆成 ['m','a','i','n'] 并报"未知套件"，

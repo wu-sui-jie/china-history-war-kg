@@ -9,7 +9,7 @@
   5. 判定问题类型 + 抽取朝代过滤器；
   6. 生成 rewritten_question（指代还原 + 实体全名化）。
 
-LLM 兜底（RAGv5 §4.5 已实现）：词典**完全未命中**时，用一次结构化调用让模型抽取
+LLM 兜底：词典**完全未命中**时，用一次结构化调用让模型抽取
 "实体名 + 类型"（`server/query/prompts.py`），随后走与词典命中等价的后续流程。
 开关 `ENABLE_LLM_ENTITY_FALLBACK`（默认关闭）、独立超时 `LLM_ENTITY_TIMEOUT_SECONDS`（默认 8 s，
 避免吃满 F06 的首 Token 预算）；调用失败/超时/解析失败一律降级回词典结果（返回空实体，不报错）。
@@ -214,7 +214,7 @@ class QuestionUnderstanding:
         # 5) 应用 corrected_entities（add/replace/remove）
         entities, candidates = self._apply_corrections(entities, candidates, corrected)
 
-        # 5.5) LLM 兜底（RAGv5 §4.5）：词典完全未命中且开关打开时，用模型抽实体。
+        # 5.5) LLM 兜底：词典完全未命中且开关打开时，用模型抽实体。
         #      触发条件保守：raw_hits 为空（词典一条都没命中）才走；失败即降级不报错。
         llm_entity_used = False
         if q_prompts.should_fallback(dictionary_hits=len(raw_hits),
@@ -327,9 +327,8 @@ class QuestionUnderstanding:
     def _resolve_by_name(self, standard_name: Optional[str]) -> tuple[Optional[str], Optional[str]]:
         """按标准名查 (entity_id, type)。
 
-        **同名多候选时返回 (None, ...)**（工作单 P1-3 第 4 条）：旧实现取列表第一项，
-        等于用顺序猜测用户意图——同名不同朝代时必然出错。宁可让调用方走"无 ID"路径，
-        也不要静默改错实体。
+        **同名多候选时返回 (None, ...)**：取列表第一项等于用顺序猜测用户意图——
+        同名不同朝代时必然出错。宁可让调用方走"无 ID"路径，也不要静默改错实体。
         """
         if not standard_name:
             return None, None
@@ -345,7 +344,7 @@ class QuestionUnderstanding:
     def _apply_corrections(self, entities: list[EntityRef],
                            candidates: list[EntityCandidate],
                            corrected: list[CorrectedEntity]):
-        """按指令顺序应用 add/replace/remove（工作单 P1-2 / P1-3）。
+        """按指令顺序应用 add/replace/remove。
 
         定位规则：
         - 源实体（replace/remove）：`source_entity_id` 优先，缺失时按 `original` 名称匹配；

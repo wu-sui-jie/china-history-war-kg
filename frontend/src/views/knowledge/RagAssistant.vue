@@ -24,7 +24,7 @@
            注意这**不是安全隔离**：RAG 页面与主应用同源，`allow-scripts` + `allow-same-origin`
            组合下 iframe 内脚本可以直接访问父页面（也能移除自身 sandbox 属性，浏览器规范明示）。
            **防"读到别的账号数据"靠服务端**：RAG 侧开启 RAG_REQUIRE_AUTH 后，
-           问答接口要求请求头里带本文下发的 token，由 RAG 服务端验签（第 12 轮审查 P1-1）；
+           问答接口要求请求头里带本文下发的 token，由 RAG 服务端验签；
            彻底隔离仍需把 RAG 部署到独立域名。 -->
       <iframe
         :key="frameKey"
@@ -56,13 +56,13 @@ const reloadFrame = () => {
 }
 
 /**
- * 把当前账号告知 iframe 里的 RAG 前端（问题二方案 A）。
+ * 把当前账号告知 iframe 里的 RAG 前端。
  *
  * 为什么需要：RAG 是独立服务、没有用户体系，会话历史存在它自己的 localStorage 里，
  * key 全局唯一——同一浏览器上任何账号打开 RAG 看到的都是同一份记录。
  * 主应用这边知道"现在是谁"，就把账号 id 传进去，RAG 按 uid 分 key 存。
  *
- * token 一起带上（第 12 轮审查 P1-1，即方案 B）：分桶只解决"串记录"，防不了冒充
+ * token 一起带上，由 RAG 服务端验签：分桶只解决"串记录"，防不了冒充
  * ——同源之下懂控制台的人能改 uid 去看别人的记录。RAG 服务端开启 RAG_REQUIRE_AUTH 后，
  * 会用与旧后端共享的密钥验签请求头里的这份凭证，改 uid 不再有意义。
  *
@@ -100,7 +100,7 @@ let uidResolved = knownUid !== null
 // 账号变化时重建 iframe 并重发：RAG 前端按新 uid 重新读它自己的存储。
 // 但"首次解析出账号"（进入页面时 userInfo 还是空的，ensureUserInfo 之后才有）不算换号：
 // 那时候 iframe 要么正在加载、要么刚 load 完（onFrameLoad 会把身份补上），
-// 原先无条件重建会让首次进入白加载一遍——同一份会话数据读两次。
+// 无条件重建会让首次进入白加载一遍——同一份会话数据读两次。
 watch(() => userStore.userInfo?.id, (raw) => {
   const uid = raw === undefined || raw === null ? null : String(raw)
   if (uid === knownUid) return

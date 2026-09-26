@@ -12,7 +12,7 @@ export interface Filters {
 
 /** 一次实体纠正指令（与后端 contracts/request.py 的 CorrectedEntity 一一对应）。
  *
- * 源与目标必须是**两个**字段（2026-09-16 工作单 P1-3）：同名不同朝代的实体共享
+ * 源与目标必须是**两个**字段：同名不同朝代的实体共享
  * standard_name，一个含混的 entity_id 无法表达"把 A 换成 B"。
  *
  * | 动作 | 源实体 | 目标实体 | 其他 |
@@ -145,7 +145,7 @@ export interface EntityCard {
   description?: string
   aliases?: string[]
   source?: string
-  /** 事件叙事字段（2026-09-20 起由 F05 从 event_cards 快照装配，仅事件卡有值） */
+  /** 事件叙事字段（由 F05 从 event_cards 快照装配，仅事件卡有值） */
   aggressor?: string | null
   defender?: string | null
   action?: string | null

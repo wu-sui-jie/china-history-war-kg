@@ -1,9 +1,9 @@
 <!--
   提问输入区（旧问答助手底部）。
 
-  从 views/inference/index.vue 的模板里整块搬出来（第 7 轮 W2），class 名与结构保持不变。
+  class 名与结构沿用 views/inference/index.vue 的页面级样式，不要改动。
   输入内容用 v-model（modelValue / update:modelValue）双向绑定，页面仍是值的持有者；
-  Enter 发送、Shift+Enter 换行的判断收在这里（原先是页面的 handleEnterKey）。
+  Enter 发送、Shift+Enter 换行的判断收在这里。
 -->
 <template>
   <div class="input-container">

@@ -1,4 +1,4 @@
-"""F02 LLM 兜底的守护用例（RAGv5 §4.5）。
+"""F02 LLM 兜底的守护用例。
 
 覆盖三条口径：
 1. 词典完全未命中 + 开关打开 → 走兜底，entities 非空且标注 llm_entity_used=True；

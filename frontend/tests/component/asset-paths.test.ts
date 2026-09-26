@@ -1,7 +1,7 @@
-/** 登录页与主框架的资源路径（第 12 轮审查 P1-4）。
+/** 登录页与主框架的资源路径。
  *
- * public/ 下的资源原样拷贝、不改名，也不会被构建器补上 vite base（本仓库是 /static/）。
- * 修复前这里有两处错误写法，构建与挂载都不会报错，只有上线后肉眼可见：
+ * 被测行为：public/ 下的资源原样拷贝、不改名，也不会被构建器补上 vite base（本仓库是 /static/），
+ * 因此渲染出来的地址必须自己带 /static/ 前缀。下面两种写法都不报错、只有上线后肉眼可见：
  *   - `src="/login.jpg"`：不带前缀，生产被 nginx 转给旧后端 Flask → 登录主图 404；
  *   - CSS 里的 `url(background.jpg)`：相对 dist/assets/*.css 解析成
  *     /static/assets/background.jpg，且 vite 找不到时会**把整条 background 声明从产物里删掉**。

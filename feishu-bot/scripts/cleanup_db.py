@@ -8,10 +8,9 @@
 - `processed_events`：超出 PROCESSED_EVENTS_TTL_HOURS（飞书重投窗口只有分钟级，
   留着一天足够；这条表增长最快，因为它每个事件一行）；
 - `--purge-orphans`（可选）：没有配对回答的"孤儿提问行"。这类行只可能来自
-  异常路径（处理中途进程被打断）或更早版本"提问先落库"的写法。**升级到
-  "成对写入"的版本后建议清一次**——历史参与 RAG 回答缓存的键，残留的 `/help`
-  与超时轮留下的提问行会让每次提问都变成缓存未命中（真机踩过：本该毫秒返回的
-  问题变成 12–16s 的真生成，顶穿 25s 预算）。
+  异常路径（处理中途进程被打断），不该长期留在库里，建议清一次——历史参与
+  RAG 回答缓存的键，残留的 `/help` 与超时轮留下的提问行会让每次提问都变成缓存
+  未命中（真机踩过：本该毫秒返回的问题变成 12–16s 的真生成，顶穿 25s 预算）。
 
 用法：
     python feishu-bot/scripts/cleanup_db.py --dry-run     # 先看会删多少
@@ -38,7 +37,7 @@ def purge_orphans(db: Database, *, dry_run: bool) -> int:
 
     口径：一条 user 行的下一条消息若是 user（或后面没有消息了），它就没有回答
     ——按"成对写入"的规则，这种情况不该存在。用 id 相邻判断，不依赖时间戳。
-    `role` 一次 SELECT 全带上，避免逐行回查（之前的写法是每行一次查询的 N+1）。
+    `role` 一次 SELECT 全带上，避免逐行回查（N+1）。
     """
     rows = db.query_all("SELECT id, session_key, role FROM messages "
                         "ORDER BY session_key, id")

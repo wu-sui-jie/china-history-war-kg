@@ -1,10 +1,9 @@
 """
 从 LLM 输出里取出 JSON 载荷。
 
-EER-6：此前 entity / event / relation 三个抽取器各有一份**逐字相同**的
-`_extract_json_payload`，而 `core/llm_client._extract_json` 里还有第四份扫描循环
-（它多一层"取最大候选"的策略，所以只能合并扫描、不能强行合并成同一个函数——
-强行合并会改变抽取产物）。这里把扫描逻辑收成一处，各方保留各自的取舍策略。
+entity / event / relation 三个抽取器共用同一套扫描逻辑，但各自保留**不同的取舍策略**：
+抽取器取"第一个可解析值"，`core/llm_client._extract_json` 取"最大候选"并返回 JSON 文本。
+扫描可以合并，策略不能强行合并成同一个函数——强行合并会改变抽取产物。
 """
 from __future__ import annotations
 

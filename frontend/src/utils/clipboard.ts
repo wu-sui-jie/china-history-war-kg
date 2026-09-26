@@ -1,4 +1,4 @@
-/** 复制到剪贴板（第 7 轮 W2 从 index.vue 抽出）。
+/** 复制到剪贴板。
  *
  * 两条路径：正规的 `navigator.clipboard` 与旧浏览器的临时文本域回退。
  * 返回是否成功，由调用方决定提示什么。
@@ -27,7 +27,7 @@ function fallbackCopy(text: string): boolean {
   try {
     // `document.execCommand('copy')` 用**返回值 false** 表示失败（不抛异常）：
     // 只看有没有异常就会在"非安全上下文 / 剪贴板权限被拒"时提示"复制成功!"，
-    // 而用户粘贴出来是空的（第 14 轮审计 P2-17）。
+    // 而用户粘贴出来是空的。
     succeeded = document.execCommand('copy')
   } catch (err) {
     succeeded = false

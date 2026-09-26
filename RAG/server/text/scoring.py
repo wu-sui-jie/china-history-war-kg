@@ -7,7 +7,6 @@
 from __future__ import annotations
 
 
-
 def resolve_mode(requested: str | None, vector_available: bool) -> str:
     """返回实际执行模式；请求 vector/hybrid 但向量不可用 → 自动降级 keyword。"""
     req = (requested or "keyword").lower()
@@ -18,7 +17,7 @@ def resolve_mode(requested: str | None, vector_available: bool) -> str:
     return req
 
 
-# ---- hybrid 融合（RAGv5 §四.2）----
+# ---- hybrid 融合 ----
 def _norm_dict(raw: dict) -> dict:
     """按值 min-max 归一化到 [0,1]；全相等时记 0.5（与 data-contract 的关键词/向量归一化同口径）。"""
     if not raw:

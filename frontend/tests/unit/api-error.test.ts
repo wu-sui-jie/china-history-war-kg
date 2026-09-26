@@ -1,4 +1,4 @@
-/** 后端错误文案的提取（第 6 轮审核 M4）。
+/** 后端错误文案的提取。
  *
  * 后端的失败响应是「HTTP 4xx/5xx + body {code, msg}」，axios 走 reject，`error.message`
  * 只有 "Request failed with status code 403"——直接用会把后端写清楚的原因丢掉。

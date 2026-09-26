@@ -4,7 +4,7 @@
  * 并入旧知识库系统 Web 入口时（子路径反代，见 china-war/docs/集成与入口约定.md），
  * 构建期用 `VITE_API_BASE=/rag/api VITE_BASE_PATH=/rag/`（即 .env.integration）指到反代前缀。
  *
- * 之所以必须参数化：这里原本写死根绝对路径 `/api/health`，一旦 SPA 被挂在 `/rag/` 下，
+ * 之所以必须参数化：写死根绝对路径 `/api/health` 时，一旦 SPA 被挂在 `/rag/` 下，
  * 请求会落到旧 Flask 的 `/api/*` 上——两边都用 `/api` 前缀，必然串台。
  */
 

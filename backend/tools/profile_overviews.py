@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""总览构建器的耗时与 SQL 语句数剖析（P2-5 剩余部分的前置依据）。
+"""总览构建器的耗时与 SQL 语句数剖析。
 
 `build_map_overview` / `build_timeline_overview` 里是逐地点、逐事件的循环：每个元素
 都发一条查询，也就是典型的 N+1。本工具不靠猜，直接量：

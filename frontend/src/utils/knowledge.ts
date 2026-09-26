@@ -70,10 +70,9 @@ export const problemLabelMap: Record<string, string> = {
 }
 
 // 类型别名：接口与历史数据里出现过的各种写法 → 四种标准类型。
-// 2026-09-25（FE-13）：原先还认五个 GBK 乱码 key（如 鎴樹簤浜嬩欢 = 战争事件）——
-// 那是把"数据源头按 GBK 读 UTF-8"的问题藏在了展示层。已核实当前 SQLite 与 Neo4j
-// 里没有乱码值，改由后端在导入/同步写库前统一复原（common_utils.repair_mojibake），
-// 这里不再兼容乱码。
+// 这里**不认** GBK 乱码 key（如 鎴樹簤浜嬩欢 = 战争事件）：那是把"数据源头按 GBK 读 UTF-8"
+// 的问题藏在了展示层。当前 SQLite 与 Neo4j 里没有乱码值，复原由后端在导入/同步写库前
+// 统一做（common_utils.repair_mojibake）。
 export const typeAliasMap: Record<string, string> = {
   Event: 'Event',
   event: 'Event',
@@ -117,7 +116,7 @@ export const toEditableFields = (node: Record<string, any>) => {
 }
 
 /** 把节点 relations 字段（数组 / JSON 字符串 / 单个对象）按关系类型分组。
- *  原先在 inference/index.vue 与 knowledge/EntityDetail.vue 各写一份，逐字相同。 */
+ *  inference/index.vue 与 knowledge/EntityDetail.vue 共用这一份，不要各写一份。 */
 export const groupRelationAttributes = (rawValue: any) => {
   if (!rawValue) return []
 

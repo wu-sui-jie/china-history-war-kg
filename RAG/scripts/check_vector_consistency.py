@@ -1,4 +1,4 @@
-"""向量索引一致性抽检（RAGv5 T3）。
+"""向量索引一致性抽检（RAGv5）。
 
 两件事：
 1. **条数一致性**：`chroma.count() == len(ids.json) == embeddings.npy 行数`；

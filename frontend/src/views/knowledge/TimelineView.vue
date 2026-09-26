@@ -159,7 +159,7 @@ const timeline = ref<any>({
 const dynasties = computed(() => timeline.value.dynasties || [])
 
 const loadData = async () => {
-  // 后端失败现在是 HTTP 5xx（第 13 轮复核第七节：失败不再伪装成 200），
+  // 后端失败是 HTTP 5xx（失败不再伪装成 200），
   // 因此必须走 catch —— 只判断 `res.code === 200` 的话，失败时页面会静默不动、
   // 用户看不到任何原因（axios 异常分支里才有后端的 msg）。
   try {

@@ -64,7 +64,7 @@ function toggle(i: number): void {
 }
 
 // 引用定位来自 store（而不是 window 事件）：移动端抽屉是条件挂载的，
-// 事件先于组件挂载发出就会永久丢失（2026-09-15 审核 P1-10）。
+// 事件先于组件挂载发出就会永久丢失。
 // nonce 保证"连续点击同一条引用"也会重新定位。
 watch(
   () => store.citationFocus,
@@ -77,8 +77,8 @@ watch(
 
 <template>
   <div v-if="indexes.length" ref="listEl" class="evidence-list">
-    <!-- 展开/收起用原生 button（第四轮复核 P1-13）：旧实现是点击 article，
-         键盘与读屏都拿不到"可展开、当前是否展开"的信息 -->
+    <!-- 展开/收起用原生 button：点击 article 时键盘与读屏都拿不到
+         "可展开、当前是否展开"的信息 -->
     <article
       v-for="i in indexes"
       :key="i"

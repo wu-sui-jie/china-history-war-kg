@@ -1,11 +1,15 @@
 # 旧后端（Flask，:5000）依赖声明。
 #
-# 安装：pip install -r backend/requirements.txt
-# 运行环境：Python 3.8+（本机开发用 conda 环境见根 README 的「本机环境备注」）
+# 运行环境：Python 3.11（本地统一 conda 环境 china-war-py311）。
 #
-# 与根 requirements.txt 的关系：
-#   根文件是「旧后端 + 离线知识抽取」合并的便捷入口；本文件只列 backend 自身运行所需，
-#   二者由 backend 的 import 清单驱动，新增依赖请同步两处。
+# 安装（推荐走仓库根的统一 lock，它覆盖四个模块的全部三方依赖）：
+#   pip install --no-cache-dir -r requirements.lock
+#   pip install -e entity-event-relation       # 抽取链是仓库内的正式包，漏装会 ModuleNotFoundError
+# 只想装本模块的运行依赖时：pip install -r backend/requirements.txt
+#
+# 与根依赖声明的关系：
+#   requirements.lock 锁定四模块共用的精确版本（带 sha256）；根 pyproject.toml 按模块分组
+#   声明版本区间。本文件只列 backend 自身运行所需，由 backend 的 import 清单驱动。
 #
 # 说明：
 #   - 版本下界按实际验证过的版本给出，未锁定精确版本；
@@ -23,7 +27,7 @@ py2neo>=2021.2.4,<2022
 ollama>=0.5,<1
 jieba>=0.42,<1
 
-# backend 通过正式包 war_extraction（同级目录 entity-event-relation，P2-4 打包）引用抽取链，
+# backend 通过正式包 war_extraction（同级目录 entity-event-relation）引用抽取链，
 # 其中 pydantic 模型是 backend 也用到的部分，因此 pydantic 仍需装在这里。
 # 注意：war_extraction 本身要用 -e 安装，见下。
 pydantic>=2.0,<3
@@ -31,6 +35,6 @@ pydantic>=2.0,<3
 # ---- 抽取链包 war_extraction（本仓库内的 entity-event-relation，不发布到 PyPI）----
 # 不在本文件里用 "-e ../entity-event-relation" 声明：路径依赖写进 requirements 会让
 # `pip install -r backend/requirements.txt` 在别的工作目录下失效。安装顺序是：
-#   1) pip install -r requirements.txt            （仓库根，含抽取链的三方依赖）
+#   1) pip install --no-cache-dir -r requirements.lock   （仓库根，含抽取链的三方依赖）
 #   2) pip install -e entity-event-relation       （开发态安装 war_extraction）
 # CI 里这两步都在 legacy-backend job 中执行，见 .github/workflows/ci.yml。

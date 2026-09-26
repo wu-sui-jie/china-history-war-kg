@@ -1,12 +1,11 @@
-# entity-event-relation 正式打包（P2-4 / BE-4 / EER-7 收口）。
+# entity-event-relation 的包定义（包名 war_extraction）。
 #
-# 为什么要有这个文件：本模块此前没有包定义，backend 只能把 entity-event-relation 目录塞进
-# sys.path 再 `from src.models import ...`——顶层的 `src` 包名极易与别的项目撞名，且依赖方向
-# 含糊（谁引用谁说不清）。打包后：
-#   - 包名 `war_extraction`（避开 `src`），实体后端在 `war_extraction.models` 等路径下；
-#   - backend 以正常依赖方式引用它（`pip install -e ../entity-event-relation`），
-#     删掉了 sys.path 注入（原 backend/eer_path.py）；
-#   - 依赖按实际 import 声明，不再靠根 requirements.txt 里的"顺带安装"。
+# 做成正式包、而不是靠改 sys.path 导入，是为了这三件事：
+#   - 包名取 `war_extraction` 而非顶层的 `src`（`src` 极易与别的项目撞名），
+#     实体在 `war_extraction.models` 等路径下；
+#   - backend 以正常依赖方式引用它（`pip install -e entity-event-relation`），
+#     依赖方向显式可查，不往 sys.path 里塞目录；
+#   - 依赖按实际 import 声明，不靠根 requirements.txt 的"顺带安装"。
 #
 # 安装（开发态，可编辑）：
 #   pip install -e entity-event-relation
@@ -22,6 +21,8 @@ build-backend = "setuptools.build_meta"
 name = "war-extraction"
 version = "0.1.0"
 description = "历史战争知识抽取与评估（离线）"
+# 下界 3.8 是留给 CI 里旧后端那一档 3.8（过渡期双跑）安装本包用的；
+# 实际运行版本以仓库统一的 3.11 为准。
 requires-python = ">=3.8"
 dependencies = [
     "openai>=1.0",

@@ -1,7 +1,7 @@
 <!--
   会话列表（旧问答助手左侧栏）。
 
-  从 views/inference/index.vue 的模板里整块搬出来（第 7 轮 W2），class 名与结构保持不变——
+  class 名与结构沿用 views/inference/index.vue 的页面级样式，不要改动——
   样式在页面级的 index.css 里按 `.inference-container` 命名空间生效，子组件只负责渲染与派发事件。
 -->
 <template>

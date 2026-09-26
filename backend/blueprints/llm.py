@@ -1,16 +1,16 @@
-"""大模型相关路由（P2-1 收官：从 app.py 按业务分组迁出）。
+"""大模型相关路由。
 
 三条都受 require_write_role 保护（会消耗 LLM 配额）：旧问答（同步与 SSE 流式）与文本抽取。
 SSE 那条直接返回 Response(generator, mimetype='text/event-stream')，不要包成 jsonify。
-**URL 未变**。
+**URL 与响应形状必须保持不变**。
 
-错误口径（第 13 轮复核第七节）：这三条接口的响应契约与其它接口不同——问答通道回的是
+错误口径：这三条接口的响应契约与其它接口不同——问答通道回的是
 `{success, error, answer, kg_data}`（前端 inference 页按它渲染），因此这里**保留原有形状**，
 只做两件事：
 
-1. **不再外发异常原文**。改动前同步/流式两条把 `error_detail = str(e)` 直接给客户端，
-   那里面常带绝对路径、连接串与库名（文档第七节第 3 条明确禁止）。
-   现在只回一句人话文案，完整原因交 `logger.exception` 写进服务端日志并带 request_id；
+1. **不外发异常原文**。把 `error_detail = str(e)` 直接给客户端会带出绝对路径、
+   连接串与库名（文档第七节第 3 条明确禁止）。这里只回一句人话文案，
+   完整原因交 `logger.exception` 写进服务端日志并带 request_id；
 2. **HTTP 状态一律用 4xx/5xx**，让前端、反代与监控能按状态码分流。
 """
 
@@ -73,7 +73,7 @@ def ai_inference():
         logger.info(f"[{request_id}] 收到大模型推理请求: '{user_question}'")
 
         # 推理引擎与实体提取器优先用 before_request 建好的进程内单例；
-        # 单例缺失（如启动时初始化失败）时按请求临时建一份，与原先一致。
+        # 单例缺失（如启动时初始化失败）时按请求临时建一份，保证接口仍可用。
         if not hasattr(g, 'rule_llm_integration'):
             logger.info(f"[{request_id}] 初始化规则推理模块")
             try:
@@ -113,7 +113,7 @@ def ai_inference():
 
     except Exception as e:
         # 完整堆栈与异常原文只进日志（logger.exception 自带 traceback），
-        # 响应里不再有 error_detail —— 它此前会把绝对路径/连接串/库名送给客户端。
+        # 响应里不放 error_detail —— 它会把绝对路径/连接串/库名送给客户端。
         logger.exception(f"处理推理请求时出错: {type(e).__name__}")
         return jsonify({
             'success': False,
@@ -266,7 +266,7 @@ def extract_entities_events():
 
     except llm_pipeline.ExtractionUnavailable as unavailable:
         # 所有阶段都没成功（典型是 Ollama 没起）：这里必须是 5xx——包成 200 的"识别完成"
-        # 等于把故障说成"这段文本没有实体"（第 6 轮审核 M1）。
+        # 等于把故障说成"这段文本没有实体"。
         logger.warning(f"文本实体识别整体失败: {unavailable}")
         return jsonify({
             "code": 500,

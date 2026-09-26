@@ -29,7 +29,7 @@ const datasource = ref<any>({ nodes: [], lines: [] })
 const graphPageSummary = inject<any>('graphPageSummary', null)
 const route = useRoute()
 const focusName = ref('')
-// 默认只加载限量视图：全图分支没有分页，规模大时会把浏览器拖死（BE-6/BE-8）。
+// 默认只加载限量视图：全图分支没有分页，规模大时会把浏览器拖死。
 // 用户显式点「加载全部节点」时才请求全图，后端还会按节点数上限拦截。
 const wantFullGraph = ref(false)
 
@@ -45,7 +45,7 @@ async function loadNodeRelations(nodeId: string) {
   try {
     const response = await getNodeRelations(nodeId)
     if (response.code === 200) {
-      // 合并去重的实现收敛在 utils/graph.ts（原先与 EntityGraph 各一份）
+      // 合并去重的实现统一在 utils/graph.ts，不要在本页另写一份
       datasource.value = mergeNodeRelations(datasource.value, response.data || {})
       syncPageSummary()
     }

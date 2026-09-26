@@ -1,4 +1,4 @@
-/** 用户管理页用例（问题一方案 A）。
+/** 用户管理页用例。
  *
  * 覆盖：挂载即拉列表与角色回显、不能改自己那一行、未改动时不给保存、
  * 保存成功提示"下次登录生效"、失败时按服务端回滚显示。
@@ -146,7 +146,7 @@ describe('UserManagement 用户管理页', () => {
 })
 
 
-// ------------------------------------------- 状态列与启用/停用（第 14 轮审计 P2-18）
+// ------------------------------------------- 状态列与启用/停用
 
 describe('UserManagement 状态列与停用', () => {
   let wrapper: VueWrapper<any>
@@ -159,7 +159,7 @@ describe('UserManagement 状态列与停用', () => {
   afterEach(() => wrapper?.unmount())
 
   test('已停用与正常账号在列表里能分辨', async () => {
-    // 后端一直返回 disabled，而类型与页面原先都没有它 → 停用后列表里看不出来
+    // 后端一直返回 disabled，类型与页面漏掉它 → 停用后列表里看不出来
     wrapper = await mountPage()
 
     const text = wrapper.text()

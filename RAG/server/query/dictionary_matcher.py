@@ -56,7 +56,7 @@ class DictionaryMatcher:
         self.snapshot_dir = Path(snapshot_dir)
         self._by_name: dict[str, list[dict]] = {}
         # entity_id → 实体：同名不同朝代的实体共享标准名，纠正链路必须能按 ID 精确定位
-        # （2026-09-16 工作单 P1-3：没有它就只能"按名字取第一项"）
+        # （没有它就只能"按名字取第一项"）
         self._by_id: dict[str, dict] = {}
         self._alias: dict[str, list[dict]] = {}
         self._entity_type_terms: dict[str, set[str]] = {

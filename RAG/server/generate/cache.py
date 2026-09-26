@@ -1,6 +1,6 @@
 """F06 回答缓存（server/generate/cache.py）。
 
-缓存键（features/06 + data-contract + RAGv5 审核 C3）：
+缓存键（见 docs/features.md 第六节与 docs/data-contract.md）：
 rewritten_question + 会话历史摘要 + 筛选条件 + 数据版本 + 模型版本 + **文本检索模式**。
 文本模式必须进键：同题在 keyword / vector / hybrid 下证据不同，答案不能跨模式复用。
 缓存 payload 除 answer/citations 外还保存 panel，供 SSE 缓存命中时完整回放：
@@ -56,7 +56,7 @@ def _normalize_corrections(corrections: list | None) -> list[dict]:
         action = action.value if hasattr(action, "value") else action
         out.append({
             "action": action or "",
-            # 源/目标两个 ID 都要进键（工作单 P1-3）：同名不同朝代时，
+            # 源/目标两个 ID 都要进键：同名不同朝代时，
             # 只有目标 ID 能区分"改成哪一个"，只按名字做键会命中旧答案。
             "source_entity_id": d.get("source_entity_id") or "",
             "replacement_entity_id": d.get("replacement_entity_id") or "",
@@ -76,11 +76,11 @@ def cache_key(rewritten: str, history: list | None, filters: dict | None,
               dynasty_bias: list | None = None) -> str:
     """回答缓存键。
 
-    第四轮复核 P1-1 修正两处：
+    两处必须覆盖到：
     - **纠正实体进键**：`add` 类纠正不一定改变 rewritten question，但会改变实体、
-      图谱与证据；旧键让"纠正前"和"纠正后"命中同一条缓存，用户看到纠正没生效。
-    - **历史不再截尾**：旧实现只取 JSON 尾部 400 字符，两份历史只要尾部相同就碰撞；
-      现在对裁剪后的完整历史做 SHA-256（调用方已按 history_max_turns 裁剪）。
+      图谱与证据；不进键会让"纠正前"和"纠正后"命中同一条缓存，用户看到纠正没生效。
+    - **历史不截尾**：只取 JSON 尾部若干字符时，两份历史只要尾部相同就碰撞；
+      这里对裁剪后的完整历史做 SHA-256（调用方已按 history_max_turns 裁剪）。
     """
     payload = {
         "question": rewritten or "",
@@ -100,8 +100,8 @@ def cache_key(rewritten: str, history: list | None, filters: dict | None,
 class AnswerCache:
     """进程内 TTL 缓存（演示阶段足够；多实例部署再换 redis）。
 
-    容量与清扫（2026-09-15 审核 P1-4）：旧实现只在"命中同一个 key"时才检查过期，
-    不同 key 写入多少就留多少，公开接口长期运行会被慢速刷爆内存。现在：
+    容量与清扫：只在"命中同一个 key"时检查过期，会让不同 key 写入多少就留多少，
+    公开接口长期运行会被慢速刷爆内存。因此：
     - 每次 put 前按"每 N 次或超限时"触发一次全表过期清扫；
     - 清扫后仍超出 max_entries 时按写入时间淘汰最旧条目（LRU 语义近似：写入序 + 命中不刷新）。
     """
@@ -164,9 +164,9 @@ class AnswerCache:
 def empty_cache_stats(settings=None) -> dict:
     """缓存尚未创建时的**零值统计**，字段与 `AnswerCache.stats()` 完全一致。
 
-    为什么需要（第五轮整改复核 B8）：runtime 加载失败时 health 原实现提前 return，
-    返回体里没有 `cache` / `sync_pool` 这些键——监控在"服务启动失败"这个最需要
-    观测的时刻反而拿到了不同 schema。字段集合是否一致由测试断言。
+    为什么需要：runtime 加载失败时若 health 提前 return，返回体里就没有
+    `cache` / `sync_pool` 这些键——监控在"服务启动失败"这个最需要观测的时刻反而拿到了
+    不同 schema。字段集合是否一致由测试断言。
     """
     if settings is None:
         from config.settings import get_settings

@@ -1,7 +1,7 @@
 """
 主流程控制模块
 整合所有抽取器，支持单文件、长文本、批量处理三种模式
-新增：文件级缓存机制，避免重复调用API
+含文件级缓存机制，避免重复调用 API
 """
 
 import argparse
@@ -35,15 +35,14 @@ from war_extraction.utils.value_parsing import (
     split_multi_value,
 )
 
-# 注：dict_to_entities / dict_to_events / dict_to_relations 现在只有一处实现，
-# 在 war_extraction.core.extraction_runner 里（第 11 轮 C-1：两份编排合成单一入口）。
+# 注：dict_to_entities / dict_to_events / dict_to_relations 只有一处实现，在
+# war_extraction.core.extraction_runner 里（抽取编排的唯一入口）。
 # 这里保留同名别名，既有的调用点与用例不必改。
 
 
 def _split_multi_value(value: str):
-    # 实现搬到 war_extraction/utils/value_parsing.py（EER-6）。排除集原先这里用窄的
-    # （只排除"不详/null"），抽取器那份还排除"未知/无/None"——2026-09-25 按决策
-    # **统一为宽口径**（不再显式传参），属抽取产物的口径变更，只在下一次抽取时见效。
+    # 多值拆分的实现只有 war_extraction/utils/value_parsing.py 一处；占位词排除集
+    # 全模块统一为宽口径（含"未知/无/None"），所以这里不再显式传参。
     return split_multi_value(value)
 
 
@@ -56,10 +55,7 @@ def _looks_like_org_name(value: str) -> bool:
 
 
 def _is_summary_only_event(event_obj) -> bool:
-    """
-    Added 2026-04-21 21:18:05 +08:00: Centralize summary-event detection so
-    final event cleanup and quality diagnostics use the same rule.
-    """
+    """判定"只有概括、没有具体战事"的事件；最终清理与质量诊断共用这一条规则。"""
     event_name = getattr(event_obj, "EventName", "") or ""
     source_text = getattr(event_obj, "source_text", "") or ""
     remark = getattr(event_obj, "Remark", "") or ""
@@ -77,20 +73,18 @@ def _is_summary_only_event(event_obj) -> bool:
 
 
 def _parse_year_for_order(value: str):
-    # EER-6：实现搬到 war_extraction/utils/value_parsing.py（原来这里与 event_extractor 各一份）
+    # 年份解析的实现只有 war_extraction/utils/value_parsing.py 一处
     return parse_year_for_order(value)
 
 
-# ensure_event_date_order 由 war_extraction.utils.value_parsing 直接提供（EER-6 合并了两份拷贝），
+# ensure_event_date_order 由 war_extraction.utils.value_parsing 直接提供，
 # 本文件不再包一层——包一层会与 import 进来的同名函数互相遮蔽。
 
 
 def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtractionResult:
     """
-    Changed 2026-04-21 13:46:29 +08:00: Remove obvious person/org cross-type
-    conflicts from final entity inventory.
-    Changed 2026-04-21 16:12:05 +08:00: Canonicalize names, drop low-quality
-    entity rows, and deduplicate cleaned people/organizations.
+    清理最终实体清单：规范化名称并剔除明显的人/组织跨类型冲突与低质量行；
+    人物与组织按规范化名称归并（重复行的缺失字段互补、source_text 合并），地点原样保留。
     """
     normalizer = Normalizer()
 
@@ -150,15 +144,13 @@ def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtracti
 
 def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
     """
-    Changed 2026-04-21 16:12:05 +08:00: Canonicalize event display names and
-    deduplicate near-duplicate final events before export.
+    导出前规范化事件显示名，并按"规范化名称 + 朝代 + 开始时间 + 首个有效地点"归并近似重复事件：
+    重复行按完整度取优、缺失字段互补，最后丢掉只有概括的事件。
     """
     normalizer = Normalizer()
-    # Changed 2026-09-25（第 11 轮 C-5）：原先这里另存一份"寒淀/寒足 → 寒浞"的纠正表，
-    # 与 war_extraction/utils/normalizer.py 的 EVENT_NAME_ALIASES 是同一件事两处维护
-    # （EER-8 的同类问题）。现在只保留 normalizer 那一份，本函数直接引用它——
-    # 注意 standardize_event_name 已经套过别名表，这里再套一次只是让它对"已标准化的名字"
-    # 也成立（保持原有行为不变）。
+    # 事件名别名表只有 war_extraction/utils/normalizer.py 的 EVENT_NAME_ALIASES 一份，
+    # 这里直接引用它。standardize_event_name 已经套过别名表，这里再套一次是为了让
+    # "已标准化的名字"也能再收敛一次（幂等，不改变行为）。
     event_name_overrides = normalizer.EVENT_NAME_ALIASES
     def first_effective_place(value):
         for place_name in _split_multi_value(value):
@@ -221,8 +213,8 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
 
     merged_events = list(event_map.values())
 
-    # Changed 2026-04-21 20:00:18 +08:00: Drop broad summary events when a more
-    # specific stage event for the same campaign already exists.
+    # 同一场战役已经有更具体的阶段事件时，丢掉那条近似战役名的概括事件
+    # （含"原文仅提及事件名称"这类只有名字、没有战事的事件）。
     normalized_names = [normalizer.normalize_event_name(event.EventName) for event in merged_events]
     summary_like_keys = set()
     for index, event in enumerate(merged_events):
@@ -247,10 +239,7 @@ def cleanup_events(events: EventExtractionResult) -> EventExtractionResult:
 
 
 def finalize_outputs(entities, events, relations):
-    """
-    Changed 2026-04-21 16:12:05 +08:00: Run one shared cleanup path for both
-    fresh extraction and cache reads so output quality stays consistent.
-    """
+    """抽取与缓存读取共用的收尾清理链：实体清洗 → 事件归并 → 关系清洗 → 从事件回填关系 → 再清洗。"""
     entities = cleanup_entity_conflicts(entities)
     events = cleanup_events(events)
     valid_event_names = {getattr(event, "EventName", None) for event in events.events if getattr(event, "EventName", None)}
@@ -262,9 +251,8 @@ def finalize_outputs(entities, events, relations):
 
 def enrich_relations_from_events(entities, events, relations):
     """
-    Add rich deterministic event-entity relations from final event fields.
-    This runs after cache reads and chunk merges too, so old sparse relation
-    caches do not keep the four graph pages under-connected.
+    从最终事件字段确定性派生事件-实体关系。缓存读取与分段合并之后都要再跑一次，
+    否则旧的稀疏关系缓存会让四个图谱页面一直连不上。
     """
     place_list = "、".join([p.geo_name for p in entities.places if getattr(p, "geo_name", None)])
     org_list = "、".join([o.OrgName for o in entities.organizations if getattr(o, "OrgName", None)])
@@ -280,9 +268,9 @@ def enrich_relations_from_events(entities, events, relations):
 
 def split_publishable_outputs(entities, events, relations):
     """
-    Added 2026-04-22 10:20:00 +08:00: Split final extraction output into
-    publishable data and candidate data so weak records stop blocking
-    downstream storage and graph usage.
+    把最终抽取结果拆成"可发布"与"候选"两套：只有要素齐全、结果可信的事件，
+    以及它们引用到的实体与关系进入 published；弱记录留在 candidate，
+    避免它们阻塞下游入库与图谱使用。
     """
     normalizer = Normalizer()
 
@@ -548,19 +536,18 @@ def split_publishable_outputs(entities, events, relations):
 
 
 def _arbitrate_event_event_relation(normalizer: Normalizer, rel):
-    # EER-6：实现搬到 war_extraction/utils/relation_rules.py（原来这里与
-    # relation_extractor._arbitrate_event_event_relation 是两份逐字相同的逻辑）
+    # 仲裁实现只有 war_extraction/utils/relation_rules.py 一处，抽取器与本文件共用
     return arbitrate_event_event_relation(normalizer, rel)
 
 
 def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_names=None) -> RelationExtractionResult:
     """
-    Changed 2026-04-21 17:20:11 +08:00: Apply one final relation pass to
-    remove reverse duplicates and prefer stronger relation labels.
-    Changed 2026-04-21 20:46:18 +08:00: Use evidence order to stabilize
-    顺承/因果 direction without changing the existing relation schema.
-    Changed 2026-04-21 21:18:05 +08:00: Drop event-event relations that
-    reference filtered events so summary-event cleanup cannot leave stale edges.
+    关系的最后一道清理：规范化名称与关系类型、丢掉自环与指向已过滤事件的边、
+    按证据文本的出现顺序校正"顺承/因果"方向，再按无向 pair 去重
+    （同 pair 保留关系优先级更高的；同优先级保留 evidence 更长的）。
+
+    传入 `valid_event_names` 时，只有两端都能在有效事件名单里对上的边才保留——
+    否则事件清理删掉的概括事件会留下悬空边。
     """
     normalizer = Normalizer()
     relation_priority = {"因果关系": 3, "顺承关系": 2, "并列关系": 1}
@@ -617,11 +604,7 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
 
 
 def enrich_entities_from_events(entities: EntityExtractionResult, events: EventExtractionResult) -> EntityExtractionResult:
-    """
-    Changed 2026-04-21 12:48:22 +08:00: Backfill places, organizations, and
-    persons from event fields so missed first-pass entities can still enter
-    the final graph.
-    """
+    """用事件字段回填地点/组织/人物，让第一遍没抽到的实体仍能进入最终图谱。"""
     place_map = {(p.geo_name, p.DynastyName or ""): p for p in entities.places}
     org_map = {(o.OrgName, o.DynastyName or ""): o for o in entities.organizations}
     person_map = {(p.PersonName, p.DynastyName or ""): p for p in entities.persons}
@@ -686,9 +669,8 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
     """
     处理长文本：分段抽取→合并结果
 
-    第 11 轮 C-1：分段循环与三阶段调用搬进 `war_extraction.core.extraction_runner`，
-    与 backend 的 `llm_pipeline.extract_all_optimized` 共用同一份编排。本函数只剩
-    "本链路自己的后处理"——每段的实体回填/清洗与 finalize_outputs 用钩子挂进去，
+    分段循环与三阶段调用在 `war_extraction.core.extraction_runner`（与 backend 共用同一份
+    编排）。本函数只提供本链路自己的后处理：每段的实体回填/清洗与 finalize_outputs 走钩子，
     段间合并仍走 ResultMerger。
     """
     cache = CacheManager() if (read_cache or write_cache) else None
@@ -739,7 +721,6 @@ def process_long_text(text: str, llm, splitter: TextSplitter,
     return final_entities, final_events, final_relations
 
 
-
 def process_single_file(file_path: Path, llm, enable_split: bool = True,
                         read_cache: bool = True, write_cache: bool = True):
     """
@@ -760,7 +741,7 @@ def process_single_file(file_path: Path, llm, enable_split: bool = True,
 
     # 短文本直接整体缓存，长文本使用分段缓存
     if not enable_split or len(text) <= 2000:
-        # 短文本：整篇一段、整体缓存。第 11 轮 C-1：三阶段调用交给共享编排，
+        # 短文本：整篇一段、整体缓存。三阶段调用交给共享编排，
         # 这里只提供本链路的钩子（实体回填/清洗 + finalize_outputs）。
         return _process_one_shot(text, llm, "single_file", read_cache, write_cache)
 
@@ -802,10 +783,7 @@ def _process_one_shot(text: str, llm, cache_stage: str,
 
 
 def build_quality_report(entities, events, relations) -> dict:
-    """
-    Added 2026-04-20 21:46:02 +08:00: Summarize extraction completeness so
-    reruns can quickly judge whether source_text/evidence requirements held.
-    """
+    """汇总抽取完整度（各类计数、source_text/evidence 缺失数、事件计数诊断），便于重跑后快速判断。"""
     places = entities.places
     persons = entities.persons
     orgs = entities.organizations
@@ -885,10 +863,9 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
     输出9个JSON文件和对应的Excel文件
 
     llm_meta: 由调用方传入 {"model": ..., "api_base": ...}，随 metadata 落盘，
-    使产物可自证由哪个模型/端点产出（修正 2026-09-25：原先缺失，换模型重跑后
-    产物无法区分来源）。
+    使产物可自证由哪个模型/端点产出（缺了它，换模型重跑后产物就分不出来源）。
     """
-    # 第 11 轮 C-2：默认输出目录按 __file__ 锚定到模块根，不再随当前工作目录变
+    # 默认输出目录按 __file__ 锚定到模块根，不随当前工作目录变
     output_dir = output_base or (Path(__file__).resolve().parent / "output")
     output_dir.mkdir(exist_ok=True)
 

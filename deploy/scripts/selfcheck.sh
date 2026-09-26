@@ -37,8 +37,8 @@ done
 # ---------------------------------------------------------------- 补偿队列定时器
 head_ "补偿队列（outbox 自动重放）"
 if ! systemctl cat china-war-outbox-retry.timer >/dev/null 2>&1; then
-    # 第 14 轮审计 P2-23：这两个单元原先只能手工 cp，README 的步骤里没有它们，
-    # 漏装之后"Noo4j 写失败会自动补"就成了一句没有执行者的承诺。
+    # 这两个单元由 install_services.sh 一起装；漏装之后
+    # "Neo4j 写失败会自动补"就成了一句没有执行者的承诺。
     bad "未安装 china-war-outbox-retry.timer —— Neo4j 写失败后的自动重放不会发生（install_services.sh 会装它）"
 elif systemctl is-active china-war-outbox-retry.timer | grep -q '^active$'; then
     ok "china-war-outbox-retry.timer 已启用"

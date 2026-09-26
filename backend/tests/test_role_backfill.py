@@ -1,12 +1,12 @@
-"""启动迁移不得把空角色账号提成管理员（审查报告 P1-5）。
+"""启动迁移不得把空角色账号提成管理员。
 
-修复前 `ensure_user_table_schema()` 对 `role IS NULL OR role = ''` 的历史账号执行
-`role='admin'`，而这条迁移是**每次启动都跑**的。于是任何来源的空角色行——导入脚本、
-人工写库、旧版本遗漏——都会在下一次重启时静默变成管理员。它与 `DbUtil.get_role`
+`ensure_user_table_schema()` 若对 `role IS NULL OR role = ''` 的历史账号执行
+`role='admin'`，那么任何来源的空角色行——导入脚本、人工写库、旧版本遗漏——都会在
+下一次重启（这条迁移**每次启动都跑**）时静默变成管理员。它与 `DbUtil.get_role`
 的最小权限兜底（空值按 viewer）正好相反：同一个空值，读接口按 viewer 放行，
 启动迁移却把人写成了 admin，界面与权限对不上。
 
-现在两侧口径统一为 viewer；首个管理员改由显式引导命令产生（create_admin.py）。
+两侧口径统一为 viewer；首个管理员由显式引导命令产生（create_admin.py）。
 """
 
 from sqlalchemy import text

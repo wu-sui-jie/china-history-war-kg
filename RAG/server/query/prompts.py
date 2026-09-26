@@ -1,4 +1,4 @@
-"""F02 LLM 兜底的提示词与解析（server/query/prompts.py，RAGv5 §4.5）。
+"""F02 LLM 兜底的提示词与解析。
 
 只在**词典完全未命中**时调用一次（结构化、非流式），用于从问句中抽取实体名与类型。
 设计原则：
@@ -68,5 +68,5 @@ def parse_entities(text: str) -> list[dict]:
 
 
 def should_fallback(*, dictionary_hits: int, enable_llm: bool, llm_client) -> bool:
-    """兜底触发条件：开关打开、客户端可用、且词典完全未命中（RAGv5 §4.5）。"""
+    """兜底触发条件：开关打开、客户端可用、且词典完全未命中。"""
     return bool(enable_llm and llm_client is not None and dictionary_hits == 0)

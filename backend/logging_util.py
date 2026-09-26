@@ -1,9 +1,9 @@
 """backend 的统一日志配置。
 
-原先 200+ 处 print 直接写 stdout：既不落文件、也没有级别，排查问题只能靠
-journalctl 捞历史输出。这里收敛成两个 handler：
+直接 print 到 stdout 既不落文件、也没有级别，排查问题只能靠 journalctl 捞历史输出。
+这里收敛成两个 handler：
 
-- 控制台（开发时肉眼可见，格式与原来接近）；
+- 控制台（开发时肉眼可见，格式紧凑）；
 - 滚动文件 `logs/backend.log`（5 MB × 3 份，`BACKEND_LOG_DIR` 可改目录）。
 
 用法：`logger = get_logger(__name__)`，随后用 logger.info / warning / error。

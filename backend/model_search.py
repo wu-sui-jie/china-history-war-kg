@@ -93,8 +93,8 @@ class neo4j_db():
             label = safe_identifier(label)
             props = {k: v for k, v in (properties or {}).items()
                      if v is not None and k not in ("id", "type", "graph_key", "name")}
-            # **名称缺省时不要写**（第 14 轮审计 P1-4）：原实现无条件 `SET n.name = $name`，
-            # 于是任何一次"name 传空"的写入都会把图谱属性抹成 null——属性被删掉了，
+            # **名称缺省时不要写**：无条件 `SET n.name = $name` 会让任何一次
+            # "name 传空"的写入把图谱属性抹成 null——属性被删掉了，
             # 而调用方看到的是一条"更新成功"。这是数据损坏最深处的一道，放在这里是因为
             # 除 update_node 之外，outbox 重放与同步脚本也都会走到这里。
             # `coalesce($name, n.name)`：$name 为 null 时保留图谱上已有的名字。
@@ -104,7 +104,7 @@ class neo4j_db():
                     "upsert_node 未拿到有效名称（%s/%s）：保留图谱上已有的 name，不写入空值",
                     label, graph_key)
                 normalized_name = None
-            # 先"认领"一个同名且没有图谱键的历史节点（改造前用 MERGE{name} 建的）：
+            # 先"认领"一个同名且没有图谱键的历史节点（早期用 MERGE{name} 建的）：
             # 没有这一步，升级后第一次 upsert 会因为找不到 graph_key 而**新建一个节点**，
             # 旧节点变成同名的孤儿——正是这个改造要消除的现象。
             # 只认领 `graph_key IS NULL` 的节点，因此不会抢走新体系里同名的另一个对象。
@@ -159,7 +159,7 @@ class neo4j_db():
     def drop_legacy_node_without_graph_key(self, label, name):
         """删掉按名字匹配、**且没有 graph_key** 的历史节点；返回删除条数。
 
-        只服务于"改名后的残留清理"：改造前用 `MERGE {name: ...}` 建的节点没有 graph_key，
+        只服务于"改名后的残留清理"：早期用 `MERGE {name: ...}` 建的节点没有 graph_key，
         改名后会在图谱里留下一个旧名的孤儿（文档第六节第 3 条 C 说的就是这个）。
         带上 `n.graph_key IS NULL` 是为了**不误伤**新体系的节点——它们哪怕重名也各有主，
         由各自的 graph_key 管。
@@ -248,10 +248,8 @@ class neo4j_db():
         # 未查询到节点时返回None
         return None
 
-    # 这里曾有一个 `update_node_properties(node_id, properties)`：它用 f-string 把属性名
-    # 直接拼进 Cypher（`f"n.{key} = ${key}"`），且全仓**没有任何调用点**（第 14 轮审计 P2-12）。
-    # 零调用 + 现成的注入点，删除比「补校验再留着」更彻底：属性更新走的是 `upsert_node`
-    # （`SET n += $props`，键名过白名单与映射表）。
+    # **不要按 f-string 把属性名拼进 Cypher**（`f"n.{key} = ${key}"`）：那是现成的注入点。
+    # 属性更新一律走 `upsert_node`（`SET n += $props`，键名过白名单与映射表）。
 
     # 删除节点
     def delete_node(self, label, node_id):
@@ -718,7 +716,6 @@ class neo4j_db():
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
-
 
 
 # ============================添加代码==========

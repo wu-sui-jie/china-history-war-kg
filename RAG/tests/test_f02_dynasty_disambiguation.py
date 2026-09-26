@@ -120,7 +120,7 @@ def _understand():
 
 @pytestmark_snapshot
 def test_real_snapshot_picks_dynasty_named_in_question():
-    """问"西汉的井陉之战"→ 选中西汉那条（此前会选到战国），候选仍含两条。"""
+    """问"西汉的井陉之战"→ 选中西汉那条（不能按顺序选到战国），候选仍含两条。"""
     out = _understand().understand("西汉的井陉之战是怎么回事？")
     assert out.entities and out.entities[0].dynasty == "西汉"
     assert out.dynasty_disambiguated is True

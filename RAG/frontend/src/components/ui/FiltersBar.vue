@@ -7,8 +7,8 @@ const store = useSessionStore()
 const dynastyOpen = ref(false)
 const typeOpen = ref(false)
 
-// 两个弹层互斥 + 点击外部/Escape 关闭（2026-09-15 审核 P2）：
-// 旧实现两个弹层可同时打开，且只能再次点击触发按钮才关闭，桌面端会互相遮挡。
+// 两个弹层互斥 + 点击外部/Escape 关闭：
+// 弹层可同时打开时桌面端会互相遮挡，且只能再次点击触发按钮才关闭。
 watch(dynastyOpen, (open) => {
   if (open) typeOpen.value = false
 })

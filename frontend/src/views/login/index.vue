@@ -81,20 +81,18 @@ import {layer} from "@layui/layui-vue"
 import { login, signIn } from "@/api/module/user"
 import {apiErrorMessage} from "@/utils/apiError"
 
-// 口令长度必须与后端 `backend/password_policy.py` 一致（第 13 轮复核整改 §2.1 之后，
-// 首管命令、注册、改密码、前端提示共用那一份口径；跨语言无法共享常量，改数值要两处一起改）。
-// 原先这里是 6~20，而后端第 13 轮整改把下限提到 10：不一致的后果是前端放行、
-// 后端 400，用户看到"密码长度需在 10~64 位之间"却不知道自己哪里填错了。
-// 上限也从 20 提到 64——前端比后端更严会在用户用长口令时凭空拦住他。
+// 口令长度必须与后端 `backend/password_policy.py` 一致（首管命令、注册、改密码、
+// 前端提示共用那一份口径；跨语言无法共享常量，改数值要两处一起改）。
+// 不一致的后果是前端放行、后端 400，用户看到"密码长度需在 10~64 位之间"
+// 却不知道自己哪里填错了。上限不能比后端更小——前端比后端更严会在用户用长口令时凭空拦住他。
 const MIN_PASSWORD_LENGTH = 10
 const MAX_PASSWORD_LENGTH = 64
 
 // 登录页的两张图放在 public/ 下：vite 原样拷贝、不做哈希改名，因此**不会**被构建器
 // 补上部署前缀，路径必须自己带上 vite 的 base（本仓库是 /static/）。
 //
-// 原先这里是 `src="/login.jpg"` 与 CSS 里的 `url(background.jpg)`，两者在生产都指向
-// 不存在的地址（第 12 轮审查 P1-4）：
-//   - `/login.jpg` 不带 /static/ 前缀，nginx 会按 `location /` 转给旧后端 Flask，
+// 不带 base 的两种写法在生产都会指向不存在的地址：
+//   - 写死 `/login.jpg`：nginx 会按 `location /` 转给旧后端 Flask，
 //     后端没有这条静态路由 → 401/404；
 //   - CSS 里的相对 `background.jpg` 会相对 `dist/assets/*.css` 解析成
 //     `/static/assets/background.jpg`，而图片实际在 `/static/background.jpg`。
@@ -120,8 +118,8 @@ export default defineComponent({
 
     // 只用 trim 处理**账号与昵称**：它们的首尾空格是明显的输入失误（复制粘贴带进来的）。
     //
-    // 密码**按原值发送**（第 13 轮复核整改 §2.2）。原先这里也 trim 密码，等于静默改了
-    // 用户输入：历史口令或命令行建的口令若带首尾空格，用户照着输入反而登录不上，
+    // 密码**按原值发送**，不能 trim：那等于静默改用户输入——历史口令或命令行建的
+    // 口令若带首尾空格，用户照着输入反而登录不上，
     // 而错误提示只能是"用户名或密码错误"——一个用户永远猜不到的原因。
     // 首尾空格该不该被允许由服务端的统一口令策略决定（`backend/password_policy.py`
     // 现在明确返回"不能以空白字符开头或结尾"），前端不做任何规范化。
@@ -141,7 +139,7 @@ export default defineComponent({
         layer.msg('请输入密码', {icon: 2})
         return null
       }
-      // 登录**不校验口令长度**（第 13 轮整改修正）。
+      // 登录**不校验口令长度**。
       //
       // 长度策略的作用是"不许设置弱口令"，只该出现在**设置口令**的路径上
       // （注册 validateSignInForm、改密码的接口）。放在登录路径上会直接锁人：
@@ -158,7 +156,7 @@ export default defineComponent({
         return null
       }
       // 与后端 `db_utils.MIN_ACCOUNT_LENGTH / MAX_ACCOUNT_LENGTH / MAX_NAME_LENGTH` 同值：
-      // 前端这份的作用只是"本地先拦一次、少一次往返"，事实源在后端（第 14 轮审计 P3-10）
+      // 前端这份的作用只是"本地先拦一次、少一次往返"，事实源在后端。
       if (account.length < 3 || account.length > 20) {
         layer.msg('用户名长度需为 3-20 位', {icon: 2})
         return null
@@ -205,7 +203,7 @@ export default defineComponent({
               layer.msg(msg, {icon: 2})
             }
           })
-          // 失败分支必须有 catch（第 13 轮整改）：后端新引入的 429（登录限流）
+          // 失败分支必须有 catch：后端的 429（登录限流）
           // 走的是 axios 的 reject 分支，没有 catch 时用户点完登录**什么都看不到**，
           // 按钮只是重新亮起来——看起来像"没反应"，而实际原因是"尝试太频繁"。
           .catch((error) => layer.msg(apiErrorMessage(error, '登录失败，请稍后重试'), {icon: 2}))

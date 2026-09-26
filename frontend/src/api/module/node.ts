@@ -2,7 +2,7 @@ import Http from '../http'
 
 // 节点管理接口：知识库管理页（四个 CRUD 页）、图谱页与质检页共用。
 // 这些接口的历史路径不带 /api 前缀（生产由 nginx 的 `location /` 兜底，开发态在
-// vite.config.ts 里显式转发），因此 URL 写在这里、不要在组件里各写一份（FE-6）。
+// vite.config.ts 里显式转发），因此 URL 写在这里、不要在组件里各写一份。
 
 export interface NodePageQuery {
   pageNum: number

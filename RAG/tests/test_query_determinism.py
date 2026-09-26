@@ -1,8 +1,8 @@
 """F02 实体匹配 / 朝代过滤器识别的跨进程确定性回归测试。
 
 背景：`sorted(set(...), key=len, reverse=True)` 在等长词上按 set 迭代顺序，受
-PYTHONHASHSEED 影响 → 跨进程结果不稳定，曾导致评测两次 run 的证据顺序/回答顺序
-不一致（F10 可复现性验收项）。修复后并列长度按词本身排序。
+PYTHONHASHSEED 影响 → 跨进程结果不稳定，会让评测两次 run 的证据顺序/回答顺序
+不一致（F10 可复现性验收项）。因此并列长度必须按词本身排序。
 
 数据缺失时自动 skip。运行：python -m pytest tests/test_query_determinism.py -q
 """

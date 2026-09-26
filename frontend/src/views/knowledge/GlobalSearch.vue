@@ -44,7 +44,7 @@ const search = async () => {
     layer.msg('请输入关键词', { icon: 2 })
     return
   }
-  // 后端失败改为 HTTP 5xx（第 13 轮复核第七节）：失败时既要把结果清空，也要给出提示，
+  // 后端失败是 HTTP 5xx：失败时既要把结果清空，也要给出提示，
   // 否则"搜索了但没反应"和"确实没有匹配"在界面上长得一模一样。
   try {
     const res = await globalSearch(keyword.value.trim())

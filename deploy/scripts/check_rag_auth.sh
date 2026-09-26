@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# RAG 鉴权配置门禁（第 13 轮复核第五节）
+# RAG 鉴权配置门禁
 #
 # 用法（服务器上，root）：
 #   bash deploy/scripts/check_rag_auth.sh
@@ -9,7 +9,7 @@
 #
 # ## 为什么需要这个脚本
 #
-# 第 13 轮复核发现的缺陷：部署模板写 RAG_AUTH_MODE=nginx，而 nginx 站点配置里的
+# 需要拦住的一类缺陷：部署模板写 RAG_AUTH_MODE=nginx，而 nginx 站点配置里的
 # auth_basic 是**注释状态**。照着两份模板部署的人会得到：
 #
 #     RAG 认为"nginx 在鉴权"    → 自己不验签，正常启动
@@ -28,13 +28,13 @@
 # 4. nginx 档：.htpasswd 存在、站点配置里 auth_basic 是**启用状态**、nginx -T
 #    的实际生效配置里 /rag/ 带认证——三件缺一不可；
 # 5. 两种档位都要求：RAG 只监听回环，且 nginx 对 /api/internal/ 返回 404；
-# 6. **密钥不能是模板里的占位符**（第 13 轮复核整改 §2.5）：模板里写的是
+# 6. **密钥不能是模板里的占位符**：模板里写的是
 #    `CHANGE_ME_openssl_rand_base64_48` 这类值，部署者如果把同一个占位符复制到两侧，
-#    原先的"非空 + 两侧同值"检查会全部通过——一串所有人都知道的值成了生产密钥。
+#    只查"非空 + 两侧同值"会全部通过——一串所有人都知道的值成了生产密钥。
 #    同时检查最低长度（JWT / 服务间密钥 ≥ 32 字符），以及 Neo4j 口令不是默认值。
 #    占位符的判定口径与 `RAG/scripts/check_secrets.py` 的 ALLOWLIST 一致，
 #    由 `backend/tests/test_deploy_auth_gate.py` 用同一批样本同时校验两侧（改一处要改两处）；
-# 7. **生产档下撤销策略必须显式选择**（第 13 轮复核整改 §2.7）：未配撤销查询时，
+# 7. **生产档下撤销策略必须显式选择**：未配撤销查询时，
 #    要么配齐，要么设 `RAG_ALLOW_DELAYED_REVOCATION=true` 明确接受"停用/改密码后
 #    旧 token 到自然过期前仍可用"。口径与 RAG 自己的启动门禁一致。
 
@@ -153,11 +153,11 @@ if [[ "${mode}" == "jwt" ]]; then
         ok "JWT 密钥两侧同值"
     fi
 
-    # 同值还不够：同成模板占位符也算"配好了"吗？不算（§2.5）。
+    # 同值还不够：同成模板占位符也算"配好了"吗？不算。
     check_secret_value "JWT 密钥（RAG 侧）" "${rag_secret}" 32
     check_secret_value "JWT 密钥（backend 侧）" "${backend_secret}" 32
 
-    # 飞书机器人走的不是 JWT 而是 X-Bot-Key（第 14 轮审计 P2-20）：jwt 档下不配它，
+    # 飞书机器人走的不是 JWT 而是 X-Bot-Key：jwt 档下不配它，
     # 机器人每问必被 401，而机器人侧只会说"RAG 不可用"——排障方向是反的。
     # 只在**确实要部署机器人**时才算失败（仓库里有 feishu-bot/.env 就说明要部署），
     # 否则只提醒：不是每个部署都接机器人。
@@ -184,7 +184,7 @@ if [[ "${mode}" == "jwt" ]]; then
     fail_mode=$(env_value "${RAG_ENV}" RAG_INTROSPECT_FAIL_MODE)
     [[ -z "${fail_mode}" ]] && fail_mode=closed
 
-    # §2.7：生产档下"撤销延迟"必须是**显式决定**，不能靠"两个值都不填"隐式接受。
+    # 生产档下"撤销延迟"必须是**显式决定**，不能靠"两个值都不填"隐式接受。
     # 与 RAG 的启动门禁（config/settings.py 的 revocation_startup_problem）同一口径：
     # 安装期红一次，好过部署后发现"停用账号还要等 7 天"。
     production=$(env_value "${RAG_ENV}" RAG_REQUIRE_ACTIVE_VERSION | tr '[:upper:]' '[:lower:]')
@@ -199,7 +199,7 @@ if [[ "${mode}" == "jwt" ]]; then
             warn "未启用凭证撤销查询：**账号被停用或改密码后，旧 token 在自然过期（默认 7 天）前仍可调用 RAG 问答接口**（旧后端已立刻拒绝，两侧口径不同）"
         fi
     elif [[ -z "${introspect_url}" || -z "${rag_key}" ]]; then
-        # P2-19：模板预填了 RAG_INTROSPECT_URL，于是"jwt + 生产档 + 显式接受延迟撤销"
+        # 模板预填了 RAG_INTROSPECT_URL，于是"jwt + 生产档 + 显式接受延迟撤销"
         # 这个组合会走到"只配了一半"这一支而被判失败——但 RAG 自己的启动门禁在这种
         # 配置下是放行的（它只看"撤销查询能不能用"）。脚本头部声称的"与启动门禁同口径"
         # 必须真的成立：显式接受延迟时，半配置只提醒，不算失败。

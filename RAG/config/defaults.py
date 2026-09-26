@@ -43,15 +43,15 @@ EMBEDDING_TIMEOUT_SECONDS = 60
 # 向量库（D2）：Chroma 持久化集合
 CHROMA_COLLECTION = "chunks_v1"
 
-# ---- 文本检索模式（T3，部署级全局开关；vector/hybrid 依赖向量索引已构建）----
-# 2026-09-15 审核整改：代码级兜底与部署默认对齐为 hybrid/rrf，换环境丢失 .env 时
-# 不再静默回退关键词模式；向量/Chroma 不可用时由检索层自动降级 keyword 并上报 mode。
+# ---- 文本检索模式（部署级全局开关；vector/hybrid 依赖向量索引已构建）----
+# 代码级兜底与部署默认对齐为 hybrid/rrf：换环境丢失 .env 时不会静默回退关键词模式；
+# 向量/Chroma 不可用时由检索层自动降级 keyword 并上报 mode。
 TEXT_MODE = "hybrid"                   # keyword / vector / hybrid
 TEXT_HYBRID_STRATEGY = "rrf"           # weighted / rrf / fallback
 # 2026-09-13 对照评测定档（main 套件 28 题）：rrf 文本召回 97.0% > weighted 95.2% > fallback 94.6%；
 # 回答覆盖 rrf/weighted 并列 85.1%，fallback 仅 71.7%（= 关键词基线，等于没做融合）
 TEXT_HYBRID_KEYWORD_WEIGHT = 0.5       # weighted 档位下关键词通道权重（向量权重 = 1 - 该值）
-# 关键词检索的用词上限（原先硬编码在 server/text/searcher.py）：
+# 关键词检索的用词上限（集中在此声明，由 server/text/searcher.py 读取）：
 #   MAX_WORDS   —— 查询词总数上限（FTS 的 MATCH 词越多，AND 命中越少）
 #   AND_WORDS   —— AND 用词数上限
 #   OR_WORDS    —— OR 用词数上限
@@ -75,11 +75,11 @@ LLM_MODEL = "deepseek/deepseek-v4.1-flash"   # 中转模型 id；官方口径为
 LLM_TIMEOUT_SECONDS = 60
 LLM_MAX_RETRIES = 2
 # F02 LLM 兜底（词典完全未命中 → 模型抽实体）：默认关闭；开启后每问多一次串行调用，
-# 直接影响首 Token 预算，故演示默认不开（见 RAGv5 开发说明 §4.5）
+# 直接影响首 Token 预算，故演示默认不开
 ENABLE_LLM_ENTITY_FALLBACK = False
 LLM_ENTITY_TIMEOUT_SECONDS = 8        # 兜底独立超时，不复用 F06 的 60 s
-# 输出上限：deepseek 系列是推理模型，会先消耗 reasoning token。v5 实测 1024 会被打满
-# （reasoning 736 + 正文 288）导致回答被截断，故默认 2048；设得过小还会导致正文为空。
+# 输出上限：deepseek 系列是推理模型，会先消耗 reasoning token。实测 1024 会被打满
+# （reasoning 736 + 正文 288）导致回答被截断，故默认取 3072；设得过小还会导致正文为空。
 LLM_MAX_TOKENS = 3072
 # 备用生成模型（主模型失败降级用；为空 = 不降级）
 FALLBACK_LLM_BASE_URL = ""
@@ -87,14 +87,14 @@ FALLBACK_LLM_API_KEY = ""
 FALLBACK_LLM_MODEL = ""
 
 
-# ---- 数据版本（2026-09-15 审核 P0-7）----
+# ---- 数据版本 ----
 # 活跃数据版本必须显式固定，否则进程重启时目录里出现更大版本号就会静默切换，
 # 灰度/回滚都不可控。留空 = 开发态取"最新一致版本"；生产请在 .env 配 RAG_ACTIVE_VERSION。
 # 注意：这不是 get_settings 的输入（那边读 RAG_ACTIVE_VERSION 环境变量），
 # 而是版本解析链路与测试直接引用的默认值。
 ACTIVE_VERSION = ""
 
-# ---- 进程外/内资源边界（2026-09-15 审核 P0-2）----
+# ---- 进程外/内资源边界 ----
 REQUEST_MAX_BYTES = 65536             # /api/query 请求体上限（字节）；超限 413
 QUESTION_MAX_CHARS = 500              # 单次提问字符数上限
 SESSION_ID_MAX_CHARS = 128            # 会话 id 字符数上限
@@ -117,14 +117,14 @@ CACHE_MAX_ENTRIES = 2048              # 进程内回答缓存条目上限（超�
 HISTORY_MAX_TURNS = 4                 # 携带会话历史的最大轮数
 QUERY_TOP_K_GRAPH = 40                # F03 图谱证据上限
 QUERY_TOP_K_TEXT = 30                 # F04 文本证据上限（融合后再裁剪）
-# 送入 F06 的融合证据条数上限（18 = v4 口径）。实测：18 条 → prompt 约 4,300 token →
-# 推理模型更易把 max_tokens 吃满而截断、首正文更慢；演示可按需下调（见 RAGv5 开发说明 §四.11）
+# 送入 F06 的融合证据条数上限。实测：18 条 → prompt 约 4,300 token →
+# 推理模型更易把 max_tokens 吃满而截断、首正文更慢；演示可按需下调
 QUERY_FUSION_LIMIT = 18
 
-# ---- 在线链路安全与稳定性（2026-09-15 审核 P0-3 / P1-8）----
+# ---- 在线链路安全与稳定性 ----
 # 是否把模型原始 reasoning 增量推给公共 SSE。默认关闭：
 # 推理内容可能包含中间判断与上下文复述，属于模型内部过程，不应直接暴露给调用方
-# （见 docs/features/06-grounded-answer.md 的过滤要求）。开启仅用于本地调试。
+# （见 docs/features.md 第六节 F06 的过滤要求）。开启仅用于本地调试。
 EXPOSE_THINKING = False
 # SSE 连接保活与整体上限：心跳让反代/浏览器知道连接还活着；deadline 防止挂死连接占资源。
 SSE_HEARTBEAT_SECONDS = 15
@@ -143,23 +143,23 @@ BOT_API_KEY = ""
 # JWT 共享密钥（HS256）：与旧后端 backend/.env 的 JWT_SECRET 必须同值。
 # 留空 = 不启用 JWT 校验。实现见 server/auth.py。
 JWT_SECRET = ""
-# 强制要求可信身份（第 12 轮审查 P1-1）：开启后 /api/query 与非流式接口都要求携带
+# 强制要求可信身份：开启后 /api/query 与非流式接口都要求携带
 # 旧后端签发的 JWT，验不过一律 401。默认关闭以保持内网部署行为不变；
 # 但**对外部署必须二者之一**：本开关 + 密钥，或 nginx 认证 + 只监听回环地址。
 #
-# 第 13 轮整改后推荐改用 RAG_AUTH_MODE 表达同一件事（二者等价、可互相推导）：
+# 推荐改用 RAG_AUTH_MODE 表达同一件事（二者等价、可互相推导）：
 # 这个开关仍被接受，`true` 等价于 `RAG_AUTH_MODE=jwt`，`false` 等价于 `disabled`。
 REQUIRE_AUTH = False
-# 鉴权模式（第 13 轮整改）：jwt / nginx / disabled。
+# 鉴权模式：jwt / nginx / disabled。
 # 默认 disabled，但**显式生产档（RAG_REQUIRE_ACTIVE_VERSION=true）下 disabled 会拒绝启动**：
-# 原先只有一个布尔开关，"nginx 在把关"与"根本没人在把关"在配置里长得一样，
-# 于是漏配的人只会看到一条被忽略的 WARNING。现在必须显式二选一。
+# 只有布尔开关时，"nginx 在把关"与"根本没人在把关"在配置里长得一样，
+# 漏配的人只会看到一条被忽略的 WARNING，因此必须显式二选一。
 AUTH_MODE = "disabled"
-# token 的来源与受众（第 13 轮整改）：必须与签发端 backend/jwt_util.py 一致。
+# token 的来源与受众：必须与签发端 backend/jwt_util.py 一致。
 # 验签只证明"这把密钥签的"，iss/aud 才证明"是谁为谁签的"。
 JWT_ISSUER = "china-war-backend"
 JWT_AUDIENCE = "china-war-rag"
-# ---- 凭证撤销查询（第 13 轮复核，文档第四节方案 B）----
+# ---- 凭证撤销查询（方案 B：Token Introspection）----
 # 旧后端内部接口地址，形如 http://127.0.0.1:5000/api/internal/token/introspect。
 # 留空 = 不查询（此时"停用/改密码后 RAG 在 token 到期前仍可用"，health 会就此告警）。
 INTROSPECT_URL = ""
@@ -172,32 +172,31 @@ INTROSPECT_TTL_SECONDS = "30"
 INTROSPECT_TIMEOUT_SECONDS = "3"
 # 后端不可用时的取舍：closed（拒绝，默认） / open（放行）。
 INTROSPECT_FAIL_MODE = "closed"
-# 生产档 + jwt 档下必须显式选择撤销策略（第 13 轮复核整改 §2.7）：
+# 生产档 + jwt 档下必须显式选择撤销策略：
 #   RAG_REQUIRE_REVOCATION_CHECK=true   配齐撤销查询（url + 服务间密钥）
 #   RAG_ALLOW_DELAYED_REVOCATION=true   显式接受"停用/改密码后到 token 过期前仍可用"
 # 两者都不做则拒绝启动——那条边界不能靠"两个值都不填"隐式接受。
 ALLOW_DELAYED_REVOCATION = False
 # 要求撤销查询**必须**配齐（与是否生产档无关）：配不齐就拒绝启动。
-# 同批新增的 ALLOW_DELAYED_REVOCATION 有常量而它没有，是"默认值单点声明"这条约定的
-# 破口（第 14 轮审计 P2-25），这里补齐。
+# 默认值与 ALLOW_DELAYED_REVOCATION 一样在此单点声明。
 REQUIRE_REVOCATION_CHECK = False
 # CORS 允许来源（逗号分隔）。默认 * 便于本地开发；生产应配成实际站点域名。
 CORS_ALLOW_ORIGINS = "*"
 # 显式确认"就是要公开 API"（ALLOW_PUBLIC_CORS=true）。
 # 生产（RAG_REQUIRE_ACTIVE_VERSION=true）下若 CORS 仍为 *，服务启动会直接失败：
 # 无登录的公开问答接口暴露给任意站点，等于把限流配额与模型成本开放给所有人
-# （第五轮审核 R5-5）。确实需要公开时把这个开关打开，让风险变成显式决定。
+# 确实需要公开时把这个开关打开，让风险变成显式决定。
 ALLOW_PUBLIC_CORS = False
 
-# ---- 同步工作线程池（2026-09-15 第四轮复核 P1-5）----
+# ---- 同步工作线程池 ----
 # F02/F03/F04 的同步调用（embedding/Chroma/SQLite/图谱）走这个独立线程池。
 # max_workers 限制并发；max_queue 限制排队，超出以 server_busy 拒绝，避免断连请求无限堆积。
 SYNC_POOL_MAX_WORKERS = 8
 SYNC_POOL_MAX_QUEUE = 32
-# 收尾余量：外部调用预算 + 余量必须严格小于 SSE_MAX_DURATION_SECONDS（工作单 P1-5）
+# 收尾余量：外部调用预算 + 余量必须严格小于 SSE_MAX_DURATION_SECONDS
 SHUTDOWN_MARGIN_SECONDS = 15
 # 停机时等待在途同步任务的上限（秒）：先停收新任务、撤销排队任务，再用这个上限
-# 等正在跑的任务结束，最后才关闭外部 HTTP 客户端（第五轮审核 P0-3）。
+# 等正在跑的任务结束，最后才关闭外部 HTTP 客户端。
 # 同步调用无法中断，超时未结束的会被记录为警告并由各自的 HTTP 超时兜底。
 SHUTDOWN_DRAIN_SECONDS = 10
 

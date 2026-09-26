@@ -1,6 +1,7 @@
-"""按业务分组的路由蓝图（P2-1 收官：app.py 只留应用工厂、钩子与启动）。
+"""按业务分组的路由蓝图（app.py 只留应用工厂、钩子与启动）。
 
-`app.py` 在模块末尾统一 `register_blueprint`，**不加 url_prefix**——URL 必须与拆分前逐字相同。
+`app.py` 在模块末尾统一 `register_blueprint`，**不加 url_prefix**——URL 完全由蓝图里的
+路由装饰器决定，多一层前缀会让前端调用全部失配。
 
 分组与依赖方向：
 
@@ -27,4 +28,3 @@ from blueprints.node import node_bp  # noqa: E402
 from blueprints.workspace import workspace_bp  # noqa: E402
 
 __all__ = ["auth_bp", "graph_bp", "internal_bp", "llm_bp", "node_bp", "workspace_bp"]
-

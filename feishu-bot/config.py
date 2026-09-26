@@ -99,7 +99,7 @@ class Config:
     feishu_app_id: str = ""
     feishu_app_secret: str = ""
 
-    # ---- 使用范围白名单（第 12 轮审查 P2-5）----
+    # ---- 使用范围白名单 ----
     # 留空 = 不限制（内网默认：任何能访问该机器人的同事都能用，消耗 RAG/LLM 配额）。
     # 对外或多团队共用时应收窄：
     #   FEISHU_ALLOWED_CHAT_IDS=oc_aaa,oc_bbb   只允许这些群
@@ -108,8 +108,8 @@ class Config:
     feishu_allowed_chat_ids: tuple[str, ...] = ()
     feishu_allowed_open_ids: tuple[str, ...] = ()
 
-    # ---- 队列与并发边界（第 12 轮审查 P2-5）----
-    # 入队上限：队列原先无上限，消息突发时会一路吃内存直到进程被 OOM 杀掉。
+    # ---- 队列与并发边界 ----
+    # 入队上限：无界队列在消息突发时会一路吃内存直到进程被 OOM 杀掉。
     # 满时**快速拒绝**（见 Dispatcher._enqueue），绝不阻塞飞书回调线程。
     queue_max_size: int = 200
     # 队列满时是否回一条"当前繁忙"。关掉就只记日志与计数（适合"宁可静默丢，
@@ -154,14 +154,14 @@ class Config:
     history_assistant_max_chars: int = 800
 
     # ---- 卡片与交互（P1/P2）----
-    # 示例问题按钮（P1-3）：从 RAG /api/demo/examples 取题，失败则按钮区不渲染
+    # 示例问题按钮：从 RAG /api/demo/examples 取题，失败则按钮区不渲染
     demo_examples_enabled: bool = True
     demo_examples_count: int = 3
     demo_examples_refresh_seconds: float = 3600.0
     # 取题失败后的重试间隔（负缓存窗口）。必须为正：没有窗口就意味着每张卡片
     # 都同步重打一次 HTTP（接口挂掉时最坏吃满客户端超时，叠加在用户等待时间上）。
     demo_examples_failure_retry_seconds: float = 300.0
-    # 子图服务端出图（P2-1）：需要部署机装好 Node ≥ 18 与 render/node_modules
+    # 子图服务端出图：需要部署机装好 Node ≥ 18 与 render/node_modules
     subgraph_render_enabled: bool = True
     subgraph_render_timeout: float = 10.0
 
@@ -171,7 +171,7 @@ class Config:
     processed_events_ttl_hours: float = 24.0
     # 卡片按钮回调缺少 event_id 时的退化去重窗口（秒）。
     # 只用于压制"同一次点击的重投"，必须远小于人工二次点击的间隔——
-    # 连点两次同一按钮必须两条都处理（P0-4 验收），所以窗口取个位数秒。
+    # 连点两次同一按钮必须两条都处理，所以窗口取个位数秒。
     card_dedupe_window_seconds: float = 2.0
 
     @property
@@ -230,7 +230,7 @@ class Config:
             # 所以显式拒绝，避免有人以为填 0 是"关闭限制"却把内存风险原样留下。
             problems.append(
                 f"QUEUE_MAX_SIZE 必须为正整数，当前 {self.queue_max_size!r}"
-                "（0 或负数表示无界队列，与本次修复的意图相反）"
+                "（0 或负数表示无界队列，会失去入队上限这一保护）"
             )
         if self.busy_notice_cooldown_seconds < 0:
             problems.append(

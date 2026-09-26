@@ -1,10 +1,10 @@
-"""C-1：抽取编排只有一份实现，两个入口都走它。
+"""抽取编排只有一份实现，两个入口都走它。
 
-**背景。** "分段循环 + 三阶段调用 + 失败诊断"此前有两份平行实现：backend 的
+"分段循环 + 三阶段调用 + 失败诊断"只能有一份实现：编排收在
+`war_extraction.core.extraction_runner.run_extraction`，backend 的
 `llm_pipeline.extract_all_optimized` 与离线链路的 `main.py`（`process_long_text` /
-`process_single_file`）。两份并存已经漂过一次——第 10 轮修的 bug（实体对象被当
-`place_list` 传进提示词）就是平行实现的产物。第 11 轮把编排收进
-`war_extraction.core.extraction_runner.run_extraction`，两边只留各自的后处理。
+`process_single_file`）各自只留后处理。一旦长出第二份平行实现，两边就会漂移——
+"实体对象被当 `place_list` 传进提示词"就是这个形状的 bug。
 
 这组用例钉三件事：
 
@@ -14,9 +14,9 @@
 3. **关系阶段的提示词按各自口径**：离线链路在实体阶段后会回填/清洗实体，名称列表因此变长——
    这是"后处理各自保留"的定义，不是漂移。
 
-**做不到的那一半（如实记下）。** C-1 验收里写的"两边逐字段 diff 为空"在这套设计下**不可能**
-逐字段成立：合并边界时选的语义是"后处理各自保留"，两边最终产出本就不同（backend 逐字段
-归一 + 按名字去重、离线链路 enrich/cleanup/finalize）。能逐字段比的是**共享边界自己的输出**，
+**做不到的那一半（如实记下）。** "两边逐字段 diff 为空"在这套设计下**不可能**逐字段成立：
+合并边界时选的语义是"后处理各自保留"，两边最终产出本就不同（backend 逐字段归一 + 按名字
+去重、离线链路 enrich/cleanup/finalize）。能逐字段比的是**共享边界自己的输出**，
 而它已经被钩子改过（离线链路的实体回填就发生在边界内）。所以这里退一步钉住"共享阶段的
 调用序列与提示词一致"，再靠"两个入口都不得自建循环"把结构漂移堵死。
 """
@@ -108,8 +108,9 @@ def _extract_calls(path: Path) -> list:
 def test_两个入口都不再自建阶段循环():
     """漂移的根源是"又长出第二个循环"：任何一侧都不许自己调 .extract()。
 
-    修前（第 10 轮）：backend/llm_pipeline.py 与 entity-event-relation/main.py 各自
-    有 3 处 `*_extractor.extract(...)`，这条断言会列出 6 行；现在只剩共享编排里那 3 处。
+    两侧各建一份循环的话，backend/llm_pipeline.py 与 entity-event-relation/main.py
+    会各出现 3 处 `*_extractor.extract(...)`（这条断言会列出 6 行）；
+    阶段调用只应存在于共享编排里那 3 处。
     """
     for rel in ("backend/llm_pipeline.py", "entity-event-relation/main.py"):
         lines = _extract_calls(REPO_ROOT / rel)

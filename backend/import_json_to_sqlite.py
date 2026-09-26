@@ -44,9 +44,9 @@ LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
 def _safe_text(value):
     """把 JSON 里的任意标量转成去空白的字符串；None 得空串。
 
-    顺带做编码复原（FE-13）：历史上有一批值是把 UTF-8 字节按 GBK 读出来的乱码
-    （如"鎴樹簤浜嬩欢"），当时的补救是在前端映射表里认乱码 key。改成在源头修——
-    正常文本在这步是恒等操作，见 common_utils.repair_mojibake。
+    顺带做编码复原：有一批值是把 UTF-8 字节按 GBK 读出来的乱码
+    （如"鎴樹簤浜嬩欢"），在前端映射表里认乱码 key 只是把问题藏在展示层。
+    这里在源头修——正常文本在这步是恒等操作，见 common_utils.repair_mojibake。
     """
     if value is None:
         return ""
@@ -68,10 +68,9 @@ def clear_migration_tables():
 
     删除顺序是"先关系、后实体"，不是随便排的：app.py 的连接钩子对每个连接执行
     `PRAGMA foreign_keys=ON`，被引用的实体行若先于引用它的关系行删除，SQLite 会直接
-    报 FOREIGN KEY constraint failed。原先这里先删实体、再删关系，靠一句
-    `PRAGMA foreign_keys = OFF` 兜着——那个 PRAGMA 在 SQLAlchemy 已经开启的事务里
-    是**静默无效**的（SQLite 明确要求它必须在事务外执行），所以改成不依赖 PRAGMA 的
-    顺序本身就是正确做法。
+    报 FOREIGN KEY constraint failed。不能靠 `PRAGMA foreign_keys = OFF` 兜着：
+    那个 PRAGMA 在 SQLAlchemy 已经开启的事务里是**静默无效**的（SQLite 明确要求它必须
+    在事务外执行），所以顺序本身就是唯一的正确做法。
     """
     with app.app_context():
         try:
@@ -105,7 +104,7 @@ def clear_migration_tables():
                 )
 
             db.session.commit()
-            # 重导同时作废旧的待补偿任务（第 13 轮整改，文档第六节第 3 条 F）：
+            # 重导同时作废旧的待补偿任务（文档第六节第 3 条 F）：
             # 主键会从 sqlite_sequence 重置后重新分配，旧任务指向的是**上一批数据的 id**。
             # 不在这里作废，它们会被后台照常重放，把上一批数据重新写进图谱，
             # 与新数据混在一起——而且这种混合没有任何报错，只能在图里肉眼发现。
@@ -583,9 +582,9 @@ class JsonToSqliteImporter:
         with app.app_context():
             # 只建缺失的表，**不 drop_all**。
             #
-            # 这里原先调 db.drop_all() + create_all()，而 UserInfo 与知识表共用同一个
-            # SQLAlchemy metadata，于是"换一份抽取数据集重导"会连带删光所有账号、
-            # 口令哈希与角色；管理员账号消失后系统只能重新注册 viewer，再手工改 SQLite 才能恢复。
+            # 不能调 db.drop_all()：UserInfo 与知识表共用同一个 SQLAlchemy metadata，
+            # 一句 drop_all 就会把"换一份抽取数据集重导"变成删光所有账号、口令哈希与角色；
+            # 管理员账号消失后系统只能重新注册 viewer，再手工改 SQLite 才能恢复。
             # create_all 对已存在的表是空操作，正好满足"补齐新表、不动老表"。
             db.create_all()
 

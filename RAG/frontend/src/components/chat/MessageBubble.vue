@@ -69,15 +69,15 @@ onBeforeUnmount(() => document.removeEventListener('click', closeOutside))
 
 /** 与某个实体同 mention 的候选组。
  *
- * 纠正菜单只能列"这个 mention 的候选"：旧实现把所有候选组的选项汇总后混在一起，
- * 会把别的 mention（甚至别的实体类型）的同名项塞进替换列表（2026-09-15 审核 P1-11）。
+ * 纠正菜单只能列"这个 mention 的候选"：把所有候选组的选项汇总后混在一起，
+ * 会把别的 mention（甚至别的实体类型）的同名项塞进替换列表。
  */
 function candidatesFor(entity: EntityInfo): EntityCandidate[] {
   const names = new Set([entity.name, entity.standard_name || entity.name])
   return (assistant.value?.candidates || []).filter((c) => names.has(c.mention))
 }
 
-/** 候选的稳定标识（第四轮复核 P1-3）。
+/** 候选的稳定标识。
  *
  * 同名不同朝代的候选项共享 standard_name：用它当 key/value 会出现重复 key，
  * 且 select 永远回落到第一项，用户选了"西汉"却被替换成"战国"。
@@ -176,7 +176,7 @@ function openManual(): void {
   openMenus.clear()
 }
 
-/** 失败/中断/取消轮的重试入口：沿用原问题、原筛选与原纠正项（P1-20）。 */
+/** 失败/中断/取消轮的重试入口：沿用原问题、原筛选与原纠正项。 */
 function retryTurn(): void {
   const a = assistant.value
   if (!a) return

@@ -64,8 +64,8 @@ router.beforeEach(async (to: RouteLocationNormalized, _from: RouteLocationNormal
       await userStore.loadUserInfo()
     }
     if (!roleSatisfies(userStore.userInfo?.role, to.meta.requiresRole)) {
-      // 提示按"角色不足"统一措辞，不写死页面归属：原先非 admin 一律说"数据运营页面"，
-      // 而文本实体识别（requiresRole='editor'）并不属于数据运营组。
+      // 提示按"角色不足"统一措辞，不写死页面归属：非 admin 一律说"数据运营页面"会误导，
+      // 文本实体识别（requiresRole='editor'）并不属于数据运营组。
       layer.msg(to.meta.requiresRole === 'admin' ? '该页面仅管理员可访问' : '当前账号权限不足，无法访问该页面',
                 { icon: 2 })
       next({ path: '/workspace/dashboard' })

@@ -1,4 +1,4 @@
-"""发布链路脚本的守护用例（2026-09-16 第五轮审核 P2-3 / P2-4 / P2-5 / P2-7 / R5-2 / R5-7）。
+"""发布链路脚本的守护用例。
 
 覆盖对象是 `scripts/` 下的发布工具，全部在 tmp_path 里构造最小制品，
 不读写 `data/` 下的正式数据：
@@ -49,7 +49,7 @@ def _make_chroma_db(path: Path, vectors: int = 3, collection: str = "chunks_v1")
     con.close()
 
 
-# ---------------------------------------------------------------- P2-3 制品清单
+# ---------------------------------------------------------------- 制品清单
 def _manifest_fixture(tmp_path: Path, monkeypatch, vectors: int = 3):
     """构造一个含 Chroma 逻辑哈希条目的最小制品树，返回 (模块, settings, 根目录)。"""
     from scripts import build_artifact_manifest as bam
@@ -87,7 +87,7 @@ def _manifest_fixture(tmp_path: Path, monkeypatch, vectors: int = 3):
 
 
 def test_sha256sums_uses_physical_hash_and_logical_stays_separate(tmp_path, monkeypatch):
-    """P2-3：SHA256SUMS 必须是物理哈希（sha256sum -c 语义），逻辑哈希单独成表。"""
+    """SHA256SUMS 必须是物理哈希（sha256sum -c 语义），逻辑哈希单独成表。"""
     bam, settings, root = _manifest_fixture(tmp_path, monkeypatch)
     manifest = bam.collect(settings, "v1")
     out = settings.data_dir / "release" / "artifact-manifest.json"
@@ -132,7 +132,7 @@ def test_verify_sums_reports_missing_and_bad_lines(tmp_path, monkeypatch):
 
 
 def test_manifest_git_commit_is_stripped(tmp_path, monkeypatch):
-    """R5-7：commit/branch 等标识必须 trim，否则 JSON 里带 \\n 破坏严格比较。"""
+    """commit/branch 等标识必须 trim，否则 JSON 里带换行会破坏严格比较。"""
     from scripts import build_artifact_manifest as bam
 
     class _Out:
@@ -143,7 +143,7 @@ def test_manifest_git_commit_is_stripped(tmp_path, monkeypatch):
     assert bam._git(["rev-parse", "HEAD"], tmp_path) == "abc123"
 
 
-# ---------------------------------------------------------------- P2-5 Chroma 一方计数
+# ---------------------------------------------------------------- Chroma 四方计数
 def _audit_fixture(tmp_path, monkeypatch, vectors=4, manifest_count=4, ids=True):
     from scripts import audit_chroma_segments as acs
 
@@ -161,7 +161,7 @@ def _audit_fixture(tmp_path, monkeypatch, vectors=4, manifest_count=4, ids=True)
 
 
 def test_chroma_audit_counts_four_sources(tmp_path, monkeypatch):
-    """P2-5：ids / embeddings / collection / manifest 四者一致才判通过。"""
+    """ids / embeddings / collection / manifest 四者一致才判通过。"""
     acs, index_dir = _audit_fixture(tmp_path, monkeypatch)
     report = acs.audit(index_dir, collection_name="chunks_v1")
     assert report["counts_consistent"] is True, report["counts_detail"]
@@ -174,7 +174,7 @@ def test_chroma_audit_counts_four_sources(tmp_path, monkeypatch):
 
 
 def test_chroma_audit_detects_manifest_mismatch_and_missing_ids(tmp_path, monkeypatch):
-    """旧实现读不到 manifest 计数却判"一致"；现在任一来源缺失或不一致都判失败。"""
+    """读不到 manifest 计数时不能判"一致"：任一来源缺失或不一致都判失败。"""
     acs, index_dir = _audit_fixture(tmp_path, monkeypatch, vectors=4, manifest_count=99)
     report = acs.audit(index_dir, collection_name="chunks_v1")
     assert report["counts_consistent"] is False
@@ -195,7 +195,7 @@ def test_chroma_audit_main_returns_nonzero_on_mismatch(tmp_path, monkeypatch):
     assert acs.main() == 1
 
 
-# ---------------------------------------------------------------- P2-4 数据血缘
+# ---------------------------------------------------------------- 数据血缘
 def _lineage_doc(**overrides) -> dict:
     doc = {
         "lineage_version": 1,
@@ -231,7 +231,7 @@ def test_lineage_schema_accepts_consistent_document():
 
 
 def test_lineage_schema_rejects_missing_fields_and_inconsistent_demo():
-    """P2-4：schema 与"run → demo → runtime 版本一致"都必须可机器判定。"""
+    """schema 与"run → demo → runtime 版本一致"都必须可机器判定。"""
     from scripts.build_lineage import validate_lineage
 
     doc = _lineage_doc()
@@ -479,7 +479,7 @@ def _run_bundle_with_stubs(brb, tmp_path, smoke):
 
 
 def test_lock_hashes_parse_and_check(tmp_path):
-    """Z2：lock_hashes 的解析/检查逻辑（不联网）。"""
+    """lock_hashes 的解析/检查逻辑（不联网）。"""
     from scripts import lock_hashes as lh
 
     text = (
@@ -512,7 +512,7 @@ def test_lock_hashes_parse_and_check(tmp_path):
 
 
 def test_demo_examples_503_when_version_mismatch(tmp_path):
-    """Z2：demo 清单版本与运行时不一致时必须 503（而不是返回旧时延）。"""
+    """demo 清单版本与运行时不一致时必须 503（而不是返回旧时延）。"""
     import server.api as api_mod
     from fastapi.testclient import TestClient
 
@@ -540,7 +540,7 @@ def test_demo_examples_503_when_version_mismatch(tmp_path):
 
 
 def test_chroma_audit_apply_moves_orphan_and_reaudits(tmp_path, monkeypatch):
-    """Z2：`--apply` 的清理 + 清理后重审计路径（旧实现零测试覆盖）。"""
+    """`--apply` 的清理 + 清理后重审计路径。"""
     acs, index_dir = _audit_fixture(tmp_path, monkeypatch)
     orphan = index_dir / "vectors" / "chroma" / "orphan-segment-dir"
     orphan.mkdir(parents=True, exist_ok=True)
@@ -562,7 +562,7 @@ def test_chroma_audit_apply_moves_orphan_and_reaudits(tmp_path, monkeypatch):
     assert out_path.is_file()
 
 
-# ---------------------------------------------------------------- P2-7 SBOM
+# ---------------------------------------------------------------- SBOM
 def test_sbom_generate_and_validate_roundtrip(tmp_path, monkeypatch):
     from scripts import gen_sbom
 
@@ -636,7 +636,7 @@ def test_sbom_purl_and_namespace_are_canonical_and_reproducible(tmp_path):
     assert scoped["externalRefs"][0]["referenceLocator"] == "pkg:npm/%40vue/test-utils@2.5.0"
 
 
-# ---------------------------------------------------------------- P2-7 数据制品
+# ---------------------------------------------------------------- 数据制品
 def _make_zip(path: Path, entries: dict) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(path, "w") as zf:
@@ -693,7 +693,7 @@ def test_fetch_data_artifact_requires_expected_hash(tmp_path, monkeypatch):
     assert fda.main() == 2, "没有预期哈希必须拒绝（不允许先解包再说）"
 
 
-# ---------------------------------------------------------------- R5-2 文档数字
+# ---------------------------------------------------------------- 文档数字
 def test_check_docs_dataset_counts_matches_manifest(tmp_path, monkeypatch):
     """D5：用临时文档副本测计数校验，不改写仓库里的 current-status.md。"""
     from scripts import check_docs

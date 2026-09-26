@@ -1,7 +1,7 @@
-/** SSE 客户端守护用例（第四轮复核 P1-8 / P2-10 / P1-12）。
+/** SSE 客户端守护用例。
  *
  * 覆盖分帧兼容（CRLF、多行 data、注释心跳、UTF-8 分块、EOF 残帧）与三类超时，
- * 以及错误分类是否与真实行为一致（旧实现把解析失败也记成 eof）。
+ * 以及错误分类是否与真实行为一致（解析失败必须归成 protocol_error，不能记成 eof）。
  */
 
 import assert from 'node:assert/strict'

@@ -1,7 +1,7 @@
 """pytest 根配置：把 RAG/ 锚进 sys.path，并提供"离线向量客户端"工具。
 
-测试原先依赖 cwd——只能在 RAG/ 目录下 `python -m pytest tests` 运行，
-换 rootdir（例如在仓库根跑 `pytest RAG/tests`）就会 import 失败。
+测试不依赖 cwd：这里显式锚定到 RAG 根，换 rootdir（例如在仓库根跑
+`pytest RAG/tests`）也不会 import 失败。
 这里显式锚定到 RAG 根，与 llm_client 等模块的 `__file__` 锚定做法保持一致。
 """
 
@@ -17,7 +17,7 @@ if str(RAG_ROOT) not in sys.path:
 def offline_embed_fn(dim: int = 1024):
     """确定性的桩向量客户端：同样的文本永远得到同一个向量，不碰网络。
 
-    为什么需要它（第 12 轮审查 P2-2）：查询侧 embedding 是**网络调用**，测试跑到真端点上
+    为什么需要它：查询侧 embedding 是**网络调用**，测试跑到真端点上
     有两种坏结果——没网/没密钥时静默降级，让"应当走向量"的断言失败（审查当次就有 1 条
     用例这样挂掉）；有网时又要花钱、还受端点波动影响，用例时绿时红。
     这些用例考的是模式透传与结果非空，不是检索质量，所以用桩把"向量链路能不能走通"

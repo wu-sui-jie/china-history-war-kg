@@ -12,8 +12,7 @@ class EventPlaceRelation(BaseModel):
     """事件-地点关系模型"""
     EventName: str
     relation: str
-    # Changed 2026-04-21 13:46:29 +08:00: Allow missing modern_name so
-    # relation rows with only historical place names do not fail validation.
+    # modern_name 可为空：只有历史地名、没有现代地名的关系行不该校验失败
     modern_name: Optional[str] = None
     evidence: Optional[str] = None
 

@@ -51,9 +51,9 @@ CREATE INDEX IF NOT EXISTS idx_messages_session
 CREATE TABLE IF NOT EXISTS processed_events (
   event_id    TEXT PRIMARY KEY,          -- 飞书 event.header.event_id（退化档为 msg:{message_id}）
   event_type  TEXT,
-  -- 事件状态机（第 13 轮整改，取值见 bot/dispatcher.py 的 STATUS_*）。
-  -- 默认 accepted 是给"改造前留下的行"用的：那时能留在表里的都是已记账的事件，
-  -- 按 accepted 处理与旧行为完全一致，不会凭空把历史事件变成可重复处理。
+  -- 事件状态机（取值见 bot/dispatcher.py 的 STATUS_*）。
+  -- 默认 accepted 是给"更早写入、没有 status 列的行"用的：能留在表里的都是已记账的
+  -- 事件，按 accepted 处理不会凭空把历史事件变成可重复处理。
   status      TEXT NOT NULL DEFAULT 'accepted',
   received_at INTEGER NOT NULL
 );
@@ -83,7 +83,7 @@ CREATE INDEX IF NOT EXISTS idx_feedback_status
 # "no such column"。清理脚本（scripts/cleanup_db.py）与单实例部署都要求
 # 升级就地把老库带起来，而不是让运维先手工删库。
 #
-# processed_events.status 是第 13 轮为"入队成功才坐实认领"加的列。
+# processed_events.status 就是为此后加的列：事件要等入队成功才坐实认领。
 _COLUMN_MIGRATIONS: dict[str, tuple[tuple[str, str], ...]] = {
     "processed_events": (("status", "TEXT NOT NULL DEFAULT 'accepted'"),),
 }
@@ -94,7 +94,7 @@ def _migrate_columns(conn: sqlite3.Connection) -> None:
     for table, columns in _COLUMN_MIGRATIONS.items():
         have = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
         if not have:
-            continue                      # 表是本次刚建的，列已经齐了
+            continue                      # 表是刚建的，列已经齐了
         for name, ddl in columns:
             if name not in have:
                 conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {ddl}")

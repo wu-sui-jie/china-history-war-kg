@@ -1,14 +1,11 @@
-/** 两个关键页面的挂载用例（2026-09-25，S3-4）。
+/** 关键页面的挂载用例。
  *
- * 选这两页的原因：`GlobalSearch` 是站内跳转的公共入口（结果项的 entity_route /
+ * 选这些页面的原因：`GlobalSearch` 是站内跳转的公共入口（结果项的 entity_route /
  * graph_route / timeline_route 是三个知识页的入口，改路由或改接口都会断在这里），
  * `Dashboard` 是登录后的落地页（首屏数据来自 /api/dashboard/overview）。
- * 两页此前都没有任何测试，挂载即崩、接口打错也没人发现。
- *
- * 第 13 轮复核第七节后又加了两组（TimelineView / EntityDetail）：后端失败从
- * `HTTP 200 + code 5xx` 改成了真正的 4xx/5xx，于是**只有 catch 分支才拿得到后端文案**。
- * 这两个页面此前没有 try/catch——失败时页面静默不动，用户完全看不到原因。
- * 这两条用例就是钉住"失败必须给提示"这条契约的。
+ * `TimelineView` 与 `EntityDetail` 覆盖"请求失败必须给提示"这条契约：
+ * 后端失败返回真正的 4xx/5xx，**只有 catch 分支才拿得到后端文案**，
+ * 页面若不接住异常就会静默不动、用户完全看不到原因。
  */
 
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
@@ -122,7 +119,7 @@ describe('GlobalSearch 全局搜索', () => {
   })
 
   test('接口失败（HTTP 5xx）时清空结果并提示后端文案', async () => {
-    // 第 13 轮复核第七节后，后端失败一律是 4xx/5xx，axios 走 reject 分支——
+    // 后端失败一律是 4xx/5xx，axios 走 reject 分支——
     // 组件必须 catch 之后再提示，否则"搜索失败"和"没有匹配"在界面上分不出来。
     get.mockRejectedValue({ response: { status: 500, data: { msg: '全局搜索失败，请稍后重试' } } })
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
@@ -183,7 +180,7 @@ describe('EntityDetail 实体详情', () => {
   afterEach(() => wrapper?.unmount())
 
   test('实体不存在（HTTP 404）时提示后端文案', async () => {
-    // 后端把"实体不存在"从 `200 + code 404` 改成了 HTTP 404（第 13 轮复核第七节）
+    // "实体不存在"在后端是 HTTP 404
     entityDetail.mockRejectedValue({ response: { status: 404, data: { msg: '实体不存在' } } })
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     const router = makeTestRouter()

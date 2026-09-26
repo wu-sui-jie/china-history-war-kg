@@ -1,13 +1,13 @@
-"""EER-11：缓存索引必须原子写，悬挂条目必须被摘除。
+"""缓存索引必须原子写，悬挂条目必须被摘除。
 
-背景：`CacheManager._save_index` 原来是 `open(index_path, "w")` 全量重写。这个调用一执行
+`CacheManager._save_index` 若用 `open(index_path, "w")` 全量重写，这个调用一执行
 就把索引文件截断成 0 字节，随后才写入内容；进程在中间被杀（Ctrl-C、OOM、断电）就留下半截
 JSON。下一次 `_load_index` 解析失败 → `CacheManager.__init__` 抛异常 → 整个抽取任务还没
 开始就崩，而且 cache/ 里那 22MB 缓存在人工删掉索引前完全不可用。
 
-修法是写临时文件再 `os.replace` 原子替换，并在读到悬挂/损坏条目时顺手摘掉。
-用例用"写一半抛异常"模拟被中途杀掉的进程——比真去 kill 进程稳定，且同样能证明
-"任何时刻磁盘上的索引都是完整的旧版或新版"。
+所以索引与结果文件都必须"写临时文件再 `os.replace` 原子替换"，并在读到悬挂/损坏条目时
+顺手摘掉。用例用"写一半抛异常"模拟被中途杀掉的进程——比真去 kill 进程稳定，
+且同样能证明"任何时刻磁盘上的索引都是完整的旧版或新版"。
 """
 
 import json
@@ -74,7 +74,7 @@ def test_index_survives_crash_mid_write(tmp_path, monkeypatch):
     assert reopened.get("第一次", None) == {"v": 1}
     assert reopened.get("第二次", None) is None
     # 说明：失败那次的**结果文件**会作为孤儿留在 cache/ 里（索引没记账、读不到它）。
-    # 清理过期孤儿要配 TTL/GC，属 EER-11 的另一半，本轮不做。
+    # 清理过期孤儿由 collect_garbage / prune_expired 负责，见 test_paths_and_cache_gc.py。
 
 
 def test_crash_while_writing_result_file_leaves_no_garbage(tmp_path, monkeypatch):
@@ -124,7 +124,7 @@ def test_corrupt_entry_file_is_pruned(tmp_path):
 
 
 def test_corrupt_index_does_not_block_startup(tmp_path):
-    """改原子写之前留下的坏索引不该让任务启动即崩：按空索引继续。"""
+    """半截/损坏的索引不该让任务启动即崩：按空索引继续。"""
     (tmp_path / "cache_index.json").write_text('{"截断的索引": ', encoding="utf-8")
 
     cache = CacheManager(cache_dir=str(tmp_path))

@@ -1,13 +1,13 @@
-"""在线链路的正确性与边界守护用例（2026-09-15 全项目复核整改）。
+"""在线链路的正确性与边界守护用例。
 
-覆盖第三轮/第四轮报告里最容易回归的几条：
-- P0-1 同步检索不再冻结事件循环（并发请求互不阻塞）；
-- P0-2 请求体/字段超限在调用外部服务前被拒（契约层报错、API 层 4xx）；
-- P0-3 原始 reasoning 默认不外发到公共 SSE；
-- P1-1 客户端断连后生成任务被取消回收；
-- P1-4 回答缓存有容量上限与过期清扫；
-- P1-3 限流器 key 表有界、并发原子、XFF 默认不信任；
-- P1-5 正文已流出后不再透明重试（避免拼接两段答案）。
+覆盖最容易回归的几条：
+- 同步检索不再冻结事件循环（并发请求互不阻塞）；
+- 请求体/字段超限在调用外部服务前被拒（契约层报错、API 层 4xx）；
+- 原始 reasoning 默认不外发到公共 SSE；
+- 客户端断连后生成任务被取消回收；
+- 回答缓存有容量上限与过期清扫；
+- 限流器 key 表有界、并发原子、XFF 默认不信任；
+- 正文已流出后不再透明重试（避免拼接两段答案）。
 
 不依赖 data/ 下的快照与索引：全部使用替身运行时与替身检索。
 """
@@ -204,9 +204,9 @@ def _patch_searches(monkeypatch, graph_evidence=None, text_delay=0.0):
     monkeypatch.setattr(server.text, "search", fake_text_search)
 
 
-# ---------------------------------------------------------------- P0-1 事件循环
+# ---------------------------------------------------------------- 事件循环
 def test_slow_sync_search_does_not_block_event_loop(monkeypatch):
-    """同步检索在 0.3 s 阻塞期间，事件循环仍能推进协程（旧实现会完全冻结）。"""
+    """同步检索在 0.3 s 阻塞期间，事件循环仍能推进协程（直接 await 会完全冻结）。"""
     _patch_searches(monkeypatch)
     rt = _FakeRuntime(_settings(), understand_delay=0.3)
 
@@ -230,7 +230,7 @@ def test_slow_sync_search_does_not_block_event_loop(monkeypatch):
     assert ticks >= 10, f"事件循环被同步理解调用阻塞（ticks={ticks}）"
 
 
-# ---------------------------------------------------------------- P0-3 reasoning
+# ---------------------------------------------------------------- reasoning 不外发
 def test_reasoning_not_exposed_by_default(monkeypatch):
     _patch_searches(monkeypatch)
     rt = _FakeRuntime(_settings(), generator=_FakeGenerator(delta="回答"))
@@ -252,7 +252,7 @@ def test_reasoning_exposed_when_enabled(monkeypatch):
     assert "不应外发" in thinking[0]["data"]["delta"]
 
 
-# ---------------------------------------------------------------- P1-1 取消回收
+# ---------------------------------------------------------------- 取消回收
 def test_disconnect_cancels_generation_task(monkeypatch):
     """消费方在生成中途停止迭代 → 生成任务必须被取消（不再空烧 token）。"""
     _patch_searches(monkeypatch)
@@ -277,7 +277,7 @@ def test_disconnect_cancels_generation_task(monkeypatch):
     assert gen.finished is False
 
 
-# ---------------------------------------------------------------- P1-5 流式重试
+# ---------------------------------------------------------------- 流式重试边界
 def test_no_retry_after_content_emitted(monkeypatch):
     """正文已流出后失败：不得重试，也不得切换备用模型（避免拼出重复答案）。"""
     s = _settings()
@@ -359,7 +359,7 @@ def test_generator_marks_partial_as_interrupted():
     assert emitted == ["半截回答"]
 
 
-# ---------------------------------------------------------------- P0-2 请求边界
+# ---------------------------------------------------------------- 请求边界
 @pytest.mark.parametrize("payload,keyword", [
     ({"session_id": "s", "question": "q" * 501}, "question"),
     ({"session_id": "s" * 129, "question": "q"}, "session_id"),
@@ -524,7 +524,7 @@ def test_api_query_stream_ends_with_done(monkeypatch):
     assert types[-1] == "done"
 
 
-# ---------------------------------------------------------------- P1-4 缓存容量
+# ---------------------------------------------------------------- 缓存容量
 def test_answer_cache_evicts_oldest_beyond_capacity():
     cache = AnswerCache(None, ttl=60, max_entries=3)
     for i in range(5):
@@ -545,7 +545,7 @@ def test_answer_cache_sweeps_expired_on_write():
     assert cache.get("old") is None
 
 
-# ---------------------------------------------------------------- P1-3 限流器
+# ---------------------------------------------------------------- 限流器
 def test_rate_limiter_is_bounded_and_counts_rejections():
     from server.api import RateLimiter
 
@@ -554,8 +554,8 @@ def test_rate_limiter_is_bounded_and_counts_rejections():
         limiter.allow(f"key-{i}")
     stats = limiter.stats()
     assert stats["keys"] <= 16, "限流 key 表无界增长"
-    # 第四轮复核 P1-4：表满后不再淘汰**窗口内仍活跃**的 key（那会重置配额），
-    # 改为拒绝新来源 —— 计数体现在 rejected_new_keys 上。
+    # 表满后不淘汰**窗口内仍活跃**的 key（那会重置配额），而是拒绝新来源——
+    # 计数体现在 rejected_new_keys 上。
     assert stats["rejected_new_keys"] > 0
 
 
@@ -587,7 +587,7 @@ def test_rate_limiter_rejects_over_quota():
     assert limiter.stats()["rejected"] == 1
 
 
-# ---------------------------------------------------------------- P0-7 版本固定
+# ---------------------------------------------------------------- 版本固定
 def test_active_version_pin_is_enforced(tmp_path):
     """显式配置的版本不存在时必须报错，而不是静默回退到最新目录。"""
     from server.runtime import resolve_version
@@ -666,14 +666,14 @@ def test_config_validation_fails_fast():
         s.validate()
 
 
-# ------------------------------------------- XFF 取哪一段（第 14 轮审计 P1-3）
+# ------------------------------------------- XFF 取哪一段
 
 
 def test_限流来源取_X_Real_IP_而不是_XFF_首段():
     """nginx 用 `$proxy_add_x_forwarded_for`：**客户端自带的 XFF 在最前**，真实地址追加在后。
 
-    原实现取首段 → 攻击者每次换一个伪造值就换一个限流桶（IP 维度形同不存在）。
-    现在优先用 nginx 覆盖下发的 `X-Real-IP`。
+    取首段则攻击者每次换一个伪造值就换一个限流桶（IP 维度形同不存在）。
+    因此优先用 nginx 覆盖下发的 `X-Real-IP`。
     """
     from starlette.requests import Request
 

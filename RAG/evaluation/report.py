@@ -134,7 +134,7 @@ def _table(headers: list[str], rows: list[list]) -> str:
 
 
 def _category_of(rec: dict, bank=None) -> str:
-    """trace 记录里的 category；旧 traces 无该键时用题库回填（T3 修复）。"""
+    """trace 记录里的 category；缺该键的 trace 用题库回填。"""
     cat = (rec.get("category") or "").strip()
     if cat:
         return cat
@@ -370,8 +370,8 @@ def _failure_list(A, recs, bank=None, scores=None):
     """失败样例分桶。
 
     有已评分（graded）记录时：`answer_wrong`/`citation_wrong` 两桶按**人工评分**
-    分桶（与下方"人工判定失败清单"口径一致）；无评分时退回**自动候选**并在标题
-    标明来源（T4 修复：此前标题写"人工评分"但内容其实是自动归因）。
+    分桶（与下方"人工判定失败清单"口径一致）；无评分时退回**自动候选**，并在标题里
+    标明来源是自动归因——否则读者会把自动归因当成人工评分。
     """
     graded = {q: r for q, r in (scores or {}).items() if r.get("graded")}
     A("## 失败样例与归因")
