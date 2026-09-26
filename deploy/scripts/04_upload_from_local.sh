@@ -161,16 +161,34 @@ sync_path() {
 # 调用处的说明（RAG/data/index/*.py 那个 ImportError）。
 sync_tracked_data_code() {
     local paths=(RAG/data backend/data)
+    # 用"子 shell 里 cd 进仓库"而不是 `git -C "${LOCAL_ROOT}"`。
+    #
+    # 原因：脚本顶部为保护 `/opt/...` 这类路径设了 `MSYS_NO_PATHCONV=1`，MSYS 于是
+    # **不再**把 `/f/python/...` 转换成 Windows 形式，而 Windows 版的 git 认不出
+    # `/f/...` —— `git -C /f/... ls-files` 会直接以 128 退出。本函数第一版就是这样，
+    # 且因为 `set -e`，它把**整个上传**带崩（表现为只有 1/2 那一行输出、退出码 128）。
+    # cd 进仓库后不再需要传路径，转换问题也就不存在了。
+    if ! ( cd "${LOCAL_ROOT}" && git rev-parse --git-dir >/dev/null 2>&1 ); then
+        die "在 ${LOCAL_ROOT} 上执行 git 失败：这一步靠 git 判断“数据目录下哪些文件是代码”，
+     拿不到这个清单就可能漏传源码（历史上正是它导致 RAG 起不来）。请确认本机装了 git、
+     且当前目录是仓库工作副本。"
+    fi
+
     local count
-    count=$(git -C "${LOCAL_ROOT}" ls-files -- "${paths[@]}" 2>/dev/null | wc -l)
+    # -z：NUL 分隔且不做 quotepath 转义，中文文件名（如 data/eval 下的题库）才不会
+    # 被写成八进制转义串。
+    count=$( cd "${LOCAL_ROOT}" && git ls-files -z -- "${paths[@]}" | tr -dc '\0' | wc -c )
     if [[ "${count}" -eq 0 ]]; then
-        echo "（数据目录下没有被跟踪的文件，跳过）"
+        # 数据目录下**确实**有被跟踪的源码（RAG/data/index/*.py 等，约 39 个），
+        # 解析出 0 说明判断逻辑或 git 出了问题，要让人看见，而不是静默跳过。
+        warn "数据目录下解析出 0 个被跟踪文件（预期约 39 个：RAG/data/index/*.py、eval 题库等）——"
+        warn "这一步没生效意味着改过的检索/索引代码不会被上传，请检查本机的 git 状态"
         return 0
     fi
     echo "随代码同步 ${count} 个数据目录下的被跟踪文件（源码/配置）"
     # -C 必须写在 --null -T - 之前：GNU tar 的 -C 是位置相关的，写在文件列表之后
     # 只会打印 "has no effect" 并以非 0 退出（管道里被 pipefail 抓住会中断上传）。
-    if ! git -C "${LOCAL_ROOT}" ls-files -z -- "${paths[@]}" \
+    if ! ( cd "${LOCAL_ROOT}" && git ls-files -z -- "${paths[@]}" ) \
             | tar czf - -C "${LOCAL_ROOT}" --null -T - \
             | ssh "${REMOTE}" "tar xzf - -C '${APP_DIR}'"; then
         die "数据目录下的源码同步失败（RAG 会 import 到服务器上的旧模块，见脚本注释）"
