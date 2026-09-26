@@ -105,6 +105,8 @@ frontend/src/
         └── components/    # SessionSidebar / ChatMessages / ChatInput / KgNodeDrawer / KgGraph
 ```
 
+`public/` 下是原样拷进 `dist/` 的资源（图片、图标、`geo/china.json` 地图底图）。
+
 `scripts/` 下有四个脚本：`check-dist-assets.mjs` 挂在 `build:check` 上，其余三个是页面维护
 工具（不在构建流程里）：
 
@@ -135,6 +137,28 @@ frontend/src/
 并在 **HTTP 401**（或响应体 `code === 401`）时清空登录态并跳登录页。
 
 后端鉴权状态码：未登录/Token 过期或伪造 → `401`；Token 有效但无写权限（`viewer` 角色调写接口）→ `403`。
+
+### 3. 地图底图随包发布，不依赖外部 CDN
+
+历史地图视图的省级底图是 `public/geo/china.json`，随 `dist/` 一起部署，经 `/static/geo/china.json` 加载。
+加载顺序是**随包文件 → 官方服务 → 内置示意方块**，正常情况下走第一个。
+
+**不要改回"只从官方服务取"**：`geo.datav.aliyun.com` 开了防盗链（Referer ACL），
+页面上直接 `fetch` 必带本站 Referer，会被返回 `403` + 一张 HTML 错误页，
+前端只能落到 `HistoricalMapView.vue` 里那份硬编码矩形省界——界面上表现为
+"省界变成一堆方块"，看起来像建模出错，实际是底图没取到（数据点与路线不受影响）。
+留着的远端分支必须带 `referrerPolicy: 'no-referrer'`，否则同样 403。
+
+刷新底图数据（换更精细或更新的边界时）：
+
+```bash
+# 该接口对无 Referer 的请求（curl 默认如此）是开放的
+curl -sS -o frontend/public/geo/china.json \
+  https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
+```
+
+文件约 570KB（35 个要素，含南海诸岛），nginx 已开 gzip，不需要自己精简。
+注册前会把"新疆维吾尔自治区"这类全称压成短名（`shortenProvinceName`），只影响地图标签显示。
 
 ## 受控入口与按账号隔离
 
@@ -187,3 +211,4 @@ RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 ifram
 | 智能问答无响应 | 旧版问答需要 Ollama 常驻且已拉取 `deepseek-r1:7b`（`ollama serve` / `ollama pull`） |
 | `/rag/` 页面白屏 | RAG 前端 dist 不是并入模式构建产物，见 [../docs/集成与入口约定.md](../docs/集成与入口约定.md) |
 | 打包后资源路径错误 | `vite.config.ts` 的 `base` 为 `/static/`，生产需 nginx 按该前缀发文件 |
+| 历史地图视图的省界变成一堆方块 | 底图没取到，落到了内置示意方块（见「地图底图随包发布」）。页面左上角会给出提示 |

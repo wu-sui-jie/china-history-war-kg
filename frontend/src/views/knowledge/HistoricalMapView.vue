@@ -71,6 +71,9 @@
             <div class="map-subtitle">
               {{ mapSubtitle }}
             </div>
+            <div v-if="mapDegraded" class="map-degraded">
+              省级底图未加载成功，当前显示的是简化示意方块；地点与路线数据不受影响。
+            </div>
           </div>
           <div class="map-legend">
             <span><i class="dot place"></i>战争地点</span>
@@ -443,9 +446,43 @@ const chinaProvinceGeoJson = {
   ],
 }
 
+const mapDegraded = ref(false)
 let mapRegistered = false
 let mapRegisterPromise: Promise<void> | null = null
-const CHINA_GEOJSON_URL = 'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
+
+// 底图按「随包文件 → 官方服务 → 内置示意方块」的顺序取，正常情况下走第一个。
+//
+// 为什么不再只靠官方服务：geo.datav.aliyun.com 开了防盗链（Referer ACL），从页面上直接
+// fetch 会带上本站 Referer 而被 403 拒绝，拿回一张 HTML 错误页，于是静默落到示意方块——
+// 地图看着像"一堆矩形拼起来的"，实际是底图没取到，与地点/路线数据无关。
+// 随包文件的来源与刷新方式见 frontend/README.md「地图底图随包发布」。
+const LOCAL_GEOJSON_URL = `${import.meta.env.BASE_URL}geo/china.json`
+const REMOTE_GEOJSON_URL = 'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
+
+const PROVINCE_NAME_SUFFIXES = ['维吾尔自治区', '回族自治区', '壮族自治区', '特别行政区', '自治区', '省', '市']
+
+/** 底图里的省名是全称（新疆维吾尔自治区），直接当地图标签太长，注册前压成短名。 */
+const shortenProvinceName = (name: string) =>
+  PROVINCE_NAME_SUFFIXES.reduce(
+    (value, suffix) => (value.endsWith(suffix) ? value.slice(0, -suffix.length) : value),
+    name,
+  )
+
+const registerChinaMap = (geojson: any) => {
+  if (Array.isArray(geojson?.features)) {
+    geojson.features.forEach((feature: any) => {
+      const name = feature?.properties?.name
+      if (name) feature.properties.name = shortenProvinceName(name)
+    })
+  }
+  echarts.registerMap('china-war', geojson)
+}
+
+const fetchGeoJson = async (url: string, init?: RequestInit) => {
+  const response = await fetch(url, init)
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  return response.json()
+}
 
 const ensureChinaMapRegistered = async () => {
   if (mapRegistered) return
@@ -453,13 +490,17 @@ const ensureChinaMapRegistered = async () => {
 
   mapRegisterPromise = (async () => {
     try {
-      const response = await fetch(CHINA_GEOJSON_URL)
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      const chinaGeoJson = await response.json()
-      echarts.registerMap('china-war', chinaGeoJson)
-    } catch (error) {
-      console.warn('加载中国省级地图失败，使用本地简化地图兜底:', error)
-      echarts.registerMap('china-war', chinaProvinceGeoJson as any)
+      registerChinaMap(await fetchGeoJson(LOCAL_GEOJSON_URL))
+    } catch (localError) {
+      console.warn('本地省级底图加载失败，改用官方服务:', localError)
+      try {
+        // 必须显式 no-referrer：带 Referer 的请求会被官方服务的防盗链直接 403
+        registerChinaMap(await fetchGeoJson(REMOTE_GEOJSON_URL, { referrerPolicy: 'no-referrer' }))
+      } catch (remoteError) {
+        console.warn('中国省级底图加载失败，改用简化示意方块兜底:', remoteError)
+        registerChinaMap(chinaProvinceGeoJson)
+        mapDegraded.value = true
+      }
     }
     mapRegistered = true
   })()
@@ -1249,6 +1290,16 @@ onUnmounted(() => {
   margin-top: 5px;
   color: #64748b;
   font-size: 12px;
+}
+
+.map-degraded {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(139, 30, 35, 0.08);
+  color: #8b1e23;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .map-legend {
