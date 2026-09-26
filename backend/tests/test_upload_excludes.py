@@ -57,6 +57,7 @@ def _synthetic_tree(tmp_path: Path) -> Path:
         "frontend/node_modules/echarts/index.js",
         "RAG/frontend/node_modules/vue/index.js",
         "RAG/data/cache/chunks.jsonl",
+        "entity-event-relation/cache/chroma.sqlite3",
         "logs/backend.log",
         "__pycache__/app.cpython-311.pyc",
         ".zcode/session.json",
@@ -108,7 +109,8 @@ def test_tar_打包不会带上_git_与_node_modules(tmp_path):
     members = _tar_members(root, _exclude_patterns())
 
     for unwanted in (".git", "frontend/node_modules", "RAG/frontend/node_modules",
-                     "RAG/data/cache", "logs", "__pycache__", ".zcode",
+                     "RAG/data/cache", "entity-event-relation/cache", "logs",
+                     "__pycache__", ".zcode",
                      "backend/.env", "feishu-bot/data"):
         assert not _members_under(members, unwanted), f"{unwanted} 不该进包：{sorted(members)}"
     # 反向断言：别把"什么都不打包"当成通过

@@ -1,0 +1,37 @@
+# 换行符统一为 LF —— 这条规则来自一次真实的线上故障。
+#
+# 背景：本仓库在 Windows 上开发、部署到 Linux。`git` 默认的 `core.autocrlf=true`
+# 会让**检出到工作区**的文本文件变成 CRLF（索引里其实一直是 LF）。于是
+# `deploy/scripts/*.sh` 从 Windows 打包传到服务器后，脚本在 Linux 上一行都跑不了：
+#
+#     check_rag_auth.sh: line 40: $'\r': command not found
+#     /opt/china-war/deploy/scripts/check_rag_auth.sh: syntax error near unexpected token `$'{\r''
+#
+# 实测确认过一次：服务器上 229 个文本文件带 CR，其中包括 `deploy/scripts/*.sh`、
+# `deploy/nginx/china-war.conf` 与 `/etc/nginx/sites-available/china-war.conf`。
+# 后果不是"脚本报个错"这么轻：鉴权门禁脚本从未真正执行过，而 `install_services.sh`
+# 依赖它决定"要不要放行启动"——两处都因为 CRLF 直接崩掉，反而没有任何校验发生。
+#
+# `.gitattributes` 里的 `eol` 优先于 `core.autocrlf`，因此无论在哪台机器、什么
+# autocrlf 设置下检出，工作区都是 LF；从 Windows 打包上传也就不会再带 CR 过去。
+#
+# 例外：二进制文件不做任何转换（`text=auto` 会自动识别，下面几类显式声明一次，
+# 免得未来某个版本的自动识别把它们当文本）。
+* text=auto eol=lf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.eot  binary
+*.pdf  binary
+*.xlsx binary
+*.xls  binary
+*.zip  binary
+*.gz   binary
+*.7z   binary

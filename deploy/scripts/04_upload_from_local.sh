@@ -72,6 +72,10 @@ EXCLUDES=(
     --exclude '*.pyc'
     --exclude 'logs'
     --exclude 'RAG/data/cache'
+    # 抽取链的切片缓存（197 个文件 / 22 MB）：`.gitignore` 里它一直是忽略项，这里漏了。
+    # 上传会把整个目录搬到服务器覆盖同名文件——缓存是纯派生数据，服务器上那份还能用，
+    # 没有理由每次都传一遍。
+    --exclude 'entity-event-relation/cache'
     # 审计/验证过程留下的临时目录：可能带受限权限或独占锁，
     # 打包时会报 "Cannot open: Permission denied" 并因 set -o pipefail 中止整个上传
     --exclude '.audit-tmp'
@@ -89,6 +93,39 @@ DATA_PATHS=(
 
 have_rsync=0
 command -v rsync >/dev/null 2>&1 && have_rsync=1
+
+# ---------------------------------------------------------------- 换行符防线
+#
+# `.gitattributes`（`* text=auto eol=lf`）保证正常检出是 LF。但如果本机曾经在
+# `core.autocrlf=true` 下检出过工作区，文件在工作区里就是 CRLF，打包上传会**原样**
+# 把它们带到 Linux——实测的后果见 `.gitattributes` 里的记录：`deploy/scripts/*.sh`
+# 在服务器上语法错误、一行都跑不了，而 `install_services.sh` 依赖的鉴权门禁脚本
+# 正是其中之一，于是"该拦的没拦"，却没有任何提示。
+#
+# 上传是最后一个能拦住它的地方，所以这里对**在 Linux 上必须为 LF** 的文件兜一次底。
+# 自动转换而不是报错退出：这些文件带 CR 在任何场景下都是错的（不存在"我就想传
+# CRLF 的 shell 脚本"这种合理需求），拦在这里让人手忙脚乱地改本机文件没有意义。
+enforce_lf() {
+    local offenders=() f rel
+    while IFS= read -r -d '' f; do
+        [[ -f "${f}" ]] || continue
+        if LC_ALL=C grep -q $'\r' "${f}" 2>/dev/null; then
+            sed -i 's/\r$//' "${f}"
+            rel="${f#"${LOCAL_ROOT}/"}"
+            offenders+=("${rel}")
+        fi
+    done < <(find "${LOCAL_ROOT}" \
+                \( -name '*.sh' -o -name '*.service' -o -name '*.timer' \
+                   -o -name '*.conf' -o -name '*.env.example' -o -name 'env.example' \) \
+                -not -path '*/.git/*' -not -path '*/node_modules/*' \
+                -not -path '*/RAG/data/*' -not -path '*/backend/data/*' \
+                -print0 2>/dev/null || true)
+    if (( ${#offenders[@]} > 0 )); then
+        warn "以下文件带 CRLF，已就地转换为 LF（带 CR 的 shell/systemd 配置在 Linux 上无法执行）："
+        printf '      %s\n' "${offenders[@]}"
+    fi
+}
+enforce_lf
 
 # 用 rsync 同步一个子路径；没有 rsync 时退化为 tar over ssh
 sync_path() {
