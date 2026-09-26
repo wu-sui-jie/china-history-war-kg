@@ -134,18 +134,47 @@ def check_nginx_site(problems: list[str]) -> int:
     return 1
 
 
+def check_install_services_unit_list(problems: list[str]) -> int:
+    """install_services.sh 里列出的单元名，必须都能在 deploy/systemd/ 下找到。
+
+    现实教训：那个循环里前三个名字漏了 `.service` 后缀（`china-war-backend` 而不是
+    `china-war-backend.service`），脚本拼出的源路径因此不存在，执行时在 **2/5 步**
+    直接 `die "缺少 …/systemd/china-war-backend"`——照 README 从上到下部署的人必然
+    卡在这里。`bash -n` 只查语法，名字写错它一个字都不会说；只有把"名字必须对应
+    真实文件"这条关系钉下来，CI 才能提前拦住。
+    """
+    script = DEPLOY / "scripts" / "install_services.sh"
+    if not script.exists():
+        _fail(problems, "缺少 deploy/scripts/install_services.sh")
+        return 0
+    text = script.read_text(encoding="utf-8")
+    # 取 `for unit in …; do` 那一段（允许用反斜杠续行）
+    match = re.search(r"for\s+unit\s+in\s+(.*?);\s*do", text, re.S)
+    if not match:
+        _fail(problems, "install_services.sh 里找不到 `for unit in ...; do`（脚本结构变了？）")
+        return 0
+    names = [token for token in match.group(1).split() if not token.startswith("#")]
+    for name in names:
+        if not (DEPLOY / "systemd" / name).exists():
+            _fail(problems, f"install_services.sh 列出的单元 {name!r} 在 deploy/systemd/ 下不存在"
+                            f"（会以“缺少 …/systemd/{name}”在第 2 步中止部署）")
+    return len(names)
+
+
 def main() -> int:
     problems: list[str] = []
     scripts = check_shell_syntax(problems)
     units = check_systemd_units(problems)
     site = check_nginx_site(problems)
+    listed = check_install_services_unit_list(problems)
 
     if problems:
         for problem in problems:
             print(f"✗ {problem}")
         print(f"\n部署配置检查失败：{len(problems)} 项")
         return 1
-    print(f"✓ 部署配置检查通过（脚本 {scripts} 个、单元 {len(units)} 个、nginx 站点 {site} 个）")
+    print(f"✓ 部署配置检查通过（脚本 {scripts} 个、单元 {len(units)} 个、"
+          f"install_services 引用 {listed} 个、nginx 站点 {site} 个）")
     return 0
 
 

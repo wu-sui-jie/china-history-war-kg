@@ -75,7 +75,14 @@ log "2/5 安装 systemd 服务单元"
 # 补偿队列的两个单元一起装（第 14 轮审计 P2-23）：原先它们只能手工 `cp`，
 # 而 selfcheck.sh 也不查——照 README 从上到下执行的人大概率漏掉，
 # 于是 Neo4j 写失败后的自动重放长期不生效，且没有任何检查会报出来。
-for unit in china-war-backend china-war-rag china-war-bot             china-war-outbox-retry.service china-war-outbox-retry.timer; do
+# 注意单元名必须带 `.service` 后缀：这里拼的是 `deploy/systemd/${unit}` 与
+# `/etc/systemd/system/${unit}` 两个路径。历史上前三个名字漏了后缀，于是本步骤
+# 必然走到 `die "缺少 .../systemd/china-war-backend"`——照 README 从上到下执行的人
+# 卡在 2/5，而 CI 只看脚本语法（`bash -n` 不会发现名字写错）。
+# 回归见 scripts/check_deploy_config.py 的 check_install_services_unit_list。
+for unit in china-war-backend.service china-war-rag.service china-war-bot.service \
+            china-war-outbox-retry.service china-war-outbox-retry.timer \
+            china-war-backup.service china-war-backup.timer; do
     src="${APP_DIR}/deploy/systemd/${unit}"
     if [[ ! -f "${src}" ]]; then
         # 只有可选的 bot 允许缺失；其它缺了就是部署包不完整
@@ -107,6 +114,15 @@ fi
 if [[ -f /etc/systemd/system/china-war-outbox-retry.timer ]]; then
     systemctl enable --now china-war-outbox-retry.timer
     systemctl list-timers --no-pager china-war-outbox-retry.timer || true
+fi
+# 备份定时器同理：`enable` 不等于"现在开始生效"，而"没有执行者的备份"是最危险的
+# 那种安心——磁盘上躺着脚本、出事时才发现一次都没跑过。这里立刻跑一次并打印结果。
+if [[ -f /etc/systemd/system/china-war-backup.timer ]]; then
+    systemctl enable --now china-war-backup.timer
+    systemctl list-timers --no-pager china-war-backup.timer || true
+    echo "先跑一次备份（验证它真的能跑通，而不是等到 03:20 才发现失败）："
+    systemctl start china-war-backup.service || warn "首次备份执行失败，看 journalctl -u china-war-backup -n 50"
+    ls -1 /var/backups/china-war/ 2>/dev/null | tail -3 || warn "备份目录还是空的"
 fi
 
 # ---------------------------------------------------------------- nginx
