@@ -49,6 +49,32 @@ else
     bad "china-war-outbox-retry.timer 未运行：systemctl enable --now china-war-outbox-retry.timer"
 fi
 
+# ---------------------------------------------------------------- 备份
+head_ "备份（SQLite 主库）"
+# 与补偿队列同样的道理：没有执行者的备份只是磁盘上的一个脚本。
+# 这里查三件事——定时器装了、在跑、**并且真的产出过备份目录**（仅有定时器不算数）。
+if ! systemctl cat china-war-backup.timer >/dev/null 2>&1; then
+    bad "未安装 china-war-backup.timer —— SQLite 主库没有任何自动备份（install_services.sh 会装它）"
+elif systemctl is-active china-war-backup.timer | grep -q '^active$'; then
+    ok "china-war-backup.timer 已启用"
+    next_run=$(systemctl list-timers --no-pager china-war-backup.timer 2>/dev/null | sed -n 2p || true)
+    [[ -n "${next_run}" ]] && echo "  - 下次触发：$(echo "${next_run}" | awk '{print $1, $2, $3}')"
+    latest=$(ls -1dt /var/backups/china-war/*/ 2>/dev/null | head -1 || true)
+    if [[ -n "${latest}" ]]; then
+        ok "最近一份备份：$(basename "${latest}")（$(du -sh "${latest}" 2>/dev/null | cut -f1)）"
+        # 备份里必须有数据库文件，否则"有目录"≠"有备份"
+        if [[ -f "${latest}/database.sqlite" ]]; then
+            ok "备份内含 database.sqlite"
+        else
+            bad "${latest} 里没有 database.sqlite（备份没跑完？journalctl -u china-war-backup -n 50）"
+        fi
+    else
+        bad "/var/backups/china-war/ 下没有任何备份目录：定时器在跑但没有产出"
+    fi
+else
+    bad "china-war-backup.timer 未运行：systemctl enable --now china-war-backup.timer"
+fi
+
 # ---------------------------------------------------------------- 后端直连
 head_ "旧后端（:5000）"
 if fetch "http://127.0.0.1:5000/api/graph/event_event" | grep -q '{'; then

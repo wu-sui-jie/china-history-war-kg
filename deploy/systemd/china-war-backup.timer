@@ -1,0 +1,17 @@
+# 每天 03:20 备份一次（低峰时段；单次耗时约 1~2 秒，13 MB 的库）。
+#
+# Persistent=true 是关键：机器在 03:20 处于关机/维护状态时，开机后补跑一次。
+# 没有它，一个"每晚维护窗口关机"的机器会永远不备份，而 systemctl 里看不出异常。
+# RandomizedDelaySec：多实例部署时错开，避免同一秒一起写 /var/backups。
+
+[Unit]
+Description=干戈纪略 · 每天 03:20 备份 SQLite 主库与配置
+
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+RandomizedDelaySec=10min
+Unit=china-war-backup.service
+
+[Install]
+WantedBy=timers.target

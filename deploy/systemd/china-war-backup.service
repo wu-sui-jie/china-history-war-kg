@@ -1,0 +1,42 @@
+# 每日备份（SQLite 主库 + 配置与密钥）
+#
+# 为什么这件事必须有执行者：`backend/database` 是唯一的主存储——账号、你人工改过的
+# 全部节点与关系、Neo4j 写失败的补偿队列都在里面，而 Neo4j 只是它的派生副本
+# （丢了能从主库重建，反过来不行）。在装上这个 timer 之前，它没有任何备份。
+#
+# 与手动执行的是同一个脚本、同一条路径：
+#   sudo bash deploy/scripts/05_backup.sh              ← 人工全量
+#   systemctl start china-war-backup.service           ← 跑一次（与定时任务完全一致）
+#
+# 备份落 /var/backups/china-war/<时间戳>/，保留最近 7 天 + 最近 4 个周日。
+# 恢复步骤写在脚本头部注释里，**请真的演练一次**（演练前先看恢复步骤的第 1 步停哪些服务）。
+#
+# 安装（install_services.sh 会自动做）：
+#   sudo cp deploy/systemd/china-war-backup.{service,timer} /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now china-war-backup.timer
+
+[Unit]
+Description=干戈纪略 · 每日备份（SQLite 在线快照 + 配置与密钥）
+Documentation=file:///opt/china-war/deploy/README.md
+# 备份要读 .env 与 /etc/china-war/rag-secrets.env，因此以 root 运行
+# （这两个文件是 600 chinawar / root:root，chinawar 读不到 rag-secrets.env）。
+# 放在后端之后：SQLite 是 WAL 模式，在线 backup API 与运行中的服务并不冲突。
+After=china-war-backend.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/china-war
+
+# 走全量（配置 + 数据库）：配置文件只有几十 KB，分开两条代码路径不如一条省心——
+# 而且保留策略按"最近 7 天 + 4 个周日"删目录，只有每次都全量，留下的每份都是完整的。
+ExecStart=/opt/china-war/deploy/scripts/05_backup.sh
+
+# 备份失败必须留痕：这是"数据只在一份文件里"的唯一保险，静默失败等于没有备份。
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=china-war-backup
+
+NoNewPrivileges=true
+PrivateTmp=true
