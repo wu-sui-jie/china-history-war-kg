@@ -55,6 +55,11 @@ APP_DIR = os.environ.get("APP_DIR", "/opt/china-war")
 SKIP_DIR_NAMES = {"node_modules", "__pycache__", ".git", "logs", "cache", "output",
                   ".pytest_cache", ".ruff_cache", ".mypy_cache", ".audit-tmp",
                   ".verify-tmp", "test-results"}
+# 再按路径前缀跳过"数据目录"：里面同时住着被跟踪的源码与没被跟踪的制品，前者已由清单
+# 覆盖，后者（原始文本、评估产物）报成"多余文件"只是噪音。
+# 注意别把这一条写丢：只按目录名跳会漏掉它们，本项目实测过一次——同一份工具改版后
+# "服务器多余"从 42 条涨到 111 条，多出来的全是 RAG/data 下的数据文件。
+SKIP_PATH_PREFIXES = ("RAG/data/", "backend/data/", "entity-event-relation/data/")
 TEXT_SUFFIXES = (".py", ".sh", ".service", ".timer", ".conf", ".md", ".json", ".txt",
                  ".yml", ".yaml", ".env.example")
 
@@ -118,8 +123,9 @@ def compare(manifest_path: str) -> int:
                 continue
             full = os.path.join(root, name)
             rel = os.path.relpath(full, APP_DIR).replace(os.sep, "/")
-            if rel not in seen:
-                server_only.append(rel)
+            if rel in seen or rel.startswith(SKIP_PATH_PREFIXES):
+                continue
+            server_only.append(rel)
     print(f"服务器上有、清单里没有的文本文件：{len(server_only)}")
     for path in sorted(server_only)[:30]:
         print("   +", path)

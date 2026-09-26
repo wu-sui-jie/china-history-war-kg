@@ -556,6 +556,22 @@ jwt 档下 RAG 要求 `X-Bot-Key`；`RAG/.env` 的 `RAG_BOT_API_KEY` 若没配�
 - `install_services.sh` 全流程通过、鉴权门禁 11/11、`selfcheck.sh` 18/18；
 - 运行期验收用 `deploy/scripts/verify_deploy_auth.py`：它用真实密钥签一个 token，验证"有效 token 放行、已删号 token 立刻 401、无服务间密钥调内部接口被拒、公网匿名 401、后端错误响应是 JSON"，并打印 RAG `health.auth` 的撤销状态。改动鉴权相关代码后跑它。
 
+### 9.7 怎么确认"服务器上的代码是最新的"
+
+别靠时间戳猜（tar 会保留源文件的 mtime，改了本地文件重新上传后，服务器上的时间看着反而更旧），用 `scripts/compare_server_code.py` 逐字节比：
+
+```bash
+# 本机：生成 HEAD 的哈希清单（必须 -X utf8，理由见脚本头部）
+python -X utf8 scripts/compare_server_code.py --manifest > /tmp/manifest.txt
+# 送上去比对（工具本身随代码上传，位于 /opt/china-war/scripts/）
+tar czf - -C /tmp manifest.txt | ssh root@<服务器> \
+    'tar xzf - -C /root && python3 /opt/china-war/scripts/compare_server_code.py /root/manifest.txt'
+```
+
+**只看前两行**：`内容与本地不一致` 与 `服务器上不存在` 都必须是 0。第三类"服务器上有、清单里没有"是缓存/构建产物/未提交的数据文件（`.zcode`、egg-info、`dist/build-mode.txt` 等），一般可忽略——但若里面有 `.py` 或 `.sh`，要查：那可能是只在服务器上直接改过的代码，重启后行为与仓库不一致。
+
+2026-09-26 实测：首次比对查出 3 个文件落后（`deploy/README.md`、`docs/README.md`、`scripts/check_deploy_config.py`）——都是**非运行时代码**，运行代码（`backend/`、`RAG/`、`feishu-bot/`、`entity-event-relation/`）一直是逐字节一致的。补齐后 658/658 全部一致。
+
 ---
 
 ## 附：本目录文件清单
