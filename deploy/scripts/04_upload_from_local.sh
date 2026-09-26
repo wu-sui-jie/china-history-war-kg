@@ -155,6 +155,28 @@ sync_path() {
     fi
 }
 
+# 把"数据目录里被 git 跟踪的文件"单独同步一遍（源码/题库/规则，都是小文件）。
+# 为什么按 git ls-files 取：数据目录里大制品与源码混住，只有"被跟踪"这个条件
+# 恰好等于"必须随代码走"——大制品（向量索引、快照、缓存）都没被跟踪。详见
+# 调用处的说明（RAG/data/index/*.py 那个 ImportError）。
+sync_tracked_data_code() {
+    local paths=(RAG/data backend/data)
+    local count
+    count=$(git -C "${LOCAL_ROOT}" ls-files -- "${paths[@]}" 2>/dev/null | wc -l)
+    if [[ "${count}" -eq 0 ]]; then
+        echo "（数据目录下没有被跟踪的文件，跳过）"
+        return 0
+    fi
+    echo "随代码同步 ${count} 个数据目录下的被跟踪文件（源码/配置）"
+    # -C 必须写在 --null -T - 之前：GNU tar 的 -C 是位置相关的，写在文件列表之后
+    # 只会打印 "has no effect" 并以非 0 退出（管道里被 pipefail 抓住会中断上传）。
+    if ! git -C "${LOCAL_ROOT}" ls-files -z -- "${paths[@]}" \
+            | tar czf - -C "${LOCAL_ROOT}" --null -T - \
+            | ssh "${REMOTE}" "tar xzf - -C '${APP_DIR}'"; then
+        die "数据目录下的源码同步失败（RAG 会 import 到服务器上的旧模块，见脚本注释）"
+    fi
+}
+
 if [[ "${MODE}" == "all" || "${MODE}" == "code" ]]; then
     log "1/2 同步代码到 ${REMOTE}:${APP_DIR}"
     ssh "${REMOTE}" "mkdir -p '${APP_DIR}'"
@@ -174,6 +196,22 @@ if [[ "${MODE}" == "all" || "${MODE}" == "code" ]]; then
             -C "${LOCAL_ROOT}" . \
             | ssh "${REMOTE}" "tar xzf - -C '${APP_DIR}'"
     fi
+
+    # ---------------------------------------------------------------- 数据目录里的源码
+    #
+    # `RAG/data/` 看着只是制品目录，但里面同时住着**被跟踪的源码**：
+    # `RAG/data/index/*.py`（chroma_store.py、chunking.py… 由 RAG 以 `data.index.*`
+    # 导入）、`data/eval` 的题库与报告、`data/rules/rule_base.json`。向量索引、
+    # 快照、缓存这些大制品都**没有**被跟踪，所以 `git ls-files` 列出的恰好是
+    # "小而必需"的那部分——上面那两条排除规则把它们一起排掉了。
+    #
+    # 实测故障（2026-09-26，线上）：代码同步排除 RAG/data 之后，服务器上
+    # `data/index/chroma_store.py` 还是旧版，而新版 `server/runtime.py` 已经
+    # `from data.index.chroma_store import ChromaClients`：
+    #     ImportError: cannot import name 'ChromaClients'
+    # RAG 服务直接起不来（systemd 反复重启）。这个报错看起来像"代码写错了"，
+    # 实际是"服务器上是半新半旧的代码"——排查方向一开始就是错的。
+    sync_tracked_data_code
 fi
 
 if [[ "${MODE}" == "all" || "${MODE}" == "data" ]]; then
