@@ -24,6 +24,46 @@ from logging_util import get_logger
 
 logger = get_logger(__name__)
 
+# 四个图谱子页（历史战争 / 参战势力 / 历史人物 / 战争地点）默认视图的实体节点上限。
+#
+# 为什么按"实体节点数"设限、而不是压缩 Cypher 里的 LIMIT 200：后者限的是**关系行数**，
+# 而一个节点常被多条关系引用，实际落到画布上的节点数会漂到上限之上（线上实测 200 条关系
+# 对应 177~204 个节点），限不住"页面加载缓慢"这件事本身。
+#
+# 只在默认视图（既没有名称搜索也没有关系筛选）生效：用户一旦主动搜索，要看的就是特定的
+# 那部分实体，此时不截断。四个子页共用同一个值，避免逐页调参后口径不一致。
+DEFAULT_VIEW_NODE_LIMIT = 100
+
+
+def cap_default_view_graph(graph, name_filter='', rel_type=''):
+    """无筛选条件时只保留前 N 个实体节点，随之失去端点的连线一并丢弃。
+
+    返回体里带 ``node_limit`` / ``truncated``：前端据此提示"只展示了前 N 个，搜索查看更多"，
+    否则用户只会看到一张小图、不知道其余节点去哪了。
+    """
+    nodes = graph.get("nodes") or []
+    lines = graph.get("lines") or []
+
+    if name_filter or rel_type or len(nodes) <= DEFAULT_VIEW_NODE_LIMIT:
+        return {**graph, "node_limit": DEFAULT_VIEW_NODE_LIMIT, "truncated": False}
+
+    kept = nodes[:DEFAULT_VIEW_NODE_LIMIT]
+    kept_ids = {node.get("id") for node in kept}
+    kept_lines = [
+        line for line in lines
+        if line.get("from") in kept_ids and line.get("to") in kept_ids
+    ]
+    logger.info(
+        "默认视图按上限截断：节点 %s → %s，关系 %s → %s",
+        len(nodes), len(kept), len(lines), len(kept_lines),
+    )
+    return {
+        "nodes": kept,
+        "lines": kept_lines,
+        "node_limit": DEFAULT_VIEW_NODE_LIMIT,
+        "truncated": True,
+    }
+
 
 class neo4j_db():
     '''neo4j的操作'''
@@ -1020,7 +1060,7 @@ class neo4j_db():
                         line_data[k] = v
                     lines.append(line_data)
 
-            return {"nodes": nodes, "lines": lines}
+            return cap_default_view_graph({"nodes": nodes, "lines": lines}, name_filter, rel_type)
 
         except Exception as e:
             logger.warning(f"获取事件-事件关系异常: {str(e)}")
@@ -1105,7 +1145,7 @@ class neo4j_db():
                         line_data[k] = v
                     lines.append(line_data)
 
-            return {"nodes": nodes, "lines": lines}
+            return cap_default_view_graph({"nodes": nodes, "lines": lines}, name_filter, rel_type)
 
         except Exception as e:
             logger.warning(f"获取事件-组织关系异常: {str(e)}")
@@ -1190,7 +1230,7 @@ class neo4j_db():
                         line_data[k] = v
                     lines.append(line_data)
 
-            return {"nodes": nodes, "lines": lines}
+            return cap_default_view_graph({"nodes": nodes, "lines": lines}, name_filter, rel_type)
 
         except Exception as e:
             logger.warning(f"获取事件-人物关系异常: {str(e)}")
@@ -1285,7 +1325,7 @@ class neo4j_db():
                     lines.append(line_data)
 
             logger.info(f"地点图谱: {len(nodes)} 个节点, {len(lines)} 条关系")
-            return {"nodes": nodes, "lines": lines}
+            return cap_default_view_graph({"nodes": nodes, "lines": lines}, name_filter, rel_type)
 
         except Exception as e:
             logger.warning(f"获取事件-地点关系异常: {str(e)}")

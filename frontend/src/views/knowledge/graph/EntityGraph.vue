@@ -49,6 +49,7 @@
           </lay-col>
         </lay-row>
       </lay-form>
+      <p v-if="limitHint" class="graph-limit-hint">{{ limitHint }}</p>
     </lay-card>
     <div class="graph-canvas">
       <EChartsGraph :data="datasource" @node-expanded="loadNodeRelations" />
@@ -107,6 +108,14 @@ const searchQuery = ref({
   name: '',
   rel_type: ''
 })
+
+// 后端默认视图只返回前 100 个实体节点（见 model_search.DEFAULT_VIEW_NODE_LIMIT）。
+// 不说明的话用户会以为"这张图就这么大"，而不是"还有更多、搜索才出来"。
+const limitHint = computed(() =>
+  datasource.value?.truncated
+    ? `默认视图只展示前 ${datasource.value.node_limit || 100} 个实体节点，搜索名称或按关系筛选可查看其余节点。`
+    : '',
+)
 
 function syncPageSummary() {
   graphPageSummary?.setGraphPageSummary(
@@ -194,6 +203,12 @@ onUnmounted(() => {
 .graph-filter-card {
   flex-shrink: 0;
   margin-bottom: 8px;
+}
+
+.graph-limit-hint {
+  margin: 0 0 4px 20px;
+  color: #8c6d3b;
+  font-size: 13px;
 }
 
 .graph-canvas {
