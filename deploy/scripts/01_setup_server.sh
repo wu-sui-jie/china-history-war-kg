@@ -127,14 +127,27 @@ pip_install "${BACKEND_PY}" --upgrade pip
 pip_install "${RAG_PY}" --upgrade pip
 
 echo "--- 旧后端（Python 3.11）---"
-# 两份依赖声明都装：
-#   backend/requirements.txt  带版本范围，更精确
-#   requirements.txt（仓库根） 历史清单，补齐前者未列出的运行时依赖（如 pydantic——
-#                             backend 启动时要 import src.models，而它基于 pydantic）
-if [[ -f "${APP_DIR}/backend/requirements.txt" ]]; then
-    pip_install "${BACKEND_PY}" -r "${APP_DIR}/backend/requirements.txt"
+# 依赖来源分两档，**优先用验证过的那一套**（第 14 轮审计生成的统一 lock）：
+#
+#   1. requirements.lock（仓库根，119 包带 sha256）—— 它固定的是"四套测试在空环境里
+#      全绿的那套版本组合"。原先服务器只按 requirements.txt 的**版本区间**装，
+#      解析出来的组合可以与开发机/CI 验证过的完全不同，"本机好、服务器坏"多是这样来的。
+#   2. requirements.txt（仓库根 + backend/）—— 锁装不上时的回退（平台差异等），
+#      并明确打一条告警，让人知道"这次装的不是验证过的组合"。
+#
+# 注意锁的覆盖面：它由 `[all]` 生成，因此 **RAG / 飞书侧的依赖**（chromadb、lark 等）
+# 也会进这个环境，多占约 200 MB。这是有意的取舍——换来"服务器与验证环境同版本"；
+# 不想多装就得再维护一份 backend 专用锁，那是另一种代价。
+if [[ -f "${APP_DIR}/requirements.lock" ]] \
+   && pip_install "${BACKEND_PY}" --require-hashes -r "${APP_DIR}/requirements.lock"; then
+    echo "旧后端依赖已按 requirements.lock 安装（含哈希校验）"
+else
+    warn "锁文件不可用或安装失败，退回 requirements.txt（版本可能与验证环境不同）"
+    if [[ -f "${APP_DIR}/backend/requirements.txt" ]]; then
+        pip_install "${BACKEND_PY}" -r "${APP_DIR}/backend/requirements.txt"
+    fi
+    pip_install "${BACKEND_PY}" -r "${APP_DIR}/requirements.txt"
 fi
-pip_install "${BACKEND_PY}" -r "${APP_DIR}/requirements.txt"
 
 # backend 通过正式包 war_extraction 引用抽取链（同级目录 entity-event-relation）。
 # 路径依赖不能写进 requirements.txt（换工作目录就失效），所以按 backend/requirements.txt
