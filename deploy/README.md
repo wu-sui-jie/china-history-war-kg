@@ -39,8 +39,7 @@
                                      （长连接，不走 nginx）
 ```
 
-**两个 Python 环境不能合并**：RAG 的 chromadb 要求 Python ≥ 3.10，旧后端的 Flask + py2neo 按 3.8 编写。
-所以服务器上要建两个独立环境（脚本已内置）。
+**两个环境仍然分开，但主版本统一为 3.11**：RAG 的 chromadb 要求 Python ≥ 3.10；旧后端原先在 3.8 上跑，2026-09-26 已在真机验证它同样跑在 3.11（四套测试与线上接口都通过），于是全仓统一到 **Python 3.11**——服务器上仍是两个独立环境（依赖集不同：一个是 Flask + py2neo，一个是 FastAPI + chromadb），但不再需要为一个模块留 3.8。
 
 ---
 
@@ -99,12 +98,14 @@ sudo bash deploy/scripts/01_setup_server.sh
 ```
 
 脚本做的事：装系统基础包 → 装 Node 20 → 建 `chinawar` 用户 → 装 Miniconda →
-建两个 Python 环境（`china-war-backend` = 3.8，`china-war-rag` = 3.11）→ 装依赖
+建两个 Python 环境（`china-war-backend`、`china-war-rag`，**都是 3.11**）→ 装依赖
 （含仓库内的抽取链包 `war_extraction`：按 `backend/requirements.txt` 写明的顺序做
 `pip install -e entity-event-relation` 可编辑安装；漏装它旧后端会以 `ModuleNotFoundError` 崩溃）。
 
 - 幂等，可重复执行。
 - 国内服务器下载慢，可加镜像：`sudo PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple bash deploy/scripts/01_setup_server.sh`
+- **不要**加 `USE_UNIFIED_LOCK=1`：仓库根的 `requirements.lock` 在 Linux 上装不上（见第九节 9.3），默认的 `requirements.txt` 才是这台机器上验证过的路径。
+- 已有旧环境要迁到 3.11？用 `06_unify_py311.sh`（把 3.8 环境改名保留为回滚点，再建 3.11 环境，systemd 单元无需改动）。
 
 ### 第 3 步：安装 Neo4j（图数据库）
 
@@ -477,13 +478,83 @@ curl -fsSL https://ollama.com/install.sh | sh
 ollama pull deepseek-r1:7b       # 约 4 GB，拉完常驻内存约 8 GB
 ```
 
-**数据备份**：主存储是 SQLite，备份它就够了（Neo4j 可随时重建）：
+**数据备份**：主存储是 SQLite（`backend/database`）——账号、人工维护的节点与关系、Neo4j 写失败的补偿队列都在里面；**Neo4j 只是它的派生副本**（丢了能从主库重建，反过来不行）。仓库里有现成的脚本与定时器，别自己拼 crontab：
 
 ```bash
-sqlite3 /opt/china-war/backend/database ".backup '/var/backups/china-war-$(date +%F).db'"
+sudo bash /opt/china-war/deploy/scripts/05_backup.sh      # 立刻备份一次（全量）
+sudo systemctl start china-war-backup.service             # 与定时任务完全同一条路径
+systemctl list-timers china-war-backup.timer              # 每天 03:20，Persistent=true
+ls -la /var/backups/china-war/                            # 备份落在这里
 ```
 
-配一条 crontab 每天跑即可。RAG 的 `data/snapshot`、`data/index` 是派生制品，丢了按第五节的命令重建。
+`install_services.sh` 会自动装好 `china-war-backup.timer` 并立刻跑一次。备份内容是 SQLite 在线快照（用 sqlite3 的 backup API，**不是 `cp`**——该库是 WAL 模式，`cp` 会漏掉 `-wal` 里未合并的事务，得到一份"看起来正常、少了最近若干次写入"的旧库）+ 三份 `.env` + `/etc/china-war/rag-secrets.env` + systemd 单元 + nginx 站点 + 两个环境的包清单。保留最近 7 天与最近 4 个周日。
+
+**恢复步骤写在 `deploy/scripts/05_backup.sh` 头部**（该停哪些服务、覆盖哪个文件、怎么对账）。请真的演练一次：没演练过的备份只能算"文件还在"。
+
+RAG 的 `data/snapshot`、`data/index` 是派生制品，丢了按第五节重建；`selfcheck.sh` 会检查备份定时器在跑、**且真的产出过备份**（只装定时器不算数）。
+
+---
+
+## 九、真机部署实测记录（2026-09-26）
+
+这一节记的是**只在真机上才会现形**的坑。它们的共同点是：本机看不出来、CI 也全绿，而后果都是"部署看起来成功了，其实没生效"。
+
+### 9.1 换行符：CRLF 让服务器上的脚本一行都跑不了
+
+服务器上的现象：
+
+```text
+/opt/china-war/deploy/scripts/check_rag_auth.sh: line 40: $'\r': command not found
+/opt/china-war/deploy/scripts/check_rag_auth.sh: syntax error near unexpected token `$'{\r''
+```
+
+实测 229 个文本文件带 CR，包括 `deploy/scripts/*.sh`、`deploy/nginx/china-war.conf` 与 `/etc/nginx/sites-available/china-war.conf`。**最要紧的是鉴权门禁脚本**：它跑不起来，而 `install_services.sh` 靠它的结论决定"要不要放行启动"——于是"该拦的没拦"，而两侧都没有任何提示。
+
+根因在开发机：`core.autocrlf=true` 让检出到工作区的是 CRLF（git 索引里一直是 LF），打包上传把 CR 原样带过去了。修法两层：
+
+1. 仓库根 `.gitattributes`（`* text=auto eol=lf`）——属性优先级高于 `core.autocrlf`，任何平台检出都是 LF；
+2. `04_upload_from_local.sh` 上传前兜底：对在 Linux 上必须为 LF 的文件（`*.sh` / `*.service` / `*.timer` / `*.conf` / env 模板）检测到 CR 就地转换并打印。
+
+排查提示：`grep -rl $'\r' --include='*.sh' .` 一眼看出哪些文件中招。
+
+### 9.2 `RAG/data/` 里住着源码，而上传把它当"数据目录"排除了
+
+服务器上的现象：
+
+```text
+File "/opt/china-war/RAG/server/runtime.py", line 25, in <module>
+    from data.index.chroma_store import ChromaClients
+ImportError: cannot import name 'ChromaClients' from 'data.index.chroma_store'
+```
+
+报错长得像"代码写错了"，实际是"服务器上是半新半旧的代码"：`RAG/data/index/*.py`（`chroma_store.py`、`chunking.py`…）是**被 git 跟踪的源码**，由 RAG 以 `data.index.*` 导入；而上传脚本把 `RAG/data` 整个排除了（那个目录同时住着 400 MB 的向量索引与快照）。于是新版 `runtime.py` 配旧版 `chroma_store.py`，RAG 反复重启。
+
+修法：上传脚本新增一步——把 `git ls-files RAG/data backend/data` 列出的文件单独同步一遍。大制品都没有被跟踪，所以这个列表给出的恰好是"小而必需"的那部分。**改 RAG 的检索/索引代码后，确认这一步跑过**（脚本会打印同步了多少个文件）。
+
+### 9.3 统一 lock（`requirements.lock`）在 Linux 上装不上
+
+```text
+ERROR: In --require-hashes mode, all requirements must have their versions pinned with ==.
+These do not: uvloop>=0.15.1 (from uvicorn[standard]>=0.18.3 -> chromadb==1.5.9 -> requirements.lock)
+```
+
+这份锁是在 Windows 开发机上生成的：`uvicorn[standard]` 经 `--strip-extras` 剥掉了 extras，而 Linux 专有的 **uvloop** 在 Windows 的 `pip freeze` 里根本不存在。本机验证"锁可重装"时看不出来——恰好因为 Windows 不需要 uvloop。
+
+现状：`01_setup_server.sh` **默认走 `requirements.txt`**（与既有部署一致），要用锁得显式 `USE_UNIFIED_LOCK=1`。待办是把生成器改成平台完整（或让 CI 在 Linux 上真装一遍）；在那之前不要把它当"验证过的组合"用在服务器上。
+
+### 9.4 `install_services.sh` 的单元名缺 `.service`（已修）
+
+那个 `for unit in …` 循环里前三个名字没有 `.service` 后缀，脚本用它拼 `deploy/systemd/${unit}` 与 `/etc/systemd/system/${unit}` 两个路径，于是在 2/5 步直接 `die "缺少 …/systemd/china-war-backend"`——照本文从上到下执行的人必然卡在这里。`bash -n` 只查语法，名字写错一个字都不会说。现在 `scripts/check_deploy_config.py` 会在 CI 里逐个断言这些名字对应真实文件。
+
+### 9.5 飞书机器人：两侧共享密钥必须同值
+
+jwt 档下 RAG 要求 `X-Bot-Key`；`RAG/.env` 的 `RAG_BOT_API_KEY` 若没配、或与 `feishu-bot/.env` 的值不同，机器人每问必 401，而机器人侧只会说"RAG 不可用"——**排障方向是反的**。`check_rag_auth.sh` 会拦住这个组合（这正是它存在的意义）。本次部署发现飞书侧键存在但值为空，已补齐同值。
+
+### 9.6 切换后的实测结论（Python 3.11）
+
+- 两个环境都是 Python 3.11.16（`china-war-backend`、`china-war-rag`）。旧 3.8 环境已按计划删除，删除前记录了 `conda list --explicit` 与 `conda env export` 到备份目录，可精确重建；
+- `install_services.sh` 全流程通过、鉴权门禁 11/11、`selfcheck.sh` 18/18；
+- 运行期验收用 `deploy/scripts/verify_deploy_auth.py`：它用真实密钥签一个 token，验证"有效 token 放行、已删号 token 立刻 401、无服务间密钥调内部接口被拒、公网匿名 401、后端错误响应是 JSON"，并打印 RAG `health.auth` 的撤销状态。改动鉴权相关代码后跑它。
 
 ---
 
@@ -498,17 +569,22 @@ deploy/
 │   ├── china-war-rag.service       # RAG :8000（含 --version 数据版本固定）
 │   ├── china-war-bot.service       # 飞书机器人（可选）
 │   ├── china-war-outbox-retry.service  # 补偿队列自动重放（oneshot，由 timer 触发）
-│   └── china-war-outbox-retry.timer    # 每分钟触发一次上面的 service
+│   ├── china-war-outbox-retry.timer    # 每分钟触发一次上面的 service
+│   ├── china-war-backup.service    # 每日备份（SQLite 在线快照 + 配置与密钥）
+│   └── china-war-backup.timer      # 每天 03:20 触发，Persistent=true（关机则开机补跑）
 ├── env/
 │   ├── backend.env                 # 旧后端生产模板 → backend/.env
 │   ├── rag.env                     # RAG 生产模板 → RAG/.env
 │   └── rag-secrets.env             # 密钥模板 → /etc/china-war/rag-secrets.env
 └── scripts/
-    ├── 01_setup_server.sh          # 系统包 + Node + Miniconda + 两个 Python 环境 + 依赖
+    ├── 01_setup_server.sh          # 系统包 + Node + Miniconda + 两个 Python 环境（3.11）+ 依赖
     ├── 02_install_neo4j.sh         # Neo4j 5 安装与初始口令
     ├── 03_build_frontend.sh        # 两个前端产物（含模式校验）
-    ├── 04_upload_from_local.sh     # 【本机执行】上传代码与数据制品
+    ├── 04_upload_from_local.sh     # 【本机执行】上传代码与数据制品（含换行符兜底）
+    ├── 05_backup.sh                # 【服务器】备份 SQLite + 配置密钥（可 --db-only）
+    ├── 06_unify_py311.sh           # 【服务器】把后端环境统一到 3.11（旧的改名留作回滚点）
     ├── install_services.sh         # 写 systemd 单元与 nginx 站点、跑鉴权门禁、启动
     ├── check_rag_auth.sh           # 鉴权门禁：模式/两侧密钥同值/nginx 认证真实生效/回环监听
-    └── selfcheck.sh                # 按用户访问路径逐项自检
+    ├── verify_deploy_auth.py       # 运行期验收：签真 token 验放行、撤销、匿名拒绝、JSON 错误
+    └── selfcheck.sh                # 按用户访问路径逐项自检（含备份与两个定时器）
 ```
