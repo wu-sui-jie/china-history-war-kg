@@ -1,0 +1,21 @@
+{
+  "rule": "明子集各分层抽20%；random.Random(20260927)；排除甲核验结论=新增的行",
+  "strata": {
+    "事件": {
+      "frame": 75,
+      "sampled": 15,
+      "excluded_added": 18
+    },
+    "实体": {
+      "frame": 979,
+      "sampled": 196,
+      "excluded_added": 7
+    },
+    "关系": {
+      "frame": 1276,
+      "sampled": 255,
+      "excluded_added": 0
+    }
+  },
+  "total_sampled": 466
+}

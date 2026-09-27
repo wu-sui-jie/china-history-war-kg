@@ -35,7 +35,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from war_extraction.utils.normalizer import Normalizer  # noqa: E402
-from war_extraction.utils.value_parsing import event_identity_key  # noqa: E402
+from tools.annotation_io import (
+    event_key,
+    organization_key,
+    person_key,
+    place_key,
+    relation_key,
+)  # noqa: E402
 
 MODULE_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PRED = MODULE_ROOT / "output" / "中国历代战争简史" / "9_final_all.json"
@@ -76,7 +82,7 @@ def collect_strata(payload: dict, by_dynasty: bool = True, dynasty_top: int = 8)
         name = (row.get("geo_name") or "").strip()
         if not name:
             continue
-        key = f"entity:place|{name}|{row.get('DynastyName') or ''}|{row.get('modern_name') or ''}"
+        key = place_key(name, row.get("DynastyName"), row.get("modern_name"))
         summary = f"地点 {name}（现代名 {row.get('modern_name') or '—'}，朝代 {row.get('DynastyName') or '—'}）"
         strata.setdefault("实体:地点", []).append((key, summary, (row.get("source_text") or "")[:400]))
 
@@ -84,7 +90,7 @@ def collect_strata(payload: dict, by_dynasty: bool = True, dynasty_top: int = 8)
         name = (row.get("PersonName") or "").strip()
         if not name:
             continue
-        key = f"entity:person|{name}|{row.get('DynastyName') or ''}"
+        key = person_key(name, row.get("DynastyName"))
         summary = (f"人物 {name}（角色 {row.get('Role') or '—'}，朝代 {row.get('DynastyName') or '—'}，"
                    f"组织 {row.get('OrgName') or '—'}）")
         strata.setdefault("实体:人物", []).append((key, summary, (row.get("source_text") or "")[:400]))
@@ -93,7 +99,7 @@ def collect_strata(payload: dict, by_dynasty: bool = True, dynasty_top: int = 8)
         name = (row.get("OrgName") or "").strip()
         if not name:
             continue
-        key = f"entity:organization|{name}|{row.get('DynastyName') or ''}"
+        key = organization_key(name, row.get("DynastyName"))
         summary = f"组织 {name}（类型 {row.get('OrgType') or '—'}，朝代 {row.get('DynastyName') or '—'}）"
         strata.setdefault("实体:组织", []).append((key, summary, (row.get("source_text") or "")[:400]))
 
@@ -108,9 +114,8 @@ def collect_strata(payload: dict, by_dynasty: bool = True, dynasty_top: int = 8)
         name = (row.get("EventName") or "").strip()
         if not name:
             continue
-        identity = event_identity_key(normalizer, name, row.get("DynastyName"),
-                                      row.get("StartDate"), row.get("Place"))
-        key = "event|" + "|".join(identity)
+        key = event_key(normalizer, name, row.get("DynastyName"),
+                        row.get("StartDate"), row.get("Place"))
         summary = (f"事件 {name}（{row.get('DynastyName') or '—'} {row.get('StartDate') or '—'}，"
                    f"地点 {row.get('Place') or '—'}，主动方 {row.get('Aggressor') or '—'}，"
                    f"结果 {row.get('Result') or '—'}）")
@@ -138,7 +143,7 @@ def collect_strata(payload: dict, by_dynasty: bool = True, dynasty_top: int = 8)
                 end_key = "PersonName"
             if not event_name or not target:
                 continue
-            key = f"{attribute}|{event_name}|{row.get('relation') or ''}|{target}"
+            key = relation_key(attribute, event_name, row.get("relation"), target)
             summary = f"{event_name} —[{row.get('relation') or '—'}]→ {target}"
             strata.setdefault(layer, []).append((key, summary, (row.get("evidence") or "")[:400]))
 

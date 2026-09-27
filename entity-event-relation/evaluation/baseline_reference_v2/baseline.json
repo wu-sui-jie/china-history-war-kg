@@ -1,0 +1,116 @@
+{
+  "frozen_at": "2026-09-27 08:44:15.293685 +08:00",
+  "frozen_at_epoch": 1790469855.293685,
+  "run_id": "88802c65cdb3",
+  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。四条口子的判定结果见 data/annotations/README.md §5.4。dev/test 切分由 split_annotation_set.py --dev 唐 秦汉 派生（dev = 唐+秦汉 221 事件/1941 实体/1864 关系；test = 明 75/659/477），切分说明随切分写在 data/annotations/v2_split/split_manifest.json。产物仍是 2026-08-18 那份旧产物，main.py 未重跑，本记录里没有可用的指标。",
+  "git_commit": "6ca69adc79475b135e004927cb2e3bbb04f8a554",
+  "module_versions": {
+    "prompt_version": "prompt-v2-20260420+1228b39b",
+    "extraction_version": "extraction-v2-20260420"
+  },
+  "artifact": {
+    "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+    "exists": true,
+    "sha256": "885b0d9ec340a50b151a42ba16a1b883cf2a7fff5147bac49259cbd9fcc4e559",
+    "counts": {
+      "events": 1050,
+      "places": 5316,
+      "persons": 2492,
+      "organizations": 1067,
+      "relations": 18146
+    },
+    "metadata": {
+      "extracted_at": "2026-08-18 03:37:13 +08:00",
+      "extraction_version": "extraction-v2-20260420",
+      "prompt_version": "prompt-v2-20260420",
+      "input_file": "data\\中国历代战争简史.txt",
+      "text_length": 306730
+    }
+  },
+  "annotations": {
+    "dir": "data\\annotations\\v2",
+    "files_on_disk_at_freeze": {
+      "sample_entities.json": {
+        "sha256": "bf0832398444730eed800c7bf827391e24d7ea75d4a4617867b75dcaf585f4d3",
+        "sha256_lf": "6b3897fe09e7c3515b69f68c475368c84482b27c3324ec3699d0055d9bb77694"
+      },
+      "sample_events.json": {
+        "sha256": "0e31f76c488f6dfcabe99888bf60ac686b46c9efe993e83f4b8d169cc9fc5bdd",
+        "sha256_lf": "9e167116c2ff0506dbb9c843ec2fb728c29603b824ae515dd471cd2997f29020"
+      },
+      "sample_relations.json": {
+        "sha256": "326340dd3f40b9cdbc10e83d803a165b3616e50bf51358d2078828eb019db11f",
+        "sha256_lf": "d47a69a83ac554fa9d7dd2b07d8f006a2fead5b609e8b29502bc25229e48af0b"
+      }
+    },
+    "provenance": {
+      "kind": "human_verified_rebuild",
+      "is_human_annotated": true,
+      "how": "三个朝代子集（明 / 唐 / 秦汉）的草稿核验表由人逐条判定（保留/删除/修改/新增），明子集各层抽 20% 由两人独立判定并逐条仲裁；成稿由 apply_rebuild_table.py 机械落地（含仲裁覆盖与去重），证据锚点由 backfill_annotation_evidence.py 从原文重新定位。",
+      "consequences": [
+        "结构自检四项硬指标归零（head/tail 不在名单、重复关系行、残缺年份）",
+        "事件与关系各带原文 evidence + 字符区间，可逐条回溯原文",
+        "仍有两处未做的：唐/秦汉两个子集没有做 IAA；少量人工补漏行没有原文锚点"
+      ],
+      "still_usable_as": [
+        "准确性指标的**分母**（这是重建的全部意义）",
+        "调提示词与阈值时的 development 集（`data/annotations/v2_split/dev`）"
+      ],
+      "not_usable_as": [
+        "test 集不可用于调参（用一次少一次）",
+        "不可与旧标注算出的指标直接比大小（分母口径不同）"
+      ],
+      "source_note": "四个留给人判的口子（萨尔浒之战主动方、大顺军攻占北京之战的投降行、一对多角色配对口径、归一化名称造成的定位误杀）见 data/annotations/README.md §5.4。"
+    }
+  },
+  "config": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\config",
+    "files_on_disk_at_freeze": {
+      "aliases.json": {
+        "sha256": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4",
+        "sha256_lf": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4"
+      },
+      "dynasty_ranges.json": {
+        "sha256": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87",
+        "sha256_lf": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87"
+      },
+      "eval_config.json": {
+        "sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+        "sha256_lf": "8d8f969aa04f4e4354930505987729faf190b8f168381cae073baecc4fc7b155"
+      },
+      "publish_rules.json": {
+        "sha256": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8",
+        "sha256_lf": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8"
+      },
+      "relation_types.json": {
+        "sha256": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce",
+        "sha256_lf": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce"
+      },
+      "text_cleaning.json": {
+        "sha256": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310",
+        "sha256_lf": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310"
+      }
+    }
+  },
+  "prompts": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\war_extraction\\prompts",
+    "files_on_disk_at_freeze": {
+      "__init__.py": {
+        "sha256": "9628f6fa99cc28fad7064be1a4b080708e6686ce1db126bbd012c5bc2890d5ab",
+        "sha256_lf": "91311fe8a4f82b29b3990ae973b713efcbfd6e63cf490b649a67a22653f1ccb0"
+      },
+      "entity_prompts.py": {
+        "sha256": "bfb10fda72a1a0384a07c3805402b14203ca48bbb5a451eff78b17b142cf7765",
+        "sha256_lf": "f5b3df4de46f51ec166a97687a64f6be73bafdc85161bde15a7c5e9fed1c8335"
+      },
+      "event_prompts.py": {
+        "sha256": "ca5f581760635a648a942fbbce320297128754e19b687b9b20a98e910046e41a",
+        "sha256_lf": "a9997a86e40a4ce17858bd04600562624080f5792e910b559c92eca09d7e5a09"
+      },
+      "relation_prompts.py": {
+        "sha256": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a",
+        "sha256_lf": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a"
+      }
+    }
+  }
+}

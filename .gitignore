@@ -85,3 +85,11 @@ backend/.env
 
 # 冒烟脚本生成的临时截图
 .smoke-*.png
+
+# 参考集重建（C 组）里**已被取代**的工作副本：合并版草稿与 Excel 导出。
+# 为什么不入库：`draft_<子集>_with_source.csv`（三份，7.7 MB）是**判定之前**的草稿快照——
+# 实测 11,044 行里填了 0 行核验结论；判定真正填在**分层版** `draft_<子集>_with_source__{事件,实体,关系}.csv`
+# 上（判定全填、且 `apply_rebuild_table.py --table` 消费的就是它）。xlsx 是 CSV 的导出副本。
+# 留这一条是为了避免下一个人把"草稿"当成"标注结果"。
+entity-event-relation/evaluation/review/draft_*_with_source.csv
+entity-event-relation/evaluation/review/*_with_source.xlsx

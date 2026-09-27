@@ -68,6 +68,37 @@ ANNOTATION_PROVENANCE = {
 }
 
 
+#: **重建后的**参考集（`data/annotations/v2/`）的来源说明。与上面那份的区别是**性质不同**：
+#: 它不是多模型汇总，是逐条人工核验的成稿（口径与流程见 `docs/参考集重建规范.md`）。
+#: 冻结时按目录自动选一份，免得把"人工核验过的"标成"多模型汇总"、或反过来。
+REBUILT_ANNOTATION_PROVENANCE = {
+    "kind": "human_verified_rebuild",
+    "is_human_annotated": True,
+    "how": (
+        "三个朝代子集（明 / 唐 / 秦汉）的草稿核验表由人逐条判定（保留/删除/修改/新增），"
+        "明子集各层抽 20% 由两人独立判定并逐条仲裁；成稿由 apply_rebuild_table.py 机械落地"
+        "（含仲裁覆盖与去重），证据锚点由 backfill_annotation_evidence.py 从原文重新定位。"
+    ),
+    "consequences": [
+        "结构自检四项硬指标归零（head/tail 不在名单、重复关系行、残缺年份）",
+        "事件与关系各带原文 evidence + 字符区间，可逐条回溯原文",
+        "仍有两处未做的：唐/秦汉两个子集没有做 IAA；少量人工补漏行没有原文锚点",
+    ],
+    "still_usable_as": [
+        "准确性指标的**分母**（这是重建的全部意义）",
+        "调提示词与阈值时的 development 集（`data/annotations/v2_split/dev`）",
+    ],
+    "not_usable_as": [
+        "test 集不可用于调参（用一次少一次）",
+        "不可与旧标注算出的指标直接比大小（分母口径不同）",
+    ],
+    "source_note": (
+        "四个留给人判的口子（萨尔浒之战主动方、大顺军攻占北京之战的投降行、一对多角色配对口径、"
+        "归一化名称造成的定位误杀）见 data/annotations/README.md §5.4。"
+    ),
+}
+
+
 def _counts(pred_path: Path) -> dict:
     """产物各类条数：与下游 `current_dataset.json` 的计数口径对应，便于逐项核对。"""
     with open(pred_path, "r", encoding="utf-8") as f:
@@ -104,6 +135,17 @@ _DIR_PATTERNS = {
 }
 
 
+#: 基线记录里"某一组文件在此刻磁盘上的指纹"用的键名。
+#:
+#: **为什么键名要这么长。** 同一份 `baseline.json` 里有两个都是"配置指纹"的东西，语义不同：
+#: **冻结时磁盘上**的文件（本键）与**那次评估真正生效**的版本
+#: （`baseline_metrics.effective_at_evaluation.eval_config_sha256`，来自评估自己的 metadata）。
+#: 原键名 `files` 太泛，取值的人几乎必然取错——`evaluation/baseline/` 是在改完配置之后才冻结的，
+#: 它的 `files` 记的是**改后**的文件，而被评估的是**改前**的口径。改名之后，
+#: "冻结时状态"与"当时生效"在命名上就分得开了。
+FILES_ON_DISK_KEY = "files_on_disk_at_freeze"
+
+
 def _dir_fingerprints(directory: Path, patterns=None, kind: str = None) -> dict:
     """
     目录下每个文件的 sha256（只取一层，按文件名排序）。
@@ -120,7 +162,24 @@ def _dir_fingerprints(directory: Path, patterns=None, kind: str = None) -> dict:
         return {}
     files = sorted({p for pattern in patterns for p in directory.glob(pattern)},
                    key=lambda p: p.name)
-    return {p.name: file_sha256(p) for p in files}
+    return {p.name: {"sha256": file_sha256(p),
+                     "sha256_lf": _sha256_lf(p)} for p in files}
+
+
+def _sha256_lf(path: Path) -> str:
+    """
+    **行尾归一后的** sha256（CRLF → LF），跨机器核对比对这个。
+
+    为什么两个都要记：`.gitattributes` 是 `* text=auto eol=lf`，所以**新克隆拿到的文件是 LF**，
+    而 Windows 上这些 JSON/CSV 是写入端用文本模式写出来的、**工作区里是 CRLF**。
+    两个口径算出的哈希不同（实测 v2 三份文件全部不同），于是"按冻结记录核对"这件事
+    在别的机器上会给出假的"文件变了"。所以：
+    `sha256` 是**当时磁盘口径**（也是这个项目所有历史记录的算法，保留它免得新旧记录不可比），
+    `sha256_lf` 是**跨机器口径**——要核对"这份参考集是不是当初冻的那份"，用它。
+    """
+    import hashlib
+    data = path.read_bytes()
+    return hashlib.sha256(data.replace(bytes([13, 10]), bytes([10]))).hexdigest()
 
 
 def _baseline_metrics(eval_dir: Path) -> dict:
@@ -158,7 +217,9 @@ def _baseline_metrics(eval_dir: Path) -> dict:
     }
 
 
-def build_record(pred_path: Path, eval_dir: Path | None, note: str | None) -> dict:
+def build_record(pred_path: Path, eval_dir: Path | None, note: str | None,
+                 annotations_dir: Path = None) -> dict:
+    annotations_dir = Path(annotations_dir or DEFAULT_ANNOTATIONS)
     record = {
         # `frozen_at` 与 `run_id` 都由调用方填（保持本函数纯函数化，便于测试）。
         # 为什么要 `run_id`：`current_timestamp()` 只精确到秒，两次冻结很容易落在同一秒上，
@@ -179,17 +240,18 @@ def build_record(pred_path: Path, eval_dir: Path | None, note: str | None) -> di
             "sha256": file_sha256(pred_path),
         },
         "annotations": {
-            "dir": str(DEFAULT_ANNOTATIONS),
-            "files": _dir_fingerprints(DEFAULT_ANNOTATIONS, kind="annotations"),
-            "provenance": ANNOTATION_PROVENANCE,
+            "dir": str(annotations_dir),
+            FILES_ON_DISK_KEY: _dir_fingerprints(annotations_dir, kind="annotations"),
+            "provenance": (ANNOTATION_PROVENANCE if Path(annotations_dir) == DEFAULT_ANNOTATIONS
+                           else REBUILT_ANNOTATION_PROVENANCE),
         },
         "config": {
             "dir": str(DEFAULT_CONFIG),
-            "files": _dir_fingerprints(DEFAULT_CONFIG, kind="config"),
+            FILES_ON_DISK_KEY: _dir_fingerprints(DEFAULT_CONFIG, kind="config"),
         },
         "prompts": {
             "dir": str(MODULE_ROOT / "war_extraction" / "prompts"),
-            "files": _dir_fingerprints(MODULE_ROOT / "war_extraction" / "prompts", kind="prompts"),
+            FILES_ON_DISK_KEY: _dir_fingerprints(MODULE_ROOT / "war_extraction" / "prompts", kind="prompts"),
         },
     }
     if pred_path.is_file():
@@ -273,12 +335,21 @@ def render_markdown(record: dict) -> str:
         "",
         "## 文件指纹",
         "",
-        "| 目录 | 文件 | sha256 |",
-        "| --- | --- | --- |",
+        f"下表是**冻结这一时刻磁盘上**的文件。它与「那次评估真正生效」的版本可能不同"
+        f"（见上文 `effective_at_evaluation`），这也是这个键叫 `{FILES_ON_DISK_KEY}` 的原因。",
+        "",
+        "哈希有**两列**：`sha256` 是冻结当时磁盘口径（Windows 下这些 JSON/CSV 是 CRLF，"
+        "项目所有历史记录用的也是它，保留以免新旧不可比）；`sha256_lf` 是行尾归一（CRLF→LF）后的口径。"
+        "**在别的机器上核对「这份文件是不是当初冻的那份」要用 `sha256_lf`**——"
+        "`.gitattributes` 是 `* text=auto eol=lf`，新克隆拿到的就是 LF，拿 `sha256` 对会得出假的「文件变了」。",
+        "",
+        "| 目录 | 文件 | sha256（当时磁盘口径） | sha256_lf（跨机器核对用） |",
+        "| --- | --- | --- | --- |",
     ]
     for group in ("annotations", "config", "prompts"):
-        for name, digest in (record[group]["files"] or {}).items():
-            lines.append(f"| {group} | `{name}` | `{digest}` |")
+        for name, digest in (record[group][FILES_ON_DISK_KEY] or {}).items():
+            sha, sha_lf = (digest["sha256"], digest["sha256_lf"]) if isinstance(digest, dict) else (digest, "—")
+            lines.append(f"| {group} | `{name}` | `{sha}` | `{sha_lf}` |")
     lines.append("")
     return "\n".join(lines)
 
@@ -292,11 +363,16 @@ def main():
                         help="某次评估的输出目录（含 results.json），用于一并记录基线指标")
     parser.add_argument("--output", default=str(DEFAULT_BASELINE), help="基线记录输出目录")
     parser.add_argument("--note", default=None, help="本次冻结的说明")
+    parser.add_argument("--annotations-dir", default=str(DEFAULT_ANNOTATIONS),
+                        help="参考集目录：默认是旧那三份（多模型汇总）；冻结重建后的参考集时"
+                             "指向 data/annotations/v2 —— **来源说明会跟着换**"
+                             "（human_verified_rebuild，与 multi_model_merged 不是一回事）")
     args = parser.parse_args()
 
     pred_path = Path(args.pred)
     eval_dir = Path(args.eval_dir) if args.eval_dir else None
-    record = build_record(pred_path, eval_dir, args.note)
+    record = build_record(pred_path, eval_dir, args.note,
+                          Path(args.annotations_dir))
     frozen_at = datetime.now(_TZ_SINGAPORE)
     record["frozen_at"] = frozen_at.strftime("%Y-%m-%d %H:%M:%S.%f +08:00")
     record["frozen_at_epoch"] = round(frozen_at.timestamp(), 6)

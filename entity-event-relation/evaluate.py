@@ -56,7 +56,8 @@ def warn_if_overwriting_baseline(output_dir: Path):
     print("!" * 70)
 
 
-def build_eval_metadata(pred_path: Path, pred_data: dict, config_path: Path, eval_config: dict) -> dict:
+def build_eval_metadata(pred_path: Path, pred_data: dict, config_path: Path, eval_config: dict,
+                        annotation_dir: Path = None) -> dict:
     """
     评估结果的 metadata：把"被评估的产物"与"跑评估的评估器"**分成两组**记录。
 
@@ -65,9 +66,12 @@ def build_eval_metadata(pred_path: Path, pred_data: dict, config_path: Path, eva
     现在 `predictions` 组读的是**产物 metadata 里写的**版本（产物自证），
     `evaluator` 组才是本次运行的代码版本，另附预测文件与标注文件的 sha256，
     满足"报告指标必须同时给出口径"这条要求。
+
+    `annotation_dir` 由调用方给（`--annotations-dir`）：**参考集换了目录，指标就换了分母**，
+    所以它必须与指标一起记进 metadata，否则两份报告对比时看不出用的是哪套标注。
     """
     artifact_metadata = pred_data.get("metadata") or {}
-    annotation_dir = DEFAULT_ANNOTATION_DIR
+    annotation_dir = annotation_dir or DEFAULT_ANNOTATION_DIR
     annotation_files = {}
     if annotation_dir.is_dir():
         for name in sorted(p.name for p in annotation_dir.glob("*.json")):
@@ -110,7 +114,16 @@ def main():
                              "（历史基线 evaluation/latest 需显式指定）")
     parser.add_argument("--also-published", default=None, nargs="?", const="__auto__",
                         help="额外评估发布子集（published/final.json）；不给值时取批次目录下的默认路径")
+    parser.add_argument("--annotations-dir", default=str(DEFAULT_ANNOTATION_DIR),
+                        help="参考集目录（默认 data/annotations 这份**旧**标注；"
+                             "用重建后的参考集时指向 data/annotations/v2 或它的 dev 切分"
+                             " data/annotations/v2_split/dev）。换了它指标就换了分母，"
+                             "所以运行的 metadata 里会记下目录与三份文件的 sha256")
     args = parser.parse_args()
+    annotation_dir = Path(args.annotations_dir)
+    if not annotation_dir.is_dir():
+        print(f"参考集目录不存在: {annotation_dir}")
+        return 2
 
     output_dir = Path(args.output) if args.output else default_output_dir()
     warn_if_overwriting_baseline(output_dir)
@@ -125,15 +138,16 @@ def main():
     # 加载预测结果
     pred_path = Path(args.pred)
     if args.also_published == "__auto__":
-        # 全量产物的同批次发布子集
-        candidate_path = pred_path.parent / "published" / "final.json"
-        args.also_published = str(candidate_path)
+        # 全量产物的同批次发布子集。变量名必须叫 published——`candidate` 这个叫法会被
+        # 误读成候选区产物（`candidate/final.json`），而这里读的是发布子集。
+        published_path = pred_path.parent / "published" / "final.json"
+        args.also_published = str(published_path)
     with open(pred_path, "r", encoding="utf-8") as f:
         pred_data = json.load(f)
 
     # 阈值从 config 读，这样提示词/评估实验才可复现
     evaluator = OptimalEvaluator(
-        annotation_dir=DEFAULT_ANNOTATION_DIR,
+        annotation_dir=annotation_dir,
         relation_threshold=eval_config.get("relation_threshold", 40),
         event_sim_threshold=eval_config.get("event_sim_threshold", 0.35),
         entity_fuzzy_threshold=eval_config.get("entity_fuzzy_threshold", 70),
@@ -143,7 +157,8 @@ def main():
     )
 
     results = evaluator.run_evaluation(pred_data)
-    results["metadata"] = build_eval_metadata(pred_path, pred_data, config_path, eval_config)
+    results["metadata"] = build_eval_metadata(pred_path, pred_data, config_path, eval_config,
+                                              annotation_dir)
 
     # 发布子集也评一遍：下游知识库实际导的是 published/final.json（或全量），
     # 两份的粒度不同（1050 vs 881 事件），指标不可混用——所以两套都报，且各自带文件哈希。
@@ -155,7 +170,7 @@ def main():
             with open(published_path, "r", encoding="utf-8") as f:
                 published_data = json.load(f)
             published_evaluator = OptimalEvaluator(
-                annotation_dir=DEFAULT_ANNOTATION_DIR,
+                annotation_dir=annotation_dir,
                 relation_threshold=eval_config.get("relation_threshold", 40),
                 event_sim_threshold=eval_config.get("event_sim_threshold", 0.35),
                 entity_fuzzy_threshold=eval_config.get("entity_fuzzy_threshold", 70),
@@ -168,7 +183,7 @@ def main():
             print("#" * 70)
             results["published"] = published_evaluator.run_evaluation(published_data)
             results["published"]["metadata"] = build_eval_metadata(
-                published_path, published_data, config_path, eval_config)
+                published_path, published_data, config_path, eval_config, annotation_dir)
             results["summary_published"] = results["published"]["summary"]
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -192,4 +207,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
