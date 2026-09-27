@@ -7,10 +7,15 @@
 生成规则推理产物 / 建索引 / 评测 / 评 demo / 血缘 / 制品清单），而步骤只散落在四份文档里。
 后果是**漏一步不报错、只是结果缺一块**：2026-09-27 那两次发布，我手工走了三遍、漏了两遍
 （漏跑 `inferred_relations.json`，规则推理检索通道静默少一块；`gen_demo_examples --run`
-传成完整路径，脚本打一行错就正常退出）。
+传成完整路径，脚本打一行错就正常退出）。**还有一次漏的是"地点坐标"**：回填坐标从来不在
+这份步骤里（它原先是在导入之后手工跑一次旧项目的 geocoding import），于是换代重导
+（② 会先 `DELETE FROM places` 再按产物插入）之后 5527 个地点的坐标全空、而 4819 条高德
+坐标还躺在磁盘上——页面上只剩后端内置的省/市中心点兜底，地图页的"可定位"数据整体失真。
+现在它是 ②b/②c 两步，且有 `MIN_PLACES_WITH_COORD` 做核对。
 
 所以本脚本不只是"把命令串起来"，它把**每一步该有的断言**也写进来了——
-断言就是那两次漏跑的症状（产物条数、图库是否相等、推理产物在不在、索引段数与向量数是否对齐）。
+断言就是那几次漏跑的症状（产物条数、图库是否相等、推理产物在不在、索引段数与向量数是否对齐、
+带坐标的地点够不够）。
 
 ## 用法
 
@@ -19,12 +24,18 @@
     python scripts/publish.py --version 20260927_v4 --yes         # 真跑
     python scripts/publish.py --version X --rebuild-pred --yes    # 连产物一起重放（慢，7 分钟）
     python scripts/publish.py --version X --with-eval --yes       # 含评测与 demo（要调大模型）
+    python scripts/publish.py --version X --skip coords --yes     # 明知没有坐标产物时跳过 ②b/②c
 
 ## 三组步骤
 
-    A 数据入库  ① 重放产物（仅 --rebuild-pred）② 导入 SQLite  ③ 同步 Neo4j
+    A 数据入库  ① 重放产物（仅 --rebuild-pred）② 导入 SQLite  ②b 重建坐标词典
+                ②c 回填地点坐标  ③ 同步 Neo4j
     B RAG 制品  ④ 导出快照  ⑤ 规则推理产物  ⑥ 建索引  ⑦ SBOM  ⑧ 血缘  ⑨ 制品清单  ⑩ 文档核对
     C 评测线    ⑪ 真实模型评测  ⑫ demo 清单（仅 --with-eval；评分需人工/AI 补，见下）
+
+坐标两步编号用 ②b/②c 而不是把后面整体 +2：既有的 ③~⑫ 被 README 与
+《项目审查与修复历史》引用（如"发布第 ③ 步照出两个真 bug"），不为了让编号连续去改历史记录。
+新增步骤时优先挑这种"插在语义相邻处"的编号，而不是重排。
 
 ## 评测线的两个人工口子
 
@@ -55,6 +66,14 @@ BATCH = "中国历代战争简史"
 ENTITY_TABLES = ("events", "places", "persons", "organizations")
 RELATION_TABLES = ("event_event_relations", "event_place_relations",
                    "event_person_relations", "event_organization_rel")
+
+#: 核对阶段要求的"带坐标地点数"下限。
+#
+# 语义是**挡住"整批丢失"**，不是质量门槛：2026-09-27 换代后 5527 个地点的坐标是 0 条，
+# 而这一步当时根本不存在（回填是导入之后手工跑的）。当前词典能覆盖约 4600 条，
+# 新地点要靠 `fetch_place_coords.py` 补抓（见 RAG/scripts/README.md 的坐标三步），
+# 换语料库规模明显变化时改这里。
+MIN_PLACES_WITH_COORD = 1000
 
 
 def say(msg: str = "") -> None:
@@ -128,6 +147,22 @@ def verify(version: str, with_eval: bool) -> bool:
     except Exception as exc:  # noqa: BLE001
         check("Neo4j 可达", False, f"{type(exc).__name__}: {exc}")
 
+    # 2b) 地点坐标（数）。坐标原先根本不在流程里，2026-09-27 换代后整批丢过一次
+    #     （5527 个地点 0 条坐标），页面上只剩后端内置的省/市中心点兜底。
+    con = sqlite3.connect(str(BACKEND / "database"))
+    try:
+        total_places = con.execute("SELECT COUNT(*) FROM places").fetchone()[0]
+        with_coord = con.execute(
+            "SELECT COUNT(*) FROM places WHERE longitude IS NOT NULL AND latitude IS NOT NULL"
+        ).fetchone()[0]
+    finally:
+        con.close()
+    check(f"带坐标地点 >= {MIN_PLACES_WITH_COORD} 条",
+          with_coord >= MIN_PLACES_WITH_COORD,
+          f"{with_coord}/{total_places}"
+          + ("" if with_coord >= MIN_PLACES_WITH_COORD
+             else "（跑 ②b/②c；新地点再用 fetch_place_coords.py 补抓）"))
+
     # 3) 快照齐备，且 count 与库一致
     snap = RAG / "data" / "snapshot" / version
     if (snap / "manifest.json").is_file():
@@ -192,6 +227,13 @@ def main() -> int:
     steps += [
         ("② 导入 SQLite（导的是发布子集 published/final.json）", "import",
          [PY, "import_json_to_sqlite.py", "--yes"], BACKEND),
+        # 坐标必须在 ② 之后：② 是"整表 DELETE 再插入"，穿插在它之前白做。
+        # 两步分开而不是合成一步：词典重建是"合并历次高德产物"，回填是"按名称键写回"，
+        # 出问题时能一眼看出是词典空了还是匹配没命中。
+        ("②b 重建坐标词典（合并历次高德产物为名称键）", "coord-dict",
+         [PY, "scripts/build_place_coord_dict.py"], RAG),
+        ("②c 回填地点坐标（写回 places 表）", "coords",
+         [PY, "scripts/apply_place_coords.py", "--yes"], RAG),
         ("③ 同步 Neo4j（全量）", "sync", [PY, "sync_sqlite_to_neo4j.py", "--mode", "full"], BACKEND),
         ("④ 导出 RAG 快照", "snapshot", [PY, "scripts/export_snapshot.py", "--version", version], RAG),
         ("⑤ 生成规则推理产物", "infer",

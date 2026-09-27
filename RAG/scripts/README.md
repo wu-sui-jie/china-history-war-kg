@@ -22,6 +22,8 @@
 | `check_vector_consistency.py` | 向量一致性：条数校验 + Chroma top-k 与暴力余弦 top-k 抽样重合率（下限 0.9） | F04/F11（RAGv5） |
 | `compare_chunking.py` | 分块参数对比实验：建索引变体 → 跑评测 → 汇总报告 | F11（RAGv5） |
 | `fetch_place_coords.py` | 批量获取高德坐标（复用旧项目编码器 + 断点续跑 + 配额保护 + 按（地名+省）去重） | F09/F07（RAGv5） |
+| `build_place_coord_dict.py` | 把历次高德产物合并成**按名称索引**的坐标词典（换代后 `place_id` 会错位，必须翻成名称键） | 发布 |
+| `apply_place_coords.py` | 按（名称+省/市/朝代）分层把词典回填进 `places` 表：同名歧义保护 + 未命中清单 | 发布 |
 | `build_lineage.py` | 数据血缘（`data/release/lineage.json`）+ `--check` 校验 schema 与 run→demo→runtime 一致性 | 发布 |
 | `audit_chroma_segments.py` | Chroma collection/segment 映射、孤儿目录审计、四方计数一致性（不一致即退出非零） | 发布 |
 | `build_artifact_manifest.py` | 制品清单 + `verify`（含逻辑哈希）/ `verify-sums`（标准物理 SHA256SUMS） | 发布 |
@@ -43,6 +45,13 @@ python scripts/build_index.py --no-embeddings              # 无向量密钥时�
 python scripts/build_index.py --vectors-only --version 20260915_v1   # 只补/重建向量（断点续跑，不重切分）
 python scripts/build_index.py --rebuild-chroma --version 20260915_v1 # 从 npy 审计副本重建 Chroma（不调云端）
 python scripts/run_pipeline.py                             # 一键全流程
+
+# 地点坐标三步（取 → 并词典 → 回填）；发布流程里是 ②b/②c，见 scripts/publish.py
+python scripts/build_place_coord_dict.py                  # 合并历次高德产物为名称键词典（自动挑带坐标的备份库）
+python scripts/apply_place_coords.py --dry-run            # 先看命中率（分层匹配 + 歧义保护）
+python scripts/apply_place_coords.py --yes                # 写回 places 表
+python scripts/fetch_place_coords.py --dry-run             # 只补"未命中清单"里的新地点（调 API，注意额度）
+python scripts/fetch_place_coords.py --limit 1000          # 抓完再跑上面两条，坐标就补上了
 
 # 在线服务（RAGv2，需 fastapi/uvicorn，见 RAG/requirements.txt）
 python scripts/run_server.py --port 8000 --version 20260915_v1   # SSE 问答服务（同源托管前端 dist）
@@ -73,3 +82,12 @@ python scripts/build_release_bundle.py --version 20260915_v1 --smoke-report logs
 - 脚本只做**编排**，业务逻辑在 `data/snapshot` / `data/index` 层，脚本保持薄。
 - 日志输出到控制台并追加 `logs/rag.log`。
 - 参数不足时打印帮助并退出非 0。
+- **地点坐标不在"导入"里，换代必须走上面那三步。** `backend/import_json_to_sqlite.py` 会先
+  `DELETE FROM places` 再按产物插入，而产物里**没有经纬度字段**（地点只有名称+行政区），
+  所以坐标只能在导入**之后**回填。旧链路是导入后手工跑一次旧项目的 `geocoding/import`，
+  它按 `place_id` 写库——而 `place_id` 是**旧库**主键，换代重导后全部错位（实测旧 id 268 是
+  "洛水"、新 id 268 是"大梁"），按 id 回写会写到错的地点上，所以本仓库改成"名称键词典 +
+  分层匹配"。2026-09-27 换代就是因为这一步不在流程里又没人发现：5527 个地点 **0 条坐标**，
+  4819 条高德坐标躺在磁盘上，地图页只剩后端内置的省/市中心点兜底（"可定位事件 130、
+  低置信坐标 55"就是这么来的）。现在它是 `scripts/publish.py` 的 ②b/②c 两步，
+  核对阶段还有 `MIN_PLACES_WITH_COORD` 兜底。

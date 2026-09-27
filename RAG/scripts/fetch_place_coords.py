@@ -1,19 +1,25 @@
-"""为旧库地点批量获取高德坐标（RAGv5 数据准备工具，复用旧项目 geocoding 编码器）。
+"""为当前主库的地点批量获取高德坐标（复用旧项目 geocoding 编码器）。
 
-为什么需要它：旧项目 `entity-event-relation/src/geocoding/` 已有完整工具链
+为什么需要它：旧项目 `entity-event-relation/war_extraction/geocoding/` 已有完整工具链
 （export → geocode → review → import），但其 `batch_geocode` **只在整批跑完才落盘、无断点续跑**，
 高德个人开发者日额度有限（地理编码 5000 次/日），中途中断等于白烧额度。本脚本只做两件事：
 
 1. **断点续跑**：每调用一条就追加写入 `coords_progress.jsonl`，中断后可继续；
 2. **配额保护**：命中"日额度/鉴权"类错误码立即停止并报告，不把剩余额度烧在必然失败的请求上。
 
-复用而不修改旧代码（只继承其 `AmapGeocoder` 取检索名/地址构造/会话），也不写旧库——
-写库仍走旧项目自己的 `import` 步骤（需用户确认后执行）。
+复用而不修改旧代码（只继承其 `AmapGeocoder` 取检索名/地址构造/会话）。
+
+**它只负责"取"，不负责"写"。** 取到的产物要经
+`build_place_coord_dict.py`（合并成名称键词典）与 `apply_place_coords.py`（回填 places）
+才真正进库——不要再回到旧项目那个按 `place_id` 写库的 `import`：换代重导之后主键全部
+错位（实测旧 id 268 是"洛水"，新 id 268 是"大梁"），按 id 回写会写错地方。
+完整的坐标三步（取 → 并词典 → 回填）见 `RAG/scripts/README.md`。
 
 用法：
   python scripts/fetch_place_coords.py --dry-run                # 看本轮会处理哪些（不调 API）
   python scripts/fetch_place_coords.py --limit 1000             # 跑 1000 条（默认）
   python scripts/fetch_place_coords.py --limit 1000 --retry-failed
+  python scripts/fetch_place_coords.py --input <未命中清单>      # 默认取 cache 下最新的 unmapped_places_*.json
 
 密钥：读取顺序 `AMAP_API_KEY` 环境变量 → `RAG/.env` 的 `AMAP_API_KEY` → `--api-key`
 （`.env` 已在 .gitignore 中，推荐写在那里；脚本永不打印密钥）。
@@ -28,7 +34,10 @@ import time
 from pathlib import Path
 
 RAG_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_GEOCODER_SRC = RAG_ROOT.parent / "entity-event-relation" / "src"
+# 编码器现在住在 `entity-event-relation/war_extraction/geocoding/`。早期它在 `src/` 下，
+# 目录重构后这里没跟着改，于是"补抓坐标"这条路一跑就报"未找到旧项目编码器"——
+# 坐标链路整体断掉的另一处（2026-09-27 换代时没人发现，因为这一步本来就不在流程里）。
+DEFAULT_GEOCODER_SRC = RAG_ROOT.parent / "entity-event-relation" / "war_extraction"
 CACHE_DIR = RAG_ROOT / "data" / "cache" / "amap"
 
 # 出现即停止：鉴权/权限/日额度类，继续跑只会继续失败
@@ -70,10 +79,15 @@ def _load_api_key(explicit: str | None, geocoder_src: Path) -> str:
 
 
 def _load_geocoder(src_dir: Path):
+    """导入编码器。`src_dir` 指向 `entity-event-relation/war_extraction`（包根）。
+
+    `geocode_amap` 用的是包内相对导入（`from .historical_places_mapping import ...`），
+    所以必须按包路径导入，不能把 `geocoding/` 直接塞进 sys.path。
+    """
     if not (src_dir / "geocoding" / "geocode_amap.py").exists():
-        raise SystemExit(f"未找到旧项目编码器：{src_dir / 'geocoding'}")
-    sys.path.insert(0, str(src_dir))
-    from geocoding.geocode_amap import AmapGeocoder  # noqa: PLC0415
+        raise SystemExit(f"未找到旧项目编码器：{src_dir / 'geocoding' / 'geocode_amap.py'}")
+    sys.path.insert(0, str(src_dir.parent))
+    from war_extraction.geocoding.geocode_amap import AmapGeocoder  # noqa: PLC0415
 
     return AmapGeocoder
 
