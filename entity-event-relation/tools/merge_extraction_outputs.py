@@ -86,10 +86,24 @@ def build_metadata(payloads: list, paths: list) -> dict:
         entry.update({field: meta.get(field) for field in PROVENANCE_FIELDS})
         entry["counts"] = _counts(payload)
         sources.append(entry)
+
+    # 把**各份一致**的来源字段提到顶层：`evaluate.py` 的 metadata 读的是顶层
+    # （`predictions.prompt_version` / `model` / `model_served`），不提上去就等于
+    # "这次评估用的是哪套提示词、哪个模型"在报告里变成 None——而这几项正是
+    # "指标必须与口径一起记"要记的东西。各份不一致时**不提**（宁缺勿错：混着两套
+    # 提示词的合并产物，写哪一个都是错的）。
+    hoisted = {}
+    for field in ("model", "model_served", "api_base", "prompt_version",
+                  "extraction_version", "git_commit"):
+        values = {entry.get(field) for entry in sources}
+        if len(values) == 1 and None not in values:
+            hoisted[field] = values.pop()
     return {
         "merged_from": sources,
         "note": "这是把多次子集抽取**合并**出来的预测，只用于把评估范围对齐到参考集的 dev/test；"
-                "不是一次独立运行的产物（`quality_report` 未重算）。",
+                "不是一次独立运行的产物（`quality_report` 未重算）。"
+                "下面几项来自各份一致的来源（不一致时不写，避免把两套口径混成一个）。",
+        **hoisted,
     }
 
 

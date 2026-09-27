@@ -628,3 +628,43 @@ def test_合并产物把三族列表首尾相接并逐份记来源(tmp_path):
     assert metadata["merged_from"][0]["model_served"] == "deepseek-flash"
     assert metadata["merged_from"][0]["counts"] == {"events": 1, "entities": 1, "relations": 1}
     assert all(len(e["sha256"]) == 64 for e in metadata["merged_from"]), "要记来源文件的哈希"
+
+
+def test_合并产物把各份一致的来源字段提到顶层(tmp_path):
+    """
+    `evaluate.py` 的 metadata 读**顶层**的 `prompt_version` / `model`：不提上去，
+    "这次评估用的是哪套提示词、哪个模型"在报告里就是 None——而那正是"指标必须与口径一起记"要记的。
+    各份**不一致**时不提（混着两套提示词的合并产物，写哪一个都是错的）。
+    """
+    import json as _json
+
+    from tools.merge_extraction_outputs import build_metadata
+
+    def payload(prompt_version, model="deepseek-flash"):
+        return {"metadata": {"prompt_version": prompt_version, "model": model,
+                             "model_served": model},
+                "entities": {"places": [], "organizations": [], "persons": []},
+                "events": {"events": [{"EventName": "甲"}], "metadata": {}},
+                "relations": {k: [] for k in ("event_place_relations",
+                                              "event_organization_relations",
+                                              "event_person_relations", "event_event_relations")}}
+
+    paths = []
+    for idx, pv in enumerate(("prompt-v2-A", "prompt-v2-A")):
+        path = tmp_path / f"same{idx}.json"
+        path.write_text(_json.dumps(payload(pv), ensure_ascii=False), encoding="utf-8")
+        paths.append(path)
+    same = [json.loads(p.read_text(encoding="utf-8")) for p in paths]
+    meta = build_metadata(same, paths)
+    assert meta["prompt_version"] == "prompt-v2-A", "各份一致就提到顶层"
+    assert meta["model_served"] == "deepseek-flash"
+    assert len(meta["merged_from"]) == 2, "逐份明细仍要保留"
+
+    mixed_paths = []
+    for idx, pv in enumerate(("prompt-v2-A", "prompt-v2-B")):
+        path = tmp_path / f"mixed{idx}.json"
+        path.write_text(_json.dumps(payload(pv), ensure_ascii=False), encoding="utf-8")
+        mixed_paths.append(path)
+    mixed = [json.loads(p.read_text(encoding="utf-8")) for p in mixed_paths]
+    mixed_meta = build_metadata(mixed, mixed_paths)
+    assert "prompt_version" not in mixed_meta, "不一致就不写——宁缺勿错"

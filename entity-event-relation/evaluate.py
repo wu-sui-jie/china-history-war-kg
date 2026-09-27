@@ -88,6 +88,10 @@ def build_eval_metadata(pred_path: Path, pred_data: dict, config_path: Path, eva
             "prompt_version": artifact_metadata.get("prompt_version"),
             "extraction_version": artifact_metadata.get("extraction_version"),
             "model": artifact_metadata.get("model"),
+            # `model_served` 是**服务端实际服务**的模型名，与请求名可能不同
+            # （实测把 `deepseek-chat` 路由到了 `deepseek-flash`）。只记请求名等于自证错信息，
+            # 所以它是"产物自证"里最该抄过来的一项之一。
+            "model_served": artifact_metadata.get("model_served"),
             "api_base": artifact_metadata.get("api_base"),
             "git_commit": artifact_metadata.get("git_commit"),
         },
