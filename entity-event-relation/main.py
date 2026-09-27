@@ -29,7 +29,11 @@ from war_extraction.models import (
 )
 from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
 from war_extraction.utils import EntityClassifier, Normalizer
-from war_extraction.utils.provenance import artifact_digest, generation_metadata
+from war_extraction.utils.provenance import (
+    artifact_digest,
+    content_digest,
+    generation_metadata,
+)
 from war_extraction.utils.publish_rules import is_overbroad_event, load_publish_rules
 from war_extraction.utils.vocabulary import (
     normalize_event_type,
@@ -1245,7 +1249,11 @@ def _write_artifact(path: Path, payload: dict) -> None:
     哈希覆盖"除该字段自身以外的全部内容"，所以读回来抠掉它就能自校验——
     "指标变了"时至少能确认被评估的确实是哪一份文件。
     """
-    payload.setdefault("metadata", {})["artifact_sha256"] = artifact_digest(payload)
+    # 顺序要紧：先把**与时间无关**的内容哈希写上，再算 `artifact_sha256`——
+    # 后者覆盖"除它自己之外的全部内容"，如果反过来写，读回来重算就会多出一个
+    # `content_sha256` 字段、自校验必然对不上（有用例钉着这条自校验）。
+    payload.setdefault("metadata", {})["content_sha256"] = content_digest(payload)
+    payload["metadata"]["artifact_sha256"] = artifact_digest(payload)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 

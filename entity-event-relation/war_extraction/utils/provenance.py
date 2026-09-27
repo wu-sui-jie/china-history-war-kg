@@ -23,6 +23,7 @@ __all__ = [
     "file_sha256",
     "git_commit",
     "artifact_digest",
+    "content_digest",
     "generation_metadata",
 ]
 
@@ -88,6 +89,33 @@ def artifact_digest(payload: Dict[str, Any]) -> str:
     metadata.pop("artifact_sha256", None)
     stripped["metadata"] = metadata
     canonical = json.dumps(stripped, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+#: `content_sha256` 覆盖的**内容段**：只数"抽出来的记录"。
+#: 不含 `metadata`（含时间戳、git 提交、模型与提示词版本——放进来就每次跑都不同，
+#: 而"换了提示词版本"本来就该由 `prompt_version` 说明，不该混进内容哈希）
+#: 也不含 `quality_report`（含 `generated_at`）。
+_CONTENT_SECTIONS = ("entities", "events", "relations")
+
+
+def content_digest(payload: Dict[str, Any]) -> str:
+    """
+    **只覆盖内容**的哈希：`entities` / `events` / `relations` 三段规范化后取 sha256。
+
+    它回答的问题是"**两次跑抽出来的记录是否一致**"，与 `artifact_digest` 分工不同：
+    后者是"这一份产物的整体自证"（口径是"除它自己之外的全部内容"，**含 `extracted_at`**，
+    所以两次跑必然不同），前者只认记录本身。
+
+    **为什么必须有它。** 没有它的时候，"内容有没有变"这个问题在产物指纹上**永远得到"变了"**——
+    2026-09-27 我就据此误判过一次"流水线有非确定性"（把两次产物逐条比过：实体/事件/四类关系的
+    列表**内容与顺序全部相同**，只有时间戳与 `artifact_sha256` 不同）。要区分"产物换代"与
+    "跑批抖动"，用的必须是这个哈希。
+    """
+    if not isinstance(payload, dict):
+        raise TypeError("content_digest 只接受顶层为 dict 的产物")
+    content = {section: payload.get(section) for section in _CONTENT_SECTIONS}
+    canonical = json.dumps(content, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 

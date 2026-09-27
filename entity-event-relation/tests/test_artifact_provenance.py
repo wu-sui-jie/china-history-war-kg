@@ -247,3 +247,26 @@ def test_全缓存重放时继承上一版产物的model_served(tmp_path):
     fresh = _with_inherited_model_served(result_dir, {"model_served": "另一个模型"})
     assert fresh["model_served"] == "另一个模型" and "model_served_inherited_from" not in fresh, \
         "本次有调用就不继承"
+
+
+def test_内容哈希与时间无关而产物哈希与时间有关():
+    """
+    `artifact_sha256` 覆盖"除它之外的全部内容"、**含 `extracted_at`**，所以两次跑（内容一模一样、
+    只是时间不同）的产物哈希必然不同——拿它回答"内容有没有变"**永远得到"变了"**。
+    2026-09-27 我就据此误判过一次"流水线有非确定性"（把两次产物逐条比过：实体/事件/四类关系的
+    列表**内容与顺序全部相同**，只有时间戳与那个哈希不同）。
+
+    所以要判"内容是否一致"、要区分"产物换代"与"跑批抖动"，用的必须是 `content_sha256`。
+    """
+    from war_extraction.utils.provenance import artifact_digest, content_digest
+
+    def payload(when, name="甲战"):
+        return {"events": {"events": [{"EventName": name}]},
+                "metadata": {"extracted_at": when}}
+
+    early, late = payload("2026-09-27 10:00:00"), payload("2026-09-27 11:00:00")
+    assert artifact_digest(early) != artifact_digest(late), "产物哈希含时间戳，两次必然不同（这正是坑）"
+    assert content_digest(early) == content_digest(late), "只差时间戳 → 内容哈希必须相同"
+
+    changed = payload("2026-09-27 10:00:00", name="乙战")
+    assert content_digest(early) != content_digest(changed), "内容变了必须能看出来"

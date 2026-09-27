@@ -233,6 +233,11 @@ def reduce_event_event_relations(
         grouped.setdefault(frozenset((name_a, name_b)), []).append(rel)
 
     reduced: List = []
+    # 遍历顺序不必额外定序：`grouped` 是 **dict**，Python 3.7+ 的 dict 保插入序，
+    # 而插入序就是下面 for 循环喂进来的顺序（= 抽取顺序，确定性）。frozenset 只是**键**，
+    # 它的哈希只影响桶位置、不影响遍历顺序——别被"键里带 frozenset"误导去加排序
+    # （2026-09-27 我就在这里误判过一次：以为它导致产物不可复现，实际那两次的差异来自
+    # metadata 里的时间戳，见 `项目审查与修复历史.md` §26）。
     for entries in grouped.values():
         directional = [rel for rel in entries if rel.relation in DIRECTIONAL_RELATION_TYPES]
         others = [rel for rel in entries if rel.relation not in DIRECTIONAL_RELATION_TYPES]
@@ -249,6 +254,8 @@ def reduce_event_event_relations(
                     unresolved.append(rel)
             if resolved_pairs:
                 # 方向判得出来：这一对只留一条，取优先级最高（同优先级取证据更长）的
+                # 平局取"先遇到的"——**上面那处定序遍历保证了这个"先"与进程哈希无关**，
+                # 所以不必再加别的平局判据（加了反而会改掉既有语义，有用例钉着"取前一条"）。
                 best = max(
                     resolved_pairs,
                     key=lambda r: (TYPE_PRIORITY.get(r.relation, 0), len(r.evidence or "")),
