@@ -1,55 +1,99 @@
 {
-  "source_path": "entity-event-relation/output/中国历代战争简史/9_final_all.json",
+  "source_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
   "source_kind": "final_json",
   "metadata": {
-    "extracted_at": "2026-08-18 03:37:13 +08:00",
+    "extracted_at": "2026-09-27 14:08:28 +08:00",
     "extraction_version": "extraction-v2-20260420",
-    "prompt_version": "prompt-v2-20260420",
+    "prompt_version": "prompt-v2-20260420+1228b39b",
     "input_file": "data\\中国历代战争简史.txt",
-    "text_length": 306730
+    "text_length": 306730,
+    "text_cleaning": {
+      "input_length": 306730,
+      "invisible_chars_removed": 0,
+      "soft_line_breaks_merged": 9136,
+      "ocr_fixes_applied": 0,
+      "output_length": 297594,
+      "enabled": true
+    },
+    "model": "deepseek-flash",
+    "model_served": "deepseek-flash",
+    "thinking_mode": "disabled",
+    "api_base": "https://api.deepseek.com/v1",
+    "model_served_inherited_from": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+    "temperature": {
+      "entity_extraction": 0.1,
+      "event_identification": 0.2,
+      "full_event": 0.1,
+      "relation_extraction": 0.1
+    },
+    "seed": null,
+    "git_commit": "b312aea",
+    "content_sha256": "a4d27576b4f4183aecbd7255ce45f251ff9d6b2d46cbadd0bd2fd06494d0d65f",
+    "artifact_sha256": "55c4b7be3d9b210103791f8f8e63f7c30ead536604c4e047809ca53555a53738"
   },
   "quality_report": {
-    "generated_at": "2026-08-18 03:37:13 +08:00",
+    "generated_at": "2026-09-27 14:08:28 +08:00",
     "extraction_version": "extraction-v2-20260420",
-    "prompt_version": "prompt-v2-20260420",
+    "prompt_version": "prompt-v2-20260420+1228b39b",
     "counts": {
-      "places": 5316,
-      "persons": 2492,
-      "organizations": 1067,
-      "events": 1050,
-      "relations": 18146,
-      "embedded_event_relations": 995
+      "places": 5527,
+      "persons": 2562,
+      "organizations": 1021,
+      "events": 1313,
+      "relations": 16500,
+      "embedded_event_relations": 966
     },
     "missing_source_text": {
       "places": 0,
       "persons": 0,
       "organizations": 0,
-      "events": 0
+      "events": 1
     },
     "missing_evidence": {
       "relations": 0
     },
     "diagnostics": {
-      "event_event_relations": 914,
-      "events_with_embedded_relations": 826,
-      "duplicate_event_names": 22,
+      "event_event_relations": 1088,
+      "events_with_embedded_relations": 916,
+      "duplicate_event_names": 115,
       "duplicate_org_names": 0,
       "duplicate_person_names": 0,
       "summary_like_events": 0,
-      "identified_event_count": 1050,
-      "final_event_count": 1050,
-      "event_count_expansion": 0,
-      "missing_event_count": 0,
-      "postprocess_filtered_count": 0,
-      "postprocess_merged_count": 0
+      "identified_event_count": 1354,
+      "final_event_count": 1313,
+      "event_count_expansion": -14,
+      "missing_event_count": 41,
+      "postprocess_filtered_count": 17,
+      "postprocess_merged_count": 0,
+      "enum_out_values": {
+        "OrgType": 0,
+        "Role": 2,
+        "EventType": 2,
+        "event_place_relations": 3,
+        "event_organization_relations": 1,
+        "event_person_relations": 2,
+        "event_event_relations": 0
+      },
+      "dangling_relations_dropped": {
+        "event_place_relations": 39,
+        "event_organization_relations": 4,
+        "event_person_relations": 20,
+        "event_event_relations": 17,
+        "empty_name_or_relation": 0,
+        "empty_evidence": 1,
+        "placeholder_target": 0,
+        "target_not_found": 80
+      },
+      "event_event_relations_outside_enum": 0,
+      "relation_degraded_stages": 0,
+      "moved_to_candidate_by_enum": null
     }
   },
   "sqlite_counts": {
-    "events": 1050,
-    "places": 5316,
-    "organizations": 1067,
-    "persons": 2492,
-    "relations": 17700
-  },
-  "source_path_note": "原值指向已废弃的 debug-debug 仓库绝对路径；2026-09-21 数据整理时改为仓库内相对路径。下次运行 import_json_to_sqlite.py 会按当时的数据源重写本文件。"
+    "events": 1313,
+    "places": 5527,
+    "organizations": 1021,
+    "persons": 2562,
+    "relations": 16492
+  }
 }
