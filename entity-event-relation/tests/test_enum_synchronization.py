@@ -310,7 +310,15 @@ def test_产物事件类型都落在RAG标准词典里():
     used = {(event.get("EventType") or "").strip() for event in events
             if (event.get("EventType") or "").strip()}
 
-    missing = sorted(used - standard)
+    # 已登记的例外要扣掉，**与门禁扣减共用同一份表**（`artifact_health_check.KNOWN_ENUM_EXCEPTIONS`）——
+    # 否则会出现"门禁认例外、守卫不认"的两套口径。当前登记的 `交战` 是模型把 `Action` 的值
+    # 抄进了 `EventType`（那两条的 Action 也都是「交战」），判定（2026-09-27）是不加进枚举与词典：
+    # 它是动作词，不是事件类型。
+    from tools.artifact_health_check import KNOWN_ENUM_EXCEPTIONS
+
+    registered = {key.partition("/")[2] for key in KNOWN_ENUM_EXCEPTIONS
+                  if key.startswith("EventType/")}
+    missing = sorted(used - standard - registered)
     assert not missing, (
         f"产物里有 {len(missing)} 个 EventType 不在 RAG 标准词典里：{missing}。\n"
         "该决定「扩词典」还是「改数据」——方向已定：以权威表"

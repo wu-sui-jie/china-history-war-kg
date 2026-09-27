@@ -79,6 +79,34 @@ RELATION_CATEGORIES = {
 #: 会让下一个人反复去查同一件事。这里登记已确认的例外；`--baseline` 比对照旧生效
 #: （它比增减、不比零），报告里则能一眼看出"这个 1 是什么、为什么留着"。
 KNOWN_ENUM_EXCEPTIONS = {
+    # —— 2026-09-27 第三阶段整本重跑后新登记的一批（判定：不加入枚举，保留 raw、由候选区挡住）——
+    "event_place_relations/同盟方": (
+        "模型把**组织**关系名写进了事件-地点关系：`商汤灭夏之战 —[同盟方]→ 薛`、`→ 有莘氏` 共 2 条。"
+        "根子在**目标实体类型**：`薛`/`有莘氏` 是方国/部落（组织）却被记成了地点，于是组织关系名"
+        "只能挂到地点类别下（同一段历史里 `同盟方` 用在事件-组织上是对的）。**不加进地点关系枚举**"
+        "——那等于承认一个错的语义。实测发布子集里 0 条。"
+    ),
+    "event_place_relations/支援地": (
+        "新造的关系名：`郑成功收复台湾之战 —[支援地]→ 巴达维亚` 1 条。地点关系里已有"
+        "`补给地`/`驻防地` 一类语义，再收 `支援地` 就是在枚举边上开新口子；留 raw、不进发布子集。"
+    ),
+    "event_organization_relations/驻防地": (
+        "`辽东之战 —[驻防地]→ 征清大总督府` 1 条：`驻防地` 是**地点**关系名，却挂到了事件-组织上"
+        "（组织不可能是「驻防地」）。与 `指挥所` 同一形态：模型误分类。不加进组织关系枚举。"
+    ),
+    "event_person_relations/自杀": (
+        "`北仓杨村之战 —[自杀]→ 裕禄`、`河西务之战 —[自杀]→ 李秉衡` 共 2 条。人物关系枚举里有"
+        "`阵亡`；`自杀` 是**死法、不是关系**。不加进枚举（那会开一个没有边界的新枚举口子）。"
+    ),
+    "Role/地方势力": (
+        "`刘琨`、`曹疑`（西晋）的 `Role` 填了 `地方势力`——那是 **OrgType 的取值**，属字段混用。"
+        "人物角色枚举里没有它，也不该有（角色不是势力类型）。实测发布子集里 0 条。"
+    ),
+    "EventType/交战": (
+        "`赤眉军击败景尚、王党之战`、`赤眉军全歼王匡、廉丹之战` 的 `EventType` 填了 `交战`："
+        "这两条的 `Action` 也都是「交战」，即模型把**动作值抄进了类型字段**。判定（2026-09-27）："
+        "不把 `交战` 加进枚举与 RAG 词典（它是动作词，不是事件类型）。实测发布子集里 0 条。"
+    ),
     "event_organization_relations/指挥所": (
         "LLM 把地点关系名写进了事件-组织关系：实测 1 条 `辽东半岛战役 —[指挥所]→ 征清大总督府`。"
         "组织不可能是「指挥所」，属模型误分类；**不把 `指挥所` 加进组织关系枚举**"
@@ -835,7 +863,7 @@ def build_report(pred_path: Path, annotation_dir: Path = None) -> dict:
     }
 
 
-def _known_exception_count(report: dict) -> int:
+def _known_exception_count(report: dict, categories=None) -> int:
     """
     报告里**已登记**的枚举外例外条数（按 `类别/取值` 键逐条匹配）。
 
@@ -847,6 +875,8 @@ def _known_exception_count(report: dict) -> int:
     total = 0
     for key in KNOWN_ENUM_EXCEPTIONS:
         category, _, value = key.partition("/")
+        if categories is not None and category not in categories:
+            continue
         outside = ((report.get("enum_values") or {}).get(category) or {}).get("outside_enum") or {}
         if value in outside:
             total += 1
@@ -872,14 +902,18 @@ def _placeholder_gate(report: dict) -> int:
 
 #: 可以当门禁的绝对数字（越小越好）。键是取自报告的取值路径。
 _GATE_PATHS = [    ("悬空边（归一）", lambda r: sum(v["normalized_dangling"] for v in r["dangling_relations"].values())),
-    ("枚举外 OrgType", lambda r: len(r["enum_values"]["OrgType"]["outside_enum"])),
-    ("枚举外 Role", lambda r: len(r["enum_values"]["Role"]["outside_enum"])),
-    ("枚举外 EventType", lambda r: len(r["enum_values"]["EventType"]["outside_enum"]) + r["enum_values"]["EventType"]["empty"]),
+    ("枚举外 OrgType", lambda r: len(r["enum_values"]["OrgType"]["outside_enum"])
+                             - _known_exception_count(r, {"OrgType"})),
+    ("枚举外 Role", lambda r: len(r["enum_values"]["Role"]["outside_enum"])
+                           - _known_exception_count(r, {"Role"})),
+    ("枚举外 EventType", lambda r: len(r["enum_values"]["EventType"]["outside_enum"])
+                                - _known_exception_count(r, {"EventType"})
+                                + r["enum_values"]["EventType"]["empty"]),
     # 扣掉已登记的例外（`KNOWN_ENUM_EXCEPTIONS`，逐键匹配）。不扣的话这项**恒 ≥ 1**
     # ——`指挥所` 是已确认不打算修的那一条——而一个永远非零的门禁项只会让下一个人
     # 反复去查同一件事。扣减只影响门禁值与比对照，报告里仍会把例外点名列出。
     ("枚举外关系名", lambda r: sum(len(r["enum_values"][key]["outside_enum"]) for key in RELATION_CATEGORIES)
-                             - _known_exception_count(r)),
+                             - _known_exception_count(r, set(RELATION_CATEGORIES))),
     ("重复行合计", lambda r: sum(r["duplicates"].values())),
     ("残缺年份", lambda r: r["residual_years"]["count"]),
     ("方向与时间矛盾", lambda r: r["direction_vs_time"]["count"]),
@@ -931,10 +965,12 @@ def print_report(report: dict) -> None:
         item = report["enum_values"][key]
         print(f"  {key}: {item['total']} 条，枚举外 {item['outside_enum']}")
     # 把"已知例外"指出来：报告里出现某个固定数字时，先看它是不是已登记的那个
+    # 四类都要点：只列关系类的话，登记在 `Role`/`EventType`/`OrgType` 上的例外就成了
+    # "门禁扣了、报告不说"——那正是这张表要避免的事（门禁扣减的意义是"别让人反复查同一件事"）。
     current_exceptions = {
         f"{key}/{value}"
-        for key in RELATION_CATEGORIES
-        for value in report["enum_values"][key]["outside_enum"]
+        for key in list(RELATION_CATEGORIES) + ["OrgType", "Role", "EventType"]
+        for value in (report["enum_values"].get(key) or {}).get("outside_enum") or {}
     }
     known = set(report.get("known_enum_exceptions") or {})
     if current_exceptions:

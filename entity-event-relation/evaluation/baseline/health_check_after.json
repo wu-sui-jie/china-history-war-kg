@@ -1,205 +1,189 @@
 {
   "source": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
-  "source_sha256": "885b0d9ec340a50b151a42ba16a1b883cf2a7fff5147bac49259cbd9fcc4e559",
+  "source_sha256": "1e90474a7f093b0ad7ef3be147de01c8edcd0018135dbf3492c25f085a026a90",
   "counts": {
-    "events": 1050,
-    "places": 5316,
-    "persons": 2492,
-    "organizations": 1067,
-    "relations": 18146
+    "events": 1313,
+    "places": 5527,
+    "persons": 2562,
+    "organizations": 1021,
+    "relations": 16670
   },
   "dangling_relations": {
     "event-place": {
-      "exact_dangling": 63,
-      "normalized_dangling": 27,
+      "exact_dangling": 1,
+      "normalized_dangling": 0,
       "samples": [
-        "周文王东征",
-        "周文王东征",
-        "周文王东征",
-        "周文王东征",
-        "周文王东征"
+        "前秦灭代"
       ]
     },
     "event-organization": {
-      "exact_dangling": 36,
-      "normalized_dangling": 17,
+      "exact_dangling": 2,
+      "normalized_dangling": 0,
       "samples": [
-        "周文王东征",
-        "周文王东征",
-        "周文王东征",
-        "周文王东征",
-        "昭王南征"
+        "前秦灭代",
+        "前秦灭代"
       ]
     },
     "event-person": {
-      "exact_dangling": 53,
-      "normalized_dangling": 10,
+      "exact_dangling": 4,
+      "normalized_dangling": 0,
       "samples": [
-        "周文王东征",
-        "昭王南征",
-        "周文王东征",
-        "昭王南征",
-        "昭王南征"
+        "前秦灭代",
+        "前秦灭代",
+        "前秦灭代",
+        "前秦灭代"
       ]
     },
     "event-event": {
-      "exact_dangling": 8,
+      "exact_dangling": 1,
       "normalized_dangling": 0,
       "samples": [
-        "冯异平定关中",
-        "刘裕灭后秦之战",
-        "刘裕灭后秦之战",
-        "刘裕灭后秦之战",
-        "北周南伐"
+        "前秦灭代"
       ]
     }
   },
   "enum_values": {
     "OrgType": {
-      "total": 1067,
+      "total": 1021,
       "outside_enum": {},
       "distribution": {
-        "国家": 235,
-        "地方势力": 186,
-        "军事势力": 181,
-        "部落": 160,
-        "军队": 117,
-        "起义军": 95,
-        "中央政权": 45,
-        "联盟": 41,
-        "革命组织": 5,
-        "方国": 2
+        "军队": 255,
+        "军事势力": 191,
+        "国家": 177,
+        "部落": 157,
+        "起义军": 63,
+        "地方势力": 58,
+        "方国": 46,
+        "联盟": 35,
+        "中央政权": 34,
+        "革命组织": 5
       }
     },
     "Role": {
-      "total": 2492,
-      "outside_enum": {},
+      "total": 2562,
+      "outside_enum": {
+        "地方势力": 2
+      },
       "distribution": {
-        "将领": 1291,
-        "君主": 525,
-        "统帅": 454,
-        "谋士": 137,
-        "使者": 40,
-        "参战者": 35,
-        "关键人物": 7,
-        "监军": 1,
-        "首领": 1,
-        "领袖": 1
+        "将领": 1078,
+        "统帅": 520,
+        "君主": 448,
+        "首领": 168,
+        "关键人物": 160,
+        "谋士": 122,
+        "使者": 44,
+        "领袖": 9,
+        "监军": 9,
+        "参战者": 2,
+        "地方势力": 2
       }
     },
     "EventType": {
-      "total": 1050,
-      "empty": 4,
-      "outside_enum": {},
+      "total": 1313,
+      "empty": 0,
+      "outside_enum": {
+        "交战": 2
+      },
       "distribution": {
-        "统一战争": 183,
-        "对外远征": 163,
-        "边境防御": 144,
-        "战略要地守卫": 128,
-        "镇压叛乱": 113,
-        "农民起义": 66,
+        "统一战争": 237,
+        "战略进攻": 202,
+        "战略要地守卫": 143,
+        "对外远征": 118,
+        "边境防御": 97,
+        "镇压叛乱": 85,
+        "诸侯争霸": 72,
+        "伏击战": 64,
+        "农民起义": 56,
         "开疆拓土": 39,
-        "首都保卫战": 39,
-        "军阀割据": 39,
-        "联军讨伐": 27,
-        "战争": 16,
-        "贵族叛乱": 16,
-        "少数民族反叛": 16,
-        "诸侯联盟": 16,
-        "皇位争夺": 10,
-        "藩镇混战": 10,
-        "": 4,
+        "首都保卫战": 38,
+        "军阀混战": 31,
+        "追击战": 28,
+        "藩镇混战": 25,
+        "诸侯联盟": 19,
+        "皇位争夺": 12,
+        "联军讨伐": 12,
+        "贵族叛乱": 7,
+        "军阀割据": 6,
+        "少数民族反叛": 6,
         "割据政权建立": 4,
-        "叛乱": 4,
-        "兵变": 4,
-        "军阀混战": 2,
-        "宫廷政变": 1,
-        "诸侯争霸": 1,
-        "伏击战": 1,
-        "战略进攻": 1,
-        "政治事件": 1,
-        "议和": 1,
-        "追击战": 1
+        "战争": 3,
+        "宫廷政变": 2,
+        "交战": 2,
+        "兵变": 2,
+        "叛乱": 1,
+        "军事改革": 1,
+        "突围战": 1
       }
     },
     "event_place_relations": {
-      "total": 6922,
-      "outside_enum": {},
+      "total": 5696,
+      "outside_enum": {
+        "同盟方": 2,
+        "支援地": 1
+      },
       "distribution": {
-        "次要战场": 2132,
-        "主战场": 1758,
-        "战略要地": 842,
-        "目的地": 814,
-        "途经地": 446,
-        "驻防地": 304,
-        "出发地": 263,
-        "议和地点": 233,
-        "补给地": 89,
-        "指挥所": 23,
-        "退守地": 3,
-        "登陆地": 3,
-        "会师地": 2,
-        "撤退地": 2,
-        "出边地": 2,
-        "集结地": 2,
-        "会师地点": 1,
-        "逃亡地": 1,
-        "伏击地": 1,
-        "终点": 1
+        "主战场": 2199,
+        "目的地": 927,
+        "次要战场": 796,
+        "途经地": 658,
+        "驻防地": 397,
+        "出发地": 344,
+        "战略要地": 261,
+        "指挥所": 50,
+        "补给地": 32,
+        "议和地点": 29,
+        "同盟方": 2,
+        "支援地": 1
       }
     },
     "event_organization_relations": {
-      "total": 3692,
+      "total": 3564,
       "outside_enum": {
-        "指挥所": 1
+        "驻防地": 1
       },
       "distribution": {
-        "防守方": 1314,
-        "发起方": 1230,
-        "投降方": 267,
-        "支援方": 208,
-        "参战方": 207,
-        "同盟方": 199,
-        "被俘方": 189,
-        "议和方": 75,
-        "调停方": 2,
-        "指挥所": 1
+        "发起方": 1478,
+        "防守方": 1455,
+        "支援方": 210,
+        "同盟方": 137,
+        "参战方": 131,
+        "投降方": 97,
+        "被俘方": 33,
+        "议和方": 22,
+        "驻防地": 1
       }
     },
     "event_person_relations": {
-      "total": 6618,
-      "outside_enum": {},
+      "total": 6322,
+      "outside_enum": {
+        "自杀": 2
+      },
       "distribution": {
-        "统帅": 3016,
-        "将领": 1578,
-        "参与者": 781,
-        "君主": 634,
-        "阵亡": 156,
-        "谋士": 155,
-        "投降": 81,
-        "俘虏": 72,
-        "使者": 51,
-        "防守方": 44,
-        "叛变": 27,
-        "可汗": 9,
-        "发起方": 5,
-        "被俘": 3,
-        "防守方统帅": 2,
-        "同盟方": 1,
-        "向导": 1,
-        "监督": 1,
-        "支援方": 1
+        "将领": 3628,
+        "参与者": 976,
+        "君主": 401,
+        "统帅": 327,
+        "阵亡": 242,
+        "投降": 194,
+        "谋士": 179,
+        "俘虏": 166,
+        "叛变": 99,
+        "使者": 79,
+        "发起方": 14,
+        "可汗": 8,
+        "防守方": 5,
+        "同盟方": 2,
+        "自杀": 2
       }
     },
     "event_event_relations": {
-      "total": 914,
+      "total": 1088,
       "outside_enum": {},
       "distribution": {
-        "顺承关系": 798,
-        "并列关系": 47,
-        "因果关系": 40,
-        "包含关系": 28,
-        "条件关系": 1
+        "顺承关系": 790,
+        "并列关系": 188,
+        "包含关系": 77,
+        "因果关系": 33
       }
     }
   },
@@ -214,38 +198,44 @@
     "samples": []
   },
   "placeholder_as_value": {
-    "total_events": 1050,
+    "total_events": 1313,
     "placeholder_rows": {
-      "TroopSize": 629,
-      "Duration": 585,
-      "Casualties": 657,
-      "GeographicScope": 6,
-      "Result": 19,
-      "Place": 1
+      "TroopSize": 768,
+      "Duration": 802,
+      "Casualties": 798,
+      "GeographicScope": 15,
+      "Result": 35,
+      "Place": 14
     }
   },
   "party_not_org": {
-    "total_party_values": 2368,
-    "person_as_party": 241,
-    "place_as_party": 14,
-    "total": 255,
-    "ratio": 0.10768581081081081,
-    "events_affected": 164,
+    "total_party_values": 3080,
+    "person_as_party": 295,
+    "place_as_party": 19,
+    "total": 314,
+    "ratio": 0.10194805194805195,
+    "events_affected": 199,
     "per_field": {
       "Aggressor": {
-        "person": 122,
-        "place": 0
+        "person": 150,
+        "place": 4
       },
       "Defender": {
-        "person": 119,
-        "place": 14
+        "person": 145,
+        "place": 15
       }
     },
     "samples": [
       {
-        "EventName": "神农斧隧之战",
+        "EventName": "启杀益夺位之战",
         "field": "Aggressor",
-        "value": "神农氏",
+        "value": "启",
+        "kind": "person"
+      },
+      {
+        "EventName": "启杀益夺位之战",
+        "field": "Defender",
+        "value": "益",
         "kind": "person"
       },
       {
@@ -261,369 +251,405 @@
         "kind": "person"
       },
       {
-        "EventName": "周武王灭商牧野之战",
-        "field": "Aggressor",
-        "value": "周武王",
-        "kind": "person"
-      },
-      {
-        "EventName": "周武王灭商牧野之战",
-        "field": "Defender",
-        "value": "商纣王",
-        "kind": "person"
-      },
-      {
-        "EventName": "舜、禹对三苗之战",
-        "field": "Aggressor",
-        "value": "舜",
-        "kind": "person"
-      },
-      {
-        "EventName": "启与伯益之战",
+        "EventName": "启建立夏王朝的战争",
         "field": "Aggressor",
         "value": "伯益",
         "kind": "person"
       },
       {
-        "EventName": "启与伯益之战",
+        "EventName": "启伐伯益之战",
         "field": "Defender",
-        "value": "启",
+        "value": "伯益",
         "kind": "person"
       },
       {
-        "EventName": "后羿攻夏之战",
+        "EventName": "后羿袭夏之战",
         "field": "Aggressor",
         "value": "后羿",
         "kind": "person"
       },
       {
-        "EventName": "后羿攻夏之战",
+        "EventName": "后羿袭夏之战",
         "field": "Defender",
         "value": "太康",
+        "kind": "person"
+      },
+      {
+        "EventName": "少康复国之战",
+        "field": "Aggressor",
+        "value": "少康",
+        "kind": "person"
+      },
+      {
+        "EventName": "少康复国之战",
+        "field": "Aggressor",
+        "value": "靡",
         "kind": "person"
       }
     ]
   },
   "weak_result": {
-    "total_events": 1050,
-    "placeholder": 19,
+    "total_events": 1313,
+    "placeholder": 35,
     "weak_token": 7,
-    "undecidable": 26,
-    "ratio": 0.024761904761904763,
+    "undecidable": 42,
+    "ratio": 0.03198781416603199,
     "samples": [
       {
         "EventName": "神农斧隧之战",
         "Result": "不详"
       },
       {
-        "EventName": "武丁征讨鬼方之战",
-        "Result": "不详"
-      },
-      {
         "EventName": "武丁南征荆楚",
-        "Result": "商朝获胜，势力南至长江流域"
+        "Result": "商获胜，商朝势力南至长江流域"
       },
       {
-        "EventName": "穆王东征北伐",
+        "EventName": "穆王东征徐夷",
         "Result": "不详"
       },
       {
-        "EventName": "穆王东征徐夷之战",
+        "EventName": "尹吉甫攻俨允",
+        "Result": "周军获胜，暂时控制了局势"
+      },
+      {
+        "EventName": "方叔征荆蛮",
+        "Result": "周军获胜，暂时控制了局势"
+      },
+      {
+        "EventName": "穆公攻淮夷",
+        "Result": "周军获胜，暂时控制了局势"
+      },
+      {
+        "EventName": "秦仲五子伐西戎",
+        "Result": "周军获得一些胜利，暂时控制了局势"
+      },
+      {
+        "EventName": "宣王攻徐戎",
+        "Result": "周军获得一些胜利，暂时控制了局势"
+      },
+      {
+        "EventName": "王宫之战",
         "Result": "不详"
       },
       {
-        "EventName": "尹吉甫攻俨允之战",
-        "Result": "周军获胜，暂时控制局势"
-      },
-      {
-        "EventName": "宣王攻徐戎之战",
-        "Result": "周军获胜，暂时控制局势"
-      },
-      {
-        "EventName": "秦晋伐郑之战",
-        "Result": "不详"
-      },
-      {
-        "EventName": "吴伐齐之战",
-        "Result": "吴国派舟师从海上伐齐，具体结果不详"
-      },
-      {
-        "EventName": "齐伐魏观津之战",
+        "EventName": "令狐之战",
         "Result": "不详"
       }
     ]
   },
   "containment_vs_time": {
-    "relations_total": 28,
-    "comparable": 28,
-    "contradictions": 10,
+    "relations_total": 77,
+    "comparable": 76,
+    "contradictions": 21,
     "samples": [
       {
-        "EventName_A": "平阳会战",
+        "EventName_A": "东峡石谷之战",
         "span_a": [
-          576,
-          576
+          697,
+          697
         ],
-        "EventName_B": "宇文邕第二次伐齐",
+        "EventName_B": "契丹反唐攻陷营州",
         "span_b": [
-          576,
+          696,
+          697
+        ]
+      },
+      {
+        "EventName_A": "契丹寇幽州及赵州之战",
+        "span_a": [
+          697,
+          697
+        ],
+        "EventName_B": "契丹反唐攻陷营州",
+        "span_b": [
+          696,
+          697
+        ]
+      },
+      {
+        "EventName_A": "岳飞北伐中原之战",
+        "span_a": [
+          1136,
+          1136
+        ],
+        "EventName_B": "郾城之战",
+        "span_b": [
+          1140,
+          1140
+        ]
+      },
+      {
+        "EventName_A": "岳飞北伐中原之战",
+        "span_a": [
+          1136,
+          1136
+        ],
+        "EventName_B": "颍昌之战",
+        "span_b": [
+          1140,
+          1140
+        ]
+      },
+      {
+        "EventName_A": "巨鹿之战",
+        "span_a": [
+          -207,
+          -207
+        ],
+        "EventName_B": "刘邦项羽灭秦之战",
+        "span_b": [
+          -209,
+          -206
+        ]
+      },
+      {
+        "EventName_A": "平阳之战",
+        "span_a": [
+          -234,
+          -234
+        ],
+        "EventName_B": "北周灭北齐之战",
+        "span_b": [
+          577,
           577
         ]
       },
       {
-        "EventName_A": "洛阳之战",
+        "EventName_A": "晋阳之战",
         "span_a": [
-          618,
-          618
+          -201,
+          -201
         ],
-        "EventName_B": "虎牢之战",
+        "EventName_B": "北周灭北齐之战",
         "span_b": [
-          621,
-          621
+          577,
+          577
         ]
       },
       {
-        "EventName_A": "金军第一次南下攻宋",
+        "EventName_A": "檀道济历城南撤之战",
         "span_a": [
-          1127,
-          1128
+          430,
+          430
         ],
-        "EventName_B": "东京保卫战",
+        "EventName_B": "刘义隆第一次北伐",
         "span_b": [
-          1126,
-          1126
+          430,
+          431
         ]
       },
       {
-        "EventName_A": "东京保卫战",
+        "EventName_A": "清军东线平耿精忠之战",
         "span_a": [
-          1126,
-          1126
+          1676,
+          1676
         ],
-        "EventName_B": "金军第一次南下攻宋",
+        "EventName_B": "三藩之乱",
         "span_b": [
-          1127,
-          1128
+          1673,
+          1681
         ]
       },
       {
-        "EventName_A": "十三翼之战",
+        "EventName_A": "秦攻赵之战",
         "span_a": [
-          1189,
-          1189
+          -236,
+          -229
         ],
-        "EventName_B": "铁木真统一蒙古之战",
+        "EventName_B": "秦攻赵邯郸之战",
         "span_b": [
-          1179,
-          1206
-        ]
-      },
-      {
-        "EventName_A": "元攻宋之战",
-        "span_a": [
-          1274,
-          1276
-        ],
-        "EventName_B": "崖山之战",
-        "span_b": [
-          1279,
-          1279
-        ]
-      },
-      {
-        "EventName_A": "明后金辽东争夺战",
-        "span_a": [
-          1618,
-          1626
-        ],
-        "EventName_B": "松山之战",
-        "span_b": [
-          1640,
-          1642
-        ]
-      },
-      {
-        "EventName_A": "明后金辽东争夺战",
-        "span_a": [
-          1618,
-          1626
-        ],
-        "EventName_B": "锦州之战",
-        "span_b": [
-          1641,
-          1642
-        ]
-      },
-      {
-        "EventName_A": "平壤之战",
-        "span_a": [
-          1894,
-          1894
-        ],
-        "EventName_B": "中日甲午战争",
-        "span_b": [
-          1894,
-          1895
-        ]
-      },
-      {
-        "EventName_A": "安庆解围战",
-        "span_a": [
-          1861,
-          1861
-        ],
-        "EventName_B": "安庆保卫战",
-        "span_b": [
-          1860,
-          1861
+          -259,
+          -257
         ]
       }
     ]
   },
   "supreme_commander_claims": {
-    "events_with_claim": 977,
-    "events_with_multiple": 698,
-    "ratio": 0.714431934493347,
-    "max": 17,
+    "events_with_claim": 284,
+    "events_with_multiple": 38,
+    "ratio": 0.13380281690140844,
+    "max": 4,
     "top": [
       [
-        "平定三藩之乱",
-        17
+        "隋灭陈之战",
+        4
       ],
       [
-        "安庆保卫战",
-        17
+        "唐军再攻洛阳之战",
+        3
       ],
       [
-        "赤壁之战",
-        16
+        "清军进攻关中李自成之战",
+        3
       ],
       [
-        "襄樊之战",
-        14
+        "武丁南征荆楚",
+        2
       ],
       [
-        "元攻宋之战",
-        14
+        "周公东征",
+        2
       ]
     ]
   },
   "undecidable_direction": {
-    "relations_total": 798,
-    "decided_by_evidence": 14,
-    "decided_by_year": 507,
-    "undecidable": 277,
-    "undecidable_ratio": 0.34711779448621555,
+    "relations_total": 790,
+    "decided_by_evidence": 10,
+    "decided_by_year": 427,
+    "undecidable": 353,
+    "undecidable_ratio": 0.4468354430379747,
     "samples": [
       {
-        "EventName_A": "周武王灭商牧野之战",
-        "EventName_B": "鸣条之战",
+        "EventName_A": "丁家州之战",
+        "EventName_B": "元军三路攻临安之战",
+        "year_a": 1275,
+        "year_b": 1275
+      },
+      {
+        "EventName_A": "三河之战",
+        "EventName_B": "太平军攻克舒城、桐城之战",
+        "year_a": 1858,
+        "year_b": 1858
+      },
+      {
+        "EventName_A": "东京之战",
+        "EventName_B": "李纲抗金部署",
         "year_a": null,
         "year_b": null
       },
       {
-        "EventName_A": "涿鹿之战",
-        "EventName_B": "阪泉之战",
-        "year_a": null,
-        "year_b": -26
+        "EventName_A": "东峡石谷之战",
+        "EventName_B": "契丹寇幽州及赵州之战",
+        "year_a": 697,
+        "year_b": 697
       },
       {
-        "EventName_A": "尧攻丹水之战",
-        "EventName_B": "舜、禹对三苗之战",
-        "year_a": null,
-        "year_b": null
+        "EventName_A": "东阿之战",
+        "EventName_B": "临济之战",
+        "year_a": -208,
+        "year_b": -208
       },
       {
-        "EventName_A": "后羿攻夏之战",
-        "EventName_B": "启与伯益之战",
-        "year_a": -2179,
-        "year_b": null
+        "EventName_A": "丰岛海战",
+        "EventName_B": "平壤之战",
+        "year_a": 1894,
+        "year_b": 1894
       },
       {
-        "EventName_A": "商灭葛之战",
-        "EventName_B": "鸣条之战",
-        "year_a": null,
-        "year_b": null
+        "EventName_A": "临兆之战",
+        "EventName_B": "镇南关大捷",
+        "year_a": 1885,
+        "year_b": 1885
       },
       {
-        "EventName_A": "后羿攻夏之战",
-        "EventName_B": "少康复国之战",
-        "year_a": -2179,
-        "year_b": null
+        "EventName_A": "临济之战",
+        "EventName_B": "东阿之战",
+        "year_a": -208,
+        "year_b": -208
       },
       {
-        "EventName_A": "武丁征讨下旨之战",
-        "EventName_B": "武丁征讨鬼方之战",
-        "year_a": -1296,
-        "year_b": -1296
+        "EventName_A": "乃蛮部攻占王罕牧地之战",
+        "EventName_B": "铁木真击败额儿客合刺之战",
+        "year_a": 1196,
+        "year_b": 1196
       },
       {
-        "EventName_A": "妇好征讨羌、夷、土方之战",
-        "EventName_B": "武丁征讨下旨、鬼方之战",
-        "year_a": null,
-        "year_b": -1296
-      },
-      {
-        "EventName_A": "武丁南征荆楚",
-        "EventName_B": "武丁征讨下旨、鬼方之战",
-        "year_a": null,
-        "year_b": -1296
-      },
-      {
-        "EventName_A": "周文王剪商羽翼之战",
-        "EventName_B": "周文王征讨昆夷、密须、阮、共之战",
-        "year_a": null,
-        "year_b": null
+        "EventName_A": "乌衣之战",
+        "EventName_B": "小店之战",
+        "year_a": 1858,
+        "year_b": 1858
       }
     ]
   },
   "overbroad_events": {
-    "total_events": 1050,
+    "total_events": 1313,
     "suspected": 0,
     "ratio": 0.0,
     "marker_hits": {},
     "samples": []
   },
   "overbroad_candidates": {
-    "total_events": 1050,
-    "candidates": 29,
-    "ratio": 0.02761904761904762,
+    "total_events": 1313,
+    "candidates": 33,
+    "ratio": 0.02513328255902513,
     "samples": [
+      {
+        "EventName": "启建立夏王朝的战争",
+        "DynastyName": "夏",
+        "patterns": [
+          "战争"
+        ],
+        "source_text": "启建立夏王朝的战争。启继位，建立夏王朝后，伯益为了维护禅让制，首先带领东夷的军队起来反对夏启。经过激烈交战，益战败被启斩"
+      },
+      {
+        "EventName": "秦晋围郑之役",
+        "DynastyName": "春秋",
+        "patterns": [
+          "结尾「之役」"
+        ],
+        "source_text": "次年秋，秦、晋根据翟泉之会的决定，共同出兵讨伐郑国。不料秦穆公受郑国烛之武的离间，与郑结盟，并使杞子、逢孙、杨孙三大夫留"
+      },
+      {
+        "EventName": "吴袭楚夷、潜、六及围弦之役",
+        "DynastyName": "春秋",
+        "patterns": [
+          "结尾「之役」"
+        ],
+        "source_text": "公元前512年，吴王准备大举攻楚，孙武劝阻说“民劳，未可，待之。”（《史记·吴太伯世家》）伍员是楚国的逃臣，最了解楚国情"
+      },
+      {
+        "EventName": "秦统一百越之战",
+        "DynastyName": "秦",
+        "patterns": [
+          "统一"
+        ],
+        "source_text": "公元前223年，王翦率秦军灭楚，继续南进中，曾夺得越人一部分土地，置会稽郡（治所苏州）。直到公元前214年，秦始皇才部署"
+      },
+      {
+        "EventName": "楚汉战争",
+        "DynastyName": "西汉",
+        "patterns": [
+          "战争"
+        ],
+        "source_text": "第二章楚汉争霸之战楚汉战争是曾为农民起义领袖的项羽、刘邦为争夺统治权而展开的战争。自公元前206年11月项羽率军入关起，"
+      },
       {
         "EventName": "楚汉战争",
         "DynastyName": "秦",
         "patterns": [
           "战争"
         ],
-        "source_text": "秦灭六国后，继而进行了北逐匈奴，南征百越，固边拓疆，和宏大政治、军事、经济的创新建设。但由于始皇的急政，赵高的弄权，二世"
+        "source_text": "，历时4年多，战争经历了刘邦还定三秦，楚汉彭城大战和荣阳、成皋相持，垓下灭楚等阶段。战场广阔，规模巨大，为秦汉以前所未有"
       },
       {
-        "EventName": "汉匈百年战争",
-        "DynastyName": "西汉",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "其间，为平息边患，又与匈奴展开了规模空前的百年大战。"
-      },
-      {
-        "EventName": "东汉统一战争",
-        "DynastyName": "东汉",
+        "EventName": "石勒统一北方战争",
+        "DynastyName": "东晋",
         "patterns": [
           "战争",
           "统一"
         ],
-        "source_text": "刘秀借农民起义之力，夺取两京，平定群雄，建立东汉。"
+        "source_text": "先是羯族石勒进行了25年统一北方的战争。石勒统一北方3年后死去，北方再度陷入分裂。...石勒成为中国历史上第一个饮马长江"
       },
       {
-        "EventName": "汉羌战争",
-        "DynastyName": "东汉",
+        "EventName": "苻坚统一北方战争",
+        "DynastyName": "前秦",
         "patterns": [
-          "战争"
+          "战争",
+          "统一"
         ],
-        "source_text": "公元108年，汉王朝强迫征发金城、陇西、汉阳（甘肃甘谷东南）三郡羌人随征西域。途中，羌人聚众数千人起义、东汉王朝派邓野、"
+        "source_text": "在北方的分裂兼并中前秦迅速崛起，氐族苻坚以3年时间再度统一北方。苻坚统一北方后，即有灭东晋之志，发兵90多万直指建康（南"
       },
       {
-        "EventName": "石勒统一北方",
+        "EventName": "拓跋焘统一北方战争",
+        "DynastyName": "南北朝",
+        "patterns": [
+          "战争",
+          "统一"
+        ],
+        "source_text": "北朝之魏主鲜卑族拓跋焘经15年之战争将北方统一。南北两个统一政权建立后，南北之间的交锋即上升为主导地位。"
+      },
+      {
+        "EventName": "石勒统一北方之战",
         "DynastyName": "东晋",
         "patterns": [
           "统一"
@@ -632,19 +658,11 @@
       },
       {
         "EventName": "拓跋焘统一北方之战",
-        "DynastyName": "北魏",
+        "DynastyName": "南北朝",
         "patterns": [
           "统一"
         ],
         "source_text": "拓跋焘继位时，与北魏对立的只剩北凉、大夏、柔然和北燕，此外，还有江南的刘宋。他为实现以精锐铁骑统一中国的战略目的，确定了"
-      },
-      {
-        "EventName": "宋魏战争",
-        "DynastyName": "南北朝",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "宋刘义隆向魏发动战略进攻，想“经略中原”；魏拓跋焘对宋战略反攻，企图“饮马长江”，双方都是战略进攻，只是先发制人与后发制"
       },
       {
         "EventName": "唐统一战争",
@@ -656,6 +674,30 @@
         "source_text": "唐军在李世民指挥下打败了北方、南方群雄，镇压了农民起义军，恢复了全国的统一。"
       },
       {
+        "EventName": "平讨藩镇割据战争",
+        "DynastyName": "唐",
+        "patterns": [
+          "战争"
+        ],
+        "source_text": "长期的边防战争，使节度使权力不断扩大，形成藩镇割据，招致唐朝后期发生安史之乱，安禄山一度占领长安，唐朝国势渐衰。中央集权"
+      },
+      {
+        "EventName": "隋灭陈战争",
+        "DynastyName": "隋",
+        "patterns": [
+          "战争"
+        ],
+        "source_text": "刺史陈慧纪见势不利，率军从公安（湖北公安西北）东撤，被杨俊军阻于汉口以西。次年正月初一，长江下游隋军利用陈军欢度元会之机"
+      },
+      {
+        "EventName": "唐廷讨田承嗣之役",
+        "DynastyName": "唐",
+        "patterns": [
+          "结尾「之役」"
+        ],
+        "source_text": "田承嗣再次遣使上表，奏请入朝。代宗已知李宝臣与朱滔交战，只好下诏赦免其罪，恢复官爵，所部抗朝命者也一概不问。...于是代"
+      },
+      {
         "EventName": "周世宗恢复统一大业之战",
         "DynastyName": "五代十国",
         "patterns": [
@@ -664,212 +706,96 @@
         "source_text": "周世宗恢复统一大业之战，是结束五代混割局面的奠基战争。周世宗鉴于四面皆敌，而又四面均无国防线的状况，选定了有限的第一期作"
       },
       {
-        "EventName": "铁木真统一蒙古之战",
-        "DynastyName": "南宋",
-        "patterns": [
-          "统一"
-        ],
-        "source_text": "铁木真自1179年自称为汗历经24年大小数十战，统一了蒙古诸部落，继而东降宏吉刺部，西灭突厥克烈部，击破乃蛮大阳汗，建立"
-      },
-      {
-        "EventName": "蒙古第一次攻宋战争",
-        "DynastyName": "南宋",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "次年6月，窝阔台在派遣大军第二次西征的同时，分兵三路南下攻宋：皇子阔端与元帅塔海率军，取西道由秦（甘肃天水）、巩（陇西）"
-      },
-      {
-        "EventName": "蒙古灭金战争",
-        "DynastyName": "金",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "西路军在连下甘肃、陕西数州后，继破大散关、大安军（阳平关南），沿金牛道（陕西勉县西南至四川剑阁）人川，全歼宋利州统制曹友"
-      },
-      {
-        "EventName": "太平天国革命战争",
-        "DynastyName": "清",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "以太平天国革命战争为主的各族人民武装起义也此起彼应。清朝面临交织而起的内外战争，实行对内镇压、对外妥协政策。虽然在镇压人"
-      },
-      {
-        "EventName": "辛亥革命战争",
-        "DynastyName": "清",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "其统治终为资产阶级领导的辛亥革命战争覆灭。"
-      },
-      {
-        "EventName": "抗倭战争",
-        "DynastyName": "明",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "东南沿海军民，自北到南，进剿倭寇，取得了重大胜利；...抗倭战争的胜利，是抗击外来侵略、保卫祖国海疆的著名范例。"
-      },
-      {
-        "EventName": "靖难之役",
-        "DynastyName": "明",
+        "EventName": "蒙古第一次西征俄罗斯之役",
+        "DynastyName": "元",
         "patterns": [
           "结尾「之役」"
         ],
-        "source_text": "1398年，明太祖朱元璋病逝。太孙朱允继位，与朝臣齐泰、黄子澄共谋削藩，危及朱棣王位。次年7月，朱棣在北平（北京）援引“"
+        "source_text": "蒙古军据有裹海及高加索山以北诸地后，即自东南进入俄罗斯境内。12月，进迫物拉的米儿，攻克勒也赞、克罗姆纳二城。由此而北，"
       },
       {
-        "EventName": "援朝抗日战争",
+        "EventName": "明朝保边安境战争",
         "DynastyName": "明",
         "patterns": [
           "战争"
         ],
-        "source_text": "行了一场近7年的援朝抗日战\n争。1592年，日本太政大臣丰臣秀吉发兵袭击朝鲜，企图“假道朝\n鲜，西征中国”。4月，小西行"
+        "source_text": "明朝建立后，因塞北的蒙古复元势力经常伺机南犯，沿海的倭寇不断登陆骚扰，辽东方兴的后金连年向关内逼进，长期南抗北御，进行着"
       },
       {
-        "EventName": "清缅战争第一次战役",
-        "DynastyName": "清",
+        "EventName": "李自成等农民战争",
+        "DynastyName": "明",
         "patterns": [
           "战争"
         ],
-        "source_text": "1765年，缅王孟驳派兵进攻中国云南西南九龙江（普洱境内澜沧江）一带。在这之前，缅甸桂家部长宫里雁，在波龙（湄公河之西）"
+        "source_text": "后期，政治日趋腐败，国势益衰，其统治终为李自成等领导的农民战争覆灭。"
       },
       {
-        "EventName": "清缅战争第二次战役",
+        "EventName": "清军入关及统一战争",
         "DynastyName": "清",
         "patterns": [
-          "战争"
+          "战争",
+          "统一"
         ],
-        "source_text": "次年，清廷命杨应琚接任云南总督，驻军普洱。随即，令刘德成、华封、哈国兴等起兵50万，载大炮千门，兵分三路反击缅军，收复车"
-      },
-      {
-        "EventName": "清缅战争第三次战役",
-        "DynastyName": "清",
-        "patterns": [
-          "战争"
-        ],
-        "source_text": "1769年2月，傅恒被弘历帝命为经略，自北京率满、蒙兵1.3万多人南下。4月，抵达腾越（云南腾冲），决定以阿桂军出戛鸠江"
+        "source_text": "这时，由后金建立起来的清王朝，便乘势发兵入关，进占北京。随后，采取先西北、后东南的战略方针，攻灭大顺政权，进伐南明诸帝。"
       }
     ]
   },
   "direction_vs_time": {
-    "count": 255,
-    "samples": [
-      {
-        "EventName_A": "齐桓公救卫之战",
-        "year_a": -660,
-        "EventName_B": "齐桓公救邢之战",
-        "year_b": -661
-      },
-      {
-        "EventName_A": "城濮之战",
-        "year_a": -632,
-        "EventName_B": "楚攻宋之战",
-        "year_b": -633
-      },
-      {
-        "EventName_A": "崤山之战",
-        "year_a": -627,
-        "EventName_B": "秦袭郑之战",
-        "year_b": -628
-      },
-      {
-        "EventName_A": "楚伐宋之战",
-        "year_a": -595,
-        "EventName_B": "邲之战",
-        "year_b": -597
-      },
-      {
-        "EventName_A": "晋楚彭城之战",
-        "year_a": -573,
-        "EventName_B": "晋楚鄢陵之战",
-        "year_b": -575
-      },
-      {
-        "EventName_A": "晋攻郑焦夷之战",
-        "year_a": -572,
-        "EventName_B": "晋楚彭城之战",
-        "year_b": -573
-      },
-      {
-        "EventName_A": "晋攻郑焦夷之战",
-        "year_a": -572,
-        "EventName_B": "晋楚郑宋之战",
-        "year_b": -573
-      },
-      {
-        "EventName_A": "晋攻郑焦夷之战",
-        "year_a": -572,
-        "EventName_B": "晋楚鄢陵之战",
-        "year_b": -575
-      },
-      {
-        "EventName_A": "房钟之战",
-        "year_a": -536,
-        "EventName_B": "鹊岸之战",
-        "year_b": -537
-      },
-      {
-        "EventName_A": "夫椒之战",
-        "year_a": -494,
-        "EventName_B": "携李之战",
-        "year_b": -496
-      }
-    ]
+    "count": 0,
+    "samples": []
   },
   "evidence_reuse": {
-    "total_relations": 18146,
-    "evidence_empty": 0,
-    "evidence_equals_event_source_text": 11368,
-    "reuse_ratio": 0.6264741540835446,
+    "total_relations": 16670,
+    "evidence_empty": 4,
+    "evidence_equals_event_source_text": 2161,
+    "reuse_ratio": 0.12963407318536294,
     "top_reused_events": [
       [
-        "平定三藩之乱",
-        152
+        "高加索南北诸国扫荡战",
+        15
       ],
       [
-        "靖难之役",
-        81
+        "安庆江州之战",
+        15
       ],
       [
-        "二破江南大营",
-        79
+        "赤壁之战",
+        15
       ],
       [
-        "元攻宋之战",
-        73
+        "唐太宗征高丽",
+        14
       ],
       [
-        "宋魏战争",
-        69
+        "魏攻益州之战",
+        13
       ]
     ]
   },
   "relation_volume": {
-    "events_with_relations": 1038,
-    "average": 17.5,
-    "max": 188,
+    "events_with_relations": 1199,
+    "average": 13.9,
+    "max": 110,
     "top": [
       [
-        "平定三藩之乱",
-        188
-      ],
-      [
         "晋灭吴之战",
-        136
+        110
       ],
       [
-        "靖难之役",
-        123
+        "清缅战争",
+        98
       ],
       [
-        "元攻宋之战",
-        107
+        "北周灭北齐之战",
+        83
       ],
       [
-        "太平军北伐",
-        103
+        "夷陵之战",
+        71
+      ],
+      [
+        "太平军二破江南大营之战",
+        65
       ]
     ]
   },
@@ -970,7 +896,13 @@
     }
   },
   "known_enum_exceptions": {
+    "event_place_relations/同盟方": "模型把**组织**关系名写进了事件-地点关系：`商汤灭夏之战 —[同盟方]→ 薛`、`→ 有莘氏` 共 2 条。根子在**目标实体类型**：`薛`/`有莘氏` 是方国/部落（组织）却被记成了地点，于是组织关系名只能挂到地点类别下（同一段历史里 `同盟方` 用在事件-组织上是对的）。**不加进地点关系枚举**——那等于承认一个错的语义。实测发布子集里 0 条。",
+    "event_place_relations/支援地": "新造的关系名：`郑成功收复台湾之战 —[支援地]→ 巴达维亚` 1 条。地点关系里已有`补给地`/`驻防地` 一类语义，再收 `支援地` 就是在枚举边上开新口子；留 raw、不进发布子集。",
+    "event_organization_relations/驻防地": "`辽东之战 —[驻防地]→ 征清大总督府` 1 条：`驻防地` 是**地点**关系名，却挂到了事件-组织上（组织不可能是「驻防地」）。与 `指挥所` 同一形态：模型误分类。不加进组织关系枚举。",
+    "event_person_relations/自杀": "`北仓杨村之战 —[自杀]→ 裕禄`、`河西务之战 —[自杀]→ 李秉衡` 共 2 条。人物关系枚举里有`阵亡`；`自杀` 是**死法、不是关系**。不加进枚举（那会开一个没有边界的新枚举口子）。",
+    "Role/地方势力": "`刘琨`、`曹疑`（西晋）的 `Role` 填了 `地方势力`——那是 **OrgType 的取值**，属字段混用。人物角色枚举里没有它，也不该有（角色不是势力类型）。实测发布子集里 0 条。",
+    "EventType/交战": "`赤眉军击败景尚、王党之战`、`赤眉军全歼王匡、廉丹之战` 的 `EventType` 填了 `交战`：这两条的 `Action` 也都是「交战」，即模型把**动作值抄进了类型字段**。判定（2026-09-27）：不把 `交战` 加进枚举与 RAG 词典（它是动作词，不是事件类型）。实测发布子集里 0 条。",
     "event_organization_relations/指挥所": "LLM 把地点关系名写进了事件-组织关系：实测 1 条 `辽东半岛战役 —[指挥所]→ 征清大总督府`。组织不可能是「指挥所」，属模型误分类；**不把 `指挥所` 加进组织关系枚举**（那等于承认一个错的语义），它与另外三类一样留在 raw 产物、由 `split_publishable_outputs` 路由进候选区。重跑后若条数明显上涨，说明提示词对组织关系的约束在退化。"
   },
-  "note": "第三阶段 D 组 + E2 第一处 + E4-a/E6-a 之后的入库基线。读的是与 health_check_before.json 同一份产物（source_sha256 相同，2026-08-18 生成，仍未重跑），差别只在体检脚本多了七节：party_not_org / weak_result / containment_vs_time / overbroad_events / overbroad_candidates / supreme_commander_claims / undecidable_direction。所以它记的是「改后的**报告口径**」，不是「改后的产物」——别按 baseline_after/ 那样读。日常对照用它。三项是**旧产物上的基线、改完重跑才看得到变化**：「同一事件多条统帅」698、「攻守方非组织值」255、「顺承方向判不出来」277/798；「过宽候选（形态式）」29 是给 C 组补标的清单（不进过滤、不称门禁）。"
+  "note": "第三阶段整本重跑后的入库基线（2026-09-27，prompt-v2-20260420+1228b39b / deepseek-flash）。与上一份并排放的理由：上一份读的是 2026-08-18 那版产物（事件 1050），本份读的是重跑后那版（事件 1313）。旧→新的门禁对照（含两项目标的达成与三类问题的判读）记在 docs/第三阶段收尾执行单.md §3.05。"
 }
