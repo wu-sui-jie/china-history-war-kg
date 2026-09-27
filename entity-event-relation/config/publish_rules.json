@@ -1,16 +1,30 @@
 {
   "_comment": "发布过滤与事件清理里那些**书本特化**的硬编码规则。原先散在 main.py 里，换一本语料只能改代码；现在只改这里。加载逻辑见 war_extraction/utils/publish_rules.py（文件缺失时用代码内默认值并打印告警，不会静默变成空表）。",
   "_sync_note": "改这里等于改整个知识库的内容（published 子集是下游 SQLite/Neo4j/RAG 的输入），所以必须与产物换代、SQLite 重导、Neo4j 重同步、RAG 快照重建打包成一次发布。",
-  "summary_only_event_text_markers": [
-    "原文仅提及事件名称",
-    "主要战争有",
-    "北征南伐",
-    "东攻西进"
-  ],
-  "summary_only_event_names": [
-    "少康中兴",
-    "商代之远征"
-  ],
+  "overbroad_event_markers": {
+    "_comment": "「过宽概括」事件的唯一特征表（事件粒度口径：过宽概括如『蒙金战争』不算事件、具体战役算；见整改方案 10.1 第 1 项）。原先两处各写一份、口径不同——main._is_summary_only_event 用 4 个文本标记 + 2 个事件名，EventExtractor._is_summary_style_event 用 4 个名称标记 + 6 个文本标记，于是同一件事两处判定不一致。现在两处都调 war_extraction/utils/publish_rules.is_overbroad_event，改这一处两边同时生效。",
+    "_rereun_note": "本文件在 CACHE_CONFIG_FILES 里：改它会改变 config_version → 全部抽取缓存失效（重跑是全额付费）。合并两处表属于**抽取侧**改动，要随重跑生效，且不要在同一批里既合并表又调阈值。",
+    "event_name_markers": [
+      "时期",
+      "系列",
+      "多路征伐",
+      "远征"
+    ],
+    "text_markers": [
+      "原文仅提及事件名称",
+      "主要战争有",
+      "北征南伐",
+      "曾北征南伐",
+      "东攻西进",
+      "几次大决战",
+      "此后",
+      "继后"
+    ],
+    "event_names": [
+      "少康中兴",
+      "商代之远征"
+    ]
+  },
   "campaign_summary_suffixes": [
     "南征",
     "东征",

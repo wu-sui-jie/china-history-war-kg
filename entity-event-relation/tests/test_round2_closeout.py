@@ -15,6 +15,7 @@
 | `test_产物记录实际服务的模型` | P0-3 | `model` 与 `model_served` 分开记 |
 """
 
+import ast
 import json
 from pathlib import Path
 
@@ -109,6 +110,111 @@ def test_悬空边计数含三类实体关系():
     assert stats["dangling_relations_dropped"]["event_place_relations"] == 1
 
 
+def test_残缺关系的丢弃也要计数():
+    """
+    空事件名 / 空关系名这一支原先**无痕丢弃**：`continue` 掉了但不计数，与同函数 docstring
+    承诺的"并计数——悬空边数要能被体检脚本与质量报告看见"直接矛盾。它们不是"悬空"
+    （对不上事件名单），但同样是**被丢掉的边**，该被看见——这正是本项目反复吃亏的模式。
+    """
+    relations = RelationExtractionResult(event_place_relations=[
+        EventPlaceRelation(EventName="在名单里", relation="", modern_name="某地", evidence="x"),
+        EventPlaceRelation(EventName="", relation="主战场", modern_name="某地", evidence="x"),
+    ])
+    kept, stats = offline_main.cleanup_relation_conflicts(relations, valid_event_names={"在名单里"})
+    assert kept.event_place_relations == [], "残缺关系不该留在产物里"
+    assert stats["dangling_relations_dropped"]["empty_name_or_relation"] == 2
+    # 与"悬空"分开记：混在一起就分不清"名称对不上"与"字段残缺"
+    assert stats["dangling_relations_dropped"]["event_place_relations"] == 0
+
+
+# ---------------------------------------------------------------- C1 发布过滤丢整类关系
+
+def _publish_fixture_relations(relations):
+    """按发布拆分的入参构造：事件要能过 `is_publishable_event`（与上面那条端到端用例同款）。"""
+    entities = EntityExtractionResult(places=[PlaceEntity(geo_name="牧野")])
+    events = EventExtractionResult(events=[
+        Event(EventName="牧野之战", EventType="统一战争", DynastyName="商", StartDate="前1046年",
+              Place="牧野", Aggressor="周军", Defender="商军", Result="周胜",
+              source_text="周武王率周军与商军战于牧野。"),
+        Event(EventName="牧野之战役", EventType="战争", DynastyName="商", StartDate="前1046年",
+              Place="牧野", Aggressor="周军", Defender="商军", Result="周胜",
+              source_text="周武王率周军与商军战于牧野。"),
+    ])
+    return entities, events, RelationExtractionResult(event_event_relations=relations)
+
+
+def test_包含与条件关系能进发布子集():
+    """
+    五个规范事件-事件关系类型里，`包含关系` 与 `条件关系` 原先**永远进不了 published**：
+    兜底是 `return relation == "并列关系"`。实测 raw 有 `包含关系` 28 条 + `条件关系` 1 条，
+    published 里 0 条——而 published 是 SQLite/Neo4j/RAG 的输入，不是"少"，是"没有"。
+    """
+    entities, events, relations = _publish_fixture_relations([
+        _rel("牧野之战", "牧野之战役", "包含关系", "牧野之战是牧野之战役的一部分"),
+        _rel("牧野之战", "牧野之战役", "条件关系", "如果有牧野之战，才有牧野之战役"),
+    ])
+    published, _candidate, _stats = offline_main.split_publishable_outputs(entities, events, relations)
+    published_types = {rel.relation for rel in published[2].event_event_relations}
+    assert "包含关系" in published_types
+    assert "条件关系" in published_types
+
+
+def test_证据为空的包含与条件关系仍被挡():
+    """
+    放开的是"类型"，不是"证据"：同一个类型、同样的事件对，证据为空必须仍被挡在 published 外。
+    """
+    entities, events, relations = _publish_fixture_relations([
+        _rel("牧野之战", "牧野之战役", "包含关系", ""),
+        _rel("牧野之战", "牧野之战役", "条件关系", ""),
+    ])
+    published, candidate, _stats = offline_main.split_publishable_outputs(entities, events, relations)
+    assert published[2].event_event_relations == []
+    assert len(candidate[2].event_event_relations) == 2
+
+
+def test_放宽的只有包含与条件两类():
+    """
+    C1 的改动**只**给 `包含关系`/`条件关系` 开了口子：`因果关系` 仍要求强因果词、
+    `顺承关系` 仍要求两个事件名都在证据里。不然"修一个漏放行"会变成"整体放水"，
+    而这类放宽会静默地让发布子集变样。
+    """
+    entities, events, relations = _publish_fixture_relations([
+        # 有证据、但没有强因果词 → 仍不该进发布子集
+        _rel("牧野之战", "牧野之战役", "因果关系", "牧野之战在前，牧野之战役在后"),
+        # 有证据、但两个事件名没同时出现 → 仍不该进发布子集
+        _rel("牧野之战", "牧野之战役", "顺承关系", "随后周军继续东进"),
+    ])
+    published, candidate, _stats = offline_main.split_publishable_outputs(entities, events, relations)
+    assert published[2].event_event_relations == []
+    assert len(candidate[2].event_event_relations) == 2
+
+
+def test_置信门槛不再替枚举外的类型兜底(normalizer):
+    """
+    第三阶段 D1：`is_high_confidence_event_event_relation` 的兜底原先写成
+    `return bool(evidence.strip())`，而 docstring 说"**枚举外的类型**：证据非空即放行"。
+
+    **那句话描述的是一个永远不会发生的行为**：`published` 分流处先调 `_relation_enum_ok`，
+    枚举外的类型（`主战场`）在到达置信门槛之前就被挡掉。契约与实现不符 + "安全"完全依赖
+    调用点的 `and` 顺序——下一个人调换顺序时，那句注释还会替改动背书。
+    现在兜底收窄成它真正负责的两类，枚举外一律 `False`。
+
+    这条必须直接断言**函数自己的返回值**：走发布分流看不出来——`_relation_enum_ok`
+    无论顺序如何都会把枚举外类型挡在 `published` 外，两种实现的分流结果一模一样。
+    """
+    foreign = _rel("牧野之战", "牧野之战役", "主战场", "牧野之战是牧野之战役的主战场")
+    assert offline_main._is_high_confidence_event_event_relation(foreign, normalizer) is False
+
+
+def test_置信门槛对包含与条件关系仍按证据非空放行(normalizer):
+    """收窄兜底**不能顺手收紧已放行的两类**：那两类的门槛（证据非空）是 C1 定的口径。"""
+    for relation in ("包含关系", "条件关系"):
+        assert offline_main._is_high_confidence_event_event_relation(
+            _rel("牧野之战", "牧野之战役", relation, "有证据"), normalizer) is True
+        assert offline_main._is_high_confidence_event_event_relation(
+            _rel("牧野之战", "牧野之战役", relation, ""), normalizer) is False
+
+
 # ---------------------------------------------------------------- P1-6 / P2-19 产物形状
 
 def _sample_artifact(tmp_path: Path):
@@ -135,6 +241,37 @@ def test_清洗统计落在顶层metadata(tmp_path):
         payload = json.loads(path.read_text(encoding="utf-8"))
         assert payload["metadata"]["text_cleaning"]["soft_line_breaks_merged"] == 3, path
         assert "text_cleaning" not in (payload["events"].get("metadata") or {}), path
+
+
+def test_诊断为空时清洗统计仍要落到顶层metadata(tmp_path):
+    """
+    `text_meta`（清洗统计）与 `extraction_diagnostics` 原先是**同一次挂载**，于是
+    `run.diagnostics` 为空时那次 `return` 把它们一起挡掉：`text_meta` 没挂上 →
+    `_artifact_body` 的 `pop("text_cleaning", None)` 取到 None → 顶层
+    `metadata.text_cleaning` **静默变成 null**（"看起来正常、实际没记录"）。
+
+    当前 `run_extraction` 恒返回带键的 diagnostics，所以这只是潜在缺陷——但这条链
+    有一个无提示的失效口，钉住它比等它发生便宜。
+    """
+    entities = EntityExtractionResult(places=[PlaceEntity(geo_name="牧野")])
+    events = EventExtractionResult(
+        events=[Event(EventName="牧野之战", EventType="统一战争", DynastyName="商",
+                      Place="牧野", Aggressor="周军", Defender="商军", Result="周胜")])
+
+    class _RunWithoutDiagnostics:
+        diagnostics = {}
+
+    offline_main._attach_extraction_diagnostics(
+        events, _RunWithoutDiagnostics(), {"text_cleaning": {"enabled": True, "soft_line_breaks_merged": 2}})
+    assert "extraction_diagnostics" not in (events.metadata or {}), "没有诊断就不该凭空造一个"
+
+    result_dir = offline_main.save_results(
+        "样例", entities, events, RelationExtractionResult(),
+        input_file=Path("x.txt"), text_length=10, output_base=tmp_path,
+        llm_meta={"model": "stub", "api_base": "stub"},
+    )
+    metadata = json.loads((result_dir / "9_final_all.json").read_text(encoding="utf-8"))["metadata"]
+    assert metadata["text_cleaning"]["soft_line_breaks_merged"] == 2, "清洗统计不该因为诊断为空而变成 null"
 
 
 def test_产物记录实际服务的模型(tmp_path):
@@ -224,6 +361,110 @@ def test_无映射时偏移退化为原值():
         "strip_invisible_chars": True, "merge_soft_line_breaks": True, "ocr_fixes": {}})
     assert mapping.to_original(3) == 3
     assert mapping.to_original(0) == 0
+
+
+# ---------------------------------------------------------------- B1：source_offset 仍未接线
+
+#: 允许出现 `source_offset` 的唯一生产文件（它声明并赋值这个字段）。
+_OFFSET_DECLARING_FILE = Path("war_extraction") / "core" / "extraction_runner.py"
+
+#: 接线时要一起改的地方（用例变红时会打印出来，避免下一个人只改代码）。
+_OFFSET_WIRING_CHECKLIST = (
+    "① 本用例 + `test_分段带原文偏移`（用例名与断言要改成「已接线」的口径）；"
+    "② 指南 §1.16 的「暂未接线」那段；③ README 的「仍未接线」条；"
+    "④ 产物形状变了 → 走整改方案 §3.5 的 7 步同步清单（导入脚本/前端/文档一起改）"
+)
+
+
+def _read_offset_usages(path: Path) -> list:
+    """
+    源码里对 `source_offset` 的**读取**位置（按 AST，不误报注释与字符串）。
+
+    `main.py` 的注释、`text_cleaner.py` 的说明都提到这个名字，文本匹配会误报，
+    所以逐类语法节点看：属性访问（`chunk.source_offset`）、关键字实参（`ChunkExtraction(source_offset=…)`）、
+    局部名，以及 `getattr(obj, "source_offset")` 这种**字符串取法**——
+    最后一种只认 `getattr`/`setattr`/`hasattr` 的实参，不把任意同名字符串常量算进来
+    （否则 `RUN_MODE = "source_offset"` 这种无关常量会让守卫自己报假警）。
+
+    **按 `utf-8-sig` 读**：仓库里有带 BOM 的文件（`backend/models.py`），
+    用 `utf-8` 读会把 BOM 留在文本里，`ast.parse` 直接抛 `SyntaxError`
+    ——那时守卫会从"检查代码"变成"报一个与主题无关的解析错"。
+    """
+    source = path.read_text(encoding="utf-8-sig")
+    tree = ast.parse(source, filename=str(path))
+    lines = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Attribute) and node.attr == "source_offset":
+            lines.append(node.lineno)
+        elif isinstance(node, ast.keyword) and node.arg == "source_offset":
+            lines.append(node.lineno)
+        elif isinstance(node, ast.Name) and node.id == "source_offset":
+            lines.append(node.lineno)
+        elif isinstance(node, ast.Call) and _is_string_attr_call(node, "source_offset"):
+            lines.append(node.lineno)
+    return sorted(set(lines))
+
+
+def _is_string_attr_call(node, name: str) -> bool:
+    """`getattr(x, "名字")` / `setattr` / `hasattr` 这类按字符串取名的调用。"""
+    func = node.func
+    func_name = func.id if isinstance(func, ast.Name) else getattr(func, "attr", "")
+    if func_name not in {"getattr", "setattr", "hasattr", "delattr"}:
+        return False
+    return any(isinstance(arg, ast.Constant) and arg.value == name for arg in node.args)
+
+
+def test_source_offset仍未接线():
+    """
+    第二轮 B1 选的是"如实记为未接线"，而不是"接进产物"。**这个状态只靠文档措辞维持**，
+    所以这里加一条机械守卫：生产代码里除 `extraction_runner.py`（声明 + 两处赋值）外，
+    不许有任何地方碰 `source_offset`。
+
+    为什么需要它：下一个人写新功能（比如"人工抽检导出"）时不会知道它没接线，
+    很可能直接读 `chunk.source_offset`，然后在产物里找不到（chunk 级信息从不序列化）；
+    反过来，真接线时也没有任何提示"该改哪几处文档与哪条用例"。
+
+    **接线时不要删这条用例了事**——按 `_OFFSET_WIRING_CHECKLIST` 列的四处一起改
+    （那份清单会打印在下方的断言消息里）。
+    """
+    module_root = Path(__file__).resolve().parents[1]
+    repo_root = module_root.parent
+    scanned = []
+    for rel in ("main.py", "evaluate.py"):
+        scanned.append(module_root / rel)
+    for pattern in ("war_extraction/**/*.py", "tools/*.py"):
+        scanned.extend(module_root.glob(pattern))
+    for pattern in ("backend/**/*.py", "RAG/**/*.py"):
+        scanned.extend(repo_root.glob(pattern))
+
+    offenders = {}
+    for path in scanned:
+        if not path.is_file():
+            continue
+        if path.resolve() == (module_root / _OFFSET_DECLARING_FILE).resolve():
+            continue
+        # `war_extraction/**` 里只有那一个文件可以出现；其余非测试生产代码一律不许
+        if path.name.startswith("test_"):
+            continue
+        lines = _read_offset_usages(path)
+        if lines:
+            offenders[str(path.relative_to(repo_root))] = lines
+
+    assert offenders == {}, (
+        f"`source_offset` 在下面这些生产文件里被读到了：{offenders}。\n"
+        "它目前**未接线**（chunk 级信息不进产物），所以读它等于读一个产物里不存在的字段。\n"
+        f"真要接线，请同时改：{_OFFSET_WIRING_CHECKLIST}"
+    )
+
+
+def test_source_offset的声明与赋值仍在原处():
+    """
+    反面确认：守卫的前提是"那个字段确实存在、也确实在赋值"。若哪天 `extraction_runner.py`
+    里连声明都不见了，上一条用例会因为"没人读它"而**继续通过**——那才是真的丢了能力。
+    """
+    module_root = Path(__file__).resolve().parents[1]
+    lines = _read_offset_usages(module_root / _OFFSET_DECLARING_FILE)
+    assert len(lines) >= 3, f"声明 + 两处赋值应当在，实际只找到 {lines}"
 
 
 # ---------------------------------------------------------------- P2-12 / P2-14 基线

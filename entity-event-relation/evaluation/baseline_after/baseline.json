@@ -2,7 +2,7 @@
   "frozen_at": "2026-09-26 23:23:26.094245 +08:00",
   "frozen_at_epoch": 1790436206.094245,
   "run_id": "735bf6c270c4",
-  "note": "第二轮收口后的记录：评估侧修了三处配对约束实现缺陷（配对 176→231）、关系按条计数（含 747 条归一后重复）、Place 字段改按集合比；抽取侧改动仍待重跑才进产物",
+  "note": "第二轮收口后的记录：评估侧修了三处配对约束实现缺陷（配对 176→231）、关系按条计数（含 747 条归一后重复）、Place 字段改按集合比；抽取侧改动仍待重跑才进产物 【第二轮补记：指纹键更名】本文件 `annotations`/`config`/`prompts` 三处下的 `files` 已更名为 `files_on_disk_at_freeze`（原键名太泛，会与「当次评估真正生效」的哈希取错）。改名只动键名，哈希值一处未改。 【第二轮补记：本次门禁对照只覆盖评估侧】(1) 预测产物流水号与 `evaluation/baseline/` **完全相同**（`artifact.sha256` 885b0d9e…、`metadata.extracted_at` 2026-08-18 03:37:13），两份体检报告同理（悬空边 27/17/10/0、方向与时间矛盾 255、条数 1050/18146 逐项相同）。所以「13 项门禁均未变差」只证明了一件事：**评估侧口径变更不改变体检项**；它**证明不了任何抽取侧修复**——悬空边、枚举外取值、方向、关系量级都要**等重跑后的产物**才能验证。 (2) 本轮同时改动了标注文件一处：删掉 `sample_events.json` 文件尾的空 `sub_events` 占位，于是当次生效的样本事件指纹是 b9c85431…，而 `evaluation/baseline/` 那次是 7a0b4db8…。全仓 Python 代码对 `sub_events` **0 命中**，结论：**对指标无影响**，只改哈希。 (3) 三要素并列在此，便于一眼看出「改前→改后」的差值由哪些因子构成：预测产物 885b0d9e…（两份相同）、标注 sample_events b9c85431…（改了空占位）、评估器 eval_config 1512a828…（改了配对约束与按条计数）。",
   "git_commit": "acffb465bc6dddb3c022bad14eb6dab00d2b809e",
   "module_versions": {
     "prompt_version": "prompt-v2-20260420+250f2471",
@@ -29,11 +29,6 @@
   },
   "annotations": {
     "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\data\\annotations",
-    "files": {
-      "sample_entities.json": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf",
-      "sample_events.json": "b9c85431e7b9208bb5f01e1f2f9b312a1459a98de852856e3f6a857451487859",
-      "sample_relations.json": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994"
-    },
     "provenance": {
       "kind": "multi_model_merged",
       "is_human_annotated": false,
@@ -53,11 +48,16 @@
         "跨版本'改好没改好'的判断依据（会把口径差异误读成质量升降）"
       ],
       "source_note": "data/annotations/README.md 现写的'只有一名标注者、没有 IAA'与上述实际制作方式不符，该文件的更正措辞待标注所有人确认后另行处理（见整改方案 10.2 第 1 条）。"
+    },
+    "files_on_disk_at_freeze": {
+      "sample_entities.json": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf",
+      "sample_events.json": "b9c85431e7b9208bb5f01e1f2f9b312a1459a98de852856e3f6a857451487859",
+      "sample_relations.json": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994"
     }
   },
   "config": {
     "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\config",
-    "files": {
+    "files_on_disk_at_freeze": {
       "aliases.json": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4",
       "dynasty_ranges.json": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87",
       "eval_config.json": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
@@ -68,7 +68,7 @@
   },
   "prompts": {
     "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\war_extraction\\prompts",
-    "files": {
+    "files_on_disk_at_freeze": {
       "__init__.py": "9628f6fa99cc28fad7064be1a4b080708e6686ce1db126bbd012c5bc2890d5ab",
       "entity_prompts.py": "ff9c2ac7fa5e0d9467a907d89529657114f8c19ab2e83bab6083311f7b3cc65c",
       "event_prompts.py": "7684ac8e51617480223e80ff4136bac88fe3c3bd6d5a2377b9877d1fe43d7e7c",

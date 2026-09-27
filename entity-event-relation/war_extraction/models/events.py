@@ -51,8 +51,16 @@ class Event(BaseModel):
     # 事件名别名（归并前后用过的其它写法）。
     # **为什么单独一个字段。** 原先把 `alias:旧名` 直接追加进 `Remark`，而 `Remark` 是
     # 正文备注，有三个下游出口（SQLite 的 `events.remark` 列、前端属性面板、Excel 列），
-    # 于是流程元信息混进内容被展示出来。新增字段对下游零影响（不认识的键会被忽略），
-    # 只有希望它也进 SQLite/Neo4j 时才需要在 `backend/node_property_mapping.py` 加映射。
+    # 于是流程元信息混进内容被展示出来。新增字段对下游零影响（不认识的键会被忽略）。
+    #
+    # **结论（第二轮定）：不进 SQLite / Neo4j，仅产物保留，供跨库对齐时人工查。**
+    # 理由与代价都写在这里，免得下次又要重新讨论：
+    #   - 现状：SQLite `events` 表没有 aliases 列（`backend/models.py`）、
+    #     `API_TO_COLUMN` 没有该键、Neo4j 与前端也都没有出口——即"没有任何下游在读它"；
+    #   - 真要进库不是加一行映射的事：要新增列（含存量库迁移）、`to_dict` 与
+    #     `import_json_to_sqlite` 同步、Neo4j 属性名与前端展示一起定；
+    #   - 反悔成本很低：产物里字段一直在（`main.py` 的归并处写入），要进库随时能补，
+    #     届时再按 `node_property_mapping.API_TO_COLUMN` 加 `AliasNames → aliases` 一行即可。
     AliasNames: List[str] = Field(default_factory=list)
 
     # 事件关系

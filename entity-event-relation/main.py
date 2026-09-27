@@ -30,7 +30,7 @@ from war_extraction.models import (
 from war_extraction.config import EXTRACTION_VERSION, PROMPT_VERSION, cache_context, current_timestamp
 from war_extraction.utils import EntityClassifier, Normalizer
 from war_extraction.utils.provenance import artifact_digest, generation_metadata
-from war_extraction.utils.publish_rules import load_publish_rules
+from war_extraction.utils.publish_rules import is_overbroad_event, load_publish_rules
 from war_extraction.utils.vocabulary import (
     normalize_event_type,
     normalize_org_type,
@@ -73,19 +73,20 @@ PUBLISH_RULES = load_publish_rules()
 
 
 def _is_summary_only_event(event_obj) -> bool:
-    """判定"只有概括、没有具体战事"的事件；最终清理与质量诊断共用这一条规则。"""
+    """
+    判定"只有概括、没有具体战事"的事件；最终清理与质量诊断共用这一条规则。
+
+    判定实现在 `war_extraction/utils/publish_rules.is_overbroad_event`（配置里的
+    `overbroad_event_markers`）。**第三阶段 D5 之前这里是第二份表**（4 个文本标记 + 2 个事件名），
+    而抽取器 `EventExtractor._is_summary_style_event` 另有一份（4 个名称标记 + 6 个文本标记）——
+    同一个概念两处判定不一致，改一处另一处不动。现在两边读同一份配置。
+    """
     event_name = getattr(event_obj, "EventName", "") or ""
     source_text = getattr(event_obj, "source_text", "") or ""
     remark = getattr(event_obj, "Remark", "") or ""
-    text = f"{event_name} {source_text} {remark}"
-
-    if any(marker in text for marker in PUBLISH_RULES["summary_only_event_text_markers"]):
-        return True
-    if event_name in set(PUBLISH_RULES["summary_only_event_names"]):
-        return True
-    if any(token in text for token in ("北征南伐", "东攻西进")):
-        return True
-    return False
+    # 发布期手上有的是整段正文，所以判定文本用"事件名 + source_text + Remark"
+    # （抽取期只有证据句，那边给的是"事件名 + evidence"）
+    return is_overbroad_event(event_name, f"{event_name} {source_text} {remark}", PUBLISH_RULES)
 
 
 def _parse_year_for_order(value: str):
@@ -352,6 +353,72 @@ def _enum_is_legal(value, kind: str) -> bool:
     return hit
 
 
+def _is_high_confidence_event_event_relation(rel, normalizer) -> bool:
+    """
+    事件-事件关系进 `published` 的置信门槛。
+
+    **原先这里只认三类**：`return relation == "并列关系"` 是兜底，于是五个规范类型里
+    `包含关系` 与 `条件关系` **永远返回 False**。实测同一份产物：raw 有 `包含关系` 28 条
+    + `条件关系` 1 条，而 `published/final.json` 里 **0 条**。`published` 是下游
+    SQLite / Neo4j / RAG 的输入，所以这两类关系**在知识库里根本不存在**——不是"少"，
+    是"没有"；而这两种类型在权威表、前端下拉、RAG 字段映射里都已经是支持的取值。
+
+    现在按"**有没有可判别的证据**"分档，兜底不再拿类型当挡箭牌：
+
+    - `因果关系`：证据里有强因果词（原样保留，最严的一条）；
+    - `顺承关系`：证据里**同时出现两个事件名**（原样保留）；
+    - `并列关系`：无额外要求（原样保留，不借这次改动收紧它）；
+    - `包含关系` / `条件关系`：**证据非空即放行**；
+    - **其余一律 `False`**，含枚举外的类型（如 `主战场`）。
+
+    **枚举外的类型为什么不由本函数兜底（第三阶段 D1）。** 上一版的兜底是
+    `return bool(evidence.strip())`，而 docstring 写着"枚举外的类型…证据非空即放行"——
+    **那句话描述的是一个永远不会发生的行为**：`published` 分流处是
+    `… and _relation_enum_ok(rel, "event-event") and is_high_confidence…`，枚举外的类型
+    在到达本函数之前就被 `_relation_enum_ok` 挡掉了（也有用例钉着：枚举外的事件-事件关系
+    进候选区）。契约与实现不符 + "安全"完全依赖调用点的 `and` 顺序，是两个未来缺陷的温床：
+    下一个人为了"先算便宜的"调换顺序时，这段注释还会替改动背书。现在兜底收窄成它真正负责的
+    两类，枚举外的判定只归 `_relation_enum_ok`（它同时负责计数）。
+
+    调用点的顺序**仍然**不能换——换掉会让"枚举外"的计数恒为 0（`and` 短路后
+    `_relation_enum_ok` 根本不会执行），但**正确性**不再依赖这个顺序。
+
+    **证据为空一律挡**（含 `包含关系`/`条件关系`）：放开的是"类型"，不是"证据"。
+
+    **为什么这两类只要求"证据非空"、不用线索词。** 线索词规则试过，但它们**没有**
+    像"因此/导致"（因果）或"两个事件名同现"（顺承）那样可靠的判别依据。实测产物里
+    存活的 15 条 `包含关系`，带 `包含/一部分/属于` 这类词的只有 2 条；其余的证据是
+    描述子事件的原句（如 `后胜于宁远、松山、锦州之战`）——语义上确实是父子关系
+    （父战役含子战斗），但**没有任何可判别的词**。只认线索词的话，这一类在 `published`
+    里仍然是 0，"永远进不了库"这个缺陷等于没修。所以门槛定在"证据非空"，
+    与"并列关系"现有口径同一量级，把质量判断交给后续评估。
+
+    **改这个函数＝改整个知识库的内容**（整改方案 3.6）。C1 那次改的是门槛本身
+    （`包含关系`/`条件关系` 从"永远 `False`"变成"证据非空即放行"），所以必须与产物换代、
+    SQLite 重导、Neo4j 重同步、RAG 快照重建**打包成一次发布**；单独改而不发布，
+    只会让 `published/` 与库里的数据不一致。**D1 这次只收窄枚举外的兜底，不改 `published`
+    集合**（枚举外类型本来就进不了），所以它不影响 C1 的"未上线"状态。
+
+    放在模块级（而不是 `split_publishable_outputs` 内部的闭包）是为了让这条契约可被直接断言：
+    闭包只能从"发布分流结果"侧面验证，而**枚举外类型看不出区别**——`_relation_enum_ok`
+    无论如何都会把它挡在 `published` 外，所以侧面验证过不了这一版要钉的"函数自己的返回值"。
+    """
+    evidence = getattr(rel, "evidence", None) or ""
+    relation = normalizer.normalize_relation(getattr(rel, "relation", None))
+    name_a = getattr(rel, "EventName_A", None)
+    name_b = getattr(rel, "EventName_B", None)
+    if relation == "因果关系":
+        return any(token in evidence for token in ["因此", "于是", "导致", "引发", "致使", "造成"])
+    if relation == "顺承关系":
+        return all(name and name in evidence for name in [name_a, name_b])
+    if relation == "并列关系":
+        return True
+    if relation in {"包含关系", "条件关系"}:
+        return bool(evidence.strip())
+    # 其余（含枚举外的类型）由 `_relation_enum_ok` 负责判定，本函数不认它们
+    return False
+
+
 def split_publishable_outputs(entities, events, relations):
     """
     把最终抽取结果拆成"可发布"与"候选"两套：只有要素齐全、结果可信、且枚举合法的记录，
@@ -422,16 +489,8 @@ def split_publishable_outputs(entities, events, relations):
         return not any(token in result_value for token in weak_result_tokens)
 
     def is_high_confidence_event_event_relation(rel):
-        evidence = getattr(rel, "evidence", None) or ""
-        relation = normalizer.normalize_relation(getattr(rel, "relation", None))
-        if relation == "因果关系":
-            return any(token in evidence for token in ["因此", "于是", "导致", "引发", "致使", "造成"])
-        if relation == "顺承关系":
-            return all(
-                name and name in evidence
-                for name in [getattr(rel, "EventName_A", None), getattr(rel, "EventName_B", None)]
-            )
-        return relation == "并列关系"
+        # 实现在模块级 `_is_high_confidence_event_event_relation`（可被直接断言）。
+        return _is_high_confidence_event_event_relation(rel, normalizer)
 
     def published_event_key(event_obj):
         # 发布期的身份键也走统一实现（原先是"名称 + 时间 + 地点"，**少了朝代**——
@@ -603,10 +662,14 @@ def split_publishable_outputs(entities, events, relations):
             candidate_relations.event_person_relations.append(rel)
 
     for rel in relations.event_event_relations:
-        # **取值合法性检查必须排在 `is_high_confidence...` 之前**：后者只认"因果/顺承/并列"，
-        # 枚举外的类型（如 `主战场`）一律返回 False，于是 `and` 短路后
-        # `_relation_enum_ok` 根本不会被执行——计数恒为 0，这就是"枚举外的条目没有计数通道"
-        # 的具体成因（核验 P0-2 的另一半）。顺序换成"事件在名单里 → 取值合法 → 置信度"。
+        # **取值合法性检查必须排在 `is_high_confidence...` 之前**：后者不认枚举外的类型
+        # （如 `主战场`），`and` 短路后 `_relation_enum_ok` 根本不会被执行——计数恒为 0，
+        # 这就是"枚举外的条目没有计数通道"的具体成因（核验 P0-2 的另一半）。
+        # 顺序换成"事件在名单里 → 取值合法 → 置信度"。
+        #
+        # 第三阶段 D1 之后这个顺序**只影响计数**：置信门槛已收窄成只放行五个规范类型里的四种
+        # （枚举外一律 False），所以换顺序不会再让枚举外的关系混进 `published`。
+        # 但换掉仍会让上面那类计数归零，所以别动。
         if (
             getattr(rel, "EventName_A", None) in published_event_names
             and getattr(rel, "EventName_B", None) in published_event_names
@@ -703,7 +766,9 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
     传入 `valid_event_names` 时，**四类关系**的事件端都要在最终事件名单里对得上——
     原来只有事件-事件关系做了这道过滤，于是 raw 产物里事件-地点 27 条、事件-组织 17 条、
     事件-人物 10 条关系的 `EventName` 在事件表里根本找不到（导入时靠精确名单丢掉，
-    只有 `published` 侧是干净的）。现在四类一起过滤，悬空边数为 0。
+    只有 `published` 侧是干净的）。现在四类一起过滤，**预期**悬空边为 0——这句话
+    **待重跑后的产物验证**：现有产物是改前的，体检报告里仍有 54 条悬空边，
+    拿它证明不了本函数改后的效果（与 `baseline_after` 的门禁结论同一口径）。
 
     事件-事件关系的方向判定与去重收在 `war_extraction/utils/relation_rules.py`，
     抽取器与本函数共用同一份——两处各一份会让"抽出来的关系"和"清理后的关系"对不上。
@@ -725,6 +790,10 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
         "event_organization_relations": 0,
         "event_person_relations": 0,
         "event_event_relations": 0,
+        # 残缺（空事件名或空关系名）单独一项：它们不是"悬空"（对不上事件名单），
+        # 但同样是**被丢掉的边**——原先这一支是无痕丢弃，与同函数"并计数"的承诺不符，
+        # 也与本项目反复吃亏的"静默丢弃"模式一致。残缺也该被看见。
+        "empty_name_or_relation": 0,
     }
 
     def _drop_dangling(relations, attribute):
@@ -734,6 +803,7 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
             rel.EventName = normalizer.standardize_event_name(getattr(rel, "EventName", None))
             rel.relation = normalizer.normalize_relation(getattr(rel, "relation", None))
             if not rel.EventName or not rel.relation:
+                dropped_dangling["empty_name_or_relation"] += 1
                 continue
             if not _event_allowed(rel.EventName):
                 dropped_dangling[attribute] += 1
@@ -913,21 +983,27 @@ def _attach_extraction_diagnostics(final_events, run, text_meta: dict = None) ->
     而"关系阶段降级了几段"这类诊断在 `run.diagnostics` 里。挂在事件 metadata 上是
     唯一不需要改 `build_quality_report` / `save_results` / `process_*` 三层签名的通道，
     且与既有的"事件诊断 metadata"用的是同一处（`events.metadata`）。
+
+    **两件事解耦。** `text_meta`（清洗统计）与 `extraction_diagnostics` 原先是同一次挂载，
+    于是在 `run.diagnostics` 为空时**一起被 `return` 掉**：`text_meta` 没挂上，
+    `_artifact_body` 的 `pop("text_cleaning", None)` 取到 None，顶层
+    `metadata.text_cleaning` 就静默变成 null——"看起来正常、实际没记录"。
+    现在先挂 `text_meta`（只要它有值），再按需挂 `extraction_diagnostics`。
     """
     diagnostics = dict(getattr(run, "diagnostics", None) or {})
-    if not diagnostics:
+    text_meta = text_meta or {}
+    if not diagnostics and not text_meta:
         return
-    final_events.metadata = {
-        **(final_events.metadata or {}),
-        **(text_meta or {}),
-        "extraction_diagnostics": {
+    metadata = {**(final_events.metadata or {}), **text_meta}
+    if diagnostics:
+        metadata["extraction_diagnostics"] = {
             "stage_ok": diagnostics.get("stage_ok"),
             "chunks": diagnostics.get("chunks"),
             "cache_hits": diagnostics.get("cache_hits"),
             "failed_chunks": diagnostics.get("failed_chunks"),
             "relation_degraded_stages": diagnostics.get("relation_degraded_stages", 0),
-        },
-    }
+        }
+    final_events.metadata = metadata
 
 
 def process_single_file(file_path: Path, llm, enable_split: bool = True,

@@ -53,7 +53,7 @@ entity-event-relation/
 │                              # publish_rules（书本特化规则的加载）、entity_classifier、json_payload、
 │                              # value_parsing（含事件身份键）、relation_rules
 ├── config/                    # aliases.json / dynasty_ranges.json / eval_config.json / relation_types.json
-│                              # + publish_rules.json（发布过滤的本本特化规则）
+│                              # + publish_rules.json（发布过滤的本本特化规则，含「过宽概括」唯一特征表）
 │                              # + text_cleaning.json（输入清洗规则与错字表）
 ├── data/                      # 输入原文 + data/annotations/ 参考标注（**来源与字段口径见其 README**）
 ├── output/                    # 抽取结果（按运行批次分目录，自动生成）
@@ -67,14 +67,28 @@ entity-event-relation/
 │   ├── latest/                #   历史基线（加注说明过：值属旧口径且不可复现，别当回归基线）
 │   ├── recheck-micro-20260925/ #  同上（recall 改 micro 口径那次的重跑）
 │   ├── baseline/              #   冻结基线（产物/标注/配置/提示词的 sha256 + 标注来源说明）
+│   │                          #   + 两份体检报告：health_check_before.json（加事件字段级检查**之前**）
+│   │                          #     与 health_check_after.json（**当前基线**，日常 --baseline 用它）
 │   ├── review/                #   分层抽样导出的人工核验表（**入库**：跨版本比对要用它当基准）
+│   │                          #   + sample_<seed>_with_source.csv：判定用的那份（上下文换成原文，见 docs/抽样判定规范.md）
 │   └── run_<时间戳>/           #   逐次运行默认写到这里（不入库）
 ├── tools/
 │   ├── threshold_sensitivity.py   # 四阈值敏感性扫描
 │   ├── freeze_baseline.py         # 冻结基线指纹（产物/标注/配置/提示词）
 │   ├── artifact_health_check.py   # 产物体检（不依赖参考集，可当 CI 门禁）
 │   ├── event_pairing_review.py    # 事件配对约束复核（导出被拆配对，人工判约束是否过严）
-│   └── sample_for_review.py       # 分层抽样导出人工核验表 / 跨版本定位复核
+│   ├── sample_for_review.py       # 分层抽样导出人工核验表 / 跨版本定位复核（B 组）
+│   ├── expand_review_context.py   # 给核验表补原文上下文（含前后段），判时间要用
+│   ├── summarize_review.py        # B 组判定汇总（精确率 + Wilson 区间 + 错误类型）
+│   ├── annotation_io.py           # 参考集的读取与身份口径（定位键 / 稳定 ID，一处实现）
+│   ├── assign_annotation_ids.py   # 参考集稳定 ID 分配与冲突检测（C 组第 2 步）
+│   ├── backfill_annotation_evidence.py  # 参考集的证据与原文 offset 回填（C 组第 3 步）
+│   ├── diff_annotation_sets.py    # 新老参考集逐条 diff（改标注的机械留档）
+│   ├── sample_gold_for_review.py  # 从参考集抽样做"旧标注判定实验"（C 组第 0 步）
+│   ├── build_draft_annotation_table.py  # 按朝代子集切"草稿核验表"（C 组第 2 步）
+│   ├── apply_rebuild_table.py     # 把核验结论落成参考集 JSON（C 组第 3 步）
+│   ├── summarize_rebuild_table.py # 核验表汇总 + 两人一致率（C 组第 3/6 步）
+│   └── split_annotation_set.py    # 成稿按朝代切 development / test（C 组第 7 步）
 └── tests/                     # 常驻用例（见「快速开始 7」），已全部进 CI
 ```
 
@@ -282,19 +296,61 @@ for s in 0 1 2; do PYTHONHASHSEED=$s python evaluate.py --output ../.eval-check-
 
 ```bash
 python tools/artifact_health_check.py                 # 打印体检报告
-python tools/artifact_health_check.py --json h.json   # 存 JSON，供逐版比对
+python tools/artifact_health_check.py --json h.json   # 存 JSON，供逐版比对（报告含产物指纹 source_sha256）
+python tools/artifact_health_check.py --json h.json --note "这份基线对应哪份产物"
 python tools/artifact_health_check.py --baseline h.json   # 任何门禁项变差就退出码 1（可当 CI 门禁）
 
 python tools/sample_for_review.py --total 350         # 导出人工核验表（CSV + JSON）
 python tools/sample_for_review.py --compare evaluation/review/sample_<seed>.json --pred <新产物.json>
+
+python tools/expand_review_context.py                 # 给核验表补原文上下文（含前后段），生成可判定的表
+
+python tools/summarize_review.py                      # 判完之后汇总：精确率 + Wilson 区间 + 错误类型
 ```
+
+人工核验表分两步用：`sample_for_review.py` 导出"记录 + 模型给的证据"（冻结基准），
+`expand_review_context.py` 再把上下文换成**原文里那一段**（前 900 字 / 后 200 字，
+`〈 〉` 标出证据位置，并单独留一列放模型自己写的证据）——判时间时需要的年份常写在
+证据段的前面，只看证据会判错。**逐条怎么判见 [`docs/抽样判定规范.md`](docs/抽样判定规范.md)**，
+判完用 `summarize_review.py` 汇总（精确率的分母不含"无法判断"、区间用 Wilson、
+错误类型按判据的固定前缀统计）。
+
+**B 组第一次判定的结果（2026-09-27，350 条全判完）**：整体**抽样精确率 82.8%**
+（270 对 / 270+56，Wilson 95% **[78.4%, 86.5%]**），"无法判断" 6.9%。
+分类看：**关系 74.4%**（错的全是关系类型或方向，没有一条是"证据不足"）、
+事件 90.1%、实体 92.3%。结论与它对阶段三的影响写在
+[`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md) §0.6；
+本次汇总落盘在 `evaluation/review/summary_20260926.json`。
 
 两个工具的存在理由：**现行参考集不可信**（见 `data/annotations/README.md` 顶部的来源更正），
 所以"改好了没有"不能只看 F1。体检脚本查的是**绝对数字**（悬空边、枚举外取值、重复行、
-残缺年份、方向与时间矛盾、证据复用率、关系量级），与参考集无关，因此能当门禁；
-抽样脚本用的是"分层随机抽样 + 稳定定位"，跨版本可比、也不依赖参考集。
+残缺年份、方向与时间矛盾、证据复用率、关系量级，以及事件字段级的占位词/攻守方非组织值/
+`Result` 弱值），与参考集无关，因此能当门禁；抽样脚本用的是"分层随机抽样 + 稳定定位"，
+跨版本可比、也不依赖参考集。
 导出的表格（`evaluation/review/`）**要入库**：它是一次投入、长期复用的基准，
 丢了就得重新抽一批、也就无法与上一版比。
+
+门禁「枚举外关系名」已扣掉 `KNOWN_ENUM_EXCEPTIONS` 里**已登记**的例外（按键匹配），
+所以现产物上是 0；若它非零，说明出现了**未登记**的枚举外取值，报告会把取值点名列出。
+另一条别误读：`--baseline` 比的是两份**读同一份旧产物**的报告，
+"门禁未变差"**只说明评估侧口径变更不改变体检项**，抽取侧修复要等重跑后的产物才能验证
+（见指南 §3.1 与 `evaluation/baseline_after/baseline.json` 的 note）。
+
+第三阶段 D3 补的三项事件字段级门禁（占位词 / 攻守方非组织值 / `Result` 弱值）**都是基线值，
+不是"应当为 0"**（旧产物上分别是 1897 / 255 / 26）——语义是"不应比上一版更多"。
+E2 又加了第四项「同一事件多条统帅」（基线 **698**，目标同样不是 0：双方各一位主帅是合理的），
+它盯的是 `Commanders`（"指挥官列表"）被逐人当成"最高指挥官"这件事——规则已改（见指南 §1.27），
+**数字要重跑后才看得到下降**。
+**入库的当前基线是 `evaluation/baseline/health_check_after.json`，日常对照用它**
+（17 项全部可比）。而 `health_check_before.json` 是加这些检查**之前**的报告，对着它跑时
+「攻守方非组织值」与「`Result` 弱值或占位」会判为"**无法比较**"并被点名跳过——
+这不是漏检，而是"新门禁第一次纳入时不能拿缺失当 0"（否则门禁一建就是红的，A2 那个坑）。
+**"跳过"还有反向的坑**：若入库基线永远缺那几节，那几项就等于没有门禁，
+所以 `test_入库基线能取到全部门禁项` 钉住这件事——以后加了门禁项却忘了重生成基线，
+用例会直接变红并给出命令。两份基线都记了产物指纹 `source_sha256`（`health_check_after.json`
+另带一句 `--note` 说明来历）。
+其中「事件字段写占位词」还有一层特殊性：如实写"不详"是**正确**行为，E1 的改动方向正是
+"不确定就写不详"，所以这一项**上升可能是对的**，届时应更新基线并写明理由，不要当成回归。
 
 ### 7. 运行测试
 
@@ -304,17 +360,22 @@ cd entity-event-relation
 python -m pytest tests -q
 ```
 
-常驻用例（**19 个文件、199 例**）已全部进 CI，跑在上面说的 `legacy-backend` job 里：
+常驻用例（**24 个文件、267 例**）已全部进 CI，跑在上面说的 `legacy-backend` job 里：
 
 | 用例 | 钉住的回归 |
 | --- | --- |
 | `tests/test_evaluator_deterministic.py` | 评估可复现：同一输入两次评估必须逐字段相同（开 4 个不同 `PYTHONHASHSEED` 的子进程比对完整 `evaluate_relations` 返回） |
 | `tests/test_artifact_provenance.py` | 产物自证：内容哈希可自校验、metadata 记录生成环境、`events.metadata` 不再在合并/清理时丢掉、Excel 只依赖聚合产物、评估 metadata 分组 |
-| `tests/test_enum_synchronization.py` | 枚举的跨模块同步：前端图谱下拉、RAG `field_map`、后端导入白名单必须与权威表一致（直接读那几份文件比对） |
+| `tests/test_enum_synchronization.py` | 枚举的跨模块同步：前端图谱下拉、RAG `field_map`、后端导入白名单必须与权威表一致（直接读那几份文件比对）；`指挥所` 落地为"组织侧拒收而非错配"、朝代归一表的归属（第二轮工作单 B8/C3） |
 | `tests/test_relation_rules.py` | 事件-事件关系的类型仲裁、方向判定（证据→时间→不猜）、收敛去重与定序 |
-| `tests/test_derive_relations.py` | 派生关系绑定同句证据与具体实体：主战场不再无条件、议和不再扩散到所有组织、君主不再按名字里的字判 |
-| `tests/test_evaluator_capabilities.py` | 新评估能力：事件配对四条约束规则（同名放行/缺值放行/朝代按时代档位/残缺年份不参与/地点按集合）、关系按条计数、两套身份口径、字段值准确率、分维度报告 |
-| `tests/test_round2_closeout.py` | 第二轮收口：枚举外事件-事件关系保留并计数、悬空边四类计数、清洗统计在顶层 metadata、清洗开关可关、`source_offset` 是原文坐标、基线指纹与 run_id、`model_served` 自证 |
+| `tests/test_derive_relations.py` | 派生关系绑定同句证据与具体实体：主战场不再无条件、议和不再扩散到所有组织、君主不再按名字里的字判；阶段三 E2 的 `Commanders` 派生 `将领`、同一人物不再同时挂统帅与将领 |
+| `tests/test_evaluator_capabilities.py` | 新评估能力：事件配对四条约束规则（同名放行/缺值放行/朝代按时代档位/残缺年份不参与/地点按集合）、关系按条计数、两套身份口径、字段值准确率、分维度报告；`event_year_tolerance`/`also_published`/`summary_published`（第二轮工作单 A4）、`by_category` 与整体同一次匹配（B5） |
+| `tests/test_health_gate.py` | 体检门禁「枚举外关系名」扣掉已登记的例外（按键匹配、要求取值确实在报告里）、未登记的取值一条都不扣、旧版报告缺例外表也能比对照（第二轮工作单 A2）；第三阶段 D3 的三项事件字段级门禁（攻守方填人名 +1、同名朝代不算地点混入、`Result` 弱值与占位词、占位词按字段分列）、「基线缺项 → 跳过并点名」的对照语义、**入库基线必须覆盖全部门禁项且指纹与磁盘产物一致**（防止门禁建了却永远比不出来） |
+| `tests/test_review_context.py` | 抽样核验表的上下文扩全：`定位键` 与冻结样本**逐行一致**（判定结果要映射回基准）、生成表三列留空且原表内容一字不动、`崤底之战` 那类"时间在上一段"的行必须带出 `公元27年`、模型删掉括号后仍能定位、标成 `记录证据` 的行证据确实在上下文里、定位不到时**不编造**上下文 |
+| `tests/test_annotation_tools.py` | 参考集工具链的口径：稳定 ID 只跟「名称+朝代」绑定、整数年份不崩、冲突检测把**重复行**与**同名不同年代**分开报、diff 把记账字段排除在字段变更之外、核验表汇总把「没填」单列（不混进分母）、IAA 按定位键配对、切分让**关系跟着 head 事件走**（head 不在事件表的不猜边） |
+| `tests/test_review_summary.py` | B 组汇总的口径：精确率分母**不含"无法判断"**、Wilson 区间在极端比例上不越界（分层只有 8 条）、判据前缀只认带冒号的规范前缀（正文里出现"结果""时间"不算）、错误类型只统计判错的行、分类按冒号前那级合并 |
+| `tests/test_health_gate.py` | 体检门禁「枚举外关系名」扣掉已登记的例外（按键匹配、要求取值确实在报告里）、未登记的取值一条都不扣、旧版报告缺例外表也能比对照（第二轮工作单 A2）；第三阶段 D3 的三项事件字段级门禁（攻守方填人名 +1、同名朝代不算地点混入、`Result` 弱值与占位词、占位词按字段分列）、「基线缺项 → 跳过并点名」的对照语义、**入库基线必须覆盖全部门禁项且指纹与磁盘产物一致**（防止门禁建了却永远比不出来） |
+| `tests/test_round2_closeout.py` | 第二轮收口：枚举外事件-事件关系保留并计数、悬空边四类计数、清洗统计在顶层 metadata、清洗开关可关、`source_offset` 是原文坐标、基线指纹与 run_id、`model_served` 自证；第二轮工作单的残缺关系计数（B3）、诊断为空时清洗统计仍落盘（B4）、`包含关系`/`条件关系` 进发布子集（C1）；第三阶段 D1（置信门槛对枚举外类型返回 False、对包含/条件仍按证据非空）与 D2（`source_offset` 仍未接线的 AST 守卫，含接线时要改哪四处的清单） |
 | `tests/test_normalizer_noise.py` | 「等 N 方国 / 等 N 国 / 等 N 部落」这类噪声地名必须被判为噪声 |
 | `tests/test_cache_manager.py` | 缓存索引原子写：写一半崩溃后旧索引仍完整、悬挂与损坏条目被摘除 |
 | `tests/test_paths_and_cache_gc.py` | 路径锚定（默认缓存/配置目录不随工作目录变）、配置缺失不再静默、孤儿条目 GC 与 TTL |
@@ -601,7 +662,7 @@ event-event 只有约 46%。不能直接找到不等于一定错（引号、OCR�
 [`docs/第一轮核验与遗留项.md`](docs/第一轮核验与遗留项.md) 的 §5.1。
 
 原定的四个阶段里，**阶段 0~3 的代码部分已落地**（结果见上表），**阶段 4 未执行**：
-它要真金白银调用模型跑完整本（196 段、缓存全失效），而 `阶段 1` 的标注重建
+它要真金白银调用模型跑完整本（按当前分段器 **211 段**，缓存全失效），而 `阶段 1` 的标注重建
 （人工核验、IAA、train/test 切分）与 `阶段 1 附二` 的固定评估抽样集需要人工投入，
 两者都不在这次代码整改范围内。所以**当前仍不建议**据此重跑整本——先按
 `tools/sample_for_review.py` 导出的表格把抽样精确率做出来，再决定要不要付费。
@@ -611,14 +672,27 @@ event-event 只有约 46%。不能直接找到不等于一定错（引号、OCR�
 1. **参考标注的重建**：人工逐条回原文核验、补 evidence 与字符 offset、双人复核算 IAA、
    切 development / test。这是"指标能不能信"的唯一出路，也是`candidate/` 与
    体检报告都在为之铺垫的事。
-2. **`DynastyName` 的映射表**：按已定决策不强行统一取值（产物保留原文写法），
-   但 backend 与 RAG 需要一张共用的权威映射表，目前两套口径并存。
+2. **`DynastyName` 的映射表：RAG 侧还没接**。位置已定（`war_extraction/utils/vocabulary.py`
+   的 `DYNASTY_ALIASES`，backend 已改为引用它并删除抄写的那份），但 RAG 的运行环境没有
+   `war_extraction` 依赖，接入方式（表随快照发布 / 加依赖）待重建快照时定——
+   在此之前 RAG 的朝代取值仍是产物原文写法，与 backend 的归一结果不一致。
 3. **`EventType` 取值域与 RAG 字典的对齐**：权威表是 29 值（提示词枚举 21 ∪ 实际在用的 8），
    而 RAG 侧治理后的标准词典是 27 项；重跑后如果出现 `党争军事化` / `军事同盟`，
-   RAG 的 `data-contract.md`"27 类"口径要同步。
-4. **`AliasNames` 是否进 SQLite/Neo4j**：字段已经落盘（下游忽略未映射的键），
-   要不要在图谱里也保留别名，取决于产品侧。要做就在
-   `backend/node_property_mapping.py` 的 `API_TO_COLUMN` 加一行。
+   RAG 的 `data-contract.md`"27 类"口径要同步。**对齐方向已定：以权威表为准改词典**
+   （反向收窄权威表会让模型产出的合法取值被挪出发布子集）。
+4. **`AliasNames` 是否进 SQLite/Neo4j**：**已结案：不进**。理由与代价写在
+   `war_extraction/models/events.py` 的字段注释里——没有任何下游在读它，
+   进库要新增列（含存量库迁移）+ `to_dict` + Neo4j 属性 + 前端一起改；
+   改主意时按 `backend/node_property_mapping.py` 的 `API_TO_COLUMN` 加一行即可。
+5. **发布过滤的 `包含关系`/`条件关系` 修复已写但未上线**：代码与用例已完成
+   （指南 §1.24），但它等于改整个知识库内容，必须与产物换代、SQLite 重导、
+   Neo4j 重同步、RAG 快照重建**打包成一次发布**。在此之前两类关系仍不进 `published`。
+6. **`source_offset` 暂未接线**：字段已具备，但 chunk 级信息不序列化，产物里拿不到；
+   等参考集重建（需要逐条回原文定位）时再接进
+   `events.metadata.extraction_diagnostics.chunks[]`。这条状态**现在有机械守卫**：
+   `tests/test_round2_closeout.py::test_source_offset仍未接线` 用 AST 断言"除
+   `extraction_runner.py` 外，生产代码不许读 `source_offset`"——一旦有人接线，用例变红并
+   列出"接线时要一起改哪四处"（用例、指南 §1.16、README 本条、产物形状同步清单）。
 
 ## 与旧后端的关系
 
@@ -638,7 +712,13 @@ event-event 只有约 46%。不能直接找到不等于一定错（引号、OCR�
   未完成清单与踩过的坑）、
   [`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md)
   （为什么指标低、逐层归因、跨模块契约与静默失败清单、分阶段方案；其 §0.1 是执行状态）；
-  另 `data/annotations/README.md`（参考标注的来源更正与字段口径）、
+  另 `data/annotations/README.md`（参考标注的来源更正、字段口径与**事件粒度口径**）、
+  [`docs/抽样判定规范.md`](docs/抽样判定规范.md)（**做 B 组人工核验前必读**：
+  用哪份表、每列什么意思、三档怎么判、逐字段规则与真实判例）、
+  [`docs/参考集重建规范.md`](docs/参考集重建规范.md)（**做 C 组参考集重建前必读**：
+  为什么重建、要产出什么、开工前必须定的口径、七步流程、工具现状与工作量折算）、
+  [`docs/第三阶段收尾执行单.md`](docs/第三阶段收尾执行单.md)（**接着往下做的人先看这份**：
+  剩下的活按"花不花钱"分四批、**待重跑生效清单**、每批的验收命令）、
   `war_extraction/geocoding/README.md`（地理编码子系统）。
 - 项目级（只引用这四个）：[`docs/README.md`](../docs/README.md)、
   [`docs/项目现状与后续计划.md`](../docs/项目现状与后续计划.md)、

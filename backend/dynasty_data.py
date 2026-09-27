@@ -12,14 +12,22 @@
 | `DYNASTY_DISPLAY_ORDER` | 时间轴/筛选下拉的**展示**顺序与取值 | 带「朝」的正式名（`秦朝`/`汉朝`） |
 | `DYNASTY_ALIAS_MAP` | 把用户输入归一到展示口径 | 简称 → 正式名 |
 | `VALID_DYNASTIES` | 文本抽取产物的**校验**白名单 | 与抽取提示词模板一致，用简称（`秦`/`汉`），另含「上古」等非朝代分期 |
-| `DYNASTY_CORRECTIONS` | 抽取结果里常见错写的纠正 | 正式名 → 抽取口径简称 |
+| `DYNASTY_CORRECTIONS` | 抽取结果里常见错写的纠正 | **取自权威表**（见下） |
 | `EXTRACTOR_DYNASTIES` | 旧版实体抽取器的关键词表 | 简称与全称都要能命中 |
 
 要统一成同一套写法，得连着抽取提示词、存量图谱数据与前端筛选一起改——那是独立议题，
 不在"消除重复维护"的范围内。这里只保证：**同一份数据只有一个出处**。
-"""
 
+**`DYNASTY_CORRECTIONS` 的出处**：决策 10.1 第 7 项（"不统一取值、改成映射，映射表
+backend 与 RAG 共用"）。表已定位置在 `war_extraction/utils/vocabulary.py` 的
+`DYNASTY_ALIASES`（与该模块的 `ORG_TYPES`/`ROLES`/`EVENT_TYPES` 同处，依赖方向本就是
+backend → war_extraction）。这里不再自带一份抄写——抄写正是"改一处漏一处"的来源。
+RAG 侧的接入见 `RAG/data/snapshot/normalize.py` 的模块 docstring（它没有 war_extraction
+依赖，接入方式另定）。
+"""
 from __future__ import annotations
+
+from war_extraction.utils.vocabulary import DYNASTY_ALIASES
 
 # ---- 问答侧：用户说法 → 图谱实际取值（含简称与全称两种键）----
 DYNASTY_SCOPE_MAP = {
@@ -117,13 +125,8 @@ VALID_DYNASTIES = [
     "上古", "原始社会", "父系氏族社会",
 ]
 
-# ---- 抽取结果里的常见错写 → 抽取口径 ----
-DYNASTY_CORRECTIONS = {
-    "商汤": "商", "商朝": "商", "夏朝": "夏", "周朝": "西周",
-    "秦朝": "秦", "汉朝": "西汉", "隋朝": "隋", "唐朝": "唐",
-    "宋朝": "北宋", "辽朝": "辽", "金朝": "金", "元朝": "元",
-    "明朝": "明", "清朝": "清",
-}
+# ---- 抽取结果里的常见错写 → 抽取口径（取自权威表，不再自己抄一份）----
+DYNASTY_CORRECTIONS = dict(DYNASTY_ALIASES)
 
 # ---- 旧版实体抽取器的关键词表（简称与全称都要能命中）----
 EXTRACTOR_DYNASTIES = [

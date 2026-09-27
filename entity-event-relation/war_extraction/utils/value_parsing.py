@@ -113,7 +113,19 @@ def event_identity_key(normalizer, name, dynasty=None, start_date=None, place=No
     """
     return (
         normalizer.normalize_event_name(name),
-        (dynasty or "").strip(),
-        (start_date or "").strip(),
+        _as_text(dynasty),
+        _as_text(start_date),
         first_effective_place(normalizer, place),
     )
+
+
+def _as_text(value) -> str:
+    """
+    一律转成字符串再 `strip`。
+
+    **为什么必须转**：人工标注里的年份有整数写法（`StartDate: 618`），直接 `.strip()` 会抛
+    `AttributeError`（`parse_year_for_order` 早就为这件事加固过，这里是同一个坑）。
+    抽取链路上的字段来自 pydantic 模型、本来就是字符串，所以这个坑只在**读参考集**时踩到——
+    而"读参考集把工具崩掉"会把失败伪装成"参考集有问题"，排查方向从一开始就是错的。
+    """
+    return str(value).strip() if value is not None else ""

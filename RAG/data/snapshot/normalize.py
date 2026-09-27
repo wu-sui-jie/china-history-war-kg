@@ -10,6 +10,24 @@
 - 朝代：对“上古传说战争被误标为夏”这类明显数据问题做有依据归一（_is_ancient_legend），
   归入“上古”并在报告记录 data_issue；其余朝代原样保留。人物/组织/地点的 dynasty
   信息更弱，不做推断，保持原样。
+
+**朝代归一表的位置（决策 10.1 第 7 项，本轮只落"位置"这一步）**
+
+"不强行统一取值、改为统一映射"的决策里，**权威映射表已定在**
+`war_extraction/utils/vocabulary.py` 的 `DYNASTY_ALIASES`（连同 `normalize_dynasty()`），
+backend 已改为引用它（见 `backend/dynasty_data.py` 的 `DYNASTY_CORRECTIONS`）。
+
+RAG 侧**本轮刻意不改动**，原因是接入方式还没定：本模块的运行环境里**没有**
+`war_extraction` 依赖（`requirements.txt` 里没有，全仓 RAG 代码对它的引用为零），
+直接 `import` 会把抽取链拖进 RAG 的部署依赖；而"把表复制一份"正是要消除的那种重复。
+两条候选接入路径，需在**重建快照时**一并决定，不要单独改这里：
+
+1. 治理阶段把 `DYNASTY_ALIASES` 生成为快照内的一个数据文件（沿用 F09 现有做法：
+   表随快照发布，运行时不跨模块 import）；
+2. 给 RAG 加 `war_extraction` 依赖（要评估它的安装体积与版本约束）。
+
+在此之前，RAG 的朝代取值仍是产物原文写法，与 backend 的归一结果**不一致**——
+排查"某朝代查不到数据"时要记得这一点（`describe_dialect_gaps` 只覆盖 backend 内部各表）。
 """
 
 from __future__ import annotations

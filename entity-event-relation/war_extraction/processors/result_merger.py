@@ -380,6 +380,9 @@ class ResultMerger:
             normalizer,
             merged.event_event_relations,
             event_start_years=event_start_years,
+            # 不传 `quarantine`：段间合并不是最后一道收敛，枚举外的条目在这里计数会与
+            # `main.cleanup_relation_conflicts` 重复。计数口径见
+            # `war_extraction/utils/relation_rules.py::reduce_event_event_relations` 的 docstring。
         )
 
         return merged

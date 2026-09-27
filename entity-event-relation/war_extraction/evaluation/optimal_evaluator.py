@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+from collections import Counter
 from pathlib import Path
 from fuzzywuzzy import fuzz
 from typing import Dict, List, Set, Tuple
@@ -71,6 +72,13 @@ def _is_residual_year(value) -> bool:
     """
     text = ("" if value is None else str(value)).strip()
     return bool(_RESIDUAL_YEAR.match(text))
+
+
+#: 四类预测关系的固定顺序。三处口径（`filter_relations` / `filter_relations_by_category` /
+#: `evaluate_relations` 的 `by_category`）都按这个顺序产出，结果才能逐项对照。
+PRED_RELATION_CATEGORIES: Tuple[str, ...] = (
+    "event-place", "event-person", "event-organization", "event-event",
+)
 
 
 class OptimalEvaluator:
@@ -560,6 +568,46 @@ class OptimalEvaluator:
                                "precision": p, "recall": r, "f1": f1}
         return report
 
+    def tagged_pred_triples(self, pred_relations: Dict, event_mapping: Dict) -> List[Tuple[str, Tuple[str, str, str]]]:
+        """
+        预测关系的**唯一构造入口**：返回 `[(分类, 三元组)]`，按条保留（不去重）。
+
+        `filter_relations`（并集）与 `filter_relations_by_category`（分桶）都从这里派生，
+        保证两者给出的条目集合逐项相同——原先两处各写一遍遍历，"改一处漏一处"就会让
+        整体与分类的口径悄悄分叉。
+
+        分类取自**源字段所在的容器**（事件-地点/人物/组织/事件），不是猜出来的：
+        同一条三元组若在两个容器里各出现一次，这里会保留两条并各自带自己的类目。
+        """
+        matched_events = set(event_mapping.keys())
+        tagged: List[Tuple[str, Tuple[str, str, str]]] = []
+
+        for rel in pred_relations.get('event_place_relations', []):
+            event = rel.get('EventName', '').strip()
+            place = rel.get('modern_name', '').strip()
+            if event in matched_events and place:
+                tagged.append(("event-place", (event, self.normalize_relation(rel.get('relation', '')), place)))
+
+        for rel in pred_relations.get('event_person_relations', []):
+            event = rel.get('EventName', '').strip()
+            person = rel.get('PersonName', '').strip()
+            if event in matched_events and person:
+                tagged.append(("event-person", (event, self.normalize_relation(rel.get('relation', '')), person)))
+
+        for rel in pred_relations.get('event_organization_relations', []):
+            event = rel.get('EventName', '').strip()
+            org = rel.get('OrgName', '').strip()
+            if event in matched_events and org:
+                tagged.append(("event-organization", (event, self.normalize_relation(rel.get('relation', '')), org)))
+
+        for rel in pred_relations.get('event_event_relations', []):
+            event_a = rel.get('EventName_A', '').strip()
+            event_b = rel.get('EventName_B', '').strip()
+            if event_a in matched_events and event_b in matched_events:
+                tagged.append(("event-event", (event_a, self.normalize_relation(rel.get('relation', '')), event_b)))
+
+        return tagged
+
     def filter_relations_by_category(self, pred_relations: Dict, event_mapping: Dict) -> Dict[str, List]:
         """
         按**四类关系分别**返回"事件端已对齐"的预测三元组。
@@ -567,40 +615,12 @@ class OptimalEvaluator:
         整体指标仍由全部四类的并集算（`filter_relations`），这里额外给出分类结果，
         用于"按关系类型分别报告 P/R/F1"——只给一个宏观平均看不出是哪一类在拖后腿。
 
-        与 `filter_relations` 同一口径：**按条保留**（`list`，不去重）。
+        与 `filter_relations` 同一口径：**按条保留**（`list`，不去重），且两者由
+        `tagged_pred_triples` 同一份构造派生，条目集合必然一致。
         """
-        matched_events = set(event_mapping.keys())
-        buckets: Dict[str, List] = {
-            "event-place": [],
-            "event-person": [],
-            "event-organization": [],
-            "event-event": [],
-        }
-
-        for rel in pred_relations.get('event_place_relations', []):
-            event = rel.get('EventName', '').strip()
-            place = rel.get('modern_name', '').strip()
-            if event in matched_events and place:
-                buckets["event-place"].append((event, self.normalize_relation(rel.get('relation', '')), place))
-
-        for rel in pred_relations.get('event_person_relations', []):
-            event = rel.get('EventName', '').strip()
-            person = rel.get('PersonName', '').strip()
-            if event in matched_events and person:
-                buckets["event-person"].append((event, self.normalize_relation(rel.get('relation', '')), person))
-
-        for rel in pred_relations.get('event_organization_relations', []):
-            event = rel.get('EventName', '').strip()
-            org = rel.get('OrgName', '').strip()
-            if event in matched_events and org:
-                buckets["event-organization"].append((event, self.normalize_relation(rel.get('relation', '')), org))
-
-        for rel in pred_relations.get('event_event_relations', []):
-            event_a = rel.get('EventName_A', '').strip()
-            event_b = rel.get('EventName_B', '').strip()
-            if event_a in matched_events and event_b in matched_events:
-                buckets["event-event"].append((event_a, self.normalize_relation(rel.get('relation', '')), event_b))
-
+        buckets: Dict[str, List] = {category: [] for category in PRED_RELATION_CATEGORIES}
+        for category, triple in self.tagged_pred_triples(pred_relations, event_mapping):
+            buckets[category].append(triple)
         return buckets
 
     def filter_relations(self, pred_relations: Dict, event_mapping: Dict) -> List:
@@ -629,52 +649,7 @@ class OptimalEvaluator:
         （实测事件-事件有 21 条完全重复）是标注缺陷，不该变成"要求预测也多输出一条"。
         标注重复由体检脚本报出（`annotations.relations[*].duplicate_rows`），在标注侧清理。
         """
-        matched_events = set(event_mapping.keys())
-        filtered_rels: List[Tuple[str, str, str]] = []
-
-        # 事件-地点
-        for rel in pred_relations.get('event_place_relations', []):
-            event = rel.get('EventName', '').strip()
-            if event not in matched_events:
-                continue
-            place = rel.get('modern_name', '').strip()
-            if not place:
-                continue
-            relation = self.normalize_relation(rel.get('relation', ''))
-            filtered_rels.append((event, relation, place))
-
-        # 事件-人物
-        for rel in pred_relations.get('event_person_relations', []):
-            event = rel.get('EventName', '').strip()
-            if event not in matched_events:
-                continue
-            person = rel.get('PersonName', '').strip()
-            if not person:
-                continue
-            relation = self.normalize_relation(rel.get('relation', ''))
-            filtered_rels.append((event, relation, person))
-
-        # 事件-组织
-        for rel in pred_relations.get('event_organization_relations', []):
-            event = rel.get('EventName', '').strip()
-            if event not in matched_events:
-                continue
-            org = rel.get('OrgName', '').strip()
-            if not org:
-                continue
-            relation = self.normalize_relation(rel.get('relation', ''))
-            filtered_rels.append((event, relation, org))
-
-        # 事件-事件
-        for rel in pred_relations.get('event_event_relations', []):
-            event_a = rel.get('EventName_A', '').strip()
-            event_b = rel.get('EventName_B', '').strip()
-            if event_a not in matched_events or event_b not in matched_events:
-                continue
-            relation = self.normalize_relation(rel.get('relation', ''))
-            filtered_rels.append((event_a, relation, event_b))
-
-        return filtered_rels
+        return [triple for _category, triple in self.tagged_pred_triples(pred_relations, event_mapping)]
 
     def build_gold_triples(self, event_mapping: Dict) -> Set:
         """构建标注关系三元组集合(映射到预测事件名)"""
@@ -1040,7 +1015,8 @@ class OptimalEvaluator:
         raw_event_rels = len(pred_relations.get('event_event_relations', []))
         raw_total = raw_place_rels + raw_person_rels + raw_org_rels + raw_event_rels
 
-        pred_triples = self.filter_relations(pred_relations, event_mapping)
+        tagged_pred = self.tagged_pred_triples(pred_relations, event_mapping)
+        pred_triples = [triple for _category, triple in tagged_pred]
         gold_triples = self.build_gold_triples(event_mapping)
         gold_total = len(gold_triples)
         # 按条计数的同时给出唯一三元组数：两者的差额就是"重复项"，它们是必然的 FP，
@@ -1069,26 +1045,15 @@ class OptimalEvaluator:
 
         # 按四类关系分别报 P/R/F1：宏观平均盖住的是"哪一类在拖后腿"，
         # 只给一个数没法决定先修哪一类。
-        by_category = {}
-        pred_by_category = self.filter_relations_by_category(pred_relations, event_mapping)
-        gold_by_category = self.build_gold_triples_by_category(event_mapping)
-        for category in ("event-place", "event-person", "event-organization", "event-event"):
-            category_match = self.match_relation_triples(
-                pred_by_category[category], gold_by_category[category], event_mapping)
-            category_tp = category_match['tp']
-            category_fp = len(category_match['unmatched_predictions'])
-            category_fn = category_match['matched_gold'].count(False)
-            category_p = category_tp / (category_tp + category_fp) if (category_tp + category_fp) else 0
-            category_r = category_tp / (category_tp + category_fn) if (category_tp + category_fn) else 0
-            category_f1 = (2 * category_p * category_r / (category_p + category_r)
-                           if (category_p + category_r) else 0)
-            by_category[category] = {
-                'precision': category_p, 'recall': category_r, 'f1': category_f1,
-                'pred': len(pred_by_category[category]),
-                'pred_unique': len(set(pred_by_category[category])),
-                'gold': len(gold_by_category[category]),
-                'tp': category_tp, 'fp': category_fp, 'fn': category_fn,
-            }
+        #
+        # **口径：一次匹配、按类目切分**（不再对四类各跑一遍匹配）。原先整体用
+        # `filter_relations` 的并集匹配、分类用分桶各自匹配，两次结果对不上：
+        # 并集匹配时不同类目的预测会**竞争同一条 gold**（先到先得），分桶匹配时各自
+        # 独立认领。实测 `evaluation/run_20260926_after3/results.json`：整体 TP=806 /
+        # FP=4557，四类之和 TP=803 / FP=4560，差 3 条——同一份产物、同一个评估器，
+        # 两套数互不相等。切分之后"四类 TP 之和 == 整体 TP、四类 FP 之和 == 整体 FP"
+        # 恒成立，`summary.relation_f1` 与 `by_category` 可以互相校验。
+        by_category = self.split_match_by_category(match, tagged_pred, event_mapping)
         print("  分类明细:")
         for category, item in by_category.items():
             print(f"    {category}: P={item['precision']:.2%} R={item['recall']:.2%} "
@@ -1115,6 +1080,69 @@ class OptimalEvaluator:
                 'unmatched_gold': [list(gold) for i, gold in enumerate(gold_list) if not matched_gold[i]][:20]
             }
         }
+
+    def split_match_by_category(self, match: Dict, tagged_pred: List, event_mapping: Dict) -> Dict:
+        """
+        把**并集那一次匹配**的结果按类目切分，产出 `by_category`（不再各类目各跑一遍匹配）。
+
+        **为什么必须切分。** 两次独立匹配的结果对不上：并集匹配时不同类目的预测会竞争同一条
+        gold（先到先得），分桶匹配时各自独立认领；而分桶匹配的 FN 又是"只在本类目的 gold 里找"，
+        会把"本类目的预测认领了别类目的 gold"这类交叉情形算成两个 FN。切分之后
+        `sum(tp) == match['tp']`、`sum(fp) == len(match['unmatched_predictions'])`
+        恒成立，`by_category` 与整体的 `counts` 可以互相校验。
+
+        切分口径：
+
+        - `tp` / `fp` 按**预测条目**的类目归属（`tagged_pred` 带标签，重复项按条计数：
+          未匹配条数用 `Counter` 逐条消去，与并集的按条计数一致）；
+        - `fn` 按**gold 条目**的类目归属。gold 侧的一条三元组只归一个类目（先到先得），
+          所以各档 FN 之和恒等于并集的 FN——否则同一个 gold 在两类目里各算一次 FN，
+          和就比整体大。
+        """
+        pred_total: Counter = Counter()
+        pred_triples_by_category = {category: [] for category in PRED_RELATION_CATEGORIES}
+        for category, triple in tagged_pred:
+            pred_total[category] += 1
+            pred_triples_by_category[category].append(triple)
+
+        unmatched_remaining: Counter = Counter(match['unmatched_predictions'])
+        pred_unmatched: Counter = Counter()
+        for category, triple in tagged_pred:
+            if unmatched_remaining[triple] > 0:
+                unmatched_remaining[triple] -= 1
+                pred_unmatched[category] += 1
+
+        gold_by_category = self.build_gold_triples_by_category(event_mapping)
+        gold_owner: Dict[Tuple[str, str, str], str] = {}
+        for category in PRED_RELATION_CATEGORIES:
+            for triple in sorted(gold_by_category[category]):
+                gold_owner.setdefault(triple, category)
+
+        gold_unmatched: Counter = Counter()
+        for index, gold in enumerate(match['gold_list']):
+            if match['matched_gold'][index]:
+                continue
+            owner = gold_owner.get(gold)
+            if owner:
+                gold_unmatched[owner] += 1
+
+        report = {}
+        for category in PRED_RELATION_CATEGORIES:
+            category_tp = pred_total[category] - pred_unmatched[category]
+            category_fp = pred_unmatched[category]
+            category_fn = gold_unmatched[category]
+            category_p = category_tp / (category_tp + category_fp) if (category_tp + category_fp) else 0
+            category_r = category_tp / (category_tp + category_fn) if (category_tp + category_fn) else 0
+            category_f1 = (2 * category_p * category_r / (category_p + category_r)
+                           if (category_p + category_r) else 0)
+            report[category] = {
+                'precision': category_p, 'recall': category_r, 'f1': category_f1,
+                'pred': pred_total[category],
+                'pred_unique': len(set(pred_triples_by_category[category])),
+                'gold': len(gold_by_category[category]),
+                'tp': category_tp, 'fp': category_fp, 'fn': category_fn,
+            }
+        return report
 
     def build_gold_triples_by_category(self, event_mapping: Dict) -> Dict[str, Set]:
         """按四类关系分别构建标注三元组（口径与 `build_gold_triples` 一致，只是不混在一起）。"""

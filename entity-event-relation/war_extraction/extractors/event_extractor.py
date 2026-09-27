@@ -11,6 +11,7 @@ from war_extraction.models import Event, EventExtractionResult, EventRelation
 from war_extraction.prompts import EVENT_IDENTIFICATION_PROMPT, FULL_EVENT_PROMPT
 from war_extraction.utils import Normalizer
 from war_extraction.utils.json_payload import extract_json_payload
+from war_extraction.utils.publish_rules import is_overbroad_event
 from war_extraction.utils.value_parsing import ensure_event_date_order, event_identity_key
 from war_extraction.utils.vocabulary import normalize_event_type
 
@@ -117,14 +118,18 @@ class EventExtractor:
         return deduplicated
 
     def _is_summary_style_event(self, event_name: str, evidence: str) -> bool:
-        text = f"{event_name or ''} {evidence or ''}"
-        summary_name_markers = ["时期", "系列", "多路征伐", "远征"]
-        summary_text_markers = ["主要战争有", "曾北征南伐", "东攻西进", "几次大决战", "此后", "继后"]
-        if any(marker in (event_name or "") for marker in summary_name_markers):
-            return True
-        if any(marker in text for marker in summary_text_markers):
-            return True
-        return False
+        """
+        「过宽概括」事件的识别期判定。
+
+        判定与特征表都在 `war_extraction/utils/publish_rules.is_overbroad_event`
+        （配置键 `overbroad_event_markers`）。**第三阶段 D5 之前这里另有一份表**
+        （4 个名称标记 + 6 个文本标记），与 `main._is_summary_only_event` 那份口径不同——
+        同一个概念两处判定，改一处另一处不动。现在两边读同一份配置。
+
+        识别期只有证据句，所以判定文本是"事件名 + evidence"（发布期那边给的是整段正文）。
+        """
+        # 判定文本里带上事件名：`event_name_markers` 会单独比事件名，两处口径一致
+        return is_overbroad_event(event_name, f"{event_name or ''} {evidence or ''}")
 
     def _looks_like_war_candidate(self, event_name: str, evidence: str) -> bool:
         text = f"{event_name or ''} {evidence or ''}"

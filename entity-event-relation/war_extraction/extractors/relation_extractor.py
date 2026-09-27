@@ -363,7 +363,17 @@ class RelationExtractor:
                             )
 
             person_sources = [
-                ("统帅", getattr(event, "Commanders", None)),
+                # **`Commanders` 派生 `将领`，不是 `统帅`**（阶段三 E2，依据 B 组抽样判定）。
+                # 字段的定义是「双方主要军事指挥官」（注释见 `event_prompts.py`），
+                # 而提示词里的关系枚举把两者分得很清：`统帅`=最高指挥官、`将领`=中级指挥官。
+                # 把列表里的**每一个人**都派生成 `统帅`，与字段和枚举两边的定义都冲突：
+                # 实测产物 3016 条 `统帅` 里 2767 条（91.7%）来自这条规则，
+                # 而抽样判定里规则派生的 `统帅` 例 10/10 被判错
+                # （"此役统帅为刘曜，石生并非统帅"、"不设元帅，郭子仪为九节度使之一"、
+                # "张孝忠系从征节度使，统帅应为朱滔"…）——判据里给出的正确说法都是"将领"。
+                # 改名的代价是"谁是最高指挥"不再由规则推断（那本来就是它推不出的信息，
+                # 字段里没有敌我、没有级别）；原文真的写了最高指挥时，关系阶段仍会抽 `统帅`。
+                ("将领", getattr(event, "Commanders", None)),
                 ("参与者", getattr(event, "KeyPersons", None)),
             ]
             for relation, person_value in person_sources:
@@ -402,6 +412,9 @@ class RelationExtractor:
         event_rels = reduce_event_event_relations(
             self.normalizer,
             self._derive_event_event_relations_from_events(events),
+            # 不传 `quarantine`：枚举外的条目不在这里计数（数据仍留在返回值里），
+            # 否则与段间合并、最终清理两处重复计数。计数口径见
+            # `war_extraction/utils/relation_rules.py::reduce_event_event_relations` 的 docstring。
         )
         return RelationExtractionResult(
             event_place_relations=place_rels,
@@ -485,6 +498,7 @@ class RelationExtractor:
             derived_event_rels = self._derive_event_event_relations_from_events(events)
             event_event_relations = reduce_event_event_relations(
                 self.normalizer, extracted_event_rels + derived_event_rels,
+                # 同上：中间环节不计数，避免同一条被数多次
             )
 
             extracted_place_rels = [EventPlaceRelation(**r) for r in place_rels]

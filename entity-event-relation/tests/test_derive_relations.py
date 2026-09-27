@@ -155,3 +155,41 @@ def test_允许名单为空时不限制实体(extractor):
                      source_text="某军战于某地。")]
     place_rels, org_rels, _person_rels = extractor._derive_event_entity_relations_from_events(events)
     assert place_rels and org_rels
+
+
+# ---------------------------------------------------------------- 指挥官字段派生的关系名
+
+def test_指挥官字段派生将领而不是统帅(extractor):
+    """
+    `Commanders` 是**双方主要指挥官列表**，关系枚举里 `统帅` 是"最高指挥官"（单数语义）——
+    把列表里的每个人都派生成 `统帅` 与两边的定义都冲突。
+
+    阶段三 E2 依据 B 组抽样判定改成 `将领`：产物里 3016 条 `统帅` 有 2767 条（91.7%）来自这条规则，
+    而抽样里规则派生的 `统帅` 例 **10/10 被判错**（"此役统帅为刘曜，石生并非统帅"、
+    "不设元帅，郭子仪为九节度使之一"、"张孝忠系从征节度使，统帅应为朱滔"）——
+    判据给出的正确说法都是"将领"。
+    """
+    events = [_event(EventName="长平之战", Commanders="白起、赵括",
+                     source_text="秦将白起围赵军，赵括率军出战。")]
+    _place, _org, person_rels = extractor._derive_event_entity_relations_from_events(
+        events, "", "", "白起、赵括")
+
+    relations = {(rel.PersonName, rel.relation) for rel in person_rels}
+    assert ("白起", "将领") in relations
+    assert ("赵括", "将领") in relations
+    assert not [name for name, relation in relations if relation == "统帅"], \
+        "`Commanders` 不该派生 `统帅`（`统帅` 只留给原文明确写出的最高指挥者）"
+
+
+def test_同一个人不再同时是统帅和将领(extractor):
+    """
+    旧实现下同一个（事件, 人物）会同时挂 `统帅`（字段映射）与 `将领`（"率兵/统兵"线索），
+    实测旧产物里这类自相矛盾有 **385 条**；改名后两条来源同名，收敛成一条。
+    """
+    events = [_event(EventName="长平之战", Commanders="白起",
+                     source_text="秦将白起统兵围赵军。")]
+    _place, _org, person_rels = extractor._derive_event_entity_relations_from_events(
+        events, "", "", "白起")
+    relations = [rel.relation for rel in person_rels if rel.PersonName == "白起"]
+    assert len(relations) == len(set(relations)), f"同一人物挂了重复/冲突的关系名: {relations}"
+    assert "统帅" not in relations

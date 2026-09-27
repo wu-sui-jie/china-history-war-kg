@@ -11,9 +11,16 @@
 3. **两套身份口径**（mention / canonical）；
 4. **字段值准确率**与**分维度报告**的结构。
 
-用例只调评估器的纯函数（`_semantic_pair_rejection` / `filter_relations` /
-`match_relation_triples` / `evaluate_event_field_accuracy` 等），不跑完整 `run_evaluation`
-——那要读全量产物，CI 里没有（`output/` 不入库）。
+第二轮补的四项（原先只有名字、没有任何断言）：
+
+5. `event_year_tolerance` —— 超容差被拒、容差可配到 0、缺值不拦；
+6. `by_category` 与整体的**匹配口径一致**：四类 TP/FP/FN 之和逐项等于并集那一次匹配
+   （原先两者各跑一遍匹配，数字对不上，见 `test_四类TP与FP之和等于整体`）；
+7. `also_published` 的路径推导与"文件缺失只跳过不报错"；
+8. `summary_published` 是**另一套数**（发布子集与全量粒度不同，指标不可混用）。
+
+用例只调评估器的纯函数与 `evaluate.main()`（构造最小产物 + 真实命令行参数），不读全量产物
+——那需要 `output/`（不入库）。
 """
 
 from pathlib import Path
@@ -210,6 +217,157 @@ def test_分类容器与选值口径一致(evaluator):
     assert merged == flat
     assert len(by_category["event-place"]) == 1
     assert len(by_category["event-event"]) == 1
+
+
+def test_四类TP与FP之和等于整体():
+    """
+    `by_category` 必须由**并集那一次匹配**切分而来，四类之和逐项等于整体。
+
+    **为什么这条比"过滤容器一致"更强。** 上一版只断言了两个过滤器给出同一批条目，
+    但匹配跑了**两遍**：整体用并集匹配、分类用分桶各自匹配。分桶给每类预测划了一条硬边界
+    ——只能认领本类目的 gold——而并集匹配允许跨类目认领（匹配器只看相似度，
+    `参战方` 这类关系名在人物与组织两侧都在枚举里）。实测
+    `evaluation/run_20260926_after3/results.json`：整体 TP=806 / FP=4557，
+    四类之和 TP=803 / FP=4560，同一份产物、同一个评估器，差 3 条。
+
+    下面的构造就落在跨类目这一支上：预测只有一条**事件-人物**关系，
+    而 gold 是**事件-组织**关系，两者关系名与尾实体完全一致。并集匹配认下它（TP=1），
+    分桶匹配认不到（event-person 的 gold 为空）→ 老实现会得到 "四类之和 0 ≠ 整体 1"。
+    """
+    if not ANNOTATION_DIR.exists():
+        pytest.skip("没有标注目录，跳过评估器用例")
+    # 用独立实例并替换 gold：这条用例要的是一条跨类目的 gold，标注目录里不一定有
+    local = OptimalEvaluator(annotation_dir=ANNOTATION_DIR)
+    local.gold_relations = {
+        "event-organization": [{"head": "甲战", "relation": "参战方", "tail": "某营"}],
+    }
+    pred = {
+        "event_place_relations": [],
+        "event_person_relations": [{"EventName": "甲战", "relation": "参战方", "PersonName": "某营"}],
+        "event_organization_relations": [],
+        "event_event_relations": [],
+    }
+    result = local.evaluate_relations(pred, _mapping_for("甲战"))
+    counts = result["counts"]
+    by_category = result["by_category"]
+
+    assert counts["tp"] == 1, "并集匹配允许跨类目认领，这一条必须算 TP"
+    assert sum(item["tp"] for item in by_category.values()) == counts["tp"]
+    assert sum(item["fp"] for item in by_category.values()) == counts["fp"]
+    assert sum(item["fn"] for item in by_category.values()) == counts["fn"]
+    assert sum(item["pred"] for item in by_category.values()) == counts["filtered_pred"]
+    assert set(by_category) == {"event-place", "event-person", "event-organization", "event-event"}
+
+
+def test_年份容差是评估器的一条可配口径():
+    """
+    `event_year_tolerance`（默认 30 年，`config/eval_config.json` 可改）只在**两侧年份都能
+    解析、且都不是残缺年份**时生效。两侧差 5 年与 50 年各给一组：默认容差放行前者、拒后者；
+    容差收到 0 之后两者都拒（"同年"以外都超容差）；任一侧缺年份时这一条不参与。
+    """
+    if not ANNOTATION_DIR.exists():
+        pytest.skip("没有标注目录，跳过评估器用例")
+    default = OptimalEvaluator(annotation_dir=ANNOTATION_DIR)
+    zero = OptimalEvaluator(annotation_dir=ANNOTATION_DIR, event_year_tolerance=0)
+
+    pred = _event("甲战", dynasty="清", start="1900年", place="北京")
+    near = _event("甲战之役", dynasty="清", start="1905年", place="北京")
+    far = _event("甲战之役", dynasty="清", start="1850年", place="北京")
+
+    assert default._semantic_pair_rejection(pred, near, "甲战", "甲战之役") == ""
+    assert default._semantic_pair_rejection(pred, far, "甲战", "甲战之役") == "year"
+    assert zero._semantic_pair_rejection(pred, near, "甲战", "甲战之役") == "year"
+    assert zero._semantic_pair_rejection(pred, far, "甲战", "甲战之役") == "year"
+    # 缺值不拦：任一侧年份解析不出来时，年份这一条不参与（缺值不等于不符）
+    assert zero._semantic_pair_rejection(
+        pred, _event("甲战之役", dynasty="清", place="北京"), "甲战", "甲战之役") == ""
+
+
+def _trial_prediction() -> dict:
+    """最小可评估产物：够 `run_evaluation` 走完全流程，不含关系。"""
+    return {
+        "entities": {"places": [{"geo_name": "牧野"}], "persons": [], "organizations": []},
+        "events": {"events": [{
+            "EventName": "牧野之战", "EventType": "统一战争", "DynastyName": "商",
+            "StartDate": "前1046年", "Place": "牧野", "Aggressor": "周军",
+            "Defender": "商军", "Result": "周胜",
+        }]},
+        "relations": {"event_place_relations": [], "event_person_relations": [],
+                      "event_organization_relations": [], "event_event_relations": []},
+    }
+
+
+def _run_evaluate(monkeypatch, pred_path, output_dir, also_published_arg="--also-published"):
+    """按真实命令行参数跑一遍 `evaluate.main()`，返回 results.json 的内容。"""
+    import json
+    import sys
+
+    import evaluate
+
+    argv = ["evaluate.py", "--pred", str(pred_path), "--output", str(output_dir)]
+    if also_published_arg:
+        argv.append(also_published_arg)
+    monkeypatch.setattr(sys, "argv", argv)
+    evaluate.main()
+    return json.loads((output_dir / "results.json").read_text(encoding="utf-8"))
+
+
+def test_also_published推导同批次发布子集(monkeypatch, tmp_path):
+    """
+    `--also-published` 不给值时推导出 `<预测产物同目录>/published/final.json`，
+    且该文件不存在时**只打印跳过、不报错**（不是抛异常、也不是把缺失当空结果评一遍）。
+
+    这里同时钉住变量语义：那条路径指向的是**发布子集**，不是 `candidate/final.json` 候选区
+    （原先局部变量名叫 `candidate_path`，会让人以为读的是候选区产物）。
+    """
+    if not ANNOTATION_DIR.exists():
+        pytest.skip("没有标注目录，跳过评估器用例")
+    import json
+
+    batch_dir = tmp_path / "batch"
+    batch_dir.mkdir()
+    pred_path = batch_dir / "9_final_all.json"
+    pred_path.write_text(json.dumps(_trial_prediction(), ensure_ascii=False), encoding="utf-8")
+
+    results = _run_evaluate(monkeypatch, pred_path, tmp_path / "out_missing")
+    assert "published" not in results, "发布子集不存在时不该硬评一遍"
+    assert "summary_published" not in results
+
+    # 同批次的发布子集就位后，同一命令必须真的读到它
+    published_dir = batch_dir / "published"
+    published_dir.mkdir()
+    (published_dir / "final.json").write_text(
+        json.dumps(_trial_prediction(), ensure_ascii=False), encoding="utf-8")
+    results = _run_evaluate(monkeypatch, pred_path, tmp_path / "out_present")
+    evaluated_path = results["published"]["metadata"]["predictions"]["path"]
+    assert Path(evaluated_path) == published_dir / "final.json"
+
+
+def test_summary_published是第二套数(monkeypatch, tmp_path):
+    """
+    `summary_published` 必须存在、且是**另一套数**（发布子集 881 事件 vs 全量 1050 事件，
+    粒度不同，指标不可混用）。这里让两份产物内容不同，断言两套汇总不相等。
+    """
+    if not ANNOTATION_DIR.exists():
+        pytest.skip("没有标注目录，跳过评估器用例")
+    import json
+
+    batch_dir = tmp_path / "batch"
+    batch_dir.mkdir()
+    full = _trial_prediction()
+    subset = _trial_prediction()
+    # 发布子集里少一个事件 → 事件 TP 与关系分母都不同，两套汇总必然不相等
+    subset["events"]["events"] = []
+    pred_path = batch_dir / "9_final_all.json"
+    pred_path.write_text(json.dumps(full, ensure_ascii=False), encoding="utf-8")
+    (batch_dir / "published").mkdir()
+    (batch_dir / "published" / "final.json").write_text(
+        json.dumps(subset, ensure_ascii=False), encoding="utf-8")
+
+    results = _run_evaluate(monkeypatch, pred_path, tmp_path / "out")
+    assert "summary_published" in results, "`--also-published` 跑完必须有这个键"
+    assert results["summary_published"] == results["published"]["summary"]
+    assert results["summary_published"] != results["summary"], "两套粒度不同，不该是同一个数"
 
 
 # ------------------------------------------------------------------ 字段值准确率

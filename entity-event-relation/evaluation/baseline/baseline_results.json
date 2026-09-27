@@ -1,47 +1,116 @@
 {
   "entity_extraction": {
-    "precision": 0.11504225352112676,
-    "recall": 0.9067495559502664,
-    "f1": 0.20417958204179582,
+    "precision": 0.05892957746478873,
+    "recall": 0.9980916030534351,
+    "f1": 0.11128843493988722,
     "details": {
       "places": {
-        "p": 0.06677953348382243,
-        "r": 0.9391534391534392,
-        "f1": 0.12469265893923429,
-        "tp": 355,
-        "fp": 4961,
-        "fn": 23,
+        "p": 0.06057185854025583,
+        "r": 1.0,
+        "f1": 0.11422490244767647,
+        "tp": 322,
+        "fp": 4994,
+        "fn": 0,
         "pred": 5316,
-        "gold": 378
+        "gold": 322
       },
       "persons": {
-        "p": 0.1890048154093098,
-        "r": 0.9308300395256917,
-        "f1": 0.31420947298198804,
-        "tp": 471,
-        "fp": 2021,
-        "fn": 35,
+        "p": 0.05818619582664526,
+        "r": 0.9931506849315068,
+        "f1": 0.10993176648976498,
+        "tp": 145,
+        "fp": 2347,
+        "fn": 1,
         "pred": 2492,
-        "gold": 506
+        "gold": 146
       },
       "organizations": {
-        "p": 0.18275538894095594,
-        "r": 0.8057851239669421,
-        "f1": 0.2979373567608862,
-        "tp": 195,
-        "fp": 872,
-        "fn": 47,
+        "p": 0.05248359887535145,
+        "r": 1.0,
+        "f1": 0.09973285841495994,
+        "tp": 56,
+        "fp": 1011,
+        "fn": 0,
         "pred": 1067,
-        "gold": 242
+        "gold": 56
+      }
+    },
+    "canonical": {
+      "precision": 0.0812616532007458,
+      "recall": 0.9980916030534351,
+      "f1": 0.15028735632183907,
+      "details": {
+        "places": {
+          "p": 0.11192214111922141,
+          "r": 1.0,
+          "f1": 0.20131291028446388,
+          "tp": 322,
+          "fp": 2555,
+          "fn": 0,
+          "pred": 2877,
+          "gold": 322
+        },
+        "persons": {
+          "p": 0.05818619582664526,
+          "r": 0.9931506849315068,
+          "f1": 0.10993176648976498,
+          "tp": 145,
+          "fp": 2347,
+          "fn": 1,
+          "pred": 2492,
+          "gold": 146
+        },
+        "organizations": {
+          "p": 0.05248359887535145,
+          "r": 1.0,
+          "f1": 0.09973285841495994,
+          "tp": 56,
+          "fp": 1011,
+          "fn": 0,
+          "pred": 1067,
+          "gold": 56
+        }
+      }
+    },
+    "identity": {
+      "places": {
+        "pred_rows": 5316,
+        "pred_unique_names": 2883,
+        "pred_unique_canonical": 2877,
+        "gold_rows": 338,
+        "gold_unique_names": 322,
+        "gold_unique_canonical": 322,
+        "duplicate_rows": 2433
+      },
+      "persons": {
+        "pred_rows": 2492,
+        "pred_unique_names": 2492,
+        "pred_unique_canonical": 2492,
+        "gold_rows": 146,
+        "gold_unique_names": 146,
+        "gold_unique_canonical": 146,
+        "duplicate_rows": 0
+      },
+      "organizations": {
+        "pred_rows": 1067,
+        "pred_unique_names": 1067,
+        "pred_unique_canonical": 1067,
+        "gold_rows": 56,
+        "gold_unique_names": 56,
+        "gold_unique_canonical": 56,
+        "duplicate_rows": 0
       }
     },
     "counts": {
       "raw_pred": 8875,
       "filtered_pred": 8875,
-      "gold": 1126,
-      "tp": 1021,
-      "fp": 7854,
-      "fn": 105
+      "gold": 524,
+      "tp": 523,
+      "fp": 8352,
+      "fn": 1,
+      "canonical_tp": 523,
+      "canonical_fp": 5913,
+      "canonical_fn": 1
     },
     "error_samples": {
       "unmatched_places": [
@@ -51,123 +120,108 @@
         "七女津",
         "七女湖",
         "七星关",
-        "七星关",
         "七重城",
         "万",
         "万刃关",
         "万山",
         "三危",
         "三危",
-        "三岔儿",
-        "三岔口",
+        "三山",
+        "三峡",
         "三峰山",
         "三川口",
         "三户津",
         "三水",
+        "三汉河",
         "三汉河"
       ],
       "unmatched_persons": [
-        "丁启睿",
         "丁德裕",
+        "丁汝昌",
         "万正色",
+        "三摸合拔都",
         "不花帖木耳",
-        "丘福",
         "东海王越",
         "东赢公腾",
-        "严云京",
         "严实",
         "严尤",
         "严庄",
         "严砺",
         "丰伸额",
         "丰升阿",
-        "丰臣秀吉",
         "丹阳王大毗",
         "乃颜",
+        "义律",
         "乌大经",
         "乌尔恭额",
-        "乌尔登额"
+        "乌尔登额",
+        "乌师庐"
       ],
       "unmatched_organizations": [
         "13个部落",
         "13翼军队",
-        "24营",
-        "36营",
-        "丁启睿部",
         "七国联军",
         "三叛军",
         "三晋",
         "三秦军",
         "三苗",
+        "三藩",
         "三藩之乱",
         "上江",
         "下江军",
         "东吴",
         "东周",
+        "东夷",
         "东学党",
         "东川",
         "东川统军",
+        "东晋",
         "东晋桓温军",
-        "东汉王朝"
+        "东汉"
       ]
     }
   },
   "event_extraction": {
     "full_events": {
-      "precision": 0.27387914230019494,
-      "recall": 0.878125,
-      "f1": 0.4175334323922734,
+      "precision": 0.06809338521400778,
+      "recall": 0.9333333333333333,
+      "f1": 0.1269265639165911,
       "counts": {
         "pred": 1028,
-        "gold": 320,
-        "tp": 281,
-        "fp": 745,
-        "fn": 39
+        "gold": 75,
+        "tp": 70,
+        "fp": 958,
+        "fn": 5
       },
       "error_samples": {
         "unmatched_predictions": [
+          "七国之乱",
           "三峰山之战",
           "三晋伐楚乘丘之战",
+          "三晋攻齐之战",
+          "三河之战",
           "三河镇保卫战",
           "三王讨赵",
           "上京之战",
           "东乡之战",
           "东京保卫战",
+          "东京陷落之战",
           "东峡石谷之战",
           "东征高丽、百济之战",
+          "东汉灭北匈奴之战",
           "东汉灭蜀之战",
           "东汉统一战争",
           "东海王再讨颖",
           "东海王讨颖",
           "中京、西京之战",
-          "中日甲午战争",
-          "丰州之战",
-          "临朐之战",
-          "临淄之战",
-          "临颍之战",
-          "丹阳之战"
+          "中日甲午战争"
         ],
         "unmatched_gold": [
-          "傅恒征缅，双方议和",
-          "刘知远建后汉",
-          "刘邦伪游云梦擒韩信",
-          "努尔哈赤以“七大恨”伐明",
-          "启建立夏王朝",
-          "吴三桂举兵叛乱",
-          "吴三桂降清，山海关之战",
-          "大沽口炮台失陷",
-          "戚继光入闽剿倭",
-          "戚继光组建“戚家军”",
-          "日军花园口登陆",
-          "明瑞征缅失败身亡",
-          "朱元璋称帝建明",
-          "李自成投入高迎祥部",
-          "李自成撤离西安",
-          "李自成攻破潼关",
-          "杨坚篡周",
-          "杨应琚征缅失败",
-          "沙角、大角炮台失陷",
-          "洪承畴降清"
+          "夹河滹沱河之战",
+          "白沟河之战",
+          "郑村坝之战",
+          "露梁海战",
+          "齐眉山之战"
         ]
       }
     },
@@ -183,236 +237,300 @@
         "Casualties": 0.9961904761904762,
         "relations": 0.7866666666666666
       },
-      "avg_fill_rate": 0.7801190476190476
+      "avg_fill_rate": 0.7801190476190476,
+      "field_effective_rates": {
+        "Allies": 0.10095238095238095,
+        "Commanders": 0.9447619047619048,
+        "KeyPersons": 0.37523809523809526,
+        "TroopSize": 0.39714285714285713,
+        "Duration": 0.439047619047619,
+        "GeographicScope": 0.9904761904761905,
+        "Casualties": 0.37047619047619046,
+        "relations": 0.7866666666666666
+      },
+      "avg_effective_rate": 0.5505952380952381
+    },
+    "field_accuracy": {
+      "matched_pairs": 70,
+      "fields": {
+        "StartDate": {
+          "comparable": 69,
+          "correct": 68,
+          "accuracy": 0.9855072463768116,
+          "coverage": 0.9857142857142858
+        },
+        "DynastyName": {
+          "comparable": 70,
+          "correct": 59,
+          "accuracy": 0.8428571428571429,
+          "coverage": 1.0
+        },
+        "Place": {
+          "comparable": 59,
+          "correct": 59,
+          "accuracy": 1.0,
+          "coverage": 0.8428571428571429
+        },
+        "Aggressor": {
+          "comparable": 70,
+          "correct": 62,
+          "accuracy": 0.8857142857142857,
+          "coverage": 1.0
+        },
+        "Defender": {
+          "comparable": 70,
+          "correct": 64,
+          "accuracy": 0.9142857142857143,
+          "coverage": 1.0
+        },
+        "Person": {
+          "comparable": 70,
+          "correct": 66,
+          "accuracy": 0.9428571428571428,
+          "coverage": 1.0
+        },
+        "Result": {
+          "comparable": 70,
+          "correct": 57,
+          "accuracy": 0.8142857142857143,
+          "coverage": 1.0
+        }
+      }
+    },
+    "by_dynasty": {
+      "明": {
+        "gold": 75,
+        "tp": 70,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.9333333333333333,
+        "f1": 0.9655172413793104
+      },
+      "（无法归组）": {
+        "gold": 0,
+        "tp": 0,
+        "fp": 958,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "mapping_stats": {
+      "pairs_matched": 70,
+      "candidate_pairs": 41994,
+      "candidate_pairs_rejected_by_semantics": 41680,
+      "rejected_ratio": 0.9925227413440015,
+      "rejected_by_reason": {
+        "dynasty": 31333,
+        "year": 8337,
+        "place": 2010
+      },
+      "semantic_constraints_enforced": true
     }
   },
   "relation_extraction": {
-    "precision": 0.8040540540540541,
-    "recall": 0.6496815286624203,
-    "f1": 0.7186713638651233,
+    "precision": 0.40085106382978725,
+    "recall": 0.9894957983193278,
+    "f1": 0.5705632949727438,
+    "by_category": {
+      "event-place": {
+        "precision": 0.3268398268398268,
+        "recall": 0.9805194805194806,
+        "f1": 0.4902597402597403,
+        "pred": 462,
+        "pred_unique": 433,
+        "gold": 154,
+        "tp": 151,
+        "fp": 311,
+        "fn": 3
+      },
+      "event-person": {
+        "precision": 0.3862559241706161,
+        "recall": 0.9939024390243902,
+        "f1": 0.5563139931740615,
+        "pred": 422,
+        "pred_unique": 316,
+        "gold": 164,
+        "tp": 163,
+        "fp": 259,
+        "fn": 1
+      },
+      "event-organization": {
+        "precision": 0.49794238683127573,
+        "recall": 0.9918032786885246,
+        "f1": 0.663013698630137,
+        "pred": 243,
+        "pred_unique": 236,
+        "gold": 122,
+        "tp": 121,
+        "fp": 122,
+        "fn": 1
+      },
+      "event-event": {
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571428571428571,
+        "pred": 48,
+        "pred_unique": 48,
+        "gold": 36,
+        "tp": 36,
+        "fp": 12,
+        "fn": 0
+      }
+    },
     "counts": {
       "raw_pred": 18146,
-      "filtered_pred": 888,
-      "gold": 1099,
-      "tp": 714,
-      "fp": 174,
-      "fn": 385
+      "filtered_pred": 1175,
+      "filtered_pred_unique": 1033,
+      "filtered_pred_duplicates": 142,
+      "gold": 476,
+      "tp": 471,
+      "fp": 704,
+      "fn": 5
     },
     "error_samples": {
       "unmatched_predictions": [
         [
-          "七国之乱",
-          "顺承关系",
-          "汉平南越之战"
-        ],
-        [
-          "三河之战",
-          "顺承关系",
-          "二破江南大营"
-        ],
-        [
-          "三河之战",
-          "顺承关系",
-          "安庆保卫战"
-        ],
-        [
-          "丘福北征鞑靼之战",
-          "顺承关系",
-          "靖难之役"
-        ],
-        [
-          "二破江南大营",
-          "顺承关系",
-          "安庆保卫战"
+          "京师保卫战",
+          "参与者",
+          "也先"
         ],
         [
           "京师保卫战",
-          "顺承关系",
-          "土木之变"
+          "参与者",
+          "徐理"
         ],
         [
-          "八王之乱",
+          "京师保卫战",
+          "参与者",
+          "朱祁钰"
+        ],
+        [
+          "京师保卫战",
           "发生地点",
-          "洛阳"
+          "北京"
         ],
         [
-          "八王之乱",
-          "指挥",
-          "司马颖"
-        ],
-        [
-          "八王之乱",
-          "顺承关系",
-          "刘汉灭西晋之战"
-        ],
-        [
-          "八王之乱",
-          "顺承关系",
-          "晋灭吴之战"
-        ],
-        [
-          "北宁之战",
-          "顺承关系",
-          "法军进攻山西"
-        ],
-        [
-          "北逐匈奴",
+          "京师保卫战",
           "发生地点",
-          "河套"
+          "彰义门"
         ],
         [
-          "卢绾之乱",
-          "顺承关系",
-          "英布之乱"
-        ],
-        [
-          "后唐灭后梁之战",
-          "顺承关系",
-          "黄巢起义"
-        ],
-        [
-          "唐统一战争",
-          "顺承关系",
-          "李渊攻占长安之战"
-        ],
-        [
-          "唐统一战争",
-          "顺承关系",
-          "黄巢起义"
-        ],
-        [
-          "城濮之战",
+          "京师保卫战",
           "指挥",
-          "狐毛"
+          "石享"
         ],
         [
-          "基隆之战",
-          "因果关系",
-          "马江海战"
+          "京师保卫战",
+          "指挥",
+          "范广"
         ],
         [
-          "大沽口之战",
-          "顺承关系",
-          "天津保卫战"
+          "京师保卫战",
+          "指挥",
+          "范广"
         ],
         [
-          "大沽口之战",
-          "顺承关系",
-          "英法联军攻占广州"
+          "京师保卫战",
+          "次要战场",
+          "固安"
+        ],
+        [
+          "京师保卫战",
+          "次要战场",
+          "德胜门"
+        ],
+        [
+          "京师保卫战",
+          "次要战场",
+          "霸州"
+        ],
+        [
+          "京师保卫战",
+          "目的地",
+          "固安"
+        ],
+        [
+          "京师保卫战",
+          "目的地",
+          "德胜门"
+        ],
+        [
+          "京师保卫战",
+          "目的地",
+          "西直门"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "京城"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "北京"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "固安"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "彰义门"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "德胜门"
+        ],
+        [
+          "京师保卫战",
+          "补给地",
+          "西直门"
         ]
       ],
       "unmatched_gold": [
         [
-          "七国之乱",
-          "参战方",
-          "赵"
-        ],
-        [
-          "七国之乱",
-          "发生地点",
-          "广陵"
-        ],
-        [
-          "七国之乱",
-          "发生地点",
-          "睢阳"
-        ],
-        [
-          "七国之乱",
-          "指挥",
-          "刘戊"
-        ],
-        [
-          "七国之乱",
-          "指挥",
-          "刘濞"
-        ],
-        [
-          "七国之乱",
-          "阵亡",
-          "刘戊"
-        ],
-        [
-          "七国之乱",
-          "阵亡",
-          "刘濞"
-        ],
-        [
-          "三晋攻齐之战",
+          "土木之变",
           "参与者",
-          "韩康子"
+          "王振"
         ],
         [
-          "三晋攻齐之战",
-          "参与者",
-          "魏桓子"
-        ],
-        [
-          "三晋攻齐之战",
-          "参战方",
-          "知氏"
-        ],
-        [
-          "三晋攻齐之战",
-          "指挥",
-          "知伯"
-        ],
-        [
-          "三晋攻齐之战",
-          "指挥",
-          "赵襄子"
-        ],
-        [
-          "东汉灭北匈奴之战",
-          "因果关系",
-          "赵充国平定羌乱之战"
-        ],
-        [
-          "东汉灭北匈奴之战",
-          "途经地",
-          "金微山"
-        ],
-        [
-          "乐毅攻齐之战",
-          "包含关系",
-          "济西之战"
-        ],
-        [
-          "乐毅攻齐之战",
-          "发生地点",
-          "临淄"
-        ],
-        [
-          "乐毅攻齐之战",
-          "发生地点",
-          "济水西"
-        ],
-        [
-          "乐毅攻齐之战",
-          "指挥",
-          "齐湣王"
-        ],
-        [
-          "乐毅攻齐之战",
-          "顺承关系",
-          "长平之战"
-        ],
-        [
-          "五国攻秦之战",
+          "皇太极第二次迂道入关之战",
           "目的地",
-          "荥阳"
+          "大同"
+        ],
+        [
+          "磁州之战",
+          "参战方",
+          "36营"
+        ],
+        [
+          "第一次北征鞑靼",
+          "发生地点",
+          "静虏镇"
+        ],
+        [
+          "阿济格第三次迂道入关之战",
+          "途经地",
+          "冷口"
         ]
       ]
     }
   },
   "summary": {
-    "entity_f1": 0.20417958204179582,
-    "event_f1": 0.4175334323922734,
-    "relation_f1": 0.7186713638651233,
-    "macro_avg_f1": 0.4468
+    "entity_f1": 0.11128843493988722,
+    "entity_f1_canonical": 0.15028735632183907,
+    "event_f1": 0.1269265639165911,
+    "relation_f1": 0.5705632949727438,
+    "macro_avg_f1": 0.2696
   },
   "metadata": {
-    "evaluated_at": "2026-09-26 21:09:54 +08:00",
+    "evaluated_at": "2026-09-27 08:00:52 +08:00",
     "predictions": {
       "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
       "sha256": "885b0d9ec340a50b151a42ba16a1b883cf2a7fff5147bac49259cbd9fcc4e559",
@@ -425,24 +543,27 @@
       "git_commit": null
     },
     "evaluator": {
-      "prompt_version": "prompt-v2-20260420+a1fb7839",
+      "prompt_version": "prompt-v2-20260420+1228b39b",
       "extraction_version": "extraction-v2-20260420",
-      "git_commit": "acffb46",
+      "git_commit": "6ca69ad",
       "eval_config": {
         "relation_threshold": 40,
         "event_sim_threshold": 0.35,
         "entity_fuzzy_threshold": 70,
         "event_event_sim_threshold": 0.35,
         "alias_map_path": "config/aliases.json",
-        "relation_map_path": "config/relation_types.json"
+        "relation_map_path": "config/relation_types.json",
+        "event_year_tolerance": 30,
+        "enforce_semantic_constraints": true,
+        "_comment": "评估口径阈值。event_year_tolerance / enforce_semantic_constraints 只作用于事件配对；改任一项都等于换口径，报告里必须写明。"
       },
       "eval_config_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\config\\eval_config.json",
-      "eval_config_sha256": "7568e2c2bf7157276e5c2897b86ed9926431aff8346237f3c3c8db479ea9fd9c",
-      "annotation_dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\data\\annotations",
+      "eval_config_sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+      "annotation_dir": "data\\annotations\\v2_split\\dev",
       "annotation_files": {
-        "sample_entities.json": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf",
-        "sample_events.json": "7a0b4db8564801b4c8d65244228d318641e93971c9c7f269e798ebb1c610931c",
-        "sample_relations.json": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994"
+        "sample_entities.json": "e0646b33f0ded3dfd992defd09c0f1607b0d2af2c8b9728b81e2d4736ce41ff9",
+        "sample_events.json": "39c2d043db59b1741478f2a0c1720ddcea62bfc5347da4fce3722cb15a35b5d6",
+        "sample_relations.json": "f5fb59d4953fdd48e671bae5fcca31beffec71da006adf7f49a706f0c8e57753"
       }
     }
   }

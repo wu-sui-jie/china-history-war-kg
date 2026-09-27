@@ -38,9 +38,11 @@ __all__ = [
     "ROLES",
     "EVENT_TYPES",
     "DYNASTY_REFERENCE",
+    "DYNASTY_ALIASES",
     "normalize_role",
     "normalize_org_type",
     "normalize_event_type",
+    "normalize_dynasty",
     "relation_type_allowed",
 ]
 
@@ -141,12 +143,12 @@ EVENT_TYPES: FrozenSet[str] = frozenset({
     "伏击战", "军阀混战", "叛乱", "战略进攻", "政治事件", "议和", "诸侯争霸", "追击战",
 })
 
-# --------------------------------------------------------------------- 朝代（仅参考，不校验）
+# --------------------------------------------------------------------- 朝代（仅参考 + 归一映射）
 #
 # 按第 7 项决策：**不强行统一取值**，产物保留原文写法（`清朝`/`蒙古`/`元末明初`/`不详`…），
-# 归一交给映射表（backend `dynasty_data.py` 与 RAG `normalize.py`）。
-# 这里给出的是"提示词枚举 + 后端白名单"的并集，用途只有一个：
-# 让体检脚本能报出"产物里有多少种写法、其中多少种不在枚举内"，而不是拿它拦截数据。
+# 归一交给下面这张权威映射表。`DYNASTY_REFERENCE` 只是"提示词枚举 + 后端白名单"的并集，
+# 用途只有一个：让体检脚本能报出"产物里有多少种写法、其中多少种不在枚举内"，
+# **不参与数据校验**（拿它拦数据会把真实写法判成枚举外、挪出发布子集）。
 
 DYNASTY_REFERENCE: FrozenSet[str] = frozenset({
     "夏", "商", "西周", "春秋", "战国", "秦", "西汉", "东汉",
@@ -154,6 +156,24 @@ DYNASTY_REFERENCE: FrozenSet[str] = frozenset({
     "隋", "唐", "五代十国", "北宋", "南宋", "辽", "西夏", "金", "元", "明", "清",
     "上古", "原始社会", "父系氏族社会",
 })
+
+#: **朝代归一的唯一权威表**（写法 → 规范写法）。
+#:
+#: 决策第 7 项：产物保留原文写法，归一交给"一张 backend 与 RAG 共用的映射表"，位置就定在
+#: 本模块——与 `ORG_TYPES`/`ROLES`/`EVENT_TYPES` 同一处，下游本来就在这里取枚举。
+#: 放在这里的另一个理由：依赖方向本就是 backend → war_extraction（见决策第 10 项），
+#: 反过来会让抽取链被 Web 运行环境绑架。
+#:
+#: 内容来源是 backend `dynasty_data.DYNASTY_CORRECTIONS`（逐字搬过来，行为不变），
+#: 所以 `商汤`/`夏朝`/`清朝` 这类"带朝字或错写"的写法被收敛到抽取口径的简称。
+#: **`汉朝 → 西汉`、`宋朝 → 北宋` 是历史遗留的粗口径**（东汉/南宋也会被这样收敛），
+#: 本轮只做搬家、不改语义——要精细化得连着产物与前端筛选一起评估。
+DYNASTY_ALIASES = {
+    "商汤": "商", "商朝": "商", "夏朝": "夏", "周朝": "西周",
+    "秦朝": "秦", "汉朝": "西汉", "隋朝": "隋", "唐朝": "唐",
+    "宋朝": "北宋", "辽朝": "辽", "金朝": "金", "元朝": "元",
+    "明朝": "明", "清朝": "清",
+}
 
 
 # --------------------------------------------------------------------- 归一 helper
@@ -217,6 +237,18 @@ def normalize_event_type(value) -> Tuple[str, bool]:
     if not text:
         return "战争", True
     return text, hit
+
+
+def normalize_dynasty(value) -> Tuple[str, bool]:
+    """
+    朝代写法归一。返回 (值, 是否命中已知口径)；未命中时**保留原值**。
+
+    与另外三个归一函数的区别：**结果不参与任何校验**（`DYNASTY_REFERENCE` 只是参考分布，
+    不是白名单，见上面那段说明）。这里的 `hit` 只表示"这个写法认得出来"，
+    不代表"合法"。用途是让 backend 的展示/问答侧与 RAG 的治理侧取到同一个规范写法，
+    而不是各自维护一份映射。
+    """
+    return _normalize_against(value, DYNASTY_REFERENCE, DYNASTY_ALIASES)
 
 
 def relation_type_allowed(relation_type: str, category: str = None) -> bool:

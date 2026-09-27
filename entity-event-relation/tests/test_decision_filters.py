@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-三条抽取口径的回归保护：人名怎么处理、占位词怎么算、哪些孤儿模块不许存在。
+三条抽取口径的回归保护：人名怎么处理、占位词怎么算、哪些孤儿模块不许存在，
+外加「过宽概括」判定只有一份表（第三阶段 D5）。
 
 1. **人名不做"整条丢弃"**。`EntityClassifier` 上不存在"低质量人名"名单：`秦始皇` / `吴起`
    都是合法人物（人工标注里各出现 1 次）；整条丢掉会让预测压根不产生这个名字，
@@ -9,10 +10,13 @@
    `"甲、未知、乙"` 里的"未知"就会被当成真名字留在字段里。
 3. **`utils/alignment.py` 不存在**。`AlignmentTool` 零引用，留着就是一份会被误认成
    "官方对齐逻辑"的死代码。
+4. **「过宽概括」的特征表只有一份**（`config/publish_rules.json` 的 `overbroad_event_markers`）：
+   原先 `main` 与抽取器各写一张，口径还不同。
 
-**注意第 1、2 项是抽取阶段的口径**：只在下一次抽取的产物里见效，当前产物与评估指标不受影响。
+**注意第 1、2、4 项是抽取阶段的口径**：只在下一次抽取的产物里见效，当前产物与评估指标不受影响。
 """
 import importlib
+import json
 import os
 
 import pytest
@@ -65,3 +69,73 @@ def test_alignment_module_is_removed():
     assert not os.path.exists(os.path.join(root, "war_extraction", "utils", "alignment.py"))
     with pytest.raises(ImportError):
         importlib.import_module("war_extraction.utils.alignment")
+
+
+# ---------------------------------------------- 4. 「过宽概括」判定只有一份表（第三阶段 D5）
+
+def test_合并后的特征表是两张表的并集():
+    """
+    合并**不是**"挑一张留下"：原先 `main._is_summary_only_event` 有 4 个文本标记 + 2 个事件名，
+    `EventExtractor._is_summary_style_event` 有 4 个名称标记 + 6 个文本标记，两边各有独占项
+    （`原文仅提及事件名称` 只有前者有；`几次大决战`/`此后`/`继后`/`远征` 只有后者有）。
+    合并后这些必须**都还在**——漏掉任何一项都等于悄悄放宽/收紧了过滤，
+    而两条链路的产物形态差异要等重跑才看得出来。
+    """
+    from war_extraction.utils.publish_rules import load_publish_rules
+
+    markers = load_publish_rules()["overbroad_event_markers"]
+    # main 侧原有
+    assert "原文仅提及事件名称" in markers["text_markers"]
+    assert set(markers["event_names"]) == {"少康中兴", "商代之远征"}
+    # 抽取器侧原有
+    assert set(markers["event_name_markers"]) == {"时期", "系列", "多路征伐", "远征"}
+    for marker in ("几次大决战", "此后", "继后", "曾北征南伐"):
+        assert marker in markers["text_markers"], marker
+
+
+def test_过宽概括判定读同一份配置(tmp_path, monkeypatch):
+    """
+    **"config 改一处、main 与抽取器同时变化"**（工作单 D5 的验收口径）。
+
+    做法是把两边指向同一份临时配置：`publish_rules.DEFAULT_CONFIG_PATH` 换成它
+    （抽取器不传 `rules`，走默认加载），`main.PUBLISH_RULES` 也换成从它加载的结果
+    （那是模块级常量，import 时就定了）。两边都翻转才说明它们读的是同一份表。
+    """
+    import main as main_module
+    from war_extraction.extractors.event_extractor import EventExtractor
+    from war_extraction.models import Event
+    from war_extraction.utils import publish_rules
+
+    config = tmp_path / "publish_rules.json"
+    config.write_text(json.dumps({
+        "overbroad_event_markers": {
+            "event_name_markers": ["临时名称标记"],
+            "text_markers": ["临时文本标记"],
+            "event_names": ["临时事件名"],
+        }
+    }, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setattr(publish_rules, "DEFAULT_CONFIG_PATH", config)
+    monkeypatch.setattr(main_module, "PUBLISH_RULES", publish_rules.load_publish_rules(config))
+
+    extractor = EventExtractor(None)  # 只调判定，不碰模型
+
+    # 名称标记
+    by_name = Event(EventName="某临时名称标记之战")
+    assert main_module._is_summary_only_event(by_name) is True
+    assert extractor._is_summary_style_event(by_name.EventName, "") is True
+
+    # 文本标记（main 看的是事件名 + source_text + Remark，抽取器看的是事件名 + evidence）
+    evidence = "这里出现临时文本标记"
+    by_text = Event(EventName="乙战", source_text=evidence)
+    assert main_module._is_summary_only_event(by_text) is True
+    assert extractor._is_summary_style_event("乙战", evidence) is True
+
+    # 名单精确相等
+    listed = Event(EventName="临时事件名")
+    assert main_module._is_summary_only_event(listed) is True
+    assert extractor._is_summary_style_event("临时事件名", "") is True
+
+    # 不含任何标记的事件两边都不认（不然"改一处生效两处"可能只是两边都恒 True）
+    plain = Event(EventName="牧野之战", source_text="周武王率诸侯之师与商军战于牧野")
+    assert main_module._is_summary_only_event(plain) is False
+    assert extractor._is_summary_style_event("牧野之战", plain.source_text) is False
