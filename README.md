@@ -178,27 +178,50 @@ china-war/
 
 ### 数据从哪来
 
-四步依赖关系（各步的详细参数见对应模块 README）：
+**先给结论**：仓库里没有数据（见上面那条警示），要跑起来得自己生成一遍。
+**一条命令走完全链**（推荐入口）：
+
+```bash
+python scripts/publish.py --version <版本>               # 只打印计划（默认，不执行）
+python scripts/publish.py --version <版本> --yes         # 真跑
+python scripts/publish.py --version <版本> --verify-only # 不跑命令，只核对现状是否自洽
+```
+
+它按顺序跑 12 步并**每步断言**（图与库是否逐项相等、规则推理产物在不在、索引段数与向量条数是否对齐、
+血缘与制品清单的版本号是否指向当前版本……），任一步失败即停并打印手工复现命令。
+这个项目的坑大多出在"漏跑一步、不报错、结果缺一块"，那些断言就是为它们写的。
+
+**这条链具体是什么**（想手工分步做，照下表）：
 
 ```text
-原书文本 → ① 知识抽取 → ② 导入 SQLite → ③ 同步 Neo4j
-                              └────────→ ④ 导出 RAG 快照 → 建索引 → 起服务
+原书文本 ─① 知识抽取→ 产物（全量 + 发布子集）─② 导入→ SQLite
+                                                      ├─③ 同步→ Neo4j（图谱页）
+                                                      └─④ 导出→ RAG 快照 → 规则推理产物 → 索引 → 起服务
+                                                      └─⑤ 证据链：SBOM / 血缘 / 制品清单
 ```
 
 | 步骤 | 在哪执行 | 命令 | 产物 |
 | --- | --- | --- | --- |
-| ① 知识抽取 | `entity-event-relation/` | `python main.py data/中国历代战争简史.txt` | `output/<批次>/9_final_all.json` |
+| ① 知识抽取 | `entity-event-relation/` | `python main.py data/中国历代战争简史.txt` | `output/<批次>/{9_final_all,published,candidate}.json` |
 | ② 导入 SQLite | `backend/` | `python import_json_to_sqlite.py --yes` | `backend/database` |
 | ③ 同步 Neo4j | `backend/` | `python sync_sqlite_to_neo4j.py --mode full` | Neo4j 图数据 |
-| ④ 导出快照与索引 | `RAG/` | `python scripts/export_snapshot.py` → `python scripts/build_index.py` | `RAG/data/snapshot`、`RAG/data/index` |
+| ④ RAG 快照与索引 | `RAG/` | `export_snapshot.py --version <版本>` → `build_inferred_relations.py --version <版本>` → `build_index.py --version <版本>` | `RAG/data/snapshot/<版本>`、`RAG/data/index/<版本>` |
+| ⑤ 发布证据链 | `RAG/` | `gen_sbom.py generate` → `build_lineage.py` → `build_artifact_manifest.py build`（后两个带 `--version <版本>`） | `RAG/data/release/` |
 
 说明：
 
 - ①需要自备原书文本（放 `entity-event-relation/data/`，见该模块 README），且要配置大模型 API；
-  不做抽取、只想把系统跑起来时，从已有环境拷贝一份 `9_final_all.json`，直接从第 ② 步开始即可。
+  不做抽取、只想把系统跑起来时，从已有环境拷贝一份产物，直接从第 ② 步开始即可。
+- **②导的是「发布子集」** `published/final.json`（要素齐全、结果可信、枚举合法）；全量是
+  `9_final_all.json`，含被发布门槛挡下的候选记录（见 `output/<批次>/candidate/`）。
+  **这一份就是知识库的口径**——动它等于动整个知识库的内容，改之前先读抽取模块 README 的
+  「改抽取前必看：下游契约」。
 - ②会**清空 4 类实体表与 4 类关系表后重新导入**，因此默认拒绝执行，确认覆盖时加 `--yes`；
   账号表 `UserInfo` 不在清理范围内（该步骤不对库做 `drop_all()`）。
 - ④的 `RAG/data/snapshot` 与 `RAG/data/index` **必须同名版本**，否则 RAG 启动即报版本不一致。
+  其中**规则推理产物是单独一步**（`build_inferred_relations.py`）——漏跑的后果是"规则推理"这条
+  检索通道静默少一块，而接口与测试都不会报错。
+- ⑤的制品清单要在**代码已提交**的状态下生成（清单会记 `git_dirty`）；脏工作区生成的不能当发布证据。
 
 ### 服务与端口
 
@@ -232,7 +255,7 @@ npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=
 ```bash
 cd RAG
 conda activate china-war-py311
-python scripts/run_server.py --port 8000 --version 20260927_v1
+python scripts/run_server.py --port 8000 --version 20260927_v3
 ```
 
 `--version` 固定数据版本（省略则自动取最新一致版本；生产档下必须显式指定）。

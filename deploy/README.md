@@ -396,16 +396,23 @@ sqlite3 database "SELECT id, account, name, role FROM UserInfo ORDER BY id;"    
 下发的**——不重新登录，对方界面上不会出现新入口。角色职责与分级规则（admin ⊃ editor ⊃
 viewer）见 [backend/README.md 的「角色职责与三处口径」表](../backend/README.md)。
 
-### 数据更新后必须做的两步
+### 数据更新后必须做的三步
 
 RAG 读的是**离线制品**，不是实时读旧库。在管理台改了图谱数据后，RAG 不会自动感知：
 
 ```bash
 cd /opt/china-war/RAG
-sudo -u chinawar /opt/miniconda3/envs/china-war-rag/bin/python scripts/export_snapshot.py   # 从 SQLite 导出快照
-sudo -u chinawar /opt/miniconda3/envs/china-war-rag/bin/python scripts/build_index.py        # 重建文本与向量索引
+sudo -u chinawar /opt/miniconda3/envs/china-war-rag/bin/python scripts/export_snapshot.py --version <版本>
+sudo -u chinawar /opt/miniconda3/envs/china-war-rag/bin/python scripts/build_inferred_relations.py --version <版本>
+sudo -u chinawar /opt/miniconda3/envs/china-war-rag/bin/python scripts/build_index.py --version <版本>
 sudo systemctl restart china-war-rag
 ```
+
+**第二步不能漏**（规则推理产物）：它单独一步，漏了不报错，只是"规则推理"这条检索通道静默少一块。
+
+> 在开发机上这条链（含后面的 SBOM / 血缘 / 制品清单）由
+> `python scripts/publish.py --version <版本> --yes` 一次跑完，**每步带断言**——
+> 服务器上也可以照它做（脚本在仓库根 `scripts/`，只依赖各模块自己的 CLI）。
 
 两条提醒：
 
@@ -419,8 +426,11 @@ sudo systemctl restart china-war-rag
 
 > **现状提醒（2026-09-27）**：服务器侧这两处**仍钉在旧版本 `20260915_v1`**
 > （`deploy/env/rag.env` 的 `RAG_ACTIVE_VERSION=20260915_v1`、`deploy/systemd/china-war-rag.service`
-> 的 `--version 20260915_v1`），而开发机上的活跃版本已是 `20260927_v1`——**服务器还没有跟着切**。
+> 的 `--version 20260915_v1`），而开发机上的活跃版本已是 `20260927_v3`——**服务器还没有跟着切**。
 > 下次部署要把两处同步改成同一个新版本号再重启 RAG，否则 RAG 仍按旧快照与旧索引回答。
+> **注意版本切换不只是改版本号**：新版本要先把 `data/snapshot/<版本>`、`data/index/<版本>`、
+> `data/eval/<版本>`（demo 清单）与 `data/release/` 的证据链一起传上去——在开发机上跑
+> `publish.py --version <版本> --yes` 会把这套产物一次生成齐。
 
 ---
 

@@ -120,7 +120,7 @@ python -c "import json;d=json.load(open('output/中国历代战争简史/9_final
 > 变的是版本串的派生方式。因此下一次整本抽取会重新调用模型 195 段、全额付费；
 > 不要靠"改回版本串"来强行复用——缓存里存的是过后处理链的结果，
 > 而后处理代码此后改过多次。详见
-> [`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md) 第 2.5.1 节。
+> 《数据提取模块分析与整改方案》（过程记录已随收口删除，见 git 历史） 第 2.5.1 节。
 
 ### 批次目录只有 `9_final_all.json`（2026-09-26 起）
 
@@ -159,7 +159,19 @@ output/中国历代战争简史/
 **候选区为什么要落盘。** 原先 `split_publishable_outputs` 算出的 candidate 只在内存里存在、
 算完即丢，于是"哪些记录没进发布子集、为什么"完全不可查。现在它写到 `candidate/`，
 `metadata.publish_split_stats` 里还能看到"因枚举不合法被挪走"的分项计数。
-下游只导 `9_final_all.json` 与 `published/final.json`，这个目录对它们没有影响。
+
+**下游导哪一份（口径，2026-09-27 确认）。** 下游（SQLite → Neo4j / RAG）导的是
+**发布子集 `published/final.json`**——知识库要"全书的数据、但只留合格的记录"。
+`published` 与 `candidate` 都是**同一本书**的数据、按**质量**分份（不是按朝代分）：
+`published` 收要素齐全、结果可信、枚举合法的事件，以及它们引用到的实体与关系；
+`candidate` 收被挡下的（过宽概括如"清缅战争"这类概括名、枚举外取值、要素不全）。
+`published` 内部按引用链自洽——关系两端都在它自己的实体表里（实测 0 个对不上），
+所以取 published **不会丢关系**。地点在 `published` 里保留**全量**
+（用 `referenced_by_published_event` 区分主数据与候选地点），否则地图页会断链。
+
+**注意这个默认值曾经写错**：`backend/import_json_to_sqlite.py` 的默认源原先是全量
+`9_final_all.json`，与这里相反，导致发布门槛的改动对知识库不生效（改了门槛、库里没变，
+且不报错）。2026-09-27 已修正为 `published/final.json`；要导全量需显式传 `--source`。
 
 ## 运行环境（四个模块统一）
 
@@ -247,6 +259,22 @@ python main.py data/中国历代战争简史.txt
 订正了多少处错字、长度变化）。错字订正表在 `config/text_cleaning.json` 的 `ocr_fixes`，
 **默认是空的**——只有确知的错字才登记，猜出来的替换会静默改掉原文。
 
+#### 产物给谁用（抽完之后做什么）
+
+下游（SQLite → Neo4j / RAG 问答）导的是 **`published/final.json`**（发布子集），
+**不是** `9_final_all.json`（全量）。把产物送进下游的那一整套流程（导库 → 同步图 →
+RAG 快照/索引 → 发布证据链）在**仓库根**用一条命令走完：
+
+```bash
+cd ..                                             # 回到仓库根
+python scripts/publish.py --version <版本>         # 先看计划（默认不执行）
+python scripts/publish.py --version <版本> --yes   # 真跑，每步带断言
+```
+
+> **动产物形状或取值之前，先读下面的「改抽取前必看：下游契约与静默失败清单」。**
+> 键名、枚举、粒度这类改动大多是**静默传导**的：不报错，只是某一类数据变成 0、
+> 某一列变空、或者某个下拉点不到。
+
 ### 5. 运行评估
 
 ```bash
@@ -321,7 +349,7 @@ python tools/summarize_review.py                      # 判完之后汇总：精
 （270 对 / 270+56，Wilson 95% **[78.4%, 86.5%]**），"无法判断" 6.9%。
 分类看：**关系 74.4%**（错的全是关系类型或方向，没有一条是"证据不足"）、
 事件 90.1%、实体 92.3%。结论与它对阶段三的影响写在
-[`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md) §0.6；
+《数据提取模块分析与整改方案》（过程记录已随收口删除，见 git 历史） §0.6；
 本次汇总落盘在 `evaluation/review/summary_20260926.json`。
 
 两个工具的存在理由：**现行参考集不可信**（见 `data/annotations/README.md` 顶部的来源更正），
@@ -479,7 +507,7 @@ delta-debugging 缩到 2 条关系），文件头的 `_note` 记了来源与缩�
 > 也就是说它**不是人工标注**，而是多模型输出的合并结果，当前指标测的是
 > "模型 A 的产出"与"模型 B/C/D 汇总产出"之间的**分歧**。下面的表格写的是"只有一名标注者"，
 > 那是本文件原先的表述，与实际不符；更正措辞待标注所有人确认（详见
-> [`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md) 第 2.4.1 与 10.2 节，
+> 《数据提取模块分析与整改方案》（过程记录已随收口删除，见 git 历史） 第 2.4.1 与 10.2 节，
 > 以及 [`evaluation/baseline/baseline.md`](evaluation/baseline/baseline.md) 里冻结的来源说明）。
 
 `data/annotations/` 是唯一评估来源，但它同时被用于调事件阈值、调关系阈值、加别名、
@@ -644,58 +672,112 @@ event-event 只有约 46%。不能直接找到不等于一定错（引号、OCR�
 所以做质量结论前先核对"产物 metadata 的版本 == 当前代码的版本"，否则评的是旧产物。
 `python tools/freeze_baseline.py` 会把这份对照冻进 `evaluation/baseline/`。
 
-## 整改进展（2026-09-26，两轮）
+## 整改状态（已完成，2026-09-27）
 
-> 完整的逐层归因、跨模块契约、静默失败清单与分阶段验收命令见
-> [`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md)。
-> 那一节的「执行状态」记着哪些已落地、哪些还等付费重跑。
+两轮整改、整本重跑与数据发布都已走完：产物换代（事件 1050 → **1313**）、
+全书抽样精确率 82.8% → **91.43%**（Wilson 区间不重叠，改善成立）；下游导的是
+**发布子集**（库里事件 **999** / 关系 **12648**）。
 
-**两轮口径的实测对照**（同一份旧产物，抽取侧改动都还没进产物）：
+**过程记录不留在工作区**：当时为什么改、逐层归因、哪一版验证了什么，由 git 历史承担
+（`git log -- entity-event-relation/`）。现行口径只认三处——本 README、
+[`docs/数据迭代记录.md`](docs/数据迭代记录.md)（版本对照与迭代流程）、以及下面这一节。
 
-| 层 | 改前 | 第一轮 | **第二轮（当前）** |
-| --- | ---: | ---: | ---: |
-| 实体 F1（mention / canonical） | 20.42% / — | 20.42% / 26.98% | 20.42% / **26.98%** |
-| 事件 F1 | 41.75% | 25.98% | **34.15%** |
-| 关系 F1 | 71.87% | 31.23% | **25.51%** |
-| 宏观平均 F1 | 44.68% | 25.88% | **26.69%** |
+## 改抽取前必看：下游契约与静默失败清单
 
-第二轮的边界：**事件 F1 回升、关系 F1 继续下降都不是「模型变好/变差」**——事件回升是修掉了
-配对约束的四处实现缺陷（配对 176→231），关系下降是配对放宽后进入评估的预测关系从 3228 条
-涨到 5363 条（含 747 条归一后重复）。逐条证据见
-[`docs/第一轮核验与遗留项.md`](docs/archive/第一轮核验与遗留项.md) 的 §5.1。
+> 产物是四个模块的共同输入，改键名、改枚举、改粒度都会往下传导，而**大部分传导是静默的**：
+> 不报错，只是某一类数据变成 0、某一列变空、某个下拉点不到。改之前先对照这一节。
 
-原定的四个阶段里，**阶段 0~3 的代码部分已落地**（结果见上表），**阶段 4 未执行**：
-它要真金白银调用模型跑完整本（按当前分段器 **211 段**，缓存全失效），而 `阶段 1` 的标注重建
-（人工核验、IAA、train/test 切分）与 `阶段 1 附二` 的固定评估抽样集需要人工投入，
-两者都不在这次代码整改范围内。所以**当前仍不建议**据此重跑整本——先按
-`tools/sample_for_review.py` 导出的表格把抽样精确率做出来，再决定要不要付费。
+### 产物链路与"下游导哪一份"
 
-仍未做、且代码改不动的事项：
+```text
+entity-event-relation/output/中国历代战争简史/
+  9_final_all.json        全量    ：1313 事件 / 16490 关系
+  published/final.json    发布子集： 999 事件 / 12648 关系   ← 下游导的是这一份
+  candidate/final.json    候选区  ：被发布门槛挡下的（过宽概括 / 枚举外 / 要素不全）
+        │
+        │  backend/import_json_to_sqlite.py --yes     （默认源 = published/final.json）
+        ▼
+backend/database（SQLite）
+        ├─ backend/sync_sqlite_to_neo4j.py   → Neo4j（图谱页）
+        ├─ RAG/data/snapshot/export.py       → RAG 快照 → 在线问答 / 知识面板
+        │                                       └→ feishu-bot（三阶下游，只经 RAG HTTP）
+        └─ backend/report_builders.py        → 数据集中心 / 质检页
+```
 
-1. **参考标注的重建**：人工逐条回原文核验、补 evidence 与字符 offset、双人复核算 IAA、
-   切 development / test。这是"指标能不能信"的唯一出路，也是`candidate/` 与
-   体检报告都在为之铺垫的事。
-2. **`DynastyName` 的映射表：RAG 侧还没接**。位置已定（`war_extraction/utils/vocabulary.py`
-   的 `DYNASTY_ALIASES`，backend 已改为引用它并删除抄写的那份），但 RAG 的运行环境没有
-   `war_extraction` 依赖，接入方式（表随快照发布 / 加依赖）待重建快照时定——
-   在此之前 RAG 的朝代取值仍是产物原文写法，与 backend 的归一结果不一致。
-3. **`EventType` 取值域与 RAG 字典的对齐**：权威表是 29 值（提示词枚举 21 ∪ 实际在用的 8），
-   而 RAG 侧治理后的标准词典是 27 项；重跑后如果出现 `党争军事化` / `军事同盟`，
-   RAG 的 `data-contract.md`"27 类"口径要同步。**对齐方向已定：以权威表为准改词典**
-   （反向收窄权威表会让模型产出的合法取值被挪出发布子集）。
-4. **`AliasNames` 是否进 SQLite/Neo4j**：**已结案：不进**。理由与代价写在
-   `war_extraction/models/events.py` 的字段注释里——没有任何下游在读它，
-   进库要新增列（含存量库迁移）+ `to_dict` + Neo4j 属性 + 前端一起改；
-   改主意时按 `backend/node_property_mapping.py` 的 `API_TO_COLUMN` 加一行即可。
-5. **发布过滤的 `包含关系`/`条件关系` 修复已写但未上线**：代码与用例已完成
-   （指南 §1.24），但它等于改整个知识库内容，必须与产物换代、SQLite 重导、
-   Neo4j 重同步、RAG 快照重建**打包成一次发布**。在此之前两类关系仍不进 `published`。
-6. **`source_offset` 暂未接线**：字段已具备，但 chunk 级信息不序列化，产物里拿不到；
-   等参考集重建（需要逐条回原文定位）时再接进
-   `events.metadata.extraction_diagnostics.chunks[]`。这条状态**现在有机械守卫**：
-   `tests/test_round2_closeout.py::test_source_offset仍未接线` 用 AST 断言"除
-   `extraction_runner.py` 外，生产代码不许读 `source_offset`"——一旦有人接线，用例变红并
-   列出"接线时要一起改哪四处"（用例、指南 §1.16、README 本条、产物形状同步清单）。
+**下游看到的是数据库列名，不是 JSON 键名**——键名→列名的翻译只在
+`backend/node_property_mapping.py` 的 `API_TO_COLUMN` 一处。只改产物侧不改映射（或反之），
+结果就是"某一类数据静默为 0"。
+
+### 硬依赖（破了会报错，或某类数据整体消失）
+
+| 依赖 | 破了会怎样 |
+| --- | --- |
+| 批次路径 `output/中国历代战争简史/`（批次名写死在代码里） | `FileNotFoundError`；换语料要同时改导入器与评估器 |
+| 顶层键 `entities` + `relations` 同时存在 | 导入器直接 `raise ValueError` |
+| 顶层键 `metadata` / `quality_report` | 数据集版本号与缺失统计**静默变 0**（→ 质检页） |
+| `entities.places / organizations / persons` | 键名改错 → 该类实体 **0 条**，无异常 |
+| `relations.event_*_relations` 四个容器键 | 同上，**静默清零**（注意是复数 `relations` 后缀） |
+| 名字字段 `geo_name` / `OrgName` / `PersonName` / `EventName` | 改名 = 表单落库失败 + 图谱 `name` 为 null |
+| 关系端点字段 `EventName` / `EventName_A` / `EventName_B` / `PersonName` / `OrgName` | 事件名对不上 → **关系整行被丢** |
+| `event_place_relations` 只带 `modern_name` | 导入靠它反查地点；改名 → 地点关系全断 |
+| `events` 是 dict 且含 `events` 键（或直接为 list） | 换成别的键名 → **静默 0 条事件** |
+| 事件内嵌 `relations[]` 的键恒为 `{type, to, evidence}` | 改名 → 前端关系段整体消失 |
+| `backend/database` 的列名 | RAG 快照导出与地理编码回写都按列名硬编码 |
+| 包目录名 `entity-event-relation` 与包名 `war_extraction` | 线上 `ModuleNotFoundError`、CI 直接红 |
+
+**软依赖**（在就展示、不在就为空，不报错）：`District_County` / `Specific_location` /
+`Province` / `City` / `Allies` / `Commanders` / `Duration` / `GeographicScope` / `Casualties` /
+`source_text` / `Remark` / `confidence` / `source_type`——改了只表现为属性面板出现
+"未命名属性"，或某列变空。
+
+### 枚举依赖：取值就是下游的字典
+
+产物的枚举取值直接充当下游的**筛选字典、查询白名单与显示标签**。**权威表只有一份**：
+`war_extraction/utils/vocabulary.py`（`EVENT_TYPES` / `ORG_TYPES` / `ROLES` / 四类关系名）。
+`tests/test_enum_synchronization.py` 会**直接读下游那几份文件逐项比对**：前端四组下拉
+（`EntityGraph.vue`）、RAG `field_map.py`、后端导入白名单、RAG 的 `EVENT_TYPE_SEED`。
+
+**改枚举的规矩**：先改权威表 → 让上面几处跟上 → 跑该用例。漏一处它会变红。
+（收敛前同一个枚举在四处各有一份且互不相同，症状是"抽出来了但用户点不到"——`参战方` 就曾是这样。）
+
+### 静默失败清单（最危险的一类）
+
+| 改动 | 静默后果 |
+| --- | --- |
+| 改 `entities` / `relations` 下任一容器键名 | 该类实体或关系入库 **0 条** |
+| 改 `EventName` 的写法规则（如加统一前缀） | 关系两端对不上 → 整行丢弃 |
+| 改 `modern_name` 语义 | 地点关系断链 + 地理编码线索退化 |
+| 新增 `OrgType` 取值 | 被导入脚本静默改写为"地方势力" |
+| 新增 `EventType` / 关系名取值 | 图谱下拉点不到、RAG 查询可能过滤掉 |
+| 改 `split_publishable_outputs` 的阈值 | **整个知识库内容变化**，前端只表现为"数字变了" |
+| 改 `_split_multi_value` 的分隔符或占位词集合 | 同时改产物内容与评估口径 |
+| 删 `KeyPersons` | SQLite `person` 列整体变空 |
+
+### 改键名或枚举时必须一次走完的地方
+
+1. 产出侧：`war_extraction/models/`、`processors/`、`main.py`；
+2. 模块内消费者：`evaluate.py`、`processors/json_to_excel.py`（列名逐字硬编码）；
+3. **键名映射的唯一来源**：`backend/node_property_mapping.py` 的 `API_TO_COLUMN`；
+4. 枚举白名单：`backend/import_json_to_sqlite.py`（OrgType）；
+5. 前端：`frontend/src/utils/knowledge.ts`、`EntityGraph.vue` 四组下拉、4 个 CRUD 页；
+6. RAG：`data/snapshot/{export,field_map,normalize}.py`、`server/graph/query_strategies.py`、`docs/data-contract.md`；
+7. 回归：`backend/tests/`（字段名契约）、RAG 测试、`tests/test_enum_synchronization.py`。
+
+**这张清单本身就是一条结论**：优先走"不改键名、不改枚举名，只改取值质量"的路径。
+改名只在确有必要时做，且必须一次性走完上面七条。
+
+### 模块内仍有效的三个已知项
+
+1. **`DynastyName` 的映射表 RAG 侧还没接**：权威表位置已定（`war_extraction/utils/vocabulary.py`
+   的 `DYNASTY_ALIASES`，backend 已改为引用它），但 RAG 运行环境没有 `war_extraction` 依赖，
+   接入方式（表随快照发布 / 加依赖）待定——在此之前 RAG 的朝代取值仍是产物原文写法，
+   与 backend 的归一结果不一致。
+2. **`AliasNames` 不进 SQLite/Neo4j**（已结案）：没有任何下游在读它；进库要新增列（含存量库迁移）
+   + `to_dict` + Neo4j 属性 + 前端一起改。改主意时按 `API_TO_COLUMN` 加一行即可。
+3. **`source_offset` 暂未接线**：字段已具备，但 chunk 级信息不序列化，产物里拿不到。
+   状态有机械守卫——`tests/test_round2_closeout.py::test_source_offset仍未接线` 用 AST 断言
+   "除 `extraction_runner.py` 外，生产代码不许读 `source_offset`"；一旦有人接线，用例变红并
+   列出"接线时要一起改哪四处"。
 
 ## 与旧后端的关系
 
@@ -707,27 +789,39 @@ event-event 只有约 46%。不能直接找到不等于一定错（引号、OCR�
   与本目录的 DeepSeek 三轮抽取**互不共享规则与归一逻辑**。已知差异：词表（人物称号、政权关键词、
   停止词）与事件名规范化各自实现一份，同一事件可能出现两种名字。改动其中一套时请注意另一套不会自动跟随。
 
+## 决策留档（避免重复讨论）
+
+- **不做全书参考集**：随机抽样判定更便宜、天然覆盖全书、且跨版本可比；全书参考集要多花约 5 倍人力，
+  只换来"没有抽样误差"这一项，而标注自身的噪声可能更大。局限如实标注：抽样只测**精确率**，
+  答不出召回率——真要召回率时，对 20~30 个随机段做一次小规模 gold 即可。
+- **`E4` 过宽概括不扩表**：参考集已按事件粒度口径把那类判掉，产物继续输出会被算 FP——
+  **这个惩罚是对的**；改表属"改进"而非"纠错"（判定材料在 `evaluation/review/`）。
+- **`E5` 真实语料 few-shot 不做**：验收口径要人工抽样判定，而噪声下限可能盖住效果，性价比不成立。
+- **下一轮要改就改「关系:事件-事件」**：它是抽样里最弱的一层（57.1%，14 行），与"错误类型最大一类
+  是关系类型"一致；事件字段层上一版已持平。
+- **两项可选改进仍未做**（都进缓存键，要攒批重跑才生效）：① 固定随机种子——现在 `seed` 恒为 `null`，
+  实测同一文本两次跑关系数差约 10%，任何 A/B 比较都被这层噪声压着；② system prompt 里用户输入的位置
+  （提示词注入防护）。
+
 ## 相关文档
 
-- 模块内：**先读这两份**——
-  [`docs/整改落地说明与后续修改指南.md`](docs/archive/整改落地说明与后续修改指南.md)
-  （**接手先读**：上一轮改了哪些行为、每项改动何时生效、**下次要改同类东西动哪几处 + 跑什么**、
-  未完成清单与踩过的坑）、
-  [`docs/数据提取模块分析与整改方案.md`](docs/数据提取模块分析与整改方案.md)
-  （为什么指标低、逐层归因、跨模块契约与静默失败清单、分阶段方案；其 §0.1 是执行状态）；
-  另 `data/annotations/README.md`（参考标注的来源更正、字段口径与**事件粒度口径**）、
-  [`docs/抽样判定规范.md`](docs/抽样判定规范.md)（**做 B 组人工核验前必读**：
-  用哪份表、每列什么意思、三档怎么判、逐字段规则与真实判例）、
-  [`docs/参考集重建规范.md`](docs/参考集重建规范.md)（**做 C 组参考集重建前必读**：
-  为什么重建、要产出什么、开工前必须定的口径、七步流程、工具现状与工作量折算）、
-  [`docs/第三阶段收尾执行单.md`](docs/第三阶段收尾执行单.md)（**接着往下做的人先看这份**：
-  剩下的活按"花不花钱"分四批、**待重跑生效清单**、每批的验收命令）、
-  [`docs/README.md`](docs/README.md)（**文档入口与整改总结**：现状、这一轮做了什么、还剩什么、
-  文档地图——先读这份，再按它点进其他文档）、
-  [`docs/数据迭代记录.md`](docs/数据迭代记录.md)（**数据是迭代出来的**：每一版的产物指纹/计数/
-  三项指标的对照、这一版做了什么、为什么更好、已知缺陷、下一版的迭代流程与"只归档不删除"的规矩）、
-  `war_extraction/geocoding/README.md`（地理编码子系统）。
-- 项目级（只引用这四个）：[`docs/README.md`](../docs/README.md)、
-  [`docs/项目现状与后续计划.md`](../docs/项目现状与后续计划.md)、
-  [`docs/集成与入口约定.md`](../docs/集成与入口约定.md)、
-  [`docs/项目审查与修复历史.md`](../docs/项目审查与修复历史.md)。
+模块内 `docs/` 只留三份，**全是"还得看"的**（过程记录见下）：
+
+| 文档 | 什么时候看 |
+| --- | --- |
+| [`docs/数据迭代记录.md`](docs/数据迭代记录.md) | **要给数据做新一版 / 查两版差在哪**：版本对照（产物指纹 / 计数 / 指标）、这一版改了什么、下一版的迭代流程 |
+| [`docs/抽样判定规范.md`](docs/抽样判定规范.md) | **做人工抽样判定前必读**：用哪份表、三档怎么判、逐字段规则与真实判例 |
+| [`docs/参考集重建规范.md`](docs/参考集重建规范.md) | **要重建参考集前必读**：七步流程、工具现状、工作量折算 |
+| [`data/annotations/README.md`](data/annotations/README.md) | 人工标注规范（评估的分子分母）：字段口径、关系名取值表、事件粒度口径、已知局限 |
+
+**过程记录不在工作区**：历次整改方案、工作单、收尾执行单、归档件都由 git 历史承担
+（`git log -- entity-event-relation/docs/`）。要查"当时为什么这么改、哪一版验证了什么"从那里面找——
+不要让已完成的过程文档继续占阅读面。
+
+项目级（只引用这四份）：[`docs/README.md`](../docs/README.md)（文档总索引）、
+[`docs/项目现状与后续计划.md`](../docs/项目现状与后续计划.md)（跨模块现状与后续计划）、
+[`docs/集成与入口约定.md`](../docs/集成与入口约定.md)（路径端口与数据流）、
+[`docs/项目审查与修复历史.md`](../docs/项目审查与修复历史.md)（按主题的历史与教训）。
+
+**换数据版本**：`python ../scripts/publish.py --version <版本>` —— 全流程一条命令（含每步断言）。
+先 `--verify-only` 核对现状；不加 `--yes` 只打印计划。

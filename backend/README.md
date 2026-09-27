@@ -331,20 +331,27 @@ python -m pytest tests -q
 ## 数据导入与同步（可选，换数据集时用）
 
 ```bash
-# 默认读取 entity-event-relation/output/.../9_final_all.json
+# 默认读取 entity-event-relation/output/.../published/final.json（**发布子集**：
+# 要素齐全、结果可信、枚举合法——这就是知识库的口径）
 # 注意：会清空 4 类实体表与 4 类关系表后重新导入，因此必须显式加 --yes
 # （账号表 UserInfo 不在清理范围内；脚本只 create_all 补新表，不 drop_all）
 python import_json_to_sqlite.py --yes
 
-# 也可指定数据源：单个结果 JSON，或发布子集
+# 也可指定数据源：全量产物，或另一个批次
+#   ↑ 全量含被发布门槛挡下的候选记录（过宽概括 / 枚举外 / 要素不全），
+#     **导它等于放宽知识库口径**，一般不用；排查时才传
 python import_json_to_sqlite.py --source ../entity-event-relation/output/<...>/9_final_all.json --yes
-python import_json_to_sqlite.py --source ../entity-event-relation/output/<...>/published/final.json --yes
 
 # 每次导入都会把源数据拆成 8 个分表 JSON 写到 data/processed/（供旧版按表读取）；
 # 该目录已 gitignore，是产物不是输入，删掉也不影响下次导入。
 
 # 将 SQLite 数据同步到 Neo4j（关系用 MERGE 写入，重复执行不会产生重复边）
 python sync_sqlite_to_neo4j.py --mode full
+
+# 换数据版本时，上面两步只是整条链的一部分。整套（产物 → 库 → 图 → RAG 快照/索引 → 证据链）
+# 用一条命令走完，且每步带断言：
+#   python ../scripts/publish.py --version <版本>          # 先看计划（不执行）
+#   python ../scripts/publish.py --version <版本> --yes    # 真跑
 ```
 
 ## 环境变量与配置位置

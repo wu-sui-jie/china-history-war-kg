@@ -117,15 +117,19 @@ cp .env.example .env
 
 ## 六、如何运行
 
+RAG **不直接读旧库**（`backend/database`），它读的是**离线制品**：快照 `data/snapshot/<版本>`
+与索引 `data/index/<版本>`——两者**必须同版本**，否则启动即报版本不一致。
+
 ```bash
-# —— 离线链路 ——
-python scripts/export_snapshot.py      # F09 导出并治理快照
-python scripts/build_index.py          # F11 构建文本与向量索引
-python scripts/run_pipeline.py         # （可选）端到端离线流水线
+# —— 离线链路（从旧库产出 RAG 要读的制品）——
+python scripts/export_snapshot.py --version <版本>            # F09 导出并治理快照
+python scripts/build_inferred_relations.py --version <版本>    # 规则推理产物（**单独一步**）
+python scripts/build_index.py --version <版本>                 # F11 构建文本与向量索引
+python scripts/run_pipeline.py                                 # （可选）端到端离线流水线
 
 # —— 在线问答服务 ——
 # --version 把版本写进 RAG_ACTIVE_VERSION，数据版本被显式固定
-python scripts/run_server.py --port 8000 --version 20260915_v1
+python scripts/run_server.py --port 8000 --version <版本>
 # 冒烟：curl -N -X POST http://127.0.0.1:8000/api/query \
 #   -H "Content-Type: application/json; charset=utf-8" \
 #   -d '{"session_id":"s1","question":"赤壁之战的主帅是谁？"}'
@@ -140,6 +144,13 @@ cd frontend && npm run build && cd ..     # 注意：与并入模式产物互相
 python scripts/run_server.py --port 8000
 python scripts/smoke_deploy.py --base http://127.0.0.1:8000   # 冒烟六步，兼作缓存预热
 ```
+
+> **规则推理产物那一步不能漏**：它单独生成 `inferred_relations.json`，漏了不报错，只是
+> "规则推理"这条检索通道静默少一块（接口与测试都照常通过）。
+>
+> **换数据版本时整条链更长**（旧库 → 快照 → 推理产物 → 索引 → SBOM / 血缘 / 制品清单）。
+> 在仓库根用 `python scripts/publish.py --version <版本> --yes` 一次跑完，每步带断言；
+> 见根 [README.md](../README.md) 的「数据从哪来」。
 
 > **前端构建有两种互斥模式**：`npm run build`（独立部署，base `/`、接口前缀 `/api`）与
 > `npm run build:integration`（并入旧知识库系统，base `/rag/`、接口前缀 `/rag/api`）。
