@@ -91,3 +91,10 @@ python scripts/build_release_bundle.py --version 20260915_v1 --smoke-report logs
   4819 条高德坐标躺在磁盘上，地图页只剩后端内置的省/市中心点兜底（"可定位事件 130、
   低置信坐标 55"就是这么来的）。现在它是 `scripts/publish.py` 的 ②b/②c 两步，
   核对阶段还有 `MIN_PLACES_WITH_COORD` 兜底。
+- **新克隆的库里没有坐标，这是预期状态，不是缺文件。** 主库 `backend/database`、坐标词典
+  `RAG/data/cache/amap/place_coord_dict.json` 与高德原始产物都在 `.gitignore` 里
+  （主库是 13 MB 二进制、由 ② 重建，且含 `UserInfo` 账号行，不该进公开仓库）。
+  所以拿到一份干净克隆后，坐标要自己补：**有换代前的备份库或高德产物** → 直接跑
+  `build_place_coord_dict.py` + `apply_place_coords.py`（三步的前两步）；**都没有** →
+  先配 `AMAP_API_KEY` 跑 `fetch_place_coords.py` 补抓。两条路走完 `places` 才会从 0 条变成有坐标，
+  `apply_place_coords.py` 在一条都没写进去时会退出码 1 并明确报出来，不会静默。
