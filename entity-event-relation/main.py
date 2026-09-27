@@ -293,9 +293,18 @@ def finalize_outputs(entities, events, relations):
     valid_event_names = {getattr(event, "EventName", None) for event in events.events if getattr(event, "EventName", None)}
     # 事件起始年份索引：关系清理要用它给"顺承/因果"定方向（字典序定方向是错的）
     event_start_years = build_event_start_years(Normalizer(), events.events)
-    relations, first_pass = cleanup_relation_conflicts(relations, valid_event_names, event_start_years)
+    # 实体名单（精确匹配，与导入器同一口径）：关系目标端要对得上，否则那条边进不了库
+    valid_entity_names = {
+        "places": {(getattr(place, field, None) or "") for place in entities.places
+                   for field in ("geo_name", "modern_name")} - {""},
+        "persons": {(getattr(person, "PersonName", None) or "") for person in entities.persons} - {""},
+        "organizations": {(getattr(org, "OrgName", None) or "") for org in entities.organizations} - {""},
+    }
+    relations, first_pass = cleanup_relation_conflicts(
+        relations, valid_event_names, event_start_years, valid_entity_names)
     relations = enrich_relations_from_events(entities, events, relations)
-    relations, second_pass = cleanup_relation_conflicts(relations, valid_event_names, event_start_years)
+    relations, second_pass = cleanup_relation_conflicts(
+        relations, valid_event_names, event_start_years, valid_entity_names)
     # 两次清理丢掉的悬空边合计写进事件 metadata：质量报告与体检脚本从这里读，
     # 不能让"丢掉了几条边"这个事实只存在于内存里。
     cleanup_diagnostics = {
@@ -763,7 +772,7 @@ def split_publishable_outputs(entities, events, relations):
 
 
 def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_names=None,
-                             event_start_years=None) -> RelationExtractionResult:
+                             event_start_years=None, valid_entity_names=None) -> RelationExtractionResult:
     """
     关系的最后一道清理：规范化名称与关系类型、丢掉自环与指向已过滤事件的边、
     按证据/时间校正"顺承/因果"方向，再按对称对去重。
@@ -802,6 +811,10 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
         # 2026-09-27 新增两类（判定：删掉，见 §3.06 之后那条）：
         "empty_evidence": 0,
         "placeholder_target": 0,
+        # 目标端在实体表里找不到（2026-09-27 补）：导入时 `_find_person/_find_org/_find_place`
+        # 都是**精确匹配**，对不上的边会被**静默丢掉**——实测新产物有 167 条这样没进库。
+        # 产物自己先丢掉并计数，"产物里有什么"与"库里有什么"就不再对不上。
+        "target_not_found": 0,
     }
 
     #: 各类关系"目标"所在的字段名（`event-event` 的目标是事件名，不走这一支）。
@@ -812,6 +825,33 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
             "event_person_relations": "PersonName",
         }.get(attribute)
         return getattr(rel, field, None) if field else None
+
+    #: 关系目标名所在的字段（`event-event` 的目标是事件名，不走这一支）。
+    _TARGET_FIELDS = {
+        "event_place_relations": ("modern_name", "geo_name"),
+        "event_organization_relations": ("OrgName",),
+        "event_person_relations": ("PersonName",),
+    }
+
+    def _target_allowed(rel, attribute) -> bool:
+        """目标端是否在最终实体名单里（**与导入器同一口径：精确匹配**）。
+
+        `main` 原来只查事件端（`_event_allowed`），目标端不查——于是产物里可以存在
+        "目标实体不在实体表里"的边；导入时这类边被静默丢掉（实测 167 条：人物 82 / 组织 82 /
+        地点 2 / 事件-事件 1），产物与库就对不上了。这里补上目标端，并计数。
+        """
+        if not valid_entity_names:
+            return True
+        fields = _TARGET_FIELDS.get(attribute)
+        if not fields:
+            return True
+        pool = valid_entity_names.get({"event_place_relations": "places",
+                                       "event_organization_relations": "organizations",
+                                       "event_person_relations": "persons"}[attribute]) or set()
+        if not pool:
+            return True
+        # 地点两侧都算：目标名可能落在 `geo_name` 上，也可能落在 `modern_name` 上
+        return any((getattr(rel, field, None) or "").strip() in pool for field in fields)
 
     def _drop_dangling(relations, attribute):
         """丢掉事件端对不上最终事件名单的边，并计数——悬空边数要能被体检脚本与质量报告看见。"""
@@ -834,6 +874,9 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
             # 让它进产物等于把"不知道"记成了一条关系。
             if (_target_value(rel, attribute) or "").strip() in PLACEHOLDERS_FULL:
                 dropped_dangling["placeholder_target"] += 1
+                continue
+            if not _target_allowed(rel, attribute):
+                dropped_dangling["target_not_found"] += 1
                 continue
             kept.append(rel)
         return kept

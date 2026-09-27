@@ -111,3 +111,27 @@ def test_导入会清掉上一批知识数据(importer):
     assert Place.query.filter_by(name="测试-地点甲").first() is not None
     assert Person.query.filter_by(name="测试-人物甲").first() is not None
     assert Organization.query.filter_by(name="测试-组织甲").first() is not None
+
+
+def test_乱码还原不能把正常中文改坏():
+    """
+    `repair_mojibake` 原先的判据是"`encode('gbk')` 再 `decode('utf-8')` 能成功"，
+    而**正常中文有时也能通过**（它的 GBK 字节恰好是合法 UTF-8）——实测把
+    `一片石之战` "还原"成 `һƬʯ֮ս`、`郑` 成 `֣`、`元` 成 `Ԫ`，一批产物里 **268 个正常值**
+    被这么改坏（旧产物 232 个，所以不是新引入的缺陷，是旧库当年用更早的代码导入才侥幸干净）。
+
+    危害不止是字段难看：**事件名被改坏后，引用它的关系在导入时找不到事件**，于是被静默丢掉
+    （实测 167 条关系因此没进库）。所以这条用例同时钉住"正常值必须原样保留"。
+
+    注意**方向也要钉**：真乱码（UTF-8 字节被当 GBK 读）仍然必须能被还原回来。
+    """
+    from common_utils import repair_mojibake
+
+    for value in ("一片石之战", "郑", "元", "36营", "平卢", "英", "浅水原之战", "赤壁之战", "春秋"):
+        assert repair_mojibake(value) == value, f"正常中文被误判成乱码并改坏了：{value!r}"
+
+    for original in ("秦国", "战役", "长城"):
+        mojibake = original.encode("utf-8").decode("gbk")
+        assert repair_mojibake(mojibake) == original, f"真乱码没能还原：{mojibake!r}"
+
+    assert repair_mojibake("") == "" and repair_mojibake(None) is None

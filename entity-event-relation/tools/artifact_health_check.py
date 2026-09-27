@@ -141,11 +141,29 @@ def check_dangling_relations(payload: dict, normalizer) -> dict:
     normalized_names = {normalizer.normalize_event_name(name) for name in exact_names}
     relations = payload.get("relations") or {}
 
+    # **目标端**（2026-09-27 补）：原先只查事件端，于是"目标实体不在实体表里"的边
+    # 看不见——而导入时 `_find_person/_find_org/_find_place` 都是精确匹配，对不上就**静默丢掉**
+    # （实测新产物 167 条没进库：人物 82 / 组织 82 / 地点 2 / 事件-事件 1）。口径与导入器一致：
+    # 精确匹配；地点两侧（`geo_name` / `modern_name`）都算。
+    entities = payload.get("entities") or {}
+    tail_pools = {
+        "event-place": {(p.get("geo_name") or "").strip() for p in entities.get("places") or []}
+                      | {(p.get("modern_name") or "").strip() for p in entities.get("places") or []},
+        "event-organization": {(o.get("OrgName") or "").strip() for o in entities.get("organizations") or []},
+        "event-person": {(p.get("PersonName") or "").strip() for p in entities.get("persons") or []},
+    }
+    tail_fields = {"event-place": ("modern_name", "geo_name"),
+                   "event-organization": ("OrgName",),
+                   "event-person": ("PersonName",)}
+
     report = {}
     for attribute, category in RELATION_CATEGORIES.items():
         exact_missing = 0
         normalized_missing = 0
+        tail_missing = 0
         samples = []
+        tail_samples = []
+        pool = tail_pools.get(category)
         for rel in relations.get(attribute) or []:
             for endpoint in (("EventName",) if category != "event-event"
                              else ("EventName_A", "EventName_B")):
@@ -158,10 +176,19 @@ def check_dangling_relations(payload: dict, normalizer) -> dict:
                         samples.append(name)
                 if normalizer.normalize_event_name(name) not in normalized_names:
                     normalized_missing += 1
+            if pool:
+                target = next(((rel.get(f) or "").strip() for f in tail_fields[category]
+                               if (rel.get(f) or "").strip()), "")
+                if target and target not in pool:
+                    tail_missing += 1
+                    if len(tail_samples) < 5:
+                        tail_samples.append(target)
         report[category] = {
             "exact_dangling": exact_missing,
             "normalized_dangling": normalized_missing,
+            "tail_missing": tail_missing,
             "samples": samples,
+            "tail_samples": tail_samples,
         }
     return report
 
@@ -961,6 +988,12 @@ def print_report(report: dict) -> None:
         item = report["enum_values"][kind]
         extra = f"，空值 {item['empty']}" if "empty" in item else ""
         print(f"  {kind}: {item['total']} 条{extra}，枚举外 {len(item['outside_enum'])} 种 {item['outside_enum']}")
+    dangling_tail = sum(v.get("tail_missing") or 0 for v in report["dangling_relations"].values())
+    if dangling_tail:
+        print(f"  悬空边（目标端，导入时会被静默丢掉）: {dangling_tail}")
+        for key, item in report["dangling_relations"].items():
+            if item.get("tail_missing"):
+                print(f"    {key}: {item['tail_missing']} 条，例 {item['tail_samples']}")
     for key in RELATION_CATEGORIES:
         item = report["enum_values"][key]
         print(f"  {key}: {item['total']} 条，枚举外 {item['outside_enum']}")

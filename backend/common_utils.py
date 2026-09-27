@@ -73,6 +73,23 @@ def brief_error(error, limit=200):
 # （GBK 里没有对应的字节序列），所以不会误改正常数据。
 
 
+#: 「还原后」的文本只允许由中日韩汉字、假名、CJK 标点与 ASCII 组成。
+#: 这条守卫是必需的：原判据是"encode(gbk) 再 decode(utf-8) 能成功"，而**正常中文有时也能通过**
+#: （它的 GBK 字节恰好是合法 UTF-8）——实测 `一片石之战` 被"还原"成 `һƬʯ֮ս`、`郑` 成 `֣`、
+#: `元` 成 `Ԫ`：一批产物里 **268 个正常值**被改坏（旧产物 232 个，所以这不是新引入的，
+#: 是当年那份库用更早的代码导入才侥幸干净）。反过来，**真乱码反而修不回来**：
+#: `һƬʯ֮ս`.encode("gbk") 直接抛错（那些字符不在 GBK 里），函数原地返回。
+#: 加上"结果必须像正常文本"这条守卫，误判消失，真乱码那条路不受影响。
+_OLD_REPLACEMENT = chr(0xFFFD)
+_ALLOWED_CHARS = re.compile(r"[一-鿿㐀-䶿぀-ヿ"
+                            r"　-〿＀-￯ -~]")
+
+
+def _is_plausible_text(text: str) -> bool:
+    """文本是否"像正常的中文/ASCII 内容"——用于挡掉把正常文本误判成乱码的那种"还原"。"""
+    return bool(text) and all(_ALLOWED_CHARS.match(char) for char in text)
+
+
 def repair_mojibake(value, source=""):
     """把「UTF-8 字节被当 GBK 读」造成的乱码还原；不适用时原样返回。
 
@@ -85,7 +102,7 @@ def repair_mojibake(value, source=""):
         repaired = value.encode("gbk").decode("utf-8")
     except (UnicodeEncodeError, UnicodeDecodeError, LookupError):
         return value
-    if repaired == value or "\ufffd" in repaired:
+    if repaired == value or _OLD_REPLACEMENT in repaired or not _is_plausible_text(repaired):
         return value
     logger = _get_logger()
     if logger is not None:

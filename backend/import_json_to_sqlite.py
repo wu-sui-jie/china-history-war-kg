@@ -151,6 +151,10 @@ class JsonToSqliteImporter:
             "orgs": {"inserted": 0, "error": 0},
             "persons": {"inserted": 0, "error": 0},
             "relations": {"inserted": 0, "error": 0},
+            # 被跳过的条数（原先这些 `continue` 是**静默**的：关系两端在库里找不到就丢掉、
+            # 不计数也不报，于是"产物有 16666 条、库里只有 16499 条"这种事没人发现）。
+            # 2026-09-27 实测：人物/组织关系因目标名对不上被静默丢了 167 条。
+            "skipped": {"事件端不在库": 0, "目标不在库": 0, "字段残缺": 0},
         }
         self.dataset_meta = {
             "source_path": str(self.source_path),
@@ -430,10 +434,12 @@ class JsonToSqliteImporter:
                 b_name = _safe_text(item.get("EventName_B"))
                 rel_type = normalize_event_relation_type(item.get("relation") or item.get("relations")) or "相关"
                 if not a_name or not b_name:
+                    self.stats["skipped"]["字段残缺"] += 1
                     continue
                 event_a = self._find_event(a_name)
                 event_b = self._find_event(b_name)
                 if not event_a or not event_b:
+                    self.stats["skipped"]["事件端不在库"] += 1
                     continue
                 db.session.add(
                     EventEventRelation(
@@ -463,10 +469,12 @@ class JsonToSqliteImporter:
                 rel_type = _safe_text(item.get("relation") or item.get("relations")) or "发生地"
                 evidence = _safe_text(item.get("evidence") or item.get("source_text"))
                 if not event_name or not (place_name or modern_name):
+                    self.stats["skipped"]["字段残缺"] += 1
                     continue
                 event = self._find_event(event_name)
                 place = self._find_place(place_name, modern_name)
                 if not event or not place:
+                    self.stats["skipped"]["事件端不在库" if not event else "目标不在库"] += 1
                     continue
                 db.session.add(
                     EventPlaceRelation(
@@ -498,10 +506,12 @@ class JsonToSqliteImporter:
                 person_name = _safe_text(item.get("PersonName"))
                 rel_type = _safe_text(item.get("relation") or item.get("relations")) or "参与"
                 if not event_name or not person_name:
+                    self.stats["skipped"]["字段残缺"] += 1
                     continue
                 event = self._find_event(event_name)
                 person = self._find_person(person_name)
                 if not event or not person:
+                    self.stats["skipped"]["事件端不在库" if not event else "目标不在库"] += 1
                     continue
                 db.session.add(
                     EventPersonRelation(
@@ -529,10 +539,12 @@ class JsonToSqliteImporter:
                 org_name = _safe_text(item.get("OrgName"))
                 rel_type = _safe_text(item.get("relation") or item.get("relations")) or "参战"
                 if not event_name or not org_name:
+                    self.stats["skipped"]["字段残缺"] += 1
                     continue
                 event = self._find_event(event_name)
                 org = self._find_org(org_name)
                 if not event or not org:
+                    self.stats["skipped"]["事件端不在库" if not event else "目标不在库"] += 1
                     continue
                 db.session.add(
                     EventOrganizationRel(
@@ -565,6 +577,8 @@ class JsonToSqliteImporter:
             "组织": self.stats["orgs"],
             "人物": self.stats["persons"],
             "关系": self.stats["relations"],
+            # 跳过的条数一并报出：静默丢弃会让"产物有什么"与"库里有什么"对不上而无人察觉
+            "跳过": self.stats["skipped"],
         }
 
     def _user_snapshot(self):
