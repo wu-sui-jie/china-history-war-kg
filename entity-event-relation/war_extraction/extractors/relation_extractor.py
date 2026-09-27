@@ -26,6 +26,44 @@ from war_extraction.utils.value_parsing import PLACEHOLDERS_FULL, split_multi_va
 _SENTENCE_BOUNDARY = re.compile(r"(?<=[。！？；!?;])|\n+")
 
 
+#: 扁平数组里"按哪一个实体字段存在"判别关系类别（每个对象只该命中一个）。
+_FLAT_RELATION_KINDS = (
+    ("event_place_relations", "modern_name"),
+    ("event_organization_relations", "OrgName"),
+    ("event_person_relations", "PersonName"),
+    ("event_event_relations", "EventName_A"),
+)
+
+
+def coerce_relation_payload(data):
+    """
+    把模型偶发输出的**扁平数组**收成四类关系的 dict；收不了返回 None。
+
+    **为什么要这个函数。** 提示词要的是 `{"event_place_relations": [...], ...}` 四键对象，
+    但模型有时把四类关系**摊成一个数组**，每条形如
+    `{"EventName": …, "relation": …, "modern_name": …}`。这时 `extract_json_payload` 拿到的是
+    list，于是整段被判成"没有可用 JSON"、**降级成规则派生关系**——一整段的模型关系全丢。
+    实测不是个例：`logs/relation_errors/invalid_json_payload.log` 里有 6 个这样的样本
+    （含 2026-08-18 那次全书跑的），唐子集 29 段里也撞了 4 段。
+
+    **判别是确定的**：每个对象只带一个实体字段（`modern_name` / `OrgName` / `PersonName` /
+    `EventName_A`），按存在哪个字段归类即可。一个对象同时命中多个、或一个都不命中 → 丢掉：
+    宁可少几条，也不能把它塞进错的关系类别（那会凭空造出一条错关系）。
+    """
+    if not isinstance(data, list):
+        return None
+    collected = {kind: [] for kind, _field in _FLAT_RELATION_KINDS}
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        hits = [kind for kind, field in _FLAT_RELATION_KINDS if item.get(field)]
+        if len(hits) == 1:
+            collected[hits[0]].append(item)
+    if not any(collected.values()):
+        return None
+    return collected
+
+
 class RelationStageDegraded(Exception):
     """
     关系阶段的 LLM 调用失败，已降级为"纯规则派生关系"。
@@ -476,13 +514,20 @@ class RelationExtractor:
             response = self.llm.call(prompt, temperature=0.1, json_mode=True)
             data = extract_json_payload(response)
             if not isinstance(data, dict):
-                print("关系抽取 JSON 解析失败：未找到可用 JSON")
-                print(f"原始响应前 500 字符: {response[:500]}...")
+                # 模型偶发把四类关系摊成一个数组：先按实体字段归类收回来（判别是确定的），
+                # 收不了才降级——降级会把这一整段的模型关系换成规则派生，代价太大。
+                coerced = coerce_relation_payload(data)
                 self._write_error_log("invalid_json_payload", response)
-                raise RelationStageDegraded(
-                    "关系抽取响应没有可用 JSON，已降级为规则派生关系",
-                    self._build_derived_relation_result(events, place_list, org_list, person_list),
-                )
+                if coerced is None:
+                    print("关系抽取 JSON 解析失败：未找到可用 JSON")
+                    print(f"原始响应前 500 字符: {response[:500]}...")
+                    raise RelationStageDegraded(
+                        "关系抽取响应没有可用 JSON，已降级为规则派生关系",
+                        self._build_derived_relation_result(events, place_list, org_list, person_list),
+                    )
+                print(f"关系抽取返回的是扁平数组，已按实体字段归类收回: "
+                      f"{ {k: len(v) for k, v in coerced.items() if v} }")
+                data = coerced
 
             place_rels = [self._ensure_complete_place_rel(r) for r in data.get("event_place_relations", [])]
             org_rels = [self._ensure_complete_org_rel(r) for r in data.get("event_organization_relations", [])]

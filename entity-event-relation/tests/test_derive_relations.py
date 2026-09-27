@@ -193,3 +193,33 @@ def test_同一个人不再同时是统帅和将领(extractor):
     relations = [rel.relation for rel in person_rels if rel.PersonName == "白起"]
     assert len(relations) == len(set(relations)), f"同一人物挂了重复/冲突的关系名: {relations}"
     assert "统帅" not in relations
+
+
+def test_扁平数组的关系响应按实体字段归类收回():
+    """
+    提示词要的是 `{"event_place_relations": [...], …}` 四键对象，但模型有时把四类关系**摊成一个数组**
+    （日志 `logs/relation_errors/invalid_json_payload.log` 里有 6 个这样的真实样本，含 2026-08-18
+    那次全书跑的；唐子集 29 段里也撞了 4 段）。原来它会被判成"没有可用 JSON"、整段**降级成规则派生**
+    ——一段的模型关系全丢。判别是确定的：每个对象只带一个实体字段。
+    """
+    from war_extraction.extractors.relation_extractor import coerce_relation_payload
+
+    flat = [
+        {"EventName": "甲战", "relation": "主战场", "modern_name": "甲地", "evidence": "…"},
+        {"EventName": "甲战", "relation": "将领", "PersonName": "甲人", "evidence": "…"},
+        {"EventName": "甲战", "relation": "发起方", "OrgName": "甲军", "evidence": "…"},
+        {"EventName": "甲战", "relation": "顺承关系", "EventName_A": "甲战",
+         "EventName_B": "乙战", "evidence": "…"},
+        {"EventName": "甲战", "relation": "说不清"},                       # 一个实体字段都不命中 → 丢
+        {"EventName": "甲战", "PersonName": "甲人", "OrgName": "甲军"},      # 两个都命中 → 丢（不猜）
+    ]
+    out = coerce_relation_payload(flat)
+    assert [r["modern_name"] for r in out["event_place_relations"]] == ["甲地"]
+    assert [r["PersonName"] for r in out["event_person_relations"]] == ["甲人"]
+    assert [r["OrgName"] for r in out["event_organization_relations"]] == ["甲军"]
+    assert [r["EventName_B"] for r in out["event_event_relations"]] == ["乙战"]
+    assert sum(len(rows) for rows in out.values()) == 4, "命中不了或多重命中的都要丢掉，不能塞进错类别"
+
+    assert coerce_relation_payload({"event_place_relations": []}) is None, "正常 dict 不走这条路"
+    assert coerce_relation_payload([{"EventName": "甲战", "relation": "说不清"}]) is None, \
+        "一条都收不了就返回 None，让调用方按原路降级并报错"
