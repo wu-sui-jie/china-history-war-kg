@@ -3,10 +3,16 @@
     <div class="graph-header">
       <div>
         <h1>{{ focusName ? '实体关系验证图' : '中国历史战争事件总览图' }}</h1>
+        <p class="graph-subtitle">
+          {{ focusName
+            ? '以该实体为中心的一阶子图。'
+            : '总览按战争事件 / 战争地点 / 历史人物 / 参战势力四类均衡取样，只取已有关联的节点。' }}
+        </p>
       </div>
-      <lay-button v-if="focusName" size="sm" @click="loadAllGraph">返回完整图谱</lay-button>
-      <lay-button v-else size="sm" @click="loadAllGraph">加载全部节点</lay-button>
+      <lay-button v-if="focusName" size="sm" @click="loadOverview">返回总览</lay-button>
     </div>
+
+    <p v-if="limitHint" class="graph-limit-hint">{{ limitHint }}</p>
 
     <div class="graph-wrapper">
       <EChartsGraph :data="datasource" @node-expanded="loadNodeRelations" />
@@ -16,9 +22,8 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { layer } from '@layui/layui-vue'
 import EChartsGraph from './EChartsGraph.vue'
 import { getGraphNodeContext, searchNameKg } from '@/api/module/graph'
 import { getNodeRelations } from '@/api/module/node'
@@ -29,9 +34,18 @@ const datasource = ref<any>({ nodes: [], lines: [] })
 const graphPageSummary = inject<any>('graphPageSummary', null)
 const route = useRoute()
 const focusName = ref('')
-// 默认只加载限量视图：全图分支没有分页，规模大时会把浏览器拖死。
-// 用户显式点「加载全部节点」时才请求全图，后端还会按节点数上限拦截。
-const wantFullGraph = ref(false)
+
+// 后端总览是"四类均衡取样"，取满配额就说明库里还有更多（本库 9184 个节点，总览只画 100）。
+// 不说明的话用户会以为"这张图就这么大"——这句提示与四个子页同一措辞。
+// 这里**没有**"加载全部节点"按钮：全量 9184 个节点力导向布局渲染不动
+// （四个子页实测 200 个节点就卡），所以后端也不再提供全量分支；
+// 要看某一块就用名称/关系筛选聚焦，或从实体详情页跳进来。
+const limitHint = computed(() =>
+  !focusName.value && datasource.value?.truncated
+    ? `默认视图按四类均衡取样，最多展示前 ${datasource.value.node_limit || 100} 个实体节点；`
+      + '搜索名称或按关系筛选可查看其余节点。'
+    : '',
+)
 
 function syncPageSummary() {
   graphPageSummary?.setGraphPageSummary(
@@ -56,15 +70,11 @@ async function loadNodeRelations(nodeId: string) {
   }
 }
 
-async function loadAllGraph() {
+/** 退出聚焦、回到四类均衡的总览。 */
+async function loadOverview() {
   focusName.value = ''
   sessionStorage.removeItem('graphFocus')
-  wantFullGraph.value = true
-  try {
-    await getGraph(false)
-  } finally {
-    wantFullGraph.value = false
-  }
+  await getGraph(false)
 }
 
 async function getGraph(allowFocus = true) {
@@ -73,12 +83,8 @@ async function getGraph(allowFocus = true) {
     const focus = allowFocus ? getGraphFocus() : null
     const response = focus
       ? await getGraphNodeContext(focus)
-      : await searchNameKg({ load_all: wantFullGraph.value })
+      : await searchNameKg({})
     datasource.value = response.code === 200 ? response.data || { nodes: [], lines: [] } : { nodes: [], lines: [] }
-    // 后端因规模超限把全图请求降级为限量加载时明确告知，避免用户以为"图就这么多"
-    if (!focus && wantFullGraph.value && response?.graph_mode === 'limited') {
-      layer.msg('节点数超过后端上限，已按限量加载；可用顶部搜索聚焦具体实体', { icon: 0 })
-    }
   } catch (error) {
     console.error('获取图谱数据失败:', error)
     datasource.value = { nodes: [], lines: [] }
@@ -165,8 +171,21 @@ onUnmounted(() => {
 }
 
 .graph-header p {
-  margin: 0;
+  margin: 6px 0 0;
   color: #6b7280;
+  font-size: 13px;
+}
+
+.graph-subtitle {
+  text-align: center;
+}
+
+.graph-limit-hint {
+  flex-shrink: 0;
+  margin: 0 0 8px;
+  padding: 0 4px;
+  color: #8c6d3b;
+  font-size: 13px;
 }
 
 .graph-wrapper {

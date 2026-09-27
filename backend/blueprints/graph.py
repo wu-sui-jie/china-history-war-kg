@@ -15,10 +15,6 @@ from report_builders import build_global_search
 graph_bp = Blueprint("graph", __name__)
 logger = get_logger(__name__)
 
-# 允许「全图加载」的节点数上限：超过就退回限量加载。
-# 全量分支没有分页，节点数上万时单次请求的响应体与前端渲染开销都会失控。
-MAX_LOAD_ALL_NODES = 3000
-
 
 @graph_bp.route('/search_name_kg', methods=['POST'])
 def search_name():
@@ -32,22 +28,17 @@ def search_name():
     entity = data.get('name', '')
     node_type = data.get('node_type', '')
     rel_type = data.get('rel_type', '')
-    # 是否全图加载：默认关。全量分支会 `MATCH (n) RETURN n` 拉全部节点与关系且没有上限，
-    # 大图上单次请求就能吃掉大量内存与带宽。显式要求时也要先看规模。
-    load_all = bool(data.get('load_all', False))
 
     try:
         if not entity and not node_type and not rel_type:
-            if load_all:
-                node_total = neo4j_db_handle.count_nodes()
-                if node_total > MAX_LOAD_ALL_NODES:
-                    logger.warning(
-                        "拒绝全图加载：节点数 %s 超过上限 %s，改为限量加载（如需全图请用图形库前端的聚焦/分页）",
-                        node_total, MAX_LOAD_ALL_NODES,
-                    )
-                    load_all = False
-            json_data = neo4j_db_handle.get_default_graph(limit=50, load_all=load_all)
-            logger.info(f"使用默认图谱加载方式, {'加载全部' if load_all else '加载部分'}")
+            # 不带筛选 = 战争关系图首页：走"四类均衡取样"的总览。
+            # `get_overview_graph` 的文档写了为什么不能再用 `MATCH (n) RETURN n LIMIT N`。
+            #
+            # 这里曾有一个 `load_all` 分支配 `MAX_LOAD_ALL_NODES = 3000` 的拦截：本库有
+            # 9184 个节点，拦截恒定命中，"加载全部节点"按钮永远只是弹一句"已按限量加载"。
+            # 而全量渲染也不是可行路线——四个子页实测 200 个节点就会让力导向布局卡顿。
+            # 所以整条全量分支连同按钮一起下线：要看某一块，用名称/关系筛选聚焦。
+            json_data = neo4j_db_handle.get_overview_graph()
         else:
             if entity and node_type and not rel_type:
                 json_data = neo4j_db_handle.search_by_name_and_type(entity, node_type)
@@ -69,11 +60,9 @@ def search_name():
             "code": 200,
             "msg": "success",
             "data": json_data,
-            # 本次实际用的加载方式（full / limited / focused）：前端据此提示"被降级了"，
-            # 否则用户只会看到一张不完整的图、不知道原因
-            "graph_mode": ("full" if (load_all and not entity and not node_type and not rel_type)
-                           else "focused" if (entity or node_type or rel_type)
-                           else "limited"),
+            # 本次实际用的加载方式：前端据此区分"总览取样"与"按条件聚焦"两种语义。
+            # 取样规模不再由后端按节点总数临时决定——那会让同一页在不同数据规模下换口径。
+            "graph_mode": "focused" if (entity or node_type or rel_type) else "overview",
         })
     except Exception as e:
         # 完整堆栈由 server_error 记进日志（它内部就是 logger.exception，

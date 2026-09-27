@@ -34,6 +34,22 @@ logger = get_logger(__name__)
 # 那部分实体，此时不截断。四个子页共用同一个值，避免逐页调参后口径不一致。
 DEFAULT_VIEW_NODE_LIMIT = 100
 
+# 总览图（战争关系图首页）的类型配额：四类实体必须都出现，否则"总览"名不副实。
+#
+# 旧实现是 `MATCH (n) RETURN n LIMIT 50`——无标签全表扫描按**节点 id 顺序**返回，取到的
+# 是最早入库的一批节点：实测本库 id 0..49 全是 Place，而地点与地点之间没有关系
+# （边只有 事件-地点、事件-人物、事件-组织、事件-事件），于是画面上是 50 个孤立点、0 条边。
+# 同一个写法的另一个毛病是 id 会随图谱重建而变，取样结果跟着漂。
+#
+# 事件是枢纽（其余三类都靠它连起来），配额最大。总和必须等于 DEFAULT_VIEW_NODE_LIMIT：
+# 总览与四个子页同一口径，有用例钉住这个和。
+OVERVIEW_TYPE_QUOTAS = (("Event", 30), ("Place", 32), ("Person", 26), ("Organization", 12))
+
+# 总览取内部关系时的行数上限（按节点数放大）。`MATCH (n)-[r]-(m)` 是无向匹配，每条边会
+# 返回两次（n→m 与 m→n）；实测 100 节点的总览去重后约 213 条关系、即约 426 行，这里留到
+# 6 倍余量。行上限只防"配额被人改大后响应体失控"，正常规模下取不满。
+OVERVIEW_RELATION_ROWS_PER_NODE = 6
+
 
 def cap_default_view_graph(graph, name_filter='', rel_type=''):
     """无筛选条件时只保留前 N 个实体节点，随之失去端点的连线一并丢弃。
@@ -592,173 +608,141 @@ class neo4j_db():
         result = self.graph.run("MATCH (n) RETURN count(n) AS c").data()
         return int(result[0]["c"]) if result else 0
 
-    def get_default_graph(self, limit=50, load_all=False):
-        """
-        获取默认图谱数据（用于可视化初始化）
-        :param limit: 返回的节点数量限制
-        :param load_all: 是否加载所有节点和关系，不进行限制
-        :return: 包含节点和关系的图谱数据
+    def get_overview_graph(self):
+        """战争关系图总览：四类实体按配额取样，且只取"有边"的节点。
+
+        ## 为什么不是 `MATCH (n) RETURN n LIMIT N`
+
+        那是无标签全表扫描，按节点 id 顺序返回（见 ``OVERVIEW_TYPE_QUOTAS`` 的说明）：
+        取到最早入库的一批节点、它们之间没有边、取样还随图谱重建而漂。
+
+        ## 现在的口径
+
+        1. **锚点**取"关系最多"的事件（度数降序；同度数按 ``graph_key`` 再退到 id 兜底，
+           保证同一份数据每次取到同一批节点——``graph_key`` 是 SQLite 主键派生的稳定身份，
+           见 ``graph_key`` 模块）；
+        2. **其余三类**取与锚点**相邻**的节点，按"连到几个锚点"降序排：因此取出的节点
+           之间必定有边，不会再出现"一屏孤立点"；
+        3. 四类各有配额，保证"总览"里四类实体都在；
+        4. 最后取所选节点**内部**的关系，并按 ``(起点, 终点, 关系类型)`` 去重——
+           无向匹配会让同一条边返回两次。
         """
         try:
-            # 存储节点和关系
             nodes = []
             lines = []
-            # 用于记录节点ID，避免重复
             node_ids = set()
 
-            # ============ 加载全部图谱 ============
-            if load_all:
-                # 使用一种更可靠的方法保证连通性
-                # 1. 先获取所有节点
-                node_query = """
-                MATCH (n) 
-                RETURN n
-                """
-                node_result = self.graph.run(node_query).data()
-                
-                # 处理所有节点数据
-                for record in node_result:
-                    node = record['n']
-                    node_id = node.identity
-                    
-                    # 构造节点数据格式
-                    node_data = {
-                        'id': node_id,
-                        'name': node['name'],
-                        'type': list(node.labels)[0] if node.labels else ''
-                    }
-                    
-                    # 添加其他属性
-                    for prop in node:
-                        if prop != 'name':  # 名称已添加
-                            node_data[prop] = node[prop]
-                    
-                    nodes.append(node_data)
-                    node_ids.add(node_id)
-                
-                # 2. 获取所有关系
-                # 用 `MATCH (n)-[r]-(m) RETURN r` 而不是 `MATCH path = (n)-[r*1..1]-(m)
-                # RETURN relationships(path)`：后者要为每条路径构造 Path 对象，实测在本库
-                # （7470 节点 / 3.5 万行）要 **202 秒**，而前者返回同样的关系集合、耗时在秒级。
-                # 两者语义等价：变长 1..1 就是单跳。
-                rel_query = """
-                MATCH (n)-[r]-(m)
-                RETURN r
-                """
-                rel_result = self.graph.run(rel_query).data()
+            # ① 锚点事件：关系最多的一批
+            anchor_sql = """
+            MATCH (e:Event)-[r]-()
+            WITH e, count(r) AS deg
+            ORDER BY deg DESC, coalesce(e.graph_key, '') ASC, id(e) ASC
+            LIMIT $limit
+            RETURN e
+            """
+            event_quota = dict(OVERVIEW_TYPE_QUOTAS).get("Event", 0)
+            for record in self.graph.run(anchor_sql, limit=int(event_quota)).data():
+                self._collect_graph_node(nodes, node_ids, record.get('e'))
 
-                # 添加所有关系
-                processed_relations = set()  # 用于去重
-                # 处理关系数据
-                for record in rel_result:
-                    rel = record['r']
-                    # 构造关系唯一标识
-                    rel_id = f"{rel.start_node.identity}-{rel.end_node.identity}-{type(rel).__name__}"
-                    
-                    # 避免重复添加相同关系
-                    if rel_id in processed_relations:
+            anchor_ids = list(node_ids)
+            if anchor_ids:
+                # ② 三类邻居：按"连到几个锚点"降序，保证与锚点之间有边
+                for label, quota in OVERVIEW_TYPE_QUOTAS:
+                    if label == "Event" or quota <= 0:
                         continue
-                        
-                    processed_relations.add(rel_id)
-                    
-                    rel_type = type(rel).__name__
-                    
-                    # 构建关系数据
+                    # 标签不能参数化，先做格式校验
+                    label = safe_identifier(label, kind="节点类型")
+                    neighbour_sql = f"""
+                    MATCH (a:Event)-[]-(n:`{label}`)
+                    WHERE id(a) IN $anchor_ids
+                    WITH n, count(DISTINCT a) AS hubs
+                    ORDER BY hubs DESC, coalesce(n.graph_key, '') ASC, id(n) ASC
+                    LIMIT $limit
+                    RETURN n
+                    """
+                    neighbour_result = self.graph.run(
+                        neighbour_sql, anchor_ids=anchor_ids, limit=int(quota)
+                    ).data()
+                    for record in neighbour_result:
+                        self._collect_graph_node(nodes, node_ids, record.get('n'))
+
+                # ③ 所选节点内部的关系（去重；无向匹配会把每条边回来两次）
+                #
+                # 用 `MATCH (n)-[r]-(m) RETURN r` 而不是变长写法 `(n)-[r*1..1]-(m)`：
+                # 后者要为每条路径构造 Path 对象，实测在本库上要 202 秒，而前者返回同样的
+                # 关系集合、耗时在秒级。两者语义等价——变长 1..1 就是单跳。不要改回去。
+                relation_sql = """
+                MATCH (n)-[r]-(m)
+                WHERE id(n) IN $node_ids AND id(m) IN $node_ids
+                RETURN r
+                LIMIT $limit
+                """
+                relation_result = self.graph.run(
+                    relation_sql,
+                    node_ids=list(node_ids),
+                    limit=max(len(node_ids), 1) * OVERVIEW_RELATION_ROWS_PER_NODE,
+                ).data()
+                seen_relations = set()
+                for record in relation_result:
+                    rel = record.get('r')
+                    if rel is None:
+                        continue
+                    rel_key = (rel.start_node.identity, rel.end_node.identity,
+                               type(rel).__name__)
+                    if rel_key in seen_relations:
+                        continue
+                    seen_relations.add(rel_key)
+
                     line_data = {
                         'from': rel.start_node.identity,
                         'to': rel.end_node.identity,
-                        'text': rel_type
+                        'text': type(rel).__name__,
                     }
-                    
-                    # 添加关系属性
                     for key, value in rel.items():
                         line_data[key] = value
-                        
-                    # 特别处理关系类型属性
                     if 'relation_type' in rel:
                         line_data['relation_category'] = rel['relation_type']
-                    
                     lines.append(line_data)
-            else:
-                node_query = """
-                MATCH (n)
-                RETURN n
-                LIMIT $limit
-                """
-                
-                node_result = self.graph.run(node_query, limit=int(limit)).data()
-                
-                if not node_result:
-                    return {"nodes": [], "lines": []}
-                    
-                # 处理节点数据
-                for record in node_result:
-                    node = record['n']
-                    node_id = node.identity
-                    
-                    # 添加节点数据
-                    node_data = {
-                        'id': node_id,
-                        'name': node['name'],
-                        'type': list(node.labels)[0] if node.labels else ''
-                    }
-                    
-                    # 添加其他属性
-                    for prop in node:
-                        if prop != 'name':  # 名称已添加
-                            node_data[prop] = node[prop]
-                    
-                    nodes.append(node_data)
-                    node_ids.add(node_id)
-                
-                # 获取这些节点之间的关系
-                if node_ids:
-                    # 保持参数化：实测（2026-09-24，7470 节点库）内联字面量 369 ms vs 参数化 473 ms，
-                    # 都在亚秒级——Neo4j 5.x 对 `id(n) IN $ids` 仍能走 id seek，不存在"参数化退化成
-                    # 全表扫描"的问题，没必要为一个 28% 的差距放弃统一的安全写法。
-                    relation_query = """
-                    MATCH (n)-[r]-(m)
-                    WHERE id(n) IN $node_ids AND id(m) IN $node_ids
-                    RETURN r
-                    LIMIT $limit
-                    """
-                    relation_result = self.graph.run(
-                        relation_query, node_ids=list(node_ids), limit=int(limit) * 2
-                    ).data()
-                    
-                    # 处理关系数据
-                    for record in relation_result:
-                        rel = record['r']
-                        rel_type = type(rel).__name__
-                        
-                        # 构建关系数据
-                        line_data = {
-                            'from': rel.start_node.identity,
-                            'to': rel.end_node.identity,
-                            'text': rel_type
-                        }
-                        
-                        # 添加关系属性
-                        for key, value in rel.items():
-                            line_data[key] = value
-                            
-                        # 特别处理关系类型属性
-                        if 'relation_type' in rel:
-                            line_data['relation_category'] = rel['relation_type']
-                        
-                        lines.append(line_data)
-            
-            logger.info(f"图谱加载: {len(nodes)}个节点, {len(lines)}个关系, {'加载全部' if load_all else '加载部分'}")
-            return {"nodes": nodes, "lines": lines}
-            
+
+            total_quota = sum(quota for _, quota in OVERVIEW_TYPE_QUOTAS)
+            # 取满配额说明库里还有更多——前端据此提示"这是总览取样，不是全部"
+            truncated = len(nodes) >= total_quota
+            type_counter = {}
+            for node in nodes:
+                type_counter[node["type"]] = type_counter.get(node["type"], 0) + 1
+            logger.info(
+                "总览图谱加载：节点 %s/%s（类型分布 %s），关系 %s",
+                len(nodes), total_quota, type_counter, len(lines),
+            )
+            return {
+                "nodes": nodes,
+                "lines": lines,
+                "node_limit": total_quota,
+                "truncated": truncated,
+            }
+
         except Exception as e:
-            logger.warning(f"获取默认图谱数据异常: {str(e)}")
+            logger.warning(f"获取总览图谱数据异常: {str(e)}")
             import traceback
             traceback.print_exc()
             return {"nodes": [], "lines": []}
 
+    @staticmethod
+    def _collect_graph_node(nodes, node_ids, node):
+        """把 Neo4j 节点转成前端要的结构并去重（同一节点只出现一次）。"""
+        if node is None or node.identity in node_ids:
+            return
+        node_data = {
+            'id': node.identity,
+            'name': node.get('name', ''),
+            'type': list(node.labels)[0] if node.labels else '',
+        }
+        for prop in node:
+            if prop != 'name':  # 名称已添加
+                node_data[prop] = node[prop]
+        nodes.append(node_data)
+        node_ids.add(node.identity)
 
-# ============================添加代码==========
     def search_by_name_and_type(self, name, node_type, limit=100):
         """
         按 节点名称 + 节点类型 查询关联子图

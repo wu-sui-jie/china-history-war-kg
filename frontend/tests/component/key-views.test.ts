@@ -1,7 +1,8 @@
 /** 关键页面的挂载用例。
  *
- * 选这些页面的原因：`GlobalSearch` 是站内跳转的公共入口（结果项的 entity_route /
- * graph_route / timeline_route 是三个知识页的入口，改路由或改接口都会断在这里），
+ * 选这些页面的原因：`GlobalSearch` 是站内跳转的公共入口（结果项的三个 `*_route`
+ * 是知识页的入口，改路由或改接口都会断在这里——字段与路径形状的契约另见
+ * `tests/unit/click-route-contract.test.ts`），
  * `Dashboard` 是登录后的落地页（首屏数据来自 /api/dashboard/overview）。
  * `TimelineView` 与 `EntityDetail` 覆盖"请求失败必须给提示"这条契约：
  * 后端失败返回真正的 4xx/5xx，**只有 catch 分支才拿得到后端文案**，
@@ -71,10 +72,21 @@ describe('GlobalSearch 全局搜索', () => {
   })
 
   test('搜索打 /api/search/global 并把结果渲染出来', async () => {
+    // 假数据与 `backend/report_builders.build_global_search` 的**真实字段**保持一致：
+    // 详情只有 `detail_route`（曾经这里放的是 `entity_route: '/knowledge/entity/Event/1'`，
+    // 那条路径前端从来没有，所以假数据把 404 掩盖住了）。
     get.mockResolvedValue({
       code: 200,
       data: [
-        { id: 1, type: 'Event', name: '巨鹿之战', type_label: '战争事件', entity_route: '/knowledge/entity/Event/1' },
+        {
+          id: 1,
+          type: 'Event',
+          name: '巨鹿之战',
+          type_label: '战争事件',
+          detail_route: '/knowledge/entity-detail?type=Event&id=1',
+          graph_route: '/knowledge/graph?focus=1&name=巨鹿之战&type=Event',
+          timeline_route: '/knowledge/timeline?keyword=巨鹿之战',
+        },
       ],
     })
     wrapper = mount(GlobalSearch, { global: { plugins: [Layui, makeTestRouter(), pinia] } })
@@ -89,6 +101,34 @@ describe('GlobalSearch 全局搜索', () => {
     expect(wrapper.vm.results).toHaveLength(1)
     expect(wrapper.text()).toContain('巨鹿之战')
     expect(wrapper.text()).toContain('战争事件')
+  })
+
+  test('点"详情"跳的是后端下发的 detail_route（不是那条不存在的旧路径）', async () => {
+    get.mockResolvedValue({
+      code: 200,
+      data: [{
+        id: 7,
+        type: 'Person',
+        name: '项羽',
+        type_label: '历史人物',
+        detail_route: '/knowledge/entity-detail?type=Person&id=7',
+        graph_route: '/knowledge/graph?focus=1&name=项羽&type=Person',
+        timeline_route: '/knowledge/timeline?keyword=项羽',
+      }],
+    })
+    const router = makeTestRouter()
+    const push = vi.spyOn(router, 'push')
+    wrapper = mount(GlobalSearch, { global: { plugins: [Layui, router, pinia] } })
+    await flushPromises()
+
+    wrapper.vm.keyword = '项羽'
+    wrapper.vm.search()
+    await flushPromises()
+
+    // 结果项第一个按钮就是"详情"
+    await wrapper.findAll('.actions button')[0].trigger('click')
+
+    expect(push).toHaveBeenCalledWith('/knowledge/entity-detail?type=Person&id=7')
   })
 
   test('接口非 200 时结果清空且显示空态', async () => {

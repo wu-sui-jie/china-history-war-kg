@@ -18,8 +18,12 @@ export const relationAnalysis = (query: RelationQuery) =>
 export const getGraphNodeContext = (focus: Record<string, unknown> | null) =>
   Http.get('/api/graph/node_context', focus ?? undefined)
 
-/** 默认图谱 / 全图加载（load_all 为真时后端会按节点规模决定是否降级为限量） */
-export const searchNameKg = (payload: { name?: string; node_type?: string; rel_type?: string; load_all?: boolean }) =>
+/**
+ * 总览 / 按条件聚焦检索。
+ * 空 payload = 战争关系图首页：后端取"四类均衡"的总览（见 model_search.get_overview_graph）。
+ * 传 name / node_type / rel_type 则按条件聚焦。
+ */
+export const searchNameKg = (payload: { name?: string; node_type?: string; rel_type?: string }) =>
   Http.post('/search_name_kg', payload)
 
 /** 四个子页的图谱接口（战争事件/参战组织/历史人物/战争地点的关系图） */

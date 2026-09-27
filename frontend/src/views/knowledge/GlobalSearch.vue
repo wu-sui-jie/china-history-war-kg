@@ -16,7 +16,7 @@
           <span>{{ item.type_label }} · {{ item.subtitle || '无补充信息' }}</span>
         </div>
         <div class="actions">
-          <lay-button size="xs" @click="router.push(item.entity_route)">详情</lay-button>
+          <lay-button size="xs" @click="router.push(item.detail_route)">详情</lay-button>
           <lay-button size="xs" @click="router.push(item.graph_route)">看图谱</lay-button>
           <lay-button size="xs" @click="router.push(item.timeline_route)">看时间轴</lay-button>
         </div>

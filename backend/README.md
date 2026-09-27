@@ -219,7 +219,7 @@ SELECT account, role FROM UserInfo WHERE account = 'someone';
 
 | 接口 | 方法 | 说明 |
 | --- | --- | --- |
-| `/search_name_kg` | POST | 按名称/类型/关系搜索图谱（前端图谱页用这个） |
+| `/search_name_kg` | POST | 按名称/类型/关系搜索图谱（前端图谱页用这个）。**请求体不带筛选时返回"四类均衡取样"的总览**（事件/地点/人物/组织各有配额、只取有关联的节点，见 `model_search.OVERVIEW_TYPE_QUOTAS`）；`load_all` 分支与节点上限拦截已下线——全量渲染在多大规模下都不可用，要看某一块用名称/关系聚焦 |
 | `/api/graph/event_event` | GET | 事件-事件关系图（支持 `name`、`rel_type`） |
 | `/api/graph/event_organization` | GET | 事件-组织关系图 |
 | `/api/graph/event_person` | GET | 事件-人物关系图 |

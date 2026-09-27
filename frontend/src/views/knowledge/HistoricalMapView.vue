@@ -195,7 +195,13 @@
           </div>
         </div>
 
-        <div v-else class="empty-state">地图已加载。可切换地点、事件或路线模式查看空间分布。</div>
+        <div v-else class="empty-state">
+          <p>地图已加载。可切换地点、事件或路线模式查看空间分布。</p>
+          <!-- 顶部卡片的数字与画布上的点不是同一个范围：统计扫的是"关联事件最多的
+               前 N 个地点"，画布为了响应体大小只绘制其中一部分。不写出来，
+               用户会把"592 个可定位事件"和画布上的百来个点当成对不上。 -->
+          <p v-if="scanHint" class="scan-hint">{{ scanHint }}</p>
+        </div>
       </div>
     </div>
 
@@ -322,6 +328,16 @@ const mapData = ref<any>({
 
 const routeLineItems = computed(() => (mapData.value.route_lines || []).filter((item: any) => Array.isArray(item.coords) && item.coords.length >= 2))
 const eventPointItems = computed(() => (mapData.value.event_points || []).filter((item: any) => validCoord(item)))
+
+// 统计口径说明（后端 summary 的 scan_* 字段）：卡片上的数字是"按关联事件最多的前 N 个
+// 地点"扫出来的，画布为响应体大小又只绘制其中一部分——两个范围都不一样，得说出来。
+const scanHint = computed(() => {
+  const summary = mapData.value.summary || {}
+  if (!summary.scan_limit) return ''
+  if (!summary.scan_truncated) return `统计范围：全部 ${summary.scanned_places || 0} 个与战争事件相关的地点。`
+  return `统计范围：按关联事件最多的前 ${summary.scan_limit} 个地点（共 ${summary.places_with_events} 个与战争事件相关）；`
+    + '画布只绘制其中一部分，可用上方搜索或朝代筛选收窄范围。'
+})
 const normalizeName = (value: any) => String(value || '').trim()
 const placeAliases = (place: any) => {
   const aliases = new Set<string>()
@@ -1155,6 +1171,13 @@ onUnmounted(() => {
 .header-actions {
   display: flex;
   gap: 10px;
+}
+
+.scan-hint {
+  margin-top: 8px !important;
+  color: #8c6d3b;
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 .map-mode-switch {

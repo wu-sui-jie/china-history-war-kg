@@ -146,6 +146,14 @@ HISTORICAL_REGION_CENTROIDS = {
     "犬丘": (107.25, 34.35),
     "骊山": (109.21, 34.37),
 }
+#: 地图页最多扫描多少个地点。
+#
+# 地图页的一切统计（可定位事件、单点事件、可视路线、待定位地点、低置信坐标）都建立在
+# **事件-地点关系**上，所以只扫"被事件引用过"的地点；上限之内的选取口径是按关联事件数
+# 降序（信息量最大的先扫）。响应体还要给每个地点带上关联事件与参与实体，因此必须有个
+# 上限——但"上限截掉了多少"要如实说出去，见 summary 的 scan_truncated / places_with_events。
+MAP_SCAN_LIMIT = 300
+
 ROUTE_RELATION_PRIORITY = {
     "出发地": 1,
     "驻防地": 2,
@@ -794,7 +802,28 @@ def build_map_overview(keyword='', dynasty=''):
         if filter_values:
             place_query = place_query.filter(Place.dynasty.in_(filter_values))
 
-    places = place_query.limit(300).all()
+    # 只扫"被事件引用过"的地点，并按**关联事件数降序**取前 MAP_SCAN_LIMIT 个。
+    #
+    # 原先这里是 `place_query.limit(300)`：按主键顺序取前 300 个地点，于是"扫到哪些"完全
+    # 取决于导入顺序，而地图页的每一个统计（可定位事件、待定位地点、低置信坐标、路线）
+    # 都建立在这批地点上——本库有关系的地点有 2023 个、事件 887 场，被扫到的只有 147 场，
+    # 页面上的"可定位事件 130 / 总事件 147"就是这么来的。改成"有关联的先扫、关联多的先扫"
+    # 之后，上限之内装的是信息量最大的那批；超限与否由 summary 的 scan_truncated 说明。
+    relation_stats = (
+        db.session.query(
+            EventPlaceRelation.place_id.label("place_id"),
+            func.count(func.distinct(EventPlaceRelation.event_id)).label("event_count"),
+        )
+        .group_by(EventPlaceRelation.place_id)
+        .subquery()
+    )
+    place_query = (
+        place_query
+        .join(relation_stats, relation_stats.c.place_id == Place.id)
+        .order_by(relation_stats.c.event_count.desc(), Place.id.asc())
+    )
+    places_with_events = place_query.count()
+    places = place_query.limit(MAP_SCAN_LIMIT).all()
     allowed_place_ids = {place.id for place in places}
     # 批量预取本页地点要用的关系行、事件、参与方与质量标记（避免逐条查询）
     relations_by_place = _event_place_relations_by_place([place.id for place in places])
@@ -991,11 +1020,19 @@ def build_map_overview(keyword='', dynasty=''):
     # 批量预取路由段要用的关系行与地点（避免每个事件一条关系查询、每条关系一次 Place.get）
     route_events = event_query.limit(500).all()
     route_relations_by_event = _event_place_relations_by_event([event.id for event in route_events])
+    # 路线要不要按"这一页扫到的地点"筛。
+    #
+    # **不能写成 `if allowed_place_ids` 这种真值判断**：筛选条件与"有关系的地点"没有交集时
+    # （完全合法，例如 keyword=秦 + dynasty=秦 一个地点都没扫到），真值判断会把筛子整个摘掉、
+    # 把该事件的全部路线放出来——页面变成"地点 0 个、路线 61 条"，关键词筛选在路线模式里
+    # 静默失效。所以问的是"这一页有没有在用地点筛选"，而不是"筛出来的集合空不空"。
+    # （这处是本轮改取样口径后由接口快照对照照出来的，见《项目审查与修复历史》主题 30。）
+    place_filter_active = bool(allowed_place_ids) or bool(_safe_text(keyword)) or bool(dynasty)
     route_place_ids = {
         row.place_id
         for rows in route_relations_by_event.values()
         for row in rows
-        if not allowed_place_ids or row.place_id in allowed_place_ids
+        if not place_filter_active or row.place_id in allowed_place_ids
     }
     route_places_by_id = {}
     for chunk in _chunks(sorted(place_id for place_id in route_place_ids if place_id is not None)):
@@ -1004,7 +1041,7 @@ def build_map_overview(keyword='', dynasty=''):
 
     for event in route_events:
         for row in route_relations_by_event.get(event.id, []):
-            if allowed_place_ids and row.place_id not in allowed_place_ids:
+            if place_filter_active and row.place_id not in allowed_place_ids:
                 continue
             place = route_places_by_id.get(row.place_id)
             if not place:
@@ -1096,6 +1133,13 @@ def build_map_overview(keyword='', dynasty=''):
             "place_count": len(points),
             "total_events": len(all_event_ids),
             "covered_events": len(all_event_ids),
+            # 扫描口径：地图页只扫 MAP_SCAN_LIMIT 个"关联事件最多"的地点，
+            # 这两个字段说明共有多少个有关系的地点、以及是否被上限截过——不写出来
+            # 用户没法知道卡片上的数字是"全量"还是"采样"。
+            "scanned_places": len(points),
+            "places_with_events": places_with_events,
+            "scan_limit": MAP_SCAN_LIMIT,
+            "scan_truncated": places_with_events > len(points),
             "mappable_events": len(mappable_event_ids),
             "route_events": len(route_event_ids),
             "single_point_events": len(single_point_event_ids),
@@ -1404,7 +1448,9 @@ def build_global_search(keyword, limit=12):
                 "type_label": TYPE_LABELS.get(node_type, node_type),
                 "name": record.name,
                 "subtitle": getattr(record, "dynasty", None) or getattr(record, "role", None) or getattr(record, "modern_name", None) or "",
-                "entity_route": f"/knowledge/entity/{node_type}/{record.id}",
+                # 详情只有这一条路由，且必须与前端路由表逐字一致。
+                # 原先这里还有一个 `entity_route` 指向 `/knowledge/entity/{type}/{id}`——
+                # 前端从来没有这条路由，点"详情"必然落到 /error/404。
                 "detail_route": f"/knowledge/entity-detail?type={node_type}&id={record.id}",
                 "graph_route": f"/knowledge/graph?focus=1&name={record.name}&type={node_type}",
                 "timeline_route": f"/knowledge/timeline?keyword={record.name}",
