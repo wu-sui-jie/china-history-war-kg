@@ -310,12 +310,26 @@ pip install -e entity-event-relation      # 抽取链是仓库内的正式包
 | `BACKEND_PORT` | `5000` | 监听端口 |
 | `FLASK_DEBUG` | 关 | 设 `1`/`true` 开 Werkzeug 调试器。**开了就等于给对方任意代码执行，只在本机调试时开** |
 
-Ollama（智能问答用）：
+Ollama（**只有旧版智能问答用**；模型名可用 `OLLAMA_MODEL` 覆盖，见下）：
 
 ```bash
 ollama serve
 ollama pull deepseek-r1:7b
 ```
+
+### 大模型配置：三条链路各读一份，别混
+
+后端里不止一条模型链路，配置**不在同一个文件**里。搞混了就会出现"改了不生效"，
+或者"以为必须装 Ollama，其实根本不需要"：
+
+| 链路 | 模型 | 配置位置 |
+| --- | --- | --- |
+| **文本实体识别**（`/api/extract/entities-events`，页面与离线抽取） | 云端 `deepseek-flash` | `entity-event-relation/config/.env` 的 `DEEPSEEK_API_KEY` / `DEEPSEEK_MODEL` / `API_BASE_URL`。**与 Ollama 无关，本机不需要装模型** |
+| **RAG 问答**（`/rag/`） | 云端 | 独立服务的 `RAG/.env`（`LLM_MODEL` / `FALLBACK_LLM_MODEL`），见 [../RAG/README.md](../RAG/README.md) |
+| **旧版智能问答**（`/api/ai/inference*`，菜单入口已下线） | 本机 Ollama | `backend/.env` 的 `OLLAMA_MODEL`（默认 `deepseek-r1:7b`）。**只有这一条需要 Ollama 常驻** |
+
+模型名不在代码里写死：本机 Ollama 那一份只在 `local_settings.OLLAMA_MODEL`，
+云端那一份只在 `entity-event-relation/config/.env`，改一处即全链路生效。
 
 ## 测试
 

@@ -13,12 +13,17 @@
 **录不了什么**：提示词本身变了但模型回答是罐头，载荷就不变——所以这条测试**查不出提示词问题**
 （那是 `test_extract_prompt.py` 的活）。两层各管一段，别指望一层包打天下。
 
-用法（本机 Ollama 在跑时；不需要外网、不花云上额度）：
+**用什么客户端录。** 必须与 `/api/extract/entities-events` 的真实链路**同源**：该接口在
+2026-09-27 从本地 Ollama 换成了云端 `DeepSeekClient`（阶段一），本脚本跟着换——继续用旧的
+本地适配器录制，录出来的是"另一个链路"的回答形状，夹具就不再是线上链路的回归。
+云端调用需要 `config/.env` 里的密钥，且**会计费**。
+
+用法：
 
     cd backend
     python tools/record_extract_replay.py                      # 用内置的合成短文本
     python tools/record_extract_replay.py --text-file /tmp/样例.txt
-    python tools/record_extract_replay.py --model deepseek-r1:7b --out tests/fixtures/extract_replay.json
+    python tools/record_extract_replay.py --model deepseek-flash --out tests/fixtures/extract_replay.json
     python tools/record_extract_replay.py --recompute tests/fixtures/extract_replay.json
                                                                # 只按当前后处理重算 expected_payload
 
@@ -75,6 +80,7 @@ def _install_py2neo_stub() -> None:
 _install_py2neo_stub()
 import llm_pipeline  # noqa: E402
 from war_extraction.config import current_time_tag  # noqa: E402
+from war_extraction.core import DeepSeekClient  # noqa: E402
 
 #: 默认输入：自造的短句，覆盖"实体 + 事件 + 关系 + 朝代 + 角色"几条常见路径。
 #: 刻意不用原书原文（版权 + 别把长文本塞进 fixture）。
@@ -183,7 +189,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="录制抽取链回放 fixture")
     parser.add_argument("--text", help="直接给输入文本")
     parser.add_argument("--text-file", help="从文件读输入文本")
-    parser.add_argument("--model", default="deepseek-r1:7b")
+    parser.add_argument("--model", default=None,
+                        help="覆盖客户端默认模型（默认取 config/.env 的 DEEPSEEK_MODEL）")
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument("--recompute", default=None, metavar="FIXTURE",
                         help="只按当前后处理重算 expected_payload（回放已有录制，不调模型）")
@@ -199,8 +206,12 @@ def main() -> int:
     else:
         text = DEFAULT_TEXT
 
-    recorder = RecordingLLM(llm_pipeline.OllamaAdapter(model_name=args.model))
-    print(f"模型: {args.model}")
+    # 与接口同源：`/api/extract/entities-events` 用的就是 `DeepSeekClient`（见其初始化处）
+    inner = DeepSeekClient()
+    if args.model:
+        inner.model = args.model
+    recorder = RecordingLLM(inner)
+    print(f"模型: {inner.model}")
     print(f"输入: {text[:60]}{'…' if len(text) > 60 else ''}（{len(text)} 字）")
 
     entities, event_result, relations, diagnostics = llm_pipeline.extract_all_optimized(
@@ -209,17 +220,22 @@ def main() -> int:
     # process_time 是运行时值，录制与回放都固定为 0.0，否则每次对比都会差在这一项
     payload = llm_pipeline.serialize_extraction_result(entities, event_result, relations, 0.0)
 
+    # 记**实际服务的模型名**（服务端可能把别名路由到别的模型），不是请求名——
+    # 与产物 metadata 的 `model_served` 同一个口径（见 war_extraction/core/llm_client.py）。
+    served_model = getattr(inner, "model_served", None) or inner.model
+
     fixture = {
         "_note": (
             "/api/extract/entities-events 抽取链的录制回放夹具。"
-            "llm_responses 是用本机 Ollama 对 input_text 真跑一次 extract_all_optimized 时"
-            "每次 llm.call 的原样返回（按调用顺序）；expected_payload 是同一次运行经"
-            "serialize_extraction_result 得到的 data 段（process_time 固定 0.0）。"
+            "llm_responses 是用与接口同源的云端客户端（DeepSeekClient）对 input_text 真跑一次"
+            "extract_all_optimized 时每次 llm.call 的原样返回（按调用顺序）；"
+            "expected_payload 是同一次运行经 serialize_extraction_result 得到的 data 段"
+            "（process_time 固定 0.0）。"
             "用例回放这串返回并逐字段比对 expected_payload——它兜的是序列化 / 字段归一 /"
             "后处理的回归，**兜不住提示词本身的变化**（那由 tests/test_extract_prompt.py 钉住）。"
             "重新录制：python tools/record_extract_replay.py"
         ),
-        "recorded_with_model": args.model,
+        "recorded_with_model": served_model,
         "input_text": text,
         "llm_responses": recorder.calls,
         "expected_payload": payload,

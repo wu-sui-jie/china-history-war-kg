@@ -6,7 +6,9 @@
   - _build_prompt(text): 构建提取提示词
   - _parse_entities_from_response(): 解析模型响应
 
-模型: deepseek-r1:7b (通过ollama本地服务)
+模型: 本机 Ollama 的模型（名称见 local_settings.OLLAMA_MODEL，默认 deepseek-r1:7b）。
+      注意本模块服务的是**旧问答链路**；文本实体识别页面走的是云端 DeepSeek
+      （war_extraction.extractors），与本模块无关。
 """
 import os
 import json
@@ -19,6 +21,7 @@ from common_utils import lru_get as _cache_get
 from dynasty_data import EXTRACTOR_DYNASTIES as DYNASTIES
 from common_utils import lru_set as _cache_set
 
+from local_settings import OLLAMA_MODEL
 from logging_util import get_logger
 
 logger = get_logger(__name__)
@@ -27,7 +30,7 @@ logger = get_logger(__name__)
 class Extractor:
     """
     基于大模型的地名实体提取器
-    使用Ollama提供的大模型能力和deepseek-r1模型提取所有地名实体
+    用本机 Ollama 的模型提取所有地名实体（模型名不在类里写死，见 local_settings.OLLAMA_MODEL）
     """
 
     # 常见战争事件后缀
@@ -43,17 +46,17 @@ class Extractor:
     PLACE_KEYWORDS = ['城', '关', '州', '郡', '县', '府', '道', '路', '山', '河', '江', '湖', '海']
 
     # 常见朝代名称
-    def __init__(self, model_name="deepseek-r1:7b", known_entities=None):
+    def __init__(self, model_name=None, known_entities=None):
         """初始化提取器
 
         Args:
-            model_name: 大模型名称
+            model_name: 大模型名称。**不传就用 local_settings.OLLAMA_MODEL**（唯一来源）。
             known_entities: 已知实体列表（从知识图谱加载）
         """
-        self.model_name = model_name
+        self.model_name = model_name or OLLAMA_MODEL
         self._entity_cache = OrderedDict()
         self._known_entities = set(known_entities or [])
-        logger.info(f"已初始化大模型地名实体提取器，使用模型: {model_name}")
+        logger.info(f"已初始化大模型地名实体提取器，使用模型: {self.model_name}")
         if self._known_entities:
             logger.info(f"已加载 {len(self._known_entities)} 个已知实体")
 

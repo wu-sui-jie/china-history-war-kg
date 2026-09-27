@@ -27,6 +27,7 @@ import traceback
 from db_handle import neo4j_db_handle
 from dynasty_data import DYNASTY_CORRECTIONS, VALID_DYNASTIES
 from common_utils import brief_error
+from local_settings import OLLAMA_MODEL
 from logging_util import get_logger
 
 # EER（war_extraction）已是正式包：backend 以依赖方式引用它
@@ -40,6 +41,15 @@ from war_extraction.models import (  # noqa: E402
 # 抽取编排（分段循环 + 三阶段调用 + 失败诊断）只有一份，在 war_extraction 里；
 # backend 不自己维护第二套——两份平行实现已经漂过一次。
 from war_extraction.core.extraction_runner import run_extraction  # noqa: E402
+# 跨类型互斥与"目标实体是否存在"的判据也各只有一份（离线 main.py 调的是同一批函数）：
+# 在线侧原先只按名字去重，于是同一名字能同时出现在人物表与组织表、关系能指向实体表里
+# 不存在的目标（悬空边）。这里复用离线判据而不是另写一套，避免两条链路对同一个名字
+# 判出不同结果。
+from war_extraction.utils.entity_classifier import EntityClassifier  # noqa: E402
+from war_extraction.utils.relation_rules import (  # noqa: E402
+    RELATION_TARGET_TABLE,
+    relation_target_present,
+)
 
 logger = get_logger(__name__)
 
@@ -50,11 +60,20 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class OllamaAdapter:
-    """使用本地Ollama模型的适配器"""
+    """使用本地Ollama模型的适配器。
 
-    def __init__(self, model_name="deepseek-r1:7b"):
+    **当前没有生产调用方**：`/api/extract/entities-events` 在 2026-09-27 换成了云端
+    `DeepSeekClient`（本地 7B 推理模型跑 6k 字符提示词要 6 分 22 秒，见 `blueprints/llm.py`），
+    旧问答链路走的是 `ollama.chat`（见本模块 `stream_inference`）。
+    留着是因为"Ollama 退场"不在那次修复的范围内。**要接回在线抽取前先看两处差异**：
+    它没有调用超时（云端是 60s），且 `json_mode` 在这份实现里是**哑参数**——三个抽取器
+    都以 `json_mode=True` 调它，但请求里不会带 `response_format`。
+    """
+
+    def __init__(self, model_name=None):
         import ollama
-        self.model = model_name
+        # 不写死模型名：本机 Ollama 的模型名只有 local_settings.OLLAMA_MODEL 一处
+        self.model = model_name or OLLAMA_MODEL
         self.ollama = ollama
 
     def call(self, prompt: str, temperature: float = 0.1, max_retries: int = 3, json_mode: bool = False) -> str:
@@ -103,6 +122,21 @@ def _to_str(value):
     if isinstance(value, list):
         return "、".join(str(v) for v in value if v)
     return str(value)
+
+
+def _name_pool(items, fields):
+    """把一批实体/事件的若干字段取成"精确匹配用的名字池"（空名不进池）。
+
+    与离线 `main.finalize_outputs` 里 `valid_entity_names` 的构造同一形状：地点两侧都算
+    （`geo_name` 与 `modern_name`），因为关系行的目标名可能落在任一侧。
+    """
+    pool = set()
+    for item in items:
+        for field in fields:
+            name = (_to_str(getattr(item, field, None)) or "").strip()
+            if name:
+                pool.add(name)
+    return pool
 
 
 def _normalize_dynasty(name):
@@ -254,11 +288,14 @@ def extract_all_optimized(llm, text: str):
     分段循环与三阶段调用在 `war_extraction.core.extraction_runner` 里，
     与离线链路（entity-event-relation/main.py）共用同一份编排。本函数保留的只是
     **backend 自己的后处理**——逐字段 `_to_str` / 归一化、跨段按名字去重收集、
+    跨类型互斥（P2-2）、关系目标实体存在性（P2-1 悬空边），
     以及"所有阶段都没成功就抛 ExtractionUnavailable"这一接口层口径。
 
     返回 `(entities, event_result, relations, diagnostics)`：
     `diagnostics["partial_errors"]` 是"失败了但没让整次抽取作废"的阶段/分段错误说明，
-    接口把它带进响应体，界面据此提示"结果可能不完整"。
+    接口把它带进响应体，界面据此提示"结果可能不完整"；
+    `diagnostics["post_cleanup_dropped"]` 是后处理剔除计数（跨类型冲突 / 悬空关系），
+    只进日志与诊断，不改响应形状。
     全部阶段都失败时抛 `ExtractionUnavailable`，不返回空结果。
     """
 
@@ -277,8 +314,22 @@ def extract_all_optimized(llm, text: str):
     seen_persons = set()
     seen_events = set()
 
+    #: 后处理剔除计数。**不能静默丢**：丢了多少、为什么丢都要有通道（日志 + diagnostics），
+    #: 这也是离线侧 `cleanup_diagnostics.dangling_relations_dropped` 的在线对应物。
+    dropped = {
+        "cross_type_conflict": 0,  # 名字与所在实体表类型不符，或同一名字进了两张实体表
+        "dangling_target": 0,      # 关系目标端不在实体表里（悬空边，图谱连线没有落点）
+        "dangling_event": 0,       # 关系事件端不在事件表里（同一个毛病，另一端）
+    }
+
     def on_entities_ready(_chunk_text, chunk_entities, _chunk_events):
-        """实体归一 + 跨段去重收集（返回值不变：后续阶段的名称列表由共享编排按同一批对象重建）。"""
+        """实体归一 + 跨类型互斥 + 跨段去重收集。
+
+        返回的是**剔除后的**实体结果：共享编排按返回值重建后续阶段的实体名列表，
+        所以被判成跨类型冲突的行不会再进关系阶段的提示词（离线链路是同一个顺序——
+        那边也是在钩子里做完 `cleanup_entity_conflicts` 才建名单）。
+        由此 `on_chunk_done` 收到的实体名池，就是最终交给前端的那一批。
+        """
         for p in chunk_entities.places:
             name = (_to_str(p.geo_name) or "").strip()
             if name and name not in seen_places:
@@ -294,28 +345,57 @@ def extract_all_optimized(llm, text: str):
                 p.source_text = _to_str(p.source_text)
                 all_places.append(p)
 
-        for o in chunk_entities.organizations:
-            name = (_to_str(o.OrgName) or "").strip()
-            if name and name not in seen_orgs:
-                seen_orgs.add(name)
-                o.OrgName = name
-                o.OrgType = _to_str(o.OrgType)
-                o.DynastyName = _normalize_dynasty(_to_str(o.DynastyName))
-                o.source_text = _to_str(o.source_text)
-                all_orgs.append(o)
-
+        # 人物**先于**组织收集：同一个名字同时出现在两张表时只留人物表（修复方案 P2-2）。
+        # 反过来做就是"组织优先"，而离线 `cleanup_entity_conflicts` 的判据是
+        # `is_cross_type_conflict`（人像组织→剔、组织像人→剔），两边口径一致；
+        # 在线接口限额 1000 字符 < 分段参数 1200，所以一次识别永远是单段，
+        # 这条互斥在一次识别里就是"人物表优先"。
+        kept_persons = []
         for p in chunk_entities.persons:
             name = (_to_str(p.PersonName) or "").strip()
-            if name and name not in seen_persons:
-                seen_persons.add(name)
-                p.PersonName = name
-                p.DynastyName = _normalize_dynasty(_to_str(p.DynastyName))
-                p.OrgName = _to_str(p.OrgName)
-                p.Role = _normalize_role(_to_str(p.Role))
-                p.Note = _to_str(p.Note)
-                p.source_text = _to_str(p.source_text)
-                all_persons.append(p)
-        return chunk_entities
+            if not name or name in seen_persons:
+                continue
+            if EntityClassifier.is_cross_type_conflict(name, "person"):
+                dropped["cross_type_conflict"] += 1
+                continue
+            if name in seen_orgs:
+                dropped["cross_type_conflict"] += 1
+                continue
+            seen_persons.add(name)
+            p.PersonName = name
+            p.DynastyName = _normalize_dynasty(_to_str(p.DynastyName))
+            p.OrgName = _to_str(p.OrgName)
+            p.Role = _normalize_role(_to_str(p.Role))
+            p.Note = _to_str(p.Note)
+            p.source_text = _to_str(p.source_text)
+            all_persons.append(p)
+            kept_persons.append(p)
+
+        kept_orgs = []
+        for o in chunk_entities.organizations:
+            name = (_to_str(o.OrgName) or "").strip()
+            if not name or name in seen_orgs:
+                continue
+            if EntityClassifier.is_cross_type_conflict(name, "organization"):
+                dropped["cross_type_conflict"] += 1
+                continue
+            if name in seen_persons:
+                dropped["cross_type_conflict"] += 1
+                continue
+            seen_orgs.add(name)
+            o.OrgName = name
+            o.OrgType = _to_str(o.OrgType)
+            o.DynastyName = _normalize_dynasty(_to_str(o.DynastyName))
+            o.source_text = _to_str(o.source_text)
+            all_orgs.append(o)
+            kept_orgs.append(o)
+
+        # 返回值即"剔完的那一批"：编排用它重建关系阶段的实体名列表
+        return EntityExtractionResult(
+            places=list(chunk_entities.places),
+            organizations=kept_orgs,
+            persons=kept_persons,
+        )
 
     def on_events_ready(_chunk_text, chunk_events):
         """事件归一 + 跨段去重收集；返回"本段新事件"——为空时共享编排会跳过关系阶段。"""
@@ -352,17 +432,51 @@ def extract_all_optimized(llm, text: str):
         return fresh
 
     def on_chunk_done(_chunk_text, chunk_entities, chunk_events, chunk_relations):
-        """收集关系（类型安全处理 + 默认关系名），并返回三段结果供编排落盘。"""
+        """收集关系（类型安全处理 + 关系名合法性 + 悬空边过滤），并返回三段结果供编排落盘。"""
         # 四条收集循环都带一道**取值合法性**过滤（`relation_type_allowed`）。
         # 理由：本函数的返回值是**直接给前端渲染的载荷**（`/api/extract/entities-events`），
         # 不是离线链那种"raw 产物 + 发布子集"的两段结构——这里没有候选区可以安置
         # 枚举外的取值，只能不放进来。否则页面会显示图谱下拉里根本点不到的关系名
         # （原先的空类型兜底 `发生地` / `关联` 自己就是枚举外的写法）。
         # 离线链那条路的对应处理在 `main.split_publishable_outputs`（枚举外进候选区）。
+        #
+        # 除取值合法性外还有一道**悬空边**过滤（P2-1）：关系的两端都必须能在载荷自己的
+        # 表里找到落点——事件端要在事件表里，目标端要在对应的实体表里。否则前端图谱上
+        # 这条连线没有落点（`KgGraph` 会把这类连线静默滤掉，于是"关系列表/导出里有、
+        # 图谱上没有"，用户看到的是两套结果）。离线侧同一件事做在
+        # `cleanup_relation_conflicts`（`_event_allowed` + `target_not_found`），
+        # 目标端判据直接取 `war_extraction.utils.relation_rules` 那一份，两边不会判出不同结果。
+        #
+        # **在线不跟的**：离线还会丢"证据为空 / 目标为占位词"的边。这里要的是"模型对这段
+        # 文本读出了什么"的忠实反射（见模块口径），只丢画不出来、指不到对象的那类。
+        place_names = _name_pool(all_places, ("geo_name", "modern_name"))
+        org_names = _name_pool(all_orgs, ("OrgName",))
+        person_names = _name_pool(all_persons, ("PersonName",))
+        event_names = _name_pool(all_events, ("EventName",))
+        entity_names = {
+            "places": place_names,
+            "organizations": org_names,
+            "persons": person_names,
+        }
+
+        def _relation_ends_known(rel, attribute, event_end) -> bool:
+            """两端都在载荷的表里：事件端（精确名）与目标端（与离线同一判据）。"""
+            if not event_end or event_end not in event_names:
+                dropped["dangling_event"] += 1
+                return False
+            if not relation_target_present(
+                    rel, attribute,
+                    entity_names.get(RELATION_TARGET_TABLE.get(attribute, "")) or set()):
+                dropped["dangling_target"] += 1
+                return False
+            return True
+
         for r in chunk_relations.event_place_relations:
             ename = _to_str(r.EventName) or ""
             pname = _to_str(r.modern_name) or ""
             if ename and pname and relation_type_allowed(_to_str(r.relation), "event-place"):
+                if not _relation_ends_known(r, "event_place_relations", ename):
+                    continue
                 r.EventName = ename
                 r.modern_name = pname
                 r.relation = _to_str(r.relation)
@@ -373,6 +487,8 @@ def extract_all_optimized(llm, text: str):
             ename = _to_str(r.EventName) or ""
             pname = _to_str(r.PersonName) or ""
             if ename and pname and relation_type_allowed(_to_str(r.relation) or "参与者", "event-person"):
+                if not _relation_ends_known(r, "event_person_relations", ename):
+                    continue
                 r.EventName = ename
                 r.PersonName = pname
                 r.relation = _to_str(r.relation) or "参与者"
@@ -383,6 +499,8 @@ def extract_all_optimized(llm, text: str):
             ename = _to_str(r.EventName) or ""
             oname = _to_str(r.OrgName) or ""
             if ename and oname and relation_type_allowed(_to_str(r.relation) or "参战方", "event-organization"):
+                if not _relation_ends_known(r, "event_organization_relations", ename):
+                    continue
                 r.EventName = ename
                 r.OrgName = oname
                 r.relation = _to_str(r.relation) or "参战方"
@@ -395,6 +513,13 @@ def extract_all_optimized(llm, text: str):
             # 空类型的兜底不再是 `关联`（那个写法不在事件-事件的 5 类规范名里），
             # 而是**不放进来**：事件-事件关系没有"未知类型"这个合法取值。
             if ea and eb and relation_type_allowed(_to_str(r.relation), "event-event"):
+                # 两端都要在事件表里（同一类悬空边）。这里用**精确匹配**而不是离线那条
+                # `normalize_event_name` 归一键：载荷与前端图谱都是按精确名建节点、连线，
+                # 归一对得上但写法不同的名字在图谱上仍然连不上（离线是靠"关系头对账"
+                # 把名字改成事件表里的实际写法，在线没有这一步，改名字等于篡改模型输出）。
+                if ea not in event_names or eb not in event_names:
+                    dropped["dangling_event"] += 1
+                    continue
                 r.EventName_A = ea
                 r.EventName_B = eb
                 r.relation = _to_str(r.relation)
@@ -431,9 +556,18 @@ def extract_all_optimized(llm, text: str):
     if not any(stage_ok.values()):
         raise ExtractionUnavailable(partial_errors or ["所有分段都未识别到任何内容"])
 
+    # 剔除计数进日志：丢了几条、为什么丢必须看得见（离线侧同样要求"不能静默丢"，
+    # 见 `main.cleanup_diagnostics`）。不为空才打，避免正常请求刷屏。
+    if any(dropped.values()):
+        logger.info(
+            "[提取] 后处理剔除: 跨类型冲突 %s 条, 悬空关系（目标端 %s / 事件端 %s）条",
+            dropped["cross_type_conflict"], dropped["dangling_target"], dropped["dangling_event"],
+        )
+
     diagnostics = {
         "stage_ok": stage_ok,
         "partial_errors": partial_errors,
+        "post_cleanup_dropped": dict(dropped),
     }
     return entities, event_result, relations, diagnostics
 
@@ -871,10 +1005,15 @@ def stream_inference(rule_engine, entity_extractor, question, request_id):
         # 使用ollama流式调用
         import ollama
 
+        # 模型名取**构造规则引擎时用的那一个**（原先这里硬编码 deepseek-r1:7b：
+        # 调用方改了 model_name 也不生效，日志说一套、实际跑另一套）。引擎没有该属性时
+        # 才退回 local_settings.OLLAMA_MODEL。
+        model_name = getattr(rule_engine, "model_name", None) or OLLAMA_MODEL
+
         full_answer = ""
         try:
             stream = ollama.chat(
-                model='deepseek-r1:7b',
+                model=model_name,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
@@ -951,9 +1090,9 @@ def get_shared_extractors():
             if _shared_rule_llm_integration is None:
                 try:
                     from inference.rule_llm_integration import RuleLLMIntegration
+                    # 不传 model_name：本机 Ollama 模型名只有 local_settings.OLLAMA_MODEL 一处
                     _shared_rule_llm_integration = RuleLLMIntegration(
                         rule_file_path='rules/rule_base.json',
-                        model_name='deepseek-r1:7b',
                         max_depth=30
                     )
                     logger.info("规则推理模块已初始化")

@@ -69,7 +69,8 @@
 1. **规则匹配**（`_extract_by_rules`）：用后缀词表（战争事件后缀 / 人物称号 / 政权威权词 / 地点关键词）
    与历史地名词典（`historical_places.txt`，同时作为 jieba 自定义词典）快速命中。
    **命中 ≥ 2 个实体就直接返回**，不调用模型。
-2. **大模型兜底**：规则不足时调 Ollama（`deepseek-r1:7b`）抽取，解析后做后处理。
+2. **大模型兜底**：规则不足时调本机 Ollama（模型名只有一处来源
+   ——`local_settings.OLLAMA_MODEL`，默认 `deepseek-r1:7b`）抽取，解析后做后处理。
 
 后处理包含：去重、`_should_filter` 噪声过滤（停用词、占位值、过短/过长串）、按相关性排序、
 结果缓存（按文本内容，LRU 128）。抽取缓存与问答生成缓存共用 `common_utils.lru_get/lru_set`。

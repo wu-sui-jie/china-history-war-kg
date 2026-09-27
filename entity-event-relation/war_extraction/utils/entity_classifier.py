@@ -143,6 +143,28 @@ class EntityClassifier:
         return True
 
     @classmethod
+    def is_cross_type_conflict(cls, value: Optional[str], kind: str) -> bool:
+        """
+        名字与它所在的实体表**类型不符**（人/组织跨类型冲突）。
+
+        - `kind="person"`：名字像组织名、又不像人名 → 这条"人物"其实是组织；
+        - `kind="organization"`：名字像人名、又不像组织名 → 这条"组织"其实是人。
+
+        判据只有这一份：离线 `main.cleanup_entity_conflicts` 与在线载荷（backend 的
+        `llm_pipeline` 钩子）都调它，两边不再各写一次（否则同一个名字在两条链路上会被
+        判成不同结果）。`kind` 传其他值（或空）时返回 False——地名侧不参与互斥，
+        与离线清洗链一致。
+        """
+        stripped = ("" if value is None else str(value)).strip()
+        if not stripped:
+            return False
+        if kind == "person":
+            return cls.looks_like_org_name(stripped) and not cls.looks_like_person_name(stripped)
+        if kind == "organization":
+            return cls.looks_like_person_name(stripped) and not cls.looks_like_org_name(stripped)
+        return False
+
+    @classmethod
     def candidate_name(cls, item: dict, keys: list[str]) -> str:
         for key in keys:
             value = item.get(key)

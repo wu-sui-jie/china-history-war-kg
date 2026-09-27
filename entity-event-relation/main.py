@@ -42,8 +42,10 @@ from war_extraction.utils.vocabulary import (
     relation_type_allowed,
 )
 from war_extraction.utils.relation_rules import (
+    RELATION_TARGET_TABLE,
     build_event_start_years,
     reduce_event_event_relations,
+    relation_target_present,
 )
 from war_extraction.utils.value_parsing import (
     PLACEHOLDERS_FULL,
@@ -126,7 +128,7 @@ def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtracti
         )
         if not EntityClassifier.is_valid_person_name(person.PersonName):
             continue
-        if person.PersonName and _looks_like_org_name(person.PersonName) and not _looks_like_person_name(person.PersonName):
+        if EntityClassifier.is_cross_type_conflict(person.PersonName, "person"):
             continue
         key = normalizer.normalize_entity_name(person.PersonName)
         if key not in cleaned_persons_map:
@@ -145,7 +147,7 @@ def cleanup_entity_conflicts(entities: EntityExtractionResult) -> EntityExtracti
         )
         if not EntityClassifier.is_valid_org_name(org.OrgName):
             continue
-        if org.OrgName and _looks_like_person_name(org.OrgName) and not _looks_like_org_name(org.OrgName):
+        if EntityClassifier.is_cross_type_conflict(org.OrgName, "organization"):
             continue
         key = normalizer.normalize_entity_name(org.OrgName)
         if key not in cleaned_orgs_map:
@@ -839,32 +841,18 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
         }.get(attribute)
         return getattr(rel, field, None) if field else None
 
-    #: 关系目标名所在的字段（`event-event` 的目标是事件名，不走这一支）。
-    _TARGET_FIELDS = {
-        "event_place_relations": ("modern_name", "geo_name"),
-        "event_organization_relations": ("OrgName",),
-        "event_person_relations": ("PersonName",),
-    }
-
     def _target_allowed(rel, attribute) -> bool:
         """目标端是否在最终实体名单里（**与导入器同一口径：精确匹配**）。
 
         `main` 原来只查事件端（`_event_allowed`），目标端不查——于是产物里可以存在
         "目标实体不在实体表里"的边；导入时这类边被静默丢掉（实测 167 条：人物 82 / 组织 82 /
         地点 2 / 事件-事件 1），产物与库就对不上了。这里补上目标端，并计数。
+
+        判据（哪些字段、池子为空时怎么办）在 `war_extraction.utils.relation_rules`：在线载荷
+        （backend 的 `llm_pipeline` 钩子）调的是同一份，两边不会再判出不同结果。
         """
-        if not valid_entity_names:
-            return True
-        fields = _TARGET_FIELDS.get(attribute)
-        if not fields:
-            return True
-        pool = valid_entity_names.get({"event_place_relations": "places",
-                                       "event_organization_relations": "organizations",
-                                       "event_person_relations": "persons"}[attribute]) or set()
-        if not pool:
-            return True
-        # 地点两侧都算：目标名可能落在 `geo_name` 上，也可能落在 `modern_name` 上
-        return any((getattr(rel, field, None) or "").strip() in pool for field in fields)
+        pool = (valid_entity_names or {}).get(RELATION_TARGET_TABLE.get(attribute, "")) or set()
+        return relation_target_present(rel, attribute, pool)
 
     def _drop_dangling(relations, attribute):
         """丢掉事件端对不上最终事件名单的边，并计数——悬空边数要能被体检脚本与质量报告看见。"""

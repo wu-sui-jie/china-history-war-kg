@@ -78,9 +78,10 @@ def ai_inference():
             logger.info(f"[{request_id}] 初始化规则推理模块")
             try:
                 from inference.rule_llm_integration import RuleLLMIntegration
+                # 不传 model_name：本机 Ollama 模型名只有 local_settings.OLLAMA_MODEL 一处
+                # （原先这里写死 deepseek-r1:7b，与单例那处各写一份）
                 g.rule_llm_integration = RuleLLMIntegration(
                     rule_file_path='rules/rule_base.json',
-                    model_name='deepseek-r1:7b',
                     max_depth=3
                 )
             except Exception as init_err:
@@ -153,9 +154,9 @@ def ai_inference_stream():
             try:
                 from inference.rule_llm_integration import RuleLLMIntegration
                 from entity_extract.extractor import Extractor
+                # 两者的模型名都不写死：统一来自 local_settings.OLLAMA_MODEL
                 g.rule_llm_integration = RuleLLMIntegration(
                     rule_file_path='rules/rule_base.json',
-                    model_name='deepseek-r1:7b',
                     max_depth=30
                 )
                 g.entity_extractor = Extractor()
@@ -185,6 +186,9 @@ def ai_inference_stream():
 def extract_entities_events():
     """
     文本实体与事件识别接口 - 完整版
+
+    走的是与离线抽取链**同一份**编排与提示词，只换了运行条件：模型用云端 DeepSeek
+    （本接口会消耗云端配额，因此限 `editor` 及以上）。
 
     请求参数(JSON):
         - text: 用户输入的文本内容
@@ -226,15 +230,30 @@ def extract_entities_events():
                 "data": {}
             }), 500
 
-        # 初始化LLM客户端
+        # 初始化LLM客户端：用云端 DeepSeek，不是本地 Ollama。
+        #
+        # 为什么换：本地 `deepseek-r1:7b` 是**推理模型**，先吐一大段思维链再给 JSON，
+        # 而三套抽取提示词是按强模型调优的规模（5.9k / 5.5k / 4.1k 字符）。2026-09-26 的
+        # 实测：同一段 241 字符文本要 6 分 22 秒，单次调用约 95 秒——既超过当时的
+        # 前端 5 分钟超时，也远超离线链路的实际耗时（换云端后同一段文本 11.3 秒）。
+        # 云端客户端的 `call` 签名与 `OllamaAdapter` 逐参数一致（temperature /
+        # max_retries / json_mode），所以编排与提示词都不用改。
+        #
+        # `json_mode` 这条尤其关键：它在新客户端里是**真参数**（会带 response_format，
+        # 服务不支持时自动降级重试一次），而 `OllamaAdapter.call` 收了它却从未使用。
         try:
-            llm = llm_pipeline.OllamaAdapter("deepseek-r1:7b")
-            logger.info("[提取] 使用本地Ollama模型: deepseek-r1:7b")
+            from war_extraction.core import DeepSeekClient
+            llm = DeepSeekClient()
+            # 取值用 getattr：接口对客户端的唯一硬要求是 `call`（抽取器只依赖鸭子类型），
+            # 日志读属性失败不该把整个请求打成 500——用例里的假客户端就只有 `call`。
+            logger.info("[提取] 使用云端模型: %s", getattr(llm, "model", "未知"))
         except Exception as llm_err:
+            # 这里的典型原因不再是"Ollama 没起"，而是密钥缺失/无效（客户端对 401 直接抛
+            # LLMAuthError，不重试）、配额不足或网络不通——文案按新原因写。
             logger.warning(f"LLM客户端初始化失败: {llm_err}")
             return jsonify({
                 "code": 500,
-                "msg": f"LLM客户端初始化失败: {brief_error(llm_err)}",
+                "msg": f"LLM客户端初始化失败（请检查密钥是否有效、配额是否充足）: {brief_error(llm_err)}",
                 "data": {}
             }), 500
 
@@ -265,8 +284,8 @@ def extract_entities_events():
         })
 
     except llm_pipeline.ExtractionUnavailable as unavailable:
-        # 所有阶段都没成功（典型是 Ollama 没起）：这里必须是 5xx——包成 200 的"识别完成"
-        # 等于把故障说成"这段文本没有实体"。
+        # 所有阶段都没成功（典型是密钥无效 / 配额耗尽 / 网络不通）：这里必须是 5xx——
+        # 包成 200 的"识别完成"等于把故障说成"这段文本没有实体"。
         logger.warning(f"文本实体识别整体失败: {unavailable}")
         return jsonify({
             "code": 500,

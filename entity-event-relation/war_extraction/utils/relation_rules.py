@@ -4,7 +4,7 @@
 抽取时（`relation_extractor`）与最终清理时（`main.cleanup_relation_conflicts`）都要仲裁，
 规则只能有这一份——两处各一份会让"抽出来的关系"和"清理后的关系"对不上。
 
-本模块管三件事：
+本模块管四件事：
 
 1. **类型仲裁**：模型说"因果关系"、证据却只有顺承词时降级（`arbitrate_event_event_relation`）。
 2. **方向判定**：`顺承/因果`是有方向的。原实现按**事件名字典序**固定方向
@@ -12,6 +12,8 @@
    这是数据正确性缺陷，不只是评估问题。现在改为按**证据出现顺序 → 事件起始年份**判定，
    两者都判不出来时**不合并**反向的两条。
 3. **时间索引**：`build_event_start_years` 把事件表的起始年份整理成方向判定要用的索引。
+4. **目标端存在性**：`relation_target_present` 判"事件→实体"关系的目标是不是实体表里
+   真有的名字（悬空边判据），离线清理与在线载荷共用。
 """
 from __future__ import annotations
 
@@ -27,12 +29,55 @@ __all__ = [
     "DIRECTIONAL_RELATION_TYPES",
     "DEDUPE_BY_SYMMETRIC_PAIR",
     "TYPE_PRIORITY",
+    "RELATION_TARGET_FIELDS",
+    "RELATION_TARGET_TABLE",
+    "relation_target_present",
     "arbitrate_event_event_relation",
     "evidence_order",
     "resolve_event_event_direction",
     "build_event_start_years",
     "reduce_event_event_relations",
 ]
+
+#: 事件→实体关系里，"目标实体"可能落在哪些字段上（键是 `RelationExtractionResult` 的字段名）。
+#: 地点两侧都算：目标名可能落在 `modern_name` 上，也可能落在 `geo_name` 上。
+#: **离线 `main.cleanup_relation_conflicts` 与在线载荷（backend 的 `llm_pipeline` 钩子）共用这一份**，
+#: 两边各写一次就会出现"离线判成悬空、在线判成有效"这类不一致。
+RELATION_TARGET_FIELDS = {
+    "event_place_relations": ("modern_name", "geo_name"),
+    "event_organization_relations": ("OrgName",),
+    "event_person_relations": ("PersonName",),
+}
+
+#: 关系类别 → 目标实体所在的实体表名（`valid_entity_names` / 在线载荷的键名一致）。
+RELATION_TARGET_TABLE = {
+    "event_place_relations": "places",
+    "event_organization_relations": "organizations",
+    "event_person_relations": "persons",
+}
+
+
+def relation_target_present(rel, attribute: str, entity_names) -> bool:
+    """
+    关系的目标端是否落在给定的实体名池里（**精确匹配**，与导入器同一口径）。
+
+    目标端对不上实体表的边是"悬空边"：产物里能看见关系、图谱上却没有落点。
+    判据只有这一份——离线在 `main.cleanup_relation_conflicts` 里用它丢边并计数
+    （`target_not_found`），在线在 `llm_pipeline` 的关系收集里用它决定要不要放进载荷。
+
+    Args:
+        rel: 关系对象（`EventPlaceRelation` / `EventOrganizationRelation` / `EventPersonRelation`）
+        attribute: `RelationExtractionResult` 的字段名（`event_place_relations` 等）
+        entity_names: 该类别实体名的集合
+
+    Returns:
+        池子为空（或类别不认识）时返回 True——"没有名单"不等于"目标不存在"，
+        不能拿它当"全部丢弃"的理由。
+    """
+    fields = RELATION_TARGET_FIELDS.get(attribute)
+    if not fields or not entity_names:
+        return True
+    return any((getattr(rel, field, None) or "").strip() in entity_names for field in fields)
 
 #: 顺承词。`此后`/`过后`严格说也是顺承词，原表漏了它们——而 `arbitrate` 现在只在
 #: **确实命中顺承词**时才把"因果"降级为"顺承"，漏词会让本该降级的落到"并列"，

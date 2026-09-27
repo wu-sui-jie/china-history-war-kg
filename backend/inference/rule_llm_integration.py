@@ -3,7 +3,7 @@
 
 功能说明:
     - 规则引擎：基于预定义规则（rules/rule_base.json）进行推理
-    - 大模型集成：使用deepseek-r1:7b模型生成自然语言回答
+    - 大模型集成：用**本机 Ollama** 的模型生成自然语言回答（模型名见 `local_settings.OLLAMA_MODEL`）
     - 知识图谱查询：从Neo4j查询实体关系和路径
     - 智能问答：结合规则推理和大模型生成最终答案
 
@@ -27,6 +27,7 @@ from dynasty_data import DYNASTY_SCOPE_MAP
 from common_utils import lru_set as _lru_set
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from local_settings import OLLAMA_MODEL
 from logging_util import get_logger
 
 logger = get_logger(__name__)
@@ -75,17 +76,19 @@ class RuleLLMIntegration:
     """
     
     def __init__(self, rule_file_path: str = 'rules/rule_base.json', 
-                 model_name: str = "deepseek-r1:7b",
+                 model_name: str = None,
                  max_depth: int = 30):
         """
         初始化推理引擎
         
         Args:
             rule_file_path: 规则库文件路径
-            model_name: 使用的大模型名称
+            model_name: 使用的大模型名称。**不传就用 `local_settings.OLLAMA_MODEL`**
+                ——那是本机 Ollama 模型名的唯一来源（默认 `deepseek-r1:7b`）。
+                这个参数只留给调用方按需覆盖，正常不该在调用点写死模型名。
             max_depth: 图谱搜索的最大深度
         """
-        self.model_name = model_name
+        self.model_name = model_name or OLLAMA_MODEL
         self.max_depth = max_depth
         self._retrieval_cache = OrderedDict()
         self._answer_cache = OrderedDict()
@@ -96,7 +99,7 @@ class RuleLLMIntegration:
         # 规则分类缓存，用于快速查找
         self._build_rule_indices()
         
-        logger.info(f"规则与大模型推理引擎已初始化, 使用模型: {model_name}, 规则数量: {len(self.rules)}")
+        logger.info(f"规则与大模型推理引擎已初始化, 使用模型: {self.model_name}, 规则数量: {len(self.rules)}")
     
     def _load_rules(self, rule_file_path: str) -> List[Dict]:
         """加载规则库"""

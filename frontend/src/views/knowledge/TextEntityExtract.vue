@@ -162,8 +162,16 @@
       <!-- 加载状态 -->
       <div v-if="loading" class="loading-state">
         <div class="loading-icon">⏳</div>
-        <div class="loading-text">正在使用大模型识别文本中的实体、事件和关系...</div>
-        <div class="loading-hint">这可能需要2分钟到5分钟，请耐心等待</div>
+        <div class="loading-text">正在识别文本中的实体、事件和关系…</div>
+        <!-- 已用时：没有它用户分不清"还在跑"和"已经卡死"，于是会去刷新页面 -->
+        <div class="loading-elapsed">已用时 {{ elapsedSeconds }} 秒</div>
+        <div class="loading-hint">
+          识别分三步跑完：实体 → 事件 → 关系（几次大模型调用），耗时与文本长短关系不大。
+        </div>
+        <div class="loading-hint">
+          可以先去做别的事：切到其它页面不会中断，完成后结果会自动存进左侧历史记录。
+          只有刷新或关闭本页会中断这次识别。
+        </div>
       </div>
 
       <!-- 识别结果 -->
@@ -429,7 +437,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, onMounted } from 'vue';
+import { ref, computed, reactive, onMounted, onBeforeUnmount } from 'vue';
 import { layer } from '@layui/layui-vue'
 import { useRouter } from 'vue-router';
 import { extractEntitiesEvents } from '../../api/module/node'
@@ -461,6 +469,8 @@ const loading = ref(false);
 const result = ref<any>(null);
 const textLength = ref(0);
 const showHistory = ref(true);
+// 识别已用时（秒）：加载态展示，用户据此判断"还在跑"而不是"卡死了"
+const elapsedSeconds = ref(0);
 
 // 历史记录接口
 interface HistoryItem {
@@ -564,13 +574,29 @@ const graphData = computed(() => {
     }
   });
 
+  // 连线端点解析：关系的目标名可能是实体的**另一个写法**。地点最常见——事件-地点关系
+  // 的 `modern_name` 填的是地点名，而图谱节点用的是地点的 `geo_name`，两者不一致时
+  // `KgGraph` 会因为"两端找不到节点"把这条线**静默丢掉**（关系列表里有、图谱上没有）。
+  // 后端已经保证载荷里没有悬空边（目标名对得上某个实体），这里只做"别名 → 节点 id"的翻译。
+  const nodeIds = new Set(nodes.map((node: any) => node.id));
+  const aliasToId = new Map<string, string>();
+  result.value.entities.places.forEach((place: any) => {
+    const id = place.geo_name;
+    const modern = place.modern_name;
+    // 只在"不覆盖真实节点、也没被别的别名占用"时登记，避免把两个地点并成一个节点
+    if (id && modern && modern !== id && !nodeIds.has(modern) && !aliasToId.has(modern)) {
+      aliasToId.set(modern, id);
+    }
+  });
+  const resolveEndpoint = (name: string) => aliasToId.get(name) || name;
+
   // 添加事件-地点关系
   result.value.relations.event_place.forEach((rel: any) => {
     const placeName = rel.PlaceName || rel.modern_name;
     if (rel.EventName && placeName) {
       lines.push({
         from: rel.EventName,
-        to: placeName,
+        to: resolveEndpoint(placeName),
         text: rel.relation || '发生地',
         inferred: false
       });
@@ -639,6 +665,7 @@ async function startExtract() {
 
   loading.value = true;
   result.value = null;
+  startElapsedTimer();
 
   try {
     const response = await extractEntitiesEvents({ text: inputText.value });
@@ -649,7 +676,11 @@ async function startExtract() {
       // 否则用户会把"少了一半的关系"当成识别结果。
       const partialErrors = response.data?.partial_errors;
       if (Array.isArray(partialErrors) && partialErrors.length) {
-        layer.msg(`识别完成，但有 ${partialErrors.length} 处失败（结果可能不完整）：${partialErrors[0]}`, { icon: 0 });
+        layer.msg(`文本识别已完成（用时 ${elapsedSeconds.value} 秒），但有 ${partialErrors.length} 处失败，结果可能不完整：${partialErrors[0]}`, { icon: 0 });
+      } else {
+        // 文案里点明结果去哪了：用户切到别的页面时这条提示会跨页面弹出，
+        // 光说"识别完成"看不出是哪件事完成了。
+        layer.msg(`文本识别已完成（用时 ${elapsedSeconds.value} 秒），结果已存入左侧历史记录`, { icon: 1 });
       }
       // 识别成功后保存到历史记录
       saveToHistory();
@@ -663,6 +694,27 @@ async function startExtract() {
     layer.msg(apiErrorMessage(error, '识别请求失败，请稍后重试'), { icon: 2 });
   } finally {
     loading.value = false;
+    stopElapsedTimer();
+  }
+}
+
+// 加载态的"已用时"。计时器必须在这里手工收尾：请求不属于组件生命周期，
+// 切走页面后组件已卸载、但 await 还会返回，`finally` 与 `onBeforeUnmount` 两道都要兜，
+// 否则切回来会叠出好几个计时器（秒数跳着涨）。
+let elapsedTimer: ReturnType<typeof setInterval> | null = null;
+
+function startElapsedTimer() {
+  stopElapsedTimer();
+  elapsedSeconds.value = 0;
+  elapsedTimer = setInterval(() => {
+    elapsedSeconds.value += 1;
+  }, 1000);
+}
+
+function stopElapsedTimer() {
+  if (elapsedTimer !== null) {
+    clearInterval(elapsedTimer);
+    elapsedTimer = null;
   }
 }
 
@@ -922,6 +974,11 @@ onMounted(async () => {
   scopedUid.value = userStore.userInfo?.id;
   loadHistoryFromStorage();
 });
+
+// 卸载时收掉计时器：请求不会因组件卸载而中断，但计时器不该继续跑（切回来会重复计时）
+onBeforeUnmount(() => {
+  stopElapsedTimer();
+});
 </script>
 
 <style scoped>
@@ -1146,9 +1203,18 @@ onMounted(async () => {
   margin-bottom: 8px;
 }
 
+.loading-elapsed {
+  font-size: 22px;
+  font-weight: 600;
+  color: #009688;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
 .loading-hint {
   font-size: 13px;
   color: #999;
+  line-height: 1.8;
 }
 
 /* 加载动画 */

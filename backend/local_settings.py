@@ -50,6 +50,23 @@ NEO4J_USER = get("NEO4J_USER", "neo4j")
 NEO4J_PASSWORD = get("NEO4J_PASSWORD", "")
 
 
+# ---- 本机 Ollama 模型名（旧问答链路用）----
+# **为什么要收成一处。** 这个名字原先散在 6 个地方：`llm_pipeline.OllamaAdapter` 的默认参数、
+# `llm_pipeline.stream_inference` 里硬编码的 `model='deepseek-r1:7b'`、两个接口与单例里构造
+# `RuleLLMIntegration(model_name=...)`、`entity_extract.Extractor` 的默认参数、
+# `inference.rule_llm_integration.RuleLLMIntegration` 的默认参数。换模型要改 6 处，
+# 漏一处就是"一半走新模型、一半走旧模型"，而且从日志上看不出来。
+#
+# **适用范围：只剩旧问答链路**（`/api/ai/inference` 与 `/api/ai/inference/stream`）。
+#   - 文本实体识别（页面 + 离线）：走云端 `DeepSeekClient`，模型名在
+#     `entity-event-relation/config/.env` 的 `DEEPSEEK_MODEL`（现为 `deepseek-flash`）；
+#   - RAG 问答：走自己的 `RAG/.env`（`LLM_MODEL` / `FALLBACK_LLM_MODEL`）；
+#   - 旧问答：走本机 Ollama，就是这里。
+# 该链路的菜单入口已下线（由 RAG 问答承接，见 `docs/规则引擎与LLM问答设计.md`），
+# 接口保留；所以默认值保持原样，不做行为变更——要用别的本地模型，设 `OLLAMA_MODEL` 即可。
+OLLAMA_MODEL = get("OLLAMA_MODEL", "deepseek-r1:7b")
+
+
 def require_neo4j_password() -> str:
     """取 Neo4j 口令；未配置时抛出带指引的错误，避免表现为一个含糊的连接失败。"""
     if NEO4J_PASSWORD:
