@@ -3,7 +3,7 @@
 
 ## 为什么需要
 
-CI 原先**没有任何步骤碰过 `deploy/`**：7 个脚本、nginx 站点、systemd 单元的语法与路径
+CI 原先**没有任何步骤碰过 `deploy/`**：9 个脚本、nginx 站点、systemd 单元的语法与路径
 错误可以全绿进 main，而文档还把 `bash -n deploy/scripts/*.sh` 记成"本机实测"。
 本脚本把能在 CI 里判定的那部分固定下来——不需要服务器、不需要装 nginx：
 

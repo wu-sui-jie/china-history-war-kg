@@ -69,6 +69,10 @@ entity-event-relation/war_extraction/geocoding/geocoding_progress.jsonl
 entity-event-relation/war_extraction/geocoding/geocoding_progress_*.jsonl
 backend/database
 backend/database.bak-*
+# 备份脚本与手工备份用的另一种命名（下划线），以及 SQLite 打开库时生成的旁挂文件
+backend/database.bak_*
+backend/database-wal
+backend/database-shm
 # 3) 本机敏感配置（Neo4j 口令、JWT 密钥等）
 backend/.env
 

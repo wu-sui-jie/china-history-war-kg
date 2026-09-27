@@ -341,11 +341,17 @@ python tools/split_annotation_set.py --annotations data/annotations/v2 \n  --dev
   `python tools/backfill_annotation_evidence.py --annotations data/annotations/v2` 看明细。
 - **唐、秦汉两个子集没有做 IAA**（只做了明）。规范的要求是"至少覆盖一部分"，
   但这两个子集的标注噪声上界目前是未知的。
-- **dev 上的指标还不可用**：产物是**全书**的，而参考集只覆盖三个子集（96/1050 事件是对得上的范围），
-  直接评会把其余朝代的事件全算成假阳性（实测 FP 958，精确率被压到 6.8%、召回率被抬到 93%）。
-  要拿到可用的 dev 指标，得先有**范围与 dev 对齐的产物**——dev = 唐 + 秦汉，
-  所以要跑这两个子集（`python main.py data/dynasty_subsets/唐.txt` 与 `...秦汉.txt`，
-  **29 + 28 = 57 段 × 3 阶段 = 171 次调用**；test 侧的明是 13 段 / 39 次）。这一步花钱，排在批二。
+- **dev 上的指标已经能算（批二已于 2026-09-27 跑完）**：唐与秦汉两个子集的产物已生成
+  （`output/唐/`、`output/秦汉/`，57 段 × 3 阶段 ≈ 171 次调用），用
+  `evaluate.py --annotations-dir data/annotations/v2_split/dev` 得到第一份**可信分母**上的绝对指标
+  （宏观 F1 67.07%；口径与"召回高于精确"的提醒见
+  [`../../docs/数据迭代记录.md`](../../docs/数据迭代记录.md) §三 第 3 条）。
+  **但这份指标还没有正式冻结**：`evaluation/baseline_reference_v2/baseline.json` 里没有
+  `baseline_metrics`，而唯一那次 v2 评估的结果被写进了 `evaluation/baseline/baseline_results.json`
+  （与同目录 `baseline.json` / `baseline.md` 记录的哈希与数值对不上）。**跑一次评估、
+  重新冻结 `baseline_reference_v2/`，是下一步该做的事**（见
+  [`../../../docs/项目现状与后续计划.md`](../../../docs/项目现状与后续计划.md) 阶段 2.8）。
+  为什么不能拿全书产物切片代替（产物没有字符坐标，切出来**既漏又偏**）见下一条。
   为什么不能拿全书产物切片代替：产物里**没有字符坐标**（事件字段只有 `source_text`、没有 offset），
   只能靠证据句回原文重新定位来判它落不落在子集区间里，定位不到的就只能丢——那样切出来**既漏又偏**。
 

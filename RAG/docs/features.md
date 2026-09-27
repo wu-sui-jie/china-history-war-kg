@@ -653,23 +653,27 @@ F11 已完成切分与索引构建；索引带版本号，F04 读取的索引与
 
 | 项 | 值 |
 | --- | --- |
-| 清单版本 | `20260915_v1` |
+| 清单版本 | `20260915_v1`（**未随当前运行时版本 `20260927_v1` 重建**） |
 | 测量口径 | `measurement_mode=real_llm`（真实模型实测） |
 | 来源 run | `run_20260917_203558`（`llm_used=true`，模型 deepseek-v4.1-flash，双通道+纯文本共 56 条） |
 | 选题目径 | 候选 25 条（28 题 main 套件剔除 3 条评分为 incorrect 的拒答型检索失败题），实测后入选 12 条 |
 | 首正文时延 | 2.4s ~ 6.3s（阈值 9000 ms） |
-| 接口结果 | `/api/demo/examples` 返回 200，`demo_ready=true` |
+| 接口结果 | **503**——接口按运行时版本读 `data/eval/<版本>/demo_examples.json`，当前运行时版本 `20260927_v1` 下没有该文件（`data/eval/` 下只有 `20260904_v2`、`20260915_v1`），故不展示旧版本时延 |
+
+清单本身（`data/eval/20260915_v1/demo_examples.json`）仍可用，但它不是当前运行时版本的产物；
+需按下面的流程为新版本重建一次（把命令里的版本号换成 `20260927_v1`），
+生成 `data/eval/20260927_v1/demo_examples.json` 后接口才会恢复。
 
 ### 重建流程
 
 ```bash
 # 1) 真实模型评测（必须加 --llm，否则默认强制离线回答器）
-python scripts/run_evaluation.py run --bank data/eval/20260915_v1/questions.jsonl --suites main --llm
+python scripts/run_evaluation.py run --bank data/eval/20260927_v1/questions.jsonl --suites main --llm
 # 2) 评分：将 scoring_template.jsonl 填分为 scores.jsonl（人工或 AI 代理，标注 reviewer）
 # 3) 用该 run 重建 demo（--measure 会实测首字时延）
-python scripts/gen_demo_examples.py --version 20260915_v1 --run <真实模型 run> --measure
+python scripts/gen_demo_examples.py --version 20260927_v1 --run <真实模型 run> --measure
 # 4) 重新生成血缘并确认一致性（demo 父 run 必须是 latest_run）
-python scripts/build_lineage.py --version 20260915_v1 && python scripts/build_lineage.py --version 20260915_v1 --check
+python scripts/build_lineage.py --version 20260927_v1 && python scripts/build_lineage.py --version 20260927_v1 --check
 ```
 
 改这里要同步改：`config/defaults.py`（无 `DEMO_MODE`）、`server/api.py` 的示例题接口

@@ -173,7 +173,7 @@ Neo4j 侧节点标签为 `:Event` `:Place` `:Organization` `:Person`，关系类
 | `backend/roles.py` | `ROLE_RANKS` 分级表；`require_write_role`（editor 级）、`require_admin`（admin 级）；菜单裁剪白名单 `ADMIN_MENU_IDS` / `EDITOR_MENU_IDS` 与可见性判断。它独立于 `app.py`，避免"蓝图 import app / app import 蓝图"的循环（`app.py` 现 467 行）。菜单数据本体的 `get_menu()` 在 `backend/blueprints/auth.py` |
 | `frontend/src/router/` | 路由 `meta.requiresRole`（写"最低需要的角色"）+ `index.ts` 的 `ROLE_RANK` 比对 |
 | `frontend/src/store/user.ts` | 菜单白名单（后端不下发的项不会出现） |
-| `backend/tests/` | 常驻用例（**218 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽取接口限 editor、抽取提示词与录制回放，以及四组守护——**空角色回填为 viewer**（不提权）、**删除节点时关系级联且外键真的开着**、**数据重导不删账号**、**首个管理员引导命令**。`cd backend && python -m pytest tests -q` |
+| `backend/tests/` | 常驻用例（**237 例**）：非 admin 进不去 `/api/admin/*`、菜单三级裁剪、提权/降权立刻生效、抽取接口限 editor、抽取提示词与录制回放，以及四组守护——**空角色回填为 viewer**（不提权）、**删除节点时关系级联且外键真的开着**、**数据重导不删账号**、**首个管理员引导命令**。`cd backend && python -m pytest tests -q` |
 
 **生效时机**：写接口的 403 是每次请求实时查库，改完立刻生效；**菜单是登录时下发的**，
 被改角色的人需要重新登录（或重新触发 `loadMenus`）才会看到菜单变化。

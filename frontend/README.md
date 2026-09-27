@@ -69,7 +69,7 @@ node scripts/smoke-inference-page.mjs   # 问答页浏览器冒烟（需 playwri
 | `/knowledge/relation-analysis` | `views/knowledge/RelationAnalysis.vue` | 关系分析 |
 | `/knowledge/search` | `views/knowledge/GlobalSearch.vue` | 全局搜索 |
 | `/knowledge/text-extract` | `views/knowledge/TextEntityExtract.vue` | 文本实体识别（`requiresRole: 'editor'`，会消耗 LLM 配额） |
-| `/knowledge/inference` | `views/inference/index.vue` | **历史问答助手**（旧版智能问答，SSE 流式；`requiresRole: 'editor'`，入口已从导航栏下线，由 RAG 问答承接） |
+| `/knowledge/inference` | `views/inference/index.vue` | **历史问答助手**（旧版智能问答，SSE 流式；`requiresRole: 'editor'`，菜单仍由后端 `get_menu()` 下发：editor/admin 可见、viewer 不下发，用例 `backend/tests/test_menu_trim.py` 钉住） |
 | `/knowledge/rag` | `views/knowledge/RagAssistant.vue` | **RAG 智能问答**（iframe 承载 RAG 服务页面） |
 | `/admin/users` | `views/admin/UserManagement.vue` | **用户管理**（`requiresRole: 'admin'`；改角色，不能改自己） |
 | `/error/{401,403,404,500}` | `views/error/*.vue` | 错误页 |
@@ -117,7 +117,7 @@ frontend/src/
 | `check-inference-style-coverage.mjs` | 检查问答页与四个子组件模板里用到的 class 都有样式兜底（拆组件时最容易掉的样式） |
 | `smoke-inference-page.mjs` | 浏览器冒烟：桩后端托管 `dist/`，用 Playwright 断言计算样式与交互（提问/切会话/图谱/导出/落盘） |
 
-## 两条必须知道的约定
+## 三条必须知道的约定
 
 ### 1. 加菜单项要改三处
 
@@ -190,7 +190,9 @@ RAG 问答页还有一条跨应用的身份通道：`RagAssistant.vue` 在 ifram
 ## 开发规范
 
 - 组件用 Composition API + `<script setup>`；样式加 `scoped`
-- 页面组件放 `views/`，通用组件放 `components/`，接口放 `api/`，类型放 `types/`
+- 目录按实际结构分层：页面组件放 `views/`（`src/` 下**没有** `components/` 目录——组件就近放在各自的
+  `views/` 子目录，如 `views/inference/components/`；跨页复用的工具放 `utils/`、组合式函数放 `composables/`），
+  接口放 `api/`，类型放 `types/`
 - 命名：组件与文件名用 PascalCase，变量用 camelCase，常量用 UPPER_SNAKE_CASE
 - 图谱/地图类页面复用现成封装：关系图用 `views/knowledge/graph/EChartsGraph.vue`，
   问答内的子图用 `views/inference/components/KgGraph.vue`；

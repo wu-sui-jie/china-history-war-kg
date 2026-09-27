@@ -21,6 +21,8 @@ data-contract.md 规定了一组统一结构。本层把它们落成 Python data
 | 冲突对象与 conflict_type | F05 | `conflict.py` |
 | 治理输出：词典 / 版本 / 战争类型映射 / 关系-卡片字段映射 | F09 离线 | `governance.py` |
 | 索引输出：片段 / 片段类型 | F11 离线 | `index.py` |
+| 规则推理关系（与 `relations.json` 同构，`source_type=inference`） | F03 检索 / F09 离线 | `inference.py` |
+| 契约层公共基类（`to_dict()` 等序列化工具） | 本层全部契约 | `base.py` |
 
 ## 为什么这里用 dataclass 而不是 dict
 

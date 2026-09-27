@@ -246,8 +246,10 @@ sudo bash deploy/scripts/03_build_frontend.sh
 sudo bash deploy/scripts/install_services.sh
 ```
 
-这一步会：装 nginx → 写 nginx 站点 → 登记三个 systemd 服务（`china-war-backend`、`china-war-rag`、
-`china-war-bot`）→ **跑一次鉴权门禁** → 启动并设为开机自启。
+这一步会：装 nginx → 写 nginx 站点 → 登记 **7 个 systemd 单元**（三个常驻服务
+`china-war-backend.service`、`china-war-rag.service`、`china-war-bot.service`，以及
+`china-war-outbox-retry.service` / `.timer`、`china-war-backup.service` / `.timer` 这两对）
+→ **跑一次鉴权门禁** → 启动并设为开机自启。
 
 **鉴权门禁**（`deploy/scripts/check_rag_auth.sh`）在启动服务**之前**执行，
 任一失败即终止安装。它校验的是"两份配置各看起来都对、合起来却漏了一半"这类组合：
@@ -270,10 +272,13 @@ sudo bash deploy/scripts/check_rag_auth.sh
 
 **另有一个 systemd 定时器**（补偿队列的自动重放）：
 
+`china-war-outbox-retry.service` 与 `.timer` 已由 `install_services.sh` 一并安装并启用
+（脚本实际装 7 个单元，outbox-retry 与 backup 各一对 service + timer 都在其中），
+**不需要照旧手工 `cp`**；下面两条只用于**核对**它确实装上了、在跑：
+
 ```bash
-sudo cp deploy/systemd/china-war-outbox-retry.{service,timer} /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now china-war-outbox-retry.timer
+systemctl is-enabled china-war-outbox-retry.timer    # 应为 enabled
+systemctl status china-war-outbox-retry.timer        # 应为 active (waiting)
 ```
 
 它每分钟跑一次 `backend/retry_sync.py --due-only`，把 Neo4j 写入失败留下的待办按退避
@@ -411,6 +416,11 @@ sudo systemctl restart china-war-rag
 
 换数据版本时，**两处要同步改**：`/etc/systemd/system/china-war-rag.service` 里的 `--version`，
 以及 `RAG/.env` 里的 `RAG_ACTIVE_VERSION`（然后 `systemctl daemon-reload && systemctl restart china-war-rag`）。
+
+> **现状提醒（2026-09-27）**：服务器侧这两处**仍钉在旧版本 `20260915_v1`**
+> （`deploy/env/rag.env` 的 `RAG_ACTIVE_VERSION=20260915_v1`、`deploy/systemd/china-war-rag.service`
+> 的 `--version 20260915_v1`），而开发机上的活跃版本已是 `20260927_v1`——**服务器还没有跟着切**。
+> 下次部署要把两处同步改成同一个新版本号再重启 RAG，否则 RAG 仍按旧快照与旧索引回答。
 
 ---
 

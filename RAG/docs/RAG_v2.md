@@ -85,7 +85,7 @@
 
 **为什么值**：这是性价比最高的一项——**数据已经在快照里，只是没接出来**。
 
-快照 `data/snapshot/<版本>/event_cards.json` 的 1050 条事件记录含
+快照 `data/snapshot/<版本>/event_cards.json`（当前数据版本 `20260927_v1`）的 1313 条事件记录含
 `aggressor`、`defender`、`action`、`impact`、`place` 等字段；但在装配实体卡时，
 `server/fusion/panel_builder.py` 的事件分支只映射了 9 个字段，上述字段全部被丢弃。
 结果是 RAG 的实体卡能显示朝代/时间/类型/身份/所属/位置/别名/来源，
@@ -388,7 +388,7 @@ RAGv4 评测曾暴露问题（F02 朝代子串误判导致拒答、F04 长改写
 | 旧页思考过程为死代码 | `china-war/backend/app.py:2544-2872` 内 `thinking` 出现 0 次 |
 | 20 条规则（16 反向 + 4 复合） | `china-war/backend/rules/rule_base.json`（逐条列出 war_001–war_020） |
 | 推理实现与标记 | `china-war/backend/inference/rule_llm_integration.py`（`apply_inference_rules`、`_apply_composite_rules`） |
-| 快照事件字段含 aggressor/defender/action/impact/place | `data/snapshot/<版本>/event_cards.json`（1050 条） |
+| 快照事件字段含 aggressor/defender/action/impact/place | `data/snapshot/<版本>/event_cards.json`（1313 条，版本 `20260927_v1`） |
 | RAG 侧原先无规则推理 | 在 `server/`、`contracts/`、`config/`、`scripts/` 搜 `rule_base` / `inferred` / `rule_id` / `derived_from` 零命中 |
 | RAG 会话存储结构与迁移机制 | `frontend/src/stores/session.ts`（`ragv5-session-v2` → `v3`、`schemaVersion`、quarantine、裁剪上限） |
 | 旧页删除边界：`backend/entity_extract/` 仅服务问答 | `china-war/backend/app.py:1627`、`2453`、`2572` |

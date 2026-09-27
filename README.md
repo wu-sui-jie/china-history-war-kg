@@ -105,7 +105,7 @@ china-war/
 │   ├── inference/             #   旧版智能问答（规则引擎 + 大模型）
 │   ├── rules/rule_base.json   #   推理规则库
 │   ├── docs/                  #   模块文档（规则引擎与 LLM 问答设计）
-│   ├── tests/ tools/          #   常驻用例（218 例）与运维工具
+│   ├── tests/ tools/          #   常驻用例（237 例）与运维工具
 │   └── data/                  #   current_dataset.json；processed/ 由导入脚本重建（已 gitignore）
 ├── frontend/                  # 旧前端（Vue3 + TS + layui-vue，:3001）→ frontend/README.md
 │   └── src/
@@ -232,7 +232,7 @@ npm run build:integration   # 必须用并入模式：base=/rag/、接口前缀=
 ```bash
 cd RAG
 conda activate china-war-py311
-python scripts/run_server.py --port 8000 --version 20260915_v1
+python scripts/run_server.py --port 8000 --version 20260927_v1
 ```
 
 `--version` 固定数据版本（省略则自动取最新一致版本；生产档下必须显式指定）。

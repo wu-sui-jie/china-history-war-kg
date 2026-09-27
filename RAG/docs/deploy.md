@@ -7,7 +7,7 @@
 
 | 项 | 要求 |
 | --- | --- |
-| Python | 3.11（本项目在 conda 环境 `AI_Agent` 中验证；依赖见 `requirements.txt`。本机安装位置见根 README「本机环境备注」） |
+| Python | 3.11（本项目在 conda 环境 `china-war-py311` 中验证；依赖见 `requirements.txt`。本机安装位置见根 README「本机环境备注」） |
 | Node | 仅"重新构建前端"时需要（`frontend/`，Vue3 + Vite） |
 | 数据制品 | `data/snapshot/<v>` + `data/index/<v>`（**两目录已被 .gitignore 忽略，需随部署包携带**） |
 | 外部服务 | ① 阿里云百炼（文本向量化）② LLM endpoint（中转 `api.commandcode.ai` 或官方 `api.deepseek.com`）——**两者都需要外网** |
@@ -18,6 +18,10 @@
 > 版本说明（2026-09-27）：**当前活跃版本为 `20260927_v1`**（第三阶段整本重跑后的新产物：
 > 实体 10423 / 事件 1313 / 关系 16492，索引 8004 片段）。历史版本 `20260915_v1` 与
 > `20260904_v2` 保留可回退。
+>
+> 注意：**服务器侧 `deploy/env/rag.env` 与 `deploy/systemd/china-war-rag.service` 目前仍钉在
+> `20260915_v1`**，切到新版本时这两处要同步改（`RAG_ACTIVE_VERSION` 键与 systemd 启动行的
+> `--version` 必须一致，否则 health 里 `version_selection` 与实际加载版本会对不上）。
 
 ```
 data/
@@ -30,9 +34,12 @@ data/
 │       ├── ids.json               # 片段 id 顺序（与矩阵/集合行对齐）
 │       ├── embeddings.npy         # 审计副本（不参与检索；换机器可免重嵌入）
 │       └── _parts/                # 分批缓存（可选携带；保留可断点续跑，可删）
-└── eval/20260915_v1/              # 题库、评分、示例题清单
+└── eval/20260927_v1/              # 题库、评分、示例题清单
     └── demo_examples.json         # F08 示例题（入 Git，可人工复核）
 ```
+
+注：当前 `data/eval/` 下实际只有 `20260904_v2` 与 `20260915_v1`，`20260927_v1` 的示例题清单
+需按 `RAG/docs/current-status.md` 第四节的流程重建（重建前 `/api/demo/examples` 返回 503）。
 
 体积参考：索引目录约 150 MB（其中 `chroma/` 47 MB、`npy` 38 MB、`_parts/` 42 MB、`chunks_fts.db` 约 23 MB）。
 
@@ -42,18 +49,18 @@ data/
 cd RAG
 
 # 1) 快照（F09）——需可读旧项目数据源（.env 里的 LEGACY_*）
-python scripts/export_snapshot.py --version 20260915_v1
+python scripts/export_snapshot.py --version 20260927_v1
 
 # 2) 索引：切分 + FTS5（+ 向量）——F11
-python scripts/build_index.py --version 20260915_v1 --no-embeddings   # 只建关键词索引（无向量密钥时）
-python scripts/build_index.py --version 20260915_v1                   # 有向量密钥：同一步嵌入并写 Chroma
+python scripts/build_index.py --version 20260927_v1 --no-embeddings   # 只建关键词索引（无向量密钥时）
+python scripts/build_index.py --version 20260927_v1                   # 有向量密钥：同一步嵌入并写 Chroma
 
 # 3) 向量——复用既有 chunks，只补/重建 vectors/
 python scripts/build_index.py --vectors-only --sample 8      # 先小样验证维度（约 5 秒）
 python scripts/build_index.py --vectors-only --concurrency 4 # 全量（9,544 条约 6 分钟）
 python scripts/check_vector_consistency.py --sample 20       # 一致性抽检（重合率 ≥0.9）
 # chroma/ 丢失或损坏时（不调云端、不重复计费）：
-python scripts/build_index.py --rebuild-chroma --version 20260915_v1
+python scripts/build_index.py --rebuild-chroma --version 20260927_v1
 
 # 4) 前端构建产物（供同源托管）
 cd frontend && npm install && npm run build && cd ..
@@ -73,7 +80,7 @@ cd frontend && npm install && npm run build && cd ..
 | `QUERY_FUSION_LIMIT` | `10`（**部署建议值**；代码默认 `18`，即 v4 口径、prompt 约 4,300 token） | 送模证据条数；调小可降低截断风险与首字延迟 |
 | `EMBEDDING_BASE_URL` / `EMBEDDING_MODEL` / `EMBEDDING_DIM` | 百炼 + `text-embedding-v4` / `1024` | 查询侧向量化用 |
 | `RATE_LIMIT_PER_MINUTE` / `CACHE_TTL_SECONDS` | `30` / `3600` | 演示负载足够；缓存是**进**程内的，重启即空 |
-| `RAG_ACTIVE_VERSION` | `20260915_v1` | 生产必须显式固定；启动脚本 `--version` 会代填并把来源标为 `cli_explicit` |
+| `RAG_ACTIVE_VERSION` | `20260927_v1` | 生产必须显式固定；启动脚本 `--version` 会代填并把来源标为 `cli_explicit`。**服务器侧 `deploy/env/rag.env` 与 systemd 服务目前仍钉在 `20260915_v1`**，切版本要两处同步改 |
 | `CORS_ALLOW_ORIGINS` | `*`（本机演示） | **显式生产档**（自己写了 `RAG_REQUIRE_ACTIVE_VERSION=true`）下若仍是 `*`，服务会**拒绝启动**；正式部署填站点域名，或显式 `ALLOW_PUBLIC_CORS=true` 确认公开 |
 | `SHUTDOWN_DRAIN_SECONDS` | `10` | 停机时先停收同步任务、撤销排队，再用这个上限等在途任务，最后才关外部客户端 |
 
@@ -123,7 +130,7 @@ EMBEDDING_API_KEY → DASHSCOPE_API_KEY（百炼）
 ## 五、启动与自检
 
 ```bash
-python scripts/run_server.py --host 0.0.0.0 --port 8000 --version 20260915_v1
+python scripts/run_server.py --host 0.0.0.0 --port 8000 --version 20260927_v1
 ```
 
 启动日志会打印：版本、来源（`--version` 时 health 显示 `cli_explicit`）、`text_mode`、
@@ -200,15 +207,15 @@ python scripts/smoke_deploy.py --base http://127.0.0.1:8000
 ```bash
 # 1) 先提交，保证工作区干净（发布门禁第一步就是 git status 必须为空）
 # 2) 生成发布证据链
-python scripts/build_lineage.py --version 20260915_v1     # 血缘（含 demo 父 run 解析）
+python scripts/build_lineage.py --version 20260927_v1     # 血缘（含 demo 父 run 解析）
 python scripts/build_lineage.py --check                   # 跨层一致性：run → demo → runtime
-python scripts/audit_chroma_segments.py --version 20260915_v1   # 四方计数（不一致退出非零）
-python scripts/gen_sbom.py generate --version 20260915_v1 && python scripts/gen_sbom.py validate
-python scripts/build_artifact_manifest.py build --version 20260915_v1 --require-clean
+python scripts/audit_chroma_segments.py --version 20260927_v1   # 四方计数（不一致退出非零）
+python scripts/gen_sbom.py generate --version 20260927_v1 && python scripts/gen_sbom.py validate
+python scripts/build_artifact_manifest.py build --version 20260927_v1 --require-clean
 python scripts/build_artifact_manifest.py verify          # 逐文件（Chroma 按逻辑哈希）
 python scripts/build_artifact_manifest.py verify-sums     # 标准物理 SHA256SUMS
 # 3) 组装完整 release 包（源码 + 数据 + dist + 证据 + SBOM + 依赖声明）
-python scripts/build_release_bundle.py --version 20260915_v1
+python scripts/build_release_bundle.py --version 20260927_v1
 ```
 
 数据制品（约 210 MB，不入 Git）的两种流转方式：
