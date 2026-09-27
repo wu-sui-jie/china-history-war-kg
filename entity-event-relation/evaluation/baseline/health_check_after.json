@@ -1,45 +1,53 @@
 {
   "source": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
-  "source_sha256": "ceedc0e00401a22166409619b860940d485b84dcb28db87ba51168c5fb50c487",
+  "source_sha256": "a37ce29eae8d35cc9f15486998b5ef5d8dd4506d278e528325f40d536070b3ac",
   "counts": {
     "events": 1313,
     "places": 5527,
     "persons": 2562,
     "organizations": 1021,
-    "relations": 16666
+    "relations": 16500
   },
   "dangling_relations": {
     "event-place": {
       "exact_dangling": 1,
       "normalized_dangling": 0,
+      "tail_missing": 0,
       "samples": [
         "前秦灭代"
-      ]
+      ],
+      "tail_samples": []
     },
     "event-organization": {
       "exact_dangling": 2,
       "normalized_dangling": 0,
+      "tail_missing": 0,
       "samples": [
         "前秦灭代",
         "前秦灭代"
-      ]
+      ],
+      "tail_samples": []
     },
     "event-person": {
       "exact_dangling": 4,
       "normalized_dangling": 0,
+      "tail_missing": 0,
       "samples": [
         "前秦灭代",
         "前秦灭代",
         "前秦灭代",
         "前秦灭代"
-      ]
+      ],
+      "tail_samples": []
     },
     "event-event": {
       "exact_dangling": 1,
       "normalized_dangling": 0,
+      "tail_missing": 0,
       "samples": [
         "前秦灭代"
-      ]
+      ],
+      "tail_samples": []
     }
   },
   "enum_values": {
@@ -116,13 +124,13 @@
       }
     },
     "event_place_relations": {
-      "total": 5693,
+      "total": 5692,
       "outside_enum": {
         "同盟方": 2,
         "支援地": 1
       },
       "distribution": {
-        "主战场": 2196,
+        "主战场": 2195,
         "目的地": 927,
         "次要战场": 796,
         "途经地": 658,
@@ -137,36 +145,36 @@
       }
     },
     "event_organization_relations": {
-      "total": 3564,
+      "total": 3479,
       "outside_enum": {
         "驻防地": 1
       },
       "distribution": {
-        "发起方": 1478,
-        "防守方": 1455,
-        "支援方": 210,
-        "同盟方": 137,
-        "参战方": 131,
-        "投降方": 97,
+        "发起方": 1442,
+        "防守方": 1414,
+        "支援方": 208,
+        "同盟方": 134,
+        "参战方": 129,
+        "投降方": 96,
         "被俘方": 33,
         "议和方": 22,
         "驻防地": 1
       }
     },
     "event_person_relations": {
-      "total": 6321,
+      "total": 6241,
       "outside_enum": {
         "自杀": 2
       },
       "distribution": {
-        "将领": 3628,
-        "参与者": 975,
-        "君主": 401,
-        "统帅": 327,
-        "阵亡": 242,
-        "投降": 194,
+        "将领": 3582,
+        "参与者": 963,
+        "君主": 393,
+        "统帅": 323,
+        "阵亡": 239,
+        "投降": 192,
         "谋士": 179,
-        "俘虏": 166,
+        "俘虏": 161,
         "叛变": 99,
         "使者": 79,
         "发起方": 14,
@@ -465,9 +473,9 @@
     ]
   },
   "supreme_commander_claims": {
-    "events_with_claim": 284,
+    "events_with_claim": 280,
     "events_with_multiple": 38,
-    "ratio": 0.13380281690140844,
+    "ratio": 0.1357142857142857,
     "max": 4,
     "top": [
       [
@@ -745,10 +753,10 @@
     "samples": []
   },
   "evidence_reuse": {
-    "total_relations": 16666,
+    "total_relations": 16500,
     "evidence_empty": 0,
-    "evidence_equals_event_source_text": 2161,
-    "reuse_ratio": 0.1296651866074643,
+    "evidence_equals_event_source_text": 2144,
+    "reuse_ratio": 0.12993939393939394,
     "top_reused_events": [
       [
         "高加索南北诸国扫荡战",
@@ -774,7 +782,7 @@
   },
   "relation_volume": {
     "events_with_relations": 1199,
-    "average": 13.9,
+    "average": 13.8,
     "max": 110,
     "top": [
       [
@@ -795,7 +803,7 @@
       ],
       [
         "太平军二破江南大营之战",
-        65
+        64
       ]
     ]
   },
@@ -904,5 +912,5 @@
     "EventType/交战": "`赤眉军击败景尚、王党之战`、`赤眉军全歼王匡、廉丹之战` 的 `EventType` 填了 `交战`：这两条的 `Action` 也都是「交战」，即模型把**动作值抄进了类型字段**。判定（2026-09-27）：不把 `交战` 加进枚举与 RAG 词典（它是动作词，不是事件类型）。实测发布子集里 0 条。",
     "event_organization_relations/指挥所": "LLM 把地点关系名写进了事件-组织关系：实测 1 条 `辽东半岛战役 —[指挥所]→ 征清大总督府`。组织不可能是「指挥所」，属模型误分类；**不把 `指挥所` 加进组织关系枚举**（那等于承认一个错的语义），它与另外三类一样留在 raw 产物、由 `split_publishable_outputs` 路由进候选区。重跑后若条数明显上涨，说明提示词对组织关系的约束在退化。"
   },
-  "note": "第三阶段整本重跑后的入库基线（2026-09-27）。产物在整本重跑之后做过两次缓存重放：① 追加两条后处理删除规则（证据为空 / 目标为占位词的关系，共 4 条）；② 新增 metadata.content_sha256 这个与时间无关的内容哈希。抽取内容三次跑完全一致（content_sha256 = b957507e…），未再调用模型；model_served 由产物继承机制保留。门禁对照见 docs/第三阶段收尾执行单.md 的 3.05 与 3.07。"
+  "note": "第三阶段收尾基线（2026-09-27）。产物 = 整本重跑 + 四次缓存重放（① 删证据为空/占位词目标的关系；② 新增与时间无关的 content_sha256；③ 新增目标端校验 target_not_found）。抽取内容未变（未调用模型）。用途：发布第 ③ 步已按这份产物导入 SQLite，C1 的包含关系（77 条）在库中可见。"
 }

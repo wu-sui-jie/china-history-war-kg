@@ -1,9 +1,9 @@
 {
-  "frozen_at": "2026-09-27 13:34:53.419534 +08:00",
-  "frozen_at_epoch": 1790487293.419534,
-  "run_id": "8d1238a8b033",
-  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = --dev 唐 秦汉。本记录冻结于 2026-09-27 整本重跑与随后的两次缓存重放之后，artifact 指向最新产物（内容哈希 b957507e…）；参考集三份文件本身未变。",
-  "git_commit": "fbe6d5299466671c4c775b60691060b1f1f9c6f9",
+  "frozen_at": "2026-09-27 14:12:53.115833 +08:00",
+  "frozen_at_epoch": 1790489573.115833,
+  "run_id": "2391cf5f1ec6",
+  "note": "C 组参考集 v2 成稿（三子集逐条核验合并，经仲裁落地、去重，带原文证据坐标）；dev = 唐+秦汉 / test = 明。2026-09-27 冻结于整本重跑与随后四次缓存重放之后。",
+  "git_commit": "6b85d64fb5fb4b7a9a65f485f8d65d5e942e6515",
   "module_versions": {
     "prompt_version": "prompt-v2-20260420+1228b39b",
     "extraction_version": "extraction-v2-20260420"
@@ -11,16 +11,16 @@
   "artifact": {
     "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
     "exists": true,
-    "sha256": "ceedc0e00401a22166409619b860940d485b84dcb28db87ba51168c5fb50c487",
+    "sha256": "a37ce29eae8d35cc9f15486998b5ef5d8dd4506d278e528325f40d536070b3ac",
     "counts": {
       "events": 1313,
       "places": 5527,
       "persons": 2562,
       "organizations": 1021,
-      "relations": 16666
+      "relations": 16500
     },
     "metadata": {
-      "extracted_at": "2026-09-27 13:34:16 +08:00",
+      "extracted_at": "2026-09-27 14:08:28 +08:00",
       "extraction_version": "extraction-v2-20260420",
       "prompt_version": "prompt-v2-20260420+1228b39b",
       "input_file": "data\\中国历代战争简史.txt",
@@ -45,9 +45,9 @@
         "relation_extraction": 0.1
       },
       "seed": null,
-      "git_commit": "0d08620",
-      "content_sha256": "b957507e22012f127d3ea04e70589e61443916eca5651c79a4b8e14c58f704ac",
-      "artifact_sha256": "336b6db6dca1c456c402c9e3f1a141b258c45b5625073e787dc0b3e1ddcb1a18"
+      "git_commit": "b312aea",
+      "content_sha256": "a4d27576b4f4183aecbd7255ce45f251ff9d6b2d46cbadd0bd2fd06494d0d65f",
+      "artifact_sha256": "55c4b7be3d9b210103791f8f8e63f7c30ead536604c4e047809ca53555a53738"
     }
   },
   "annotations": {
