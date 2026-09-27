@@ -1,9 +1,9 @@
 {
-  "frozen_at": "2026-09-27 13:02:10.981351 +08:00",
-  "frozen_at_epoch": 1790485330.981351,
-  "run_id": "1443a98b6484",
-  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = split_annotation_set.py --dev 唐 秦汉（dev 221 事件 / test 明 75 事件），切分说明在 data/annotations/v2_split/split_manifest.json。**本记录在 2026-09-27 整本重跑之后重新冻结**，所以 artifact 指向的是重跑后的新产物（1313 事件）；参考集三份文件本身未变。",
-  "git_commit": "dd7516c39545fa7dbf89da8c94f5d2d7f401f7c7",
+  "frozen_at": "2026-09-27 13:11:24.174676 +08:00",
+  "frozen_at_epoch": 1790485884.174676,
+  "run_id": "eb8956fdb97b",
+  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = --dev 唐 秦汉。本记录在 2026-09-27 的整本重跑与其后的缓存重放（追加两条后处理丢弃规则）之后冻结，artifact 指向最新产物（事件 1313 / 关系 16666）；参考集三份文件本身未变。",
+  "git_commit": "9c59e0e8c4b1472cfbef92a64b0bb957df4837bb",
   "module_versions": {
     "prompt_version": "prompt-v2-20260420+1228b39b",
     "extraction_version": "extraction-v2-20260420"
@@ -11,16 +11,16 @@
   "artifact": {
     "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
     "exists": true,
-    "sha256": "1e90474a7f093b0ad7ef3be147de01c8edcd0018135dbf3492c25f085a026a90",
+    "sha256": "16a6879b21088690f96e57ce59938487ed1f0e843d86bb7e401d3904e988bc45",
     "counts": {
       "events": 1313,
       "places": 5527,
       "persons": 2562,
       "organizations": 1021,
-      "relations": 16670
+      "relations": 16666
     },
     "metadata": {
-      "extracted_at": "2026-09-27 11:36:55 +08:00",
+      "extracted_at": "2026-09-27 13:08:16 +08:00",
       "extraction_version": "extraction-v2-20260420",
       "prompt_version": "prompt-v2-20260420+1228b39b",
       "input_file": "data\\中国历代战争简史.txt",
@@ -37,6 +37,7 @@
       "model_served": "deepseek-flash",
       "thinking_mode": "disabled",
       "api_base": "https://api.deepseek.com/v1",
+      "model_served_inherited_from": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
       "temperature": {
         "entity_extraction": 0.1,
         "event_identification": 0.2,
@@ -44,8 +45,8 @@
         "relation_extraction": 0.1
       },
       "seed": null,
-      "git_commit": "0fa4035",
-      "artifact_sha256": "9056f8cb104635423b53dec3196e1f7bf9ecde97adbb45366d4add4aa105acb8"
+      "git_commit": "9c59e0e",
+      "artifact_sha256": "248020cd14cd240c2fb67312a80e3231da498eeede4abbcd682583f2c3c688c0"
     }
   },
   "annotations": {

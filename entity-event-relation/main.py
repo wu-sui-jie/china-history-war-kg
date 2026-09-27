@@ -42,6 +42,7 @@ from war_extraction.utils.relation_rules import (
     reduce_event_event_relations,
 )
 from war_extraction.utils.value_parsing import (
+    PLACEHOLDERS_FULL,
     ensure_event_date_order,
     event_identity_key,
     parse_year_for_order,
@@ -794,7 +795,19 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
         # 但同样是**被丢掉的边**——原先这一支是无痕丢弃，与同函数"并计数"的承诺不符，
         # 也与本项目反复吃亏的"静默丢弃"模式一致。残缺也该被看见。
         "empty_name_or_relation": 0,
+        # 2026-09-27 新增两类（判定：删掉，见 §3.06 之后那条）：
+        "empty_evidence": 0,
+        "placeholder_target": 0,
     }
+
+    #: 各类关系"目标"所在的字段名（`event-event` 的目标是事件名，不走这一支）。
+    def _target_value(rel, attribute):
+        field = {
+            "event_place_relations": "modern_name",
+            "event_organization_relations": "OrgName",
+            "event_person_relations": "PersonName",
+        }.get(attribute)
+        return getattr(rel, field, None) if field else None
 
     def _drop_dangling(relations, attribute):
         """丢掉事件端对不上最终事件名单的边，并计数——悬空边数要能被体检脚本与质量报告看见。"""
@@ -807,6 +820,16 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
                 continue
             if not _event_allowed(rel.EventName):
                 dropped_dangling[attribute] += 1
+                continue
+            # 证据为空：这类边无法审计（"这条关系凭什么成立"没有原文可回溯），
+            # 而参考集的每一条都带原文证据——留着它就等于在产物里允许无据的边。
+            if not (getattr(rel, "evidence", None) or "").strip():
+                dropped_dangling["empty_evidence"] += 1
+                continue
+            # 目标是占位词（`不详`/`未知`/`无`…）：那不是实体，是"没抽到"的写法。
+            # 让它进产物等于把"不知道"记成了一条关系。
+            if (_target_value(rel, attribute) or "").strip() in PLACEHOLDERS_FULL:
+                dropped_dangling["placeholder_target"] += 1
                 continue
             kept.append(rel)
         return kept
@@ -1247,6 +1270,36 @@ def _artifact_body(entities, events, relations) -> dict:
     }
 
 
+def _with_inherited_model_served(result_dir: Path, llm_meta: dict) -> dict:
+    """
+    全缓存命中时 `model_served` 继承上一版产物记的值，并在 metadata 里注明是继承来的。
+
+    **为什么要这一步。** `model_served` 来自**响应里**的模型名，所以"本次一次调用都没发生"
+    （全命中缓存）时它是 `None`。而**缓存重放恰恰是文档推荐的免费路径**（规则类改动一律先干跑，
+    见 `docs/第三阶段收尾执行单.md` §0 的三条路径）——于是每走一次免费路径，产物的"模型自证"就被
+    抹掉一次；而这份产物是要发布进知识库的（下游 `current_dataset.json` 也抄它的 metadata）。
+    "继承上一版并注明来源"比直接写 `None` **更准确**：内容确实出自那一版所记的模型。
+
+    **只在没有发生调用时继承**（有调用就以本次为准）；来源写进 `model_served_inherited_from`，
+    让"这个值是继承的"可被看见，而不是冒充成本次自证。
+    """
+    meta = dict(llm_meta or {})
+    if meta.get("model_served"):
+        return meta
+    previous = Path(result_dir) / "9_final_all.json"
+    if not previous.is_file():
+        return meta
+    try:
+        prev_meta = json.loads(previous.read_text(encoding="utf-8")).get("metadata") or {}
+    except (json.JSONDecodeError, OSError):
+        return meta
+    if prev_meta.get("model_served"):
+        meta["model_served"] = prev_meta["model_served"]
+        meta["model_served_inherited_from"] = str(previous)
+    return meta
+
+
+
 def save_results(name: str, entities, events, relations, input_file: Path = None,
                  text_length: int = None, output_base: Path = None, llm_meta: dict = None):
     """
@@ -1264,8 +1317,10 @@ def save_results(name: str, entities, events, relations, input_file: Path = None
     result_dir = output_dir / name
     result_dir.mkdir(exist_ok=True)
 
-    # 产物自证：模型 / 端点 / 温度 / seed / 提交号，与内容哈希一起写进 metadata
-    provenance = generation_metadata(llm_meta=llm_meta)
+    # 产物自证：模型 / 端点 / 温度 / seed / 提交号，与内容哈希一起写进 metadata。
+    # `llm_meta` 先补一次"继承"（全缓存命中时 `model_served` 为 None，见函数说明）
+    provenance = generation_metadata(
+        llm_meta=_with_inherited_model_served(result_dir, llm_meta))
 
     # 分步中间产物（1_places.json … 8_events.json）不再写出：它们与 9_final_all.json 的
     # 对应字段逐字节一致，属纯重复（约 20 MB/次），而且 json_to_excel 已改为只读聚合文件。

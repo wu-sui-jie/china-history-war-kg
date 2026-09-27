@@ -1,29 +1,29 @@
 # 基线记录（自动生成，勿手改）
 
-- 冻结时间：2026-09-27 13:02:10.981351 +08:00（run_id `1443a98b6484`）
-- 代码提交：`dd7516c39545fa7dbf89da8c94f5d2d7f401f7c7`
+- 冻结时间：2026-09-27 13:11:24.174676 +08:00（run_id `eb8956fdb97b`）
+- 代码提交：`9c59e0e8c4b1472cfbef92a64b0bb957df4837bb`
 - 提示词版本（生成侧派生值）：`prompt-v2-20260420+1228b39b`
 - 抽取版本：`extraction-v2-20260420`
-- 说明：C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = split_annotation_set.py --dev 唐 秦汉（dev 221 事件 / test 明 75 事件），切分说明在 data/annotations/v2_split/split_manifest.json。**本记录在 2026-09-27 整本重跑之后重新冻结**，所以 artifact 指向的是重跑后的新产物（1313 事件）；参考集三份文件本身未变。
+- 说明：C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = --dev 唐 秦汉。本记录在 2026-09-27 的整本重跑与其后的缓存重放（追加两条后处理丢弃规则）之后冻结，artifact 指向最新产物（事件 1313 / 关系 16666）；参考集三份文件本身未变。
 
 ## 被评估的产物
 
 - 路径：`F:\python\python_space\china-war\entity-event-relation\output\中国历代战争简史\9_final_all.json`
 - 文件存在：True
-- 文件 sha256：`1e90474a7f093b0ad7ef3be147de01c8edcd0018135dbf3492c25f085a026a90`
-- 条数：事件 1313 / 地点 5527 / 人物 2562 / 组织 1021 / 关系 16670
+- 文件 sha256：`16a6879b21088690f96e57ce59938487ed1f0e843d86bb7e401d3904e988bc45`
+- 条数：事件 1313 / 地点 5527 / 人物 2562 / 组织 1021 / 关系 16666
 
 产物 metadata（产物自证，缺项即当时的产物没有记录这一项）：
 
 | 键 | 值 |
 | --- | --- |
-| `extracted_at` | `2026-09-27 11:36:55 +08:00` |
+| `extracted_at` | `2026-09-27 13:08:16 +08:00` |
 | `prompt_version` | `prompt-v2-20260420+1228b39b` |
 | `extraction_version` | `extraction-v2-20260420` |
 | `model` | `deepseek-flash` |
 | `api_base` | `https://api.deepseek.com/v1` |
-| `git_commit` | `0fa4035` |
-| `artifact_sha256` | `9056f8cb104635423b53dec3196e1f7bf9ecde97adbb45366d4add4aa105acb8` |
+| `git_commit` | `9c59e0e` |
+| `artifact_sha256` | `248020cd14cd240c2fb67312a80e3231da498eeede4abbcd682583f2c3c688c0` |
 | `text_length` | `306730` |
 
 ## 参考标注的来源（引用指标前必读）

@@ -1,12 +1,12 @@
 {
   "source": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
-  "source_sha256": "1e90474a7f093b0ad7ef3be147de01c8edcd0018135dbf3492c25f085a026a90",
+  "source_sha256": "16a6879b21088690f96e57ce59938487ed1f0e843d86bb7e401d3904e988bc45",
   "counts": {
     "events": 1313,
     "places": 5527,
     "persons": 2562,
     "organizations": 1021,
-    "relations": 16670
+    "relations": 16666
   },
   "dangling_relations": {
     "event-place": {
@@ -116,13 +116,13 @@
       }
     },
     "event_place_relations": {
-      "total": 5696,
+      "total": 5693,
       "outside_enum": {
         "同盟方": 2,
         "支援地": 1
       },
       "distribution": {
-        "主战场": 2199,
+        "主战场": 2196,
         "目的地": 927,
         "次要战场": 796,
         "途经地": 658,
@@ -154,13 +154,13 @@
       }
     },
     "event_person_relations": {
-      "total": 6322,
+      "total": 6321,
       "outside_enum": {
         "自杀": 2
       },
       "distribution": {
         "将领": 3628,
-        "参与者": 976,
+        "参与者": 975,
         "君主": 401,
         "统帅": 327,
         "阵亡": 242,
@@ -745,10 +745,10 @@
     "samples": []
   },
   "evidence_reuse": {
-    "total_relations": 16670,
-    "evidence_empty": 4,
+    "total_relations": 16666,
+    "evidence_empty": 0,
     "evidence_equals_event_source_text": 2161,
-    "reuse_ratio": 0.12963407318536294,
+    "reuse_ratio": 0.1296651866074643,
     "top_reused_events": [
       [
         "高加索南北诸国扫荡战",
@@ -904,5 +904,5 @@
     "EventType/交战": "`赤眉军击败景尚、王党之战`、`赤眉军全歼王匡、廉丹之战` 的 `EventType` 填了 `交战`：这两条的 `Action` 也都是「交战」，即模型把**动作值抄进了类型字段**。判定（2026-09-27）：不把 `交战` 加进枚举与 RAG 词典（它是动作词，不是事件类型）。实测发布子集里 0 条。",
     "event_organization_relations/指挥所": "LLM 把地点关系名写进了事件-组织关系：实测 1 条 `辽东半岛战役 —[指挥所]→ 征清大总督府`。组织不可能是「指挥所」，属模型误分类；**不把 `指挥所` 加进组织关系枚举**（那等于承认一个错的语义），它与另外三类一样留在 raw 产物、由 `split_publishable_outputs` 路由进候选区。重跑后若条数明显上涨，说明提示词对组织关系的约束在退化。"
   },
-  "note": "第三阶段整本重跑后的入库基线（2026-09-27，prompt-v2-20260420+1228b39b / deepseek-flash）。与上一份并排放的理由：上一份读的是 2026-08-18 那版产物（事件 1050），本份读的是重跑后那版（事件 1313）。旧→新的门禁对照（含两项目标的达成与三类问题的判读）记在 docs/第三阶段收尾执行单.md §3.05。"
+  "note": "第三阶段整本重跑后的入库基线（2026-09-27）。产物为**同一次抽取的缓存重放**：在其上追加了两条后处理丢弃规则（证据为空的关系、目标为占位词的关系，共 4 条），所以指纹与上一份不同、关系数从 16670 降到 16666。抽取内容本身未变（全部分段命中缓存、未调用模型）；model_served 由「产物继承」机制保留为 deepseek-flash 并注明来源。旧→新的门禁对照见 docs/第三阶段收尾执行单.md 的 3.05 / 3.06。"
 }

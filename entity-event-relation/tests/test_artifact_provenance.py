@@ -216,3 +216,34 @@ def test_评估metadata分开发评估的产物与评估器(tmp_path):
     assert metadata["evaluator"]["eval_config_sha256"] == file_sha256(config_path)
     # 标注文件指纹也在，便于"换成哪份 gold 了"可查
     assert metadata["evaluator"]["annotation_files"]
+
+
+def test_全缓存重放时继承上一版产物的model_served(tmp_path):
+    """
+    缓存重放是文档推荐的**免费路径**（规则类改动一律先干跑），但它一次模型调用都不发生
+    → `model_served` 是 `None`。直接写 None 就会把产物的"模型自证"抹掉一次，而这份产物是要
+    发布进知识库的（下游 `current_dataset.json` 也抄它的 metadata）。
+    所以：**没有调用时继承上一版记的值并注明来源；有调用时以本次为准。**
+    """
+    import json as _json
+
+    from main import _with_inherited_model_served
+
+    result_dir = tmp_path / "batch"
+    result_dir.mkdir()
+
+    assert _with_inherited_model_served(result_dir, {"model_served": None}) == {"model_served": None}, \
+        "没有上一版产物时保持 None（那是诚实的'未知'）"
+
+    (result_dir / "9_final_all.json").write_text(
+        _json.dumps({"metadata": {"model_served": "deepseek-flash"}}), encoding="utf-8")
+
+    inherited = _with_inherited_model_served(
+        result_dir, {"model": "deepseek-flash", "model_served": None})
+    assert inherited["model_served"] == "deepseek-flash", "全缓存命中时继承上一版"
+    assert inherited["model_served_inherited_from"].endswith("9_final_all.json"), \
+        "来源要写清楚，不能让它冒充成本次自证"
+
+    fresh = _with_inherited_model_served(result_dir, {"model_served": "另一个模型"})
+    assert fresh["model_served"] == "另一个模型" and "model_served_inherited_from" not in fresh, \
+        "本次有调用就不继承"
