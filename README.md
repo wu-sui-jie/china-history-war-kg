@@ -280,6 +280,24 @@ pnpm dev        # 或 npm run dev
 
 访问 **http://localhost:3001**（端口在 `vite.config.ts` 固定为 3001，不是 Vite 默认的 5173）。
 
+**5. 启动飞书机器人（可选，不占端口）**
+
+**不做这一步不影响上面四个服务** —— 它只是把 RAG 接到飞书里（走长连接，不需要公网回调、
+不需要域名）。要启用的话，前置条件是 RAG 服务已经在跑，且飞书开放平台已建好企业自建应用：
+
+```bash
+conda activate china-war-py311
+cd feishu-bot
+pip install -r requirements.txt     # 首次
+cp .env.example .env                # 首次：填 FEISHU_APP_ID / FEISHU_APP_SECRET
+python main.py                      # 长连接，不占端口
+```
+
+> 用 `python` 启动，**别用 Windows 的 `py` 启动器**——`py` 不走 conda 环境，会报
+> `ModuleNotFoundError: lark_oapi`。飞书侧的一次性配置（开通机器人能力、事件订阅选「长连接」、
+> 订阅 `im.message.receive_v1` 与 `card.action.trigger`）与三层验收清单见
+> [feishu-bot/README.md](feishu-bot/README.md)。
+
 ### 启动后自检
 
 ```bash
@@ -287,6 +305,10 @@ curl -s http://127.0.0.1:5000/api/graph/event_event | head -c 120   # 旧后端�
 curl -s http://127.0.0.1:8000/api/health | head -c 200              # RAG：应返回 status=ok
 curl -s http://127.0.0.1:3001/rag/ | grep assets                    # 代理：应看到 /rag/assets/... 前缀
 ```
+
+> 上面三条只覆盖**必启**的三个服务。飞书机器人是可选入口、不在这个自检范围内——
+> 它的验收分三层（本地自动化 / 飞书侧一次性配置 / 接上后的人工清单），见
+> [feishu-bot/README.md](feishu-bot/README.md)。
 
 更细的口径：旧后端 [backend/README.md](backend/README.md)、旧前端 [frontend/README.md](frontend/README.md)、
 RAG 启动与部署 [RAG/README.md](RAG/README.md) 与 [RAG/docs/deploy.md](RAG/docs/deploy.md)、
