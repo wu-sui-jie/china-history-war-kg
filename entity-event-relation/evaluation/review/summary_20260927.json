@@ -1,0 +1,235 @@
+{
+  "table_rows": 350,
+  "ok": 320,
+  "bad": 30,
+  "unknown": 0,
+  "judged": 350,
+  "precision": 0.9142857142857143,
+  "wilson_low": 0.8802742945089634,
+  "wilson_high": 0.9393014704660987,
+  "unknown_ratio": 0.0,
+  "error_types": {
+    "关系类型": 20,
+    "时间": 7,
+    "事件本身": 6,
+    "地点": 5,
+    "关系方向": 1,
+    "角色/组织": 1
+  },
+  "unknown_reasons": {},
+  "categories": [
+    {
+      "category": "关系",
+      "rows": 175,
+      "ok": 154,
+      "bad": 21,
+      "unknown": 0,
+      "precision": 0.88,
+      "wilson_low": 0.8235159564693718,
+      "wilson_high": 0.920158893230027,
+      "unknown_ratio": 0.0
+    },
+    {
+      "category": "实体",
+      "rows": 103,
+      "ok": 102,
+      "bad": 1,
+      "unknown": 0,
+      "precision": 0.9902912621359223,
+      "wilson_low": 0.9470405148534974,
+      "wilson_high": 0.9982841526917287,
+      "unknown_ratio": 0.0
+    },
+    {
+      "category": "事件",
+      "rows": 72,
+      "ok": 64,
+      "bad": 8,
+      "unknown": 0,
+      "precision": 0.8888888888888888,
+      "wilson_low": 0.795768557414096,
+      "wilson_high": 0.9426124893992622,
+      "unknown_ratio": 0.0
+    }
+  ],
+  "layers": [
+    {
+      "layer": "关系:事件-人物",
+      "rows": 58,
+      "ok": 54,
+      "bad": 4,
+      "unknown": 0,
+      "precision": 0.9310344827586207,
+      "wilson_low": 0.8356610516539494,
+      "wilson_high": 0.9728561924018316,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "关系:事件-地点",
+      "rows": 57,
+      "ok": 50,
+      "bad": 7,
+      "unknown": 0,
+      "precision": 0.8771929824561403,
+      "wilson_low": 0.7675331041107074,
+      "wilson_high": 0.939220169964925,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "实体:地点",
+      "rows": 57,
+      "ok": 57,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.936858991216536,
+      "wilson_high": 0.9999999999999999,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "关系:事件-组织",
+      "rows": 46,
+      "ok": 42,
+      "bad": 4,
+      "unknown": 0,
+      "precision": 0.9130434782608695,
+      "wilson_low": 0.796750643647758,
+      "wilson_high": 0.9656646881232924,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "实体:人物",
+      "rows": 33,
+      "ok": 32,
+      "bad": 1,
+      "unknown": 0,
+      "precision": 0.9696969696969697,
+      "wilson_low": 0.8468093832683193,
+      "wilson_high": 0.9946307279103482,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "关系:事件-事件",
+      "rows": 14,
+      "ok": 8,
+      "bad": 6,
+      "unknown": 0,
+      "precision": 0.5714285714285714,
+      "wilson_low": 0.3259026690286936,
+      "wilson_high": 0.7861949006959948,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "实体:组织",
+      "rows": 13,
+      "ok": 13,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.7718981569447083,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:东汉",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:其他朝代",
+      "rows": 8,
+      "ok": 5,
+      "bad": 3,
+      "unknown": 0,
+      "precision": 0.625,
+      "wilson_low": 0.30573785458380187,
+      "wilson_high": 0.863158240538479,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:南北朝",
+      "rows": 8,
+      "ok": 5,
+      "bad": 3,
+      "unknown": 0,
+      "precision": 0.625,
+      "wilson_low": 0.30573785458380187,
+      "wilson_high": 0.863158240538479,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:唐",
+      "rows": 8,
+      "ok": 6,
+      "bad": 2,
+      "unknown": 0,
+      "precision": 0.75,
+      "wilson_low": 0.40926987910258916,
+      "wilson_high": 0.9285223111419724,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:战国",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:明",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:春秋",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:清",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    },
+    {
+      "layer": "事件:西汉",
+      "rows": 8,
+      "ok": 8,
+      "bad": 0,
+      "unknown": 0,
+      "precision": 1.0,
+      "wilson_low": 0.6755843804891231,
+      "wilson_high": 1.0,
+      "unknown_ratio": 0.0
+    }
+  ],
+  "source": "evaluation\\review\\sample_20260927_with_source.csv",
+  "unrecognized_verdicts": 0
+}
