@@ -98,12 +98,14 @@ entity-event-relation/
 都是同一条流水线的中间产物，只有**事件数最多、且与库内数据一致**的那一批才是当前采用的数据：
 
 ```bash
-# 判断哪一批是当前采用的：事件数与 SQLite 一致（当前 1050）
+# 判断哪一批是当前采用的：事件数与 SQLite 一致
+# （2026-09-27 重跑后产物是 1313 事件；**库里的数据要等发布（批四）之后才会变成 1313**，
+#   在那之前"与库一致"这个判据指向的还是旧数 1050——所以别只按数字挑批次，看目录）
 python -c "import json;d=json.load(open('output/中国历代战争简史/9_final_all.json',encoding='utf-8'));print(len(d['events']['events']))"
 ```
 
 2026-09-21 整理时，已删除 10 个被取代的批次（5 个中间迭代 + 5 个小样本文本冒烟批次，共约 39 MB），
-只保留当前批次 `output/中国历代战争简史/`。判断依据是事件数：被删批次为 861–932 条（少于当前的 1050），
+只保留当前批次 `output/中国历代战争简史/`。判断依据是事件数：被删批次为 861–932 条（少于当时那一批的 1050），
 或跑在 8.8 KB 的 `中国历代战争简史_测试数据.txt` 上。
 
 `cache/` 同理：缓存键包含 `prompt_version`（`war_extraction/config.py` 的 `PROMPT_VERSION`），
@@ -424,7 +426,8 @@ delta-debugging 缩到 2 条关系），文件头的 `_note` 记了来源与缩�
    输出 `comparable/correct/accuracy/coverage`。
 7. **综合结果**：输出实体 F1、事件 F1、关系 F1 与三者的**宏观平均 F1**。
    `--also-published` 会对发布子集再跑一遍并给出 `summary_published`——两份粒度不同
-   （1050 vs 881 事件），指标**不可混用**，所以各自带上文件哈希分开报。
+   （2026-09-27 重跑后是 1313 vs 998 事件；此前是 1050 vs 881），指标**不可混用**，
+   所以各自带上文件哈希分开报。
 
 阈值都在 `config/eval_config.json` 里，改阈值不需要动代码；"换阈值指标会动多少"用
 `python tools/threshold_sensitivity.py` 扫（一次一因子，默认约 8 分钟，输出 markdown 表，

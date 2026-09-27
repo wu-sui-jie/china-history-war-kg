@@ -1,9 +1,9 @@
 {
-  "frozen_at": "2026-09-27 08:44:15.293685 +08:00",
-  "frozen_at_epoch": 1790469855.293685,
-  "run_id": "88802c65cdb3",
-  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。四条口子的判定结果见 data/annotations/README.md §5.4。dev/test 切分由 split_annotation_set.py --dev 唐 秦汉 派生（dev = 唐+秦汉 221 事件/1941 实体/1864 关系；test = 明 75/659/477），切分说明随切分写在 data/annotations/v2_split/split_manifest.json。产物仍是 2026-08-18 那份旧产物，main.py 未重跑，本记录里没有可用的指标。",
-  "git_commit": "6ca69adc79475b135e004927cb2e3bbb04f8a554",
+  "frozen_at": "2026-09-27 13:02:10.981351 +08:00",
+  "frozen_at_epoch": 1790485330.981351,
+  "run_id": "1443a98b6484",
+  "note": "C 组参考集重建：v2 成稿（三个子集逐条核验的合并，经仲裁落地、人工判定补录与去重，带原文证据坐标）。dev/test 切分 = split_annotation_set.py --dev 唐 秦汉（dev 221 事件 / test 明 75 事件），切分说明在 data/annotations/v2_split/split_manifest.json。**本记录在 2026-09-27 整本重跑之后重新冻结**，所以 artifact 指向的是重跑后的新产物（1313 事件）；参考集三份文件本身未变。",
+  "git_commit": "dd7516c39545fa7dbf89da8c94f5d2d7f401f7c7",
   "module_versions": {
     "prompt_version": "prompt-v2-20260420+1228b39b",
     "extraction_version": "extraction-v2-20260420"
@@ -11,20 +11,41 @@
   "artifact": {
     "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
     "exists": true,
-    "sha256": "885b0d9ec340a50b151a42ba16a1b883cf2a7fff5147bac49259cbd9fcc4e559",
+    "sha256": "1e90474a7f093b0ad7ef3be147de01c8edcd0018135dbf3492c25f085a026a90",
     "counts": {
-      "events": 1050,
-      "places": 5316,
-      "persons": 2492,
-      "organizations": 1067,
-      "relations": 18146
+      "events": 1313,
+      "places": 5527,
+      "persons": 2562,
+      "organizations": 1021,
+      "relations": 16670
     },
     "metadata": {
-      "extracted_at": "2026-08-18 03:37:13 +08:00",
+      "extracted_at": "2026-09-27 11:36:55 +08:00",
       "extraction_version": "extraction-v2-20260420",
-      "prompt_version": "prompt-v2-20260420",
+      "prompt_version": "prompt-v2-20260420+1228b39b",
       "input_file": "data\\中国历代战争简史.txt",
-      "text_length": 306730
+      "text_length": 306730,
+      "text_cleaning": {
+        "input_length": 306730,
+        "invisible_chars_removed": 0,
+        "soft_line_breaks_merged": 9136,
+        "ocr_fixes_applied": 0,
+        "output_length": 297594,
+        "enabled": true
+      },
+      "model": "deepseek-flash",
+      "model_served": "deepseek-flash",
+      "thinking_mode": "disabled",
+      "api_base": "https://api.deepseek.com/v1",
+      "temperature": {
+        "entity_extraction": 0.1,
+        "event_identification": 0.2,
+        "full_event": 0.1,
+        "relation_extraction": 0.1
+      },
+      "seed": null,
+      "git_commit": "0fa4035",
+      "artifact_sha256": "9056f8cb104635423b53dec3196e1f7bf9ecde97adbb45366d4add4aa105acb8"
     }
   },
   "annotations": {
