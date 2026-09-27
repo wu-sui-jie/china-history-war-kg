@@ -45,7 +45,7 @@
 | --- | --- | --- |
 | 活跃数据版本 | `RAG_ACTIVE_VERSION`（未配置时按目录扫描最新一致版本） | 生产要求显式固定；`version_selection` 在 health 中区分 `cli_explicit` / `env_pinned` / `latest_scan` |
 | 默认启动命令 | `cd RAG && python scripts/run_server.py --port 8000 --version <版本>` | `--version` 写入 `RAG_ACTIVE_VERSION` 并声明来源为 `cli_explicit` |
-| 数据集 | 9925 实体 / 17700 关系 / 9544 向量条 | 以 `data/snapshot/20260915_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
+| 数据集 | 10423 实体 / 16492 关系 / 8004 向量条 | 以 `data/snapshot/20260927_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
 | 运行环境 | **Python 3.11**（全项目四个模块统一；本地 conda 环境 `china-war-py311`，锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本。CI 的 RAG job 用 3.11，旧后端与抽取链 job 仍是 3.8/3.11 双跑（过渡档） |
 | 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`（SSE）、`POST /api/query/json`（非流式）、`GET /` | 契约见 [data-contract.md](data-contract.md)；非流式响应见 `contracts/query_json.py` |
 | 接口身份校验 | `RAG_AUTH_MODE`（`jwt` / `nginx` / `disabled`，默认 `disabled`）+ `RAG_JWT_SECRET`（与 backend/.env 的 `JWT_SECRET` 同值）+ `RAG_JWT_ISSUER` / `RAG_JWT_AUDIENCE` | `jwt` 档两条问答通道都要求请求头 `Token`（也接受 `Authorization: Bearer`）为旧后端签发的有效 JWT，验不过 401。`server/auth.py` 只认 HS256、强制校验 `exp`、**并校验 `iss` / `aud`**（挡"同一把密钥的别的服务签的 token"）、签名用 `hmac.compare_digest`；用标准库实现是为了不引入未审计的依赖（RAG 用带哈希锁文件安装）。非流式接口另接受 `X-Bot-Key`——飞书机器人没有用户身份，要求 JWT 会把这条调用方堵死。启动门禁：`jwt` 档不给密钥**拒绝启动**；**显式生产档**（`RAG_REQUIRE_ACTIVE_VERSION=true`）下 `disabled` 也拒绝启动；`nginx` 档若监听非回环地址由 `scripts/run_server.py` 拒绝。旧开关 `RAG_REQUIRE_AUTH` 仍被接受（`true` ≡ `jwt`）。`/api/health` 的 `auth.mode` 直接给出当前档位。**生产模板默认 `jwt`**（`deploy/env/rag.env`），并以 `deploy/scripts/check_rag_auth.sh` 在安装期校验两侧密钥同值 |
@@ -67,7 +67,7 @@
 | 静态检查（RAG） | `python -m ruff check server config contracts lib data scripts evaluation tests` | All checks passed（ruff 版本在 CI 与本地都钉死 `0.16.8`，避免升级后判定变化导致门禁口径漂移） |
 | 制品清单 | `python scripts/build_artifact_manifest.py verify` | 通过（37/37 文件；Chroma 元数据库按逻辑哈希校验） |
 | 标准校验和（**标准工具**） | `sha256sum -c data/release/SHA256SUMS` | 通过（38 项全部 OK；证据文件写入固定 LF，跨平台字节一致） |
-| Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260915_v1` | 四方计数一致（ids/embeddings/collection/manifest 均 9544），退出码 0 |
+| Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260927_v1` | 四方计数一致（ids/embeddings/collection/manifest 均 8004），退出码 0 |
 | 数据血缘 | `python scripts/build_lineage.py --check` | 通过（2026-09-17 demo 链重建后 run → demo → runtime 全部一致） |
 | 依赖锁 | `python scripts/lock_hashes.py --check` + `pip install --dry-run --require-hashes -r requirements-dev.lock` | **逐条**需求带 `--hash`；dry-run 通过；抽样（chromadb/numpy/openai）实际下载校验哈希一致；锁内不含 `--index-url`（镜像由本机/CI 各自指定） |
 
