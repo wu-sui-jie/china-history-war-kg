@@ -2,11 +2,16 @@
 
 > 本文件是**当前**运行事实的唯一入口：版本、测试数、demo 状态、依赖锁定状态、发布状态。
 > 其他文档（README、部署手册、阶段总结、整改记录）只做引用，不再各自维护这些数字。
-> 最近更新：2026-09-27（**活跃数据版本切到 `20260927_v1`**：第三阶段整本重跑后的快照与索引
-> 成为运行时版本（快照 `data/snapshot/20260927_v1`、索引 `data/index/20260927_v1`，索引 8004 片段，
-> 快照计数实体 10423 / 事件 1313 / 关系 16492；历史版本 `20260915_v1`、`20260904_v2` 保留可回退）。
-> **发布侧制品尚未随新版本重建**：制品清单、`SHA256SUMS`、SBOM、规则推理产物与 F08 演示清单
-> 都还停在 `20260915_v1`（详见第三、四、五节）。
+> 最近更新：2026-09-27（**活跃数据版本切到 `20260927_v3`**，同时**修正下游导入口径**：知识库导的是
+> **发布子集** `published/final.json`（口径 = "全书的数据、只留合格的记录"）。导入器的默认源此前是全量
+> `9_final_all.json`，与 `main.py`/`publish_rules.py` 里"`published` 是下游输入"的契约相反，导致发布门槛
+> 的改动对入库不生效且不报错——已修，并按新口径重导 SQLite、重同步 Neo4j、重建快照与索引。
+> 运行时版本：快照 `data/snapshot/20260927_v3`、索引 `data/index/20260927_v3`
+> （6636 片段 = 原文 934 / 事件卡 1053 / 证据 4655）。快照计数：实体 9184 / 事件 999 / 关系 12648；
+> 历史版本 `20260927_v2`、`20260927_v1`、`20260915_v1`、`20260904_v2` 保留可回退）。
+> 随 `20260927_v3` 重建并校验通过的发布制品：制品清单（40 个文件）、`SHA256SUMS`、SBOM（307 包）、
+> 数据血缘（`--check` 一致性 True）、规则推理产物、F08 演示清单（12 条，接口返回 200）。
+> 仍停在旧版本的只剩 `evaluation/baseline/baseline_results.json`（见第五节）。
 > 更早：2026-09-25（**凭证撤销查询**：验签只能证明"这张 token 是旧后端签的"，
 > 证明不了"它还该被承认"——账号被停用或改密码之后，旧后端已经拒绝该凭证，而本服务此前会
 > 一直放行到 token 自然过期（默认 7 天）。现在配上 `RAG_INTROSPECT_URL` +
@@ -50,7 +55,7 @@
 | --- | --- | --- |
 | 活跃数据版本 | `RAG_ACTIVE_VERSION`（未配置时按目录扫描最新一致版本） | 生产要求显式固定；`version_selection` 在 health 中区分 `cli_explicit` / `env_pinned` / `latest_scan` |
 | 默认启动命令 | `cd RAG && python scripts/run_server.py --port 8000 --version <版本>` | `--version` 写入 `RAG_ACTIVE_VERSION` 并声明来源为 `cli_explicit` |
-| 数据集 | 10423 实体 / 16492 关系 / 8004 向量条 | 以 `data/snapshot/20260927_v1/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准 |
+| 数据集 | 9184 实体 / 12648 关系 / 6636 向量条（事件 999） | 以 `data/snapshot/20260927_v3/manifest.json` 的 `counts` 与 `/api/health` 的 `meta` 为准。口径是**发布子集**（要素齐全、结果可信、枚举合法），**不是全量**——全量是 1313 事件 / 16500 关系 |
 | 运行环境 | **Python 3.11**（全项目四个模块统一；本地 conda 环境 `china-war-py311`，锁文件按 3.11 生成） | Chroma 依赖树要求 ≥3.10；3.9 仅保留"语法下限"检查（`syntax-floor` job），不再声明为受支持运行版本。CI 的 RAG job 用 3.11，旧后端与抽取链 job 仍是 3.8/3.11 双跑（过渡档） |
 | 对外接口 | `GET /api/health`、`GET /api/dicts`、`GET /api/demo/examples`、`POST /api/query`（SSE）、`POST /api/query/json`（非流式）、`GET /` | 契约见 [data-contract.md](data-contract.md)；非流式响应见 `contracts/query_json.py` |
 | 接口身份校验 | `RAG_AUTH_MODE`（`jwt` / `nginx` / `disabled`，默认 `disabled`）+ `RAG_JWT_SECRET`（与 backend/.env 的 `JWT_SECRET` 同值）+ `RAG_JWT_ISSUER` / `RAG_JWT_AUDIENCE` | `jwt` 档两条问答通道都要求请求头 `Token`（也接受 `Authorization: Bearer`）为旧后端签发的有效 JWT，验不过 401。`server/auth.py` 只认 HS256、强制校验 `exp`、**并校验 `iss` / `aud`**（挡"同一把密钥的别的服务签的 token"）、签名用 `hmac.compare_digest`；用标准库实现是为了不引入未审计的依赖（RAG 用带哈希锁文件安装）。非流式接口另接受 `X-Bot-Key`——飞书机器人没有用户身份，要求 JWT 会把这条调用方堵死。启动门禁：`jwt` 档不给密钥**拒绝启动**；**显式生产档**（`RAG_REQUIRE_ACTIVE_VERSION=true`）下 `disabled` 也拒绝启动；`nginx` 档若监听非回环地址由 `scripts/run_server.py` 拒绝。旧开关 `RAG_REQUIRE_AUTH` 仍被接受（`true` ≡ `jwt`）。`/api/health` 的 `auth.mode` 直接给出当前档位。**生产模板默认 `jwt`**（`deploy/env/rag.env`），并以 `deploy/scripts/check_rag_auth.sh` 在安装期校验两侧密钥同值 |
@@ -70,9 +75,9 @@
 | 文档与配置一致性 | `python scripts/check_docs.py --strict` | 通过（相对链接、current 口径、`.env.example`、**数据计数与清单一致**） |
 | 密钥扫描 | `python scripts/check_secrets.py`（**扫全仓库**，CI 由 `secret-scan` job 执行 `--root .`） | 未发现明文密钥。范围必须覆盖仓库的每个角落——只扫 `RAG/` 或只 grep `backend`、`entity-event-relation` 时，`deploy/`、`feishu-bot/`、工作流与根级脚本全在门禁之外。占位符样本不误报 |
 | 静态检查（RAG） | `python -m ruff check server config contracts lib data scripts evaluation tests` | All checks passed（ruff 版本在 CI 与本地都钉死 `0.16.8`，避免升级后判定变化导致门禁口径漂移） |
-| 制品清单 | `python scripts/build_artifact_manifest.py verify` | **当前实跑失败**（退出码 1）：只校验 35/37 个文件、清单版本记为 `20260915_v1`、21 处不一致（如 `frontend/dist/assets/index-DwY7GiYy.js` 缺失、`requirements.lock` / `requirements-dev.lock` 大小变化、`data/snapshot/20260915_v1/inferred_relations.json` 未登记）。**发布清单尚未随 `20260927_v1` 重建** |
-| 标准校验和（**标准工具**） | `sha256sum -c data/release/SHA256SUMS` | **当前实跑失败**（退出码 1）：23 项 OK / 13 项 FAILED / 2 项读不到。**校验和尚未随 `20260927_v1` 重建**，仍对应 `20260915_v1` 的制品 |
-| Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260927_v1` | 四方计数一致（ids/embeddings/collection/manifest 均 8004），退出码 0 |
+| 制品清单 | `python scripts/build_artifact_manifest.py build --version <版本>` 生成 / `verify` 校验 | **通过**：35/35 个文件一致（版本 `20260927_v3`）。清单同时记录 `git_commit` 与 `git_dirty`——**脏工作区生成的清单不能当发布证据**，改完代码要先提交、再重新生成一次。注：`git_commit` 字段此前恒为空（`git_commit()` 自己拼 `RAG/.git`，而 RAG 是子目录），2026-09-27 修为向上查找 |
+| 标准校验和（**标准工具**） | `sha256sum -c data/release/SHA256SUMS` | **通过**：36 个文件物理校验全部一致（与 `build_artifact_manifest.py verify-sums` 等价） |
+| Chroma 段审计 | `python scripts/audit_chroma_segments.py --version 20260927_v3` | 四方计数一致（ids/embeddings/collection/manifest 均 6636），退出码 0 |
 | 数据血缘 | `python scripts/build_lineage.py --check` | 通过（2026-09-17 demo 链重建后 run → demo → runtime 全部一致） |
 | 依赖锁 | `python scripts/lock_hashes.py --check` + `pip install --dry-run --require-hashes -r requirements-dev.lock` | **逐条**需求带 `--hash`；dry-run 通过；抽样（chromadb/numpy/openai）实际下载校验哈希一致；锁内不含 `--index-url`（镜像由本机/CI 各自指定） |
 
@@ -80,12 +85,12 @@
 
 | 制品 | 状态 |
 | --- | --- |
-| `data/release/artifact-manifest.json` + `SHA256SUMS` + `LOGICAL_HASHES.json` | ✅ 已生成（物理哈希与逻辑哈希分离；行尾固定 LF）——**版本 `20260915_v1`，未随 `20260927_v1` 重建**，当前 `verify` 与 `sha256sum -c` 都会失败（见第二节） |
+| `data/release/artifact-manifest.json` + `SHA256SUMS` + `LOGICAL_HASHES.json` | ✅ **已随 `20260927_v3` 重建**（物理哈希与逻辑哈希分离；行尾固定 LF）——35 个文件，`verify` 与 `sha256sum -c` 均通过（见第二节）。注意 `git_dirty` 字段：代码提交后需再生成一次 |
 | `data/release/lineage.json` | ✅ 已生成（source → snapshot → index → eval → demo → release 全链路哈希 + demo 父 run 解析 + 跨层一致性 `checks`，含 index_version 与 measurement_mode 判定） |
-| `data/release/chroma-segment-audit.json` | ✅ 已生成（**版本 `20260915_v1`，未随 `20260927_v1` 重建**；对新版本的审计已实跑通过，见第二节）——结论：1 个 collection、2 个 segment（VECTOR + METADATA）、无孤儿目录 |
+| `data/release/chroma-segment-audit.json` | ✅ 已生成（**已对 `20260927_v3` 实跑通过**，见第二节）——结论：1 个 collection、2 个 segment（VECTOR + METADATA）、无孤儿目录，四方计数 6636 一致 |
 | `data/release/sbom.json` | ✅ 已生成（SPDX 2.3，Python + Node 共 306 个包，命名空间可重现，`gen_sbom.py validate` 通过） |
 | 前端 `dist` | ✅ 已构建，**当前为并入模式产物**（`npm run build:integration`，base=/rag/、接口前缀=/rag/api，供旧系统 3001 → `/rag` 反代）；独立部署与 release 包需用 `npm run build` 覆盖，两者共用同一目录、互相覆盖（口径见旧知识库系统 `docs/集成与入口约定.md` 第三节） |
-| 规则推理产物 | 推理产物**只对 `20260915_v1` 生成过**：**11,833 条推理边**（反向 11,559 + 因果链 3 + 顺承链 271 + 战争阶段 0），`inferred_relations.json` 6.9 MB + `inference_report.json`；`war_020`（3 步包含链）在当前数据无命中，报告已注明；重复构建字节一致（SHA256 `8ad76f0e71f1e15c…`）。**活跃快照 `20260927_v1` 下尚无 `inferred_relations.json`** |
+| 规则推理产物 | ✅ **已对 `20260927_v3` 生成**（2026-09-27）：`inferred_relations.json` + `inference_report.json` 落在该快照目录内（sha256 `15926ceb407574f6…`）；`war_015`（顺承链）与 `war_020`（3 步包含链）在当前数据无命中，报告已注明。历史：产物此前只对 `20260915_v1` 生成过（11,833 条推理边），`20260927_v1` 换代时漏跑 |
 | Python 锁文件 | ✅ `requirements.lock`（94 需求）/ `requirements-dev.lock`（100 需求；含为修 CI 补的 `uvloop==0.22.1`）：版本与开发环境实测一致，**每条需求均带 `--hash`**，不含 `--index-url` |
 | `frontend/package-lock.json` | ✅ 已存在（npm 侧可 `npm ci`） |
 | release 包 | ✅ 组装脚本就绪（`scripts/build_release_bundle.py`：源码 + 数据 + dist + 证据 + SBOM + 依赖声明）；smoke 报告缺失/失败时硬拒绝；**本机未在干净 commit 上执行完整发布** |
@@ -99,10 +104,10 @@
 12 条，首正文时延 2.4s~6.3s（阈值 9000 ms）。
 
 **但这份清单没有跟随新的运行时版本**：接口按运行时版本读 `data/eval/<版本>/demo_examples.json`
-（`server/api.py`），当前运行时版本是 `20260927_v1`，而 `data/eval/` 下只有 `20260904_v2`、
+（`server/api.py`），当前运行时版本是 `20260927_v3`，而 `data/eval/` 下只有 `20260904_v2`、
 `20260915_v1`，所以 `/api/demo/examples` 实际返回 **503**（`demo_ready=false`，`demo_error` 说明原因）。
-修法：按下面的流程为新版本重建一次（把命令里的版本号换成 `20260927_v1`），
-生成 `data/eval/20260927_v1/demo_examples.json`。
+修法：按下面的流程为新版本重建一次（把命令里的版本号换成 `20260927_v3`），
+生成 `data/eval/20260927_v3/demo_examples.json`。
 
 评分环节由 AI 代理完成（correct 23 / partial 2 / incorrect 3，reviewer 字段标注
 "未人工复核"）；正式交付前应人工复核评分（见第五节）。
@@ -112,18 +117,18 @@
 
 ```bash
 # 1) 真实模型评测（必须加 --llm，否则默认强制离线回答器）
-python scripts/run_evaluation.py run --bank data/eval/20260927_v1/questions.jsonl --suites main --llm
+python scripts/run_evaluation.py run --bank data/eval/20260927_v3/questions.jsonl --suites main --llm
 # 2) 评分：将 scoring_template.jsonl 填分为 scores.jsonl（人工或 AI 代理，标注 reviewer）
 # 3) 用该 run 重建 demo（--measure 会实测首字时延）
-python scripts/gen_demo_examples.py --version 20260927_v1 --run <真实模型 run> --measure
+python scripts/gen_demo_examples.py --version 20260927_v3 --run <真实模型 run> --measure
 # 4) 重新生成血缘并确认一致性（demo 父 run 必须是 latest_run）
-python scripts/build_lineage.py --version 20260927_v1 && python scripts/build_lineage.py --version 20260927_v1 --check
+python scripts/build_lineage.py --version 20260927_v3 && python scripts/build_lineage.py --version 20260927_v3 --check
 ```
 
 ## 五、未闭环事项（诚实清单）
 
 1. ~~**真实模型 demo 制品**~~：✅ 已闭环（2026-09-17 重建，见第四节；版本 `20260915_v1`）。
-   对新数据版本 `20260927_v1` 的重建见本节第 9 条。遗留其中的人工
+   对新数据版本 `20260927_v3` 的重建见本节第 9 条。遗留其中的人工
    复核部分：评分由 AI 代理完成，正式交付前应人工复核 28 条评分。
 2. **GitHub Actions 绿色流水线**：✅ 已达成（2026-09-17，run 35214127469 及合并 PR #1
    后的 main 分支 CI 全绿）；release workflow 仍待手动触发演练（需数据制品）。
@@ -140,20 +145,24 @@ python scripts/build_lineage.py --version 20260927_v1 && python scripts/build_li
    RAG 只校验来源与形状，不做验签。同源之下懂控制台的账号可以改 uid 去读别人的会话——
    本方案解决的是"串记录"。要防冒充需走方案 B（主应用传 JWT + RAG 服务端验签），
    触发时机是公网部署（见项目级 `docs/项目审查与修复历史.md`）。
-7. **发布制品未随新数据版本重建**：制品清单 / `SHA256SUMS` / SBOM / 血缘等仍停在
-   `20260915_v1`——`python scripts/build_artifact_manifest.py verify` 与
-   `sha256sum -c data/release/SHA256SUMS` 当前实跑失败（35/37 文件、21 处不一致；
-   23 OK / 13 FAILED / 2 读不到）。发布前需对 `20260927_v1` 重建整条证据链
-   （见第三节与 [deploy.md](deploy.md) 第九节）。
-8. **规则推理产物未对新快照重建**：11,833 条推理边只对 `20260915_v1` 生成过，
-   `20260927_v1` 快照下尚无 `inferred_relations.json`——F03 的"规则推理"检索通道在新版本上
-   少一条。需对 `20260927_v1` 重跑 `scripts/build_inferred_relations.py`。
-9. **F08 演示清单未对新版本重建**：清单仍是 `20260915_v1`（`n=12`），接口按运行时版本
-   `20260927_v1` 取清单、`data/eval/20260927_v1/` 不存在，`/api/demo/examples` 返回 503
-   （重建流程见第四节）。
+7. **发布制品未全部随新数据版本重建**：制品清单（35 个文件）与 `SHA256SUMS`
+   **已随 `20260927_v3` 重建并通过校验**（`build_artifact_manifest.py verify` 与
+   `sha256sum -c` 都退出码 0）；**SBOM 与数据血缘也已重建**（`gen_sbom validate` 通过、
+   `build_lineage.py --check` 一致性 True）。另：清单记录的 `git_dirty` 在代码提交前
+   为 `true`——**提交后要重新生成一次**，脏工作区生成的清单不能当发布证据。
+8. ~~**规则推理产物未对新快照重建**~~：✅ **已闭环（2026-09-27）**。对 `20260927_v3` 重跑了
+   `scripts/build_inferred_relations.py`，`inferred_relations.json` + `inference_report.json`
+   已落在该快照目录内（命中见推理报告：`将领` 2959 / `发起方` 1128 / `防守方` 1102 等）。
+   注：**`20260927_v1` 当时漏跑过这一步**——换代时少跑一道生成，症状是"规则推理"检索通道
+   静默少一条，值得记进换代流程。
+9. ~~**F08 演示清单未对新版本重建**~~：✅ **已闭环（2026-09-27）**——题库继承到
+   `data/eval/20260927_v3/`（内容与上一版逐字节一致，哈希同为 `574ea394…`）→ 真实模型评测 56 条
+   → 28 条评分（AI 代理：15 correct / 8 partial / 1 incorrect / 4 unknown）→
+   `gen_demo_examples --measure` 选出 **12 条**（首正文时延 2617~8018 ms，阈值 9000）→
+   血缘 `run → demo → runtime` 一致。接口现在返回 **200**，示例题可正常展示。
 
-Chroma 段审计（`python scripts/audit_chroma_segments.py --version 20260927_v1`，四方计数
-8004 一致、退出码 0）与 `python scripts/check_docs.py --strict` **均已对新版本通过**——
+Chroma 段审计（`python scripts/audit_chroma_segments.py --version 20260927_v3`，四方计数
+6636 一致、退出码 0）与 `python scripts/check_docs.py --strict` **均已对新版本通过**——
 列此仅作对照，**不是待办**。
 
 ## 六、历史记录入口

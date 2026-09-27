@@ -38,12 +38,34 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{APP_PATH / 'database'}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
+#: 知识库的默认导入源：**发布子集** `published/final.json`。
+#
+# **口径（2026-09-27 确认）**：知识库要"全书的数据、但只留合格的记录"。产物按**质量**
+# 分三份，三份都是**同一本书**（不是按朝代分）：
+#   - `9_final_all.json`      全量 1313 事件 / 16500 关系
+#   - `published/final.json`  要素齐全、结果可信、枚举合法 → 999 行 / 12685 关系
+#   - `candidate/final.json`  被挡下的：过宽概括（如"清缅战争"这类概括名，不是具体战役）、
+#                             枚举外取值、要素不全 → 314 / 3815
+# 下游（SQLite → Neo4j / RAG）取 `published`。它内部按引用链自洽——关系两端都在它自己的
+# 实体表里（实测 0 个对不上），所以取 published 不会丢关系；地点在 published 里保留
+# **全量**（用 `referenced_by_published_event` 区分主数据与候选地点），否则地图页会断链。
+#
+# **这个默认值曾经是全量**——与 `entity-event-relation/main.py`、
+# `war_extraction/utils/publish_rules.py` 里"`published` 是下游 SQLite/Neo4j/RAG 的输入"
+# 的契约**正相反**，于是那套发布门槛的改动对知识库**不生效**（改了门槛、库里没变），
+# 而这一点不报错。2026-09-27 修正为 published。要导全量（如排查用）显式传
+# `--source .../9_final_all.json`。
+#
+# 仍有两个硬编码，换语料或换批次时必须改：
+#   1. 批次名 `中国历代战争简史` 写死在路径里；
+#   2. 固定取批次目录下的 `published/final.json`（由产物侧 `split_publishable_outputs` 生成）。
 DEFAULT_FINAL_JSON = (
     APP_PATH.parent
     / "entity-event-relation"
     / "output"
     / "中国历代战争简史"
-    / "9_final_all.json"
+    / "published"
+    / "final.json"
 )
 CURRENT_DATASET_META = APP_PATH / "data" / "current_dataset.json"
 LEGACY_PROCESSED_DIR = APP_PATH / "data" / "processed"
@@ -648,7 +670,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--source",
         default=str(DEFAULT_FINAL_JSON),
-        help="抽取结果文件路径，默认使用完整 9_final_all.json，也支持 published/final.json 或旧版 processed 目录",
+        help="抽取结果文件路径。默认取**发布子集** published/final.json（下游口径）；"
+             "要导全量传 .../9_final_all.json（如排查用），或旧版 processed 目录",
     )
     parser.add_argument(
         "--yes",

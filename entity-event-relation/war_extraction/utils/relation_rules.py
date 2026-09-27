@@ -25,6 +25,7 @@ __all__ = [
     "STRONG_CAUSAL_KEYWORDS",
     "PARALLEL_KEYWORDS",
     "DIRECTIONAL_RELATION_TYPES",
+    "DEDUPE_BY_SYMMETRIC_PAIR",
     "TYPE_PRIORITY",
     "arbitrate_event_event_relation",
     "evidence_order",
@@ -45,6 +46,18 @@ PARALLEL_KEYWORDS = ("同时", "并", "并且", "同年", "相继", "并发")
 
 #: 带方向的关系类型：这两类的 A→B 语义不对称，"顺序"本身是信息。
 DIRECTIONAL_RELATION_TYPES = frozenset({"顺承关系", "因果关系"})
+
+#: 非方向类型里"**同一对事件的同一类型只应有一条**"的取值：按**对称对**去重，取证据最长的。
+#:
+#: 为什么把包含/条件从"其余"里拿出来：它们原先与枚举外类型同组，去重键里带证据——
+#: 于是同一对事件被抽到两次时（证据分别是各自文本分段里的原文，**短的那条常常是长的
+#: 那条的前缀**）会留下两条同向同类型的边。实测 published 里有 11 组这样的重复，
+#: 全是包含关系；导入后表现为"库内 11 组冗余行 + 图比库少 11 条边"（图按同两端同类型合并）。
+#: 并列关系一直就是这个口径（无向、按对称对去重）。
+#:
+#: 枚举外的类型仍走「对称对 + 证据」——它们的证据差异**可能代表两条不同的关系**，
+#: 在类型被人判定之前不该擅自合并。
+DEDUPE_BY_SYMMETRIC_PAIR = frozenset({"并列关系", "包含关系", "条件关系"})
 
 #: 同一对事件出现多种类型时的取舍优先级：因果的信息量最大，顺承次之，并列最弱。
 TYPE_PRIORITY = {"因果关系": 3, "顺承关系": 2, "并列关系": 1}
@@ -272,10 +285,11 @@ def reduce_event_event_relations(
             reduced.extend(by_direction.values())
             continue
 
-        # 非方向类型：并列按对称对去重，其余按（对称对 + 证据）去重
+        # 非方向类型：并列 / 包含 / 条件按**对称对**去重（同一对事件的同一类型只留一条，
+        # 取证据最长的）；其余（含枚举外类型）按（对称对 + 证据）去重
         by_key = {}
         for rel in others:
-            if rel.relation == "并列关系":
+            if rel.relation in DEDUPE_BY_SYMMETRIC_PAIR:
                 key = (rel.relation,)
             else:
                 key = (rel.relation, rel.evidence or "")

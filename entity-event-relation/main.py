@@ -374,8 +374,13 @@ def _is_high_confidence_event_event_relation(rel, normalizer) -> bool:
     **原先这里只认三类**：`return relation == "并列关系"` 是兜底，于是五个规范类型里
     `包含关系` 与 `条件关系` **永远返回 False**。实测同一份产物：raw 有 `包含关系` 28 条
     + `条件关系` 1 条，而 `published/final.json` 里 **0 条**。`published` 是下游
-    SQLite / Neo4j / RAG 的输入，所以这两类关系**在知识库里根本不存在**——不是"少"，
-    是"没有"；而这两种类型在权威表、前端下拉、RAG 字段映射里都已经是支持的取值。
+    SQLite / Neo4j / RAG 的输入（**口径已确认，2026-09-27**），所以这两类关系在知识库里
+    就是不存在——不是"少"，是"没有"；而这两种类型在权威表、前端下拉、RAG 字段映射里
+    都已经是支持的取值。
+    **补一段曾经的坑**：导入器 `backend/import_json_to_sqlite.py` 的默认源一度是全量
+    `9_final_all.json`，与这句契约相反——于是本函数的改动**改了门槛、库里没变**，且不报错。
+    2026-09-27 默认源已修正为 `published/final.json`。读到"改这里不生效"的旧结论时，
+    先确认导入源是 published 还是全量。
 
     现在按"**有没有可判别的证据**"分档，兜底不再拿类型当挡箭牌：
 
@@ -799,6 +804,14 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
             return True
         return normalizer.normalize_event_name(name) in valid_event_keys
 
+    #: 归一键（`normalize_event_name`）→ 事件表里的**实际写法**，供最后的"关系头对账"用
+    #: （`_align_event_name`）。`setdefault` 取首个命中：同名歧义本身是数据问题，
+    #: 这里只保证"关系头是事件表里真实存在的某个写法"，让导入的精确匹配能对上。
+    key_to_event_name: dict = {}
+    for _name in (valid_event_names or set()):
+        if _name:
+            key_to_event_name.setdefault(normalizer.normalize_event_name(_name), _name)
+
     dropped_dangling = {
         "event_place_relations": 0,
         "event_organization_relations": 0,
@@ -911,6 +924,32 @@ def cleanup_relation_conflicts(relations: RelationExtractionResult, valid_event_
         event_start_years=event_start_years,
         quarantine=quarantined_event_relations,
     )
+
+    # ---- 关系头对账：把事件端名字对齐到事件表里的实际写法 ----
+    #
+    # **为什么必须单独做这一步。** 事件端的**校验**走 `normalize_event_name`
+    # （`_event_allowed`，它会去掉 `之战` 这类后缀），而落盘走 `standardize_event_name`
+    # （不去后缀）——两个口径不一致时就会出现"校验通过、入库对不上"：实测 8 条
+    # （关系头 `前秦灭代` ↔ 事件表 `前秦灭代之战`）在导入时被 `_find_event` 的精确匹配
+    # 丢掉，症状是"产物里有、库里没有"，而导入器只报跳过条数、不说是哪条。
+    #
+    # **为什么放在这个位置。** 必须排在 `reduce_event_event_relations` **之后**：
+    # 它内部还会把 A/B 端再标准化一次（`relation_rules.py:200-201`），先改会被它覆盖。
+    # 也正因为它，事件-事件这一类不能只靠 `_drop_dangling` 修。
+    def _align_event_name(name):
+        """事件端名字 → 事件表里的实际写法（对不上就退回标准化结果）。"""
+        return key_to_event_name.get(
+            normalizer.normalize_event_name(name),
+            normalizer.standardize_event_name(name),
+        )
+
+    if key_to_event_name:
+        for _rel in (relations.event_place_relations + relations.event_organization_relations
+                     + relations.event_person_relations):
+            _rel.EventName = _align_event_name(getattr(_rel, "EventName", None))
+        for _rel in relations.event_event_relations:
+            _rel.EventName_A = _align_event_name(getattr(_rel, "EventName_A", None))
+            _rel.EventName_B = _align_event_name(getattr(_rel, "EventName_B", None))
 
     # 本次的丢弃/隔离统计随返回值一起出去：质量报告与体检脚本都要报这些数，不能静默丢。
     # （不用函数属性当返回值——那种隐式通道会让调用方忘记读取，数字就悄悄消失了。）

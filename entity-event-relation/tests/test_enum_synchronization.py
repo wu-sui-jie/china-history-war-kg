@@ -16,6 +16,7 @@
 """
 
 import ast
+import os
 import re
 from pathlib import Path
 
@@ -27,6 +28,7 @@ from war_extraction.utils.vocabulary import (
     EVENT_ORGANIZATION_RELATION_TYPES,
     EVENT_PERSON_RELATION_TYPES,
     EVENT_PLACE_RELATION_TYPES,
+    EVENT_TYPES,
     ORG_TYPES,
     ROLES,
 )
@@ -283,8 +285,37 @@ def test_枚举表覆盖产物里的实际取值():
 
 #: RAG 的标准词典（治理后的取值表）。与 `field_map.py` 的"接收集合"不是一回事：
 #: 那个决定"哪些关系名能进哪个字段"，这个决定"哪些事件类型是标准类型"。
-RAG_DICTS = REPO_ROOT / "RAG" / "data" / "snapshot" / "20260915_v1" / "dicts.json"
+#: **版本不写死**——见 `_active_snapshot_dicts()`。
+RAG_SNAPSHOT_ROOT = REPO_ROOT / "RAG" / "data" / "snapshot"
+RAG_INDEX_ROOT = REPO_ROOT / "RAG" / "data" / "index"
 DEFAULT_PRED = Path(__file__).resolve().parents[1] / "output" / "中国历代战争简史" / "9_final_all.json"
+
+
+def _active_snapshot_dicts():
+    """当前生效快照的词典文件；找不到返回 None。
+
+    **为什么不写死版本号。** 词典原先按数据推导（`governance._build_dicts` 用
+    `sorted(event_type_counts)`），每版数据一个版本目录，项数各不相同——实测
+    `20260904_v2` 27 项、`20260915_v1` 29 项、`20260927_v1` 28 项。钉一个旧版本号，
+    守卫比的就是**过期基准**：产物里出现新类型时它照样绿，而真正生效的那份词典里
+    没有这个类型，表现为问答侧"点不到"——守卫的意义正是拦住这个漂移。
+
+    版本选择与 `RAG/server/runtime.py` 同口径：优先 `RAG_ACTIVE_VERSION`，
+    否则取最新且有同版本索引的快照。
+    """
+    env = os.environ.get("RAG_ACTIVE_VERSION", "").strip()
+    if env and (RAG_SNAPSHOT_ROOT / env / "dicts.json").is_file():
+        return RAG_SNAPSHOT_ROOT / env / "dicts.json"
+    if not RAG_SNAPSHOT_ROOT.is_dir():
+        return None
+    versions = [
+        d for d in RAG_SNAPSHOT_ROOT.iterdir()
+        if d.is_dir() and d.name[:1].isdigit() and (d / "dicts.json").is_file()
+    ]
+    if not versions:
+        return None
+    with_index = [d for d in versions if (RAG_INDEX_ROOT / d.name).is_dir()]
+    return max(with_index or versions, key=lambda d: d.name) / "dicts.json"
 
 
 def test_产物事件类型都落在RAG标准词典里():
@@ -292,18 +323,20 @@ def test_产物事件类型都落在RAG标准词典里():
     **E6 的预防性守卫**（阶段三）：产物里出现的 `EventType` 必须都能在 RAG 的标准词典里
     找到，否则那一类事件在问答与筛选里"点不到"——而这类漂移**不报错**，只表现为数字变了。
 
-    为什么现在加：实测产物用了 **27 个**非空取值，与 RAG 词典（`event_type_standard`，27 项）
-    **逐项相同**，权威表则多出 3 个尚未出现的取值（`党争军事化`/`军事同盟`/`军事改革`）。
-    也就是说"对齐"这件事当前成立，风险在重跑之后——那时这 3 个若真的出现，用例会变红并提示
-    同步 RAG 词典与 `RAG/docs/data-contract.md` 的"27 类"口径（方向已定：以权威表为准改词典）。
+    比对基准是**当前生效那份快照**的词典（不写死版本，见 `_active_snapshot_dicts()`）。
+    实测（2026-09-27）：产物非空取值 **28 个**，`20260927_v1` 词典 28 项，扣掉已登记例外
+    后**零缺口**；权威表另有产物尚未出现的取值（`党争军事化`/`军事同盟`等）。风险在重跑
+    之后——那时若冒出新取值，用例会变红并提示同步 RAG 词典与
+    `RAG/docs/data-contract.md` 的类型数口径（方向已定：以权威表为准改词典）。
 
     产物与 RAG 快照都不入库，缺任一就跳过（CI 里跑不到，本地跑得到）。
     """
-    if not (RAG_DICTS.is_file() and DEFAULT_PRED.is_file()):
+    dicts_path = _active_snapshot_dicts()
+    if not (dicts_path and DEFAULT_PRED.is_file()):
         pytest.skip("缺少 RAG 词典或产物，跳过")
     import json
 
-    standard = set(json.loads(RAG_DICTS.read_text(encoding="utf-8"))["event_type_standard"])
+    standard = set(json.loads(dicts_path.read_text(encoding="utf-8"))["event_type_standard"])
     payload = json.loads(DEFAULT_PRED.read_text(encoding="utf-8"))
     block = payload.get("events") or {}
     events = block if isinstance(block, list) else (block.get("events") or [])
@@ -323,5 +356,22 @@ def test_产物事件类型都落在RAG标准词典里():
         f"产物里有 {len(missing)} 个 EventType 不在 RAG 标准词典里：{missing}。\n"
         "该决定「扩词典」还是「改数据」——方向已定：以权威表"
         "（`war_extraction/utils/vocabulary.py`）为准扩 RAG 词典，"
-        "并同步 `RAG/docs/data-contract.md` 的「27 类」口径。"
+        "并同步 `RAG/docs/data-contract.md` 的类型数口径。"
+    )
+
+
+def test_RAG事件类型种子与权威表一致():
+    """RAG 侧 `EVENT_TYPE_SEED` 必须与权威表 `EVENT_TYPES` **逐项相同**。
+
+    快照的 `dicts.json` 由它生成（`governance._build_dicts`），而 RAG 运行时**不 import**
+    `war_extraction`（本仓 RAG 无该依赖，见 `RAG/data/snapshot/normalize.py` 顶部），
+    所以这层同步只能靠守卫钉住——与 `field_map.py`、前端图谱下拉是同一做法：
+    表随快照发布，跨模块一致性由用例保证。改一边不改另一边，这里变红。
+    """
+    if not RAG_NORMALIZE_PY.is_file():
+        pytest.skip("RAG 目录不存在，跳过")
+    seed = _python_set(RAG_NORMALIZE_PY, "EVENT_TYPE_SEED")
+    assert seed == set(EVENT_TYPES), (
+        f"RAG 的事件类型种子与权威表不一致：多出 {sorted(seed - set(EVENT_TYPES))}、"
+        f"缺少 {sorted(set(EVENT_TYPES) - seed)}。改一边要同时改另一边。"
     )

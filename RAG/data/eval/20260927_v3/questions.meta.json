@@ -1,0 +1,9 @@
+{
+  "version": "20260927_v3",
+  "derived_from_version": "20260915_v1",
+  "source_questions_sha256": "574ea3947ceabd0d6d36b05481e91d9fe0c947e6d4c9d7e1b726aa989db6968b",
+  "annotation_version": "reviewed-2",
+  "count": 39,
+  "generated_at": "2026-09-27T18:59:10",
+  "notes": "题库内容与 20260915_v1 逐字节一致（三版 questions.jsonl 的 sha256 全等，原样继承人工审核结果），未做内容改动。字段 source_questions_sha256 按文件实际 sha256 记录——注意 20260915_v1 的 meta 里该字段记的是 2430f97f…，与实际文件哈希不符（成因不明，属旧留档的口径问题）；本版以可确证的文件哈希为准。"
+}

@@ -63,7 +63,9 @@
 
 filters 同时用于图谱节点过滤和文本索引元数据过滤，不是只注入提示词。
 
-event_type 使用 F09 治理后的标准战争类型词典。注意"标准词典"有**两个不同口径，不要混用**：① **快照侧** `data/snapshot/<版本>/dicts.json` 的 `event_type_standard` 现有 **28 类**（2026-09-27 补入 `军事改革`、`突围战`：前者旧数据从未出现、而新一版抽取里已合法使用（`李纲抗金部署`）；后者是新出现的合理类型，与表内 `伏击战`/`追击战` 同类）；② **抽取侧**权威表 `entity-event-relation/war_extraction/utils/vocabulary.py` 的 `EVENT_TYPES` 现有 **31 类**（抽取端可标出的类型全集）。快照词典是抽取结果经 F09 归并后的落地集合，条目数因此少于抽取侧全集。旧数据 `events.event_type` 当时是 27 类、无空值，F09 负责同义合并和标准化；没有归一化战争类型的记录不参与对应筛选。
+event_type 使用 F09 治理后的标准战争类型词典。**快照侧与抽取侧现在是同一套取值（均 31 类）**：① 快照 `data/snapshot/<版本>/dicts.json` 的 `event_type_standard`；② 抽取侧权威表 `entity-event-relation/war_extraction/utils/vocabulary.py` 的 `EVENT_TYPES`。二者由跨模块用例（`entity-event-relation/tests/test_enum_synchronization.py`）逐项钉住——RAG 运行时不 import `war_extraction`（无该依赖），一致性靠守卫保证。
+
+**这份词典此前是从数据推导的**（`governance._build_dicts` 用 `sorted(event_type_counts)`），于是**随数据漂**：数据里出现的动作词（`交战`——模型把 `Action` 抄进了 `EventType`）被收进来，而权威表有、本版数据没出现的（`政治事件`/`议和`）反而消失；三版快照项数各不相同（`20260904_v2` 27 / `20260915_v1` 29 / `20260927_v1` 28）就是这么来的。因此旧文档里"快照词典是抽取侧全集的子集"的说法，其成因是**没有种子**，不是"归并后变少"。**2026-09-27 起改为以权威表为种子**（`normalize.EVENT_TYPE_SEED`），词典稳定 31 类；数据里出现、但不在种子里的取值记进治理报告的 `unregistered_event_types`（不静默丢弃）。旧数据 `events.event_type` 当时是 27 类、无空值；没有归一化战争类型的记录不参与对应筛选。
 
 filter 中数组为空表示不过滤。例如 `"dynasty": []` 表示不按朝代过滤，而不是只查“没有朝代”的记录。
 

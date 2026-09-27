@@ -48,14 +48,33 @@ def _read_first_line(path: Path) -> str:
         return ""
 
 
+def _find_git_dir(root: Path) -> Optional[Path]:
+    """向上查找 `.git` 目录——传进来的 `root` 未必是仓库根。
+
+    **为什么必须向上找。** `repo_root()` 给的是 RAG 子项目根，而它下面没有 `.git`；
+    `git_commit` 原先自己拼 `root/.git`，于是**永远落空、字段恒为空串**。同一份 root
+    交给 `git_status_lines`（走 git 命令，git 会自己向上找仓库）却完全正常——两处口径
+    不一致的代价藏在发布证据里：制品清单与数据血缘的 `git_commit` 一直是 `(无)`，
+    只剩 `git_commit_full` 可查（它走命令，所以没受影响）。
+    这里统一成"向上找"，与 git 自身行为一致。
+    """
+    current = Path(root).resolve()
+    for candidate in (current, *current.parents):
+        git_dir = candidate / ".git"
+        if git_dir.is_dir():
+            return git_dir
+    return None
+
+
 def git_commit(root: Path) -> str:
     """读取仓库 HEAD 指向的 commit（短哈希 + 分支名）；非仓库返回空串。
 
     支持三种形态：普通 ref 文件、packed-refs、detached HEAD（HEAD 直接是哈希）。
+    `root` 可以是仓库内的任意子目录（见 `_find_git_dir`）。
     """
     try:
-        git_dir = Path(root) / ".git"
-        if not git_dir.is_dir():
+        git_dir = _find_git_dir(root)
+        if git_dir is None:
             return ""
         head = _read_first_line(git_dir / "HEAD")
         if not head:

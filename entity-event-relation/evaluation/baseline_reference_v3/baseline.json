@@ -1,0 +1,222 @@
+{
+  "frozen_at": "2026-09-27 19:23:47.842373 +08:00",
+  "frozen_at_epoch": 1790508227.842373,
+  "run_id": "c9b88a2c5ad9",
+  "note": "v3 dev 基线（唐+秦汉合并，事件 333）：宏观 F1 67.12%（实体 71.03 / 事件 64.52 / 关系 65.81）；相对上一份 67.07% 基本持平，因为本轮是纯缺陷修复（去重 + 关系头对账），不是提示词改动",
+  "git_commit": "79419e7ed4d7956aa161385d3ec023db72509474",
+  "module_versions": {
+    "prompt_version": "prompt-v2-20260420+1228b39b",
+    "extraction_version": "extraction-v2-20260420"
+  },
+  "artifact": {
+    "path": "output\\dev_唐秦汉\\9_final_all.json",
+    "exists": true,
+    "sha256": "f02464a723608ff92a3d5a95b2551c1a59b1e22e21a905923eb745f06d9f2c2f",
+    "counts": {
+      "events": 333,
+      "places": 1280,
+      "persons": 688,
+      "organizations": 289,
+      "relations": 4191
+    },
+    "metadata": {
+      "merged_from": [
+        {
+          "path": "output\\唐\\9_final_all.json",
+          "sha256": "e641c9cca790f5decd049c55f5755e364580ac6905a1529b59e9700f0ad2c1cf",
+          "extracted_at": "2026-09-27 19:21:26 +08:00",
+          "extraction_version": "extraction-v2-20260420",
+          "prompt_version": "prompt-v2-20260420+1228b39b",
+          "model": "deepseek-flash",
+          "model_served": "deepseek-flash",
+          "api_base": "https://api.deepseek.com/v1",
+          "artifact_sha256": "43875b7ab709e18a6916e30d51c6ff27dcca5e2028e6bca52daa59bce54dbfaa",
+          "git_commit": "79419e7",
+          "counts": {
+            "events": 164,
+            "entities": 1000,
+            "relations": 2078
+          }
+        },
+        {
+          "path": "output\\秦汉\\9_final_all.json",
+          "sha256": "a0cc9c3a5f96c66d3e29c07eb830cfcf0a5034ac82d1a5bcdbb7be0e25cb3e5c",
+          "extracted_at": "2026-09-27 19:21:35 +08:00",
+          "extraction_version": "extraction-v2-20260420",
+          "prompt_version": "prompt-v2-20260420+1228b39b",
+          "model": "deepseek-flash",
+          "model_served": "deepseek-flash",
+          "api_base": "https://api.deepseek.com/v1",
+          "artifact_sha256": "7719ad0ed7f22c9fc6e1d9e6c0b6cff64964981fb3aee9258da0545bced9b9da",
+          "git_commit": "79419e7",
+          "counts": {
+            "events": 169,
+            "entities": 1257,
+            "relations": 2113
+          }
+        }
+      ],
+      "note": "这是把多次子集抽取**合并**出来的预测，只用于把评估范围对齐到参考集的 dev/test；不是一次独立运行的产物（`quality_report` 未重算）。下面几项来自各份一致的来源（不一致时不写，避免把两套口径混成一个）。",
+      "model": "deepseek-flash",
+      "model_served": "deepseek-flash",
+      "api_base": "https://api.deepseek.com/v1",
+      "prompt_version": "prompt-v2-20260420+1228b39b",
+      "extraction_version": "extraction-v2-20260420",
+      "git_commit": "79419e7"
+    }
+  },
+  "annotations": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\data\\annotations",
+    "files_on_disk_at_freeze": {
+      "sample_entities.json": {
+        "sha256": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf",
+        "sha256_lf": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf"
+      },
+      "sample_events.json": {
+        "sha256": "b9c85431e7b9208bb5f01e1f2f9b312a1459a98de852856e3f6a857451487859",
+        "sha256_lf": "78db34b6077331ab0485bc72ba62369622758ebb792b600ba621f2872f84641d"
+      },
+      "sample_relations.json": {
+        "sha256": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994",
+        "sha256_lf": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994"
+      },
+      "v2_conflicts.json": {
+        "sha256": "8219851233fb9fa8bb30ffb13c28f5743a4f525f7ac4f641702c34cfecbd6203",
+        "sha256_lf": "fd3f573930bfae478f895658d66dcf3d78b2257e185245814043f10336507fde"
+      }
+    },
+    "provenance": {
+      "kind": "multi_model_merged",
+      "is_human_annotated": false,
+      "how": "几个人用不同的模型把整本书分成几份、每个模型负责两份，最后把各份结果汇总，字段没有做人工处理，直接作为标注数据使用。",
+      "consequences": [
+        "当前指标测的是'模型 A 的产出'与'模型 B/C/D 汇总产出'之间的分歧，不是抽取正确率",
+        "结构性缺陷（head 大量不在事件表、完全重复关系、同名多行、命名风格不统一）源于汇总环节缺失实体与事件对齐，不是个别标注者的疏漏",
+        "在人工逐条核验之前，任何基于它的指标都不能作为抽取质量或模型能力的证据"
+      ],
+      "still_usable_as": [
+        "候选清单 / 词表（事件名、人名、地名是书中真实存在的内容）",
+        "别名表（config/aliases.json）的来源",
+        "回归 / 可复现性检测的参照"
+      ],
+      "not_usable_as": [
+        "准确性指标的分母",
+        "跨版本'改好没改好'的判断依据（会把口径差异误读成质量升降）"
+      ],
+      "source_note": "data/annotations/README.md 现写的'只有一名标注者、没有 IAA'与上述实际制作方式不符，该文件的更正措辞待标注所有人确认后另行处理（见整改方案 10.2 第 1 条）。"
+    }
+  },
+  "config": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\config",
+    "files_on_disk_at_freeze": {
+      "aliases.json": {
+        "sha256": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4",
+        "sha256_lf": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4"
+      },
+      "dynasty_ranges.json": {
+        "sha256": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87",
+        "sha256_lf": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87"
+      },
+      "eval_config.json": {
+        "sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+        "sha256_lf": "8d8f969aa04f4e4354930505987729faf190b8f168381cae073baecc4fc7b155"
+      },
+      "publish_rules.json": {
+        "sha256": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8",
+        "sha256_lf": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8"
+      },
+      "relation_types.json": {
+        "sha256": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce",
+        "sha256_lf": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce"
+      },
+      "text_cleaning.json": {
+        "sha256": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310",
+        "sha256_lf": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310"
+      }
+    }
+  },
+  "prompts": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\war_extraction\\prompts",
+    "files_on_disk_at_freeze": {
+      "__init__.py": {
+        "sha256": "9628f6fa99cc28fad7064be1a4b080708e6686ce1db126bbd012c5bc2890d5ab",
+        "sha256_lf": "91311fe8a4f82b29b3990ae973b713efcbfd6e63cf490b649a67a22653f1ccb0"
+      },
+      "entity_prompts.py": {
+        "sha256": "bfb10fda72a1a0384a07c3805402b14203ca48bbb5a451eff78b17b142cf7765",
+        "sha256_lf": "f5b3df4de46f51ec166a97687a64f6be73bafdc85161bde15a7c5e9fed1c8335"
+      },
+      "event_prompts.py": {
+        "sha256": "ca5f581760635a648a942fbbce320297128754e19b687b9b20a98e910046e41a",
+        "sha256_lf": "a9997a86e40a4ce17858bd04600562624080f5792e910b559c92eca09d7e5a09"
+      },
+      "relation_prompts.py": {
+        "sha256": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a",
+        "sha256_lf": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a"
+      }
+    }
+  },
+  "baseline_metrics": {
+    "source": "evaluation\\baseline_reference_v3\\baseline_results.json",
+    "source_sha256": "fd88e4f9ab1b62df7daa0d484864b0fc68478a26a586ae47c65cd677891a351e",
+    "summary": {
+      "entity_f1": 0.7102894672828995,
+      "entity_f1_canonical": 0.7918256130790191,
+      "event_f1": 0.6451612903225806,
+      "relation_f1": 0.6581419624217119,
+      "macro_avg_f1": 0.6712
+    },
+    "metadata": {
+      "evaluated_at": "2026-09-27 19:23:01 +08:00",
+      "predictions": {
+        "path": "output\\dev_唐秦汉\\9_final_all.json",
+        "sha256": "f02464a723608ff92a3d5a95b2551c1a59b1e22e21a905923eb745f06d9f2c2f",
+        "artifact_sha256": null,
+        "extracted_at": null,
+        "prompt_version": "prompt-v2-20260420+1228b39b",
+        "extraction_version": "extraction-v2-20260420",
+        "model": "deepseek-flash",
+        "model_served": "deepseek-flash",
+        "api_base": "https://api.deepseek.com/v1",
+        "git_commit": "79419e7"
+      },
+      "evaluator": {
+        "prompt_version": "prompt-v2-20260420+1228b39b",
+        "extraction_version": "extraction-v2-20260420",
+        "git_commit": "79419e7",
+        "eval_config": {
+          "relation_threshold": 40,
+          "event_sim_threshold": 0.35,
+          "entity_fuzzy_threshold": 70,
+          "event_event_sim_threshold": 0.35,
+          "alias_map_path": "config/aliases.json",
+          "relation_map_path": "config/relation_types.json",
+          "event_year_tolerance": 30,
+          "enforce_semantic_constraints": true,
+          "_comment": "评估口径阈值。event_year_tolerance / enforce_semantic_constraints 只作用于事件配对；改任一项都等于换口径，报告里必须写明。"
+        },
+        "eval_config_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\config\\eval_config.json",
+        "eval_config_sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+        "annotation_dir": "data\\annotations\\v2_split\\dev",
+        "annotation_files": {
+          "sample_entities.json": "761bbdb38b110097078b0b409084c7a22b920ed91f782042723d62a0f99956f3",
+          "sample_events.json": "51e0dea07f73561490905f6b500874b9755be52da1a6eada480690e2600d5c96",
+          "sample_relations.json": "70f718da6f7794cefa7dcece9a35c0e1151d30f933638e95704650885bbd0b5a"
+        }
+      }
+    },
+    "effective_at_evaluation": {
+      "eval_config_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\config\\eval_config.json",
+      "eval_config_sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+      "annotation_files": {
+        "sample_entities.json": "761bbdb38b110097078b0b409084c7a22b920ed91f782042723d62a0f99956f3",
+        "sample_events.json": "51e0dea07f73561490905f6b500874b9755be52da1a6eada480690e2600d5c96",
+        "sample_relations.json": "70f718da6f7794cefa7dcece9a35c0e1151d30f933638e95704650885bbd0b5a"
+      },
+      "evaluator_prompt_version": "prompt-v2-20260420+1228b39b",
+      "evaluator_git_commit": "79419e7",
+      "predictions_sha256": "f02464a723608ff92a3d5a95b2551c1a59b1e22e21a905923eb745f06d9f2c2f"
+    },
+    "original_source": "evaluation\\run_dev_v3\\results.json"
+  }
+}

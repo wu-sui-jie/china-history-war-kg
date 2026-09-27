@@ -1,0 +1,688 @@
+{
+  "entity_extraction": {
+    "precision": 0.6468763845813026,
+    "recall": 0.7874865156418555,
+    "f1": 0.7102894672828995,
+    "details": {
+      "places": {
+        "p": 0.55,
+        "r": 0.8045714285714286,
+        "f1": 0.6533642691415313,
+        "tp": 704,
+        "fp": 576,
+        "fn": 171,
+        "pred": 1280,
+        "gold": 875
+      },
+      "persons": {
+        "p": 0.8444767441860465,
+        "r": 0.7958904109589041,
+        "f1": 0.8194640338504936,
+        "tp": 581,
+        "fp": 107,
+        "fn": 149,
+        "pred": 688,
+        "gold": 730
+      },
+      "organizations": {
+        "p": 0.6055363321799307,
+        "r": 0.7028112449799196,
+        "f1": 0.6505576208178437,
+        "tp": 175,
+        "fp": 114,
+        "fn": 74,
+        "pred": 289,
+        "gold": 249
+      }
+    },
+    "canonical": {
+      "precision": 0.8001101321585903,
+      "recall": 0.7837108953613808,
+      "f1": 0.7918256130790191,
+      "details": {
+        "places": {
+          "p": 0.8279952550415184,
+          "r": 0.7977142857142857,
+          "f1": 0.8125727590221187,
+          "tp": 698,
+          "fp": 145,
+          "fn": 177,
+          "pred": 843,
+          "gold": 875
+        },
+        "persons": {
+          "p": 0.8444767441860465,
+          "r": 0.7958904109589041,
+          "f1": 0.8194640338504936,
+          "tp": 581,
+          "fp": 107,
+          "fn": 149,
+          "pred": 688,
+          "gold": 730
+        },
+        "organizations": {
+          "p": 0.6105263157894737,
+          "r": 0.6987951807228916,
+          "f1": 0.651685393258427,
+          "tp": 174,
+          "fp": 111,
+          "fn": 75,
+          "pred": 285,
+          "gold": 249
+        }
+      }
+    },
+    "identity": {
+      "places": {
+        "pred_rows": 1280,
+        "pred_unique_names": 843,
+        "pred_unique_canonical": 843,
+        "gold_rows": 962,
+        "gold_unique_names": 875,
+        "gold_unique_canonical": 875,
+        "duplicate_rows": 437
+      },
+      "persons": {
+        "pred_rows": 688,
+        "pred_unique_names": 688,
+        "pred_unique_canonical": 688,
+        "gold_rows": 730,
+        "gold_unique_names": 730,
+        "gold_unique_canonical": 730,
+        "duplicate_rows": 0
+      },
+      "organizations": {
+        "pred_rows": 289,
+        "pred_unique_names": 285,
+        "pred_unique_canonical": 285,
+        "gold_rows": 249,
+        "gold_unique_names": 249,
+        "gold_unique_canonical": 249,
+        "duplicate_rows": 4
+      }
+    },
+    "counts": {
+      "raw_pred": 2257,
+      "filtered_pred": 2257,
+      "gold": 1854,
+      "tp": 1460,
+      "fp": 797,
+      "fn": 394,
+      "canonical_tp": 1453,
+      "canonical_fp": 363,
+      "canonical_fn": 401
+    },
+    "error_samples": {
+      "unmatched_places": [
+        "三秦",
+        "三秦",
+        "三秦",
+        "上党",
+        "上谷",
+        "上谷",
+        "上谷",
+        "上谷",
+        "上谷",
+        "上谷",
+        "下博",
+        "下博",
+        "下相",
+        "下相",
+        "下邑",
+        "下邑",
+        "下邑",
+        "下邳",
+        "东城",
+        "东城"
+      ],
+      "unmatched_persons": [
+        "仁果",
+        "佟公",
+        "倪宏",
+        "偃",
+        "僧信诚",
+        "冯邑",
+        "刘寅",
+        "刘植",
+        "刘玄",
+        "刘遂",
+        "刘长",
+        "刘黑阔",
+        "单桓王",
+        "卢侯雨王",
+        "卫山",
+        "司马炎",
+        "吁宋",
+        "吕台",
+        "吕通",
+        "周兰"
+      ],
+      "unmatched_organizations": [
+        "三秦军",
+        "下江军",
+        "义兵",
+        "九江",
+        "九虎将军",
+        "于窦",
+        "于阗",
+        "仆固怀恩唐军",
+        "代",
+        "休屠王所部",
+        "六国旧贵族",
+        "农民起义军",
+        "准西",
+        "刘文静军",
+        "刘邦",
+        "刘邦军",
+        "刘邦诸侯军",
+        "南阳守军",
+        "卢绾",
+        "史思明军"
+      ]
+    }
+  },
+  "event_extraction": {
+    "full_events": {
+      "precision": 0.5555555555555556,
+      "recall": 0.7692307692307693,
+      "f1": 0.6451612903225806,
+      "counts": {
+        "pred": 306,
+        "gold": 221,
+        "tp": 170,
+        "fp": 136,
+        "fn": 51
+      },
+      "error_samples": {
+        "unmatched_predictions": [
+          "七国之乱",
+          "七王之乱",
+          "下邳之战",
+          "东阿之战",
+          "临济之战",
+          "伊吾城之战",
+          "公孙贺、赵破奴击匈奴之战",
+          "冯异击赤眉崤底之战",
+          "冯骏攻江州之战",
+          "刘秀夺取两京平定群雄之战",
+          "刘秀攻灭隗嚣陇西之战",
+          "刘秀攻蜀之战",
+          "刘秀袭杀谢躬之战",
+          "刘邦、项羽灭秦战争",
+          "刘邦击英布之战",
+          "刘邦攻南阳、宛城之战",
+          "刘邦破陈留、白马、颖川之战",
+          "刘邦迫降河南王申阳之战",
+          "右北平之战",
+          "吐蕃攻勃律之战"
+        ],
+        "unmatched_gold": [
+          "乌孙击匈奴之战",
+          "元氏、北平、安次之战",
+          "刘邦攻占颍川",
+          "匈奴攻上谷、渔阳之战",
+          "卢绾之乱",
+          "唐军攻占支罗城之战",
+          "唐廷讨伐成德镇之战",
+          "孙策攻取吴郡、会稽",
+          "孙策攻黄祖之战",
+          "孙策渡江击刘繇",
+          "安戎城反击战",
+          "官渡之战",
+          "平定韩王信叛乱",
+          "延津之战",
+          "曹操与吕布濮阳之战",
+          "曹操与黑山军东郡之战",
+          "曹操东攻吕布之战",
+          "曹操伏击黑山军之战",
+          "曹操侧击袁术之战",
+          "曹操击破汝南颖川黄巾军之战"
+        ]
+      }
+    },
+    "field_metrics": {
+      "total_events": 333,
+      "field_fill_rates": {
+        "Allies": 0.15615615615615616,
+        "Commanders": 0.996996996996997,
+        "KeyPersons": 0.43243243243243246,
+        "TroopSize": 1.0,
+        "Duration": 1.0,
+        "GeographicScope": 1.0,
+        "Casualties": 1.0,
+        "relations": 0.6966966966966966
+      },
+      "avg_fill_rate": 0.7852852852852853,
+      "field_effective_rates": {
+        "Allies": 0.15615615615615616,
+        "Commanders": 0.9819819819819819,
+        "KeyPersons": 0.43243243243243246,
+        "TroopSize": 0.4864864864864865,
+        "Duration": 0.3123123123123123,
+        "GeographicScope": 1.0,
+        "Casualties": 0.4024024024024024,
+        "relations": 0.6966966966966966
+      },
+      "avg_effective_rate": 0.5585585585585585
+    },
+    "field_accuracy": {
+      "matched_pairs": 170,
+      "fields": {
+        "StartDate": {
+          "comparable": 159,
+          "correct": 146,
+          "accuracy": 0.9182389937106918,
+          "coverage": 0.9352941176470588
+        },
+        "DynastyName": {
+          "comparable": 170,
+          "correct": 155,
+          "accuracy": 0.9117647058823529,
+          "coverage": 1.0
+        },
+        "Place": {
+          "comparable": 160,
+          "correct": 157,
+          "accuracy": 0.98125,
+          "coverage": 0.9411764705882353
+        },
+        "Aggressor": {
+          "comparable": 170,
+          "correct": 70,
+          "accuracy": 0.4117647058823529,
+          "coverage": 1.0
+        },
+        "Defender": {
+          "comparable": 170,
+          "correct": 90,
+          "accuracy": 0.5294117647058824,
+          "coverage": 1.0
+        },
+        "Person": {
+          "comparable": 167,
+          "correct": 156,
+          "accuracy": 0.9341317365269461,
+          "coverage": 0.9823529411764705
+        },
+        "Result": {
+          "comparable": 170,
+          "correct": 88,
+          "accuracy": 0.5176470588235295,
+          "coverage": 1.0
+        }
+      }
+    },
+    "by_dynasty": {
+      "东汉": {
+        "gold": 64,
+        "tp": 39,
+        "fp": 0,
+        "fn": 25,
+        "precision": 1.0,
+        "recall": 0.609375,
+        "f1": 0.7572815533980582
+      },
+      "唐": {
+        "gold": 92,
+        "tp": 83,
+        "fp": 0,
+        "fn": 9,
+        "precision": 1.0,
+        "recall": 0.9021739130434783,
+        "f1": 0.9485714285714286
+      },
+      "秦": {
+        "gold": 17,
+        "tp": 10,
+        "fp": 0,
+        "fn": 7,
+        "precision": 1.0,
+        "recall": 0.5882352941176471,
+        "f1": 0.7407407407407407
+      },
+      "西汉": {
+        "gold": 48,
+        "tp": 38,
+        "fp": 0,
+        "fn": 10,
+        "precision": 1.0,
+        "recall": 0.7916666666666666,
+        "f1": 0.8837209302325582
+      },
+      "（无法归组）": {
+        "gold": 0,
+        "tp": 0,
+        "fp": 136,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "mapping_stats": {
+      "pairs_matched": 170,
+      "candidate_pairs": 34821,
+      "candidate_pairs_rejected_by_semantics": 34271,
+      "rejected_ratio": 0.9842049338043135,
+      "rejected_by_reason": {
+        "dynasty": 17703,
+        "year": 11661,
+        "place": 4907
+      },
+      "semantic_constraints_enforced": true
+    }
+  },
+  "relation_extraction": {
+    "precision": 0.5320675105485232,
+    "recall": 0.8625170998632011,
+    "f1": 0.6581419624217119,
+    "by_category": {
+      "event-place": {
+        "precision": 0.5282522996057819,
+        "recall": 0.8104838709677419,
+        "f1": 0.6396181384248211,
+        "pred": 761,
+        "pred_unique": 732,
+        "gold": 496,
+        "tp": 402,
+        "fp": 359,
+        "fn": 94
+      },
+      "event-person": {
+        "precision": 0.5162271805273834,
+        "recall": 0.8656462585034014,
+        "f1": 0.6467598475222364,
+        "pred": 986,
+        "pred_unique": 918,
+        "gold": 590,
+        "tp": 509,
+        "fp": 477,
+        "fn": 79
+      },
+      "event-organization": {
+        "precision": 0.5619047619047619,
+        "recall": 0.9365079365079365,
+        "f1": 0.7023809523809524,
+        "pred": 525,
+        "pred_unique": 497,
+        "gold": 313,
+        "tp": 295,
+        "fp": 230,
+        "fn": 20
+      },
+      "event-event": {
+        "precision": 0.5612244897959183,
+        "recall": 0.873015873015873,
+        "f1": 0.6832298136645963,
+        "pred": 98,
+        "pred_unique": 98,
+        "gold": 63,
+        "tp": 55,
+        "fp": 43,
+        "fn": 8
+      }
+    },
+    "counts": {
+      "raw_pred": 4191,
+      "filtered_pred": 2370,
+      "filtered_pred_unique": 2245,
+      "filtered_pred_duplicates": 125,
+      "gold": 1462,
+      "tp": 1261,
+      "fp": 1109,
+      "fn": 201
+    },
+    "error_samples": {
+      "unmatched_predictions": [
+        [
+          "下博之战",
+          "目的地",
+          "下博"
+        ],
+        [
+          "东峡石谷之战",
+          "目的地",
+          "东峡石谷"
+        ],
+        [
+          "任文击匈奴夺回酒泉张掖之战",
+          "目的地",
+          "张掖"
+        ],
+        [
+          "任文击匈奴夺回酒泉张掖之战",
+          "目的地",
+          "酒泉"
+        ],
+        [
+          "信州之战",
+          "参与者",
+          "高骄"
+        ],
+        [
+          "信州之战",
+          "投降",
+          "黄巢"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "参与者",
+          "李轶"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "发生地点",
+          "士乡"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "次要战场",
+          "上党郡"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "途经地",
+          "上党郡"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "途经地",
+          "成皋"
+        ],
+        [
+          "冯异平定关中之战",
+          "投降",
+          "冯异"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "参与者",
+          "牛邯"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "参战方",
+          "窦融部"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "发生地点",
+          "漆"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "目的地",
+          "漆"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "目的地",
+          "高平第一城"
+        ],
+        [
+          "刘秀击灭铜马等义军之战",
+          "参与者",
+          "邓禹"
+        ],
+        [
+          "刘秀击灭铜马等义军之战",
+          "参战方",
+          "上江"
+        ],
+        [
+          "刘秀击灭铜马等义军之战",
+          "参战方",
+          "五幅"
+        ]
+      ],
+      "unmatched_gold": [
+        [
+          "下博之战",
+          "发生地点",
+          "温泉栅"
+        ],
+        [
+          "京索之战",
+          "发生地点",
+          "索二城间"
+        ],
+        [
+          "信州之战",
+          "途经地",
+          "采石"
+        ],
+        [
+          "冯异北攻开井关、南渡黄河之战",
+          "阵亡",
+          "武勃"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "发生地点",
+          "高平第一城"
+        ],
+        [
+          "刘秀亲征陇西之战",
+          "指挥",
+          "窦融"
+        ],
+        [
+          "刘秀击灭铜马等义军之战",
+          "次要战场",
+          "清河"
+        ],
+        [
+          "刘邦还定三秦之战",
+          "次要战场",
+          "壤乡"
+        ],
+        [
+          "刘邦还定三秦之战",
+          "目的地",
+          "好畴"
+        ],
+        [
+          "刘邦还定三秦之战",
+          "谋士",
+          "萧何"
+        ],
+        [
+          "北逐匈奴",
+          "途经地",
+          "云中"
+        ],
+        [
+          "北逐匈奴",
+          "途经地",
+          "渔阳郡"
+        ],
+        [
+          "北逐匈奴",
+          "途经地",
+          "秦皇岛"
+        ],
+        [
+          "华阴相持战",
+          "顺承关系",
+          "邓禹袭长安之战"
+        ],
+        [
+          "南阳之战",
+          "投降",
+          "吕龄"
+        ],
+        [
+          "卫州之战",
+          "使者",
+          "邬承恩"
+        ],
+        [
+          "卫州之战",
+          "指挥",
+          "安庆绪"
+        ],
+        [
+          "卫州之战",
+          "指挥",
+          "郭子仪"
+        ],
+        [
+          "卫州之战",
+          "指挥",
+          "鱼朝恩"
+        ],
+        [
+          "吐蕃攻承风堡、廊州之战",
+          "指挥",
+          "皇甫惟明"
+        ]
+      ]
+    }
+  },
+  "summary": {
+    "entity_f1": 0.7102894672828995,
+    "entity_f1_canonical": 0.7918256130790191,
+    "event_f1": 0.6451612903225806,
+    "relation_f1": 0.6581419624217119,
+    "macro_avg_f1": 0.6712
+  },
+  "metadata": {
+    "evaluated_at": "2026-09-27 19:23:01 +08:00",
+    "predictions": {
+      "path": "output\\dev_唐秦汉\\9_final_all.json",
+      "sha256": "f02464a723608ff92a3d5a95b2551c1a59b1e22e21a905923eb745f06d9f2c2f",
+      "artifact_sha256": null,
+      "extracted_at": null,
+      "prompt_version": "prompt-v2-20260420+1228b39b",
+      "extraction_version": "extraction-v2-20260420",
+      "model": "deepseek-flash",
+      "model_served": "deepseek-flash",
+      "api_base": "https://api.deepseek.com/v1",
+      "git_commit": "79419e7"
+    },
+    "evaluator": {
+      "prompt_version": "prompt-v2-20260420+1228b39b",
+      "extraction_version": "extraction-v2-20260420",
+      "git_commit": "79419e7",
+      "eval_config": {
+        "relation_threshold": 40,
+        "event_sim_threshold": 0.35,
+        "entity_fuzzy_threshold": 70,
+        "event_event_sim_threshold": 0.35,
+        "alias_map_path": "config/aliases.json",
+        "relation_map_path": "config/relation_types.json",
+        "event_year_tolerance": 30,
+        "enforce_semantic_constraints": true,
+        "_comment": "评估口径阈值。event_year_tolerance / enforce_semantic_constraints 只作用于事件配对；改任一项都等于换口径，报告里必须写明。"
+      },
+      "eval_config_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\config\\eval_config.json",
+      "eval_config_sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+      "annotation_dir": "data\\annotations\\v2_split\\dev",
+      "annotation_files": {
+        "sample_entities.json": "761bbdb38b110097078b0b409084c7a22b920ed91f782042723d62a0f99956f3",
+        "sample_events.json": "51e0dea07f73561490905f6b500874b9755be52da1a6eada480690e2600d5c96",
+        "sample_relations.json": "70f718da6f7794cefa7dcece9a35c0e1151d30f933638e95704650885bbd0b5a"
+      }
+    }
+  }
+}

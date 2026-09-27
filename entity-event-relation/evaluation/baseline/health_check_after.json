@@ -1,52 +1,40 @@
 {
   "source": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
-  "source_sha256": "a37ce29eae8d35cc9f15486998b5ef5d8dd4506d278e528325f40d536070b3ac",
+  "source_sha256": "a2ca45e3f565312b0a9875aca157a69bcde230ed9adf1ee8e1399afa30514476",
   "counts": {
     "events": 1313,
     "places": 5527,
     "persons": 2562,
     "organizations": 1021,
-    "relations": 16500
+    "relations": 16490
   },
   "dangling_relations": {
     "event-place": {
-      "exact_dangling": 1,
+      "exact_dangling": 0,
       "normalized_dangling": 0,
       "tail_missing": 0,
-      "samples": [
-        "前秦灭代"
-      ],
+      "samples": [],
       "tail_samples": []
     },
     "event-organization": {
-      "exact_dangling": 2,
+      "exact_dangling": 0,
       "normalized_dangling": 0,
       "tail_missing": 0,
-      "samples": [
-        "前秦灭代",
-        "前秦灭代"
-      ],
+      "samples": [],
       "tail_samples": []
     },
     "event-person": {
-      "exact_dangling": 4,
+      "exact_dangling": 0,
       "normalized_dangling": 0,
       "tail_missing": 0,
-      "samples": [
-        "前秦灭代",
-        "前秦灭代",
-        "前秦灭代",
-        "前秦灭代"
-      ],
+      "samples": [],
       "tail_samples": []
     },
     "event-event": {
-      "exact_dangling": 1,
+      "exact_dangling": 0,
       "normalized_dangling": 0,
       "tail_missing": 0,
-      "samples": [
-        "前秦灭代"
-      ],
+      "samples": [],
       "tail_samples": []
     }
   },
@@ -185,12 +173,12 @@
       }
     },
     "event_event_relations": {
-      "total": 1088,
+      "total": 1078,
       "outside_enum": {},
       "distribution": {
-        "顺承关系": 790,
+        "顺承关系": 793,
         "并列关系": 188,
-        "包含关系": 77,
+        "包含关系": 64,
         "因果关系": 33
       }
     }
@@ -346,8 +334,8 @@
     ]
   },
   "containment_vs_time": {
-    "relations_total": 77,
-    "comparable": 76,
+    "relations_total": 64,
+    "comparable": 63,
     "contradictions": 21,
     "samples": [
       {
@@ -473,9 +461,9 @@
     ]
   },
   "supreme_commander_claims": {
-    "events_with_claim": 280,
+    "events_with_claim": 281,
     "events_with_multiple": 38,
-    "ratio": 0.1357142857142857,
+    "ratio": 0.13523131672597866,
     "max": 4,
     "top": [
       [
@@ -501,11 +489,11 @@
     ]
   },
   "undecidable_direction": {
-    "relations_total": 790,
+    "relations_total": 793,
     "decided_by_evidence": 10,
     "decided_by_year": 427,
-    "undecidable": 353,
-    "undecidable_ratio": 0.4468354430379747,
+    "undecidable": 356,
+    "undecidable_ratio": 0.4489281210592686,
     "samples": [
       {
         "EventName_A": "丁家州之战",
@@ -753,10 +741,10 @@
     "samples": []
   },
   "evidence_reuse": {
-    "total_relations": 16500,
+    "total_relations": 16490,
     "evidence_empty": 0,
-    "evidence_equals_event_source_text": 2144,
-    "reuse_ratio": 0.12993939393939394,
+    "evidence_equals_event_source_text": 2145,
+    "reuse_ratio": 0.13007883565797454,
     "top_reused_events": [
       [
         "高加索南北诸国扫荡战",
@@ -781,8 +769,8 @@
     ]
   },
   "relation_volume": {
-    "events_with_relations": 1199,
-    "average": 13.8,
+    "events_with_relations": 1189,
+    "average": 13.9,
     "max": 110,
     "top": [
       [
@@ -794,16 +782,16 @@
         98
       ],
       [
+        "隋灭陈之战",
+        91
+      ],
+      [
         "北周灭北齐之战",
         83
       ],
       [
         "夷陵之战",
         71
-      ],
-      [
-        "太平军二破江南大营之战",
-        64
       ]
     ]
   },
@@ -912,5 +900,5 @@
     "EventType/交战": "`赤眉军击败景尚、王党之战`、`赤眉军全歼王匡、廉丹之战` 的 `EventType` 填了 `交战`：这两条的 `Action` 也都是「交战」，即模型把**动作值抄进了类型字段**。判定（2026-09-27）：不把 `交战` 加进枚举与 RAG 词典（它是动作词，不是事件类型）。实测发布子集里 0 条。",
     "event_organization_relations/指挥所": "LLM 把地点关系名写进了事件-组织关系：实测 1 条 `辽东半岛战役 —[指挥所]→ 征清大总督府`。组织不可能是「指挥所」，属模型误分类；**不把 `指挥所` 加进组织关系枚举**（那等于承认一个错的语义），它与另外三类一样留在 raw 产物、由 `split_publishable_outputs` 路由进候选区。重跑后若条数明显上涨，说明提示词对组织关系的约束在退化。"
   },
-  "note": "第三阶段收尾基线（2026-09-27）。产物 = 整本重跑 + 四次缓存重放（① 删证据为空/占位词目标的关系；② 新增与时间无关的 content_sha256；③ 新增目标端校验 target_not_found）。抽取内容未变（未调用模型）。用途：发布第 ③ 步已按这份产物导入 SQLite，C1 的包含关系（77 条）在库中可见。"
+  "note": "v3 入库基线（2026-09-27）：published 口径入库 + 事件-事件包含关系去重 + 关系头对账到事件表实名。产物 = 整本重放（全缓存命中），全量关系 16500→16490、published 12685→12648；相对上一份基线：图内边与库内边已完全对齐（12648 = 12648）"
 }

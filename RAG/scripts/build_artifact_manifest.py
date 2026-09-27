@@ -6,11 +6,13 @@
 产出 `data/release/artifact-manifest.json`；health 返回该清单的 sha256，
 解包方可用 `verify` 逐文件核对。
 
-用法：
-    python scripts/build_artifact_manifest.py                      # 生成（含活跃版本）
-    python scripts/build_artifact_manifest.py --version 20260915_v1
-    python scripts/build_artifact_manifest.py verify               # 校验现有清单
-    python scripts/build_artifact_manifest.py build --require-clean  # 工作区脏则不生成（发布门禁）
+用法（**子命令是必须的**：`build` / `verify` / `verify-sums`；缺子命令时
+`--version` 会被当成子命令名，报 `invalid choice`）：
+    python scripts/build_artifact_manifest.py build                     # 生成（版本缺省取 RAG_ACTIVE_VERSION）
+    python scripts/build_artifact_manifest.py build --version 20260927_v1
+    python scripts/build_artifact_manifest.py build --require-clean      # 工作区脏则不生成（发布门禁）
+    python scripts/build_artifact_manifest.py verify                    # 逐文件核对现有清单
+    python scripts/build_artifact_manifest.py verify-sums               # 等价 sha256sum -c SHA256SUMS
 """
 
 from __future__ import annotations

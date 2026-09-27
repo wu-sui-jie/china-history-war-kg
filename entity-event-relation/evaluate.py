@@ -164,8 +164,8 @@ def main():
     results["metadata"] = build_eval_metadata(pred_path, pred_data, config_path, eval_config,
                                               annotation_dir)
 
-    # 发布子集也评一遍：下游知识库实际导的是 published/final.json（或全量），
-    # 两份的粒度不同（1050 vs 881 事件），指标不可混用——所以两套都报，且各自带文件哈希。
+    # 发布子集也评一遍：下游知识库实际导的是 `published/final.json`（口径已确认，2026-09-27），
+    # 两份的粒度不同，指标不可混用——所以两套都报，且各自带文件哈希。
     if args.also_published:
         published_path = Path(args.also_published)
         if not published_path.is_file():

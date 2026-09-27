@@ -1,8 +1,8 @@
 {
-  "source_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+  "source_path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\published\\final.json",
   "source_kind": "final_json",
   "metadata": {
-    "extracted_at": "2026-09-27 14:08:28 +08:00",
+    "extracted_at": "2026-09-27 19:07:30 +08:00",
     "extraction_version": "extraction-v2-20260420",
     "prompt_version": "prompt-v2-20260420+1228b39b",
     "input_file": "data\\中国历代战争简史.txt",
@@ -15,6 +15,7 @@
       "output_length": 297594,
       "enabled": true
     },
+    "publish_stage": "published",
     "model": "deepseek-flash",
     "model_served": "deepseek-flash",
     "thinking_mode": "disabled",
@@ -27,21 +28,21 @@
       "relation_extraction": 0.1
     },
     "seed": null,
-    "git_commit": "b312aea",
-    "content_sha256": "a4d27576b4f4183aecbd7255ce45f251ff9d6b2d46cbadd0bd2fd06494d0d65f",
-    "artifact_sha256": "55c4b7be3d9b210103791f8f8e63f7c30ead536604c4e047809ca53555a53738"
+    "git_commit": "79419e7",
+    "content_sha256": "62cc2c17a062be4d8e38d4a3a718b5d25c947368d084aec08d3781cb708827f8",
+    "artifact_sha256": "9625bfa1c8e47143410a72a0d2e7acfd65e594b7111d1b78acd20ede75b4ec96"
   },
   "quality_report": {
-    "generated_at": "2026-09-27 14:08:28 +08:00",
+    "generated_at": "2026-09-27 19:07:30 +08:00",
     "extraction_version": "extraction-v2-20260420",
     "prompt_version": "prompt-v2-20260420+1228b39b",
     "counts": {
       "places": 5527,
-      "persons": 2562,
-      "organizations": 1021,
-      "events": 1313,
-      "relations": 16500,
-      "embedded_event_relations": 966
+      "persons": 1940,
+      "organizations": 718,
+      "events": 999,
+      "relations": 12648,
+      "embedded_event_relations": 763
     },
     "missing_source_text": {
       "places": 0,
@@ -53,9 +54,9 @@
       "relations": 0
     },
     "diagnostics": {
-      "event_event_relations": 1088,
-      "events_with_embedded_relations": 916,
-      "duplicate_event_names": 115,
+      "event_event_relations": 197,
+      "events_with_embedded_relations": 717,
+      "duplicate_event_names": 83,
       "duplicate_org_names": 0,
       "duplicate_person_names": 0,
       "summary_like_events": 0,
@@ -67,11 +68,11 @@
       "postprocess_merged_count": 0,
       "enum_out_values": {
         "OrgType": 0,
-        "Role": 2,
-        "EventType": 2,
-        "event_place_relations": 3,
-        "event_organization_relations": 1,
-        "event_person_relations": 2,
+        "Role": 0,
+        "EventType": 0,
+        "event_place_relations": 0,
+        "event_organization_relations": 0,
+        "event_person_relations": 0,
         "event_event_relations": 0
       },
       "dangling_relations_dropped": {
@@ -86,14 +87,23 @@
       },
       "event_event_relations_outside_enum": 0,
       "relation_degraded_stages": 0,
-      "moved_to_candidate_by_enum": null
+      "moved_to_candidate_by_enum": {
+        "places": 0,
+        "organizations": 0,
+        "persons": 0,
+        "events": 2,
+        "event_place_relations": 2,
+        "event_organization_relations": 1,
+        "event_person_relations": 2,
+        "event_event_relations": 0
+      }
     }
   },
   "sqlite_counts": {
-    "events": 1313,
+    "events": 999,
     "places": 5527,
-    "organizations": 1021,
-    "persons": 2562,
-    "relations": 16492
+    "organizations": 718,
+    "persons": 1940,
+    "relations": 12648
   }
 }

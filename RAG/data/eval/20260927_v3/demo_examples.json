@@ -1,0 +1,538 @@
+{
+  "version": "20260927_v3",
+  "generated_at": "2026-09-27T19:28:01",
+  "source_run": "run_20260927_191123",
+  "measurement_mode": "real_llm",
+  "filter": {
+    "reviewed": true,
+    "exclude_answer_correctness": [
+      "incorrect"
+    ],
+    "answerable": true,
+    "suites": [
+      "main"
+    ],
+    "measured": true,
+    "max_first_answer_ms": 9000,
+    "exclude_truncated": true
+  },
+  "counts": {
+    "bank_total": 39,
+    "candidates": 24,
+    "selected": 12,
+    "dropped": {
+      "评分为 incorrect": 1,
+      "非目标套件": 11,
+      "实测失败": 0,
+      "实测被截断": 0,
+      "首正文>9000ms": 3
+    }
+  },
+  "notes": "已实测（阈值 9000 ms）",
+  "examples": [
+    {
+      "id": "M14",
+      "question": "介绍一下诸葛亮。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 4679,
+        "total_ms": 7400,
+        "answer_frames": 678,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1086,
+          "prompt_tokens": 1571,
+          "total_tokens": 2657,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 398,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 384,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R05",
+      "question": "巨鹿之战的楚军主帅是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3199,
+        "total_ms": 4242,
+        "answer_frames": 212,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 340,
+          "prompt_tokens": 1219,
+          "total_tokens": 1559,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 127,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 384,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "T02",
+      "question": "赤壁之战发生在哪一年？",
+      "category": "timeline",
+      "category_label": "时间线型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "unknown_answer",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 2617,
+        "total_ms": 3193,
+        "answer_frames": 141,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 246,
+          "prompt_tokens": 1854,
+          "total_tokens": 2100,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 104,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B02",
+      "question": "赤壁之战产生了怎样的影响？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 4096,
+        "total_ms": 6064,
+        "answer_frames": 388,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 704,
+          "prompt_tokens": 3150,
+          "total_tokens": 3854,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 314,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 512,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "E01",
+      "question": "鸣条之战与商朝的建立有什么关系？",
+      "category": "event_event",
+      "category_label": "事件关联",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5825,
+        "total_ms": 8483,
+        "answer_frames": 571,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1313,
+          "prompt_tokens": 1927,
+          "total_tokens": 3240,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 738,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 896,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M09",
+      "question": "介绍一下昆阳之战。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "unknown_answer",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5596,
+        "total_ms": 9334,
+        "answer_frames": 951,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1643,
+          "prompt_tokens": 1919,
+          "total_tokens": 3562,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 688,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 512,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R01",
+      "question": "长平之战中赵军的统帅是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3358,
+        "total_ms": 4393,
+        "answer_frames": 180,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 394,
+          "prompt_tokens": 2202,
+          "total_tokens": 2596,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 213,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 768,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "T03",
+      "question": "巨鹿之战发生于什么朝代？",
+      "category": "timeline",
+      "category_label": "时间线型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3033,
+        "total_ms": 3502,
+        "answer_frames": 146,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 174,
+          "prompt_tokens": 1225,
+          "total_tokens": 1399,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 27,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 256,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "B03",
+      "question": "淝水之战为什么以东晋胜利而告终？",
+      "category": "background",
+      "category_label": "背景型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 8018,
+        "total_ms": 11178,
+        "answer_frames": 674,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1799,
+          "prompt_tokens": 2148,
+          "total_tokens": 3947,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 1116,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 128,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "M13",
+      "question": "介绍一下韩信。",
+      "category": "single_entity",
+      "category_label": "实体介绍",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "partial",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 5702,
+        "total_ms": 9294,
+        "answer_frames": 665,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 1337,
+          "prompt_tokens": 1240,
+          "total_tokens": 2577,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 666,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 512,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "R04",
+      "question": "官渡之战的交战双方是谁？",
+      "category": "relation",
+      "category_label": "关系型",
+      "capability": "both",
+      "expect": {
+        "graph_min": 1,
+        "text_min": 1
+      },
+      "baseline_score": "unknown_answer",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3611,
+        "total_ms": 4339,
+        "answer_frames": 141,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 223,
+          "prompt_tokens": 1157,
+          "total_tokens": 1380,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 81,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 384,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "T01",
+      "question": "长平之战发生在什么时候？",
+      "category": "timeline",
+      "category_label": "时间线型",
+      "capability": "text",
+      "expect": {
+        "graph_min": 0,
+        "text_min": 1
+      },
+      "baseline_score": "correct",
+      "cited": "supported",
+      "measured": {
+        "first_thinking_ms": null,
+        "first_answer_ms": 3588,
+        "total_ms": 4465,
+        "answer_frames": 219,
+        "thinking_frames": 0,
+        "finish_reason": "normal",
+        "model_used": "deepseek/deepseek-v4.1-flash",
+        "truncated": false,
+        "usage": {
+          "completion_tokens": 378,
+          "prompt_tokens": 2413,
+          "total_tokens": 2791,
+          "completion_tokens_details": {
+            "accepted_prediction_tokens": null,
+            "audio_tokens": null,
+            "reasoning_tokens": 154,
+            "rejected_prediction_tokens": null,
+            "image_tokens": 0
+          },
+          "prompt_tokens_details": {
+            "audio_tokens": 0,
+            "cache_write_tokens": null,
+            "cached_tokens": 896,
+            "video_tokens": 0
+          },
+          "cache_creation_input_tokens": 0
+        }
+      }
+    }
+  ]
+}

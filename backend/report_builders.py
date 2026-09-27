@@ -1526,16 +1526,26 @@ def build_sync_reconciliation():
     返回 sync_status=failed，缺口无人发现会静默累积。这里把两侧计数差异
     暴露到质检接口，让不一致可见。
 
-    口径：SQLite 侧按 **distinct(name)** 计数。关系表允许同名行（不同朝代的
-    同名地名/事件），而 Neo4j 图谱按 (标签, 名称) 唯一、同名行合并为单节点
-    （重名行的 neo4j_id 留空属正常状态，不需要同步）。用行数对比会把这类
-    重名全部误报成 mismatch——2026-09-25 端到端回归实测：Place 行数差 2433
-    全部来自 2433 个重名行，distinct 口径下两侧分毫不差。
+    **口径（2026-09-27 修正）：SQLite 侧按行数计**，与图谱的建点口径对齐——
+    `graph_key = "<类型>:<SQLite 主键>"`，**每个 SQLite 行一个节点、同名不合并**
+    （见 `graph_key.py` 的说明）。
+
+    这里曾经用 `COUNT(DISTINCT name)`，理由是"图谱按 (标签, 名称) 唯一、同名行
+    合并为单节点"——那是**按名字 MERGE 时代**的口径。改成 graph_key 定位之后同名
+    不再合并，这个口径就把每一行重名都报成 mismatch：实测 Event 差 −83、
+    Place 差 −2587，**正好等于各自的重名行数**（999−916、5527−2940），而
+    Organization/Person 无重名所以恰好相等——差异长得像"同步漏了数据"，
+    其实两侧分毫不差。对账在真要报信的时候反而被这堆假差异淹没。
+
+    与同步器的"可建点"条件保持一致：`name` 为空的行走跳过分支、不建点
+    （见 `sync_sqlite_to_neo4j.py` 的 `nodes_skipped`）。
     """
     counts = []
     consistent = True
     for label, model in [("Event", Event), ("Place", Place), ("Organization", Organization), ("Person", Person)]:
-        sqlite_count = db.session.query(func.count(func.distinct(model.name))).scalar() or 0
+        sqlite_count = db.session.query(func.count(model.id)).filter(
+            model.name.isnot(None), model.name != ""
+        ).scalar() or 0
         neo4j_count = None
         error = None
         try:

@@ -317,6 +317,8 @@ def run_governance(settings: Settings, version: str | None = None,
             t: norm_info["event_type_counts"].get(t, 0)
             for t in norm.REVIEW_NEEDED_EVENT_TYPES
         },
+        # 数据里出现、但不在标准种子里的类型（含次数）：不静默，等人工决定扩表还是改数据
+        "unregistered_event_types": dicts["unregistered_event_types"],
         "data_issues": norm_info["data_issues"],
         "dynasty_aliases": dicts["dynasty_aliases"],
         "audit": {
@@ -360,14 +362,28 @@ def _build_evidence_corpus(relations: list[dict]) -> list[dict]:
 
 
 def _build_dicts(all_entities: list[dict], event_type_counts: dict) -> dict:
-    """生成 dicts.json：标准战争类型、类型映射、朝代别名、现代地名映射。"""
-    event_type_standard = sorted(event_type_counts)
-    # 事件类型映射：旧 → 标准（此处标准=原样，未做自动合并；供后续人工增补）
+    """生成 dicts.json：标准战争类型、类型映射、朝代别名、现代地名映射。
+
+    **标准类型以 `normalize.EVENT_TYPE_SEED` 为种子**（内容 = 抽取侧权威表的
+    `EVENT_TYPES`，由 `test_enum_synchronization.py` 逐项钉住），不再是
+    `sorted(event_type_counts)`——那等于"本版数据里出现过的取值"，会随数据漂：
+    数据里的动作词（`交战`）被收进来，而权威表有、本版没出现的（`政治事件`/`议和`）却消失。
+
+    数据里出现、但不在种子里的取值**不静默丢弃**：列进 `unregistered_event_types`
+    （带出现次数）写进治理报告，由人工决定"扩表还是改数据"。
+    """
+    event_type_standard = sorted(norm.EVENT_TYPE_SEED)
+    seed = set(event_type_standard)
+    unregistered = {t: n for t, n in sorted(event_type_counts.items()) if t not in seed}
+    # 事件类型映射：旧 → 标准。未收录值保留原样映射（问答侧归一后仍是原值），但不进标准
+    # 词典——"它算不算标准类型"要人来定，不由"数据里出现过"决定。
     event_type_map = {t: t for t in event_type_standard}
+    event_type_map.update({t: t for t in unregistered})
     dynasty_set = sorted({e.get("dynasty") for e in all_entities if e.get("dynasty")})
     return {
         "event_type_standard": event_type_standard,
         "event_type_map": event_type_map,
+        "unregistered_event_types": unregistered,
         "dynasty_aliases": {d: d for d in dynasty_set},
         "place_modern_map": {
             e["name"]: (e.get("modern_name") or "") for e in all_entities

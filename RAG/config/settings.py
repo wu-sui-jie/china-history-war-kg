@@ -784,7 +784,13 @@ def get_settings() -> Settings:
             "FALLBACK_LLM_MODEL", defaults.FALLBACK_LLM_MODEL
         ),
         embedding_base_url=os.environ.get("EMBEDDING_BASE_URL", defaults.EMBEDDING_BASE_URL),
-        embedding_api_key=os.environ.get("EMBEDDING_API_KEY", defaults.EMBEDDING_API_KEY),
+        # 密钥别名链：`EMBEDDING_API_KEY → DASHSCOPE_API_KEY`（口径见 `docs/deploy.md`
+        # 的"环境变量映射"，`.env` 顶部也写了别名链约定）。原先这里是裸
+        # `os.environ.get("EMBEDDING_API_KEY", ...)`——同一个构造函数里 LLM 的两个密钥
+        # 都走了 `_first_env`，只有 embedding 漏了，于是把密钥放在 `DASHSCOPE_API_KEY`
+        # 的机器上（`deploy.md` 说的就是这条路）向量构建一律读不到密钥。
+        embedding_api_key=_first_env("EMBEDDING_API_KEY", "DASHSCOPE_API_KEY",
+                                     default=defaults.EMBEDDING_API_KEY),
         embedding_model=os.environ.get("EMBEDDING_MODEL", defaults.EMBEDDING_MODEL),
         embedding_dim=int(os.environ.get("EMBEDDING_DIM", defaults.EMBEDDING_DIM) or 0),
         # 不静默 clamp：原值进配置，由 validate() 给出变量名与合法区间

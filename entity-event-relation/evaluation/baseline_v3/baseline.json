@@ -1,0 +1,144 @@
+{
+  "frozen_at": "2026-09-27 19:11:47.996039 +08:00",
+  "frozen_at_epoch": 1790507507.996039,
+  "run_id": "a844dcde4ebc",
+  "note": "v3：published 口径 + 事件-事件包含关系去重 + 关系头对账（2026-09-27）",
+  "git_commit": "79419e7ed4d7956aa161385d3ec023db72509474",
+  "module_versions": {
+    "prompt_version": "prompt-v2-20260420+1228b39b",
+    "extraction_version": "extraction-v2-20260420"
+  },
+  "artifact": {
+    "path": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+    "exists": true,
+    "sha256": "a2ca45e3f565312b0a9875aca157a69bcde230ed9adf1ee8e1399afa30514476",
+    "counts": {
+      "events": 1313,
+      "places": 5527,
+      "persons": 2562,
+      "organizations": 1021,
+      "relations": 16490
+    },
+    "metadata": {
+      "extracted_at": "2026-09-27 19:07:29 +08:00",
+      "extraction_version": "extraction-v2-20260420",
+      "prompt_version": "prompt-v2-20260420+1228b39b",
+      "input_file": "data\\中国历代战争简史.txt",
+      "text_length": 306730,
+      "text_cleaning": {
+        "input_length": 306730,
+        "invisible_chars_removed": 0,
+        "soft_line_breaks_merged": 9136,
+        "ocr_fixes_applied": 0,
+        "output_length": 297594,
+        "enabled": true
+      },
+      "model": "deepseek-flash",
+      "model_served": "deepseek-flash",
+      "thinking_mode": "disabled",
+      "api_base": "https://api.deepseek.com/v1",
+      "model_served_inherited_from": "F:\\python\\python_space\\china-war\\entity-event-relation\\output\\中国历代战争简史\\9_final_all.json",
+      "temperature": {
+        "entity_extraction": 0.1,
+        "event_identification": 0.2,
+        "full_event": 0.1,
+        "relation_extraction": 0.1
+      },
+      "seed": null,
+      "git_commit": "79419e7",
+      "content_sha256": "db4908b674b472d585bfab1f23e9c1219c3f2b2c2d7f19fb20831416824a84c2",
+      "artifact_sha256": "f6003d62174f27b5a8a2c2e8ec44127aa456f64c0fa7e5750304900bf74cff44"
+    }
+  },
+  "annotations": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\data\\annotations",
+    "files_on_disk_at_freeze": {
+      "sample_entities.json": {
+        "sha256": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf",
+        "sha256_lf": "9d98dbe54e5f0f58e7ffc13de650e5ceb08ea3d5b36dc31851e999c62df618bf"
+      },
+      "sample_events.json": {
+        "sha256": "b9c85431e7b9208bb5f01e1f2f9b312a1459a98de852856e3f6a857451487859",
+        "sha256_lf": "78db34b6077331ab0485bc72ba62369622758ebb792b600ba621f2872f84641d"
+      },
+      "sample_relations.json": {
+        "sha256": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994",
+        "sha256_lf": "780b120ae5fb561798050ab03e3ba99c7b0d4b955fd4a6ef4124b768475a0994"
+      },
+      "v2_conflicts.json": {
+        "sha256": "8219851233fb9fa8bb30ffb13c28f5743a4f525f7ac4f641702c34cfecbd6203",
+        "sha256_lf": "fd3f573930bfae478f895658d66dcf3d78b2257e185245814043f10336507fde"
+      }
+    },
+    "provenance": {
+      "kind": "multi_model_merged",
+      "is_human_annotated": false,
+      "how": "几个人用不同的模型把整本书分成几份、每个模型负责两份，最后把各份结果汇总，字段没有做人工处理，直接作为标注数据使用。",
+      "consequences": [
+        "当前指标测的是'模型 A 的产出'与'模型 B/C/D 汇总产出'之间的分歧，不是抽取正确率",
+        "结构性缺陷（head 大量不在事件表、完全重复关系、同名多行、命名风格不统一）源于汇总环节缺失实体与事件对齐，不是个别标注者的疏漏",
+        "在人工逐条核验之前，任何基于它的指标都不能作为抽取质量或模型能力的证据"
+      ],
+      "still_usable_as": [
+        "候选清单 / 词表（事件名、人名、地名是书中真实存在的内容）",
+        "别名表（config/aliases.json）的来源",
+        "回归 / 可复现性检测的参照"
+      ],
+      "not_usable_as": [
+        "准确性指标的分母",
+        "跨版本'改好没改好'的判断依据（会把口径差异误读成质量升降）"
+      ],
+      "source_note": "data/annotations/README.md 现写的'只有一名标注者、没有 IAA'与上述实际制作方式不符，该文件的更正措辞待标注所有人确认后另行处理（见整改方案 10.2 第 1 条）。"
+    }
+  },
+  "config": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\config",
+    "files_on_disk_at_freeze": {
+      "aliases.json": {
+        "sha256": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4",
+        "sha256_lf": "a76aa38f39eae624c3f0a7a3632a8e661da57b983c70558454b27d898128f1a4"
+      },
+      "dynasty_ranges.json": {
+        "sha256": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87",
+        "sha256_lf": "d81b9e4608eae8c5d097973c2ff559f6fb9df90de1c1aeb95fa268cfc9a20e87"
+      },
+      "eval_config.json": {
+        "sha256": "1512a828595290a1a0b9ee177c12dbd3989955e536544fd0cde0e47b3ca177cd",
+        "sha256_lf": "8d8f969aa04f4e4354930505987729faf190b8f168381cae073baecc4fc7b155"
+      },
+      "publish_rules.json": {
+        "sha256": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8",
+        "sha256_lf": "9122a31a4b9ee0ec19f8b25507bad124433568875e4aea6f97bc97d12262e8c8"
+      },
+      "relation_types.json": {
+        "sha256": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce",
+        "sha256_lf": "2d10b3548ffbea2a8858eaec3ed3bac305f1da9e0e2c481139c8215508d0f4ce"
+      },
+      "text_cleaning.json": {
+        "sha256": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310",
+        "sha256_lf": "8d9247fab91e4d86b921862fad196925fc3379c6f13c72c4971c6003cbde2310"
+      }
+    }
+  },
+  "prompts": {
+    "dir": "F:\\python\\python_space\\china-war\\entity-event-relation\\war_extraction\\prompts",
+    "files_on_disk_at_freeze": {
+      "__init__.py": {
+        "sha256": "9628f6fa99cc28fad7064be1a4b080708e6686ce1db126bbd012c5bc2890d5ab",
+        "sha256_lf": "91311fe8a4f82b29b3990ae973b713efcbfd6e63cf490b649a67a22653f1ccb0"
+      },
+      "entity_prompts.py": {
+        "sha256": "bfb10fda72a1a0384a07c3805402b14203ca48bbb5a451eff78b17b142cf7765",
+        "sha256_lf": "f5b3df4de46f51ec166a97687a64f6be73bafdc85161bde15a7c5e9fed1c8335"
+      },
+      "event_prompts.py": {
+        "sha256": "ca5f581760635a648a942fbbce320297128754e19b687b9b20a98e910046e41a",
+        "sha256_lf": "a9997a86e40a4ce17858bd04600562624080f5792e910b559c92eca09d7e5a09"
+      },
+      "relation_prompts.py": {
+        "sha256": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a",
+        "sha256_lf": "e26ec8f1c2fab5a4fe6ca931f1c92a49e482044d831bbb3a63ebfb88e956534a"
+      }
+    }
+  }
+}

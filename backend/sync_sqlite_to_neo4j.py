@@ -46,7 +46,11 @@ class SqliteToNeo4jSync:
             "nodes_updated": 0,
             "nodes_skipped": 0,
             "relations_created": 0,
+            # `relations_skipped` 是"MERGE 匹配到已存在的边"（同两端同类型，图上合并）。
+            # **端点缺失单列一项**：那些关系根本没进入写入，混进同一个数就分不清
+            # "图上本来就有这条边"和"这条边因为端点没建点而消失"——后者是真丢数据。
             "relations_skipped": 0,
+            "relations_skipped_missing_node": 0,
             "relations_failed": 0,
         }
 
@@ -136,7 +140,13 @@ class SqliteToNeo4jSync:
                         label, name, props,
                         graph_key=graph_key_for(label, entity.id),
                     )
-                    if not neo4j_id:
+                    # **必须判 `is None`，不能用 falsy**：Neo4j 的内部 id 从 0 开始，
+                    # `id(n)` 可以合法地返回 0。用 `if not neo4j_id` 会把"节点已建成、
+                    # id 恰好是 0"误判成失败——实测 `崤山之战`（Event:28）就是这样：
+                    # 节点在图上、`neo4j_id` 却一直是空，连带它的 **21 条关系**在同步
+                    # 关系时被"端点缺 neo4j_id"那一支**静默丢掉**（既不计数也不报错，
+                    # 症状是"图内边比库内少 32 条"里的 21 条）。
+                    if neo4j_id is None:
                         self.stats["nodes_skipped"] += 1
                         continue
                     if neo4j_id in used_neo4j_ids:
@@ -219,8 +229,14 @@ class SqliteToNeo4jSync:
             for rel in relations:
                 from_node = db.session.get(from_model, getattr(rel, from_id_attr))
                 to_node = db.session.get(to_model, getattr(rel, to_id_attr))
-                if from_node and to_node and from_node.neo4j_id and to_node.neo4j_id:
+                # **不能用 falsy 判断**：`neo4j_id` 可以是 0（Neo4j 内部 id 从 0 开始，
+                # 见 `_create_node` 调用处的说明）。端点缺 id 的关系**要计数**——
+                # 这一支原先静默 continue，实测一次丢掉 21 条（症状是"图内边比库内少"）。
+                if (from_node is not None and to_node is not None
+                        and from_node.neo4j_id is not None and to_node.neo4j_id is not None):
                     valid_relations.append((rel, from_node.neo4j_id, to_node.neo4j_id))
+                else:
+                    self.stats["relations_skipped_missing_node"] += 1
 
             for rel, from_nid, to_nid in valid_relations:
                 relation_type = getattr(rel, rel_type_attr) or "相关"
@@ -256,6 +272,7 @@ class SqliteToNeo4jSync:
             "跳过节点数": self.stats["nodes_skipped"],
             "新建关系数": self.stats["relations_created"],
             "跳过关系数": self.stats["relations_skipped"],
+            "端点缺节点而跳过": self.stats["relations_skipped_missing_node"],
             "失败关系数": self.stats["relations_failed"],
         }
 
