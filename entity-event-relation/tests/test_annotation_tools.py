@@ -584,3 +584,47 @@ def test_冻结指纹同时给两个行尾口径(tmp_path):
     assert entry["sha256"] != entry["sha256_lf"], "CRLF 与 LF 的哈希不同——否则这条口径没有意义"
     assert entry["sha256_lf"] == hashlib.sha256(body_lf.encode("utf-8")).hexdigest(), \
         "sha256_lf 必须是行尾归一（CRLF→LF）后的哈希，别的机器靠它核对"
+
+
+# ------------------------------------------------------------------ 子集产物合并
+
+def test_合并产物把三族列表首尾相接并逐份记来源(tmp_path):
+    """
+    参考集的 dev 横跨两个子集（唐 + 秦汉），而抽取是一份文本一份产物 → 评估要一份合并后的预测。
+    合并必须**逐份记来源**（路径、sha256、模型、条数）：拿拼接出来的预测去评 dev，
+    事后要能说清它由哪几次运行产出，否则评估结论没有归属。
+    """
+    import json as _json
+
+    from tools.merge_extraction_outputs import build_metadata, merge
+
+    def payload(name, events, places):
+        return {
+            "metadata": {"extracted_at": "2026-09-27", "model": "deepseek-flash",
+                         "model_served": "deepseek-flash"},
+            "entities": {"places": places, "organizations": [], "persons": []},
+            "events": {"events": events, "metadata": {}},
+            "relations": {"event_place_relations": [{"EventName": name}],
+                          "event_organization_relations": [],
+                          "event_person_relations": [], "event_event_relations": []},
+            "quality_report": {"counts": {"events": len(events)}},
+        }
+
+    paths = []
+    for idx, name in enumerate(("唐产物", "秦汉产物")):
+        path = tmp_path / f"{idx}.json"
+        path.write_text(_json.dumps(payload(name, [{"EventName": name}], [{"geo_name": name}]),
+                                    ensure_ascii=False), encoding="utf-8")
+        paths.append(path)
+    payloads = [_json.loads(p.read_text(encoding="utf-8")) for p in paths]
+
+    merged = merge(payloads)
+    assert [e["EventName"] for e in merged["events"]["events"]] == ["唐产物", "秦汉产物"]
+    assert [p["geo_name"] for p in merged["entities"]["places"]] == ["唐产物", "秦汉产物"]
+    assert len(merged["relations"]["event_place_relations"]) == 2
+
+    metadata = build_metadata(payloads, paths)
+    assert len(metadata["merged_from"]) == 2
+    assert metadata["merged_from"][0]["model_served"] == "deepseek-flash"
+    assert metadata["merged_from"][0]["counts"] == {"events": 1, "entities": 1, "relations": 1}
+    assert all(len(e["sha256"]) == 64 for e in metadata["merged_from"]), "要记来源文件的哈希"
