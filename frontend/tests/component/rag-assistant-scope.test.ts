@@ -127,4 +127,43 @@ describe('RagAssistant 身份传递', () => {
     expect(store.userInfo.id).toBeUndefined()
     expect(postMessage).not.toHaveBeenCalled()
   })
+
+  test('在新窗口打开：把身份发给新窗口，且新窗口每次 load 都重发', async () => {
+    wrapper = mount(RagAssistant, { global: { plugins: [Layui] } })
+    await flushPromises()
+    const store = useUserStore()
+    store.token = 'aaa.bbb.ccc'
+    await flushPromises()
+
+    // 替身新窗口：只关心"我们往它发了什么、有没有挂 load 监听"
+    const postMessage = vi.fn()
+    const loadHandlers: Array<() => void> = []
+    const opened = {
+      postMessage,
+      addEventListener: (type: string, fn: () => void) => {
+        if (type === 'load') loadHandlers.push(fn)
+      },
+    }
+    const openSpy = vi.spyOn(window, 'open').mockReturnValue(opened as unknown as Window)
+
+    const button = wrapper.findAll('button').find((b) => b.text().includes('在新窗口打开'))
+    expect(button, '页面上应有「在新窗口打开」入口').toBeTruthy()
+    await button!.trigger('click')
+
+    // 不能带 noopener：那样 window.open 返回 null，身份发不出去，
+    // 新窗口的问答会全部 401 未认证（RAG_AUTH_MODE=jwt 下线上实测过）
+    expect(openSpy).toHaveBeenCalledTimes(1)
+    expect(openSpy.mock.calls[0][2]).toBeUndefined()
+    expect(loadHandlers.length).toBe(1)
+    expect(postMessage).not.toHaveBeenCalled()   // load 之前不发（早于子页面就绪会丢消息）
+
+    loadHandlers[0]()
+    expect(postMessage).toHaveBeenCalledWith(
+      { type: 'cw-user', uid: '7', role: 'viewer', token: 'aaa.bbb.ccc' }, '/')
+
+    // token 只在内存里：新窗口按 F5 之后必须还能拿到身份
+    postMessage.mockClear()
+    loadHandlers[0]()
+    expect(postMessage).toHaveBeenCalledTimes(1)
+  })
 })

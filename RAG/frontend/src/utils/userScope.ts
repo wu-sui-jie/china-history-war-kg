@@ -112,6 +112,22 @@ export function parseUserScopeMessage(
 }
 
 /**
+ * 身份到达后切断"反向引用"（只在**顶层窗口**、且确有 opener 时动手）。
+ *
+ * 为什么需要：RAG 既被 iframe 嵌入，也能被主应用的「在新窗口打开」单独打开。
+ * 单独打开时问答接口要求 token，而 token 只能由主应用 postMessage 下发——`noopener`
+ * 下 `window.open` 返回 null 发不了消息，所以主应用改成开一个"有 opener"的新窗口再下发。
+ * 代价是新窗口可以顺着 `window.opener` 反控打开它的页面（反向标签劫持）；
+ * 在这一刻由**被打开的一方**自己把 opener 置空，宿主就拿不到我们的引用了。
+ * iframe 形态下 `window.opener` 本就是 null，不会误伤。
+ */
+export function severOpenerIfTopLevel(): void {
+  if (window.top === window && window.opener) {
+    window.opener = null
+  }
+}
+
+/**
  * 安装身份桥：主应用发来账号变化时回调（**只回调，不改 activeUid**，见文件头）。
  *
  * 只接受同源消息（`expectedOrigin` 默认取当前 origin），其它来源一律忽略——
@@ -126,6 +142,9 @@ export function installHostUserBridge(
   const handler = (event: MessageEvent) => {
     const scope = parseUserScopeMessage(event, expectedOrigin)
     if (scope === undefined) return
+    // 身份确实来自宿主、且形状合法：此刻才有必要切断反向引用（不放在去重判断之后，
+    // 免得"同一个 uid 再来一次"这条路径漏掉收口）
+    severOpenerIfTopLevel()
     if (scope.uid === lastNotifiedUid) return
     // 先回调、成功后才推进去重位：回调里若抛错（换桶要读存储，存储异常会炸），
     // 去重位已经推进的话这个 uid 就再也不会被通知，store 永远停在上一个桶且没有自愈机会。

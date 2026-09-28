@@ -162,3 +162,32 @@ test('身份桥：role 原样转交（老版本主应用不发则为空串）', 
   assert.deepEqual(roles, ['editor', ''])
   off()
 })
+
+/** 「在新窗口打开」也要能提问——身份到达时切断 window.opener。
+ *
+ * 主应用为了给新窗口发身份，不能再用 noopener（那样 window.open 返回 null，消息发不出去），
+ * 于是由被打开的一方在**收到身份的那一刻**自己把 opener 置空，宿主拿不到反控入口。
+ * 这是"新窗口能提问"与"不留下反向标签劫持"之间的收口点。
+ */
+test('顶层窗口收到身份后清空 window.opener', () => {
+  ;(window as any).opener = { location: { href: 'http://evil.example' } }
+  const off = installHostUserBridge(() => {}, ORIGIN)
+
+  window.dispatchEvent(message('5'))
+
+  assert.equal((window as any).opener, null, '顶层窗口应在身份到达后切断反向引用')
+  off()
+  ;(window as any).opener = null
+})
+
+test('异源消息不触发切断（只认宿主同源的身份）', () => {
+  ;(window as any).opener = { location: { href: 'http://evil.example' } }
+  const off = installHostUserBridge(() => {}, ORIGIN)
+
+  window.dispatchEvent(message('5', 'http://evil.example'))
+
+  assert.notEqual((window as any).opener, null, '异源消息不该有任何副作用')
+  off()
+  ;(window as any).opener = null
+})
+

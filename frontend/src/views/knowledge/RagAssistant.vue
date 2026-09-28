@@ -70,13 +70,12 @@ const reloadFrame = () => {
  * 而 token 是登录凭证——放进 URL 等于把它写进日志文件。也因此这里只发同源
  * （targetOrigin 用 `/`，见 HTML 规范）：换成独立域名部署时要同步改成那一个源。
  */
-const postUserScope = () => {
-  const frame = frameRef.value
+const postUserScopeTo = (target: Window | null | undefined) => {
   const uid = userStore.userInfo?.id
-  if (!frame?.contentWindow || uid === undefined || uid === null) return
+  if (!target || uid === undefined || uid === null) return
   // role 一起带上：RAG 侧现在只存不用（未来按角色收敛界面时要用），老版本主应用不发也能跑。
   // token 为空时 RAG 侧按"没有身份"处理，与服务端未开启校验时的行为一致。
-  frame.contentWindow.postMessage(
+  target.postMessage(
     {
       type: 'cw-user',
       uid: String(uid),
@@ -86,6 +85,9 @@ const postUserScope = () => {
     '/',
   )
 }
+
+/** 发给本页 iframe 里的 RAG 前端。 */
+const postUserScope = () => postUserScopeTo(frameRef.value?.contentWindow)
 
 /** iframe 每次 load 后重发：RAG 可能比本页晚拿到账号，或自身刚被重建。 */
 const onFrameLoad = async () => {
@@ -119,8 +121,20 @@ onMounted(async () => {
   await userStore.ensureUserInfo()
 })
 
+/** 在新窗口打开 RAG。
+ *
+ * **这里不能带 noopener**：RAG 的问答接口要求主应用签发的 token（`RAG_AUTH_MODE=jwt`），
+ * 而 token 只能由本页 postMessage 下发；`noopener` 下 `window.open` 返回 null，
+ * 消息发不出去，新窗口就成了"页面能看、提问全是 401 未认证"——线上实际发生过的现象。
+ * 反向标签劫持由 RAG 页自己收口：它收到身份后立刻把 `window.opener` 置空
+ * （RAG/frontend/src/utils/userScope.ts 的 severOpenerIfTopLevel），
+ * 我们这边也只向同源投递（targetOrigin `/`）。
+ * 监听子窗口**每次** load：新窗口里按 F5 之后同样能拿到身份（token 只存在内存里）。
+ */
 const openInNewTab = () => {
-  window.open(ragBase, '_blank', 'noopener')
+  const opened = window.open(ragBase, '_blank')
+  if (!opened) return     // 被弹窗拦截时什么都不做，用户再点一次即可
+  opened.addEventListener('load', () => postUserScopeTo(opened))
 }
 </script>
 
