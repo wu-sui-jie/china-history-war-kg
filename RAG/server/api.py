@@ -1160,16 +1160,35 @@ def _detect_frontend_mode(dist_dir: Path) -> tuple[str, str]:
     return "standalone", "index.html 引用 /assets/（无 build-mode.txt 标记）"
 
 
-if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
+def _build_frontend_static_files(dist_dir: Path):
+    """构造同源托管的静态文件应用：补基础安全响应头与缓存策略。
+
+    /rag/* 若被第三方站点 iframe 嵌入，等于替对方消耗限流配额与模型成本；
+    X-Frame-Options / CSP frame-ancestors 直接堵掉这条路。
+    只加 frame-ancestors，不限制 script-src 等，避免影响前端自身。
+
+    ~~缓存策略~~ 必须有，否则每次前端更新都可能"部署了但用户看不到"：
+    原先这里一个 Cache-Control 都不发，浏览器就按 Last-Modified 走**启发式缓存**
+    （新鲜期约为"距今时长"的 10%）。实测后果：19:10 加载过旧页面的浏览器，在 20:07
+    换成新产物后仍复用旧的 index.html + 旧 JS（旧 JS 已从服务器删除，靠缓存活着），
+    页面看着正常、跑的却是旧代码——表现为"改了、部署了，嵌入页里还是老行为"，
+    而新开窗口（冷缓存）却是新的，很难往缓存上想。
+    所以：入口 HTML 一律 no-cache（每次带 ETag 复验，未变即 304，代价极小），
+    带内容哈希的静态资源长缓存 immutable（文件名变了才会重新下载）。
+
+    提成函数而不是就地写 class：用例可以在临时目录上直接验真实响应头，
+    不必依赖"本机是否构建过前端产物"。
+    """
     from fastapi.staticfiles import StaticFiles
 
     class _SecurityHeadersStaticFiles(StaticFiles):
-        """同源托管的前端产物：补基础安全响应头。
-
-        /rag/* 若被第三方站点 iframe 嵌入，等于替对方消耗限流配额与模型成本；
-        X-Frame-Options / CSP frame-ancestors 直接堵掉这条路。
-        只加 frame-ancestors，不限制 script-src 等，避免影响前端自身。
-        """
+        #: 入口文档按响应类型识别，不按请求路径后缀
+        #:
+        #: StaticFiles 在 html=True 下对目录请求会**递归**调用 `get_response(".../index.html")`，
+        #: 再由外层对同一个响应对象再设一次头。按 `path.endswith(".html")` 判断时，
+        #: 外层那次（path 是目录）会把内层设好的 no-cache 覆盖成长缓存——恰是要避免的情况。
+        #: 响应类型不受这层递归影响，两侧算出来一致，谁后写都一样。
+        _HTML_CONTENT_TYPE = "text/html"
 
         async def get_response(self, path, scope):
             response = await super().get_response(path, scope)
@@ -1177,9 +1196,18 @@ if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
             response.headers.setdefault("Content-Security-Policy", "frame-ancestors 'self'")
             response.headers.setdefault("X-Content-Type-Options", "nosniff")
             response.headers.setdefault("Referrer-Policy", "no-referrer")
+            if self._HTML_CONTENT_TYPE in response.headers.get("content-type", ""):
+                # no-cache 不是"不缓存"，而是"每次都要复验"：文件没变就是 304
+                response.headers["Cache-Control"] = "no-cache"
+            else:
+                response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
             return response
 
-    app.mount("/", _SecurityHeadersStaticFiles(directory=str(_dist_dir), html=True), name="frontend")
+    return _SecurityHeadersStaticFiles(directory=str(dist_dir), html=True)
+
+
+if _dist_dir.is_dir() and (_dist_dir / "index.html").exists():
+    app.mount("/", _build_frontend_static_files(_dist_dir), name="frontend")
     _frontend_mode, _frontend_mode_why = _detect_frontend_mode(_dist_dir)
     logger.info("同源托管已启用：%s（构建模式 %s，依据：%s）",
                 _dist_dir, _frontend_mode, _frontend_mode_why)
