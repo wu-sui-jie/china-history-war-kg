@@ -940,6 +940,10 @@ button:disabled {
 
 .session-actions {
   display: none;
+  /* 不许被标题挤扁：默认 flex-shrink 是 1，而中文可以在任意两字之间折行，
+     于是标题一长就把「改名」「删除」压成一字宽的两行竖条（线上实测 30×21 → 19×38），
+     点上去多半落在缝里——看起来就是"按钮点了没反应"。宽度按内容取，让标题那边去省略。 */
+  flex: 0 0 auto;
   gap: 2px;
   padding-right: 6px;
 }
@@ -956,6 +960,8 @@ button:disabled {
   padding: 2px 4px;
   font-size: 11px;
   color: var(--ink-3);
+  /* 同上：按钮文字永不折行，宁可标题打省略号 */
+  white-space: nowrap;
 }
 
 .session-action:hover {

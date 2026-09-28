@@ -6,6 +6,7 @@
  * 以及**主应用嵌入形态**（sandbox iframe，无 allow-modals）下的会话改名与删除。
  */
 
+import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
 import { expect, test } from '@playwright/test'
@@ -77,6 +78,43 @@ test.describe('多会话管理', () => {
     expect(content).toContain('**引用来源**')
     // 正文里的 [n] 引用必须在来源清单里有对应条目（不悬空）
     expect(content).toMatch(/\*\*\[1\]\*\* /)
+  })
+
+  /** 会话标题很长时，操作按钮必须还是"一行两个字"的正常按钮。
+   *
+   * 这是线上发生过的真实缺陷：`.session-actions` 没禁收缩，而中文可在任意两字之间折行，
+   * 于是长标题把「改名」「删除」压成一字宽的两行竖条（线上实测 30×21 → 19×38），
+   * 用户点上去多半落在缝里，表现成"按钮点了没反应"。
+   * 只能靠真实浏览器量几何——jsdom 不算布局，组件用例拦不住这类回归。
+   */
+  test('长标题不会把改名/删除挤成竖条', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'mobile', '布局按桌面口径验证')
+    await page.goto('/')
+
+    const item = page.locator('.session-item').first()
+    await item.hover()
+    await item.getByRole('button', { name: /重命名会话/ }).click()
+    await page.locator('.session-edit-input').fill('巨鹿之战的楚军主帅到底是谁这个问题值得好好研究一下')
+    await page.locator('form.session-inline').getByRole('button', { name: '保存' }).click()
+    await expect(item.locator('.session-title')).toHaveText('巨鹿之战的楚军主帅到底是谁这个问题值得好好研究一下')
+
+    const rename = await item.getByRole('button', { name: /重命名会话/ }).boundingBox()
+    const remove = await item.getByRole('button', { name: /删除会话/ }).boundingBox()
+    const box = await item.boundingBox()
+    assert.ok(rename && remove && box, '按钮与条目都应有几何信息')
+
+    // 一行两个字：宽 ≥ 24px（11px 字号两字 + padding）、高 ≤ 26px（不换行）
+    assert.ok(rename!.width >= 24, `改名按钮被挤窄了：${Math.round(rename!.width)}px`)
+    assert.ok(rename!.height <= 26, `改名按钮被挤成两行了：${Math.round(rename!.height)}px`)
+    assert.ok(remove!.width >= 24, `删除按钮被挤窄了：${Math.round(remove!.width)}px`)
+    assert.ok(remove!.height <= 26, `删除按钮被挤成两行了：${Math.round(remove!.height)}px`)
+    assert.equal(Math.round(rename!.y), Math.round(remove!.y), '两个按钮应在同一行')
+    // 都落在条目范围内：溢出到条目外就会被容器裁掉、点不到
+    const right = remove!.x + remove!.width
+    assert.ok(right <= box!.x + box!.width + 1, '删除按钮溢出条目右侧，会被裁掉')
+    assert.ok(rename!.x >= box!.x - 1, '改名按钮溢出条目左侧')
+    // 标题让位（省略号），不该反压按钮
+    assert.ok(box!.width <= 320, `会话条目被撑过宽：${Math.round(box!.width)}px`)
   })
 })
 
