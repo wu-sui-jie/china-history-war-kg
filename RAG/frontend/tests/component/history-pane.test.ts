@@ -136,6 +136,9 @@ describe('会话列表（2026-09-20 借鉴项 P1）', () => {
       userWith(id, question, Date.now()),
       assistantWith({ id: `a-${id}`, question }),
     ]
+    // 真实链路里首条提问会给会话命名（beginTurn → autoTitleSession）；
+    // 直接塞 messages 不经过那一步，这里显式补上，改名用例才有非默认标题可比较。
+    store.renameSession(store.sessionId, question)
     return store.sessionId
   }
 
@@ -185,12 +188,16 @@ describe('会话列表（2026-09-20 借鉴项 P1）', () => {
     store.createSession()
     seedTurn('u2', '第二个问题')
 
-    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
     const wrapper = mount(HistoryPane)
     await wrapper.find('.session-item.active').find('.session-action.danger').trigger('click')
 
-    assert.equal(confirmSpy.mock.calls.length, 1, '删除前必须确认')
+    // 第一次点击只进入确认态：清单还没动
+    assert.equal(store.sessionList.length, 2, '点删除不直接删，先出确认')
+    assert.ok(wrapper.find('.session-confirm-text').exists())
+
+    await wrapper.find('.session-inline-actions .session-action.danger').trigger('click')
     assert.equal(store.sessionList.length, 1)
+    assert.equal(wrapper.emitted('session-change')?.length, 1)
   })
 
   test('删除确认被取消时不删（避免误触）', async () => {
@@ -199,10 +206,119 @@ describe('会话列表（2026-09-20 借鉴项 P1）', () => {
     store.createSession()
     seedTurn('u2', '第二个问题')
 
-    vi.spyOn(window, 'confirm').mockReturnValue(false)
     const wrapper = mount(HistoryPane)
     await wrapper.find('.session-item.active').find('.session-action.danger').trigger('click')
+    await wrapper.find('.session-inline-actions .session-action:not(.danger)').trigger('click')
+
     assert.equal(store.sessionList.length, 2)
+    assert.ok(!wrapper.find('.session-confirm-text').exists(), '取消后回到普通条目')
+  })
+
+  /** 嵌入主应用时 iframe 的 sandbox 没有 allow-modals：
+   *  window.confirm 恒返回 false、window.prompt 恒返回 null。
+   *  所以改名/删除**不能**依赖原生弹窗——这条用例把它们 mock 成"被吞掉"的行为，
+   *  功能仍须照常可用（回归锁：曾经就是被吞掉且毫无提示）。 */
+  test('原生弹窗被 sandbox 吞掉时，改名与删除仍然可用', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    // 模拟 sandbox 下的原生行为：confirm=false、prompt=null
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false)
+    const promptSpy = vi.spyOn(window, 'prompt').mockReturnValue(null)
+
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    const input = wrapper.find('.session-edit-input')
+    assert.ok(input.exists(), '改名入口是页内输入框，不是 window.prompt')
+    await input.setValue('改过的标题')
+    await wrapper.find('form.session-inline').trigger('submit')
+
+    assert.equal(store.sessionList[0].title, '改过的标题')
+    assert.equal(promptSpy.mock.calls.length, 0)
+    assert.equal(confirmSpy.mock.calls.length, 0)
+  })
+
+  test('改名预填原标题，直接输入即可覆盖', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    assert.equal((wrapper.find('.session-edit-input').element as HTMLInputElement).value, '第一个问题')
+  })
+
+  test('改名取消（含 Esc）不改标题', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    await wrapper.find('.session-edit-input').setValue('不该生效')
+    await wrapper.find('.session-edit-input').trigger('keydown.esc')
+
+    assert.equal(store.sessionList[0].title, '第一个问题')
+    assert.ok(!wrapper.find('.session-edit-input').exists(), 'Esc 后回到普通条目')
+  })
+
+  test('空标题回退默认名（与 store 口径一致）', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    await wrapper.find('.session-edit-input').setValue('   ')
+    await wrapper.find('form.session-inline').trigger('submit')
+
+    assert.equal(store.sessionList[0].title, '新会话')
+  })
+
+  test('改名输入框与删除确认按钮自动接管焦点', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    // 焦点断言需要元素真的在 document 里
+    const wrapper = mount(HistoryPane, { attachTo: document.body })
+
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    assert.equal(document.activeElement?.className, 'session-edit-input')
+
+    await wrapper.find('form.session-inline .session-action:not([type="submit"])').trigger('click')
+    await wrapper.find('.session-item.active').find('.session-action.danger').trigger('click')
+    assert.ok(
+      (document.activeElement as HTMLElement)?.textContent?.includes('取消'),
+      '焦点落在取消而不是确认删除：破坏性操作不该由一次回车完成',
+    )
+    wrapper.unmount()
+  })
+
+  test('改另一条目的名时新输入框仍拿到焦点（这条锁住 v-focus-select 的必要性）', async () => {
+    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')      // 列表新会话在前 → [第二个问题, 第一个问题]
+    const wrapper = mount(HistoryPane, { attachTo: document.body })
+
+    // 先点靠后的条目、再点靠前的条目：插在列表前面的那个先挂载、后一个才卸载，
+    // "共享 ref + 挂载后统一聚焦"会被随后的卸载清成 null，聚焦落空。
+    await wrapper.findAll('.session-item')[1].find('.session-action').trigger('click')
+    await wrapper.findAll('.session-item')[0].find('.session-action').trigger('click')
+
+    const input = wrapper.find('.session-edit-input').element as HTMLInputElement
+    assert.equal(input.value, '第二个问题')
+    assert.equal(document.activeElement, input)
+    wrapper.unmount()
+  })
+
+  test('切换会话会收起未提交的改名/删除确认', async () => {    const store = useSessionStore()
+    seedTurn('u1', '第一个问题')
+    store.createSession()
+    seedTurn('u2', '第二个问题')
+
+    const wrapper = mount(HistoryPane)
+    await wrapper.find('.session-item.active').find('.session-action').trigger('click')
+    assert.ok(wrapper.find('.session-edit-input').exists())
+
+    const other = wrapper.findAll('.session-item').find((i) => !i.classes().includes('active'))
+    await other!.find('.session-pick').trigger('click')
+    assert.ok(!wrapper.find('.session-edit-input').exists(), '页内控件跟着条目走，不跨会话残留')
   })
 
   test('会话列表可折叠（状态落到本地偏好）', async () => {
